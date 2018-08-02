@@ -1,0 +1,362 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CodeIgniter Internals Overview &mdash; CodeIgniter4 4.0.0-dev documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="CodeIgniter4 4.0.0-dev documentation" href="../index.html"/>
+        <link rel="up" title="Contributing to CodeIgniter" href="index.html"/>
+        <link rel="next" title="Writing CodeIgniter Documentation" href="documentation.html"/>
+        <link rel="prev" title="CodeIgniter4 Roadmap" href="roadmap.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">CodeIgniter4에 오신 것을 환영합니다.</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">설치하기</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">튜토리얼(Tutorial)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">CodeIgniter4 Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../general/index.html">General Topics</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">Library Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Database Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">Helpers</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../testing/index.html">Testing</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Contributing to CodeIgniter</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="guidelines.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workflow.html">Contribution Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="signing.html">Contribution Signing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="roadmap.html">CodeIgniter4 Roadmap</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">CodeIgniter Internals Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation.html">Writing CodeIgniter Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="styleguide.html">PHP Style Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DCO.html">Developer&#8217;s Certificate of Origin 1.1</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CodeIgniter4</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Contributing to CodeIgniter</a> &raquo;</li>
+        
+      <li>CodeIgniter Internals Overview</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="codeigniter-internals-overview">
+<h1>CodeIgniter Internals Overview<a class="headerlink" href="#codeigniter-internals-overview" title="Permalink to this headline">¶</a></h1>
+<p>This guide should help contributors understand how the core of the framework works, and what needs to be done
+when creating new functionality. Specifically, it details the information needed to create new packages for the
+core.</p>
+<div class="section" id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<p>All packages should be designed to be completely isolated from the rest of the packages. This will allow
+them to be used in projects outside of CodeIgniter. Basically, this means that all dependencies should be
+kept to a minimum. Any dependencies must be able to be passed into the constructor. If you do need to use one
+of the other core packages, you can create that in the constructor using the Services class, as long as you
+provide a way for dependencies to override that:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">Foo</span> <span class="nv">$foo</span><span class="o">=</span><span class="k">null</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">foo</span> <span class="o">=</span> <span class="nv">$foo</span> <span class="nx">instanceOf</span> <span class="nx">Foo</span>
+                <span class="o">?</span> <span class="nv">$foo</span>
+                <span class="o">:</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">foo</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="type-hinting">
+<h2>Type hinting<a class="headerlink" href="#type-hinting" title="Permalink to this headline">¶</a></h2>
+<p>PHP7 provides the ability to <a class="reference external" href="http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration">type hint</a>
+method parameters and return types. Use it where possible. Return type hinting is not always practical, but do try to
+make it work.</p>
+<p>At this time, we are not using strict type hinting.</p>
+</div>
+<div class="section" id="abstractions">
+<h2>Abstractions<a class="headerlink" href="#abstractions" title="Permalink to this headline">¶</a></h2>
+<p>The amount of abstraction required to implement a solution should be the minimal amount required. Every layer of
+abstraction brings additional levels of technical debt and unnecessary complexity. That said, don&#8217;t be afraid to
+use it when it&#8217;s needed and can help things.</p>
+<ul class="simple">
+<li>Don&#8217;t create a new container class when an array will do just fine.</li>
+<li>Start simple, refactor as necessary to achieve clean separation of code, but don&#8217;t overdo it.</li>
+</ul>
+</div>
+<div class="section" id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
+<p>Any new packages submitted to the framework must be accompanied by unit tests. The target is 80%+ coverage of all
+classes within the package.</p>
+<ul class="simple">
+<li>Test only public methods, not protected and private unless the method really needs it due to complexity.</li>
+<li>Don&#8217;t just test that the method works, but test for all fail states, thrown exceptions, and other pathways through your code.</li>
+</ul>
+</div>
+<div class="section" id="namespaces-and-files">
+<h2>Namespaces and Files<a class="headerlink" href="#namespaces-and-files" title="Permalink to this headline">¶</a></h2>
+<p>All new packages should live under the <code class="docutils literal"><span class="pre">CodeIgniter</span></code> namespace. The package itself will need its own sub-namespace
+that collects all related files into one grouping, like <code class="docutils literal"><span class="pre">CodeIgniter\HTTP</span></code>.</p>
+<p>Files MUST be named the same as the class they hold, and they must match the <a class="reference internal" href="styleguide.html"><span class="doc">Style Guide</span></a>, meaning
+CamelCase class and file names. The should be in their own directory that matches the sub-namespace under the <strong>system</strong>
+directory.</p>
+<p>The the Router as an example. The Router lives in the <code class="docutils literal"><span class="pre">CodeIgniter\Router</span></code> namespace. It has two classes,
+<strong>RouteCollection</strong> and <strong>Router</strong>, which are in the files, <strong>system/Router/RouteCollection.php</strong> and
+<strong>system/Router/Router.php</strong> respectively.</p>
+<div class="section" id="interfaces">
+<h3>Interfaces<a class="headerlink" href="#interfaces" title="Permalink to this headline">¶</a></h3>
+<p>Most base classes should have an interface defined for them. At the very least this allows them to be easily mocked
+and passed in other classes as a dependency without breaking the type-hinting. The interface names should match
+the name of the class with &#8220;Interface&#8221; appended to it, like <code class="docutils literal"><span class="pre">RouteCollectionInterface</span></code>.</p>
+<p>The Router package mentioned above includes the
+<code class="docutils literal"><span class="pre">CodeIgniter\Router\RouterCollectionInterface</span></code> and <code class="docutils literal"><span class="pre">CodeIgniter\Router\RouterInterface</span></code>
+interfaces to provide the abstractions for the two classes in the package.</p>
+</div>
+<div class="section" id="handlers">
+<h3>Handlers<a class="headerlink" href="#handlers" title="Permalink to this headline">¶</a></h3>
+<p>When a package supports multiple &#8220;drivers&#8221;, the convention is to place them in a <strong>Handlers</strong> directory, and
+name the child classes as Handlers. You will often find that creating a <code class="docutils literal"><span class="pre">BaseHandler</span></code> the child classes can
+extend to be beneficial in keeping the code DRY.</p>
+<p>See the Log and Session packages for examples.</p>
+</div>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>Should the package require user-configurable settings, you should create a new file just for that package under
+<strong>application/Config</strong>. The file name should generally match the package name.</p>
+</div>
+<div class="section" id="autoloader">
+<h2>Autoloader<a class="headerlink" href="#autoloader" title="Permalink to this headline">¶</a></h2>
+<p>All files within the package should be added to <strong>system/Config/AutoloadConfig.php</strong>, in the &#8220;classmap&#8221; property.
+This is only used for core framework files, and helps to minimize file system scans and keep performance high.</p>
+</div>
+<div class="section" id="command-line-support">
+<h2>Command-Line Support<a class="headerlink" href="#command-line-support" title="Permalink to this headline">¶</a></h2>
+<p>CodeIgniter has never been known for it&#8217;s strong CLI support. However, if your package could benefit from it, create a
+new file under <strong>system/Commands</strong>. The class contained within is simply a controller that is intended for CLI
+usage only. The <code class="docutils literal"><span class="pre">index()</span></code> method should provide a list of available commands provided by that package.</p>
+<p>Routes must be added to <strong>system/Config/Routes.php</strong> using the <code class="docutils literal"><span class="pre">cli()</span></code> method to ensure it is not accessible
+through the browser, but is restricted to the CLI only.</p>
+<p>See the <strong>MigrationsCommand</strong> file for an example.</p>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>All packages must contain appropriate documentation that matches the tone and style of the rest of the user guide.
+In most cases, the top portion of the package&#8217;s page should be treated in tutorial fashion, while the second
+half would be a class reference.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="documentation.html" class="btn btn-neutral float-right" title="Writing CodeIgniter Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="roadmap.html" class="btn btn-neutral" title="CodeIgniter4 Roadmap" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014-2018 British Columbia Institute of Technology.
+      Last updated on Aug 02, 2018.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0.0-dev',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  false,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,303 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>설치하기 &mdash; CodeIgniter4 4.0.0-dev documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="CodeIgniter4 4.0.0-dev documentation" href="../index.html"/>
+        <link rel="next" title="CodeIgniter 다운로드" href="downloads.html"/>
+        <link rel="prev" title="PSR Compliance" href="../intro/psr.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">CodeIgniter4에 오신 것을 환영합니다.</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">설치하기</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="downloads.html">CodeIgniter 다운로드</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">설치하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upgrading.html">이전 버전에서 업그레이드</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">문제 해결</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local_server.html">로컬 개발 서버</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">튜토리얼(Tutorial)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">CodeIgniter4 Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../general/index.html">General Topics</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">Library Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Database Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">Helpers</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../testing/index.html">Testing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to CodeIgniter</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CodeIgniter4</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>설치하기</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>설치하기<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>CodeIgniter4는 Composer를 이용하거나 수동으로 설치할 수 있습니다.</p>
+<div class="section" id="id2">
+<h2>수동 설치<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>CodeIgniter 수동 다운로드 후 압축을 풀어줍니다.</p>
+</div>
+<div class="section" id="composer-installation">
+<h2>Composer Installation<a class="headerlink" href="#composer-installation" title="Permalink to this headline">¶</a></h2>
+<p>required를 사용하지 않고 <a class="reference external" href="https://getcomposer.org">composer</a> create-project 커맨드를 사용합니다.</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nx">composer</span> <span class="nx">create</span><span class="o">-</span><span class="nx">project</span> <span class="nx">codeigniter4</span><span class="o">/</span><span class="nx">framework</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="running">
+<h2>Running<a class="headerlink" href="#running" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>CodeIgniter 폴더와 파일을 서버에 업로드합니다. <strong>index.php</strong> 파일은
+프로젝트 루트 아래 <strong>public</strong> 폴더 안에 있습니다.</li>
+<li>에디터를 사용하여 <strong>application/Config/App.php</strong> 파일을 열고 base URL을
+설정합니다. 암호화(Encryption) 또는 세션(Session)을 사용하려면
+encryption key를 설정합니다. 좀 더 유연하게 설정하고싶다면 .env 파일의
+baseURL(<strong>app.baseURL=&#8221;http://example.com&#8221;</strong>)에 설정할 수 있습니다.</li>
+<li>데이터베이스를 사용하려면 에디터로
+<strong>application/Config/Database.php</strong> 파일을 열고 데이터베이스 정보를 설정하세요.</li>
+</ol>
+<p>최고의 보안을 위해 system과 application 디렉터리를 모두 Web root가 아닌 곳에
+두어 웹브라우저를 통해 직접 액세스할 수 없도록 하세요. 기본적으로 <strong>.htaccess</strong>
+파일을 각 디렉터리에 두어 직접 액세스하지 못하게 되어 있지만, 웹 서버 구성이
+변경되거나 <strong>.htaccess</strong> 를 지원하지 않을 경우에 접근할 수 있게 됩니다.</p>
+<p>view를 공개하고 싶다면 <strong>view</strong> 디렉터리를 <strong>application</strong> 디렉터리에서
+<strong>public</strong> 디렉터리로 이동할 수 있습니다. 이렇게 할 경우 <strong>public</strong> 디렉터리의
+index.php 파일을 열어 <code class="docutils literal"><span class="pre">$system_path</span></code>, <code class="docutils literal"><span class="pre">$application_folder</span></code> 그리고
+<code class="docutils literal"><span class="pre">$view_folder</span></code> 의 값을 전체 경로를 사용하여 설정하세요.
+ex&gt; <code class="docutils literal"><span class="pre">/www/MyUser/system</span></code>.</p>
+<p>프로덕션 환경에서 취할 수있는 또 하나의 조치는 PHP 오류보고 및 기타 개발 전용
+기능을 비활성화하는 것입니다. CodeIgniter에서는 <code class="docutils literal"><span class="pre">ENVIRONMENT</span></code> 상수 를 설정하여
+이를 수행 할 수 있습니다. 자세한 내용은 환경 페이지 에서 자세히 설명 합니다.
+기본적으로 응용 프로그램은 &#8220;production&#8221;환경을 사용하여 실행됩니다. 제공된
+디버깅 도구를 이용하려면 &#8220;develop&#8221;환경을 설정해야합니다.</p>
+<p>That&#8217;s it!</p>
+<p>CodeIgniter를 처음 사용한다면 , 사용자 가이드의 <a class="reference internal" href="../intro/index.html"><span class="doc">시작하기</span></a>
+섹션을 읽고 동적 PHP 애플리케이션을 작성하는 방법을 배우십시오. Enjoy!</p>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="downloads.html" class="btn btn-neutral float-right" title="CodeIgniter 다운로드" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../intro/psr.html" class="btn btn-neutral" title="PSR Compliance" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014-2018 British Columbia Institute of Technology.
+      Last updated on Aug 02, 2018.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0.0-dev',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  false,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CodeIgniter4 Roadmap &mdash; CodeIgniter4 4.0.0-dev documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="CodeIgniter4 4.0.0-dev documentation" href="../index.html"/>
+        <link rel="up" title="Contributing to CodeIgniter" href="index.html"/>
+        <link rel="next" title="CodeIgniter Internals Overview" href="internals.html"/>
+        <link rel="prev" title="Contribution Signing" href="signing.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">CodeIgniter4에 오신 것을 환영합니다.</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">설치하기</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">튜토리얼(Tutorial)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">CodeIgniter4 Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../general/index.html">General Topics</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">Library Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Database Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">Helpers</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../testing/index.html">Testing</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Contributing to CodeIgniter</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="guidelines.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workflow.html">Contribution Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="signing.html">Contribution Signing</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">CodeIgniter4 Roadmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="internals.html">CodeIgniter Internals Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation.html">Writing CodeIgniter Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="styleguide.html">PHP Style Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DCO.html">Developer&#8217;s Certificate of Origin 1.1</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CodeIgniter4</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Contributing to CodeIgniter</a> &raquo;</li>
+        
+      <li>CodeIgniter4 Roadmap</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="codeigniter4-roadmap">
+<h1>CodeIgniter4 Roadmap<a class="headerlink" href="#codeigniter4-roadmap" title="Permalink to this headline">¶</a></h1>
+<p>The roadmap we are working to was <a class="reference external" href="http://forum.codeigniter.com/thread-62615.html">announced on our forum</a>  in August, 2015.</p>
+<div class="section" id="phase-1-essentials-done">
+<h2>Phase 1: Essentials (done)<a class="headerlink" href="#phase-1-essentials-done" title="Permalink to this headline">¶</a></h2>
+<p>The first phase focused on nailing the essentials in the framework.
+This ensures that all of the basic parts needed to make it work are in place
+and working well.</p>
+<p>Phase 1 packages include:</p>
+<ul class="simple">
+<li>Autoloader</li>
+<li>Logging</li>
+<li>Exception Handling</li>
+<li>HTTP Request/Response</li>
+<li>Routing</li>
+<li>Controllers</li>
+<li>Models</li>
+<li>Database (MySQL &amp; Postgres)</li>
+<li>Config</li>
+<li>Security</li>
+<li>Views</li>
+<li>Sessions</li>
+<li>Basic debugging and profiling</li>
+</ul>
+<p>This phase is complete, and the repository is being opened up for the
+community to help.</p>
+<p>Completed: June 2016</p>
+</div>
+<div class="section" id="phase-2-core-components-in-progress">
+<h2>Phase 2: Core Components (in progress)<a class="headerlink" href="#phase-2-core-components-in-progress" title="Permalink to this headline">¶</a></h2>
+<p>The second phase focuses on providing and refining the existing classes and
+features that CodeIgniter users know and love.</p>
+<p>Phase 2 packages include:</p>
+<ul class="simple">
+<li>The helpers</li>
+<li>Language/Localization features</li>
+<li>Caching</li>
+<li>Email</li>
+<li>Encryption</li>
+<li>Form Validation</li>
+<li>Image Library</li>
+<li>Pagination</li>
+<li>Uploader</li>
+</ul>
+<p>During this phase, we will be looking for PRs for the planned and approved
+components, and for bug reports filed as github issues.</p>
+<p>Those packages that we are ready to implement will appear as issues
+in the github repository, with whatever direction we can provide.
+As they get implemented and tested, and merged into the framework,
+they will show up in the changelog.</p>
+<p>Target completion: December 2016</p>
+</div>
+<div class="section" id="phase-3-expansion-not-started">
+<h2>Phase 3: Expansion (not started)<a class="headerlink" href="#phase-3-expansion-not-started" title="Permalink to this headline">¶</a></h2>
+<p>The third phase includes fleshing out and working on the optional packages.
+At this point, the framework can be released and need not wait for these libraries to be brought up to date.</p>
+<p>Each optional package will have its own repository, and will be developed
+and managed independently of the main framework.</p>
+<p>Planned optional packages:</p>
+<ul class="simple">
+<li>FTP</li>
+<li>XML-RPC</li>
+<li>Zip</li>
+<li>Typography</li>
+<li>Template Parser</li>
+</ul>
+<p>These optional packages will constitute the &#8220;official&#8221; addins for CodeIgniter4.
+Developers will undoubtedly create their own as well. We have not settled
+on the best way to promote/integrate these.</p>
+<p>Target completion: April 2017</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Any target completion dates shown are speculative, and depend
+very much on the quantity and quality of community contributions.</p>
+<p class="last">Results may not be as depicted. Your mileage may vary. Contents will settle
+during shipping.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="internals.html" class="btn btn-neutral float-right" title="CodeIgniter Internals Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="signing.html" class="btn btn-neutral" title="Contribution Signing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014-2018 British Columbia Institute of Technology.
+      Last updated on Aug 02, 2018.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0.0-dev',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  false,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

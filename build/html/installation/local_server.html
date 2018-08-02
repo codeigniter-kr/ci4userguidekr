@@ -1,0 +1,287 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>로컬 개발 서버 &mdash; CodeIgniter4 4.0.0-dev documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="CodeIgniter4 4.0.0-dev documentation" href="../index.html"/>
+        <link rel="up" title="설치하기" href="index.html"/>
+        <link rel="next" title="튜토리얼(Tutorial)" href="../tutorial/index.html"/>
+        <link rel="prev" title="문제 해결" href="troubleshooting.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">CodeIgniter4에 오신 것을 환영합니다.</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">설치하기</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="downloads.html">CodeIgniter 다운로드</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html">설치하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upgrading.html">이전 버전에서 업그레이드</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">문제 해결</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">로컬 개발 서버</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">튜토리얼(Tutorial)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">CodeIgniter4 Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../general/index.html">General Topics</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">Library Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Database Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">Helpers</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../testing/index.html">Testing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to CodeIgniter</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CodeIgniter4</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">설치하기</a> &raquo;</li>
+        
+      <li>로컬 개발 서버</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>로컬 개발 서버<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>PHP는 MAMP, XAMPP 등과 같은 전용 웹 서버를 설정할 필요없이 응용 프로그램을 개발할 때 로컬에서 사용할
+수있는 내장 웹 서버를 제공합니다. PHP를 개발 컴퓨터에 설치 한 경우이 <code class="docutils literal"><span class="pre">serve</span></code> 스크립트를 사용하여 PHP의
+내장 서버를 시작하고 CodeIgniter 응용 프로그램과 함께 작동하도록 모든 설정을하십시오. 서버를 시작하려면
+기본 디렉토리의 명령 줄에서 다음을 입력하십시오.</p>
+<blockquote>
+<div>&gt; php serve</div></blockquote>
+<p>이렇게하면 서버가 시작되고 브라우저에서 응용 프로그램을 <a class="reference external" href="http://localhost:8080">http://localhost:8080</a> 을 통하여 볼 수 있습니다.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">PHP 내장 서버는 로컬 개발 컴퓨터에서만 사용해야합니다. 프로덕션 서버에서 사용해서는 안됩니다.</p>
+</div>
+<div class="section" id="id2">
+<h2>사용자 정의 도메인<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>localhost가 아닌 다른 도메인에서 사이트를 실행해야할 경우 먼저 사용할 도메인을 <code class="docutils literal"><span class="pre">hosts</span></code> 파일에 추가해야
+합니다. <code class="docutils literal"><span class="pre">hosts</span></code> 파일의 정확한 위치는 주 운영 체제마다 다르지만 일반적으로 모든 <a href="#id3"><span class="problematic" id="id4">*</span></a>nix-type 시스템(OS X 포함)은</p>
+<blockquote>
+<div><strong>/etc/hosts</strong> 입니다.</div></blockquote>
+<p><code class="docutils literal"><span class="pre">--host</span></code> CLI 옵션을 사용하여 지정할 수도 있습니다.</p>
+<blockquote>
+<div>&gt; php serve &#8211;host=example.dev</div></blockquote>
+<p>기본적으로 서버는 포트 8080에서 실행되지만 두 개 이상의 사이트가 실행 중이거나 이미 해당 포트를 사용하는
+다른 응용 프로그램이있을 수 있습니다. <code class="docutils literal"><span class="pre">--port</span></code> CLI 옵션을 사용하여 다른 포트를 지정할 수 있습니다 .</p>
+<blockquote>
+<div>&gt; php serve &#8211;port=8081</div></blockquote>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../tutorial/index.html" class="btn btn-neutral float-right" title="튜토리얼(Tutorial)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="troubleshooting.html" class="btn btn-neutral" title="문제 해결" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014-2018 British Columbia Institute of Technology.
+      Last updated on Aug 02, 2018.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0.0-dev',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  false,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
