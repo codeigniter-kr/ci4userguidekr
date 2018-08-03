@@ -183,7 +183,7 @@
             
   <div class="section" id="news-section">
 <h1>News section<a class="headerlink" href="#news-section" title="Permalink to this headline">¶</a></h1>
-<p>마지막 섹션에서는 정적 페이지를 포함하는 클래스를 작성하여 프레임 워크의
+<p>이전 섹션에서는 정적 페이지를 포함하는 클래스를 작성하여 프레임 워크의
 몇 가지 기본 개념을 살펴 보고, 사용자 라우팅 규칙을 추가하여 URI를
 정리했습니다. 이제 동적 컨텐츠를 소개하고 데이터베이스를 사용할 차례입니다.</p>
 <div class="section" id="model">
@@ -362,11 +362,9 @@ CodeIgniter의 <a class="reference internal" href="../general/view_parser.html">
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Instead of calling the <code class="docutils literal"><span class="pre">getNews()</span></code> method without a parameter, the
-<code class="docutils literal"><span class="pre">$slug</span></code> variable is passed, so it will return the specific news item.
-The only things left to do is create the corresponding view at
-<em>application/Views/news/view.php</em>. Put the following code in this file.
-getNews()매개 변수없이 메서드 를 호출하는 대신 $slug변수가 전달되므로 특정 뉴스 항목이 반환됩니다. 왼쪽의 유일한 일은 application / Views / news / view.php 에서 해당 뷰를 생성하는 것 입니다. 이 파일에 다음 코드를 입력하십시오.</p>
+<p>매개 변수없이 <code class="docutils literal"><span class="pre">getNews()</span></code> 메서드 를 호출하는 대신 <code class="docutils literal"><span class="pre">$slug</span></code> 변수가
+전달되므로 특정 뉴스 항목이 반환됩니다. 이제 남은일은 view를 생성하는 것
+입니다. <em>application/Views/news/view.php</em> 파일에 다음 코드를 입력하십시오.</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">echo</span> <span class="s1">&#39;&lt;h2&gt;&#39;</span><span class="o">.</span><span class="nv">$news</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="o">.</span><span class="s1">&#39;&lt;/h2&gt;&#39;</span><span class="p">;</span>
 <span class="k">echo</span> <span class="nv">$news</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">];</span>
@@ -375,21 +373,17 @@ getNews()매개 변수없이 메서드 를 호출하는 대신 $slug변수가 �
 </div>
 <div class="section" id="routing">
 <h2>Routing<a class="headerlink" href="#routing" title="Permalink to this headline">¶</a></h2>
-<p>Because of the wildcard routing rule created earlier, you need an extra
-route to view the controller that you just made. Modify your routing file
-(<em>application/config/routes.php</em>) so it looks as follows.
-This makes sure the requests reach the <code class="docutils literal"><span class="pre">News</span></code> controller instead of
-going directly to the <code class="docutils literal"><span class="pre">Pages</span></code> controller. The first line routes URI&#8217;s
-with a slug to the <code class="docutils literal"><span class="pre">view()</span></code> method in the <code class="docutils literal"><span class="pre">News</span></code> controller.
-이전에 작성된 와일드 카드 라우팅 규칙으로 인해 방금 작성한 컨트롤러를 보려면 추가 라우트가 필요합니다. 라우팅 파일 ( application / config / routes.php )을 다음과 같이 수정하십시오 . 이렇게하면 요청이 News컨트롤러로 직접 전달되는 대신 컨트롤러에 도달 하게됩니다 Pages. 첫 번째 줄은 슬러그가있는 URI를 컨트롤러 의 view()메서드로 라우팅합니다 News.</p>
+<p>방금 작성한 컨트롤러를 보려면 이전에 작성된 와일드 카드 라우팅 규칙에
+추가 라우트가 필요합니다. 라우팅 파일 (<em>application/config/routes.php</em>) 을
+다음과 같이 수정하십시오 . 이렇게하면 요청이 <code class="docutils literal"><span class="pre">Pages</span></code> 컨트롤러로 전달
+되는 않고 <code class="docutils literal"><span class="pre">News</span></code> 컨트롤러에 도달 하게됩니다. 첫 번째 줄은 슬러그가있는
+URI를 <code class="docutils literal"><span class="pre">News</span></code> 컨트롤러 의 <code class="docutils literal"><span class="pre">view()</span></code> 메서드로 라우팅합니다.</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;news/(:segment)&#39;</span><span class="p">,</span> <span class="s1">&#39;News::view/$1&#39;</span><span class="p">);</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;news&#39;</span><span class="p">,</span> <span class="s1">&#39;News::index&#39;</span><span class="p">);</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;(:any)&#39;</span><span class="p">,</span> <span class="s1">&#39;Pages::view/$1&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Point your browser to your document root, followed by index.php/news and
-watch your news page.
-브라우저에서 문서 루트로 이동 한 다음 index.php / news를보고 뉴스 페이지를보십시오.</p>
+<p>브라우저에서 document root로 이동 한 다음 index.php news를 입력하여 뉴스를보십시오.</p>
 </div>
 </div>
 

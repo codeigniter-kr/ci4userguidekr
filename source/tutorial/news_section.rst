@@ -2,7 +2,7 @@
 News section
 ############
 
-마지막 섹션에서는 정적 페이지를 포함하는 클래스를 작성하여 프레임 워크의
+이전 섹션에서는 정적 페이지를 포함하는 클래스를 작성하여 프레임 워크의
 몇 가지 기본 개념을 살펴 보고, 사용자 라우팅 규칙을 추가하여 URI를 
 정리했습니다. 이제 동적 컨텐츠를 소개하고 데이터베이스를 사용할 차례입니다.
 
@@ -210,12 +210,10 @@ CodeIgniter의 :doc:`View Parser <../general/view_parser>` 나 third party
 		echo view('templates/footer');
 	}
 
-Instead of calling the ``getNews()`` method without a parameter, the
-``$slug`` variable is passed, so it will return the specific news item.
-The only things left to do is create the corresponding view at
-*application/Views/news/view.php*. Put the following code in this file.
+
 매개 변수없이 ``getNews()`` 메서드 를 호출하는 대신 ``$slug`` 변수가 
-전달되므로 특정 뉴스 항목이 반환됩니다. 왼쪽의 유일한 일은 application / Views / news / view.php 에서 해당 뷰를 생성하는 것 입니다. 이 파일에 다음 코드를 입력하십시오.
+전달되므로 특정 뉴스 항목이 반환됩니다. 이제 남은일은 view를 생성하는 것
+입니다. *application/Views/news/view.php* 파일에 다음 코드를 입력하십시오.
 
 ::
 
@@ -226,13 +224,11 @@ The only things left to do is create the corresponding view at
 Routing
 -------
 
-Because of the wildcard routing rule created earlier, you need an extra
-route to view the controller that you just made. Modify your routing file
-(*application/config/routes.php*) so it looks as follows.
-This makes sure the requests reach the ``News`` controller instead of
-going directly to the ``Pages`` controller. The first line routes URI's
-with a slug to the ``view()`` method in the ``News`` controller.
-이전에 작성된 와일드 카드 라우팅 규칙으로 인해 방금 작성한 컨트롤러를 보려면 추가 라우트가 필요합니다. 라우팅 파일 ( application / config / routes.php )을 다음과 같이 수정하십시오 . 이렇게하면 요청이 News컨트롤러로 직접 전달되는 대신 컨트롤러에 도달 하게됩니다 Pages. 첫 번째 줄은 슬러그가있는 URI를 컨트롤러 의 view()메서드로 라우팅합니다 News.
+방금 작성한 컨트롤러를 보려면 이전에 작성된 와일드 카드 라우팅 규칙에
+추가 라우트가 필요합니다. 라우팅 파일 (*application/config/routes.php*) 을
+다음과 같이 수정하십시오 . 이렇게하면 요청이 ``Pages`` 컨트롤러로 전달
+되는 않고 ``News`` 컨트롤러에 도달 하게됩니다. 첫 번째 줄은 슬러그가있는 
+URI를 ``News`` 컨트롤러 의 ``view()`` 메서드로 라우팅합니다.
 
 ::
 
@@ -240,6 +236,4 @@ with a slug to the ``view()`` method in the ``News`` controller.
 	$routes->get('news', 'News::index');
 	$routes->add('(:any)', 'Pages::view/$1');
 
-Point your browser to your document root, followed by index.php/news and
-watch your news page.
-브라우저에서 문서 루트로 이동 한 다음 index.php / news를보고 뉴스 페이지를보십시오.
+브라우저에서 document root로 이동 한 다음 index.php news를 입력하여 뉴스를보십시오.
