@@ -6,6 +6,7 @@ Much of modern PHP development requires building API's, whether simply to provid
 single page application, or as a standalone product. CodeIgniter provides an API Response trait that can be
 used with any controller to make common response types simple, with no need to remember which HTTP status code
 should be returned for which response types.
+현대 PHP 개발의 대부분은 단순히 자바 스크립트가 많은 단일 페이지 응용 프로그램 용 데이터를 제공하는지 또는 독립 실행 형 제품으로 제공하는지에 관계없이 API를 작성해야합니다. CodeIgniter는 모든 응답 유형에 대해 반환되어야하는 HTTP 상태 코드를 기억할 필요없이 공통 응답 유형을 간단하게 만들기 위해 모든 컨트롤러와 함께 사용할 수있는 API 응답 특성을 제공합니다.
 
 .. contents:: Page Contents
 	:local:
@@ -15,6 +16,7 @@ Example Usage
 *************
 
 The following example shows a common usage pattern within your controllers.
+다음 예제는 컨트롤러 내의 일반적인 사용 패턴을 보여줍니다.
 
 ::
 
@@ -35,7 +37,10 @@ The following example shows a common usage pattern within your controllers.
     }
 
 In this example, an HTTP status code of 201 is returned, with the generic status message, 'Created'. Methods
-exist for the most common use cases::
+exist for the most common use cases
+이 예제에서는 일반 상태 메시지 인 'Created'와 함께 201이라는 HTTP 상태 코드가 반환됩니다. 가장 일반적인 사용 사례에 대한 메소드가 있습니다.
+
+::
 
     // Generic response method
     respond($data, 200);
@@ -66,6 +71,7 @@ Handling Response Types
 
 When you pass your data in any of these methods, they will determine the data type to format the results as based on
 the following criteria:
+이러한 메소드 중 하나에서 데이터를 전달하면 데이터 유형을 결정하여 다음 기준에 따라 결과의 형식을 지정합니다.
 
 * If $data is a string, it will be treated as HTML to send back to the client.
 * If $data is an array, it will try to negotiate the content type with what the client asked for, defaulting to JSON
