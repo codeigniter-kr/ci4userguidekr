@@ -48,8 +48,8 @@ To load and display a particular view file you will use the following function
 Where *name* is the name of your view file.
 여기서 name 은보기 파일의 이름입니다.
 
-.. important:: The .php file extension does not need to be specified, but all views are expected to end with the .php extension.
-			   .php 파일 확장명을 지정할 필요는 없지만 모든보기는 .php 확장자로 끝나야합니다.
+.. important:: If the file extension is omitted, then the views are expected to end with the .php extension.
+			   파일 확장자가 생략되면 뷰는 .php 확장자로 끝나야합니다.
 
 Now, open the controller file you made earlier called ``Blog.php``, and replace the echo statement with the view function
 이제 이전에 호출 한 컨트롤러 파일을 열고 Blog.phpecho 문을 view 함수로 바꿉니다.

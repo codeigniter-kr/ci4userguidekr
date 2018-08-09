@@ -96,7 +96,7 @@ Model 클래스를 사용하면 쿼리 작성기(Query Builder)로 쉽게 작업
 
 ::
 
-	<?php
+	<?php namespace App\Controllers;
 
 	use App\Models\NewsModel;
 
@@ -211,7 +211,7 @@ CodeIgniter의 :doc:`View Parser <../general/view_parser>` 나 third party
 	}
 
 
-매개 변수없이 ``getNews()`` 메서드 를 호출하는 대신 ``$slug`` 변수가 
+매개 변수없이 ``getNews()`` 메서드를 호출하는 대신 ``$slug`` 변수가 
 전달되므로 특정 뉴스 항목이 반환됩니다. 이제 남은일은 view를 생성하는 것
 입니다. *application/Views/news/view.php* 파일에 다음 코드를 입력하십시오.
 
