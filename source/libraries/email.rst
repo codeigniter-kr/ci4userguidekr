@@ -3,17 +3,18 @@ Email Class
 ###########
 
 CodeIgniter's robust Email Class supports the following features:
+CodeIgniter의 강력한 이메일 클래스는 다음 기능을 지원합니다.
 
 -  Multiple Protocols: Mail, Sendmail, and SMTP
--  TLS and SSL Encryption for SMTP
+-  SMTP 용 TLS 및 SSL 암호화
 -  Multiple recipients
--  CC and BCCs
--  HTML or Plaintext email
--  Attachments
+-  참조 및 숨은 참조
+-  HTML 또는 일반 텍스트
+-  첨부 파일
 -  Word wrapping
 -  Priorities
 -  BCC Batch Mode, enabling large email lists to be broken into small
-   BCC batches.
+   BCC batches. 대량 메일 목록을 작은 숨은 참조 일괄 처리로 분할 할 수있는 BCC 일괄 처리 모드.
 -  Email Debugging tools
 
 .. contents::
@@ -24,16 +25,20 @@ CodeIgniter's robust Email Class supports the following features:
   <div class="custom-index container"></div>
 
 ***********************
-Using the Email Library
+Email Library 사용
 ***********************
 
-Sending Email
+이메일 보내기
 =============
 
 Sending email is not only simple, but you can configure it on the fly or
 set your preferences in the **application/Config/Email.php** file.
+전자 메일을 보내는 것은 단순하지 않을뿐만 아니라 즉시 구성하거나 **application/Config/Email.php** 파일 에서 기본 설정을 구성 할 수 있습니다 .
 
-Here is a basic example demonstrating how you might send email::
+Here is a basic example demonstrating how you might send email
+다음은 이메일을 보내는 방법을 보여주는 기본 예입니다.
+
+::
 
 	$email = \Config\Services::email();
 
@@ -47,17 +52,21 @@ Here is a basic example demonstrating how you might send email::
 
 	$email->send();
 
-Setting Email Preferences
-=========================
+Email 기본 설정
+===============
 
 There are 21 different preferences available to tailor how your email
 messages are sent. You can either set them manually as described here,
 or automatically via preferences stored in your config file, described
 below:
+이메일 메시지를 보내는 방법을 조정할 수있는 21 가지 기본 설정이 있습니다. 여기에 설명 된대로 수동으로 설정하거나 아래에 설명 된 구성 파일에 저장된 환경 설정을 통해 자동으로 설정할 수 있습니다.
 
 Preferences are set by passing an array of preference values to the
 email initialize method. Here is an example of how you might set some
-preferences::
+preferences
+기본 설정은 기본 설정 값 배열을 전자 메일 초기화 메서드에 전달하여 설정합니다. 다음은 몇 가지 기본 설정을 지정하는 방법의 예입니다.
+
+::
 
 	$config['protocol'] = 'sendmail';
 	$config['mailPath'] = '/usr/sbin/sendmail';
@@ -68,9 +77,10 @@ preferences::
 
 .. note:: Most of the preferences have default values that will be used
 	if you do not set them.
+	대부분의 기본 설정에는 사용자가 설정하지 않을 경우 사용되는 기본값이 있습니다.
 
-Setting Email Preferences in a Config File
-------------------------------------------
+Config 파일을 통한 Email 기본 설정
+----------------------------------
 
 If you prefer not to set preferences using the above method, you can
 instead put them into the config file. Simply open the
@@ -78,31 +88,34 @@ instead put them into the config file. Simply open the
 Email properties. Then save the file and it will be used automatically.
 You will NOT need to use the ``$email->initialize()`` method if
 you set your preferences in the config file.
+위의 방법을 사용하여 환경 설정을하지 않으려면 환경 설정 파일에 넣을 수 있습니다. 간단하게 **application/Config/Email.php** 파일을 열어서 Email 속성에서 config를 설정하십시오. 그런 다음 파일을 저장하면 자동으로 사용됩니다. ``$email->initialize()`` 설정 파일에서 환경 설정 을하면이 방법 을 사용할 필요가 없습니다 .
 
-Email Preferences
-=================
+Email 설정
+==========
 
 The following is a list of all the preferences that can be set when
 sending email.
+다음은 이메일을 보낼 때 설정할 수있는 모든 환경 설정 목록입니다.
 
 =================== ====================== ============================ =======================================================================
 Preference          Default Value          Options                      Description
 =================== ====================== ============================ =======================================================================
-**userAgent**       CodeIgniter            None                         The "user agent".
-**protocol**        mail                   mail, sendmail, or smtp      The mail sending protocol.
-**mailpath**        /usr/sbin/sendmail     None                         The server path to Sendmail.
-**SMTPHost**        No Default             None                         SMTP Server Address.
+**userAgent**       CodeIgniter            None                         "user agent".
+**protocol**        mail                   mail, sendmail, or smtp      메일 전송 프로토콜.
+**mailpath**        /usr/sbin/sendmail     None                         Sendmail에 대한 서버 경로.
+**SMTPHost**        No Default             None                         SMTP 서버 주소.
 **SMTPUser**        No Default             None                         SMTP Username.
 **SMTPPass**        No Default             None                         SMTP Password.
 **SMTPPort**        25                     None                         SMTP Port.
 **SMTPTimeout**     5                      None                         SMTP Timeout (in seconds).
-**SMTPKeepAlive**   FALSE                  TRUE or FALSE (boolean)      Enable persistent SMTP connections.
+**SMTPKeepAlive**   FALSE                  TRUE or FALSE (boolean)      ESMTP 영구연결.
 **SMTPCrypto**      No Default             tls or ssl                   SMTP Encryption
 **wordWrap**        TRUE                   TRUE or FALSE (boolean)      Enable word-wrap.
 **wrapChars**       76                                                  Character count to wrap at.
 **mailType**        text                   text or html                 Type of mail. If you send HTML email you must send it as a complete web
                                                                         page. Make sure you don't have any relative links or relative image
                                                                         paths otherwise they will not work.
+                                                                        메일 유형. HTML 이메일을 보내려면 완전한 웹 페이지로 보내야합니다. 상대 링크 나 상대 이미지 경로가 없는지 확인하십시오. 그렇지 않으면 작동하지 않습니다.
 **charset**         utf-8                                               Character set (utf-8, iso-8859-1, etc.).
 **validate**        TRUE                   TRUE or FALSE (boolean)      Whether to validate the email address.
 **priority**        3                      1, 2, 3, 4, 5                Email Priority. 1 = highest. 5 = lowest. 3 = normal.

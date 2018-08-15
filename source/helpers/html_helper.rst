@@ -4,6 +4,7 @@ HTML Helper
 
 The HTML Helper file contains functions that assist in working with
 HTML.
+HTML helper 파일에는 HTML 작업에 도움이되는 함수가 들어 있습니다.
 
 .. contents::
     :local:
@@ -15,7 +16,10 @@ HTML.
 Loading this Helper
 ===================
 
-This helper is loaded using the following code::
+This helper is loaded using the following code
+이 helper는 다음 코드를 사용하여로드됩니다.
+
+::
 
     helper('html');
 
@@ -23,6 +27,7 @@ Available Functions
 ===================
 
 The following functions are available:
+다음 기능을 사용할 수 있습니다.
 
 .. php:function:: img([$src = ''[, $indexPage = false[, $attributes = '']]])
 

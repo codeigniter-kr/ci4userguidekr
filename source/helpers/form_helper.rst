@@ -3,7 +3,7 @@ Form Helper
 ###########
 
 The Form Helper file contains functions that assist in working with
-forms.
+forms. 양식 helper 파일에는 양식 작업에 도움이되는 함수가 들어 있습니다.
 
 .. contents::
   :local:
@@ -15,7 +15,10 @@ forms.
 Loading this Helper
 ===================
 
-This helper is loaded using the following code::
+This helper is loaded using the following code
+이 helper는 다음 코드를 사용하여 로드됩니다
+
+::
 
 	helper('form');
 
@@ -25,6 +28,9 @@ Escaping field values
 You may need to use HTML and characters such as quotes within your form
 elements. In order to do that safely, you'll need to use
 :doc:`common function <../general/common_functions>`
+:func:`esc()`.
+양식 요소 내에 따옴표와 같은 HTML 및 문자를 사용해야 할 수도 있습니다.
+이를 안전하게 수행하려면 :doc:`common function <../general/common_functions>` 을 사용해야 합니다
 :func:`esc()`.
 
 Consider the following example::
@@ -49,6 +55,7 @@ Available Functions
 ===================
 
 The following functions are available:
+다음 기능을 사용할 수 있습니다.
 
 .. php:function:: form_open([$action = ''[, $attributes = ''[, $hidden = array()]]])
 
