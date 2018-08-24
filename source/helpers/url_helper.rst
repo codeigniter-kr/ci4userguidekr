@@ -3,6 +3,7 @@ URL Helper
 ##########
 
 The URL Helper file contains functions that assist in working with URLs.
+URL 도우미 파일에는 URL 작업을 돕는 함수가 들어 있습니다.
 
 .. contents::
   :local:
@@ -15,11 +16,13 @@ Loading this Helper
 ===================
 
 This helper is automatically loaded by the framework on every request.
+이 도우미는 모든 요청시 프레임 워크에 의해 자동으로로드됩니다.
 
 Available Functions
 ===================
 
 The following functions are available:
+다음 기능을 사용할 수 있습니다.
 
 .. php:function:: site_url([$uri = ''[, $protocol = NULL[, $altConfig = NULL]]])
 
@@ -33,20 +36,31 @@ The following functions are available:
 	file (or whatever you have set as your site **index_page** in your config
 	file) will be added to the URL, as will any URI segments you pass to the
 	function, plus the **url_suffix** as set in your config file.
+	구성 파일에 지정된대로 사이트 URL을 반환합니다. 
+	index.php 파일 (또는 설정 파일에 사이트 **index_page** 로 설정 한 것이 무엇이든 )은 URL에 추가되며,
+	함수에 전달하는 URI 세그먼트와 구성 파일에 설정된 **url_suffix** 가 추가 됩니다.
 
 	You are encouraged to use this function any time you need to generate a
 	local URL so that your pages become more portable in the event your URL
 	changes.
+	URL이 변경 될 때 페이지가 더이 동성이 될 수 있도록 로컬 URL을 생성해야 할 때마다이 기능을 사용하는 것이 좋습니다.
 
 	Segments can be optionally passed to the function as a string or an
-	array. Here is a string example::
+	array. Here is a string example
+	세그먼트는 선택적으로 함수에 문자열이나 배열로 전달할 수 있습니다. 다음은 문자열 예제입니다.
+	
+	::
 
 		echo site_url('news/local/123');
 
 	The above example would return something like:
 	*http://example.com/index.php/news/local/123*
+	위의 예는 다음과 같이 반환합니다. *http://example.com/index.php/news/local/123*
 
-	Here is an example of segments passed as an array::
+	Here is an example of segments passed as an array
+	다음은 배열로 전달 된 세그먼트의 예입니다.
+	
+	::
 
 		$segments = array('news', 'local', '123');
 		echo site_url($segments);
@@ -54,6 +68,8 @@ The following functions are available:
         You may find the alternate configuration useful if generating URLs for a
         different site than yours, which contains different configuration preferences.
         We use this for unit testing the framework itself.
+        다른 구성 환경 설정을 포함하는 다른 사이트에 대한 URL을 생성하는 경우 대체 구성이 유용 할 수 있습니다. 
+        우리는 프레임 워크 자체를 단위 테스트하는 데 이것을 사용합니다.
 
 .. php:function:: base_url([$uri = ''[, $protocol = NULL]])
 
@@ -62,15 +78,22 @@ The following functions are available:
 	:returns:	Base URL
 	:rtype:	string
 
-	Returns your site base URL, as specified in your config file. Example::
+	Returns your site base URL, as specified in your config file.
+	구성 파일에 지정된대로 사이트 기본 URL을 반환합니다. 예:
+	
+	::
 
 		echo base_url();
 
 	This function returns the same thing as :php:func:`site_url()`, without
 	the *index_page* or *url_suffix* being appended.
+	이 함수는 index_page 또는 url_suffix 가 추가 :php:func:`site_url()` 되지 않은 것과 같은 것을 반환합니다 .
 
 	Also like :php:func:`site_url()`, you can supply segments as a string or
-	an array. Here is a string example::
+	an array. Here is a string example
+	또한 :php:func:`site_url()` 세그먼트를 문자열이나 배열로 제공 할 수 있습니다. 다음은 문자열 예제입니다.
+	
+	::
 
 		echo base_url("blog/post/123");
 

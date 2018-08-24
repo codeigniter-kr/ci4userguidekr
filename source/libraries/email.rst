@@ -117,13 +117,13 @@ Preference          Default Value          Options                      Descript
                                                                         paths otherwise they will not work.
                                                                         메일 유형. HTML 이메일을 보내려면 완전한 웹 페이지로 보내야합니다. 상대 링크 나 상대 이미지 경로가 없는지 확인하십시오. 그렇지 않으면 작동하지 않습니다.
 **charset**         utf-8                                               Character set (utf-8, iso-8859-1, etc.).
-**validate**        TRUE                   TRUE or FALSE (boolean)      Whether to validate the email address.
-**priority**        3                      1, 2, 3, 4, 5                Email Priority. 1 = highest. 5 = lowest. 3 = normal.
+**validate**        TRUE                   TRUE or FALSE (boolean)      전자 메일 주소의 유효성 검사 여부.
+**priority**        3                      1, 2, 3, 4, 5                이메일 우선 순위. 1 = highest. 5 = lowest. 3 = normal.
 **CRLF**            \\n                    "\\r\\n" or "\\n" or "\\r"   Newline character. (Use "\\r\\n" to comply with RFC 822).
 **newline**         \\n                    "\\r\\n" or "\\n" or "\\r"   Newline character. (Use "\\r\\n" to comply with RFC 822).
-**BCCBatchMode**    FALSE                  TRUE or FALSE (boolean)      Enable BCC Batch Mode.
-**BCCBatchSize**    200                    None                         Number of emails in each BCC batch.
-**DSN**             FALSE                  TRUE or FALSE (boolean)      Enable notify message from server
+**BCCBatchMode**    FALSE                  TRUE or FALSE (boolean)      BCC 배치모드 사용 여부.
+**BCCBatchSize**    200                    None                         Number of emails in each BCC batch. BCC 배치 처리시 이메일 수
+**DSN**             FALSE                  TRUE or FALSE (boolean)      서버 알림 메시지 사용 여부.
 =================== ====================== ============================ =======================================================================
 
 Overriding Word Wrapping
@@ -133,7 +133,10 @@ If you have word wrapping enabled (recommended to comply with RFC 822)
 and you have a very long link in your email it can get wrapped too,
 causing it to become un-clickable by the person receiving it.
 CodeIgniter lets you manually override word wrapping within part of your
-message like this::
+message like this
+자동 줄 바꿈을 사용하도록 설정 한 경우 (RFC 822 준수를 권장 함) 이메일에 매우 긴 링크가 있으면 포장을해도받을 수 있으므로 수신자가 클릭 할 수 없게됩니다. CodeIgniter를 사용하면 다음과 같이 메시지의 일부분에서 수동으로 자동 줄 바꿈을 무시할 수 있습니다.
+
+::
 
 	The text of your email that
 	gets wrapped normally.
@@ -145,6 +148,7 @@ message like this::
 
 
 Place the item you do not want word-wrapped between: {unwrap} {/unwrap}
+{unwrap} {/unwrap} 사이에 자동 줄 바꿈하지 않을 항목을 배치하십시오. 
 
 ***************
 Class Reference
@@ -160,16 +164,23 @@ Class Reference
 		:returns:	CodeIgniter\\Email\\Email instance (method chaining)
 		:rtype:	CodeIgniter\\Email\\Email
 
-		Sets the email address and name of the person sending the email::
+		Sets the email address and name of the person sending the email
+		이메일을 보내는 사람의 전자 메일 주소 및 이름을 설정합니다.
+		
+		::
 
 			$email->setFrom('you@example.com', 'Your Name');
 
-		You can also set a Return-Path, to help redirect undelivered mail::
+		You can also set a Return-Path, to help redirect undelivered mail
+		배달되지 않은 메일을 리디렉션하는 데 도움이되도록 Return-Path를 설정할 수도 있습니다.
+		
+		::
 
 			$email->setFrom('you@example.com', 'Your Name', 'returned_emails@example.com');
 
 		.. note:: Return-Path can't be used if you've configured 'smtp' as
 			your protocol.
+			'smtp' 프로토콜로 구성한 경우 Return-Path를 사용할 수 없습니다.
 
 	.. php:method:: setReplyTo($replyto[, $name = ''])
 
@@ -179,7 +190,9 @@ Class Reference
 		:rtype:	CodeIgniter\\Email\\Email
 
 		Sets the reply-to address. If the information is not provided the
-		information in the `setFrom <#setFrom>`_ method is used. Example::
+		information in the `setFrom <#setFrom>`_ method is used. Example
+		회신 주소를 설정합니다. 설정되지 않으면 `setFrom <#setFrom>`_ 메소드로 설정한 정보를 사용합니다.
+		::
 
 			$email->setReplyTo('you@example.com', 'Your Name');
 
@@ -190,7 +203,10 @@ Class Reference
 		:rtype:	CodeIgniter\\Email\\Email
 
 		Sets the email address(s) of the recipient(s). Can be a single e-mail,
-		a comma-delimited list or an array::
+		a comma-delimited list or an array
+		수신자의 전자 메일 주소를 설정합니다. 단일 전자 메일, 쉼표로 구분 된 목록 또는 배열 일 수 있습니다.
+		
+		::
 
 			$email->setTo('someone@example.com');
 
@@ -210,6 +226,7 @@ Class Reference
 
 		Sets the CC email address(s). Just like the "to", can be a single e-mail,
 		a comma-delimited list or an array.
+		참조 전자 메일 주소를 설정합니다. "to"와 마찬가지로 하나의 전자 메일, 쉼표로 구분 된 목록 또는 배열 일 수 있습니다.
 
 	.. php:method:: setBCC($bcc[, $limit = ''])
 
@@ -220,10 +237,12 @@ Class Reference
 
 		Sets the BCC email address(s). Just like the ``setTo()`` method, can be a single
 		e-mail, a comma-delimited list or an array.
+		BCC 전자 메일 주소를 설정합니다. ``setTo()`` 메서드 와 마찬가지로 하나의 전자 메일, 쉼표로 구분 된 목록 또는 배열 일 수 있습니다.
 
 		If ``$limit`` is set, "batch mode" will be enabled, which will send
 		the emails to batches, with each batch not exceeding the specified
 		``$limit``.
+		``$limit`` 옵션이 설정되면 "일괄처리 모드" 가 활성화되며 지정된 ``$limit`` 수를 초과하지 않는 상태로 전자 메일을 일괄로 보냅니다.
 
 	.. php:method:: setSubject($subject)
 
@@ -231,7 +250,9 @@ Class Reference
 		:returns:	CodeIgniter\\Email\\Email instance (method chaining)
 		:rtype:	CodeIgniter\\Email\\Email
 
-		Sets the email subject::
+		Sets the email subject
+		이메일 제목을 설정합니다.
+		::
 
 			$email->setSubject('This is my subject');
 
@@ -241,7 +262,9 @@ Class Reference
 		:returns:	CodeIgniter\\Email\\Email instance (method chaining)
 		:rtype:	CodeIgniter\\Email\\Email
 
-		Sets the e-mail message body::
+		Sets the e-mail message body
+		전자 메일 메시지 본문을 설정합니다.
+		::
 
 			$email->setMessage('This is my message');
 
@@ -251,7 +274,9 @@ Class Reference
 		:returns:	CodeIgniter\\Email\\Email instance (method chaining)
 		:rtype:	CodeIgniter\\Email\\Email
 
-		Sets the alternative e-mail message body::
+		Sets the alternative e-mail message body
+		대체 전자 메일 메시지 본문을 설정합니다.
+		::
 
 			$email->setAltMessage('This is the alternative message');
 
@@ -261,6 +286,7 @@ Class Reference
 		people who do not accept HTML email. If you do not set your own
 		message CodeIgniter will extract the message from your HTML email
 		and strip the tags.
+		이것은 HTML 형식의 전자 메일을 보내는 경우 사용할 수있는 선택적 메시지 문자열입니다. HTML 메일을 수락하지 않는 사람들을 위해 헤더 문자열에 추가되는 HTML 형식이없는 대체 메시지를 지정할 수 있습니다. 자신의 메시지를 설정하지 않으면 CodeIgniter는 HTML 전자 메일에서 메시지를 추출하고 태그를 제거합니다.
 
 	.. php:method:: setHeader($header, $value)
 
@@ -269,7 +295,9 @@ Class Reference
 		:returns:	CodeIgniter\\Email\\Email instance (method chaining)
 		:rtype: CodeIgniter\\Email\\Email
 
-		Appends additional headers to the e-mail::
+		Appends additional headers to the e-mail
+		추가 헤더를 전자 메일에 추가합니다.
+		::
 
 			$email->setHeader('Header1', 'Value1');
 			$email->setHeader('Header2', 'Value2');
@@ -283,6 +311,7 @@ Class Reference
 		Initializes all the email variables to an empty state. This method
 		is intended for use if you run the email sending method in a loop,
 		permitting the data to be reset between cycles.
+		모든 전자 메일 변수를 빈 상태로 초기화합니다. 이 방법은 루프에서 전자 메일 전송 방법을 실행하여주기간에 데이터를 다시 설정할 수 있도록하는 용도로 사용됩니다.
 
 		::
 
@@ -298,7 +327,10 @@ Class Reference
 			}
 
 		If you set the parameter to TRUE any attachments will be cleared as
-		well::
+		well
+		매개 변수를 TRUE로 설정하면 첨부 파일도 지워집니다.
+		
+		::
 
 			$email->clear(true);
 
@@ -309,7 +341,9 @@ Class Reference
 		:rtype:	bool
 
 		The e-mail sending method. Returns boolean TRUE or FALSE based on
-		success or failure, enabling it to be used conditionally::
+		success or failure, enabling it to be used conditionally
+		전자 메일 전송 방법입니다. 성공 또는 실패를 기준으로 부울 TRUE 또는 FALSE를 반환하여 조건부로 사용할 수있게합니다.
+		::
 
 			if (! $email->send())
 			{
@@ -317,7 +351,9 @@ Class Reference
 			}
 
 		This method will automatically clear all parameters if the request was
-		successful. To stop this behaviour pass FALSE::
+		successful. To stop this behaviour pass FALSE
+		이 메소드는 요청이 성공한 경우 모든 매개 변수를 자동으로 지 웁니다. 이 동작을 중지하려면 FALSE를 전달하십시오.
+		::
 
 			if ($email->send(false))
 			{
@@ -326,11 +362,13 @@ Class Reference
 
 		.. note:: In order to use the ``printDebugger()`` method, you need
 			to avoid clearing the email parameters.
+			``printDebugger()`` 메소드를 사용 하려면 이메일 매개 변수를 지우지 않아야합니다.
 
 		.. note:: If ``BCCBatchMode`` is enabled, and there are more than
 			``BCCBatchSize`` recipients, this method will always return
 			boolean ``TRUE``.
-
+			``BCCBatchMode`` 를 사용할 경우, ``BCCBatchSize`` 이상의 수신자가 있다면, 이 메소드는 항상 ``TRUE`` 를 반환합니다.
+			
 	.. php:method:: attach($filename[, $disposition = ''[, $newname = null[, $mime = '']]])
 
 		:param	string	$filename: File name
@@ -344,28 +382,43 @@ Class Reference
 
 		Enables you to send an attachment. Put the file path/name in the first
 		parameter. For multiple attachments use the method multiple times.
-		For example::
+		For example
+		첨부 파일을 보낼 수 있습니다. 첫 번째 매개 변수에 파일 경로/이름을 입력하십시오. 여러 첨부 파일의 경우이 메소드를 여러 번 사용하십시오.
+		
+		::
 
 			$email->attach('/path/to/photo1.jpg');
 			$email->attach('/path/to/photo2.jpg');
 			$email->attach('/path/to/photo3.jpg');
 
 		To use the default disposition (attachment), leave the second parameter blank,
-		otherwise use a custom disposition::
+		otherwise use a custom disposition
+		기본 처분 (첨부)을 사용하려면 두 번째 매개 변수를 비워 두거나 그렇지 않으면 맞춤 처분을 사용하십시오. 
+		
+		::
 
 			$email->attach('image.jpg', 'inline');
 
-		You can also use a URL::
+		You can also use a URL
+		URL을 사용할 수도 있습니다.
+		
+		::
 
 			$email->attach('http://example.com/filename.pdf');
 
-		If you'd like to use a custom file name, you can use the third parameter::
+		If you'd like to use a custom file name, you can use the third parameter
+		사용자 정의 파일 이름을 사용하려면 세 번째 매개 변수를 사용할 수 있습니다.
+		
+		::
 
 			$email->attach('filename.pdf', 'attachment', 'report.pdf');
 
 		If you need to use a buffer string instead of a real - physical - file you can
 		use the first parameter as buffer, the third parameter as file name and the fourth
-		parameter as mime-type::
+		parameter as mime-type
+		실제 물리 파일 대신 버퍼 문자열을 사용해야하는 경우 첫 번째 매개 변수를 버퍼로 사용할 수 있으며 세 번째 매개 변수는 파일 이름으로 네 번째 매개 변수는 mime-type으로 사용할 수 있습니다.
+		
+		::
 
 			$email->attach($buffer, 'attachment', 'report.pdf', 'application/pdf');
 
@@ -377,6 +430,8 @@ Class Reference
 
 		Sets and returns an attachment's Content-ID, which enables your to embed an inline
 		(picture) attachment into HTML. First parameter must be the already attached file name.
+		HTML에 인라인 (그림) 첨부 파일을 포함시킬 수있는 첨부 파일의 Content-ID를 설정하고 반환합니다. 첫 번째 매개 변수는 이미 첨부 된 파일 이름이어야합니다.
+		
 		::
 
 			$filename = '/img/photo1.jpg';
@@ -390,6 +445,7 @@ Class Reference
 			}
 
 		.. note:: Content-ID for each e-mail must be re-created for it to be unique.
+		각 전자 메일의 Content-ID는 고유하게하기 위해 다시 만들어야합니다.
 
 	.. php:method:: printDebugger($include = array('headers', 'subject', 'body'))
 
@@ -399,9 +455,11 @@ Class Reference
 
 		Returns a string containing any server messages, the email headers, and
 		the email message. Useful for debugging.
+		서버 메시지, 전자 메일 헤더 및 전자 메일 메시지가 포함 된 문자열을 반환합니다. 디버깅에 유용합니다.
 
 		You can optionally specify which parts of the message should be printed.
 		Valid options are: **headers**, **subject**, **body**.
+		인쇄 할 메시지의 부분을 선택적으로 지정할 수 있습니다. 유효한 옵션은 **헤더**, **제목**, **본문** 입니다.
 
 		Example::
 
@@ -414,3 +472,4 @@ Class Reference
 			$email->printDebugger(['headers']);
 
 		.. note:: By default, all of the raw data will be printed.
+		기본적으로 모든 원시 데이터가 인쇄됩니다.
