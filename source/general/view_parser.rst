@@ -226,11 +226,11 @@ corresponding to your variable pair data. Consider this example
 		'blog_title'   => 'My Blog Title',
 		'blog_heading' => 'My Blog Heading',
 		'blog_entries' => array(
-			array('title' => 'Title 1', 'body' => 'Body 1'),
-			array('title' => 'Title 2', 'body' => 'Body 2'),
-			array('title' => 'Title 3', 'body' => 'Body 3'),
-			array('title' => 'Title 4', 'body' => 'Body 4'),
-			array('title' => 'Title 5', 'body' => 'Body 5')
+			['title' => 'Title 1', 'body' => 'Body 1'],
+			['title' => 'Title 2', 'body' => 'Body 2'],
+			['title' => 'Title 3', 'body' => 'Body 3'],
+			['title' => 'Title 4', 'body' => 'Body 4'],
+			['title' => 'Title 5', 'body' => 'Body 5']
 		)
 	);
 
@@ -259,6 +259,18 @@ method
 
 	echo $parser->setData($data)
 	             ->render('blog_template');
+
+If the array you are trying to loop over contains objects instead of arrays,
+the parser will first look for an ``asArray`` method on the object. If it exists,
+that method will be called and the resulting array is then looped over just as
+described above. If no ``asArray`` method exists, the object will be cast as
+an array and its public properties will be made available to the Parser.
+루프를 반복하려는 배열에 배열 대신 객체가 포함되어 있으면 파서는 먼저 객체에 대해 ``asArray`` 메소드를 찾습니다. 존재할 경우 그 메소드를 호출하여 결과의 배열은 전술 한 것처럼 반복 처리됩니다. ``asArray`` 메서드가 존재하지 않는 경우, 객체는 배열로서 캐스트되어 그 퍼블릭 프로퍼티를 Parser가 사용 가능하게됩니다.
+
+This is especially useful with the Entity classes, which has an asArray method
+that returns all public and protected properties (minus the _options property) and
+makes them available to the Parser.
+이것은 특히 모든 public 및 protected 속성 (_options 속성 제외)을 반환하고 파서에서 사용할 수 있도록하는 asArray 메서드가있는 Entity 클래스에서 유용합니다.
 
 Nested Substitutions
 ====================
@@ -381,7 +393,7 @@ blocks must be closed with an ``endif`` tag
 
 ::
 
-	{if role=='admin'}
+	{if $role=='admin'}
 		<h1>Welcome, Admin!</h1>
 	{endif}
 
@@ -401,9 +413,9 @@ if 문에서 사용되는 모든 변수는 이전에 동일한 이름으로 설�
 
 ::
 
-	{if role=='admin'}
+	{if $role=='admin'}
 		<h1>Welcome, Admin</h1>
-	{elseif role=='moderator'}
+	{elseif $role=='moderator'}
 		<h1>Welcome, Moderator</h1>
 	{else}
 		<h1>Welcome, User</h1>

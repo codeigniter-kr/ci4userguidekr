@@ -221,8 +221,8 @@ The following functions are available:
 	주어진 파일 및 경로는 파일의 *이름* , *경로* , *크기* 및 날짜 정보 속성을 선택적으로 반환 합니다. 
 	두 번째 매개 변수를 사용하면 반환 할 정보를 명시 적으로 선언 할 수 있습니다.
 
-	Valid ``$returned_values`` options are: `name`, `size`, `date`, `readable`, `writeable`,
-	`executable` and `fileperms`.
+	Valid ``$returned_values`` options are: ``name``, ``size``, ``date``, ``readable``, ``writeable``,
+	``executable`` and ``fileperms``.
 	유효한 ``$returned_values`` 옵션은 다음과 같습니다 : '이름' , '크기' , '날짜' , '읽기' , '쓰기' , '실행 및 fileperms' .
 
 .. php:function:: symbolic_permissions($perms)

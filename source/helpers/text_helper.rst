@@ -308,7 +308,7 @@ The following functions are available:
 		$string = convert_accented_characters($string);
 
 	.. note:: This function uses a companion config file
-		`application/Config/ForeignCharacters.php` to define the to and
+		`application/Config/ForeignCharacters.php`_ to define the to and
 		from array for transliteration.
 		이 함수는 companion 설정 파일 인 application / Config / ForeignCharacters.php 를 사용하여 음역에 대한 to와 from 배열을 정의합니다.
 

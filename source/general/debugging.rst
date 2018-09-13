@@ -40,7 +40,7 @@ allows the script to continue executing
 
     d($_SERVER);
 
-**ddd()**
+**dd()**
 
 This method is identical to ``d()``, except that it also ``dies()`` and no further code is executed this request.
 이 메소드는 d(), dies()이 요구를 실행 한 코드는 더 이상 존재하지 않는다는 점을 제외하고 는 동일합니다 .
@@ -54,7 +54,7 @@ Kint의 고유 한 스핀을 사용하여 현재 실행 지점에 백 트레이�
 
     Kint::trace();
 
-For more information, see `Kint's page <https://raveren.github.io/kint/>`_.
+For more information, see `Kint's page <https://kint-php.github.io/kint/>`_.
 자세한 내용은 `Kint's page <https://raveren.github.io/kint/>`_ 를 참조하십시오.
 
 =================
