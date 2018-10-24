@@ -250,15 +250,19 @@ If you need the entire header, with the name and values in a single string, simp
 
 	echo (string)$header;
 
-The Request URL
+요청 URL
 ===============
 
 You can retrieve a :doc:`URI <uri>` object that represents the current URI for this request through the
-``$request->uri`` property. You can cast this object as a string to get a full URL for the current request::
+``$request->uri`` property. You can cast this object as a string to get a full URL for the current request
+``$request->uri`` 속성을 통해 요청된 URI를 :doc:`URI <uri>` 객체를 가져올 수 있습니다. 문자열로 캐스팅하면 현재 요청의 전체 URL을 얻을 수 있습니다.
+::
 
 	$uri = (string)$request->uri;
 
-The object gives you full abilities to grab any part of the request on it's own::
+The object gives you full abilities to grab any part of the request on it's own
+이 객체는 요청의 모든 부분을 가져 오는 데 필요한 모든 기능을 제공합니다.
+::
 
 	$uri = $request->uri;
 
@@ -273,12 +277,14 @@ The object gives you full abilities to grab any part of the request on it's own:
 	echo $uri->getSegment(1);       // 'path'
 	echo $uri->getTotalSegments();  // 3
 
-Uploaded Files
+파일 업로드
 ==============
 
 Information about all uploaded files can be retrieved through ``$request->getFiles()``, which returns a
 :doc:`FileCollection </libraries/uploaded_files>` instance. This helps to ease the pain of working with uploaded files,
 and uses best practices to minimize any security risks.
+업로드 된 모든 파일에 대한 정보는 ``$request->getFiles()`` 를 사용하여  :doc:`FileCollection </libraries/uploaded_files>` 
+인스턴스 가져올 수 있습니다 . 이렇게하면 업로드 된 파일 작업의 어려움을 덜 수 있고 모범 사례를 사용하여 보안 위험을 최소화합니다.
 ::
 
 	$files = $request->getFiles();
@@ -299,14 +305,18 @@ and uses best practices to minimize any security risks.
 		echo $file->getType();          // image/jpg
 	}
 
-You can also retrieve a single file based on the filename given in the HTML file input::
+You can also retrieve a single file based on the filename given in the HTML file input
+HTML 파일 입력에 지정된 파일 이름을 기반으로 단일 파일을 검색 할 수도 있습니다.
+::
 
 	$file = $request->getFile('uploadedfile');
 
-Content Negotiation
+콘텐츠 협상
 ===================
 
-You can easily negotiate content types with the request through the ``negotiate()`` method::
+You can easily negotiate content types with the request through the ``negotiate()`` method
+``negotiate()`` 메소드를 통해 요청된 컨텐츠 유형을 쉽게 협상 할 수 있습니다 .
+::
 
 	$language    = $request->negotiate('language', ['en-US', 'en-GB', 'fr', 'es-mx']);
 	$imageType   = $request->negotiate('media', ['image/png', 'image/jpg']);
