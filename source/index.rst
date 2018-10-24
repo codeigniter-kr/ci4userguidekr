@@ -2,37 +2,21 @@
 CodeIgniter4 User Guide
 #######################
 
-- :doc:`License Agreement <license>`
-- :doc:`Change Log <changelog>`
-
-.. contents::
-   :local:
-   :depth: 2
-
-*******
-환영합니다
-*******
-
 .. toctree::
 	:includehidden:
         :titlesonly:
 
         intro/index
 
-************
-설치하기
-************
+***************
+Getting Started
+***************
 
 .. toctree::
-	:includehidden:
 	:maxdepth: 2
 	:titlesonly:
 
 	installation/index
-
-********
-튜토리얼(Tutorial)
-********
 
 .. toctree::
 	:includehidden:
@@ -40,34 +24,36 @@ CodeIgniter4 User Guide
 
     	tutorial/index
 
-*********************
-CodeIgniter4 둘러보기
-*********************
+*************************
+Overview & General Topics
+*************************
+
 .. toctree::
 	:titlesonly:
 
 	concepts/index
-
-**************
-일반 토픽
-**************
 
 .. toctree::
 	:titlesonly:
 
 	general/index
 
-*****************
-라이브러리 Reference
-*****************
+****************
+Request Handling
+****************
 
 .. toctree::
 	:titlesonly:
 
-	libraries/index
+	incoming/index
+
+.. toctree::
+	:titlesonly:
+
+	outgoing/index
 
 ******************
-데이타베이스 Reference
+Handling Databases
 ******************
 
 .. toctree::
@@ -75,29 +61,52 @@ CodeIgniter4 둘러보기
 
 	database/index
 
-****************
-헬퍼 Reference
-****************
+.. toctree::
+	:titlesonly:
+
+	models/index
+
+.. toctree::
+	:titlesonly:
+
+	dbmgmt/index
+
+
+*******************
+Libraries & Helpers
+*******************
+
+.. toctree::
+	:titlesonly:
+
+	libraries/index
 
 .. toctree::
 	:titlesonly:
 
 	helpers/index
 
-*******
-Testing
-*******
+***************
+Advanced Topics
+***************
 
 .. toctree::
 	:titlesonly:
 
 	testing/index
 
-***************************
-Contributing to CodeIgniter
-***************************
+.. toctree::
+	:titlesonly:
+
+	cli/index
 
 .. toctree::
 	:titlesonly:
 
-	contributing/index
+	extending/index
+
+.. toctree::
+        :hidden:
+
+        license
+        changelog

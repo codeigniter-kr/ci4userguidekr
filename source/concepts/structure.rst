@@ -86,18 +86,13 @@ production servers.
 
 docs
 ----
-This directory holds the CodeIgniter documentation. The ``user_guide`` subfolder contains a local copy of the
-User Guide, and the ``api_docs`` subfolder contains a local copy of the CodeIgniter components API reference.
-이 디렉토리에는 CodeIgniter 문서가 들어 있습니다. user_guide하위 폴더는 사용자 안내서의 로컬 복사본을 포함하고 api_docs하위 폴더는 CodeIgniter의 구성 요소 API 참조의 로컬 복사본을 포함하고 있습니다.
+This directory holds a local copy of the CodeIgniter4
+User Guide.
+이 디렉토리에는 CodeIgniter4 문서가 들어 있습니다.
 
-Modifying Directory Locations
 디렉토리 위치 수정
 -----------------------------
 
-If you've relocated any of the main directories, you can let the application
-know the new location within the main ``index.php`` file.
-기본 디렉토리를 재배치 한 경우 응용 프로그램이 주 index.php파일 내의 새 위치를 알 수 있습니다 .
-
-Starting around line 50, you will find three variables that hold the location to the **application**,
-**system**, and **writable** directories. These paths are relative to **index.php**.
-50 행에서 시작하여 응용 프로그램 , 시스템 및 쓰기 가능한 디렉토리에 대한 위치를 보유하는 세 가지 변수를 찾을 수 있습니다. 이러한 경로는 index.php와 관련이 있습니다.
+If you've relocated any of the main directories, you can change the configuration
+settings inside ``application/Config/Paths``
+메인 디렉토리를 재배치했다면 ``application/Config/Paths`` 의 설정을 바꿀 수 있습니다.

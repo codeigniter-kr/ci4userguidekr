@@ -17,7 +17,8 @@ The following image libraries are supported: GD/GD2, and ImageMagick.
 다음 이미지 라이브러리를 지원해야합니다. : GD/GD2 및 ImageMagick.
 
 .. contents::
-:local:
+    :local:
+    :depth: 2
 
 **********************
 클래스 초기화하기

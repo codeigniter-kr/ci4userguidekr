@@ -56,7 +56,7 @@ That type of organization works great as a base habit to get into. At times you 
 That's not a problem. As long as CodeIgniter can find the file, it can display it.
 그런 유형의 조직은 기본적인 습관으로 잘 작동합니다. 때로는 다르게 구성해야 할 수도 있습니다. 그건 문제가되지 않습니다. CodeIgniter가 파일을 찾을 수있는 한, 파일을 표시 할 수 있습니다.
 
-:doc:`Find out more about views </general/views>`
+:doc:`Find out more about views </outgoing/views>`
 보기에 대해 자세히 알아보기
 
 Models
@@ -77,7 +77,7 @@ miss updating an area.
 Models are typically stored in **/application/Models**, though they can use a namespace to be grouped however you need.
 모델은 전형적으로 / application / Models에 저장 됩니다. 그러나 필요한 경우 네임 스페이스를 그룹화하여 사용할 수 있습니다.
 
-:doc:`Find out more about models </database/model>`
+:doc:`Find out more about models </models/model>`
 모델에 대해 자세히 알아보기
 
 Controllers
@@ -89,7 +89,7 @@ the model that is then passed on to the view to be displayed. This also includes
 if needed, to handle specialized tasks that is outside of the purview of the model.
 컨트롤러는 서로 다른 두 가지 역할을 수행합니다. 가장 확실한 것은 사용자로부터 사용자 입력을 수신 한 다음 사용자가이를 어떻게 처리할지 결정하는 것입니다. 여기에는 종종 모델에 데이터를 전달하여 모델을 저장하거나 모델에서 데이터를 요청한 다음 표시 할 뷰로 전달합니다. 여기에는 모델의 범위를 벗어난 특수한 작업을 처리하기 위해 필요한 경우 다른 유틸리티 클래스를로드하는 작업도 포함됩니다.
 
-The other responsibility of the controller is to handles everything that pertains to HTTP requests - redirects,
+The other responsibility of the controller is to handle everything that pertains to HTTP requests - redirects,
 authentication, web safety, encoding, etc. In short, the controller is where you make sure that people are allowed to
 be there, and they get the data they need in a format they can use.
 컨트롤러의 또 다른 책임은 리디렉션, 인증, 웹 안전, 인코딩 등의 HTTP 요청과 관련된 모든 것을 처리하는 것입니다. 간단히 말해서 컨트롤러는 사람이 거기에있게 할 수 있는지, 그리고 데이터를 가져 오는 지 확인하는 곳입니다 그들은 그들이 사용할 수있는 형식으로 필요합니다.
@@ -98,5 +98,4 @@ Controllers are typically stored in **/application/Controllers**, though they ca
 you need.
 컨트롤러는 일반적으로 / application / Controllers에 저장 되지만 필요에 따라 네임 스페이스를 그룹화하여 사용할 수 있습니다.
 
-:doc:`Find out more about controllers </general/controllers>`
-컨트롤러에 대해 자세히 알아보십시오.
+:doc:`컨트롤러에 대해 자세히 알아보십시오. </incoming/controllers>`

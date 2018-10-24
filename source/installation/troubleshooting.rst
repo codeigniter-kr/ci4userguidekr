@@ -26,3 +26,12 @@ URL에 무엇을 넣든 기본 페이지 만로드하는 경우 서버가 검색
 To this::
 
 	public $indexPage = 'index.php?';
+
+The tutorial gives 404 errors everywhere :(
+-------------------------------------------
+
+You can't follow the tutorial using PHP's built-in web server.
+It doesn't process the ``.htaccess`` file needed to route
+requests properly.
+
+The solution: use Apache to server your site.

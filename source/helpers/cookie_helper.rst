@@ -43,7 +43,7 @@ The following functions are available:
 
 	이 helper 함수는 브라우저 쿠키를 설정하는 친숙한 구문을 제공합니다. 
 	이 기능은 ``Response::setCookie()`` 의 별명이기 때문에 자세한 설명은
-	:doc:`Response Library <../libraries/response>` 를 참조하십시오 .
+	:doc:`Response Library </outgoing/response>` 를 참조하십시오 .
 
 .. php:function:: get_cookie($index[, $xssClean = false])
 
@@ -53,13 +53,13 @@ The following functions are available:
 	:rtype:	mixed
 
 	This helper function gives you friendlier syntax to get browser
-	cookies. Refer to the :doc:`IncomingRequest Library <../libraries/incomingrequest>` for
+	cookies. Refer to the :doc:`IncomingRequest Library </incoming/incomingrequest>` for
 	detailed description of its use, as this function acts very
 	similarly to ``IncomingRequest::getCookie()``, except it will also prepend
 	the ``$cookiePrefix`` that you might've set in your
 	*application/Config/App.php* file.
 	이 helper 함수는 브라우저 쿠키를 얻기위한 친숙한 구문을 제공합니다.
-	이 함수에 대한 자세한 설명은 :doc:`IncomingRequest Library <../libraries/incomingrequest>` 를 참조하십시오.
+	이 함수에 대한 자세한 설명은 :doc:`IncomingRequest Library </incoming/incomingrequest>` 를 참조하십시오.
 	이 함수는 응용 프로그램 / Config / App.php 파일 에서 설정 한 ``IncomingRequest::getCookie()`` 것 외에는 매우 유사 합니다. ``$cookiePrefix``
 
 

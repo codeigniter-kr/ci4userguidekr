@@ -17,7 +17,7 @@ system.
 
 .. contents::
     :local:
-    :depth: 1
+    :depth: 2
 
 *************************
 Loading the Query Builder
@@ -81,7 +81,7 @@ Example::
 	// Prints string: SELECT * FROM mytable
 
 The first parameter enables you to set whether or not the query builder query
-will be reset (by default it will be reset, just like when using `$builder->get()`)::
+will be reset (by default it will be reset, just like when using ``$builder->get()``)::
 
 	echo $builder->limit(10,20)->getCompiledSelect(false);
 
@@ -354,14 +354,14 @@ searches.
 	::
 
 		$builder->like('title', 'match');
-		// Produces: WHERE `title` LIKE '%match%' ESCAPE '!'
+		// Produces: WHERE ``title`` LIKE '%match%' ESCAPE '!'
 
 	If you use multiple method calls they will be chained together with
 	AND between them::
 
 		$builder->like('title', 'match');
 		$builder->like('body', 'match');
-		// WHERE `title` LIKE '%match%' ESCAPE '!' AND  `body` LIKE '%match% ESCAPE '!'
+		// WHERE ``title`` LIKE '%match%' ESCAPE '!' AND  ``body`` LIKE '%match% ESCAPE '!'
 
 	If you want to control where the wildcard (%) is placed, you can use
 	an optional third argument. Your options are 'before', 'after' and
@@ -369,9 +369,9 @@ searches.
 
 	::
 
-		$builder->like('title', 'match', 'before');	// Produces: WHERE `title` LIKE '%match' ESCAPE '!'
-		$builder->like('title', 'match', 'after');	// Produces: WHERE `title` LIKE 'match%' ESCAPE '!'
-		$builder->like('title', 'match', 'both');	// Produces: WHERE `title` LIKE '%match%' ESCAPE '!'
+		$builder->like('title', 'match', 'before');	// Produces: WHERE ``title`` LIKE '%match' ESCAPE '!'
+		$builder->like('title', 'match', 'after');	// Produces: WHERE ``title`` LIKE 'match%' ESCAPE '!'
+		$builder->like('title', 'match', 'both');	// Produces: WHERE ``title`` LIKE '%match%' ESCAPE '!'
 
 #. **Associative array method:**
 
@@ -379,7 +379,7 @@ searches.
 
 		$array = ['title' => $match, 'page1' => $match, 'page2' => $match];
 		$builder->like($array);
-		// WHERE `title` LIKE '%match%' ESCAPE '!' AND  `page1` LIKE '%match%' ESCAPE '!' AND  `page2` LIKE '%match%' ESCAPE '!'
+		// WHERE ``title`` LIKE '%match%' ESCAPE '!' AND  ``page1`` LIKE '%match%' ESCAPE '!' AND  ``page2`` LIKE '%match%' ESCAPE '!'
 
 **$builder->orLike()**
 
@@ -387,14 +387,14 @@ This method is identical to the one above, except that multiple
 instances are joined by OR::
 
 	$builder->like('title', 'match'); $builder->orLike('body', $match);
-	// WHERE `title` LIKE '%match%' ESCAPE '!' OR  `body` LIKE '%match%' ESCAPE '!'
+	// WHERE ``title`` LIKE '%match%' ESCAPE '!' OR  ``body`` LIKE '%match%' ESCAPE '!'
 
 **$builder->notLike()**
 
 This method is identical to ``like()``, except that it generates
 NOT LIKE statements::
 
-	$builder->notLike('title', 'match');	// WHERE `title` NOT LIKE '%match% ESCAPE '!'
+	$builder->notLike('title', 'match');	// WHERE ``title`` NOT LIKE '%match% ESCAPE '!'
 
 **$builder->orNotLike()**
 
@@ -403,7 +403,7 @@ instances are joined by OR::
 
 	$builder->like('title', 'match');
 	$builder->orNotLike('body', 'match');
-	// WHERE `title` LIKE '%match% OR  `body` NOT LIKE '%match%' ESCAPE '!'
+	// WHERE ``title`` LIKE '%match% OR  ``body`` NOT LIKE '%match%' ESCAPE '!'
 
 **$builder->groupBy()**
 
@@ -443,7 +443,7 @@ setting it to FALSE.
 
 ::
 
-	$builder->having('user_id',  45);  // Produces: HAVING `user_id` = 45 in some databases such as MySQL
+	$builder->having('user_id',  45);  // Produces: HAVING ``user_id`` = 45 in some databases such as MySQL
 	$builder->having('user_id',  45, FALSE);  // Produces: HAVING user_id = 45
 
 **$builder->orHaving()**
@@ -466,12 +466,12 @@ Options are **ASC**, **DESC** AND **RANDOM**.
 ::
 
 	$builder->orderBy('title', 'DESC');
-	// Produces: ORDER BY `title` DESC
+	// Produces: ORDER BY ``title`` DESC
 
 You can also pass your own string in the first parameter::
 
 	$builder->orderBy('title DESC, name ASC');
-	// Produces: ORDER BY `title` DESC, `name` ASC
+	// Produces: ORDER BY ``title`` DESC, ``name`` ASC
 
 Or multiple function calls can be made if you need multiple fields.
 
@@ -479,7 +479,7 @@ Or multiple function calls can be made if you need multiple fields.
 
 	$builder->orderBy('title', 'DESC');
 	$builder->orderBy('name', 'ASC');
-	// Produces: ORDER BY `title` DESC, `name` ASC
+	// Produces: ORDER BY ``title`` DESC, `name` ASC
 
 If you choose the **RANDOM** direction option, then the first parameters will
 be ignored, unless you specify a numeric seed value.
@@ -511,29 +511,34 @@ The second parameter lets you set a result offset.
 
 	$builder->limit(10, 20);  // Produces: LIMIT 20, 10 (in MySQL.  Other databases have slightly different syntax)
 
+
 **$builder->countAllResults()**
 
 Permits you to determine the number of rows in a particular Query
 Builder query. Queries will accept Query Builder restrictors such as
 ``where()``, ``orWhere()``, ``like()``, ``orLike()``, etc. Example::
 
-	echo $builder->countAllResults('my_table');  // Produces an integer, like 25
+	echo $builder->countAllResults();  // Produces an integer, like 25
 	$builder->like('title', 'match');
 	$builder->from('my_table');
 	echo $builder->countAllResults(); // Produces an integer, like 17
 
 However, this method also resets any field values that you may have passed
 to ``select()``. If you need to keep them, you can pass ``FALSE`` as the
-second parameter::
+first parameter.
 
-	echo $builder->countAllResults('my_table', FALSE);
+	echo $builder->countAllResults(false); // Produces an integer, like 17
 
 **$builder->countAll()**
 
 Permits you to determine the number of rows in a particular table.
-Submit the table name in the first parameter. Example::
+Example::
 
-	echo $builder->countAll('my_table');  // Produces an integer, like 25
+	echo $builder->countAll();  // Produces an integer, like 25
+	
+As is in countAllResult method, this method resets any field values that you may have passed
+to ``select()`` as well. If you need to keep them, you can pass ``FALSE`` as the
+first parameter.
 
 **************
 Query grouping
@@ -986,6 +991,15 @@ Class Reference
 		to build a query that can be canceled under certain conditions.
 
 	.. php:method:: countAllResults([$reset = TRUE])
+
+		:param	bool	$reset: Whether to reset values for SELECTs
+		:returns:	Number of rows in the query result
+		:rtype:	int
+
+		Generates a platform-specific query string that counts
+		all records returned by an Query Builder query.
+
+	.. php:method:: countAll([$reset = TRUE])
 
 		:param	bool	$reset: Whether to reset values for SELECTs
 		:returns:	Number of rows in the query result

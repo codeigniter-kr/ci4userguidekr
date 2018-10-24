@@ -67,7 +67,7 @@ The following functions are available:
 
     	Creates an opening form tag with a base URL **built from your config preferences**.
 	It will optionally let you add form attributes and hidden input fields, and
-	will always add the `accept-charset` attribute based on the charset value in your
+	will always add the ``accept-charset`` attribute based on the charset value in your
 	config file.
 
 	The main benefit of using this tag rather than hard coding your own HTML is that

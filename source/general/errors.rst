@@ -9,6 +9,10 @@ is running under the ``production`` environment. In this case, a more generic  m
 keep the best user experience for your users.
 CodeIgniter는, 예외를 통해 시스템에보고 모두 오류를 구축 SPL 수집 뿐만 아니라 프레임 워크에서 제공되는 몇 가지 사용자 정의 예외. 환경 설정에 따라 오류 또는 예외가 발생할 때의 기본 동작은 응용 프로그램이 production환경에서 실행되고 있지 않으면 자세한 오류 보고서를 표시하는 것입니다. 이 경우보다 일반적인 메시지가 표시되어 사용자에게 최상의 사용자 환경을 제공합니다.
 
+.. contents::
+    :local:
+    :depth: 2
+
 Using Exceptions
 ================
 

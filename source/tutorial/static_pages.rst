@@ -126,24 +126,70 @@ view의 ``$title`` 값과 동일합니다 .
    파일 자체의 대소문자와 일치해야 하며 그렇지 않으면 시스템은 대소문자가 구분되는
    플랫폼에서 오류를 발생시킵니다.
 
+Running the App
+---------------
+
+Ready to test? You cannot run the app using PHP's built-in server,
+since it will not properly process the ``.htaccess`` rules that are provided in
+``public``, and which eliminate the need to specify "index.php/"
+as part of a URL. CodeIgniter has its own command that you can use though.
+
+From the command line, at the root of your project:
+
+    php spark serve
+
+will start a web server, accessible on port 8080. If you set the location field
+in your browser to ``localhost:8080``, you should see the CodeIgniter welcome page.
+
+You can now try several URLs in the browser location field, to see what the ``Pages``
+controller you made above produces...
+
+- ``localhost:8080/pages`` will show the results from the ``index`` method
+  inside our ``Pages`` controller, which is to display the CodeIgniter "welcome" page,
+  because "index" is the default controller method
+- ``localhost:8080/pages/index`` will also show the CodeIgniter "welcome" page,
+  because we explicitly asked for the "index" methid
+- ``localhost:8080/pages/view`` will show the "home" page that you made above,
+  because it is the default "page" parameter to the ``view()`` method.
+- ``localhost:8080/pages/view/home`` will also show the "home" page that you made above,
+  because we explicitly asked for it
+- ``localhost:8080/pages/view/about`` will show the "about" page that you made above,
+  because we explicitly asked for it
+- ``localhost:8080/pages/view/shop`` will show a "404 - File Not Found" error page,
+  because there is no ``application/Views/pages/shop.php``
+
+
 Routing
 -------
 
-이제 컨트롤러가 작동 중입니다! 브라우저에 ``[your-site-url]index.php/pages/view``
-를 입력하여 페이지에 접속해 보세요. ``index.php/pages/view/about`` 접속하면 
-header와 footer를 포함한 about 페이지가 표시됩니다.
+이제 컨트롤러가 작동 중입니다! 
 
-사용자 지정 라우팅 규칙을 사용하면 모든 URI를 모든 컨트롤러 및 메서드에
+사용자 지정 라우팅 규칙을 사용하면 모든 URI를 컨트롤러 및 메서드에
 매핑 할 수 있으며, 일반적인 규칙을 벗어날 수 있습니다. 
 ``http://example.com/[controller-class]/[controller-method]/[arguments]``
 
-한번 해봅시다. *application/Config/Routes.php* 에 있는 라우팅 파일을 열고 다음 두 줄을 
-추가하고 ``$route`` 변수에 추가된 다른 모든 코드는 제거하십시오 .
+Let's do that. Open the routing file located at
+*application/Config/Routes.php* and look for the "Route Definitions"
+section of the configuration file.
+
+The only uncommented line there to start with should be:::
+
+    $routes->get('/', 'Home::index');
+
+This directive says that any incoming request without any content
+specified should be handled by the ``index`` method inside the ``Home`` controller.
+
+Set the default controller to run your new method:
 
 ::
 
 	$routes->setDefaultController('Pages/view');
-	$routes->add('(:any)', 'Pages::view/$1');
+
+Add the following line, **after** the route directive for '/'.
+
+::
+
+	$routes->get('(:any)', 'Pages::view/$1');
 
 CodeIgniter는 라우팅 규칙을 위에서 아래로 읽고 요청에 대해 첫 번째로
 일치하는 규칙으로 라우팅합니다. 각 규칙은 슬래시로 구분 된 컨트롤러
@@ -151,19 +197,12 @@ CodeIgniter는 라우팅 규칙을 위에서 아래로 읽고 요청에 대해 �
 CodeIgniter는 첫 번째 일치 항목을 찾고 적절한 컨트롤러와 메소드에 
 인수를 사용하여 호출합니다.
 
-라우팅에 대한 자세한 내용은 URI 라우팅 :doc:`설명서 <../general/routing>`
+라우팅에 대한 자세한 내용은 URI 라우팅 :doc:`설명서 </incoming/routing>`
 를 참조하십시오.
 
 여기서 ``$routes`` 배열 의 두 번째 규칙 ``(:any)`` 는 와일드 카드 문자열이며
 모든 요청 과 일치 합니다. 매개 변수를 ``Pages`` 클래스 의 ``view()`` 
 메서드에 전달합니다.
-
-기본 컨트롤러를 사용하려면 경로를 처리하는 다른 경로가 정의되어 있지 
-않은지 확인해야합니다. 기본적으로 경로 파일 에는 사이트 루트 (/)를 처리하는
-경로가 있습니다. 다음 경로를 삭제하여 Pages 컨트롤러가 우리 홈 페이지를 
-처리하는지 확인하십시오.
-
-	$routes->add('/', 'Home::index');
 
 지금 ``index.php/about`` 에 방문하세요. pages 컨트롤러의 ``view()`` 메소드로 
 올바르게 라우팅 되었나요? 굉장하죠!

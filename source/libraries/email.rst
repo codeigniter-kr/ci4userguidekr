@@ -18,7 +18,8 @@ CodeIgniter의 강력한 이메일 클래스는 다음 기능을 지원합니다
 -  Email Debugging tools
 
 .. contents::
-  :local:
+    :local:
+    :depth: 2
 
 .. raw:: html
 

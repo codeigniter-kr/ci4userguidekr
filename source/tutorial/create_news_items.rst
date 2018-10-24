@@ -8,11 +8,6 @@ you'll expand your news controller and model created earlier to include
 this functionality.
 CodeIgniter를 사용하여 데이터베이스에서 데이터를 읽는 방법을 알았지 만 아직 데이터베이스에 정보를 쓰지 않았습니다. 이 섹션에서는 이전에 만든 뉴스 컨트롤러와 모델을 확장하여이 기능을 포함합니다.
 
-.. note:: This section of the tutorial cannot be completed as certain
-    portions of the framework, like the form helper and the validation
-    library have not been completed yet.
-    양식 도우미 및 유효성 검증 라이브러리와 같은 프레임 워크의 특정 부분이 아직 완료되지 않았으므로이 자습서의 섹션을 완료 할 수 없습니다.
-
 Create a form
 -------------
 
@@ -27,7 +22,7 @@ the slug from our title in the model. Create the new view at
 
     <h2><?= esc($title); ?></h2>
 
-    <?= validation_errors(); ?>
+    <?= \Config\Services::validation()->listErrors(); ?>
 
     <?= form_open('news/create'); ?>
 
@@ -42,8 +37,8 @@ the slug from our title in the model. Create the new view at
     </form>
 
 There are only two things here that probably look unfamiliar to you: the
-``form_open()`` function and the ``validation_errors()`` function.
-아마도 당신에게 익숙하지 않은 두 가지, 즉 form_open()기능과 validation_errors()기능 만 있습니다.
+``form_open()`` function and the ``\Config\Services::validation()->listErrors()`` function.
+아마도 당신에게 익숙하지 않은 두 가지, 즉 ``form_open()`` 기능과 ``\Config\Services::validation()->listErrors()`` 기능만 있습니다.
 
 The first function is provided by the :doc:`form
 helper <../helpers/form_helper>` and renders the form element and
@@ -65,8 +60,8 @@ validation <../libraries/validation>` library to do this.
         helper('form');
         $model = new NewsModel();
 
-        if (! $this->validate($this->request, [
-            'title' => 'required|min[3]|max[255]',
+        if (! $this->validate([
+            'title' => 'required|min_length[3]|max_length[255]',
             'text'  => 'required'
         ]))
         {
@@ -157,10 +152,10 @@ CodeIgniter 애플리케이션에 뉴스 항목을 추가하기 전에 Config / 
 
 ::
 
-    $routes->post('news/create', 'News::create');
-    $routes->add('news/(:segment)', 'News::view/$1');
+    $routes->match(['get', 'post'], 'news/create', 'News::create');
+    $routes->get('news/(:segment)', 'News::view/$1');
     $routes->get('news', 'News::index');
-    $routes->add('(:any)', 'Pages::view/$1');
+    $routes->get('(:any)', 'Pages::view/$1');
 
 Now point your browser to your local development environment where you
 installed CodeIgniter and add index.php/news/create to the URL.

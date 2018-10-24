@@ -38,8 +38,8 @@ News section
 데이터베이스를 조회하기 전에 데이터베이스 스키마를 작성해야합니다. 
 데이터베이스에 연결하고 아래의 SQL 명령을 실행하십시오 (MySQL). 
 그리고 몇 가지 시드 데이타를 추가하십시오. 지금은 테이블 생성에 필요한 쿼리를
-보여 드리 겠지만 더 유용한 데이터베이스 설정을 만들기 위해서는 :doc:`마이그레이션 <../database/migration>` 및
-:doc:`시드 <../database/seeds>` 에 대해 알아야 합니다.
+보여 드리 겠지만 더 유용한 데이터베이스 설정을 만들기 위해서는 :doc:`마이그레이션 <../dbmgmt/migration>` 및
+:doc:`시드 <../dbmgmt/seeds>` 에 대해 알아야 합니다.
 
 ::
 
@@ -181,7 +181,7 @@ Model 클래스를 사용하면 쿼리 작성기(Query Builder)로 쉽게 작업
 
 여기에서는 각 뉴스 항목이 반복되어 사용자에게 표시됩니다. HTML과 혼합된
 PHP로 템플릿을 작성한 것을 볼 수 있습니다. 템플릿 언어를 사용하고 싶다면
-CodeIgniter의 :doc:`View Parser <../general/view_parser>` 나 third party
+CodeIgniter의 :doc:`View Parser </outgoing/view_parser>` 나 third party
 파서를 사용할 수 있습니다.
 
 
@@ -234,6 +234,6 @@ URI를 ``News`` 컨트롤러 의 ``view()`` 메서드로 라우팅합니다.
 
 	$routes->get('news/(:segment)', 'News::view/$1');
 	$routes->get('news', 'News::index');
-	$routes->add('(:any)', 'Pages::view/$1');
+	$routes->get('(:any)', 'Pages::view/$1');
 
 브라우저에서 document root로 이동 한 다음 index.php news를 입력하여 뉴스를보십시오.

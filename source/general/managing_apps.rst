@@ -13,9 +13,9 @@ Renaming the Application Directory
 ==================================
 
 If you would like to rename your application directory you may do so
-as long as you open your main **index.php** file and set its name using
+as long as you open **application/Config/Paths.php** file and set its name using
 the ``$application_directory`` variable
-application 디렉토리의 이름을 바꾸고 싶다면 **index.php** 파일의 ``$application_directory`` 변수의 값을 원하는 위치로 설정하십시오.
+application 디렉토리의 이름을 바꾸고 싶다면 **application/Config/Paths.php** 파일의 ``$application_directory`` 변수의 값을 원하는 위치로 설정하십시오.
 
 ::
 

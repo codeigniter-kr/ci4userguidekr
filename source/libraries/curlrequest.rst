@@ -7,6 +7,10 @@ web sites and servers. It can be used to get the contents of a Google search, re
 or communicate with an API, among many other things.
 ``CURLRequest`` 클래스는 다른 웹 사이트 및 서버와 대화 할 수있는 CURL 기반의 간단한 HTTP 클라이언트입니다. Google 검색의 콘텐츠를 가져 오거나, 웹 페이지 또는 이미지를 검색하거나, API와 통신하는 데 사용할 수 있습니다.
 
+.. contents::
+    :local:
+    :depth: 2
+
 This class is modelled after the `Guzzle HTTP Client <http://docs.guzzlephp.org/en/latest/>`_ library since
 it is one of the more widely used libraries. Where possible, the syntax has been kept the same so that if
 your application needs something a little more powerful than what this library provides, you will have
@@ -60,10 +64,11 @@ parameter is a Response object. The fourth parameter is the optional ``$options`
 라이브러리를 통한 작업
 ************************
 
-Working with CURL requests is simply a matter of creating the Request and getting a :doc:`Response object </libraries/response>`
-back. It is meant to handle the communications. After that
-you have complete control over how the information is handled.
-CURL 요청으로 작업하는 것은 간단히 Request를 생성하고 통신을 처리하기 위하여 :doc:`Response object </libraries/response>` 를 얻는 것입니다. 이후 여러분은 정보가 처리되는 방법을 완전히 제어 할 수 있습니다.
+Working with CURL requests is simply a matter of creating the Request and getting a
+:doc:`Response object </outgoing/response>` back. It is meant to handle the communications. After that
+you have complete control over how the information is handled
+
+CURL 요청으로 작업하는 것은 Request를 작성하고 :doc:`Response object </outgoing/response>` 를 다시 가져 오는 것입니다. 통신을 처리하기위한 것입니다. 정보가 처리되는 방법을 완전히 제어 할 수 있습니다.
 
 Requests 만들기
 ===============
@@ -284,11 +289,20 @@ connect_timeout
 By default, CodeIgniter does not impose a limit for cURL to attempt to connect to a website. If you need to
 modify this value, you can do so by passing the amount of time in seconds with the ``connect_timeout`` option.
 You can pass 0 to wait indefinitely
-기본적으로 CodeIgniter는 cURL에 웹 사이트 연결 시도를 제한하지 않습니다. 이 값을 수정해야하는 경우 connect_timeout옵션을 사용하여 시간 (초)을 전달하면 됩니다. 0을 무기한 대기하도록 전달할 수 있습니다.
+기본적으로 CodeIgniter는 cURL에 웹 사이트 연결 시도를 제한하지 않습니다. 이 값을 수정해야하는 경우 connect_timeout옵션을 사용하여 시간 (초)을 전달하면 됩니다. 0을 전달하여 무기한 대기하도록 할 수 있습니다.
 
 ::
 
 	$response->request('GET', 'http://example.com', ['connect_timeout' => 0]);
+
+cookie
+======
+
+This specifies the filename that CURL should use to read cookie values from, and
+to save cookie values to. This is done using the CURL_COOKIEJAR and CURL_COOKIEFILE options.
+An example::
+
+	$response->request('GET', 'http://example.com', ['cookie' => WRITEPATH . 'CookieSaver.txt']);
 
 디버그
 ======
@@ -409,7 +423,7 @@ POST 요청을 통해 파일 및 기타 데이터를 보내야 ``multipart`` 하
 
 	$post_data = [
 		'foo'      => 'bar',
-		'userfile' => new CURLFile('/path/to/file.txt')
+		'userfile' => new \CURLFile('/path/to/file.txt')
 	];
 
 .. note:: ``multipart`` cannot be used with the ``form_params`` option. You can only use one or the other. Use

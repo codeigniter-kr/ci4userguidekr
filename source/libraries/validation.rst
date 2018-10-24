@@ -5,7 +5,9 @@ Validation
 CodeIgniter provides a comprehensive data validation class that
 helps minimize the amount of code you'll write.
 
-.. contents:: Page Contents
+.. contents::
+    :local:
+    :depth: 2
 
 ********
 Overview
@@ -50,10 +52,10 @@ Validation.
 
 In order to implement form validation you'll need three things:
 
-#. A :doc:`View <../general/views>` file containing a form.
+#. A :doc:`View </outgoing/views>` file containing a form.
 #. A View file containing a "success" message to be displayed upon
    successful submission.
-#. A :doc:`controller <../general/controllers>` method to receive and
+#. A :doc:`controller </incoming/controllers>` method to receive and
    process the submitted data.
 
 Let's create those three things, using a member sign-up form as the
@@ -193,8 +195,8 @@ The library is loaded as a service named **validation**::
 This automatically loads the ``Config\Validation`` file which contains settings
 for including multiple Rule sets, and collections of rules that can be easily reused.
 
-.. note:: You may never need to use this method, as both the :doc:`Controller </general/controllers>` and
-    the :doc:`Model </database/model>` provide methods to make validation even easier.
+.. note:: You may never need to use this method, as both the :doc:`Controller </incoming/controllers>` and
+    the :doc:`Model </models/model>` provide methods to make validation even easier.
 
 Setting Validation Rules
 ========================
@@ -395,8 +397,6 @@ custom error messages, and retrieve one or more errors to display.
 
 By default, error messages are derived from language strings in ``system/Language/en/Validation.php``, where
 each rule has an entry.
-
-**TODO: Determine how to easily add custom rule messages.**
 
 .. _validation-custom-errors:
 

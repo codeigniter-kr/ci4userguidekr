@@ -26,7 +26,8 @@ CodeIgniter 애플리케이션이 단계별로 어떻게 구성되는지 보여�
 -  :doc:`Create news items <create_news_items>`, 고급 데이터베이스 작업 및 Form 유효성 검사를 수행합니다.
 -  :doc:`Conclusion <conclusion>`, 추가 정보와 기타 리소스에 대한 몇 가지 지침을 제공합니다.
 
-CodeIgniter 프레임 워크를 살펴보십시오.
+
+CodeIgniter 프레임워크를 즐기세요.
 
 .. toctree::
 	:hidden:

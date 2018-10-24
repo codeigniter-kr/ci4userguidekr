@@ -2,6 +2,10 @@
 Helper Functions
 ################
 
+.. contents::
+    :local:
+    :depth: 2
+
 Helpers, as the name suggests, help you with tasks. Each helper file is
 simply a collection of functions in a particular category. There are **URL
 Helpers**, that assist in creating links, there are **Form Helpers** that help
@@ -18,8 +22,8 @@ CodeIgniter의 다른 대부분의 시스템과 달리 도우미는 객체 지�
 
 CodeIgniter does not load Helper Files by default, so the first step in
 using a Helper is to load it. Once loaded, it becomes globally available
-in your :doc:`controller <../general/controllers>` and
-:doc:`views <../general/views>`.
+in your :doc:`controller </incoming/controllers>` and
+:doc:`views </outgoing/views>`.
 CodeIgniter는 기본적으로 도우미 파일을로드하지 않으므로 도우미를 사용하기위한 첫 번째 단계는 코드를로드하는 것입니다. 로드되면 컨트롤러 및 뷰 에서 전역 적으로 사용할 수있게됩니다 .
 
 Helpers are typically stored in your **system/Helpers**, or
@@ -123,13 +127,13 @@ URI to the controller/method you wish to link to.
 "Extending" Helpers
 ===================
 
-TODO: Determine how these can be extended... namespaces, etc?
-TODO: 이들이 어떻게 확장 될 수 있는지 결정하십시오 ... 네임 스페이스 등?
+To "extend" Helpers, create a file in your **application/Helpers/** folder
+with an identical name to the existing Helper.
 
 To "extend" Helpers, create a file in your **application/helpers/** folder
 with an identical name to the existing Helper, but prefixed with **MY\_**
 (this item is configurable. See below.).
-헬퍼를 "확장"하려면 응용 프로그램 / 헬퍼 / 폴더에 기존 헬퍼와 동일한 이름으로 파일을 만들고 MY_가 접두사로 붙습니다 (이 항목은 구성 가능합니다. 아래 참조).
+헬퍼를 "확장"하려면 **application/helpers/** 폴더에 기존 헬퍼와 동일한 이름으로 파일을 만들고 **MY\_** 가 접두사로 붙습니다 (이 항목은 구성 가능합니다. 아래 참조).
 
 If all you need to do is add some functionality to an existing helper -
 perhaps add a function or two, or change how a particular helper
@@ -144,9 +148,9 @@ your version. In this case it's better to simply "extend" the Helper.
 	도우미 기능은 절차적이고 이산 적이며 전통적인 프로그래밍 방식으로 확장 될 수 없으므로 "확장"이라는 용어는 느슨하게 사용됩니다. 이 기능은 헬퍼가 제공하는 기능을 추가하거나 대체 할 수있는 기능을 제공합니다.
 
 For example, to extend the native **Array Helper** you'll create a file
-named **application/helpers/MY_array_helper.php**, and add or override
+named **application/Helpers/array_helper.php**, and add or override
 functions
-예를 들어 기본 **Array Helper** 를 확장하려면 **application/helpers/MY_array_helper.php** 라는 파일을 만들고 함수를 추가하거나 재정의합니다.
+예를 들어 기본 **Array Helper** 를 확장하려면 **application/Helpers/array_helper.php** 라는 파일을 만들고 함수를 추가하거나 재정의합니다.
 
 ::
 
@@ -172,6 +176,15 @@ functions
 		shuffle($array);
 		return array_pop($array);
 	}
+
+The **helper()** method will scan through all PSR-4 namespaces defined in **application/Config/Autoload.php**
+and load in ALL matching helpers of the same name. This allows any module's helpers
+to be loaded, as well as any helpers you've created specifically for this application. The load order
+is as follows:
+
+1. application/Helpers - Files loaded here are always loaded first.
+2. {namespace}/Helpers - All namespaces are looped through in the order they are defined.
+3. system/Helpers - The base file is loaded last
 
 Now What?
 =========

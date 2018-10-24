@@ -14,22 +14,22 @@ how to work with the requests and responses within CodeIgniter.
 What is HTTP?
 =============
 
-HTTP is simply a text-based language that allows two machines to talk to each other. When a browser
+HTTP is simply a text-based convention that allows two machines to talk to each other. When a browser
 requests a page, it asks the server if it can get the page. The server then prepares the page and sends
 response back to the browser that asked for it. That's pretty much it. Obviously, there are some complexities
 that you can use, but the basics are really pretty simple.
-HTTP는 두 기계가 서로 대화 할 수있게하는 텍스트 기반 언어입니다. 브라우저가 페이지를 요청하면 페이지를 가져올 수 있는지 서버에 확인합니다. 그런 다음 서버는 페이지를 준비하고 요청한 브라우저에 응답을 보냅니다. 그것은 거의 그것입니다. 분명히, 당신이 사용할 수있는 몇 가지 복잡한 점이 있지만 기본은 매우 간단합니다.
+HTTP는 두 대의 컴퓨터가 서로 이야기 할 수있게 해주는 텍스트 기반 규칙입니다. 브라우저가 페이지를 요청하면 페이지를 가져올 수 있는지 서버에 확인합니다. 그런 다음 서버는 페이지를 준비하고 요청한 브라우저에 응답을 보냅니다. 그것은 거의 그것입니다. 분명히, 당신이 사용할 수있는 몇 가지 복잡한 점이 있지만 기본은 매우 간단합니다.
 
-HTTP is the term used to describe that language. It stands for HyperText Transfer Protocol. Your goal when
+HTTP is the term used to describe that exchange convention. It stands for HyperText Transfer Protocol. Your goal when
 you develop web applications is to always understand what the browser is requesting, and be able to
 respond appropriately.
-HTTP는 해당 언어를 설명하는 데 사용되는 용어입니다. HyperText Transfer Protocol의 약자입니다. 웹 응용 프로그램을 개발할 때 브라우저가 무엇을 요구하는지 항상 이해하고 적절하게 응답 할 수 있어야합니다.
+HTTP는 교환 규정을 설명하는 데 사용되는 용어입니다. HyperText Transfer Protocol의 약자입니다. 웹 응용 프로그램을 개발할 때 브라우저가 무엇을 요구하는지 항상 이해하고 적절하게 응답 할 수 있어야합니다.
 
 The Request
 -----------
-Whenever a client makes a request (a web browser, smartphone app, etc), it is sending a small text message
+Whenever a client (a web browser, smartphone app, etc) makes a request, it sends a small text message
 to the server and waits for a response.
-클라이언트가 요청할 때마다 (웹 브라우저, 스마트 폰 앱 등) 서버에 작은 문자 메시지를 보내고 응답을 기다립니다.
+클라이언트(웹 브라우저, 스마트 폰 앱 등)가 요청할 때마다 서버에 작은 문자 메시지를 보내고 응답을 기다립니다.
 
 The request would look something like this
 요청은 다음과 같습니다.
@@ -81,7 +81,7 @@ Working with Requests and Responses
 -----------------------------------
 
 While PHP provides ways to interact with the request and response headers, CodeIgniter, like most frameworks,
-abstract them so that you have a consistent, simple interface to them. The :doc:`IncomingRequest class </libraries/incomingrequest>`
+abstracts them so that you have a consistent, simple interface to them. The :doc:`IncomingRequest class </incoming/incomingrequest>`
 is an object-oriented representation of the HTTP request. It provides everything you need
 PHP는 요청 및 응답 헤더와 상호 작용할 수있는 방법을 제공하지만 CodeIgniter는 대부분의 프레임 워크와 마찬가지로 일관성 있고 간단한 인터페이스를 제공하도록 추상화합니다. IncomingRequest 클래스는 HTTP 요청의 객체 지향의 표현이다. 필요한 모든 것을 제공합니다.
 
@@ -113,11 +113,11 @@ PHP는 요청 및 응답 헤더와 상호 작용할 수있는 방법을 제공�
 
 The request class does a lot of work in the background for you, that you never need to worry about.
 The ``isAJAX()`` and ``isSecure()`` methods check several different methods to determine the correct answer.
-요청 클래스는 백그라운드에서 당신을 걱정할 필요가없는 많은 작업을합니다. isAJAX()및 isSecure()방법은 정답을 결정하기 위해 여러 가지 방법을 확인하십시오.
+요청 클래스는 백그라운드에서 당신을 걱정할 필요가없는 많은 작업을합니다. ``isAJAX()`` 및 ``isSecure()`` 정답을 결정하기 위해 여러 가지 방법을 확인하십시오.
 
-CodeIgniter also provides a :doc:`Response class </libraries/response>` that is an object-oriented representation
+CodeIgniter also provides a :doc:`Response class </outgoing/response>` that is an object-oriented representation
 of the HTTP response. This gives you an easy and powerful way to construct your response to the client
-또한 CodeIgniter는 HTTP 응답의 객체 지향 표현 인 Response 클래스 를 제공합니다 . 이렇게하면 클라이언트에 대한 응답을 구성 할 수있는 쉽고 강력한 방법이 제공됩니다.
+또한 CodeIgniter는 HTTP 응답의 객체지향 표현인 :doc:`Response class </outgoing/response>` 를 제공합니다 . 이렇게하면 클라이언트에 대한 응답을 구성 할 수있는 쉽고 강력한 방법이 제공됩니다.
 
 ::
 

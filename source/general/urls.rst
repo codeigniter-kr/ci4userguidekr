@@ -28,9 +28,9 @@ URL의 세그먼트는 Model-View-Controller 방식을 사용하여 다음과 �
    세 번째 세그먼트와 추가 세그먼트는 컨트롤러에 전달 될 ID와 변수를 나타냅니다.
 
 The :doc:`URI Library <../libraries/uri>` and the :doc:`URL Helper <../helpers/url_helper>` contain functions that make it easy
-to work with your URI data. In addition, your URLs can be remapped using the :doc:`URI Routing <routing>`
+to work with your URI data. In addition, your URLs can be remapped using the :doc:`URI Routing </incoming/routing>`
 feature for more flexibility.
-URI 도서관 과 URL 도우미는 쉽게 당신의 URI의 데이터로 작업 할 수 있도록 기능이 포함되어 있습니다. 또한 URL 라우팅 기능을 사용하여 보다 유연하게 URL을 다시 매핑 할 수 있습니다 .
+:doc:`URI Library <../libraries/uri>` 와 :doc:`URL Helper <../helpers/url_helper>`는 쉽게 당신의 URI의 데이터로 작업 할 수 있도록 기능이 포함되어 있습니다. 또한 :doc:`URI Routing </incoming/routing>` 을 사용하여 보다 유연하게 URL을 다시 매핑 할 수 있습니다 .
 
 index.php 파일 제거하기
 ===========================

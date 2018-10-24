@@ -9,6 +9,10 @@ there is no single class that you need to use to access your settings. Instead, 
 create an instance of the class and all your settings are there for you.
 모든 응용 프로그램에는 응용 프로그램에 영향을주는 다양한 설정을 정의하는 방법이 필요합니다. 이들은 구성 파일을 통해 처리됩니다. 구성 파일은 설정을 공용 속성으로 포함하는 클래스를 보유하기 만하면됩니다. 다른 많은 프레임 워크와 달리, 설정에 액세스하는 데 사용해야하는 단일 클래스가 없습니다. 대신 클래스의 인스턴스를 만들면 모든 설정이 그대로 유지됩니다.
 
+.. contents::
+    :local:
+    :depth: 2
+
 Accessing Config Files
 ======================
 
@@ -79,8 +83,8 @@ database settings, API credentials, and other settings that will vary between de
 사이트는 개발자의 로컬 컴퓨터 또는 프로덕션 사이트에 사용되는 서버와 같은 여러 환경에서 작동 할 수 있으므로 환경에 따라 값을 수정할 수 있습니다. 여기에는 실행중인 서버에 따라 변경 될 수있는 설정이 있습니다. 여기에는 데이터베이스 설정, API 자격 증명 및 배포 사이에 달라질 기타 설정이 포함될 수 있습니다.
 
 You can store values in a **.env** file in the root directory, alongside the system and application directories.
-It is simply a collection of name/value pairs separated by an equal sign, much like a .ini file
-.env 파일의 값을 시스템 디렉토리와 응용 프로그램 디렉토리와 함께 루트 디렉토리에 저장할 수 있습니다 . 이것은 단순히 .ini 파일과 마찬가지로 등호로 구분 된 이름 / 값 쌍의 모음입니다.
+It is simply a collection of name/value pairs separated by an equal sign, much like a ".ini" file
+.env 파일의 값을 시스템 디렉토리와 응용 프로그램 디렉토리와 함께 루트 디렉토리에 저장할 수 있습니다 . 이것은 단순히 ".ini" 파일과 마찬가지로 등호로 구분 된 이름/값 쌍의 모음입니다.
 
 ::
 
@@ -127,7 +131,7 @@ variable name within ``${...}``
 Namespaced Variables
 ====================
 
-There will be times when you will have several variables of the same name. When this happens, the
+There will be times when you will have several variables with the same name. When this happens, the
 system has no way of knowing what the correct value should be. You can protect against this by
 "namespacing" the variables.
 같은 이름의 여러 변수가있을 때가있을 것입니다. 이 경우 시스템은 올바른 값을 알아야합니다. 변수에 "네임 스페이스"를 지정하여이를 막을 수 있습니다.

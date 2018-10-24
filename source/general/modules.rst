@@ -2,13 +2,15 @@
 코드 모듈
 ############
 
-CodeIgniter supports a very simple form of modularization to help you create reusable code. Modules are typically
+CodeIgniter supports a form of code modularization to help you create reusable code. Modules are typically
 centered around a specific subject, and can be thought of as mini-applications within your larger application. Any
 of the standard file types within the framework are supported, like controllers, models, views, config files, helpers,
 language files, etc. Modules may contain as few, or as many, of these as you like.
 CodeIgniter는 재사용 가능한 코드를 생성하는 데 도움이되는 매우 간단한 모듈화 형식을 지원합니다. 모듈은 일반적으로 특정 주제를 중심으로하며 더 큰 응용 프로그램 내에서 미니 응용 프로그램으로 생각할 수 있습니다. 컨트롤러, 모델, 뷰, 구성 파일, 헬퍼, 언어 파일 등과 같이 프레임 워크 내의 표준 파일 형식이 모두 지원됩니다. 모듈은 원하는만큼 또는 그 중 일부만 포함 할 수 있습니다.
 
-.. contents:: Page Contents
+.. contents::
+    :local:
+    :depth: 2
 
 ==========
 Namespaces
@@ -72,6 +74,42 @@ best suits your module, leaving out directories you don't need, creating new dir
 or Repositories, etc.
 물론,이 정확한 구조를 사용하도록 강요하는 것은 없으며 필요하지 않은 디렉토리를 제외하고 모듈에 가장 적합한 방식으로 구성하고 엔티티, 인터페이스 또는 저장소에 대한 새로운 디렉토리를 작성해야합니다.
 
+==============
+Auto-Discovery
+==============
+
+Many times, you will need to specify the full namespace to files you want to include, but CodeIgniter can be
+configured to make integrating modules into your applications simpler by automatically discovering many different
+file types, including:
+
+- :doc:`Events </extending/events>`
+- :ref:`registrars`
+- :doc:`Route files </incoming/routing>`
+- :doc:`Services </concepts/services>`
+
+This is configured in the file **application/Config/Modules.php**.
+
+The auto-discovery system works by scanning any psr4 namespaces that have been defined within **Config/Autoload.php**
+for familiar directories/files.
+
+When at the **acme** namespace above, we would need to make one small adjustment to make it so the files could be found:
+each "module" within the namespace would have to have it's own namespace defined there. **Acme** would be changed
+to **Acme\Blog**. Once  your module folder has been defined, the discover process would look for a Routes file, for example,
+at **/acme/Blog/Config/Routes.php**, just as if it was another application.
+
+Enable/Disable Discover
+=======================
+
+You can turn on or off all auto-discovery in the system with the **$enabled** class variable. False will disable
+all discovery, optimizing performance, but negating the special capabilities of your modules.
+
+Specify Discovery Items
+=======================
+
+With the **$activeExplorers** option, you can specify which items are automatically discovered. If the item is not
+present, then no auto-discovery will happen for that item, but the others in the array will still be discovered.
+
+
 ==================
 Working With Files
 ==================
@@ -84,20 +122,8 @@ guide, but is being reproduced here so that it's easier to grasp how all of the 
 Routes
 ======
 
-By default, :doc:`routes </general/routing>` are not automatically scanned for within modules. This is to boost
-performance when modules are not in use. However, it's a simple thing to scan for any Routes file within modules.
-Simply change the ``discoverLocal`` setting to true in **/application/Config/Routes.php**
-기본적으로 :doc:`routes </general/routing>` 는 모듈 내에서 자동으로 검색되지 않습니다. 이것은 모듈을 사용하지 않을 때 성능을 향상시키는 것입니다. 그러나 모듈 내의 모든 Routes 파일을 검색하는 것은 간단합니다. **/application/Config/Routes.php** ``discoverLocal`` 에서 설정을 true로 변경하기 만하면됩니다 .
-
-::
-
-    $routes->discoverLocal(true);
-
-This will scan all PSR4 namespaced directories specified in **/application/Config/Autoload.php**. It will look for
-**{namespace}/Config/Routes.php** files and load them if they exist. This way, each module can contain its own
-Routes file that is kept with it whenever you add it to new projects. For our blog example, it would look for
-**/acme/Blog/Config/Routes.php**.
-이것은 **/application/Config/Autoload.php** 에 지정된 모든 PSR4 네임 스페이스 디렉토리를 검사합니다 . 그것은 찾을 것이다 **{namespace}/Config/Routes.php** 의 파일과 해당 파일이 존재하는 경우를로드합니다. 이렇게하면 각 모듈에는 새 프로젝트에 추가 할 때마다 유지되는 자체 Routes 파일을 포함 할 수 있습니다. 블로그 예제에서 **/acme/Blog/Config/Routes.php** 를 찾습니다 .
+By default, :doc:`routes </incoming/routing>` are automatically scanned for within modules. If can be turned off in
+the **Modules** config file, described above.
 
 .. note:: Since the files are being included into the current scope, the ``$routes`` instance is already defined for you.
     It will cause errors if you attempt to redefine that class.
@@ -106,8 +132,8 @@ Routes file that is kept with it whenever you add it to new projects. For our bl
 Controllers
 ===========
 
-Controllers cannot be automatically routed by URI detection, but must be specified within the Routes file itself
-컨트롤러는 URI 감지로 자동 라우팅 될 수 없지만 라우트 파일 자체 내에 지정되어야합니다.
+Controllers outside of the main **application/Controllers** directory cannot be automatically routed by URI detection,
+but must be specified within the Routes file itself
 
 ::
 
@@ -135,6 +161,8 @@ with the ``new`` command
 
     $config = new \Acme\Blog\Config\Blog();
 
+Config files are automatically discovered whenever using the **config()** function that is always available    
+
 Migrations
 ==========
 
@@ -145,7 +173,7 @@ namespaces will be run every time.
 Seeds
 =====
 
-Seeds files can be used from both the CLI and called from within other seed files as long as the full namespace
+Seed files can be used from both the CLI and called from within other seed files as long as the full namespace
 is provided. If calling on the CLI, you will need to provide double backslashes
 seed 파일은 CLI에서 모두 사용할 수 있으며 전체 네임 스페이스가 제공되는 한 다른 시드 파일 내에서 호출 될 수 있습니다. CLI에서 호출할 때는 이중 백 슬래시(\\)를 사용해야 합니다.
 ::
@@ -193,8 +221,8 @@ Models are always instantiated by their fully-qualified class name, so no specia
 Views
 =====
 
-Views can be loaded using the class namespace as described in the :doc:`views </general/views>` documentation
-뷰는 :doc:`views </general/views>` 문서에 설명 된대로 클래스 네임 스페이스를 사용하여 로드 할 수있습니다
+Views can be loaded using the class namespace as described in the :doc:`views </outgoing/views>` documentation
+뷰는 :doc:`views </outgoing/views>` 문서에 설명 된대로 클래스 네임 스페이스를 사용하여 로드 할 수있습니다
 
 ::
 

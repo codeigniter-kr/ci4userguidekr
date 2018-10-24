@@ -7,8 +7,9 @@ and provides some additional convenience methods. This class is the base class f
 and :doc:`images </libraries/images>`.
 CodeIgniter는 `SplFileInfo <http://php.net/manual/en/class.splfileinfo.php>`_ 클래스를 래핑하는 File 클래스를 제공하며 몇 가지 추가적인 편리한 메소드를 제공합니다. 이 클래스는 :doc:`uploaded files </libraries/uploaded_files>` 및 :doc:`images </libraries/images>` 의 기본 클래스입니다 .
 
-.. contents:: Page Contents
+.. contents::
     :local:
+    :depth: 2
 
 파일 인스턴스 가져 오기
 =======================

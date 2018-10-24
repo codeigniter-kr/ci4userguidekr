@@ -4,6 +4,9 @@
 
 CodeIgniter4는 Composer를 이용하거나 수동으로 설치할 수 있습니다.
 
+.. note:: Before using CodeIgniter, make sure that your server meets the
+          :doc:`requirements </intro/requirements>`.
+
 수동 설치
 ===================
 
@@ -47,6 +50,9 @@ ex> ``/www/MyUser/system``.
 이를 수행 할 수 있습니다. 자세한 내용은 환경 페이지 에서 자세히 설명 합니다.
 기본적으로 응용 프로그램은 "production"환경을 사용하여 실행됩니다. 제공된 
 디버깅 도구를 이용하려면 "develop"환경을 설정해야합니다.
+
+.. caution:: Using PHP's built-in web server is likely to cause problems,
+	as it does not process the ``.htaccess`` file used to properly handle requests.
 
 That's it!
 

@@ -8,8 +8,9 @@ server requirements, and a Fatal Exception will be thrown if server
 requirements are not met.
 CodeIgniter는 가장 널리 사용되는 빠르고 동적인 캐싱에 대한 래퍼를 제공합니다. 파일 기반 캐싱을 제외하고는 모두 특정 서버 요구 사항이 필요하며 서버 요구 사항이 충족되지 않으면 치명적인 예외가 발생합니다.
 
-.. contents:: Page Contents
-	:local:
+.. contents::
+    :local:
+    :depth: 2
 
 *************
 사용 예
