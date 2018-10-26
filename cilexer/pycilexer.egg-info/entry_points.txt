@@ -1,3 +1,0 @@
-
-[pygments.lexers]
-cilexer = cilexer.cilexer:CodeIgniterLexer
