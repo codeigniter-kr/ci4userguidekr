@@ -2,18 +2,100 @@
 Change Log
 ##########
 
-Version |release|
+Version |version|
+====================================================
+
+Release Date: Not Released
+
+**Next alpha release of CodeIgniter4**
+
+The list of changed files follows, with PR numbers shown.
+
+- application /
+	- Config/Mimes #1368
+	- Filters/Honeypot #1376
+
+- public /
+
+- system /
+	- Commands/
+		- Database/CreateMigration #1374
+		- Sessions/CrateMigration #1357
+	- Database/
+		- Forge #1343
+		- MigrationRunner #1371
+		- MySQLi/Forge #1343, #1344
+	- Debug
+		- Toolbar #1370
+	- HTTP/
+		- DownloadResponse #1375
+		- ResponseInterface #1384
+		- UploadedFile #1368
+		- URI #1213
+	- Language/en/
+		- Filters #1378
+		- Migrations #1374
+	- Pager/
+		- Pager #1213
+		- PagerRenderer #1213
+	- Validation /
+		- Rules #1345
+		- Validation #1345
+	- View/
+		- View #1357, #1377
+	- Entity #1369
+	- Model #1345, #1380
+
+- tests /
+	- HTTP/
+		- DownloadResponseTest #1375
+		- ResponseTest #1375
+	- Pager/
+		- PagerRendererTest #1213
+
+
+- user_guide_src /source/
+	- dbmgmt/
+		- migration #1374
+	- libraries/
+		- pagination #1213
+
+- /
+
+PRs merged:
+-----------
+
+- #1384 add missing ResponseInterface contants
+- #1381 Remove unused use statements
+- #1380 count() improvement, use truthy check
+- #1378 Update Filters language file
+- #1377 fix monolog will cause an error
+- #1376 Fix cannot use class Honeypot because already in use in App\Filters\Honeypot
+- #1375 Give download a header conforming to RFC 6266
+- #1374 Missing feature migration.
+- #1371 update method name in coding style
+- #1370 Toolbar needs logging. Fixes #1258
+- #1369 Remove invisible character
+- #1368 UploadedFile->guessExtenstion()...
+- #1360 rm --cached php_errors.log file
+- #1357 Update template file is not .php compatibility
+- #1345 is_unique tried to connect to default database instead of defined in DBGroup
+- #1344 Not to quote unecessary table options
+- #1343 Avoid add two single quote to constraint
+- #1213 URI segment as page number in Pagination
+
+Version 4.0.0-alpha.2
 =================================
 
-Release Date: Not released
+Release Date: Oct 26, 2018
 
 **Second alpha release of CodeIgniter4**
 
 The list of changed files follows, with PR numbers shown.
-If you open this page on the repo github site, they will link
-to the PRs in question.
 
 application /
+    - composer.json #1312
+    - Config/Boot/development, production, testing #1312
     - Config/Paths #1341
     - Config/Routes #1281
     - Filters/Honeypot #1314
@@ -69,6 +151,7 @@ system /
     - Router/
         - RouteCollection #1285, #1355
     - Test/
+        - CIUnitTestCase #1312, #1361
         - FeatureTestCase #1282
     - CodeIgniter #1239 #1337
     - Common #1291
@@ -103,6 +186,9 @@ tests /
         - TimeTest #1273, #1316
     - Router/
         - RouteTest #1285, #1355
+    - Test/
+        - TestCaseEmissionsTest #1312
+        - TestCaseTest #1312
     - View/
         - ParserTest #1311
     - EntityTest #1319
@@ -138,6 +224,8 @@ user_guide_src /source/
         - entities #1283
     - outgoing/
         - response #1340
+    - testing/
+        - overview #1312
     - tutorial... #1265, #1281, #1294
 
 /
@@ -146,6 +234,8 @@ user_guide_src /source/
 PRs merged:
 -----------
 
+- #1361 Add timing assertion to CIUnitTestCase
+- #1312 Add headerEmitted assertions to CIUnitTestCase
 - #1356 Testing/commands
 - #1355 Handle duplicate HTTP verb and generic rules properly
 - #1350 Checks if class is instantiable and is a command

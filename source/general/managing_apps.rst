@@ -14,12 +14,12 @@ Renaming the Application Directory
 
 If you would like to rename your application directory you may do so
 as long as you open **application/Config/Paths.php** file and set its name using
-the ``$application_directory`` variable
-application 디렉토리의 이름을 바꾸고 싶다면 **application/Config/Paths.php** 파일의 ``$application_directory`` 변수의 값을 원하는 위치로 설정하십시오.
+the ``$applicationDirectory`` variable
+application 디렉토리의 이름을 바꾸고 싶다면 **application/Config/Paths.php** 파일의 ``$applicationDirectory`` 변수의 값을 원하는 위치로 설정하십시오.
 
 ::
 
-	$application_directory = 'application';
+	$applicationDirectory = 'application';
 
 Application Directory 재배치
 =====================================
@@ -27,12 +27,12 @@ Application Directory 재배치
 It is possible to move your application directory to a different
 location on your server than your web root. To do so open
 your main **index.php** and set a *full server path* in the
-``$application_directory`` variable
+``$applicationDirectory`` variable
 application 디렉토리를 웹 루트가 아닌 서버의 다른 위치로 이동할 수 있습니다. 이렇게하려면 기본 **index.php** 를 열고 ``$application_directory`` 변수에 서버의 전체경로를 설정하십시오.
 
 ::
 
-	$application_directory = '/path/to/your/application';
+	$applicationDirectory = '/path/to/your/application';
 
 하나의 CodeIgniter 설치로 여러 어플리케이션 실행하기
 ===============================================================

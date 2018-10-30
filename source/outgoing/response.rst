@@ -2,7 +2,7 @@
 HTTP Responses
 ==============
 
-The Response class extends the :doc:`HTTP Message Class </libraries/message>` with methods only appropriate for
+The Response class extends the :doc:`HTTP Message Class </incoming/message>` with methods only appropriate for
 a server responding to the client that called it.
 
 .. contents::
@@ -92,13 +92,16 @@ Example::
 
 	$data = 'Here is some text!';
 	$name = 'mytext.txt';
-	$response->download($name, $data);
+	return $response->download($name, $data);
 
 If you want to download an existing file from your server you'll need to
 do the following::
 
 	// Contents of photo.jpg will be automatically read
-	$response->download('/path/to/photo.jpg', NULL);
+	return $response->download('/path/to/photo.jpg', NULL);
+
+.. note:: The response object MUST be returned for the download to be sent to the client. This allows the response
+    to be passed through all **after** filters before being sent to the client.
 
 HTTP Caching
 ============
@@ -216,7 +219,7 @@ Class Reference
 ***************
 
 .. note:: In addition to the methods listed here, this class inherits the methods from the
-	:doc:`Message Class </libraries/message>`.
+	:doc:`Message Class </incoming/message>`.
 
 The methods provided by the parent class that are available are:
 
