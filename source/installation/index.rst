@@ -21,6 +21,9 @@ required를 사용하지 않고 `composer <https://getcomposer.org>`_ create-pro
 
     composer create-project codeigniter4/framework
 
+.. note:: When installing via composer, a pre-commit hook is installed for this repo that automatically runs
+     PHP Code Sniffer and fixes any fixable issues on commit
+
 Running
 =======
 
