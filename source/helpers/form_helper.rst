@@ -3,7 +3,7 @@ Form Helper
 ###########
 
 The Form Helper file contains functions that assist in working with
-forms. 양식 helper 파일에는 양식 작업에 도움이되는 함수가 들어 있습니다.
+forms.
 
 .. contents::
   :local:
@@ -15,10 +15,7 @@ forms. 양식 helper 파일에는 양식 작업에 도움이되는 함수가 들
 Loading this Helper
 ===================
 
-This helper is loaded using the following code
-이 helper는 다음 코드를 사용하여 로드됩니다
-
-::
+This helper is loaded using the following code::
 
 	helper('form');
 
@@ -28,9 +25,6 @@ Escaping field values
 You may need to use HTML and characters such as quotes within your form
 elements. In order to do that safely, you'll need to use
 :doc:`common function <../general/common_functions>`
-:func:`esc()`.
-양식 요소 내에 따옴표와 같은 HTML 및 문자를 사용해야 할 수도 있습니다.
-이를 안전하게 수행하려면 :doc:`common function <../general/common_functions>` 을 사용해야 합니다
 :func:`esc()`.
 
 Consider the following example::
@@ -55,9 +49,8 @@ Available Functions
 ===================
 
 The following functions are available:
-다음 기능을 사용할 수 있습니다.
 
-.. php:function:: form_open([$action = ''[, $attributes = ''[, $hidden = array()]]])
+.. php:function:: form_open([$action = ''[, $attributes = ''[, $hidden = []]]])
 
 	:param	string	$action: Form action/target URI string
     	:param	mixed	$attributes: HTML attributes, as an array or escaped string
@@ -67,7 +60,7 @@ The following functions are available:
 
     	Creates an opening form tag with a base URL **built from your config preferences**.
 	It will optionally let you add form attributes and hidden input fields, and
-	will always add the ``accept-charset`` attribute based on the charset value in your
+	will always add the `accept-charset` attribute based on the charset value in your
 	config file.
 
 	The main benefit of using this tag rather than hard coding your own HTML is that
@@ -87,7 +80,7 @@ The following functions are available:
 		Attributes can be added by passing an associative array to the second
 		parameter, like this::
 
-			$attributes = array('class' => 'email', 'id' => 'myform');
+			$attributes = ['class' => 'email', 'id' => 'myform'];
 			echo form_open('email/send', $attributes);
 
 		Alternatively, you can specify the second parameter as a string::
@@ -103,7 +96,7 @@ The following functions are available:
 		Hidden fields can be added by passing an associative array to the
 		third parameter, like this::
 
-			$hidden = array('username' => 'Joe', 'member_id' => '234');
+			$hidden = ['username' => 'Joe', 'member_id' => '234'];
 			echo form_open('email/send', '', $hidden);
 
 		You can skip the second parameter by passing any false value to it.
@@ -114,7 +107,7 @@ The following functions are available:
 				<input type="hidden" name="username" value="Joe" />
 				<input type="hidden" name="member_id" value="234" />
 
-.. php:function:: form_open_multipart([$action = ''[, $attributes = ''[, $hidden = array()]]])
+.. php:function:: form_open_multipart([$action = ''[, $attributes = ''[, $hidden = []]]])
 
 	:param	string	$action: Form action/target URI string
     	:param	mixed	$attributes: HTML attributes, as an array or escaped string
@@ -141,11 +134,11 @@ The following functions are available:
 
 	... or you can submit an associative array to create multiple fields::
 
-		$data = array(
+		$data = [
 			'name'	=> 'John Doe',
 			'email'	=> 'john@example.com',
 			'url'	=> 'http://example.com'
-		);
+		];
 
 		echo form_hidden($data);
 
@@ -158,11 +151,11 @@ The following functions are available:
 
 	You can also pass an associative array to the value field::
 
-		$data = array(
+		$data = [
 			'name'	=> 'John Doe',
 			'email'	=> 'john@example.com',
 			'url'	=> 'http://example.com'
-		);
+		];
 
 		echo form_hidden('my_array', $data);
 
@@ -176,13 +169,13 @@ The following functions are available:
 
 	If you want to create hidden input fields with extra attributes::
 
-		$data = array(
+		$data = [
 			'type'	=> 'hidden',
 			'name'	=> 'email',
 			'id'	=> 'hiddenemail',
 			'value'	=> 'john@example.com',
 			'class'	=> 'hiddenemail'
-		);
+		];
 
 		echo form_input($data);
 
@@ -209,14 +202,14 @@ The following functions are available:
 	Or you can pass an associative array containing any data you wish your
 	form to contain::
 
-		$data = array(
+		$data = [
 			'name'      => 'username',
 			'id'        => 'username',
 			'value'     => 'johndoe',
 			'maxlength' => '100',
 			'size'      => '50',
 			'style'     => 'width:50%'
-		);
+		];
 
 		echo form_input($data);
 
@@ -234,7 +227,7 @@ The following functions are available:
 
 	Or you can pass it as an array::
 
-		$js = array('onClick' => 'some_function();');
+		$js = ['onClick' => 'some_function();'];
 		echo form_input('username', 'johndoe', $js);
 
 	To support the expanded range of HTML5 input fields, you can pass an input type in as the fourth parameter::
@@ -284,7 +277,7 @@ The following functions are available:
 	.. note:: Instead of the *maxlength* and *size* attributes in the above example,
 		you will instead specify *rows* and *cols*.
 
-.. php:function:: form_dropdown([$name = ''[, $options = array()[, $selected = array()[, $extra = '']]]])
+.. php:function:: form_dropdown([$name = ''[, $options = [][, $selected = [][, $extra = '']]]])
 
 	:param	string	$name: Field name
 	:param	array	$options: An associative array of options to be listed
@@ -302,14 +295,14 @@ The following functions are available:
 
     	Example::
 
-		$options = array(
+		$options = [
 			'small'  => 'Small Shirt',
 			'med'    => 'Medium Shirt',
 			'large'  => 'Large Shirt',
 			'xlarge' => 'Extra Large Shirt',
-		);
+		];
 
-		$shirts_on_sale = array('small', 'large');
+		$shirts_on_sale = ['small', 'large'];
 		echo form_dropdown('shirts', $options, 'large');
 
 		/*
@@ -345,17 +338,17 @@ The following functions are available:
 
 	Or you can pass it as an array::
 
-		$js = array(
+		$js = [
 			'id'       => 'shirts',
 			'onChange' => 'some_function();'
-		);
+		];
 		echo form_dropdown('shirts', $options, 'large', $js);
 
 	If the array passed as ``$options`` is a multidimensional array, then
 	``form_dropdown()`` will produce an <optgroup> with the array key as the
 	label.
 
-.. php:function:: form_multiselect([$name = ''[, $options = array()[, $selected = array()[, $extra = '']]]])
+.. php:function:: form_multiselect([$name = ''[, $options = [][, $selected = [][, $extra = '']]]])
 
 	:param	string	$name: Field name
     	:param	array	$options: An associative array of options to be listed
@@ -373,7 +366,7 @@ The following functions are available:
 	except of course that the name of the field will need to use POST array
 	syntax, e.g. foo[].
 
-.. php:function:: form_fieldset([$legend_text = ''[, $attributes = array()]])
+.. php:function:: form_fieldset([$legend_text = ''[, $attributes = []]])
 
 	:param	string	$legend_text: Text to put in the <legend> tag
     	:param	array	$attributes: Attributes to be set on the <fieldset> tag
@@ -400,10 +393,10 @@ The following functions are available:
 	Similar to other functions, you can submit an associative array in the
 	second parameter if you prefer to set additional attributes::
 
-		$attributes = array(
+		$attributes = [
 			'id'	=> 'address_info',
 			'class'	=> 'address_info'
-		);
+		];
 
 		echo form_fieldset('Address Information', $attributes);
 		echo "<p>fieldset content here</p>\n";
@@ -454,13 +447,13 @@ The following functions are available:
 	Similar to the other form functions in this helper, you can also pass an
 	array of attributes to the function::
 
-		$data = array(
+		$data = [
 			'name'    => 'newsletter',
 			'id'      => 'newsletter',
 			'value'   => 'accept',
 			'checked' => TRUE,
 			'style'   => 'margin:10px'
-		);
+		];
 
 		echo form_checkbox($data);
 		// Would produce: <input type="checkbox" name="newsletter" id="newsletter" value="accept" checked="checked" style="margin:10px" />
@@ -474,7 +467,7 @@ The following functions are available:
 
 	Or you can pass it as an array::
 
-		$js = array('onClick' => 'some_function();');
+		$js = ['onClick' => 'some_function();'];
 		echo form_checkbox('newsletter', 'accept', TRUE, $js);
 
 .. php:function:: form_radio([$data = ''[, $value = ''[, $checked = FALSE[, $extra = '']]]])
@@ -489,7 +482,7 @@ The following functions are available:
     	This function is identical in all respects to the :php:func:`form_checkbox()`
 	function above except that it uses the "radio" input type.
 
-.. php:function:: form_label([$label_text = ''[, $id = ''[, $attributes = array()]]])
+.. php:function:: form_label([$label_text = ''[, $id = ''[, $attributes = []]]])
 
 	:param	string	$label_text: Text to put in the <label> tag
     	:param	string	$id: ID of the form element that we're making a label for
@@ -507,10 +500,10 @@ The following functions are available:
 
 	Example::
 
-		$attributes = array(
+		$attributes = [
 			'class' => 'mycustomclass',
 			'style' => 'color: #000;'
-		);
+		];
 
 		echo form_label('What is your Name', 'username', $attributes);
 		// Would produce:  <label for="username" class="mycustomclass" style="color: #000;">What is your Name</label>
@@ -560,13 +553,13 @@ The following functions are available:
 	Or you can pass an associative array containing any data you wish your
 	form to contain::
 
-		$data = array(
+		$data = [
 			'name'    => 'button',
 			'id'      => 'button',
 			'value'   => 'true',
 			'type'    => 'reset',
 			'content' => 'Reset'
-		);
+		];
 
 		echo form_button($data);
 		// Would produce: <button name="button" id="button" value="true" type="reset">Reset</button>

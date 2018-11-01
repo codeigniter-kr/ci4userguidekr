@@ -448,7 +448,7 @@ Class Reference
 		.. note:: Content-ID for each e-mail must be re-created for it to be unique.
 		각 전자 메일의 Content-ID는 고유하게하기 위해 다시 만들어야합니다.
 
-	.. php:method:: printDebugger($include = array('headers', 'subject', 'body'))
+	.. php:method:: printDebugger($include = ['headers', 'subject', 'body'])
 
 		:param	array	$include: Which parts of the message to print out
 		:returns:	Formatted debug data

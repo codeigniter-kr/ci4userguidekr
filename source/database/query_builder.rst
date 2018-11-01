@@ -81,7 +81,7 @@ Example::
 	// Prints string: SELECT * FROM mytable
 
 The first parameter enables you to set whether or not the query builder query
-will be reset (by default it will be reset, just like when using ``$builder->get()``)::
+will be reset (by default it will be reset, just like when using `$builder->get()`)::
 
 	echo $builder->limit(10,20)->getCompiledSelect(false);
 
@@ -296,7 +296,7 @@ appropriate
 
 ::
 
-	$names = array('Frank', 'Todd', 'James');
+	$names = ['Frank', 'Todd', 'James'];
 	$builder->whereIn('username', $names);
 	// Produces: WHERE username IN ('Frank', 'Todd', 'James')
 
@@ -307,7 +307,7 @@ appropriate
 
 ::
 
-	$names = array('Frank', 'Todd', 'James');
+	$names = ['Frank', 'Todd', 'James'];
 	$builder->orWhereIn('username', $names);
 	// Produces: OR username IN ('Frank', 'Todd', 'James')
 
@@ -318,7 +318,7 @@ AND if appropriate
 
 ::
 
-	$names = array('Frank', 'Todd', 'James');
+	$names = ['Frank', 'Todd', 'James'];
 	$builder->whereNotIn('username', $names);
 	// Produces: WHERE username NOT IN ('Frank', 'Todd', 'James')
 
@@ -329,7 +329,7 @@ if appropriate
 
 ::
 
-	$names = array('Frank', 'Todd', 'James');
+	$names = ['Frank', 'Todd', 'James'];
 	$builder->orWhereNotIn('username', $names);
 	// Produces: OR username NOT IN ('Frank', 'Todd', 'James')
 
@@ -354,14 +354,14 @@ searches.
 	::
 
 		$builder->like('title', 'match');
-		// Produces: WHERE ``title`` LIKE '%match%' ESCAPE '!'
+		// Produces: WHERE `title` LIKE '%match%' ESCAPE '!'
 
 	If you use multiple method calls they will be chained together with
 	AND between them::
 
 		$builder->like('title', 'match');
 		$builder->like('body', 'match');
-		// WHERE ``title`` LIKE '%match%' ESCAPE '!' AND  ``body`` LIKE '%match% ESCAPE '!'
+		// WHERE `title` LIKE '%match%' ESCAPE '!' AND  `body` LIKE '%match% ESCAPE '!'
 
 	If you want to control where the wildcard (%) is placed, you can use
 	an optional third argument. Your options are 'before', 'after' and
@@ -369,9 +369,9 @@ searches.
 
 	::
 
-		$builder->like('title', 'match', 'before');	// Produces: WHERE ``title`` LIKE '%match' ESCAPE '!'
-		$builder->like('title', 'match', 'after');	// Produces: WHERE ``title`` LIKE 'match%' ESCAPE '!'
-		$builder->like('title', 'match', 'both');	// Produces: WHERE ``title`` LIKE '%match%' ESCAPE '!'
+		$builder->like('title', 'match', 'before');	// Produces: WHERE `title` LIKE '%match' ESCAPE '!'
+		$builder->like('title', 'match', 'after');	// Produces: WHERE `title` LIKE 'match%' ESCAPE '!'
+		$builder->like('title', 'match', 'both');	// Produces: WHERE `title` LIKE '%match%' ESCAPE '!'
 
 #. **Associative array method:**
 
@@ -379,7 +379,7 @@ searches.
 
 		$array = ['title' => $match, 'page1' => $match, 'page2' => $match];
 		$builder->like($array);
-		// WHERE ``title`` LIKE '%match%' ESCAPE '!' AND  ``page1`` LIKE '%match%' ESCAPE '!' AND  ``page2`` LIKE '%match%' ESCAPE '!'
+		// WHERE `title` LIKE '%match%' ESCAPE '!' AND  `page1` LIKE '%match%' ESCAPE '!' AND  `page2` LIKE '%match%' ESCAPE '!'
 
 **$builder->orLike()**
 
@@ -387,14 +387,14 @@ This method is identical to the one above, except that multiple
 instances are joined by OR::
 
 	$builder->like('title', 'match'); $builder->orLike('body', $match);
-	// WHERE ``title`` LIKE '%match%' ESCAPE '!' OR  ``body`` LIKE '%match%' ESCAPE '!'
+	// WHERE `title` LIKE '%match%' ESCAPE '!' OR  `body` LIKE '%match%' ESCAPE '!'
 
 **$builder->notLike()**
 
 This method is identical to ``like()``, except that it generates
 NOT LIKE statements::
 
-	$builder->notLike('title', 'match');	// WHERE ``title`` NOT LIKE '%match% ESCAPE '!'
+	$builder->notLike('title', 'match');	// WHERE `title` NOT LIKE '%match% ESCAPE '!'
 
 **$builder->orNotLike()**
 
@@ -403,7 +403,7 @@ instances are joined by OR::
 
 	$builder->like('title', 'match');
 	$builder->orNotLike('body', 'match');
-	// WHERE ``title`` LIKE '%match% OR  ``body`` NOT LIKE '%match%' ESCAPE '!'
+	// WHERE `title` LIKE '%match% OR  `body` NOT LIKE '%match%' ESCAPE '!'
 
 **$builder->groupBy()**
 
@@ -413,7 +413,7 @@ Permits you to write the GROUP BY portion of your query::
 
 You can also pass an array of multiple values as well::
 
-	$builder->groupBy(array("title", "date"));  // Produces: GROUP BY title, date
+	$builder->groupBy(["title", "date"]);  // Produces: GROUP BY title, date
 
 **$builder->distinct()**
 
@@ -443,7 +443,7 @@ setting it to FALSE.
 
 ::
 
-	$builder->having('user_id',  45);  // Produces: HAVING ``user_id`` = 45 in some databases such as MySQL
+	$builder->having('user_id',  45);  // Produces: HAVING `user_id` = 45 in some databases such as MySQL
 	$builder->having('user_id',  45, FALSE);  // Produces: HAVING user_id = 45
 
 **$builder->orHaving()**
@@ -466,12 +466,12 @@ Options are **ASC**, **DESC** AND **RANDOM**.
 ::
 
 	$builder->orderBy('title', 'DESC');
-	// Produces: ORDER BY ``title`` DESC
+	// Produces: ORDER BY `title` DESC
 
 You can also pass your own string in the first parameter::
 
 	$builder->orderBy('title DESC, name ASC');
-	// Produces: ORDER BY ``title`` DESC, ``name`` ASC
+	// Produces: ORDER BY `title` DESC, `name` ASC
 
 Or multiple function calls can be made if you need multiple fields.
 
@@ -479,7 +479,7 @@ Or multiple function calls can be made if you need multiple fields.
 
 	$builder->orderBy('title', 'DESC');
 	$builder->orderBy('name', 'ASC');
-	// Produces: ORDER BY ``title`` DESC, `name` ASC
+	// Produces: ORDER BY `title` DESC, `name` ASC
 
 If you choose the **RANDOM** direction option, then the first parameters will
 be ignored, unless you specify a numeric seed value.
@@ -535,7 +535,7 @@ Permits you to determine the number of rows in a particular table.
 Example::
 
 	echo $builder->countAll();  // Produces an integer, like 25
-	
+
 As is in countAllResult method, this method resets any field values that you may have passed
 to ``select()`` as well. If you need to keep them, you can pass ``FALSE`` as the
 first parameter.
@@ -593,11 +593,11 @@ Generates an insert string based on the data you supply, and runs the
 query. You can either pass an **array** or an **object** to the
 function. Here is an example using an array::
 
-	$data = array(
+	$data = [
 		'title' => 'My title',
 		'name'  => 'My Name',
 		'date'  => 'My date'
-	);
+	];
 
 	$builder->insert($data);
 	// Produces: INSERT INTO mytable (title, name, date) VALUES ('My title', 'My name', 'My date')
@@ -629,11 +629,11 @@ Compiles the insertion query just like $builder->insert() but does not
 
 Example::
 
-	$data = array(
+	$data = [
 		'title' => 'My title',
 		'name'  => 'My Name',
 		'date'  => 'My date'
-	);
+	];
 
 	$sql = $builder->set($data)->getCompiledInsert('mytable');
 	echo $sql;
@@ -665,18 +665,18 @@ Generates an insert string based on the data you supply, and runs the
 query. You can either pass an **array** or an **object** to the
 function. Here is an example using an array::
 
-	$data = array(
-		array(
+	$data = [
+		[
 			'title' => 'My title',
 			'name'  => 'My Name',
 			'date'  => 'My date'
-		),
-		array(
+		],
+		[
 			'title' => 'Another title',
 			'name'  => 'Another Name',
 			'date'  => 'Another date'
-		)
-	);
+		]
+	];
 
 	$builder->insertBatch($data);
 	// Produces: INSERT INTO mytable (title, name, date) VALUES ('My title', 'My name', 'My date'),  ('Another title', 'Another name', 'Another date')
@@ -700,11 +700,11 @@ logics with different combinations of  ``select()``, ``update()``,
 
 Example::
 
-	$data = array(
+	$data = [
 		'title' => 'My title',
 		'name'  => 'My Name',
 		'date'  => 'My date'
-	);
+	];
 
 	$builder->replace($data);
 
@@ -754,11 +754,11 @@ parameter.
 
 You can also pass an associative array to this function::
 
-	$array = array(
+	$array = [
 		'name'   => $name,
 		'title'  => $title,
 		'status' => $status
-	);
+	];
 
 	$builder->set($array);
 	$builder->insert();
@@ -783,11 +783,11 @@ Generates an update string and runs the query based on the data you
 supply. You can pass an **array** or an **object** to the function. Here
 is an example using an array::
 
-	$data = array(
+	$data = [
 		'title' => $title,
 		'name'  => $name,
 		'date'  => $date
-	);
+	];
 
 	$builder->where('id', $id);
 	$builder->update($data);
@@ -826,7 +826,7 @@ directly into the update function as a string::
 
 Or as an array::
 
-	$builder->update($data, array('id' => $id));
+	$builder->update($data, ['id' => $id]);
 
 You may also use the $builder->set() function described above when
 performing updates.
@@ -837,18 +837,18 @@ Generates an update string based on the data you supply, and runs the query.
 You can either pass an **array** or an **object** to the function.
 Here is an example using an array::
 
-	$data = array(
-	   array(
+	$data = [
+	   [
 	      'title' => 'My title' ,
 	      'name'  => 'My Name 2' ,
 	      'date'  => 'My date 2'
-	   ),
-	   array(
+	   ],
+	   [
 	      'title' => 'Another title' ,
 	      'name'  => 'Another Name 2' ,
 	      'date'  => 'Another date 2'
-	   )
-	);
+	   ]
+	];
 
 	$builder->updateBatch($data, 'title');
 
@@ -890,7 +890,7 @@ Generates a delete SQL string and runs the query.
 
 ::
 
-	$builder->delete(array('id' => $id));  // Produces: // DELETE FROM mytable  // WHERE id = $id
+	$builder->delete(['id' => $id]);  // Produces: // DELETE FROM mytable  // WHERE id = $id
 
 The first parameter is the where clause.
 You can also use the where() or or_where() functions instead of passing
@@ -962,7 +962,7 @@ This is useful in situations where you are using Query Builder to generate SQL
 run the query::
 
     // Note that the second parameter of the get_compiled_select method is FALSE
-    $sql = $builder->select(array('field1','field2'))
+    $sql = $builder->select(['field1','field2'])
                    ->where('field3',5)
                    ->getCompiledSelect(false);
 
