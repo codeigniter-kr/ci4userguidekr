@@ -37,8 +37,10 @@ and put the following code in it
 
 ::
 
-	<?php
-	class Blog extends \CodeIgniter\Controller
+	namespace App\Controllers;
+	use CodeIgniter\Controller;
+
+	class Blog extends Controller
 	{
 		public function index()
 		{
@@ -66,26 +68,27 @@ If you did it right, you should see
 
 	Hello World!
 
-.. important:: Class names must start with an uppercase letter.
-			   클래스 이름은 대문자로 시작해야합니다.
+.. important:: 클래스 이름은 대문자로 시작해야합니다.
 
-This is valid
 이것은 유효합니다
 
 ::
 
-	<?php
-	class Blog extends \CodeIgniter\Controller {
+	namespace App\Controllers;
+	use CodeIgniter\Controller;
+
+	class Blog extends Controller {
 
 	}
 
-This is **not** valid
 이것은 유효 하지 않습니다 
 
 ::
 
-	<?php
-	class blog extends \CodeIgniter\Controller {
+	namespace App\Controllers;
+	use CodeIgniter\Controller;
+
+	class blog extends Controller {
 
 	}
 
@@ -114,8 +117,11 @@ Let's try it. Add a new method to your controller
 
 ::
 
-	<?php
-	class Blog extends \CodeIgniter\Controller {
+	namespace App\Controllers;
+	use CodeIgniter\Controller;
+
+	class Blog extends Controller 
+	{
 
 		public function index()
 		{
@@ -157,8 +163,11 @@ Your method will be passed URI segments 3 and 4 ("sandals" and "123")
 
 ::
 
-	<?php
-	class Products extends \CodeIgniter\Controller {
+	namespace App\Controllers;
+	use CodeIgniter\Controller;
+
+	class Products extends Controller
+	{
 
 		public function shoes($sandals, $id)
 		{
@@ -372,8 +381,10 @@ inside the controller
 
 ::
 
-	class MyController extends \CodeIgniter\Controller
-	{
+	namespace App\Controllers;
+	use CodeIgniter\Controller;
+
+	class MyController extends Controller {
 		protected $helpers = ['url', 'form'];
 	}
 

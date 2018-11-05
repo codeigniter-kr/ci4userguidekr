@@ -26,8 +26,10 @@ URL 스키마가 복잡 해짐에 따라 변경 될 수 있습니다. 그러나 
 
 ::
 
-	<?php namespace App\Controllers;
-	class Pages extends CodeIgniter\Controller {
+	namespace App\Controllers;
+	use CodeIgniter\Controller;
+
+	class Pages extends Controller {
 
 		public function view($page = 'home')
 		{

@@ -20,11 +20,9 @@ News section
 
 ::
 
-	<?php
+	use CodeIgniter\Model;
 
-	namespace App\Models;
-
-	class NewsModel extends \CodeIgniter\Model
+	class NewsModel extends Model
 	{
 		protected $table = 'news';
 	}
@@ -96,11 +94,12 @@ Model 클래스를 사용하면 쿼리 작성기(Query Builder)로 쉽게 작업
 
 ::
 
-	<?php namespace App\Controllers;
+	namespace App\Controllers;
 
 	use App\Models\NewsModel;
+	use CodeIgniter\Controller
 
-	class News extends \CodeIgniter\Controller
+	class News extends Controller
 	{
 		public function index()
 		{

@@ -49,8 +49,11 @@ in it
 
 ::
 
-	<?php
-	class Tools extends \CodeIgniter\Controller {
+	namespace App\Controller;
+	
+	use CodeIgniter\Controller;
+
+	class Tools extends Controller {
 
 		public function message($to = 'World')
 		{

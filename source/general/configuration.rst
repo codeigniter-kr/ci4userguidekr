@@ -60,9 +60,10 @@ represent your settings
 
 ::
 
-    <?php namespace Config;
+    namespace Config;
+    use CodeIgniter\Config\BaseConfig;
 
-    class App extends \CodeIgniter\Config\BaseConfig
+    class App extends BaseConfig
     {
     	public $siteName  = 'My Great Site';
     	public $siteEmail = 'webmaster@example.com';
@@ -240,14 +241,14 @@ the configuration class, it will invoke that method, and incorporate any returne
 the same way as described for namespaced variables.
 구성 객체가 인스턴스화되면,에 지정된 클래스가 반복됩니다 $registrars. 구성 클래스와 일치하는 메소드 이름을 포함하는 이들 클래스 각각에 대해 메소드는 해당 메소드를 호출하고 리턴 된 특성을 이름 공간 변수에 대해 설명한 것과 같은 f}으로 통합합니다.
 
-A sample configuration class setup for this
 이를위한 예제 구성 클래스 설정 
 
 ::
 
     namespace App\Config;
+    use CodeIgniter\Config\BaseConfig;
 
-    class MySalesConfig extends \CodeIgniter\Config\BaseConfig
+    class MySalesConfig extends baseConfig
     {
         public $target        = 100;
         public $campaign      = "Winter Wonderland";
@@ -256,7 +257,6 @@ A sample configuration class setup for this
         ];
     }
 
-... and the associated regional sales model might look like
 ... 관련 지역 판매 모델은 다음과 같이 보일 수 있습니다.
 
 ::
@@ -271,10 +271,9 @@ A sample configuration class setup for this
         }
     }
 
-With the above example, when `MySalesConfig` is instantiated, it will end up with
-the two properties declared, but the value of the `$target` property will be over-ridden
-by treating `RegionalSalesModel` as a "registrar". The resulting configuration properties
-위의 예에서 MySalesConfig 가 인스턴스화되면 선언 된 두 개의 등록 정보로 끝나게되지만 $ target 등록 정보 의 값은 RegionalSalesModel 을 "레지스트라"로 처리하여 무시할 수 있습니다 . 결과 구성 등록 정보
+위의 예에서 `MySalesConfig` 가 인스턴스화 되면 선언된 두 개의 등록 정보로 끝나게되지만 `$target`
+등록 정보 의 값은 `RegionalSalesModel` 을 "registrar" 로 처리하여 무시할 수 있습니다 . 
+결과 구성 등록 정보
 
 ::
 

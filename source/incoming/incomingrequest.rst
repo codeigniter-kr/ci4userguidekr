@@ -5,7 +5,9 @@ IncomingRequest 클래스
 The IncomingRequest class provides an object-oriented representation of an HTTP request from a client, like a browser.
 It extends from, and has access to all the methods of the :doc:`Request </libraries/request>` and :doc:`Message </libraries/message>`
 classes, in addition to the methods listed below.
-IncomingRequest 클래스는 클라이언트와 같은 HTTP 요청의 객체 지향 표현을 브라우저와 같이 제공합니다. 아래에 나열된 메소드 외에도 :doc:`Request </libraries/request>` 클래스 와 :doc:`Message </libraries/message>` 클래스 의 모든 메소드에 액세스 할 수 있으며 액세스 할 수 있습니다.
+IncomingRequest 클래스는 클라이언트와 같은 HTTP 요청의 객체 지향 표현을 브라우저와 같이 제공합니다. 
+아래에 나열된 메소드 외에도 :doc:`Request </libraries/request>` 클래스 와 :doc:`Message </libraries/message>` 
+클래스의 모든 메소드에 액세스 할 수 있습니다.
 
 .. contents::
     :local:
@@ -19,7 +21,10 @@ An instance of the request class already populated for you if the current class 
 현재 클래스가 하위 클래스이고 ``CodeIgniter\Controller`` 클래스 속성으로 액세스 할 수있는 경우 이미 채워져있는 요청 클래스의 인스턴스입니다 .
 ::
 
-	class UserController extends CodeIgniter\Controller
+	namespace App\Controllers;
+        use CodeIgniter\Controller;
+
+	class UserController extends Controller
 	{
 		public function index()
 		{

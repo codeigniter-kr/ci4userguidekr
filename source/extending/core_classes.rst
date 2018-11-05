@@ -58,7 +58,9 @@ the core system class, you would create your class like this
 
     namespace App\Libraries;
 
-    class RouteCollection implements \CodeIgniter\Router\RouteCollectionInterface
+    use CodeIgniter\Router\RouteCollectionInterface;
+
+    class RouteCollection implements RouteCollectionInterface
     {
 
     }
@@ -86,15 +88,16 @@ to recreate the entire library. In this case it's better to simply extend the cl
 identical to replacing a class with a one exception:
 기존 라이브러리에 몇 가지 기능을 추가하는 것이 필요하다면 - 아마도 하나 또는 두 개의 메소드를 추가하십시오 - 그러면 전체 라이브러리를 다시 만들려면 과잉입니다. 이 경우 단순히 클래스를 확장하는 것이 좋습니다. 클래스를 확장하는 것은 클래스를 하나의 예외로 대체하는 것과 거의 동일합니다.
 
-* The class declaration must extend the parent class.
-* 클래스 선언은 상위 클래스를 확장해야합니다.
+* 클래스 선언시 상위 클래스를 상속받아 확장해야합니다.
 
-For example, to extend the native RouteCollection class, you would declare your class with
-예를 들어 기본 RouteCollection 클래스를 확장하려면 다음을 사용하여 클래스를 선언합니다.
+예를 들어 기본 RouteCollection 클래스를 확장하려면 다음과 같이 클래스를 선언합니다.
 
 ::
 
-    class RouteCollection extends \CodeIgniter\Router\RouteCollection
+    namespace App\Libraries;
+    use CodeIgniter\Router\RouteCollection;
+
+    class RouteCollection extends RouteCollection
     {
 
     }
@@ -104,13 +107,16 @@ If you need to use a constructor in your class make sure you extend the parent c
 
 ::
 
-        class RouteCollection implements \CodeIgniter\Router\RouteCollection
+    namespace App\Libraries;
+    use CodeIgniter\Router\RouteCollection;
+
+    class RouteCollection extends RouteCollection
+    {
+        public function __construct()
         {
-            public function __construct()
-            {
-                parent::__construct();
-            }
+            parent::__construct();
         }
+    }
 
 **Tip:**  Any functions in your class that are named identically to the methods in the parent class will be used
 instead of the native ones (this is known as “method overriding”). This allows you to substantially alter the CodeIgniter core.
@@ -122,7 +128,10 @@ Controller 핵심 클래스를 확장하는 경우 응용 프로그램 컨트롤
 
 ::
 
-	class Home extends App\BaseController {
+	namespace App\Controllers;
+    use App\BaseController;
+
+    class Home extends BaseController {
 
 	}
 
