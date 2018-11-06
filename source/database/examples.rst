@@ -1,10 +1,8 @@
 ##################################
-Database Quick Start: Example Code
+데이터베이스 퀵 스타터: 샘플 코드
 ##################################
 
-The following page contains example code showing how the database class
-is used. For complete details please read the individual pages
-describing each function.
+다음 페이지에는 데이터베이스 클래스 사용 방법을 보여주는 예제 코드가 있습니다. 자세한 내용은 각 기능을 설명하는 개별 페이지를 참조하십시오.
 
 Initializing the Database Class
 ===============================
