@@ -1,5 +1,5 @@
 ##################################
-데이터베이스 퀵 스타터: 샘플 코드
+데이터베이스 퀵 스타트: 샘플 코드
 ##################################
 
 다음 페이지에는 데이터베이스 클래스 사용 방법을 보여주는 예제 코드가 있습니다. 자세한 내용은 각 기능을 설명하는 개별 페이지를 참조하십시오.
@@ -12,7 +12,7 @@ your :doc:`configuration <configuration>` settings::
 
 	$db = \Config\Database::connect();
 
-Once loaded the class is ready to be used as described below.
+클래스가 로드되면 아래에서 설명하는대로 사용할 수 있습니다.
 
 Note: If all your pages require database access you can connect
 automatically. See the :doc:`connecting <connecting>` page for details.
