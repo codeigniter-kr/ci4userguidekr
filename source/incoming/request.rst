@@ -8,7 +8,7 @@ like would be used to send a request from the application to a third-party appli
 provides the common functionality they both need, but both cases have custom classes that extend
 from the Request class to add specific functionality.
 
-See the documentation for the :doc:`IncomingRequest Class </libraries/incomingrequest>` and
+See the documentation for the :doc:`IncomingRequest Class </incoming/incomingrequest>` and
 :doc:`CURLRequest Class </libraries/curlrequest>` for more usage details.
 
 ===============
@@ -73,15 +73,16 @@ Class Reference
 			echo $request->getMethod(); // Outputs: post
 
 	.. php:method:: getServer([$index = null[, $filter = null[, $flags = null]]])
+                :noindex:
 
 		:param	mixed	$index: Value name
-		:param  int     $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`_.
-		:param  int     $flags: Flags to apply. A list of flags can be found `here <http://php.net/manual/en/filter.filters.flags.php>`_.
+		:param  int     $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`__.
+		:param  int     $flags: Flags to apply. A list of flags can be found `here <http://php.net/manual/en/filter.filters.flags.php>`__.
 		:returns:	$_SERVER item value if found, NULL if not
 		:rtype:	mixed
 
 		This method is identical to the ``post()``, ``get()`` and ``cookie()`` methods from the
-		:doc:`IncomingRequest Class </libraries/incomingrequest>`, only it fetches getServer data (``$_SERVER``)::
+		:doc:`IncomingRequest Class </incoming/incomingrequest>`, only it fetches getServer data (``$_SERVER``)::
 
 			$request->getServer('some_data');
 

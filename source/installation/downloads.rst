@@ -9,5 +9,5 @@ Public Git에 대한 액세스는 `GitHub <https://github.com/bcit-ci/CodeIgnite
 
 안정적인 버전은 `GitHub Releases <https://github.com/bcit-ci/CodeIgniter4/releases>`_ 를 통해서도 구할 수 있습니다.
 
- `development branch <https://codeload.github.com/bcit-ci/CodeIgniter4/zip/develop>`_ 의 zip 파일을 다운로드 할 수도 있습니다.
+`development branch <https://codeload.github.com/bcit-ci/CodeIgniter4/zip/develop>`_ 의 zip 파일을 다운로드 할 수도 있습니다.
 곧 출시 될 버전입니다.

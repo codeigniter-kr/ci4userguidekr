@@ -230,7 +230,7 @@ The ``flatten()`` method aims to add a background color behind transparent image
 flatten() 메소드는 투명 이미지 (PNG) 뒤에 배경색을 추가하고 RGBA 픽셀을 RGB 픽셀로 변환하는 것을 목표로합니다.
 
 - Specify a background color when converting from transparent images to jpgs.
-투명 이미지에서 jpg로 변환 할 때 사용할 배경색을 지정.
+	투명 이미지에서 jpg로 변환 할 때 사용할 배경색을 지정.
 
 ::
 
@@ -272,7 +272,7 @@ Images can be flipped along either their horizontal or vertical axis
 		->save('path/to/new/image.jpg');
 
 이미지 크기 조정
----------------
+-----------------
 
 Images can be resized to fit any dimension you require with the resize() method
 이미지는 resize() 메서드를 사용하여 필요한 모든 치수에 맞게 크기가 조정할 수 있습니다.

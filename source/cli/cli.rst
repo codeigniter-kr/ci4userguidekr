@@ -12,7 +12,7 @@ interface (CLI).
     :depth: 2
 
 CLI 란 무엇입니까?
-================
+===================
 
 The command-line interface is a text-based method of interacting with
 computers. For more information, check the `Wikipedia
@@ -22,7 +22,7 @@ article <http://en.wikipedia.org/wiki/Command-line_interface>`_.
 를 확인 하십시오 .
 
 왜  command-line을 통해 실행합니까?
-=============================
+===================================
 
 There are many reasons for running CodeIgniter from the command-line,
 but they are not always obvious.

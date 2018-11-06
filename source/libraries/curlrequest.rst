@@ -245,7 +245,10 @@ Allows you to provide Authentication details for `HTTP Basic <http://www.ietf.or
 Digest authentication - this simply passes the username and password along for you. The value must be an
 array where the first element is the username, and the second is the password. The third parameter should be
 the type of authentication to use, either ``basic`` or ``digest``
- `HTTP Basic <http://www.ietf.org/rfc/rfc2069.txt>`_ 와 `Digest <http://www.ietf.org/rfc/rfc2069.txt>`_ 및 인증 에 대한 인증 세부 정보를 제공 할 수 있습니다 . 스크립트는 다이제스트 인증을 지원하기 위해 추가 작업을해야 할 수도 있습니다.이 작업은 사용자 이름과 비밀번호를 전달하기 만하면됩니다. 값은 첫 번째 요소가 사용자 이름이고 두 번째 요소가 암호 인 배열이어야합니다. 세 번째 매개 변수는 사용할 인증 유형 ``basic`` 이거나 ``digest`` 중 하나여야 합니다 .
+`HTTP Basic <http://www.ietf.org/rfc/rfc2069.txt>`_ 와 `Digest <http://www.ietf.org/rfc/rfc2069.txt>`_ 및 인증에
+대한 인증 세부 정보를 제공 할 수 있습니다 . 스크립트는 다이제스트 인증을 지원하기 위해 추가 작업을해야 할 수도 있습니다.
+이 작업은 사용자 이름과 비밀번호를 전달하면 됩니다. 값은 첫 번째 요소가 사용자 이름이고 두 번째 요소가 암호인 배열이어야
+합니다. 세 번째 매개 변수는 사용할 인증 유형 ``basic`` 이거나 ``digest`` 중 하나여야 합니다 .
 
 ::
 

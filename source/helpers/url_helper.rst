@@ -117,7 +117,9 @@ The following functions are available:
 	Returns the full URL (including segments) of the page being currently
 	viewed.
 
-	.. note:: Calling this function is the same as doing this::
+	.. note:: Calling this function is the same as doing this
+	
+	::
 
 		base_url(uri_string());
 

@@ -10,7 +10,7 @@ Controllers are the heart of your application, as they determine how HTTP reques
     :depth: 2
 
 컨트롤러란 무엇입니까?
-=====================
+======================
 
 A Controller is simply a class file that is named in a way that it can be associated with a URI.
 컨트롤러는 단순히 URI와 연관 될 수있는 방식으로 명명 된 클래스 파일입니다.
@@ -434,8 +434,9 @@ name of the group, as defined in ``Config\Validation.php``
     }
 
 .. note:: Validation can also be handled automatically in the model. Where you handle validation is up to you,
-            and you will find that some situations are simpler in the controller than then model, and vice versa.
-          유효성 검사는 모델에서 자동으로 처리 될 수도 있습니다. 유효성 검사를 처리하는 곳은 당신에게 달려 있으며, 컨트롤러에서 모델보다 컨트롤러에서 더 단순한 상황을 발견 할 수 있습니다.
+		and you will find that some situations are simpler in the controller than then model, and vice versa.
+		유효성 검사는 모델에서 자동으로 처리 될 수도 있습니다. 유효성 검사를 처리하는 곳은 당신에게 달려 있으며, 
+		컨트롤러에서 모델보다 더 단순한 상황을 발견 할 수 있습니다.
 
 That's it!
 ==========

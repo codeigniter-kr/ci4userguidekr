@@ -15,7 +15,7 @@ static web pages.
 CodeIgniter는 매우 빠르지 만 페이지에 표시되는 동적 정보의 양은 사용 된 서버 리소스, 메모리 및 처리 사이클과 직접적으로 관련되어 있으므로 페이지로드 속도에 영향을줍니다. 페이지를 캐싱하면 완전히 렌더링 된 상태로 저장되기 때문에 정적 웹 페이지에 훨씬 더 근접한 성능을 얻을 수 있습니다.
 
 캐싱은 어떻게 작동합니까?
-======================
+=========================
 
 Caching can be enabled on a per-page basis, and you can set the length
 of time that a page should remain cached before being refreshed. When a

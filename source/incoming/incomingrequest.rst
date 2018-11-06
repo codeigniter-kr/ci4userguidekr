@@ -1,6 +1,6 @@
-=====================
+=======================
 IncomingRequest 클래스
-=====================
+=======================
 
 The IncomingRequest class provides an object-oriented representation of an HTTP request from a client, like a browser.
 It extends from, and has access to all the methods of the :doc:`Request </libraries/request>` and :doc:`Message </libraries/message>`
@@ -14,7 +14,7 @@ IncomingRequest 클래스는 클라이언트와 같은 HTTP 요청의 객체 지
     :depth: 2
 
 요청 액세스
-=====================
+=============
 
 An instance of the request class already populated for you if the current class is a descendant of
 ``CodeIgniter\Controller`` and can be accessed as a class property
@@ -337,7 +337,7 @@ Class Reference
 ---------------
 
 .. note:: In addition to the methods listed here, this class inherits the methods from the
-	:doc:`Request Class </libraries/request>` and the :doc:`Message Class </libraries/message>`.
+	:doc:`Request Class </incoming/request>` and the :doc:`Message Class </incoming/message>`.
 
 The methods provided by the parent classes that are available are:
 
@@ -382,8 +382,8 @@ The methods provided by the parent classes that are available are:
 	.. php:method:: getVar([$index = null[, $filter = null[, $flags = null]]])
 
 		:param  string  $index: The name of the variable/key to look for.
-		:param  int     $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`_.
-		:param  int     $flags: Flags to apply. A list of flags can be found `here <http://php.net/manual/en/filter.filters.flags.php>`_.
+		:param  int     $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`__.
+		:param  int     $flags: Flags to apply. A list of flags can be found `here <http://php.net/manual/en/filter.filters.flags.php>`__.
 		:returns:   $_REQUEST if no parameters supplied, otherwise the REQUEST value if found, or null if not
 		:rtype: mixed|null
 
@@ -419,8 +419,8 @@ The methods provided by the parent classes that are available are:
 	.. php:method:: getGet([$index = null[, $filter = null[, $flags = null]]])
 
 		:param  string  $index: The name of the variable/key to look for.
-		:param  int  $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`_.
-		:param  int     $flags: Flags to apply. A list of flags can be found `here <http://php.net/manual/en/filter.filters.flags.php>`_.
+		:param  int  $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`__.
+		:param  int     $flags: Flags to apply. A list of flags can be found `here <http://php.net/manual/en/filter.filters.flags.php>`__.
 		:returns:   $_GET if no parameters supplied, otherwise the GET value if found, or null if not
 		:rtype: mixed|null
 
@@ -429,8 +429,8 @@ The methods provided by the parent classes that are available are:
 	.. php:method:: getPost([$index = null[, $filter = null[, $flags = null]]])
 
 		:param  string  $index: The name of the variable/key to look for.
-		:param  int  $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`_.
-		:param  int     $flags: Flags to apply. A list of flags can be found `here <http://php.net/manual/en/filter.filters.flags.php>`_.
+		:param  int  $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`__.
+		:param  int     $flags: Flags to apply. A list of flags can be found `here <http://php.net/manual/en/filter.filters.flags.php>`__.
 		:returns:   $_POST if no parameters supplied, otherwise the POST value if found, or null if not
 		:rtype: mixed|null
 
@@ -439,8 +439,8 @@ The methods provided by the parent classes that are available are:
 	.. php:method:: getPostGet([$index = null[, $filter = null[, $flags = null]]])
 
 		:param  string  $index: The name of the variable/key to look for.
-		:param  int     $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`_.
-		:param  int     $flags: Flags to apply. A list of flags can be found `here <http://php.net/manual/en/filter.filters.flags.php>`_.
+		:param  int     $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`__.
+		:param  int     $flags: Flags to apply. A list of flags can be found `here <http://php.net/manual/en/filter.filters.flags.php>`__.
 		:returns:   $_POST if no parameters supplied, otherwise the POST value if found, or null if not
 		:rtype: mixed|null
 
@@ -453,8 +453,8 @@ The methods provided by the parent classes that are available are:
 	.. php:method:: getGetPost([$index = null[, $filter = null[, $flags = null]]])
 
 		:param  string  $index: The name of the variable/key to look for.
-		:param  int     $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`_.
-		:param  int     $flags: Flags to apply. A list of flags can be found `here <http://php.net/manual/en/filter.filters.flags.php>`_.
+		:param  int     $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`__.
+		:param  int     $flags: Flags to apply. A list of flags can be found `here <http://php.net/manual/en/filter.filters.flags.php>`__.
 		:returns:   $_POST if no parameters supplied, otherwise the POST value if found, or null if not
 		:rtype: mixed|null
 
@@ -467,8 +467,8 @@ The methods provided by the parent classes that are available are:
 	.. php:method:: getCookie([$index = null[, $filter = null[, $flags = null]]])
 
 		:param	mixed	$index: COOKIE name
-		:param  int     $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`_.
-		:param  int     $flags: Flags to apply. A list of flags can be found `here <http://php.net/manual/en/filter.filters.flags.php>`_.
+		:param  int     $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`__.
+		:param  int     $flags: Flags to apply. A list of flags can be found `here <http://php.net/manual/en/filter.filters.flags.php>`__.
 		:returns:	$_COOKIE if no parameters supplied, otherwise the COOKIE value if found or null if not
 		:rtype:	mixed
 
@@ -488,8 +488,8 @@ The methods provided by the parent classes that are available are:
 	.. php:method:: getServer([$index = null[, $filter = null[, $flags = null]]])
 
 		:param	mixed	$index: Value name
-		:param  int     $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`_.
-		:param  int     $flags: Flags to apply. A list of flags can be found `here <http://php.net/manual/en/filter.filters.flags.php>`_.
+		:param  int     $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`__.
+		:param  int     $flags: Flags to apply. A list of flags can be found `here <http://php.net/manual/en/filter.filters.flags.php>`__.
 		:returns:	$_SERVER item value if found, NULL if not
 		:rtype:	mixed
 
@@ -506,7 +506,7 @@ The methods provided by the parent classes that are available are:
 
 	.. php:method:: getUserAgent([$filter = null])
 
-		:param  int  $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`_.
+		:param  int  $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`__.
 		:returns:  The User Agent string, as found in the SERVER data, or null if not found.
 		:rtype: mixed
 

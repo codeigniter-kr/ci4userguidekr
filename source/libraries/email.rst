@@ -446,7 +446,7 @@ Class Reference
 			}
 
 		.. note:: Content-ID for each e-mail must be re-created for it to be unique.
-		각 전자 메일의 Content-ID는 고유하게하기 위해 다시 만들어야합니다.
+			각 전자 메일의 Content-ID는 고유하게하기 위해 다시 만들어야합니다.
 
 	.. php:method:: printDebugger($include = ['headers', 'subject', 'body'])
 
@@ -473,4 +473,4 @@ Class Reference
 			$email->printDebugger(['headers']);
 
 		.. note:: By default, all of the raw data will be printed.
-		기본적으로 모든 원시 데이터가 인쇄됩니다.
+			기본적으로 모든 원시 데이터가 인쇄됩니다.

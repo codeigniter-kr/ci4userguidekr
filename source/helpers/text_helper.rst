@@ -1,6 +1,6 @@
-###########
+###############
 텍스트 Helper
-###########
+###############
 
 The Text Helper file contains functions that assist in working with Text.
 텍스트 도우미 파일에는 텍스트로 작업하는 데 도움이되는 함수가 들어 있습니다.
@@ -308,9 +308,10 @@ The following functions are available:
 		$string = convert_accented_characters($string);
 
 	.. note:: This function uses a companion config file
-		`application/Config/ForeignCharacters.php`_ to define the to and
+		``application/Config/ForeignCharacters.php`` to define the to and
 		from array for transliteration.
-		이 함수는 companion 설정 파일 인 application / Config / ForeignCharacters.php 를 사용하여 음역에 대한 to와 from 배열을 정의합니다.
+		이 함수는 companion 설정 파일 인 ``application/Config/ForeignCharacters.php`` 
+		를 사용하여 음역에 대한 to와 from 배열을 정의합니다.
 
 .. php:function:: word_censor($str, $censored[, $replacement = ''])
 
