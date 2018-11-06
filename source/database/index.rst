@@ -1,13 +1,10 @@
 ######################
-Working With Databases
+데이터베이스 작업
 ######################
 
-CodeIgniter comes with a full-featured and very fast abstracted database
-class that supports both traditional structures and Query Builder
-patterns. The database functions offer clear, simple syntax.
 CodeIgniter에는 완전한 기능을 갖춘 매우 빠른 추상 데이터베이스가 있습니다.
-전통적인 구조와 Query Builder를 모두 지원하는 클래스
-패턴. 데이터베이스 함수는 명확하고 간단한 구문을 제공합니다.
+전통적인 구조와 Query Builder를 모두 지원하는 클래스 패턴.
+데이터베이스 함수는 명확하고 간단한 구문을 제공합니다.
 
 .. toctree::
     :titlesonly:
