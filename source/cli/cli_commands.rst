@@ -152,12 +152,10 @@ Then **foo** is the command name, and the ``$params`` array would be
 
     $params = ['bar', 'baz'];
 
-This can also be accessed through the :doc:`CLI </libraries/cli>` library, but this already has your command removed
-from the string. These parameters can be used to customize how your scripts behave.
-:doc:`CLI </libraries/cli>` 라이브러리를 통해 액세스 할 수도 있지만이 명령은 이미 문자열에서 제거됩니다. 이 매개 변수를 사용하여 스크립트의 작동 방식을 사용자 정의 할 수 있습니다.
+:doc:`CLI </cli/cli_library>` 라이브러리를 통해 액세스 할 수도 있지만 명령은 문자열에서 제거됩니다. 
+이 매개 변수를 사용하여 스크립트의 작동 방식을 사용자 정의 할 수 있습니다.
 
-Our demo command might have a ``run`` method something like
-데모 명령에는 ``run`` 다음과 같은 메소드 가있을 수 있습니다 .
+데모 명령은 다음과 같이 ``run`` 메소드를 가질 수 있습니다.
 
 ::
 

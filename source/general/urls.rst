@@ -30,7 +30,7 @@ URL의 세그먼트는 Model-View-Controller 방식을 사용하여 다음과 �
 The :doc:`URI Library <../libraries/uri>` and the :doc:`URL Helper <../helpers/url_helper>` contain functions that make it easy
 to work with your URI data. In addition, your URLs can be remapped using the :doc:`URI Routing </incoming/routing>`
 feature for more flexibility.
-:doc:`URI Library <../libraries/uri>` 와 :doc:`URL Helper <../helpers/url_helper>`는 쉽게 당신의 URI의 데이터로 작업 할 수 있도록 기능이 포함되어 있습니다. 또한 :doc:`URI Routing </incoming/routing>` 을 사용하여 보다 유연하게 URL을 다시 매핑 할 수 있습니다 .
+:doc:`URI Library <../libraries/uri>` 와 :doc:`URL Helper <../helpers/url_helper>` 는 쉽게 당신의 URI의 데이터로 작업 할 수 있도록 기능이 포함되어 있습니다. 또한 :doc:`URI Routing </incoming/routing>` 을 사용하여 보다 유연하게 URL을 다시 매핑 할 수 있습니다 .
 
 index.php 파일 제거하기
 ===========================

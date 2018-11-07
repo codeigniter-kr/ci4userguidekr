@@ -131,4 +131,4 @@ It provides easy ways to output text in multiple colors to the terminal window. 
 allows you to prompt a user for information, making it easy to build flexible, smart tools.
 CLI 라이브러리는 CLI 인터페이스로 작업하는 것을 단순하게 만듭니다. 터미널 창에 여러 색상의 텍스트를 출력하는 쉬운 방법을 제공합니다. 또한 사용자에게 정보를 요구할 수 있으므로 유연하고 스마트 한 도구를 쉽게 만들 수 있습니다.
 
-자세한 내용은 :doc:`CLI Library </libraries/cli>` 페이지를 참조하십시오.
+자세한 내용은 :doc:`CLI Library </cli/cli_library>` 페이지를 참조하십시오.

@@ -13,7 +13,7 @@ this type of hierarchy.
 
 Views are never called directly, they must be loaded by a controller. Remember that in an MVC framework,
 the Controller acts as the traffic cop, so it is responsible for fetching a particular view. If you have
-not read the :doc:`Controllers <controllers>` page, you should do so before continuing.
+not read the :doc:`Controllers </incoming/controllers>` page, you should do so before continuing.
 뷰는 직접 호출되지 않으며 컨트롤러에 의해로드되어야합니다. MVC 프레임 워크에서 컨트롤러는 교통 경찰의 역할을하므로 특정보기를 가져 오는 역할을 담당한다는 것을 기억하십시오. 컨트롤러 페이지를 읽지 않았다면 계속하기 전에 그렇게해야합니다.
 
 Using the example controller you created in the controller page, let’s add a view to it.

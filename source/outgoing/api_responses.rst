@@ -92,10 +92,10 @@ format both XML and JSON responses
             'application/xml'
         ];
 
-This is the array that is used during :doc:`Content Negotiation </libraries/content_negotiation>` to determine which
+This is the array that is used during :doc:`Content Negotiation </incoming/content_negotiation>` to determine which
 type of response to return. If no matches are found between what the client requested and what you support, the first
 format in this array is what will be returned.
-반환 할 응답 유형을 결정하기 위해 :doc:`Content Negotiation </libraries/content_negotiation>` 중에 사용되는 배열입니다 . 클라이언트가 요청한 것과 일치하는 것이없는 경우이 배열의 첫 번째 형식이 반환됩니다.
+반환 할 응답 유형을 결정하기 위해 :doc:`Content Negotiation </incoming/content_negotiation>` 중에 사용되는 배열입니다 . 클라이언트가 요청한 것과 일치하는 것이없는 경우이 배열의 첫 번째 형식이 반환됩니다.
 
 Next, you need to define the class that is used to format the array of data. This must be a fully qualified class
 name, and the class must implement **CodeIgniter\\Format\\FormatterInterface**. Formatters come out of the box that
@@ -127,9 +127,9 @@ JSON data will be sent back to the client.
     이 특성에서 클라이언트에 응답을 반환하는 다른 모든 메서드에서 사용하는 메서드입니다.
 
     The ``$data`` element can be either a string or an array. By default, a string will be returned as HTML,
-    while an array will be run through json_encode and returned as JSON, unless :doc:`Content Negotiation </libraries/content_negotiation>`
+    while an array will be run through json_encode and returned as JSON, unless :doc:`Content Negotiation </incoming/content_negotiation>`
     determines it should be returned in a different format.
-    ``$data`` 요소는 문자열 또는 배열 일 수있다. 기본적으로 문자열은 HTML로 반환되지만 배열은 json_encode를 통해 실행되고 JSON으로 반환됩니다. :doc:`Content Negotiation </libraries/content_negotiation>` 이 다른 형식으로 반환되어야한다고 판단 하지 않는 한이 배열은 JSON 으로 반환됩니다.
+    ``$data`` 요소는 문자열 또는 배열 일 수있다. 기본적으로 문자열은 HTML로 반환되지만 배열은 json_encode를 통해 실행되고 JSON으로 반환됩니다. :doc:`Content Negotiation </incoming/content_negotiation>` 이 다른 형식으로 반환되어야한다고 판단 하지 않는 한이 배열은 JSON 으로 반환됩니다.
 
     If a ``$message`` string is passed, it will be used in place of the standard IANA reason codes for the
     response status. Not every client will respect the custom codes, though, and will use the IANA standards
