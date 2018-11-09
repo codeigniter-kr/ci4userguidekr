@@ -3,7 +3,7 @@
 ###########
 
 Controllers are the heart of your application, as they determine how HTTP requests should be handled.
-컨트롤러는 HTTP 요청 처리 방법을 결정할 때 응용 프로그램의 핵심입니다.
+컨트롤러는 HTTP 요청 처리 방법을 결정하는 응용프로그램의 핵심입니다.
 
 .. contents::
     :local:
@@ -15,7 +15,6 @@ Controllers are the heart of your application, as they determine how HTTP reques
 A Controller is simply a class file that is named in a way that it can be associated with a URI.
 컨트롤러는 단순히 URI와 연관 될 수있는 방식으로 명명 된 클래스 파일입니다.
 
-Consider this URI
 다음 URI를 고려하십시오.
 
 ::
@@ -23,10 +22,10 @@ Consider this URI
 	example.com/index.php/blog/
 
 In the above example, CodeIgniter would attempt to find a controller named Blog.php and load it.
-위의 예에서 CodeIgniter는 Blog.php라는 컨트롤러를 찾고로드하려고합니다.
+위의 예에서 CodeIgniter는 Blog.php라는 컨트롤러를 찾아 로드하려고 합니다.
 
 **When a controller's name matches the first segment of a URI, it will be loaded.**
-컨트롤러의 이름이 URI의 첫 번째 세그먼트와 일치하면로드됩니다.
+**컨트롤러의 이름이 URI의 첫 번째 세그먼트와 일치하면로드됩니다.**
 
 Let's try it: Hello World!
 ==========================
@@ -49,10 +48,9 @@ and put the following code in it
 	}
 
 Then save the file to your **/application/Controllers/** directory.
-그런 다음 / application / Controllers / 디렉토리에 파일을 저장하십시오.
+그런 다음 **/application/Controllers/** 디렉토리에 파일을 저장하십시오.
 
-.. important:: The file must be called 'Blog.php', with a capital 'B'.
-			   파일은 'B'와 함께 'Blog.php'라고해야합니다.
+.. important:: 파일명은 대문자로 'B'를 사용하여 'Blog.php' 라고해야 합니다.
 
 Now visit your site using a URL similar to this
 이제 이와 비슷한 URL을 사용하여 사이트를 방문하십시오.
@@ -408,7 +406,7 @@ has details on the format of the rules and messages arrays, as well as available
         ]))
         {
             return view('users/update', [
-                'errors' => $this->errors
+                'errors' => $this->validator->getErrors()
             ]);
         }
 
@@ -426,7 +424,7 @@ name of the group, as defined in ``Config\Validation.php``
         if (! $this->validate('userRules'))
         {
             return view('users/update', [
-                'errors' => $this->errors
+                'errors' => $this->validator->getErrors()
             ]);
         }
 
@@ -441,5 +439,4 @@ name of the group, as defined in ``Config\Validation.php``
 That's it!
 ==========
 
-That, in a nutshell, is all there is to know about controllers.
-요컨대, 컨트롤러에 대해 알아야 할 것이 전부입니다.
+이것이 컨트롤러에 대해 알아야 할 전부입니다.
