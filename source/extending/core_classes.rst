@@ -77,7 +77,7 @@ Then  you would modify the ``routes`` service to load your class instead
 			return new \App\Libraries\RouteCollection();
 		}
 
-		return self::getSharedInstance('routes');
+		return static::getSharedInstance('routes');
 	}
 
 Extending Core Classes
