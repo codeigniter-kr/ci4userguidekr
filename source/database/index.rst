@@ -8,7 +8,7 @@ CodeIgniter에는 전통적인 구조와 Query Builder 패턴을 모두 지원�
 .. toctree::
     :titlesonly:
 
-    Quick Start: Usage Examples <examples>
+    빠른 시작: 샘플 <examples>
     Database Configuration <configuration>
     Connecting to a Database <connecting>
     Running Queries <queries>
