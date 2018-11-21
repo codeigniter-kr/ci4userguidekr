@@ -187,7 +187,7 @@ class property will be access through the ``setCreatedAt()`` and ``getCreatedAt(
 
 In the ``setPassword()`` method we ensure that the password is always hashed.
 
-In ``setCreatedOn()`` we convert the string we receive from the model into a DateTime object, ensuring that our timezone
+In ``setCreatedAt()`` we convert the string we receive from the model into a DateTime object, ensuring that our timezone
 is UTC so we can easily convert the the viewer's current timezone. In ``getCreatedAt()``, it converts the time to
 a formatted string in the application's current timezone.
 
@@ -227,7 +227,7 @@ As an example, imagine your have the simplified User Entity that is used through
 Your boss comes to you and says that no one uses usernames anymore, so you're switching to just use emails for login.
 But they do want to personalize the application a bit, so they want you to change the name field to represent a user's
 full name now, not their username like it does currently. To keep things tidy and ensure things continue making sense
-in the database you whip up a migration to rename the ``name`` field to ``full_name`` for clarity.
+in the database you whip up a migration to rename the `name` field to `full_name` for clarity.
 
 Ignoring how contrived this example is, we now have two choices on how to fix the User class. We could modify the class
 property from ``$name`` to ``$full_name``, but that would require  changes throughout the application. Instead, we can
@@ -271,7 +271,7 @@ Mutators
 Date Mutators
 -------------
 
-By default, the Entity class will convert fields named ``created_at``, ``updated_at``, or ``deleted_at`` into
+By default, the Entity class will convert fields named `created_at`, `updated_at`, or `deleted_at` into
 :doc:`Time </libraries/time>` instances whenever they are set or retrieved. The Time class provides a large number
 of helpful methods in a immutable, localized way.
 
