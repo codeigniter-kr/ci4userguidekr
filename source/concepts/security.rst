@@ -42,7 +42,7 @@ OWASP recommendations
 CodeIgniter provisions
 ----------------------
 
-- `HTTP library </incoming/message.html>`_ provides for input field filtering & content metadata
+- `HTTP library <../incoming/incomingrequest.html>`_ provides for input field filtering & content metadata
   입력란 필터링 및 콘텐츠 메타 데이터를 제공하는 HTTP 라이브러리
 - Form validation library
   양식 유효성 검사 라이브러리
@@ -74,7 +74,7 @@ CodeIgniter provisions
 
 - `Session <../libraries/sessions.html>`_ library
   세션 라이브러리
-- `HTTP library </incoming/message.html>`_ provides for CSRF validation
+- `HTTP library <../incoming/incomingrequest.html>`_ provides for CSRF validation
   CSRF 검증을위한 HTTP 라이브러리 제공
 - Easy to add third party authentication
   타사 인증을 쉽게 추가 할 수 있습니다.
@@ -203,7 +203,7 @@ CodeIgniter provisions
 
 - Public folder, with application and system outside
   응용 프로그램 및 시스템이있는 공용 폴더
-- `HTTP library </incoming/message.html>`_ provides for CSRF validation
+- `HTTP library <../incoming/incomingrequest.html>`_ provides for CSRF validation
   CSRF 검증을위한 HTTP 라이브러리 제공
 
 ************************************
@@ -227,7 +227,7 @@ OWASP recommendations
 CodeIgniter provisions
 ----------------------
 
-- `HTTP library </incoming/message.html>`_ provides for CSRF validation
+- `HTTP library <../incoming/incomingrequest.html>`_ provides for CSRF validation
   CSRF 검증을위한 HTTP 라이브러리 제공
 
 **********************************************
@@ -270,7 +270,7 @@ OWASP recommendations
 CodeIgniter provisions
 ----------------------
 
-- `HTTP library </incoming/message.html>`_ provides for ...
+- `HTTP library <../incoming/incomingrequest.html>`_ provides for ...
 - `Session <../libraries/sessions.html>`_ library provides flashdata
   세션 라이브러리는 플래시 데이터를 제공합니다
 
