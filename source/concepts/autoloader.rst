@@ -82,9 +82,9 @@ Classmap
 ========
 
 The classmap is used extensively by CodeIgniter to eke the last ounces of performance out of the system
-by not hitting the file-system with extra ``file_exists()`` calls. You can use the classmap to link to
+by not hitting the file-system with extra ``is_file()`` calls. You can use the classmap to link to
 third-party libraries that are not namespaced
-클래스 맵은 CodeIgniter에 의해 광범위하게 사용되어 여분의 file_exists()호출로 파일 시스템을 치지 않음으로써 시스템의 마지막 성능을 실현 합니다. 클래스 맵을 사용하여 네임 스페이스가 아닌 타사 라이브러리에 연결할 수 있습니다.
+클래스 맵은 CodeIgniter에 의해 광범위하게 사용되어 여분의 is_file() 호출로 파일 시스템을 치지 않음으로써 시스템의 마지막 성능을 실현 합니다. 클래스 맵을 사용하여 네임 스페이스가 아닌 타사 라이브러리에 연결할 수 있습니다.
 
 ::
 

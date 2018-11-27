@@ -93,7 +93,7 @@ header 파일 *application/Views/templates/header.php* 를 만들고 다음 코�
 
 	public function view($page = 'home')
 	{
-		if ( ! file_exists(APPPATH.'/Views/pages/'.$page.'.php'))
+		if ( ! is_file(APPPATH.'/Views/pages/'.$page.'.php'))
 		{
 		    // Whoops, we don't have a page for that!
 		    throw new \CodeIgniter\Exceptions\PageNotFoundException($page);
@@ -111,7 +111,7 @@ header 파일 *application/Views/templates/header.php* 를 만들고 다음 코�
 됩니다.
 
 이 메서드의 첫 번째 줄은 페이지가 실제로 있는지 여부를 확인합니다. 
-PHP의 ``file_exists()`` 함수는 파일이 예상되는 위치에 있는지 여부를 확인하는데
+PHP의 ``is_file()`` 함수는 파일이 예상되는 위치에 있는지 여부를 확인하는데
 사용됩니다. ``PageNotFoundException`` 은 기본 오류 페이지를 표시하도록하는
 CodeIgniter의 예외입니다.
 
