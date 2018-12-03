@@ -25,7 +25,7 @@ CLI 라이브러리의 인스턴스는 정적이기 때문에 CLI 라이브러�
 ::
 
 	<?php
-	use \CodeIgniter\CLI\CLI;
+	use CodeIgniter\CLI\CLI;
 
 	class MyController extends \CodeIgniter\Controller
 	{
