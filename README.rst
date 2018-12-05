@@ -8,7 +8,7 @@
 
 코드이그나이터 사용자 가이드는 는 문서관리와  다양한 형식으로 문서를 
 출력하기 위해 Sphinx를 사용하고 있습니다. 페이지들은 사람이 읽을수 있는 
-'Restructed Text <http://sphinx.pocoo.org/rest.html>'_형식으로 쓰여졌습니다.
+'Restructed Text <http://sphinx.pocoo.org/rest.html>'_ 형식으로 쓰여졌습니다.
 
 
 전제 조건
