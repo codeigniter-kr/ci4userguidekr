@@ -7,12 +7,11 @@
 데이터베이스 클래스 초기화
 ===============================
 
-The following code loads and initializes the database class based on
-your :doc:`configuration <configuration>` settings::
+다음 코드는 :doc:`구성설정 <configuration>`에 따라 데이터베이스 클래스를로드하고 초기화합니다.
 
 	$db = \Config\Database::connect();
 
-클래스가 로드되면 아래에서 설명하는대로 사용할 수 있습니다.
+클래스가 로드되면 아래와 같이 사용할 수 있습니다.
 
 Note: If all your pages require database access you can connect
 automatically. See the :doc:`connecting <connecting>` page for details.
