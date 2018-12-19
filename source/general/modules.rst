@@ -122,8 +122,9 @@ guide, but is being reproduced here so that it's easier to grasp how all of the 
 Routes
 ======
 
-By default, :doc:`routes </incoming/routing>` are automatically scanned for within modules. If can be turned off in
+By default, :doc:`routes </incoming/routing>` are automatically scanned for within modules. It can be turned off in
 the **Modules** config file, described above.
+기본적으로 :doc:`라우투 </incoming/routing>`\ 는 모듈 내에서 자동으로 검색됩니다. 위에서 설명한 **Modules** 설정 파일에서 해제 할 수 있습니다.
 
 .. note:: Since the files are being included into the current scope, the ``$routes`` instance is already defined for you.
     It will cause errors if you attempt to redefine that class.

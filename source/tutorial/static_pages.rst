@@ -22,7 +22,7 @@ Static pages
 URL 스키마가 복잡 해짐에 따라 변경 될 수 있습니다. 그러나 지금은 이것으로
 충분합니다.
 
-다음 코드를 사용하여 *application/Controllers/Pages.php* 에 파일을 만듭니다 .
+다음 코드를 사용하여 *app/Controllers/Pages.php* 에 파일을 만듭니다 .
 
 ::
 
@@ -50,7 +50,7 @@ URL 스키마가 복잡 해짐에 따라 변경 될 수 있습니다. 그러나 
 첫 번째 메소드을 만들었으니 이제 기본 페이지 템플릿을 만들어 보겠습니다. 
 페이지의 footer와 header 역할을하는 두 개의 "views"(페이지 템플리트)를 만들 것입니다.
 
-header 파일 *application/Views/templates/header.php* 를 만들고 다음 코드를 추가합니다.
+header 파일 *app/Views/templates/header.php* 를 만들고 다음 코드를 추가합니다.
 
 ::
 
@@ -66,7 +66,7 @@ header 파일 *application/Views/templates/header.php* 를 만들고 다음 코�
 
 헤더에는 메인 view를 로드하기 전에 제목과 함께 표시하려는 기본 HTML 코드가
 들어 있습니다. 또한 나중에 컨트롤러에서 정의 할 ``$title`` 변수의 값을 출력 
-할 것입니다. 이제 *application/Views/templates/footer.php* 에 다음 코드를 포함
+할 것입니다. 이제 *app/Views/templates/footer.php* 에 다음 코드를 포함
 하는 footer를 만듭니다 .
 
 ::
@@ -81,7 +81,7 @@ header 파일 *application/Views/templates/header.php* 를 만들고 다음 코�
 
 이전에 컨트롤러 ``view()`` 메서드를 설정했습니다 . 이 메서드는 로드 할 
 페이지 이름을 받는 하나의 매개 변수를 가지고 있습니다. Static page 템플릿은
-*application/Views/pages/* 디렉터리에 있습니다.
+*app/Views/pages/* 디렉터리에 있습니다.
 
 그 디렉토리에*home.php* 와 *about.php* 라는 두 개의 파일을 생성 하십시오.
 이 파일들 안에 출력하기 원하는 텍스트를 입력하고 저장하십시오. 특히 원본이 
@@ -158,7 +158,7 @@ controller you made above produces...
 - ``localhost:8080/pages/view/about`` will show the "about" page that you made above,
   because we explicitly asked for it
 - ``localhost:8080/pages/view/shop`` will show a "404 - File Not Found" error page,
-  because there is no ``application/Views/pages/shop.php``
+  because there is no ``app/Views/pages/shop.php``
 
 
 Routing
@@ -171,7 +171,7 @@ Routing
 ``http://example.com/[controller-class]/[controller-method]/[arguments]``
 
 Let's do that. Open the routing file located at
-*application/Config/Routes.php* and look for the "Route Definitions"
+*app/Config/Routes.php* and look for the "Route Definitions"
 section of the configuration file.
 
 The only uncommented line there to start with should be:::

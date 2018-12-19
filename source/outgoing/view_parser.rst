@@ -529,10 +529,10 @@ upper                                           Displays the string in all upper
 Custom Filters
 --------------
 
-You can easily create your own filters by editing **application/Config/View.php** and adding new entries to the
+You can easily create your own filters by editing **app/Config/View.php** and adding new entries to the
 ``$filters`` array. Each key is the name of the filter is called by in the view, and its value is any valid PHP
 callable
-**application/Config/View.php** 를 편집 하고 $filters배열에 새 항목을 추가 하여 자신 만의 필터를 쉽게 만들 수 있습니다 . 각 키는 뷰에서 호출되는 필터의 이름이고, 그 값은 유효한 PHP 호출 가능합니다.
+**app/Config/View.php** 를 편집 하고 $filters배열에 새 항목을 추가 하여 자신 만의 필터를 쉽게 만들 수 있습니다 . 각 키는 뷰에서 호출되는 필터의 이름이고, 그 값은 유효한 PHP 호출 가능합니다.
 
 ::
 
@@ -544,10 +544,10 @@ callable
 PHP Native functions as Filters
 -------------------------------
 
-You can easily use native php function as filters by editing **application/Config/View.php** and adding new entries to the
+You can easily use native php function as filters by editing **app/Config/View.php** and adding new entries to the
 ``$filters`` array.Each key is the name of the native PHP function is called by in the view, and its value is any valid native PHP
 function prefixed with
-**application/Config/View.php** 를 편집 하고 $filters배열에 새 항목을 추가하여 기본 PHP 함수를 필터로 쉽게 사용할 수 있습니다 . 각 키는 네이티브 PHP 함수의 이름이며 뷰에서 호출되며 값은 유효한 네이티브입니다 PHP 함수 접두사
+**app/Config/View.php** 를 편집 하고 $filters배열에 새 항목을 추가하여 기본 PHP 함수를 필터로 쉽게 사용할 수 있습니다 . 각 키는 네이티브 PHP 함수의 이름이며 뷰에서 호출되며 값은 유효한 네이티브입니다 PHP 함수 접두사
 
 ::
 
@@ -616,9 +616,9 @@ Registering a Plugin
 --------------------
 
 At its simplest, all you need to do to register a new plugin and make it ready for use is to add it to the
-**application/Config/View.php**, under the **$plugins** array. The key is the name of the plugin that is
+**app/Config/View.php**, under the **$plugins** array. The key is the name of the plugin that is
 used within the template file. The value is any valid PHP callable, including static class methods, and closures
-가장 간단한 방법으로 새 플러그인을 등록하고 사용할 준비를하기 위해 $ plugins 배열 아래 **application/Config/View.php** 에 추가하기만 하면 됩니다. 키는 템플릿 파일 내에서 사용되는 플러그인의 이름입니다. 값은 정적 클래스 메소드 및 클로저를 포함하여 유효한 PHP 호출 가능 클래스입니다.
+가장 간단한 방법으로 새 플러그인을 등록하고 사용할 준비를하기 위해 $ plugins 배열 아래 **app/Config/View.php** 에 추가하기만 하면 됩니다. 키는 템플릿 파일 내에서 사용되는 플러그인의 이름입니다. 값은 정적 클래스 메소드 및 클로저를 포함하여 유효한 PHP 호출 가능 클래스입니다.
 
 ::
 

@@ -118,10 +118,10 @@ PageNotFoundException
 ---------------------
 
 This is used to signal a 404, Page Not Found error. When thrown, the system will show the view found at
-``/application/views/errors/html/error_404.php``. You should customize all of the error views for your site.
+``/app/views/errors/html/error_404.php``. You should customize all of the error views for your site.
 If, in ``Config/Routes.php``, you have specified a 404 Override, that will be called instead of the standard
 404 page
-404, Page Not Found 오류를 알리는 데 사용됩니다. 던져 질 때, 시스템은에서 발견 된 견해를 보여줄 것 /application/views/errors/html/error_404.php입니다. 사이트의 모든 오류보기를 사용자 지정해야합니다. 경우에 Config/Routes.php, 당신은 표준 404 페이지 대신 호출됩니다 404 재정의, 지정한
+404, Page Not Found 오류를 알리는 데 사용됩니다. 던져 질 때, 시스템은에서 발견 된 견해를 보여줄 것 /app/views/errors/html/error_404.php입니다. 사이트의 모든 오류보기를 사용자 지정해야합니다. 경우에 Config/Routes.php, 당신은 표준 404 페이지 대신 호출됩니다 404 재정의, 지정한
 
 ::
 

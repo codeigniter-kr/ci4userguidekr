@@ -22,9 +22,11 @@ the data storage.
 
 At their most basic, controllers and models are simply classes that have a specific job. They are not the only class
 types that you can use, obviously, but the make up the core of how this framework is designed to be used. They even
-have designated directories in the **/application** directory for their storage, though you're free to store them
+have designated directories in the **/app** directory for their storage, though you're free to store them
 wherever you desire, as long as they are properly namespaced. We will discuss that in more detail below.
-가장 기본적인 컨트롤러와 모델은 특정 작업을 수행하는 클래스입니다. 분명히 사용할 수있는 유일한 클래스 유형은 아니지만이 프레임 워크가 어떻게 사용되도록 설계되었는지 핵심을 구성합니다. 심지어 / application 디렉토리에 자신의 스토리지를위한 디렉토리를 지정해 두었습니다. 네임 스페이스가 적절히 설정되어 있으면 원하는 위치에 자유롭게 저장할 수 있습니다. 아래에서 더 자세히 논의 할 것입니다.
+가장 기본적인 컨트롤러와 모델은 특정 작업을 수행하는 클래스입니다. 분명히 사용할 수있는 유일한 클래스 유형은 아니지만이 프레임 워크가 어떻게 사용되도록 설계되었는지 핵심을 구성합니다. 
+심지어 **/app** 디렉토리에 자신의 스토리지를위한 디렉토리를 지정해 두었습니다. 네임 스페이스가 적절히 설정되어 있으면 원하는 위치에 자유롭게 저장할 수 있습니다. 
+아래에서 더 자세히 논의 할 것입니다.
 
 Let's take a closer look at each of these three main components.
 이 세 가지 주요 구성 요소 각각에 대해 자세히 살펴 보겠습니다.
@@ -45,12 +47,12 @@ with simple ``echo`` calls. You can also display other views within a view, maki
 common header or footer on every page.
 뷰는 컨트롤러에서 표시 할 데이터를 가져오고 간단한 echo호출 로 표시 할 수있는 변수로 뷰에 전달 합니다. 또한보기 내에서 다른보기를 표시 할 수 있으므로 모든 페이지에 공통 머리글이나 바닥 글을 표시하는 것이 매우 쉽습니다.
 
-Views are generally stored in **/application/Views**, but can quickly become unwieldy if not organized in some fashion.
+Views are generally stored in **/app/Views**, but can quickly become unwieldy if not organized in some fashion.
 CodeIgniter does not enforce any type of organization, but a good rule of thumb would be to create a new directory in
 the **Views** directory for each controller. Then, name views by the method name. This makes them very easy find later
 on. For example, a user's profile might be displayed in a controller named ``User``, and a method named ``profile``.
-You might store the view file for this method in **/application/Views/User/Profile.php**.
-뷰는 일반적으로 / application / Views에 저장 되지만 일부 방식으로 구성되지 않으면 다루기 힘들어 질 수 있습니다. CodeIgniter는 어떤 유형의 조직도 시행하지 않지만, 각 컨트롤러 의 Views 디렉토리에 새로운 디렉토리를 생성하는 것이 좋습니다 . 그런 다음 메소드 이름별로 뷰의 이름을 지정하십시오. 이렇게하면 나중에 쉽게 찾을 수 있습니다. 예를 들어, 사용자 프로파일은 이름이 지정된 제어기 User와 이름 지정된 메소드에 표시 될 수 있습니다 profile. 이 메소드에 대한 뷰 파일을 /application/Views/User/Profile.php에 저장할 수 있습니다 .
+You might store the view file for this method in **/app/Views/User/Profile.php**.
+뷰는 일반적으로 / application / Views에 저장 되지만 일부 방식으로 구성되지 않으면 다루기 힘들어 질 수 있습니다. CodeIgniter는 어떤 유형의 조직도 시행하지 않지만, 각 컨트롤러 의 Views 디렉토리에 새로운 디렉토리를 생성하는 것이 좋습니다 . 그런 다음 메소드 이름별로 뷰의 이름을 지정하십시오. 이렇게하면 나중에 쉽게 찾을 수 있습니다. 예를 들어, 사용자 프로파일은 이름이 지정된 제어기 User와 이름 지정된 메소드에 표시 될 수 있습니다 profile. 이 메소드에 대한 뷰 파일을 /app/Views/User/Profile.php에 저장할 수 있습니다 .
 
 That type of organization works great as a base habit to get into. At times you might need to organize it differently.
 That's not a problem. As long as CodeIgniter can find the file, it can display it.
@@ -74,7 +76,7 @@ By keeping these business requirements in the model, you won't repeat code throu
 miss updating an area.
 많은 개발자들에게 적용되는 비즈니스 규칙을 결정할 때 혼란이 따릅니다. 이는 단순히 데이터에 대한 제한이나 요구 사항이 모델에 의해 처리된다는 것을 의미합니다. 여기에는 원시 데이터를 회사 표준에 맞게 저장하기 전에 정규화하거나 컨트롤러에 데이터를 전달하기 전에 특정 방식으로 열을 포맷하는 작업이 포함될 수 있습니다. 이러한 비즈니스 요구 사항을 모델에 유지함으로써 여러 컨트롤러에서 코드를 반복하지 않고 우연히 영역을 업데이트하지 않게됩니다.
 
-Models are typically stored in **/application/Models**, though they can use a namespace to be grouped however you need.
+Models are typically stored in **/app/Models**, though they can use a namespace to be grouped however you need.
 모델은 전형적으로 / application / Models에 저장 됩니다. 그러나 필요한 경우 네임 스페이스를 그룹화하여 사용할 수 있습니다.
 
 :doc:`Find out more about models </models/model>`
@@ -94,7 +96,7 @@ authentication, web safety, encoding, etc. In short, the controller is where you
 be there, and they get the data they need in a format they can use.
 컨트롤러의 또 다른 책임은 리디렉션, 인증, 웹 안전, 인코딩 등의 HTTP 요청과 관련된 모든 것을 처리하는 것입니다. 간단히 말해서 컨트롤러는 사람이 거기에있게 할 수 있는지, 그리고 데이터를 가져 오는 지 확인하는 곳입니다 그들은 그들이 사용할 수있는 형식으로 필요합니다.
 
-Controllers are typically stored in **/application/Controllers**, though they can use a namespace to be grouped however
+Controllers are typically stored in **/app/Controllers**, though they can use a namespace to be grouped however
 you need.
 컨트롤러는 일반적으로 / application / Controllers에 저장 되지만 필요에 따라 네임 스페이스를 그룹화하여 사용할 수 있습니다.
 

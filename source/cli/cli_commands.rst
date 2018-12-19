@@ -17,10 +17,10 @@ building out custom code generators for your company.
 Running Commands
 ****************
 
-Commands are run from the command line, in the root directory. The same one that holds the **/application**
+Commands are run from the command line, in the root directory. The same one that holds the **/app**
 and **/system** directories. A custom script, **spark** has been provided that is used to run any of the
 cli commands
-명령은 명령 행의 루트 디렉토리에서 실행됩니다. **/application** 및 **/system** 디렉토리 를 보유하는 동일한 파일 . cli 명령을 실행하는 데 사용되는 사용자 정의 스크립트 인 **spark** 가 제공되었습니다.
+명령은 명령 행의 루트 디렉토리에서 실행됩니다. **/app** 및 **/system** 디렉토리 를 보유하는 동일한 파일 . cli 명령을 실행하는 데 사용되는 사용자 정의 스크립트 인 **spark** 가 제공되었습니다.
 
 ::
 
@@ -85,9 +85,9 @@ CLI 명령에 나열되고 명령에 도움말 기능을 추가하려면 다음 
 =============
 
 Commands must be stored within a directory named **Commands**. However, that directory can be located anywhere
-that the :doc:`Autoloader </concepts/autoloader>` can locate it. This could be in **/application/Commands**, or
+that the :doc:`Autoloader </concepts/autoloader>` can locate it. This could be in **/app/Commands**, or
 a directory that you keep commands in to use in all of your project development, like **Acme/Commands**.
-명령은  **Commands** 라는 이름의 디렉토리에 저장해야합니다. 그러나 해당 디렉토리는 :doc:`Autoloader </concepts/autoloader>` 가 위치 할 수있는 곳이면 어디든 위치 할 수 있습니다 . 이것은 **/application/Commands** 또는 **Acme/Commands** 와 같은 모든 프로젝트 개발에 사용하기 위해 명령을 보관하는 디렉토리에있을 수 있습니다 .
+명령은  **Commands** 라는 이름의 디렉토리에 저장해야합니다. 그러나 해당 디렉토리는 :doc:`Autoloader </concepts/autoloader>` 가 위치 할 수있는 곳이면 어디든 위치 할 수 있습니다 . 이것은 **/app/Commands** 또는 **Acme/Commands** 와 같은 모든 프로젝트 개발에 사용하기 위해 명령을 보관하는 디렉토리에있을 수 있습니다 .
 
 .. note:: When the commands are executed, the full CodeIgniter cli environment has been loaded, making it
  possible to get environment information, path information, and to use any of the tools you would use when making a Controller.
@@ -97,9 +97,9 @@ a directory that you keep commands in to use in all of your project development,
 ==================
 
 Let's step through an example command whose only function is to report basic information about the application
-itself, for demonstration purposes. Start by creating a new file at **/application/Commands/AppInfo.php**. It
+itself, for demonstration purposes. Start by creating a new file at **/app/Commands/AppInfo.php**. It
 should contain the following code
-데모 용으로 응용 프로그램 자체에 대한 기본 정보를보고하는 것이 유일한 예제 명령을 단계별로 살펴 보겠습니다. 먼저 **/application/Commands/AppInfo.php** 에 새 파일을 만듭니다 . 다음 코드를 포함해야합니다.
+데모 용으로 응용 프로그램 자체에 대한 기본 정보를보고하는 것이 유일한 예제 명령을 단계별로 살펴 보겠습니다. 먼저 **/app/Commands/AppInfo.php** 에 새 파일을 만듭니다 . 다음 코드를 포함해야합니다.
 
 ::
 

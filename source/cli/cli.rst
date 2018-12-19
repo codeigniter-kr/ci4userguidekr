@@ -61,8 +61,8 @@ in it
 		}
 	}
 
-Then save the file to your **application/Controllers/** directory.
-그런 다음 응용 프로그램 **application/Controllers/** 에 파일을 저장하십시오 
+Then save the file to your **app/Controllers/** directory.
+그런 다음 응용 프로그램 **app/Controllers/** 에 파일을 저장하십시오 
 
 Now normally you would visit the your site using a URL similar to this
 이제는 일반적으로 다음과 유사한 URL을 사용하여 사이트를 방문하게됩니다.

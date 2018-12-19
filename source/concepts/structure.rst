@@ -9,10 +9,10 @@ CodeIgniter를 최대한 활용하려면 기본적으로 응용 프로그램의 
 Default Directories
 ===================
 
-A fresh install has six directories: ``/application``, ``/system``, ``/public``,
+A fresh install has six directories: ``/app``, ``/system``, ``/public``,
 ``/writable``, ``/tests`` and ``/docs``.
 Each of these directories has a very specific part to play.
-설치 신선한 여섯 디렉토리있다 : /application, /system, /public,을 /writable, /tests하고 /docs. 이 디렉토리들 각각은 매우 특정한 부분을 가지고 있습니다.
+설치 신선한 여섯 디렉토리있다 : /app, /system, /public,을 /writable, /tests하고 /docs. 이 디렉토리들 각각은 매우 특정한 부분을 가지고 있습니다.
 
 application
 -----------
@@ -22,16 +22,19 @@ application응용 프로그램 코드의 모두가 사는 곳 디렉토리입니
 
 .. code-block:: none
 
-	/application
+	/app
 		/Config         Stores the configuration files 구성 파일을 저장합니다.
 		/Controllers    Controllers determine the program flow 컨트롤러가 프로그램 흐름을 결정합니다.
+		/Database       Stores the database migrations and seeds files
+		/Filters        Stores filter classes that can run before and after controller
 		/Helpers        Helpers store collections of standalone functions 독립 실행형 함수 모음을 저장합니다.
 		/Language       Multiple language support reads the language strings from here 다중 언어 지원은 여기에서 언어 문자열을 읽습니다.
 		/Libraries      Useful classes that don't fit in another category 다른 카테고리에 들어 가지 않는 유용한 클래스들
 		/Models         Models work with the database to represent the business entities. 비즈니스 엔티티를 나타 내기 위해 데이터베이스와 작동합니다.
+		/ThirdParty     ThirdParty libraries that can be used in application
 		/Views          Views make up the HTML that is displayed to the client. 클라이언트에 표시되는 HTML을 구성합니다.
 
-Because the ``application`` directory is already namespaced, you should feel free to modify the structure
+Because the ``app`` directory is already namespaced, you should feel free to modify the structure
 of this directory to suit your application's needs. For example, you might decide to start using the Repository
 pattern and Entity Models to work with your data. In this case, you could rename the ``Models`` directory to
 ``Repositories``, and add a new ``Entities`` directory.
@@ -42,8 +45,8 @@ application디렉토리가 이미 네임 스페이스로되어 있기 때문에 
 		Controllers하지만 디렉토리의 이름을 바꾸면 컨트롤러에 자동 라우팅 방법을 사용할 수 없으며 routes 파일에 모든 경로를 정의해야합니다.
 
 All files in this directory live under the ``App`` namespace, though you are free to change that in
-**application/Config/Constants.php**.
-이 디렉토리의 모든 파일은 App네임 스페이스 아래 에 있지만, application/Config/Constants.php 에서 자유롭게 변경할 수 있습니다 .
+**app/Config/Constants.php**.
+이 디렉토리의 모든 파일은 App네임 스페이스 아래 에 있지만, **app/Config/Constants.php** 에서 자유롭게 변경할 수 있습니다 .
 
 system
 ------
@@ -94,5 +97,5 @@ User Guide.
 -----------------------------
 
 If you've relocated any of the main directories, you can change the configuration
-settings inside ``application/Config/Paths``
-메인 디렉토리를 재배치했다면 ``application/Config/Paths`` 의 설정을 바꿀 수 있습니다.
+settings inside ``app/Config/Paths``
+메인 디렉토리를 재배치했다면 ``app/Config/Paths`` 의 설정을 바꿀 수 있습니다.

@@ -103,9 +103,9 @@ create a new class that implements the ``RouterCollectionInterface``
 		// Implement required methods here.
 	}
 
-Finally, modify **/application/Config/Services.php** to create a new instance of ``MyRouter``
+Finally, modify **/app/Config/Services.php** to create a new instance of ``MyRouter``
 instead of ``CodeIgniter\Router\RouterCollection``
-마지막으로 /application/Config/Services.php 를 수정 MyRouter 하여 CodeIgniter\Router\RouterCollection다음 대신에 새 인스턴스를 만듭니다 .
+마지막으로 /app/Config/Services.php 를 수정 MyRouter 하여 CodeIgniter\Router\RouterCollection다음 대신에 새 인스턴스를 만듭니다 .
 
 ::
 
