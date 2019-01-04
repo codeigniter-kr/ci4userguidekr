@@ -45,9 +45,9 @@ Services 클래스를 통해 캐시 엔진의 인스턴스를 직접 가져올 �
 캐시 구성
 =====================
 
-All configuration for the cache engine is done in **application/Config/Cache.php**. In that file,
+All configuration for the cache engine is done in **app/Config/Cache.php**. In that file,
 the following items are available.
-캐시 엔진의 모든 구성은 **application/Config/Cache.php** 에서 수행됩니다. 이 파일에는 다음 항목이 있습니다.
+캐시 엔진의 모든 구성은 **app/Config/Cache.php** 에서 수행됩니다. 이 파일에는 다음 항목이 있습니다.
 
 **$handler**
 

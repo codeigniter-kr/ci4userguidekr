@@ -15,7 +15,7 @@ To input data into the database you need to create a form where you can
 input the information to be stored. This means you'll be needing a form
 with two fields, one for the title and one for the text. You'll derive
 the slug from our title in the model. Create the new view at
-*application/Views/news/create.php*.
+*app/Views/news/create.php*.
 데이터베이스에 데이터를 입력하려면 저장할 정보를 입력 할 수있는 양식을 만들어야합니다. 즉 제목과 텍스트 중 하나에 두 개의 필드가있는 양식이 필요합니다. 모델의 제목에서 슬러그를 유도합니다. application / Views / news / create.php 에서 새보기를 만듭니다 .
 
 ::
@@ -104,8 +104,8 @@ slug, perfect for creating URIs.
 계속 진행하면 양식 유효성 검사가 성공적으로 실행되었는지 확인하는 조건을 볼 수 있습니다. 그렇지 않으면 양식이 표시되고 모든 규칙 이 제출 되고 전달되면 모델이 호출됩니다. 이렇게하면 뉴스 항목을 모델로 전달합니다. 여기에는 새로운 함수 url_title ()이 포함되어 있습니다. URL 도우미가 제공하는이 함수는 전달하는 문자열을 제거하고 모든 공백을 대시 (-)로 바꾸고 모든 것이 소문자로되어 있는지 확인합니다. 이렇게하면 멋진 슬러그가 만들어지며 URI 생성에 적합합니다.
 
 After this, a view is loaded to display a success message. Create a view at
-**application/Views/news/success.php** and write a success message.
-이 후 뷰가로드되어 성공 메시지가 표시됩니다. application / Views / news / success.php 에서 뷰를 만들고 성공 메시지를 작성하십시오.
+**app/Views/news/success.php** and write a success message.
+이 후 뷰가로드되어 성공 메시지가 표시됩니다. **app/Views/news/success.php** 에서 뷰를 만들고 성공 메시지를 작성하십시오.
 
 Model
 -----

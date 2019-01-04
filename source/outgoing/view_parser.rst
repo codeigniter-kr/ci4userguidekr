@@ -43,7 +43,7 @@ representations that allow you to eliminate PHP from your templates
 	However, some developers prefer to use some form of template engine if
 	they work with designers who they feel would find some
 	confusion working with PHP.
-	CodeIgniter는 보기 페이지에서 순수 PHP를 사용하기 때문에 (예를 들어, 뷰 렌더러를 사용하여 ) 조금 더 빨리 실행할 수 있기 때문에이 클래스를 사용할 것을 요구 하지 않습니다 . 그러나 일부 개발자는 PHP로 작업하는 데 다소 혼란을 느끼는 디자이너와 작업 할 때 어떤 형태의 템플릿 엔진을 선호합니다.
+	CodeIgniter는 뷰 페이지에서 순수 PHP를 사용하기 때문에 (예를 들어, 뷰 렌더러를 사용하여 ) 조금 더 빨리 실행할 수 있기 때문에이 클래스를 사용할 것을 요구 하지 않습니다 . 그러나 일부 개발자는 PHP로 작업하는 데 다소 혼란을 느끼는 디자이너와 작업 할 때 어떤 형태의 템플릿 엔진을 선호합니다.
 
 ***************************
 Using the View Parser Class

@@ -215,7 +215,7 @@ Miscellaneous Functions
 	:returns: TRUE if was logged succesfully or FALSE if there was a problem logging it
 	:rtype: bool
 
-	Logs a message using the Log Handlers defined in **application/Config/Logger.php**.
+	Logs a message using the Log Handlers defined in **app/Config/Logger.php**.
 
 	Level can be one of the following values: **emergency**, **alert**, **critical**, **error**, **warning**,
 	**notice**, **info**, or **debug**.
@@ -245,9 +245,9 @@ Miscellaneous Functions
 		return redirect()->back()->with('foo', 'message');
 
 	When passing a URI into the function, it is treated as a reverse-route request, not a relative/full URI, treating
-    it the same as using redirect()->route()::
+        it the same as using redirect()->route()::
 
-        // Go to a named/reverse-routed URI
+                // Go to a named/reverse-routed URI
 		return redirect('named_route');
 
 .. php:function:: remove_invisible_characters($str[, $url_encoded = TRUE])
@@ -326,7 +326,7 @@ Core Constants
 
 .. php:const:: ROOTPATH
 
-	The path to the main application directory. Just above ``APPPATH``.
+	The path to the project root directory. Just above ``APPPATH``.
 
 .. php:const:: SYSTEMPATH
 

@@ -3,19 +3,19 @@
 ##########################
 
 By default it is assumed that you only intend to use CodeIgniter to
-manage one application, which you will build in your **application/**
+manage one application, which you will build in your **application**
 directory. It is possible, however, to have multiple sets of
 applications that share a single CodeIgniter installation, or even to
 rename or relocate your application directory.
-기본적으로 CodeIgniter를 사용하여 **application/** 디렉토리 에서 빌드 할 하나의 응용 프로그램 만 관리하려고한다고 가정합니다 . 그러나 단일 CodeIgniter 설치를 공유하거나 심지어는 응용 프로그램 디렉토리의 이름을 변경하거나 위치를 변경하는 여러 개의 응용 프로그램 세트를 가질 수도 있습니다.
+기본적으로 CodeIgniter를 사용하여 **application** 디렉토리 에서 빌드 할 하나의 응용 프로그램 만 관리하려고한다고 가정합니다 . 그러나 단일 CodeIgniter 설치를 공유하거나 심지어는 응용 프로그램 디렉토리의 이름을 변경하거나 위치를 변경하는 여러 개의 응용 프로그램 세트를 가질 수도 있습니다.
 
 Renaming the Application Directory
 ==================================
 
 If you would like to rename your application directory you may do so
-as long as you open **application/Config/Paths.php** file and set its name using
+as long as you open **app/Config/Paths.php** file and set its name using
 the ``$applicationDirectory`` variable
-application 디렉토리의 이름을 바꾸고 싶다면 **application/Config/Paths.php** 파일의 ``$applicationDirectory`` 변수의 값을 원하는 위치로 설정하십시오.
+application 디렉토리의 이름을 바꾸고 싶다면 **app/Config/Paths.php** 파일의 ``$applicationDirectory`` 변수의 값을 원하는 위치로 설정하십시오.
 
 ::
 

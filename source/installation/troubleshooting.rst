@@ -15,7 +15,7 @@ default page만 보입니다.
 
 URL에 무엇을 넣든 기본 페이지 만로드하는 경우 서버가 검색 엔진 친숙한 URL
 (serve search-engine friendly URLs)을 제공하는 데 필요한 REQUEST_URI 변수를 
-지원하지 않을 수 있습니다. 첫 단계로 *application/Config/App.php* 파일을
+지원하지 않을 수 있습니다. 첫 단계로 *app/Config/App.php* 파일을
 열고 URI 프로토콜 정보를 찾으십시오. 몇 가지 대체 설정을 시도하는 것이
 좋습니다. 이것을 시도한 후에도 여전히 작동하지 않는다면 URL에 물음표를 
 추가하도록 CodeIgniter에 강요해야합니다. 이렇게하려면 

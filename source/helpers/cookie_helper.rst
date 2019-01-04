@@ -57,10 +57,10 @@ The following functions are available:
 	detailed description of its use, as this function acts very
 	similarly to ``IncomingRequest::getCookie()``, except it will also prepend
 	the ``$cookiePrefix`` that you might've set in your
-	*application/Config/App.php* file.
+	*app/Config/App.php* file.
 	이 helper 함수는 브라우저 쿠키를 얻기위한 친숙한 구문을 제공합니다.
 	이 함수에 대한 자세한 설명은 :doc:`IncomingRequest Library </incoming/incomingrequest>` 를 참조하십시오.
-	이 함수는 응용 프로그램 / Config / App.php 파일 에서 설정 한 ``IncomingRequest::getCookie()`` 것 외에는 매우 유사 합니다. ``$cookiePrefix``
+	이 함수는 *app/Config/App.php* 파일 에서 설정 한 ``IncomingRequest::getCookie()`` 것 외에는 ``$cookiePrefix`` 와 매우 유사 합니다. 
 
 
 

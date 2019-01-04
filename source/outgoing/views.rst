@@ -36,7 +36,7 @@ Using your text editor, create a file called ``BlogView.php`` and put this in it
         </body>
 	</html>
 
-Then save the file in your **application/Views** directory.
+Then save the file in your **app/Views** directory.
 그런 다음 application / Views 디렉토리에 파일을 저장하십시오 .
 
 Displaying a View
@@ -223,8 +223,8 @@ into the ``$option`` array in the third parameter.
 	echo view('blogview', $data, ['saveData' => true]);
 
 Additionally, if you would like the default functionality of the view method to be that it does save the data
-between calls, you can set ``$saveData`` to **true** in **application/Config/Views.php**.
-당신이 통화 사이의 데이터를 저장 않는 것으로보기 방법의 기본 기능을 좋아하면 또한, 당신은 설정할 수 있습니다 $saveData에 사실 에서 **application/Config/Views.php**.
+between calls, you can set ``$saveData`` to **true** in **app/Config/Views.php**.
+당신이 통화 사이의 데이터를 저장 않는 것으로보기 방법의 기본 기능을 좋아하면 또한, 당신은 설정할 수 있습니다 $saveData에 사실 에서 **app/Config/Views.php**.
 
 Creating Loops
 ==============

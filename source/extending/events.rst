@@ -2,31 +2,26 @@
 Events - Extending the Framework Core
 #####################################
 
-CodeIgniter's Events feature provides a means to tap into and modify the inner workings of the framework without hacking
-core files. When CodeIgniter runs it follows a specific execution process. There may be instances, however, when you'd
-like to cause some action to take place at a particular stage in the execution process. For example, you might want to run
-a script right before your controllers get loaded, or right after, or you might want to trigger one of your own scripts
-in some other location.
-CodeIgniter의 이벤트 기능은 코어 파일을 해킹하지 않고 프레임 워크의 내부 동작을 활용할 수있는 방법을 제공합니다. CodeIgniter가 실행되면 특정 실행 프로세스가 수행됩니다. 그러나 실행 프로세스의 특정 단계에서 어떤 작업을 수행하려는 경우가있을 수 있습니다. 예를 들어 컨트롤러가로드되기 직전에 스크립트를 실행하거나 직후에 스크립트를 실행하거나 다른 위치에서 자체 스크립트 중 하나를 트리거 할 수 있습니다.
+CodeIgniter의 이벤트 기능은 코어 파일을 해킹하지 않고 프레임 워크의 내부 동작을 활용할 수있는 방법을 제공합니다. 
+CodeIgniter가 실행되면 특정 실행 프로세스가 수행됩니다. 그러나 실행 프로세스의 특정 단계에서 어떤 작업을 수행하려는 경우가
+있을 수 있습니다. 예를 들어 컨트롤러가 로드되기 직전에 스크립트를 실행하거나 직후에 스크립트를 실행하거나 다른 위치에서 자체 
+스크립트 중 하나를 트리거 할 수 있습니다.
 
 Events work on a *publish/subscribe* pattern, where an event, is triggered at some point during the script execution.
 Other scripts can "subscribe" to that event by registering with the Events class to let it know they want to perform an
 action when that event is triggered.
-이벤트 는 스크립트 실행 중 어느 시점에서 이벤트가 트리거 되는 게시 / 구독 패턴에서 작동합니다. 다른 스크립트는 이벤트 클래스에 등록하여 이벤트가 트리거 될 때 조치를 수행한다는 것을 알 수 있도록 해당 이벤트를 "등록"할 수 있습니다.
+이벤트는 스크립트 실행 중 어느 시점에서 이벤트가 트리거 되는 *publish/subscribe* 패턴에서 작동합니다. 
+다른 스크립트는 이벤트 클래스에 등록하여 이벤트가 트리거 될 때 수행된다것을 알 수 있도록 해당 이벤트를 "등록"할 수 있습니다.
 
 Enabling Events
 ===============
 
-Events are always enabled, and are available globally.
-이벤트는 항상 사용 가능하며 전 세계적으로 사용 가능합니다.
+이벤트는 항상 사용 가능하며 전역적으로 사용 가능합니다.
 
 Defining an Event
 =================
 
-Most events are defined within the **application/Config/Events.php** file. You can subscribe an action to an event with
-the Events class' ``on()`` method. The first parameter is the name of the event to subscribe to. The second parameter is
-a callable that will be run when that event is triggered
-대부분의 이벤트는 application / Config / Events.php 파일 내에서 정의 됩니다. 이벤트 클래스의 on()메소드 를 사용하여 이벤트에 조치를 등록 할 수 있습니다 . 첫 번째 매개 변수는 구독 할 이벤트의 이름입니다. 두 번째 매개 변수는 해당 이벤트가 트리거 될 때 실행될 호출 가능 매개 변수입니다.
+대부분의 이벤트는 **app/Config/Events.php** 파일 내에서 정의 됩니다. 이벤트 클래스의 ``on()`` 메소드를 사용하여 이벤트를 등록 할 수 있습니다. 첫 번째 매개 변수는 구독 할 이벤트의 이름입니다. 두 번째 매개 변수는 해당 이벤트가 트리거 될 때 실행될 호출 가능한 함수입니다.
 
 ::
 
@@ -34,10 +29,8 @@ a callable that will be run when that event is triggered
 
 	Events::on('pre_system', ['MyClass', 'MyFunction']);
 
-In this example, whenever the **pre_controller** event is executed, an instance of ``MyClass`` is created and the
-``MyFunction`` method is run. Note that the second parameter can be *any* form of
-`callable <http://php.net/manual/en/function.is-callable.php>`_ that PHP recognizes
-이 예에서는 pre_controller 이벤트가 실행될 때마다의 인스턴스 MyClass가 만들어지고 MyFunction메서드가 실행됩니다. 두 번째 매개 변수는 PHP가 인식 할 수 있는 호출 가능 형식 일 수 있습니다 .
+이 예에서는 **pre_controller** 이벤트가 실행될 때마다의 인스턴스 ``MyClass``\ 가 만들어지고 ``MyFunction`` 메서드가 실행됩니다. 
+두 번째 매개 변수는 PHP가 인식 할 수 있는 `호출 가능 <http://php.net/manual/en/function.is-callable.php>`_ 형식입니다 .
 
 ::
 

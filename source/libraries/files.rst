@@ -97,8 +97,8 @@ the type of file
 
 Attempts to determine the file extension based on the trusted ``getMimeType()`` method. If the mime type is unknown,
 will return null. This is often a more trusted source than simply using the extension provided by the filename. Uses
-the values in **application/Config/Mimes.php** to determine extension
-신뢰할 수있는 ``getMimeType()`` 메서드를 기반으로 파일 확장명을 결정하려고 시도합니다 . MIME 타입이 불명의 경우는 null를 돌려줍니다. 이것은 종종 파일 이름이 제공하는 확장자를 사용하는 것보다 더 신뢰할 수있는 소스입니다. **application/Config/Mimes.php** 의 값을 사용하여 확장을 결정합니다.
+the values in **app/Config/Mimes.php** to determine extension
+신뢰할 수있는 ``getMimeType()`` 메서드를 기반으로 파일 확장명을 결정하려고 시도합니다 . MIME 타입이 불명의 경우는 null를 돌려줍니다. 이것은 종종 파일 이름이 제공하는 확장자를 사용하는 것보다 더 신뢰할 수있는 소스입니다. **app/Config/Mimes.php** 의 값을 사용하여 확장을 결정합니다.
 
 ::
 

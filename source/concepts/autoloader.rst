@@ -34,9 +34,9 @@ beginning of the framework's execution.
 Configuration
 =============
 
-Initial configuration is done in **/application/Config/Autoload.php**. This file contains two primary
+Initial configuration is done in **/app/Config/Autoload.php**. This file contains two primary
 arrays: one for the classmap, and one for PSR4-compatible namespaces.
-초기 설정은 /application/Config/Autoload.php 에서 이루어집니다 . 이 파일에는 클래스 맵용과 PSR4 호환 네임 스페이스 용의 두 가지 기본 배열이 들어 있습니다.
+초기 설정은 **/app/Config/Autoload.php** 에서 이루어집니다 . 이 파일에는 클래스 맵용과 PSR4-호환 네임스페이스용의 두 가지 기본 배열이 들어 있습니다.
 
 Namespaces
 ==========
@@ -45,7 +45,8 @@ The recommended method for organizing your classes is to create one or more name
 application's files. This is most important for any business-logic related classes, entity classes,
 etc. The ``psr4`` array in the configuration file allows you to map the namespace to the directory
 those classes can be found in
-클래스 구성에 권장되는 방법은 응용 프로그램 파일에 대한 하나 이상의 네임 스페이스를 만드는 것입니다. 이는 비즈니스 로직 관련 클래스, 엔티티 클래스 등에서 가장 중요 psr4합니다. 구성 파일 의 배열을 사용하면 네임 스페이스를 해당 클래스를 찾을 수있는 디렉토리에 매핑 할 수 있습니다.
+클래스 구성에 권장되는 방법은 응용 프로그램 파일에 대한 하나 이상의 네임 스페이스를 만드는 것입니다. 이는 
+비즈니스 로직 관련 클래스, 엔티티 클래스 등에서 가장 중요합니다. 구성 파일의 ``psr4`` 배열을 사용하면 네임 스페이스를 해당 클래스를 찾을 수있는 디렉토리에 매핑 할 수 있습니다.
 
 ::
 
@@ -58,13 +59,16 @@ The key of each row is the namespace itself. This does not need a trailing slash
 to define the array, be sure to escape the backwards slash. That means that it would be ``My\\App``,
 not ``My\App``. The value is the location to the directory the classes can be found in. They should
 have a trailing slash.
-각 행의 키는 네임 스페이스 자체입니다. 여기에는 슬래시가 필요하지 않습니다. 큰 따옴표를 사용하여 배열을 정의하는 경우 역 슬래시를 이스케이프해야합니다. 즉, 될 것을 의미 My\\App하지 My\App. 이 값은 클래스를 찾을 수있는 디렉토리의 위치이며, 뒤에 슬래시가 있어야합니다.
+각 행의 키는 네임 스페이스 자체입니다. 여기에는 슬래시가 필요하지 않습니다. 큰 따옴표를 사용하여 배열을 정의하는 경우 역 슬래시를 이스케이프해야합니다. 
+즉, ``My\\App``\ 는 ``My\App``\ 을 의미합니다. 이 값은 클래스를 찾을 수있는 디렉토리의 위치이며, 뒤에 슬래시가 있어야합니다.
 
 By default, the application folder is namespace to the ``App`` namespace. While you are not forced to namespace the controllers,
 libraries, or models in the application directory, if you do, they will be found under the ``App`` namespace.
-You may change this namespace by editing the **/application/Config/Constants.php** file and setting the
+You may change this namespace by editing the **/app/Config/Constants.php** file and setting the
 new namespace value under the ``APP_NAMESPACE`` setting
-기본적으로 응용 프로그램 폴더는 네임 스페이스의 App네임 스페이스입니다. 컨트롤러, 라이브러리 또는 모델의 응용 프로그램 디렉토리에 네임 스페이스를 지정해야하는 것은 아니지만 네임 스페이스 아래에서 찾을 수 있습니다 App. /application/Config/Constants.php 파일 을 편집 하고 설정에서 새 네임 스페이스 값을 설정 하여이 네임 스페이스를 변경할 수 있습니다 APP_NAMESPACE.
+기본적으로 응용 프로그램 폴더는 ``App`` 네임 스페이스의  네임 스페이스입니다. 컨트롤러, 라이브러리 또는 모델의 응용 프로그램 디렉토리에 
+네임 스페이스를 지정해야하는 것은 아니지만 네임 스페이스 ``App`` 아래에서 찾을 수 있습니다 . /app/Config/Constants.php 파일 을 편집 하고 
+설정에서 새 네임 스페이스 ``APP_NAMESPACE`` 값을 설정 하여 네임 스페이스를 변경할 수 있습니다 .
 
 ::
 
@@ -76,7 +80,8 @@ You will need to modify any existing files that are referencing the current name
 .. important:: Config files are namespaced in the ``Config`` namespace, not in ``App\Config`` as you might
 	expect. This allows the core system files to always be able to locate them, even when the application
 	namespace has changed.
-	구성 파일은 예상대로 Config네임 스페이스에 네임 스페이스로 저장됩니다 App\Config. 따라서 응용 프로그램 네임 스페이스가 변경된 경우에도 핵심 시스템 파일에서 항상 해당 위치를 찾을 수 있습니다.
+	
+	설정 파일은 ``Config`` 네임스페이스에 네임스페이스로 저장되어 있습니다. ``App\Config`` 파일이 아닙니다. 따라서 응용 프로그램 네임스페이스가 변경된 경우에도 핵심 시스템 파일에서 항상 해당 위치를 찾을 수 있습니다.
 
 Classmap
 ========
@@ -99,9 +104,9 @@ Legacy Support
 ==============
 
 If neither of the above methods find the class, and the class is not namespaced, the autoloader will look in the
-**/application/Libraries** and **/application/Models** directories to attempt to locate the files. This provides
+**/app/Libraries** and **/app/Models** directories to attempt to locate the files. This provides
 a measure to help ease the transition from previous versions.
-위의 메소드 중 어느 것도 클래스를 찾지 않고 클래스가 이름 공간이 아닌 경우, 자동 로더는 / application / Libraries 및 / application / Models 디렉토리를 검색하여 파일 위치를 찾습니다. 이렇게하면 이전 버전에서 쉽게 이전 할 수 있습니다.
+위의 메소드 중 어느 것도 클래스를 찾지 않고 클래스가 이름 공간이 아닌 경우, 오토로더는 **/app/Libraries** 및 **/app/Models** 디렉토리를 검색하여 파일 위치를 찾습니다. 이렇게하면 이전 버전에서 쉽게 이전 할 수 있습니다.
 
 There are no configuration options for legacy support.
 레거시 지원을위한 구성 옵션은 없습니다.

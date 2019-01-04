@@ -14,7 +14,7 @@ News section
 정보를 검색, 삽입 및 업데이트하는 곳입니다. 모델은 데이터에 대한 액세스를
 제공합니다.
 
-*application/Models/* 디렉토리에 *NewsModel.php* 라는 새 파일을 만들고 
+*app/Models/* 디렉토리에 *NewsModel.php* 라는 새 파일을 만들고 
 다음 코드를 추가하십시오. :doc:`여기 <../database/configuration>` 에 설명
 된대로 데이터베이스를 올바르게 구성했는지 확인 하십시오.
 
@@ -91,7 +91,7 @@ Model 클래스를 사용하면 쿼리 작성기(Query Builder)로 쉽게 작업
 
 이제 쿼리가 작성되었으므로 사용자에게 뉴스 항목을 표시 할 view에 모델을 연결해야합니다.
 이전에 작성한 ``Pages`` 컨트롤러에서 이 작업을 수행 할 수 있지만 명확함을
-위해 새 ``News`` 컨트롤러를 *application/Controllers/News.php* 에 만듭니다.
+위해 새 ``News`` 컨트롤러를 *app/Controllers/News.php* 에 만듭니다.
 
 ::
 
@@ -151,7 +151,7 @@ Model 클래스를 사용하면 쿼리 작성기(Query Builder)로 쉽게 작업
 
 위의 코드는 모델의 모든 뉴스 레코드를 가져 와서 변수에 할당합니다. 
 제목의 값도 ``$data['title']`` 요소에 할당되어 모든 데이터가 뷰에 전달됩니다.
-이제 뉴스 항목을 렌더링하는 view를 만들어야합니다. *application/Views/news/index.php*
+이제 뉴스 항목을 렌더링하는 view를 만들어야합니다. *app/Views/news/index.php*
 에 다음 코드를 추가하세요.
 
 ::
@@ -213,7 +213,7 @@ CodeIgniter의 :doc:`View Parser </outgoing/view_parser>` 나 third party
 
 매개 변수없이 ``getNews()`` 메서드를 호출하는 대신 ``$slug`` 변수가 
 전달되므로 특정 뉴스 항목이 반환됩니다. 이제 남은일은 view를 생성하는 것
-입니다. *application/Views/news/view.php* 파일에 다음 코드를 입력하십시오.
+입니다. *app/Views/news/view.php* 파일에 다음 코드를 입력하십시오.
 
 ::
 
@@ -225,7 +225,7 @@ Routing
 -------
 
 방금 작성한 컨트롤러를 보려면 이전에 작성된 와일드 카드 라우팅 규칙에
-추가 라우트가 필요합니다. 라우팅 파일 (*application/config/routes.php*) 을
+추가 라우트가 필요합니다. 라우팅 파일 (*app/config/routes.php*) 을
 다음과 같이 수정하십시오 . 이렇게하면 요청이 ``Pages`` 컨트롤러로 전달
 되는 않고 ``News`` 컨트롤러에 도달 하게됩니다. 첫 번째 줄은 슬러그가있는 
 URI를 ``News`` 컨트롤러 의 ``view()`` 메서드로 라우팅합니다.

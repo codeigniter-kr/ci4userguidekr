@@ -42,7 +42,7 @@ subforum for an uptodate list!
 - The ``application`` folder looks very similar to that for CI3, with some
   name changes, and some subfolders
   moved to the ``writable`` folder
-- There is no longer a nested ``application/core`` folder, as we have
+- There is no longer a nested ``app/core`` folder, as we have
   a different mechanism for extending framework components (see below)
 
 **Class loading**
@@ -91,7 +91,7 @@ subforum for an uptodate list!
 
 **Libraries**
 
-- Your app classes can still go inside ``application/Libraries``, but they
+- Your app classes can still go inside ``app/Libraries``, but they
   don't have to
 - Instead of CI3's ``$this->load->library(x);`` you can now use
   ``$this->x = new X();``, following namespaced conventions for your
@@ -108,5 +108,5 @@ subforum for an uptodate list!
 - You don't need ``MY_x`` classes inside your libraries folder
   to extend or replace CI4 pieces
 - Make any such classes where you like, and add appropriate
-  service methods in ``application/Config/Services.php`` to load
+  service methods in ``app/Config/Services.php`` to load
   your components instead of the default ones

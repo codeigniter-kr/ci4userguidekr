@@ -47,8 +47,8 @@ and put the following code in it
 		}
 	}
 
-Then save the file to your **/application/Controllers/** directory.
-그런 다음 **/application/Controllers/** 디렉토리에 파일을 저장하십시오.
+Then save the file to your **/app/Controllers/** directory.
+그런 다음 **/app/Controllers/** 디렉토리에 파일을 저장하십시오.
 
 .. important:: 파일명은 대문자로 'B'를 사용하여 'Blog.php' 라고해야 합니다.
 
@@ -184,9 +184,9 @@ Defining a Default Controller
 
 CodeIgniter can be told to load a default controller when a URI is not
 present, as will be the case when only your site root URL is requested.
-To specify a default controller, open your **application/Config/Routes.php**
+To specify a default controller, open your **app/Config/Routes.php**
 file and set this variable
-CodeIgniter는 사이트 루트 URL 만 요청할 때와 같이 URI가 없으면 기본 컨트롤러를로드하라는 메시지를 표시 할 수 있습니다. 기본 컨트롤러를 지정하려면 application/Config/Routes.php 파일을 열고이 변수를 설정하십시오.
+CodeIgniter는 사이트 루트 URL 만 요청할 때와 같이 URI가 없으면 기본 컨트롤러를로드하라는 메시지를 표시 할 수 있습니다. 기본 컨트롤러를 지정하려면 **app/Config/Routes.php** 파일을 열고이 변수를 설정하십시오.
 
 ::
 
@@ -287,9 +287,9 @@ organize or structure your controllers into sub-directories. CodeIgniter
 permits you to do this.
 대형 응용 프로그램을 빌드하는 경우 컨트롤러를 하위 디렉토리로 계층 적으로 구성하거나 구조화 할 수 있습니다. CodeIgniter는 이것을 허용합니다.
 
-Simply create sub-directories under the main *application/Controllers/*
+Simply create sub-directories under the main *app/Controllers/*
 one and place your controller classes within them.
-주 응용 프로그램 / Controllers / one 하위에 하위 디렉토리를 만들고 그 안에 컨트롤러 클래스를 배치하면됩니다.
+*app/Controllers/* 하위에 하위 디렉토리를 만들고 그 안에 컨트롤러 클래스를 배치하면됩니다.
 
 .. note:: When using this feature the first segment of your URI must
 	specify the folder. For example, let's say you have a controller located
@@ -310,8 +310,8 @@ one and place your controller classes within them.
 Each of your sub-directories may contain a default controller which will be
 called if the URL contains *only* the sub-directory. Simply put a controller
 in there that matches the name of your 'default_controller' as specified in
-your *application/Config/Routes.php* file.
-각 하위 디렉토리에는 URL 에 하위 디렉토리 만 포함되어있는 경우 호출 될 기본 컨트롤러가있을 수 있습니다 . application / Config / Routes.php 파일에 지정된대로 'default_controller'의 이름과 일치하는 컨트롤러를 입력하기 만하면 됩니다.
+your *app/Config/Routes.php* file.
+각 하위 디렉토리에는 URL 에 하위 디렉토리 만 포함되어있는 경우 호출 될 기본 컨트롤러가있을 수 있습니다 . *app/Config/Routes.php* 파일에 지정된대로 'default_controller'의 이름과 일치하는 컨트롤러를 입력하기 만하면 됩니다.
 
 CodeIgniter also permits you to remap your URIs using its :doc:`URI Routing <routing>` feature.
 CodeIgniter에서는 URI 라우팅 기능을 사용하여 URI 를 다시 매핑 할 수도 있습니다.

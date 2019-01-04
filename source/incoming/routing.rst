@@ -35,10 +35,10 @@ above it instead has a product ID. To overcome this, CodeIgniter allows you to r
 Setting your own routing rules
 ==============================
 
-Routing rules are defined in the **application/config/Routes.php** file. In it you'll see that
+Routing rules are defined in the **app/config/Routes.php** file. In it you'll see that
 it creates an instance of the RouteCollection class that permits you to specify your own routing criteria.
 Routes can be specified using placeholders or Regular Expressions.
-라우팅 규칙은 **application/config/Routes.php** 파일에 정의되어 있습니다. 이 클래스에서 RouteCollection 클래스의 인스턴스를 생성하여 자신 만의 라우팅 기준을 지정할 수 있음을 알 수 있습니다. 경로는 자리 표시 자나 정규 표현식을 사용하여 지정할 수 있습니다.
+라우팅 규칙은 **app/config/Routes.php** 파일에 정의되어 있습니다. 이 클래스에서 RouteCollection 클래스의 인스턴스를 생성하여 자신 만의 라우팅 기준을 지정할 수 있음을 알 수 있습니다. 경로는 자리 표시 자나 정규 표현식을 사용하여 지정할 수 있습니다.
 
 A route simply takes the URI on the left, and maps it to the controller and method on the right,
 along with any parameters that should be passed to the controller. The controller and method should
@@ -304,7 +304,7 @@ run the filter before or after the controller. This is especially handy during a
         $routes->resource('users');
     });
 
-The value for the filter must match one of the aliases defined within ``application/Config/Filters.php``.
+The value for the filter must match one of the aliases defined within ``app/Config/Filters.php``.
 
 Environment Restrictions
 ========================
@@ -592,8 +592,8 @@ Routes Configuration Options
 ============================
 
 The RoutesCollection class provides several options that affect all routes, and can be modified to meet your
-application's needs. These options are available at the top of `/application/Config/Routes.php`.
-RoutesCollection 클래스는 모든 경로에 영향을주는 몇 가지 옵션을 제공하며 응용 프로그램의 필요에 맞게 수정할 수 있습니다. 이 옵션은 /application/Config/Routes.php 의 맨 위에 있습니다 .
+application's needs. These options are available at the top of `/app/Config/Routes.php`.
+RoutesCollection 클래스는 모든 경로에 영향을주는 몇 가지 옵션을 제공하며 응용 프로그램의 필요에 맞게 수정할 수 있습니다. 이 옵션은 /app/Config/Routes.php 의 맨 위에 있습니다 .
 
 Default Namespace
 -----------------
@@ -632,18 +632,18 @@ Default Controller
 
 When a user visits the root of your site (i.e. example.com) the controller to use is determined by the value set by
 the ``setDefaultController()`` method, unless a route exists for it explicitly. The default value for this is ``Home``
-which matches the controller at ``/application/Controllers/Home.php``
-사용자가 사이트의 루트 (예 : example.com)를 방문하면 setDefaultController()명시 적으로 경로가 존재하지 않는 한 사용하는 컨트롤러는 메소드가 설정 한 값으로 결정됩니다 . 이 값의 기본값은 다음 Home 위치의 컨트롤러와 일치합니다 /application/Controllers/Home.php.
+which matches the controller at ``/app/Controllers/Home.php``
+사용자가 사이트의 루트 (예 : example.com)를 방문하면 setDefaultController()명시 적으로 경로가 존재하지 않는 한 사용하는 컨트롤러는 메소드가 설정 한 값으로 결정됩니다 . 이 값의 기본값은 다음 Home 위치의 컨트롤러와 일치합니다 ``/app/Controllers/Home.php``.
 
 ::
 
-	// example.com routes to application/Controllers/Welcome.php
+	// example.com routes to app/Controllers/Welcome.php
 	$routes->setDefaultController('Welcome');
 
 The default controller is also used when no matching route has been found, and the URI would point to a directory
 in the controllers directory. For example, if the user visits ``example.com/admin``, if a controller was found at
-``/application/Controllers/admin/Home.php`` it would be used.
-기본 제어기는 일치하는 라우트가없는 경우에도 사용되며 URI는 controllers 디렉토리의 디렉토리를 가리 킵니다. 예를 들어, 사용자가 방문 example.com/admin하면 컨트롤러가 발견 /application/Controllers/admin/Home.php되면이를 사용합니다.
+``/app/Controllers/admin/Home.php`` it would be used.
+기본 제어기는 일치하는 라우트가없는 경우에도 사용되며 URI는 controllers 디렉토리를 가리 킵니다. 예를 들어, 사용자가 example.com/admin 방문하여 ``/app/Controllers/admin/Home.php`` 컨트롤러가 발견 되면 이를 사용합니다.
 
 Default Method
 --------------

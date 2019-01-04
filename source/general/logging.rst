@@ -39,8 +39,8 @@ Configuration
 =============
 
 You can modify which levels are actually logged, as well as assign different Loggers to handle different levels, within
-the ``/application/Config/Logger.php`` configuration file.
-/application/Config/Logger.php구성 파일 내에서 실제로 로깅되는 레벨을 수정하고 여러 로거를 지정하여 여러 레벨을 처리 할 수 있습니다.
+the ``/app/Config/Logger.php`` configuration file.
+/app/Config/Logger.php구성 파일 내에서 실제로 로깅되는 레벨을 수정하고 여러 로거를 지정하여 여러 레벨을 처리 할 수 있습니다.
 
 The ``threshold`` value of the config file determines which levels are logged across your application. If any levels
 are requested to be logged by the application, but the threshold doesn't allow them to log currently, they will be
@@ -168,10 +168,10 @@ that you can easily drop in use for any PSR3-compatible logger, or create your o
 당신은 당신이 한 그 중 하나에서 확장으로 같은 수있는 다른 로거 사용 Psr\Log\LoggerInterface하고있다 하는 PSR 호환. 즉, PSR3 호환 로거에서 쉽게 사용 중지하거나 직접 만들 수 있습니다.
 
 You must ensure that the third-party logger can be found by the system, by adding it to either
-the ``/application/Config/Autoload.php`` configuration file, or through another autoloader,
-like Composer. Next, you should modify ``/application/Config/Services.php`` to point the ``logger``
+the ``/app/Config/Autoload.php`` configuration file, or through another autoloader,
+like Composer. Next, you should modify ``/app/Config/Services.php`` to point the ``logger``
 alias to your new class name.
-타사 로거를 시스템에서 찾 /application/Config/Autoload.php거나 구성 파일이나 Composer와 같은 다른 자동 공급기를 통해 추가 할 수 있어야합니다 . 그런 다음 별칭을 새 클래스 이름 /application/Config/Services.php으로 가리 키도록 수정해야합니다 logger.
+타사 로거를 시스템에서 찾 /app/Config/Autoload.php거나 구성 파일이나 Composer와 같은 다른 자동 공급기를 통해 추가 할 수 있어야합니다 . 그런 다음 별칭을 새 클래스 이름 /app/Config/Services.php으로 가리 키도록 수정해야합니다 logger.
 
 Now, any call that is done through the ``log_message()`` function will use your library instead.
 이제 log_message()함수를 통해 수행 된 모든 호출은 대신 라이브러리를 사용합니다.

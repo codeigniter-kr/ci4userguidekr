@@ -27,8 +27,8 @@ in your :doc:`controller </incoming/controllers>` and
 CodeIgniter는 기본적으로 도우미 파일을로드하지 않으므로 도우미를 사용하기위한 첫 번째 단계는 코드를로드하는 것입니다. 로드되면 컨트롤러 및 뷰 에서 전역 적으로 사용할 수있게됩니다 .
 
 Helpers are typically stored in your **system/Helpers**, or
-**application/Helpers directory**. CodeIgniter will look first in your
-**application/Helpers directory**. If the directory does not exist or the
+**app/Helpers directory**. CodeIgniter will look first in your
+**app/Helpers directory**. If the directory does not exist or the
 specified helper is not located there CI will instead look in your
 global *system/Helpers/* directory.
 도우미는 일반적으로 시스템 / 도우미 또는 응용 프로그램 / 도우미 디렉토리에 저장 됩니다. CodeIgniter는 응용 프로그램 / 헬퍼 디렉토리를 먼저 찾습니다 . 디렉토리가 존재하지 않거나 지정된 도우미가없는 경우 CI는 대신 전역 시스템 / Helpers / 디렉토리를 조사합니다.
@@ -81,7 +81,7 @@ it.
 Loading from Non-standard Locations
 -----------------------------------
 
-Helpers can be loaded from directories outside of **application/Helpers** and
+Helpers can be loaded from directories outside of **app/Helpers** and
 **system/Helpers**, as long as that path can be found through a namespace that
 has been setup within the PSR-4 section of the :doc:`Autoloader config file <../concepts/autoloader>`.
 You would prefix the name of the Helper with the namespace that it can be located
@@ -127,13 +127,13 @@ URI to the controller/method you wish to link to.
 "Extending" Helpers
 ===================
 
-To "extend" Helpers, create a file in your **application/Helpers/** folder
+To "extend" Helpers, create a file in your **app/Helpers/** folder
 with an identical name to the existing Helper.
 
-To "extend" Helpers, create a file in your **application/helpers/** folder
+To "extend" Helpers, create a file in your **app/helpers/** folder
 with an identical name to the existing Helper, but prefixed with **MY\_**
 (this item is configurable. See below.).
-헬퍼를 "확장"하려면 **application/helpers/** 폴더에 기존 헬퍼와 동일한 이름으로 파일을 만들고 **MY\_** 가 접두사로 붙습니다 (이 항목은 구성 가능합니다. 아래 참조).
+헬퍼를 "확장"하려면 **app/helpers/** 폴더에 기존 헬퍼와 동일한 이름으로 파일을 만들고 **MY\_** 가 접두사로 붙습니다 (이 항목은 구성 가능합니다. 아래 참조).
 
 If all you need to do is add some functionality to an existing helper -
 perhaps add a function or two, or change how a particular helper
@@ -148,9 +148,9 @@ your version. In this case it's better to simply "extend" the Helper.
 	도우미 기능은 절차적이고 이산 적이며 전통적인 프로그래밍 방식으로 확장 될 수 없으므로 "확장"이라는 용어는 느슨하게 사용됩니다. 이 기능은 헬퍼가 제공하는 기능을 추가하거나 대체 할 수있는 기능을 제공합니다.
 
 For example, to extend the native **Array Helper** you'll create a file
-named **application/Helpers/array_helper.php**, and add or override
+named **app/Helpers/array_helper.php**, and add or override
 functions
-예를 들어 기본 **Array Helper** 를 확장하려면 **application/Helpers/array_helper.php** 라는 파일을 만들고 함수를 추가하거나 재정의합니다.
+예를 들어 기본 **Array Helper** 를 확장하려면 **app/Helpers/array_helper.php** 라는 파일을 만들고 함수를 추가하거나 재정의합니다.
 
 ::
 
@@ -177,12 +177,12 @@ functions
 		return array_pop($array);
 	}
 
-The **helper()** method will scan through all PSR-4 namespaces defined in **application/Config/Autoload.php**
+The **helper()** method will scan through all PSR-4 namespaces defined in **app/Config/Autoload.php**
 and load in ALL matching helpers of the same name. This allows any module's helpers
 to be loaded, as well as any helpers you've created specifically for this application. The load order
 is as follows:
 
-1. application/Helpers - Files loaded here are always loaded first.
+1. app/Helpers - Files loaded here are always loaded first.
 2. {namespace}/Helpers - All namespaces are looped through in the order they are defined.
 3. system/Helpers - The base file is loaded last
 

@@ -18,8 +18,8 @@ Namespaces
 
 The core element of the modules functionality comes from the :doc:`PSR4-compatible autoloading </concepts/autoloader>`
 that CodeIgniter uses. While any code can use the PSR4 autoloader and namespaces, the only way to take full advantage of
-modules is to namespace your code and add it to **application/Config/Autoload.php**, in the ``psr4`` section.
-모듈 기능의 핵심 요소는 CodeIgniter에서 사용 하는 PSR4:doc:`PSR4-compatible autoloading </concepts/autoloader>` 에서 비롯됩니다 . 코드 모듈을 최대한 활용하기 위해 PSR4 오토로더 및 네임 스페이스 유일한 방법을 사용할 수 있지만 코드를 네임 스페이스와에 추가하는 것입니다 **application/Config/Autoload.php** 에, ``psr4`` 섹션.
+modules is to namespace your code and add it to **app/Config/Autoload.php**, in the ``psr4`` section.
+모듈 기능의 핵심 요소는 CodeIgniter에서 사용 하는 PSR4:doc:`PSR4-compatible autoloading </concepts/autoloader>` 에서 비롯됩니다 . 코드 모듈을 최대한 활용하기 위해 PSR4 오토로더 및 네임 스페이스 유일한 방법을 사용할 수 있지만 코드를 네임 스페이스와에 추가하는 것입니다 **app/Config/Autoload.php** 에, ``psr4`` 섹션.
 
 For example, let's say we want to keep a simple blog module that we can re-use between components. We might create
 folder with our company name, Acme, to store all of our modules within. We will put it right alongside our **application**
@@ -35,8 +35,8 @@ directory in the main project root
     /tests
     /writable
 
-Open **application/Config/Autoload.php** and add the **Acme** namespace to the ``psr4`` array property
-**application/Config/Autoload.php** 를 열고 **Acme** 네임 스페이스를 ``psr4`` 배열 속성에 추가합니다 .
+Open **app/Config/Autoload.php** and add the **Acme** namespace to the ``psr4`` array property
+**app/Config/Autoload.php** 를 열고 **Acme** 네임 스페이스를 ``psr4`` 배열 속성에 추가합니다 .
 
 ::
 
@@ -87,7 +87,7 @@ file types, including:
 - :doc:`Route files </incoming/routing>`
 - :doc:`Services </concepts/services>`
 
-This is configured in the file **application/Config/Modules.php**.
+This is configured in the file **app/Config/Modules.php**.
 
 The auto-discovery system works by scanning any psr4 namespaces that have been defined within **Config/Autoload.php**
 for familiar directories/files.
@@ -133,7 +133,7 @@ the **Modules** config file, described above.
 Controllers
 ===========
 
-Controllers outside of the main **application/Controllers** directory cannot be automatically routed by URI detection,
+Controllers outside of the main **app/Controllers** directory cannot be automatically routed by URI detection,
 but must be specified within the Routes file itself
 
 ::

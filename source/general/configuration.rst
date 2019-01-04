@@ -39,24 +39,25 @@ are public, so you access the settings like any other property
 	$mailpath = $config->mailpath;
 
 If no namespace is provided, it will look for the files in all available namespaces that have
-been defined, as well as **/application/Config/**. All of the configuration files
+been defined, as well as **/app/Config/**. All of the configuration files
 that ship with CodeIgniter are namespaced with ``Config``. Using this namespace in your
 application will provide the best performance since it knows exactly what directory to find the
 files in and doesn't have to scan several locations in the filesystem to get there.
-네임 스페이스가 제공되지 않으면 정의 된 사용 가능한 모든 네임 스페이스의 파일과 / application / Config / 를 찾습니다 . CodeIgniter와 함께 제공되는 모든 설정 파일은로 이름 붙여져 있습니다 Config. 응용 프로그램에서이 네임 스페이스를 사용하면 파일을 찾을 디렉토리를 정확히 알고 파일 시스템의 여러 위치를 스캔 할 필요가 없기 때문에 최상의 성능을 제공합니다.
+네임 스페이스가 제공되지 않으면 정의 된 사용 가능한 모든 네임 스페이스의 파일과 **/app/Config/** 를 찾습니다 . CodeIgniter와 함께 제공되는 모든 설정 파일은로 이름 붙여져 있습니다 Config. 응용 프로그램에서이 네임 스페이스를 사용하면 파일을 찾을 디렉토리를 정확히 알고 파일 시스템의 여러 위치를 스캔 할 필요가 없기 때문에 최상의 성능을 제공합니다.
 
 You can locate the configuration files any place on your server by using a different namespace.
 This allows you to pull configuration files on the production server to a folder that is not in
-the web-accessible space at all, while keeping it under **/application** for ease of access during development.
-다른 네임 스페이스를 사용하여 서버의 모든 위치에서 구성 파일을 찾을 수 있습니다. 이를 통해 프로덕션 서버의 구성 파일을 웹 액세스 가능한 공간이 아닌 폴더로 가져올 수 있으며 개발 중에 액세스하기 쉽도록 / application 아래에 보관할 수 있습니다.
+the web-accessible space at all, while keeping it under **/app** for ease of access during development.
+다른 네임 스페이스를 사용하여 서버의 모든 위치에서 구성 파일을 찾을 수 있습니다. 이를 통해 프로덕션 서버의 
+구성 파일을 웹 액세스 가능한 공간이 아닌 폴더로 가져올 수 있으며 개발 중에 액세스하기 쉽도록 **/app** 아래에 보관할 수 있습니다.
 
 Creating Configuration Files
 ============================
 
 If you need to create a new configuration file you would create a new file at your desired location,
-**/application/Config** by default. Then create the class and fill it with public properties that
+**/app/Config** by default. Then create the class and fill it with public properties that
 represent your settings
-새 구성 파일을 작성해야하는 경우 원하는 위치에 새 파일 ( / application / Config) 을 기본적으로 작성합니다. 그런 다음 클래스를 만들고 설정을 나타내는 public 속성으로 채 웁니다.
+새 구성 파일을 작성해야하는 경우 **/app/Config**\ 에 새 파일을 작성합니다. 그런 다음 클래스를 만들고 설정을 나타내는 공용 속성으로 채웁니다.
 
 ::
 

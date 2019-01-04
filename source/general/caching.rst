@@ -55,8 +55,8 @@ you. Once the tag is in place, your pages will begin being cached.
 	출력에 영향을 줄 수있는 구성 옵션을 변경하면 캐시 파일을 수동으로 삭제해야합니다.
 
 .. note:: Before the cache files can be written you must set the cache
-	engine up by editing **application/Config/Cache.php**.
-	캐시 파일을 작성하기 전에 **application/Config/Cache.php** 를 편집하여 캐시 엔진을 설정해야합니다 .
+	engine up by editing **app/Config/Cache.php**.
+	캐시 파일을 작성하기 전에 **app/Config/Cache.php** 를 편집하여 캐시 엔진을 설정해야합니다 .
 
 캐시 삭제
 ===============

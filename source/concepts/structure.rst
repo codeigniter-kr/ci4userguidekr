@@ -10,9 +10,10 @@ Default Directories
 ===================
 
 A fresh install has six directories: ``/app``, ``/system``, ``/public``,
-``/writable``, ``/tests`` and ``/docs``.
+``/writable``, ``/tests`` and possibly ``/docs``.
 Each of these directories has a very specific part to play.
-설치 신선한 여섯 디렉토리있다 : /app, /system, /public,을 /writable, /tests하고 /docs. 이 디렉토리들 각각은 매우 특정한 부분을 가지고 있습니다.
+새로 설치하면 ``/app``, ``/system``, ``/public``, ``/writable``, ``/tests``, ``/docs`` 
+등 6 개의 디렉토리가 있습니다. 이 디렉토리들 각각은 매우 특정한 부분을 가지고 있습니다.
 
 application
 -----------
@@ -89,13 +90,13 @@ production servers.
 
 docs
 ----
-This directory holds a local copy of the CodeIgniter4
+If this directory is part of your project, it holds a local copy of the CodeIgniter4
 User Guide.
-이 디렉토리에는 CodeIgniter4 문서가 들어 있습니다.
+이 디렉토리가 프로젝트의 일부라면, CodeIgniter4 사용자 가이드의 로컬 복사본이 있습니다.
 
 디렉토리 위치 수정
 -----------------------------
 
-If you've relocated any of the main directories, you can change the configuration
-settings inside ``app/Config/Paths``
 메인 디렉토리를 재배치했다면 ``app/Config/Paths`` 의 설정을 바꿀 수 있습니다.
+
+`응용 프로그램 관리 <../general/managing.html>`_\ 를 읽어보세요.
