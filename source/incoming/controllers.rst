@@ -298,7 +298,7 @@ one and place your controller classes within them.
 	
 	::
 
-		application/controllers/products/Shoes.php
+		app/controllers/products/Shoes.php
 
 	To call the above controller your URI will look something like this
 	위의 컨트롤러를 호출하려면 URI가 다음과 같이 표시됩니다.

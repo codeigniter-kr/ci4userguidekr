@@ -633,7 +633,8 @@ Default Controller
 When a user visits the root of your site (i.e. example.com) the controller to use is determined by the value set by
 the ``setDefaultController()`` method, unless a route exists for it explicitly. The default value for this is ``Home``
 which matches the controller at ``/app/Controllers/Home.php``
-사용자가 사이트의 루트 (예 : example.com)를 방문하면 setDefaultController()명시 적으로 경로가 존재하지 않는 한 사용하는 컨트롤러는 메소드가 설정 한 값으로 결정됩니다 . 이 값의 기본값은 다음 Home 위치의 컨트롤러와 일치합니다 ``/app/Controllers/Home.php``.
+사용자가 사이트의 루트 (예 : example.com)를 방문하면 ``setDefaultController()`` 명시 적으로 경로가 존재하지 않는 한 사용하는 
+컨트롤러는 메소드가 설정 한 값으로 결정됩니다 . 이 값의 기본값은 다음 Home 위치의 컨트롤러와 일치합니다 ``/app/Controllers/Home.php``.
 
 ::
 
@@ -643,7 +644,7 @@ which matches the controller at ``/app/Controllers/Home.php``
 The default controller is also used when no matching route has been found, and the URI would point to a directory
 in the controllers directory. For example, if the user visits ``example.com/admin``, if a controller was found at
 ``/app/Controllers/admin/Home.php`` it would be used.
-기본 제어기는 일치하는 라우트가없는 경우에도 사용되며 URI는 controllers 디렉토리를 가리 킵니다. 예를 들어, 사용자가 example.com/admin 방문하여 ``/app/Controllers/admin/Home.php`` 컨트롤러가 발견 되면 이를 사용합니다.
+기본 컨트롤러는 일치하는 라우트가 없는 경우에도 사용되며 URI는 controllers 디렉토리를 가리킵니다. 예를 들어, 사용자가 example.com/admin 방문하여 ``/app/Controllers/admin/Home.php`` 컨트롤러가 발견 되면 이를 사용합니다.
 
 Default Method
 --------------

@@ -17,9 +17,11 @@ Namespaces
 ==========
 
 The core element of the modules functionality comes from the :doc:`PSR4-compatible autoloading </concepts/autoloader>`
-that CodeIgniter uses. While any code can use the PSR4 autoloader and namespaces, the only way to take full advantage of
+that CodeIgniter uses. While any code can use the PSR4 autoloader and namespaces, the primary way to take full advantage of
 modules is to namespace your code and add it to **app/Config/Autoload.php**, in the ``psr4`` section.
-모듈 기능의 핵심 요소는 CodeIgniter에서 사용 하는 PSR4:doc:`PSR4-compatible autoloading </concepts/autoloader>` 에서 비롯됩니다 . 코드 모듈을 최대한 활용하기 위해 PSR4 오토로더 및 네임 스페이스 유일한 방법을 사용할 수 있지만 코드를 네임 스페이스와에 추가하는 것입니다 **app/Config/Autoload.php** 에, ``psr4`` 섹션.
+모듈의 핵심 요소는 CodeIgniter에서 사용하는 PSR4:doc:`PSR4-compatible autoloading </concepts/autoloader>`\ 에서 비롯됩니다.
+모든 코드가 PSR4 오토로더와 네임스페이스를 사용할 수 있지만 모듈을 최대한 활용하는 주된 방법은 코드의 네임스페이스를 지정하고 "psr4"섹션의
+ **app/Config/Autoload.php**\ 에 추가하는 것입니다.
 
 For example, let's say we want to keep a simple blog module that we can re-use between components. We might create
 folder with our company name, Acme, to store all of our modules within. We will put it right alongside our **application**
@@ -36,7 +38,7 @@ directory in the main project root
     /writable
 
 Open **app/Config/Autoload.php** and add the **Acme** namespace to the ``psr4`` array property
-**app/Config/Autoload.php** 를 열고 **Acme** 네임 스페이스를 ``psr4`` 배열 속성에 추가합니다 .
+**app/Config/Autoload.php**\ 를 열고 **Acme** 네임스페이스를 ``psr4`` 배열에 추가합니다 .
 
 ::
 
@@ -109,6 +111,16 @@ Specify Discovery Items
 With the **$activeExplorers** option, you can specify which items are automatically discovered. If the item is not
 present, then no auto-discovery will happen for that item, but the others in the array will still be discovered.
 
+Discovery and Composer
+======================
+
+Packages that were installed via Composer will also be discovered by default. This only requires that the namespace
+that Composer knows about is a PSR4 namespace. PSR0 namespaces will not be detected.
+
+If you do not want all of Composer's known directories to be scanned when locating files, you can turn this off
+by editing the ``$discoverInComposer`` variable in ``Config\Modules.php``::
+
+    public $discoverInComposer = false;
 
 ==================
 Working With Files

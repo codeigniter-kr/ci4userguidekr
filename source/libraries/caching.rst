@@ -257,11 +257,10 @@ Memcached에 대한 자세한 내용은 `http://php.net/wincache <http://php.net
 Redis 캐싱
 =============
 
-Redis is an in-memory key-value store which can operate in LRU cache mode.
-To use it, you need `Redis server and phpredis PHP extension <https://github.com/phpredis/phpredis>`_.
-Redis는 LRU 캐시 모드에서 작동 할 수있는 in-memory key-value 저장소입니다. 그것을 사용하려면 `Redis server and phpredis PHP extension <https://github.com/phpredis/phpredis>`_ 이 필요 합니다 .
+Redis는 LRU 캐시 모드에서 작동 할 수있는 in-memory key-value 저장소입니다. 
+그것을 사용하려면 `Redis server and phpredis PHP extension <https://github.com/phpredis/phpredis>`_\ 이 필요 합니다 .
 
-redis 서버 연결 구성 옵션은 application/config/redis.php 파일에 저장해야합니다.
+redis 서버 연결 구성 옵션은 app/Config/redis.php 파일에 저장해야합니다.
 사용 가능한 옵션은 다음과 같습니다.
 
 ::
@@ -271,15 +270,10 @@ redis 서버 연결 구성 옵션은 application/config/redis.php 파일에 저�
 	$config['port'] = 6379;
 	$config['timeout'] = 0;
 
-For more information on Redis, please see
-`http://redis.io <http://redis.io>`_.
-Redis에 대한 자세한 내용은 `http://redis.io <http://redis.io>`_ 를 참조하십시오 .
+Redis에 대한 자세한 내용은 `http://redis.io <http://redis.io>`_\ 를 참조하십시오 .
 
 ===========
 더미 캐시
 ===========
 
-This is a caching backend that will always 'miss.' It stores no data,
-but lets you keep your caching code in place in environments that don't
-support your chosen cache.
-이것은 캐싱 백엔드 결과는 항상 'miss.' 입니다. 데이터를 저장하지 않지만 선택한 캐시를 지원하지 않는 환경에서 캐싱 코드를 유지할 수 있습니다.
+더미 캐시의 캐싱 백엔드 결과는 항상 'miss.' 입니다. 데이터를 저장하지 않지만 선택한 캐시를 지원하지 않는 환경에서 캐싱 코드를 유지할 수 있습니다.

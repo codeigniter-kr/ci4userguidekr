@@ -106,7 +106,17 @@ Legacy Support
 If neither of the above methods find the class, and the class is not namespaced, the autoloader will look in the
 **/app/Libraries** and **/app/Models** directories to attempt to locate the files. This provides
 a measure to help ease the transition from previous versions.
-위의 메소드 중 어느 것도 클래스를 찾지 않고 클래스가 이름 공간이 아닌 경우, 오토로더는 **/app/Libraries** 및 **/app/Models** 디렉토리를 검색하여 파일 위치를 찾습니다. 이렇게하면 이전 버전에서 쉽게 이전 할 수 있습니다.
+위의 메소드 중 어느 것도 클래스를 찾지 않고 네임스페이스가 지정된 클래스가 아닌 경우, 오토로더는 **/app/Libraries** 및 
+**/app/Models** 디렉토리를 검색하여 파일 위치를 찾습니다. 이를 이용하여 이전 버전에서 쉽게 이전 할 수 있습니다.
 
-There are no configuration options for legacy support.
-레거시 지원을위한 구성 옵션은 없습니다.
+레거시 지원을 위한 구성 옵션은 없습니다.
+
+Composer Support
+================
+
+Composer support is automatically initialized by default. By default it looks for Composer's autoload file at
+ROOTPATH.'vendor/autoload.php'. If you need to change the location of that file for any reason, you can modify
+the value defined in ``Config\Constants.php``.
+
+.. note:: If the same namespace is defined in both CodeIgniter and Composer, CodeIgniter's autoloader will
+    the first one to get a chance to locate the file.
