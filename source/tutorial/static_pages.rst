@@ -1,6 +1,5 @@
-############
 Static pages
-############
+###############################################################################
 
 **참고:** 이 튜토리얼은 CodeIgniter를 다운로드하고 개발 환경에  :doc:`프레임워크를 설치 <../installation/index>` 했다고 가정 합니다.
 
@@ -185,26 +184,32 @@ Set the default controller to run your new method:
 
 ::
 
-	$routes->setDefaultController('Pages/view');
+    $routes->setDefaultController('Pages/showme');
 
 Add the following line, **after** the route directive for '/'.
 
 ::
 
-	$routes->get('(:any)', 'Pages::view/$1');
+	$routes->get('(:any)', 'Pages::showme/$1');
 
-CodeIgniter는 라우팅 규칙을 위에서 아래로 읽고 요청에 대해 첫 번째로
-일치하는 규칙으로 라우팅합니다. 각 규칙은 슬래시로 구분 된 컨트롤러
-및 메서드 이름에 매핑 된 정규 표현식입니다. 요청이 들어 오면 
-CodeIgniter는 첫 번째 일치 항목을 찾고 적절한 컨트롤러와 메소드에 
-인수를 사용하여 호출합니다.
+CodeIgniter reads its routing rules from top to bottom and routes the
+request to the first matching rule. Each rule is a regular expression
+(left-side) mapped to a controller and method name separated by slashes
+(right-side). When a request comes in, CodeIgniter looks for the first
+match, and calls the appropriate controller and method, possibly with
+arguments.
 
-라우팅에 대한 자세한 내용은 URI 라우팅 :doc:`설명서 </incoming/routing>`
-를 참조하십시오.
+More information about routing can be found in the URI Routing
+:doc:`documentation </incoming/routing>`.
 
-여기서 ``$routes`` 배열 의 두 번째 규칙 ``(:any)`` 는 와일드 카드 문자열이며
-모든 요청 과 일치 합니다. 매개 변수를 ``Pages`` 클래스 의 ``view()`` 
-메서드에 전달합니다.
+Here, the second rule in the ``$routes`` array matches **any** request
+using the wildcard string ``(:any)``. and passes the parameter to the
+``view()`` method of the ``Pages`` class.
 
-지금 ``index.php/about`` 에 방문하세요. pages 컨트롤러의 ``view()`` 메소드로 
-올바르게 라우팅 되었나요? 굉장하죠!
+Now visit ``home``. Did it get routed correctly to the ``showme()``
+method in the pages controller? Awesome!
+
+You should see something like the following:
+
+.. image:: ../images/tutorial1.png
+    :align: center

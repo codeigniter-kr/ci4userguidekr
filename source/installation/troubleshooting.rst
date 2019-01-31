@@ -4,6 +4,18 @@
 
 다음은 몇 가지 일반적인 설치 문제와 제안된 해결 방법 입니다.
 
+How do I know if my install is working?
+------------------------------------------------------------------------
+
+From the command line, at your project root::
+
+    php spark serve
+
+``http://localhost:8080`` in your browser should then show the default
+welcome page:
+
+|CodeIgniter4 Welcome|
+
 URL에 index.php 가 없으면 접근할 수 없습니다.
 ---------------------------------------------
 
