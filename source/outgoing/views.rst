@@ -59,6 +59,7 @@ Now, open the controller file you made earlier called ``Blog.php``, and replace 
 이제 이전에 호출 한 컨트롤러 파일을 열고 Blog.phpecho 문을 view 함수로 바꿉니다.
 
 ::
+	<?php namespace App\Controllers;
 
 	class Blog extends \CodeIgniter\Controller
 	{
@@ -88,6 +89,7 @@ content view, and a footer view. That might look something like this
 CodeIgniter는 view()컨트롤러 내에서 여러 호출을 지능적으로 처리합니다. 하나 이상의 호출이 발생하면 함께 추가됩니다. 예를 들어, 머리글보기, 메뉴보기, 내용보기 및 바닥 글보기가 필요할 수 있습니다. 그러면 다음과 같이 보일 수 있습니다.
 
 ::
+	<?php namespace App\Controllers;
 
 	class Page extends \CodeIgniter\Controller
 	{
@@ -177,6 +179,7 @@ Let's try it with your controller file. Open it and add this code
 컨트롤러 파일을 사용해 보겠습니다. 그것을 열고 다음 코드를 추가하십시오.
 
 ::
+	<?php namespace App\Controllers;
 
 	class Blog extends \CodeIgniter\Controller
 	{
@@ -238,7 +241,8 @@ Here’s a simple example. Add this to your controller
 다음은 간단한 예입니다. 컨트롤러에 다음을 추가하십시오.
 
 ::
-
+	<?php namespace App\Controllers;
+	
 	class Blog extends \CodeIgniter\Controller
 	{
 		public function index()

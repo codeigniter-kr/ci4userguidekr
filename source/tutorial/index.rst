@@ -6,7 +6,7 @@
 CodeIgniter 애플리케이션이 단계별로 어떻게 구성되는지 보여줍니다.
 
 If you are not familiar with PHP, we recommend that you check out
-the ``W3Schools PHP Tutorial <https://www.w3schools.com/php/default.asp>`_ before continuing.
+the `W3Schools PHP Tutorial <https://www.w3schools.com/php/default.asp>`_ before continuing.
 
 이 튜토리얼에서는 뉴스 응용 프로그램을 만듭니다. 정적 페이지를 로드할 수있는
 코드를 작성하는 것으로 시작하여 데이터베이스에서 뉴스 항목을 읽어 뉴스 섹션을

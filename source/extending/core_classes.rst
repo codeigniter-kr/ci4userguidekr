@@ -56,7 +56,7 @@ the core system class, you would create your class like this
 
 ::
 
-    namespace App\Libraries;
+    <?php namespace App\Libraries;
 
     use CodeIgniter\Router\RouteCollectionInterface;
 
@@ -94,7 +94,7 @@ identical to replacing a class with a one exception:
 
 ::
 
-    namespace App\Libraries;
+    <?php namespace App\Libraries;
     use CodeIgniter\Router\RouteCollection;
 
     class RouteCollection extends RouteCollection
@@ -107,7 +107,7 @@ If you need to use a constructor in your class make sure you extend the parent c
 
 ::
 
-    namespace App\Libraries;
+    <?php namespace App\Libraries;
     use CodeIgniter\Router\RouteCollection;
 
     class RouteCollection extends RouteCollection
@@ -128,7 +128,7 @@ Controller 핵심 클래스를 확장하는 경우 응용 프로그램 컨트롤
 
 ::
 
-	namespace App\Controllers;
+	<?php namespace App\Controllers;
     use App\BaseController;
 
     class Home extends BaseController {

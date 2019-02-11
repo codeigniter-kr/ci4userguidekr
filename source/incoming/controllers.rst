@@ -36,7 +36,7 @@ and put the following code in it
 
 ::
 
-	namespace App\Controllers;
+	<?php namespace App\Controllers;
 	use CodeIgniter\Controller;
 
 	class Blog extends Controller
@@ -72,7 +72,7 @@ If you did it right, you should see
 
 ::
 
-	namespace App\Controllers;
+	<?php namespace App\Controllers;
 	use CodeIgniter\Controller;
 
 	class Blog extends Controller {
@@ -83,7 +83,7 @@ If you did it right, you should see
 
 ::
 
-	namespace App\Controllers;
+	<?php namespace App\Controllers;
 	use CodeIgniter\Controller;
 
 	class blog extends Controller {
@@ -115,7 +115,7 @@ Let's try it. Add a new method to your controller
 
 ::
 
-	namespace App\Controllers;
+	<?php namespace App\Controllers;
 	use CodeIgniter\Controller;
 
 	class Blog extends Controller 
@@ -161,7 +161,7 @@ Your method will be passed URI segments 3 and 4 ("sandals" and "123")
 
 ::
 
-	namespace App\Controllers;
+	<?php namespace App\Controllers;
 	use CodeIgniter\Controller;
 
 	class Products extends Controller

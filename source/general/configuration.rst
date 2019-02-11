@@ -61,7 +61,7 @@ represent your settings
 
 ::
 
-    namespace Config;
+    <?php namespace Config;
     use CodeIgniter\Config\BaseConfig;
 
     class App extends BaseConfig
@@ -250,7 +250,7 @@ the same way as described for namespaced variables.
 
 ::
 
-    namespace App\Config;
+    <?php namespace App\Config;
     use CodeIgniter\Config\BaseConfig;
 
     class MySalesConfig extends baseConfig
@@ -266,7 +266,7 @@ the same way as described for namespaced variables.
 
 ::
 
-    namespace App\Models;
+    <?php namespace App\Models;
 
     class RegionalSales
     {

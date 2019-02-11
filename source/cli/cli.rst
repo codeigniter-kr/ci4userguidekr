@@ -49,7 +49,7 @@ in it
 
 ::
 
-	namespace App\Controller;
+	<?php namespace App\Controller;
 	
 	use CodeIgniter\Controller;
 
