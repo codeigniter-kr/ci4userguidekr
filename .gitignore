@@ -2,3 +2,4 @@
 /venv
 /.idea
 /source/.vscode/settings.json
+/*.code-workspace
