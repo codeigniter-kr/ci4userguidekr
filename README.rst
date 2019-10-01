@@ -2,62 +2,53 @@
 CodeIgniter 한국어 사용자 가이드
 ###############################
 
-******************
-Setup Instructions
-******************
+***********
+설치지침
+***********
 
-The CodeIgniter user guide uses Sphinx to manage the documentation and
-output it to various formats. Pages are written in human-readable
-`ReStructured Text <http://sphinx.pocoo.org/rest.html>`_ format.
+CodeIgniter 사용자 가이드는 Sphinx를 사용하여 문서를 관리하고 다양한 형식으로 출력합니다.
+소스 파일은 `ReStructured Text <http://sphinx.pocoo.org/rest.html>`_ 포맷으로 작성되었습니다.
 
-Prerequisites
+설치전 확인
 =============
 
-Sphinx requires Python, which is already installed if you are running OS X.
-You can confirm in a Terminal window by executing the ``python`` command
-without any parameters. It should load up and tell you which version you have
-installed. If you're not on 2.7+, go ahead and install 2.7.2 from
-http://python.org/download/releases/2.7.2/
+Sphinx에는 Python이 필요하며, OS X를 사용하고 있다면 이미 설치되어 있습니다.
+python 설치 여부는 터미널 창에서 ``python``\ 을 입력하여 확인할 수 있습니다.
+설치된 버전이 2.7 이상이 아닌 경우 http://python.org/download/releases/2.7.2/ 에서 설치하십시오.
 
-Installation
+설치방법
 ============
 
-1. Install `easy_install <http://peak.telecommunity.com/DevCenter/EasyInstall#installing-easy-install>`_
+1. `easy_install <http://peak.telecommunity.com/DevCenter/EasyInstall#installing-easy-install>`_ 설치
 2. ``easy_install "sphinx==1.4.5"``
 3. ``easy_install sphinxcontrib-phpdomain``
-4. Install the CI Lexer which allows PHP, HTML, CSS, and JavaScript syntax highlighting in code examples (see *cilexer/README*)
+4. PHP, HTML, CSS, and JavaScript 코드 샘플의 구문 강조를 위해 CI Lexer를 설치 하십시오. (see *cilexer/README*)
 5. ``cd user_guide_src``
 6. ``make html``
 
-Editing and Creating Documentation
+문서 편집 및 작성
 ==================================
 
-All of the source files exist under *source/* and is where you will add new
-documentation or modify existing documentation. Just as with code changes,
-we recommend working from feature branches and making pull requests to
-the *develop* branch of this repo.
+사용자 가이드의 모든 소스 파일은 *source/* 아래에 있으며 새 문서를 추가하거나 기존 문서를 수정할 수 있습니다.
 
 So where's the HTML?
 ====================
 
-Obviously, the HTML documentation is what we care most about, as it is the
-primary documentation that our users encounter. Since revisions to the built
-files are not of value, they are not under source control. This also allows
-you to regenerate as necessary if you want to "preview" your work. Generating
-the HTML is very simple. From the root directory of your user guide repo
-fork issue the command you used at the end of the installation instructions::
+HTML 문서는 사용자가 사용하는 문서이기 때문에 중요합니다.
+빌드 된 파일은 관리할 필요가 없으므로 소스와 함께 관리 하지 않습니다.
+작업된 결과를 미리보기 위해 필요에 따라 재생성 할 수 있습니다.
+HTML 생성은 매우 간단합니다.
+사용자 가이드 레파지토리를 복사한 디렉토리로 이동하여 다음 명려을 입력하십오.
+::
 
 	make html
 
-You will see it do a whiz-bang compilation, at which point the fully rendered
-user guide and images will be in *build/html/*. After the HTML has been built,
-each successive build will only rebuild files that have changed, saving
-considerable time. If for any reason you want to "reset" your build files,
-simply delete the *build* folder's contents and rebuild.
+렌더링된 사용자 가이드와 이미지는 *build/html/*\ 에서 확인할 수 있습니다.
+HTML이 빌드 된 후, 각 후속 빌드는 변경된 파일만 다시 빌드하므로 상당한 시간이 절약됩니다.
+빌드 파일을 다시 만들고 싶다면 *build* 폴더의 내용을 삭제하고 다시 빌드하십시오.
 
 ***************
 Style Guideline
 ***************
 
-Please refer to source/contributing/documentation.rst for general guidelines for
-using Sphinx to document CodeIgniter.
+CodeIgniter를 문서화하기 위해 Sphinx를 사용하기위한 일반적인 지침은 source/contributing/documentation.rst\ 를 참조하십시오.

@@ -3,3 +3,13 @@
 /.idea
 /source/.vscode/settings.json
 /*.code-workspace
+/cilexer/build/lib.linux-x86_64-2.7/cilexer/__init__.py
+/cilexer/build/lib.linux-x86_64-2.7/cilexer/cilexer.py
+/cilexer/dist/pycilexer-0.1-py2.7.egg
+/cilexer/pycilexer.egg-info/PKG-INFO
+/cilexer/pycilexer.egg-info/SOURCES.txt
+/cilexer/pycilexer.egg-info/dependency_links.txt
+/cilexer/pycilexer.egg-info/entry_points.txt
+/cilexer/pycilexer.egg-info/requires.txt
+/cilexer/pycilexer.egg-info/top_level.txt
+/htaccess
