@@ -131,7 +131,7 @@ this code and save it to your **app/Controllers/** folder::
 			if (! $this->validate([]))
 			{
 				echo view('Signup', [
-					'validation' => $this->validation
+					'validation' => $this->validator
 				]);
 			}
 			else
@@ -161,7 +161,7 @@ Explanation
 
 You'll notice several things about the above pages:
 
-The form (Signup.php) is a standard web form with a couple exceptions:
+The form (Signup.php) is a standard web form with a couple of exceptions:
 
 #. It uses a form helper to create the form opening. Technically, this
    isn't necessary. You could create the form using standard HTML.
@@ -190,7 +190,7 @@ The library is loaded as a service named **validation**::
     $validation =  \Config\Services::validation();
 
 This automatically loads the ``Config\Validation`` file which contains settings
-for including multiple Rule sets, and collections of rules that can be easily reused.
+for including multiple Rulesets, and collections of rules that can be easily reused.
 
 .. note:: You may never need to use this method, as both the :doc:`Controller </incoming/controllers>` and
     the :doc:`Model </models/model>` provide methods to make validation even easier.
@@ -206,7 +206,7 @@ methods.
 setRule()
 ---------
 
-This method sets a single rule. It takes the name of field as
+This method sets a single rule. It takes the name of the field as
 the first parameter, an optional label and a string with a pipe-delimited list of rules
 that should be applied::
 
@@ -489,14 +489,13 @@ Customizing Error Display
 ************************************************
 
 When you call ``$validation->listErrors()`` or ``$validation->showError()``, it loads a view file in the background
-that determines how the errors are displayed. By default, they display in a manner compatible with the
-`Bootstrap <http://getbootstrap.com/>`_ CSS framework. You can easily create new views and use them throughout your
-application.
+that determines how the errors are displayed. By default, they display with a class of ``errors`` on the wrapping div.
+You can easily create new views and use them throughout your application.
 
 Creating the Views
 ==================
 
-The first step is to create the custom views. These can be placed anywhere that the ``view()`` method can locate them,
+The first step is to create custom views. These can be placed anywhere that the ``view()`` method can locate them,
 which means the standard View directory, or any namespaced View folder will work. For example, you could create
 a new view at **/app/Views/_errors_list.php**::
 
@@ -575,7 +574,7 @@ a boolean true or false value signifying true if it passed the test or false if 
     }
 
 By default, the system will look within ``CodeIgniter\Language\en\Validation.php`` for the language strings used
-within errors. In custom rules you may provide error messages by accepting an $error variable by reference in the
+within errors. In custom rules, you may provide error messages by accepting a $error variable by reference in the
 second parameter::
 
     public function even(string $str, string &$error = null): bool
@@ -609,23 +608,33 @@ for rules like ``require_with`` that needs to check the value of another submitt
 		// If the field is present we can safely assume that
 		// the field is here, no matter whether the corresponding
 		// search field is present or not.
-		$present = $this->required($data[$str] ?? null);
+		$present = $this->required($str ?? '');
 
-		if ($present === true)
+		if ($present)
 		{
 			return true;
 		}
 
-		// Still here? Then we fail this test if
+        // Still here? Then we fail this test if
 		// any of the fields are present in $data
-		$requiredFields = array_intersect($fields, $data);
+		// as $fields is the lis
+		$requiredFields = [];
 
-		$requiredFields = array_filter($requiredFields, function($item)
+		foreach ($fields as $field)
 		{
-			return ! empty($item);
+			if (array_key_exists($field, $data))
+			{
+				$requiredFields[] = $field;
+			}
+		}
+
+		// Remove any keys with empty values since, that means they
+		// weren't truly there, as far as this is concerned.
+		$requiredFields = array_filter($requiredFields, function ($item) use ($data) {
+			return ! empty($data[$item]);
 		});
 
-		return ! (bool)count($requiredFields);
+		return empty($requiredFields);
 	}
 
 Custom errors can be returned as the fourth parameter, just as described above.
@@ -635,7 +644,7 @@ Available Rules
 
 The following is a list of all the native rules that are available to use:
 
-.. note:: Rule is string; there must be no spaces between the parameters, especially the "is_unique" rule.
+.. note:: Rule is a string; there must be no spaces between the parameters, especially the "is_unique" rule.
 	There can be no spaces before and after "ignore_value".
 
 - "is_unique[supplier.name,uuid, $uuid]"   is not ok
@@ -652,39 +661,40 @@ alpha_numeric           No          Fails if field contains anything other than 
 alpha_numeric_space     No          Fails if field contains anything other than alpha-numeric characters, numbers or space.
 decimal                 No          Fails if field contains anything other than a decimal number.
 differs                 Yes         Fails if field does not differ from the one in the parameter.                                   differs[field_name]
-exact_length            Yes         Fails if field is not exactly the parameter value.                                              exact_length[5]
+exact_length            Yes         Fails if field is not exactly the parameter value. One or more comma-separated values.          exact_length[5] or exact_length[5,8,12]
 greater_than            Yes         Fails if field is less than or equal to the parameter value or not numeric.                     greater_than[8]
 greater_than_equal_to   Yes         Fails if field is less than the parameter value, or not numeric.                                greater_than_equal_to[5]
+if_exist                No          If this rule is present, validation will only return possible errors if the field key exists,
+                                    regardless of its value.
 in_list                 Yes         Fails if field is not within a predetermined list.                                              in_list[red,blue,green]
 integer                 No          Fails if field contains anything other than an integer.
 is_natural              No          Fails if field contains anything other than a natural number: 0, 1, 2, 3, etc.
 is_natural_no_zero      No          Fails if field contains anything other than a natural number, except zero: 1, 2, 3, etc.
+is_unique               Yes         Checks if this field value exists in the database. Optionally set a                             is_unique[table.field,ignore_field,ignore_value]
+                                    column and value to ignore, useful when updating records to ignore itself.
 less_than               Yes         Fails if field is greater than or equal to the parameter value or not numeric.                  less_than[8]
-less_then_equal_to      Yes         Fails if field is greater than the parameter value or not numeric.                              less_than_equal_to[8]
+less_than_equal_to      Yes         Fails if field is greater than the parameter value or not numeric.                              less_than_equal_to[8]
 matches                 Yes         The value must match the value of the field in the parameter.                                   matches[field]
 max_length              Yes         Fails if field is longer than the parameter value.                                              max_length[8]
 min_length              Yes         Fails if field is shorter than the parameter value.                                             min_length[3]
 numeric                 No          Fails if field contains anything other than numeric characters.
 regex_match             Yes         Fails if field does not match the regular expression.                                           regex_match[/regex/]
-if_exist                No          If this rule is present, validation will only return possible errors if the field key exists,
-                                    regardless of its value.
 permit_empty            No          Allows the field to receive an empty array, empty string, null or false.
 required                No          Fails if the field is an empty array, empty string, null or false.
-required_with           Yes         The field is required if any of the fields in the parameter are set.                            required_with[field1,field2]
-required_without        Yes         The field is required when any of the fields in the parameter are not set.                      required_without[field1,field2]
-is_unique               Yes         Checks if this field value exists in the database. Optionally set a                             is_unique[table.field,ignore_field,ignore_value]
-                                    column and value to ignore, useful when updating records to ignore itself.
+required_with           Yes         The field is required when any of the other required fields are present in the data.            required_with[field1,field2]
+required_without        Yes         The field is required when all of the other fields are present in the data but not required.    required_without[field1,field2]
+string                  No          A generic alternative to the alpha* rules that confirms the element is a string
 timezone                No          Fails if field does match a timezone per ``timezone_identifiers_list``
 valid_base64            No          Fails if field contains anything other than valid Base64 characters.
 valid_json              No          Fails if field does not contain a valid JSON string.
 valid_email             No          Fails if field does not contain a valid email address.
 valid_emails            No          Fails if any value provided in a comma separated list is not a valid email.
-valid_ip                No          Fails if the supplied IP is not valid. Accepts an optional parameter of ‘ipv4’ or               valid_ip[ipv6]
+valid_ip                No          Fails if the supplied IP is not valid. Accepts an optional parameter of ‘ipv4’ or                valid_ip[ipv6]
                                     ‘ipv6’ to specify an IP format.
 valid_url               No          Fails if field does not contain a valid URL.
-valid_date              No          Fails if field does not contain a valid date. Accepts an optional parameter                     valid_date[d/m/Y]
+valid_date              No          Fails if field does not contain a valid date. Accepts an optional parameter                      valid_date[d/m/Y]
                                     to matches a date format.
-valid_cc_number         Yes         Verifies that the credit card number matches the format used by the specified provider.         valid_cc_number[amex]
+valid_cc_number         Yes         Verifies that the credit card number matches the format used by the specified provider.          valid_cc_number[amex]
                                     Current supported providers are: American Express (amex), China Unionpay (unionpay),
                                     Diners Club CarteBlance (carteblanche), Diners Club (dinersclub), Discover Card (discover),
                                     Interpayment (interpayment), JCB (jcb), Maestro (maestro), Dankort (dankort), NSPK MIR (mir),
@@ -723,6 +733,8 @@ mime_in                 Yes         Fails if the file's mime type is not one lis
 ext_in                  Yes         Fails if the file's extension is not one listed in the parameters.                              ext_in[field_name,png,jpg,gif]
 is_image                Yes         Fails if the file cannot be determined to be an image based on the mime type.                   is_image[field_name]
 ======================= =========== =============================================================================================== ========================================
+
+The file validation rules apply for both single and multiple file uploads.
 
 .. note:: You can also use any native PHP functions that permit up
 	to two parameters, where at least one is required (to pass

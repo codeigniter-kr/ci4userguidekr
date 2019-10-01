@@ -22,9 +22,9 @@ Load the Forge Class as follows::
 You can also pass another database group name to the DB Forge loader, in case
 the database you want to manage isn't the default one::
 
-	$this->myforge = $this->load->dbforge('other_db');
+	$this->myforge = \Config\Database::forge('other_db');
 
-In the above example, we're passing a the name of a different database group
+In the above example, we're passing the name of a different database group
 to connect to as the first parameter.
 
 *******************************
@@ -62,7 +62,7 @@ mechanism for this.
 Adding fields
 =============
 
-Fields are normally created via an associative array. Within the array you must
+Fields are normally created via an associative array. Within the array, you must
 include a 'type' key that relates to the datatype of the field. For
 example, INT, VARCHAR, TEXT, etc. Many datatypes (for example VARCHAR)
 also require a 'constraint' key.
@@ -188,9 +188,6 @@ and unique keys with specific methods::
 	$forge->addPrimaryKey('blog_id');
 	// gives PRIMARY KEY `blog_id` (`blog_id`)
 
-Foreign Keys help to enforce relationships and actions across your tables. For tables that support Foreign Keys,
-you may add them directly in forge::
-
 	$forge->addUniqueKey(['blog_id', 'uri']);
 	// gives UNIQUE KEY `blog_id_uri` (`blog_id`, `uri`)
 
@@ -198,7 +195,8 @@ you may add them directly in forge::
 Adding Foreign Keys
 ===================
 
-::
+Foreign Keys help to enforce relationships and actions across your tables. For tables that support Foreign Keys,
+you may add them directly in forge::
 
         $forge->addForeignKey('users_id','users','id');
         // gives CONSTRAINT `TABLENAME_users_foreign` FOREIGN KEY(`users_id`) REFERENCES `users`(`id`)
@@ -259,8 +257,6 @@ Execute a DROP FOREIGN KEY.
 
 	// Produces: ALTER TABLE 'tablename' DROP FOREIGN KEY 'users_foreign'
 	$forge->dropForeignKey('tablename','users_foreign');
-
-.. note:: SQlite database driver does not support dropping of foreign keys.
 
 Renaming a table
 ================
@@ -326,7 +322,7 @@ Modifying a Column in a Table
 
 The usage of this method is identical to ``addColumn()``, except it
 alters an existing column rather than adding a new one. In order to
-change the name you can add a "name" key into the field defining array.
+change the name, you can add a "name" key into the field defining array.
 
 ::
 
@@ -386,7 +382,7 @@ Class Reference
 		:returns:	\CodeIgniter\Database\Forge instance (method chaining)
 		:rtype:	\CodeIgniter\Database\Forge
 
-		Adds an unique key to the set that will be used to create a table. Usage:  See `Adding Keys`_.
+		Adds a unique key to the set that will be used to create a table. Usage:  See `Adding Keys`_.
 
 	.. php:method:: createDatabase($db_name)
 
@@ -401,8 +397,8 @@ Class Reference
 		:param	string	$table: Name of the table to create
 		:param	string	$if_not_exists: Set to TRUE to add an 'IF NOT EXISTS' clause
 		:param	string	$attributes: An associative array of table attributes
-		:returns:  TRUE on success, FALSE on failure
-		:rtype:	bool
+		:returns:  Query object on success, FALSE on failure
+		:rtype:	mixed
 
 		Creates a new table. Usage:  See `Creating a table`_.
 
@@ -445,7 +441,7 @@ Class Reference
 
 		:param	string	$table: Current of the table
 		:param	string	$new_table_name: New name of the table
-		:returns:	TRUE on success, FALSE on failure
-		:rtype:	bool
+		:returns:  Query object on success, FALSE on failure
+		:rtype:	mixed
 
 		Renames a table. Usage:  See `Renaming a table`_.

@@ -1,36 +1,40 @@
-####################################
-CodeIgniter4에 오신 것을 환영합니다.
-####################################
+#######################
+Welcome to CodeIgniter4
+#######################
 
-코드이그나이터(CodeIgniter)는 PHP를 이용하여 웹사이트를 구축하고자 하는 
-사람들을 위한 개발 프레임워크입니다.  CodeIgniter 는 날 코딩 하는 분들을
-위해 풍부한 라이브러리, 쉬운 인터페이스 및 쉬운 로직을 제공함으로써 개발
-속도를 높히는 것을 목표로 하고 있습니다. CodeIgniter를 사용하면 주어진
-작업에 필요한 코드의 양을 최소화하여 프로젝트에 창의적으로 집중할 수 
-있습니다.
+CodeIgniter is an Application Development Framework - a toolkit - for
+people who build web sites using PHP. Its goal is to enable you to
+develop projects much faster than you could if you were writing code
+from scratch, by providing a rich set of libraries for commonly needed
+tasks, as well as a simple interface and logical structure to access
+these libraries. CodeIgniter lets you creatively focus on your project
+by minimizing the amount of code needed for a given task.
 
-Codeigniter는 어떤 특정한 방식으로 작업하도록 강요하지 않으며 가능한 한
-유연하게 관리되고 여러분이 원하는 방식으로 작업 할 수 있습니다.
-프레임워크의 핵심 모듈을 쉽게 확장하거나 완전히 교체하여 필요한 
-방식으로 시스템을 작동하도록 할 수 있습니다.
-요약하면, CodeIgniter는 여러분을 방해하지 않고 필요한 도구를 제공하는 
-유연한 프레임워크입니다.
+Where possible, CodeIgniter has been kept as flexible as possible,
+allowing you to work in the way you want, not being forced into working
+any certain way. The framework can have core parts easily extended
+or completely replaced to make the system work the way you need it to.
+In short, CodeIgniter is the malleable framework that tries to provide
+the tools you need while staying out of the way.
 
-*********************************************
-누구를 위한 코드이그나이터(Codeigniter) 인가?
-*********************************************
+***********************
+Who is CodeIgniter For?
+***********************
 
-CodeIgniter는 다음과 같은 경우에 적합합니다.
+CodeIgniter is right for you if:
 
--  최소 노력으로 사용할 수 있는 프레임워크를 원한다.
--  놀라운 프로그램 성능을 원한다.
--  거의 설정이 필요 없는 프레임워크를 원한다.
--  커맨드라인에서 뭔가를 입력할 필요가 없는 프레임워크를 원한다.
--  제한적인 코딩 규칙이 없는 프레임워크를 원한다.
--  PEAR 같이 큰 라이브러리를 별로 좋아하지 않는다.
--  템플릿 언어를 억지로 배우고 싶지 않다. (원하는 경우 선택적으로 템플릿 파서를 사용할 수 있지만)
--  복잡한 것 대신 심플한 솔루션을 좋아한다.
--  명확하고 전체 내용을 몽땅 다 설명해주는 설명서를 원한다.
+-  You want a framework with a small footprint.
+-  You need exceptional performance.
+-  You want a framework that requires nearly zero configuration.
+-  You want a framework that does not require you to use the command
+   line.
+-  You want a framework that does not require you to adhere to
+   restrictive coding rules.
+-  You are not interested in large-scale monolithic libraries like PEAR.
+-  You do not want to be forced to learn a templating language (although
+   a template parser is optionally available if you desire one).
+-  You eschew complexity, favoring simple solutions.
+-  You need clear, thorough documentation.
 
 .. toctree::
 	:hidden:

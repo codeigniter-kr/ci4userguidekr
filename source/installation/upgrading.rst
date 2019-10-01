@@ -1,8 +1,9 @@
 #################################
-이전 버전에서 업그레이드
+Upgrading From a Previous Version
 #################################
 
-업그레이드 할 버전에 해당하는 업그레이드 내용을 확인하세요.
+Please read the upgrade notes corresponding to the version you are
+upgrading from.
 
 .. toctree::
 	:titlesonly:

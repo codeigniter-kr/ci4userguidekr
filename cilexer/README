@@ -1,22 +1,22 @@
-#To install the CodeIgniter Lexer to Pygments, run:
-CodeIgniter 어휘분석기를 Pygments에 설치하려면 다음을 실행하세요:
+To install the CodeIgniter Lexer to Pygments, run:
 
 	sudo python setup.py install
 
-이어서 다음을 입력하세요
+Confirm with
 
 	pygmentize -L
 	
-다음 출력을 볼 수 있을겁니다.:
+
+You should see in the lexer output:
 
 * ci, codeigniter:
     CodeIgniter (filenames *.html, *.css, *.php, *.xml, *.static)
 
-당신은 cilexer/cilexr.py가 업데이트가 되면 언제라도 setup.py를 실행시키고, cilexer 패키지를 설치해야 할 것입니다. 
+You will need to run setup.py and install the cilexer package anytime after cilexer/cilexer.py is updated
 
-알림: 당신이 Sphinx 와 Pygments를 어떻게 설치했냐에 따라서,
-잘못된 버전을 설치하게 될 수도 있습니다.
-다른 버전의 파이썬에 설치하고 싶으면
-setup.py를 쓸 때 경로를 특정하세요, 즉:
+NOTE: Depending on how you installed Sphinx and Pygments,
+you may be installing to the wrong version. 
+If you need to install to a different version of python
+specify its path when using setup.py, e.g.:
 
 	sudo /usr/bin/python2.5 setup.py install

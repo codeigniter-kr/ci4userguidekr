@@ -1,8 +1,8 @@
 ###############
-문제 해결
+Troubleshooting
 ###############
 
-다음은 몇 가지 일반적인 설치 문제와 제안된 해결 방법 입니다.
+Here are some common installation problems, and suggested workarounds.
 
 How do I know if my install is working?
 ------------------------------------------------------------------------
@@ -16,22 +16,25 @@ welcome page:
 
 |CodeIgniter4 Welcome|
 
-URL에 index.php 가 없으면 접근할 수 없습니다.
----------------------------------------------
+I have to include index.php in my URL
+-------------------------------------
 
-``/mypage/find/apple`` 로 접근되지 않지만, ``/index.php/mypage/find/apple`` 로 접근 가능할 경우, 
-``.htaccess`` (for Apache)가 제대로 설정되어 있지 않은 경우 입니다 .
+If a URL like ``/mypage/find/apple`` doesn't work, but the similar
+URL ``/index.php/mypage/find/apple`` does, that sounds like your ``.htaccess`` rules
+(for Apache) are not setup properly, or the ``mod_rewrite`` extension
+in Apache's ``httpd.conf`` is commented out.
 
-default page만 보입니다.
--------------------------
+Only the default page loads
+---------------------------
 
-URL에 무엇을 넣든 기본 페이지 만로드하는 경우 서버가 검색 엔진 친숙한 URL
-(serve search-engine friendly URLs)을 제공하는 데 필요한 REQUEST_URI 변수를 
-지원하지 않을 수 있습니다. 첫 단계로 *app/Config/App.php* 파일을
-열고 URI 프로토콜 정보를 찾으십시오. 몇 가지 대체 설정을 시도하는 것이
-좋습니다. 이것을 시도한 후에도 여전히 작동하지 않는다면 URL에 물음표를 
-추가하도록 CodeIgniter에 강요해야합니다. 이렇게하려면 
-*application/Config/App.php* 파일을 열어 다음 과 같이 변경하십시오.::
+If you find that no matter what you put in your URL only your default
+page is loading, it might be that your server does not support the
+REQUEST_URI variable needed to serve search-engine friendly URLs. As a
+first step, open your *app/Config/App.php* file and look for
+the URI Protocol information. It will recommend that you try a couple of
+alternate settings. If it still doesn't work after you've tried this
+you'll need to force CodeIgniter to add a question mark to your URLs. To
+do this open your *app/Config/App.php* file and change this::
 
 	public $indexPage = 'index.php';
 
@@ -43,7 +46,35 @@ The tutorial gives 404 errors everywhere :(
 -------------------------------------------
 
 You can't follow the tutorial using PHP's built-in web server.
-It doesn't process the ``.htaccess`` file needed to route
+It doesn't process the `.htaccess` file needed to route
 requests properly.
 
-The solution: use Apache to server your site.
+The solution: use Apache to serve your site, or else the built-in
+CodeIgniter equivalent, ``php spark serve`` from your project root.
+
+.. |CodeIgniter4 Welcome| image:: ../images/welcome.png
+
+What's with an unhelpful "Whoops!" page?
+------------------------------------------------------
+
+You find that your app is displaying a page with "Whoops!" and
+then the text line "We seem to have hit a snag. Please try again later...".
+
+That is a sign that you are in production mode and have hit an
+unrecoverable error, which we don't want to show to the viewer of
+the webapp, for better security.
+
+You can see the error in the debug toolbar display by setting your environment to
+"development" (in `.env`), and reloading the page.
+
+Don't forget to reset the environment to "production" once you fix the problem!
+
+CodeIgniter Error Logs
+-------------------------------------------------------
+
+CodeIgniter logs error messages, according to the settings in `app/Config/Logger.php`.
+
+You can adjust the error threshold to see more or fewer messages.
+
+The default configuration has daily log files stored in `writable/logs`.
+It would be a good idea to check them if things aren't working the way you expect!

@@ -2,7 +2,7 @@
 Session Library
 ###############
 
-The Session class permits you maintain a user's "state" and track their
+The Session class permits you to maintain a user's "state" and track their
 activity while they browse your site.
 
 CodeIgniter comes with a few session storage drivers, that you can see
@@ -77,10 +77,10 @@ at the same time. To use a more appropriate technical term - requests were
 non-blocking.
 
 However, non-blocking requests in the context of sessions also means
-unsafe, because modifications to session data (or session ID regeneration)
+unsafe, because, modifications to session data (or session ID regeneration)
 in one request can interfere with the execution of a second, concurrent
 request. This detail was at the root of many issues and the main reason why
-CodeIgniter 3.0 has a completely re-written Session library.
+CodeIgniter 4 has a completely re-written Session library.
 
 Why are we telling you this? Because it is likely that after trying to
 find the reason for your performance issues, you may conclude that locking
@@ -387,7 +387,7 @@ Destroying a Session
 
 To clear the current session (for example, during a logout), you may
 simply use either PHP's `session_destroy() <http://php.net/session_destroy>`_
-function, or the ``sess_destroy()`` method. Both will work in exactly the
+function, or the library's ``destroy()`` method. Both will work in exactly the
 same way::
 
 	session_destroy();
@@ -420,7 +420,7 @@ accessing them:
 
   - session_id: ``session_id()``
   - ip_address: ``$_SERVER['REMOTE_ADDR']``
-  - user_agent: ``$this->input->user_agent()`` (unused by sessions)
+  - user_agent: ``$_SERVER['HTTP_USER_AGENT']`` (unused by sessions)
   - last_activity: Depends on the storage, no straightforward way. Sorry!
 
 Session Preferences
@@ -441,6 +441,7 @@ Preference                     Default                                   Options
                                                                          CodeIgniter\Session\Handlers\DatabaseHandler
                                                                          CodeIgniter\Session\Handlers\MemcachedHandler
                                                                          CodeIgniter\Session\Handlers\RedisHandler
+                                                                         CodeIgniter\Session\Handlers\ArrayHandler
 **sessionCookieName**          ci_session                                [A-Za-z\_-] characters only                    The name used for the session cookie.
 **sessionExpiration**          7200 (2 hours)                            Time in seconds (integer)                      The number of seconds you would like the session to last.
                                                                                                                         If you would like a non-expiring session (until browser is closed) set the value to zero: 0
@@ -488,15 +489,19 @@ engines, that you can use:
   - CodeIgniter\Session\Handlers\DatabaseHandler
   - CodeIgniter\Session\Handlers\MemcachedHandler
   - CodeIgniter\Session\Handlers\RedisHandler
+  - CodeIgniter\Session\Handlers\ArrayHandler
 
 By default, the ``FileHandler`` Driver will be used when a session is initialized,
-because it is the most safe choice and is expected to work everywhere
+because it is the safest choice and is expected to work everywhere
 (virtually every environment has a file system).
 
 However, any other driver may be selected via the ``public $sessionDriver``
 line in your **app/Config/App.php** file, if you chose to do so.
 Have it in mind though, every driver has different caveats, so be sure to
 get yourself familiar with them (below) before you make that choice.
+
+.. note:: The ArrayHandler is used during testing and stores all data within
+    a PHP array, while preventing the data from being persisted.
 
 FileHandler Driver (the default)
 ==================================================================
@@ -526,7 +531,7 @@ On UNIX-like operating systems, this is usually achieved by setting the
 allows only the directory's owner to perform read and write operations on
 it. But be careful because the system user *running* the script is usually
 not your own, but something like 'www-data' instead, so only setting those
-permissions will probable break your application.
+permissions will probably break your application.
 
 Instead, you should do something like this, depending on your environment
 ::

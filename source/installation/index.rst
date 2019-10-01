@@ -1,5 +1,5 @@
 ############
-설치하기
+Installation
 ############
 
 CodeIgniter4 can be installed in a number of different ways: manually,

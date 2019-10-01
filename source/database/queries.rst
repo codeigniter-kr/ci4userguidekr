@@ -72,11 +72,15 @@ without needing to create a new connection you can use this method::
 	$db->setPrefix('newprefix');
 	$db->prefixTable('tablename'); // outputs newprefix_tablename
 
+You can get the current prefix any time with this method::
+	
+	$DBPrefix = $db->getPrefix();
+
 **********************
 Protecting identifiers
 **********************
 
-In many databases it is advisable to protect table and field names - for
+In many databases, it is advisable to protect table and field names - for
 example with backticks in MySQL. **Query Builder queries are
 automatically protected**, but if you need to manually protect an
 identifier you can use::

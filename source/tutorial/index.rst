@@ -1,36 +1,42 @@
-####################
-튜토리얼(Tutorial)
-####################
+########
+Tutorial
+########
 
-이 튜토리얼은 CodeIgniter 프레임 워크와 MVC 아키텍처의 기본 원리 소개와 
-CodeIgniter 애플리케이션이 단계별로 어떻게 구성되는지 보여줍니다.
+This tutorial is intended to introduce you to the CodeIgniter4 framework
+and the basic principles of MVC architecture. It will show you how a
+basic CodeIgniter application is constructed in a step-by-step fashion.
 
 If you are not familiar with PHP, we recommend that you check out
 the `W3Schools PHP Tutorial <https://www.w3schools.com/php/default.asp>`_ before continuing.
 
-이 튜토리얼에서는 뉴스 응용 프로그램을 만듭니다. 정적 페이지를 로드할 수있는
-코드를 작성하는 것으로 시작하여 데이터베이스에서 뉴스 항목을 읽어 뉴스 섹션을
-만듭니다. 마지막으로 Form을 추가하여 데이터베이스에 뉴스 항목을 추가합니다.
+In this tutorial, you will be creating a **basic news application**. You
+will begin by writing the code that can load static pages. Next, you
+will create a news section that reads news items from a database.
+Finally, you'll add a form to create news items in the database.
 
-이 튜토리얼은 중점적으로 다음 내용을 다룹니다.
+This tutorial will primarily focus on:
 
--  Model-View-Controller 기본
--  Routing 기본
+-  Model-View-Controller basics
+-  Routing basics
 -  Form validation
--  CodeIgniter의 "Query Builder"를 사용하여 데이터베이스 쿼리 수행
+-  Performing basic database queries using CodeIgniter's "Query Builder"
 
+The entire tutorial is split up over several pages, each explaining a
+small part of the functionality of the CodeIgniter framework. You'll go
+through the following pages:
 
-전체 튜토리얼은 CodeIgniter 프레임워크의 기능을 사용하여 여러 
-페이지로 나뉩니다. 다음을 살펴 보겠습니다.
+-  Introduction, this page, which gives you an overview of what to
+   expect.
+-  :doc:`Static pages <static_pages>`, which will teach you the basics
+   of controllers, views and routing.
+-  :doc:`News section <news_section>`, where you'll start using models
+   and will be doing some basic database operations.
+-  :doc:`Create news items <create_news_items>`, which will introduce
+   more advanced database operations and form validation.
+-  :doc:`Conclusion <conclusion>`, which will give you some pointers on
+   further reading and other resources.
 
--  Introduction, 이 페이지는 뉴스 응용 프로그램 개요를 제공합니다.
--  :doc:`Static pages <static_pages>`, 컨트롤러, 뷰 및 라우팅의 기본 사항을 알려줍니다.
--  :doc:`News section <news_section>`, 모델 사용 방법과 기본적인 데이터베이스 작업을 수행합니다.
--  :doc:`Create news items <create_news_items>`, 고급 데이터베이스 작업 및 Form 유효성 검사를 수행합니다.
--  :doc:`Conclusion <conclusion>`, 추가 정보와 기타 리소스에 대한 몇 가지 지침을 제공합니다.
-
-
-CodeIgniter 프레임워크를 즐기세요.
+Enjoy your exploration of the CodeIgniter framework.
 
 .. toctree::
 	:hidden:

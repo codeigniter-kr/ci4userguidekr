@@ -1,5 +1,5 @@
 #######################
-CodeIgniter4 사용자 가이드
+CodeIgniter4 User Guide
 #######################
 
 .. toctree::
@@ -9,7 +9,7 @@ CodeIgniter4 사용자 가이드
         intro/index
 
 ***************
-시작하기
+Getting Started
 ***************
 
 .. toctree::
@@ -25,7 +25,7 @@ CodeIgniter4 사용자 가이드
     	tutorial/index
 
 *************************
-둘러보기 & 일반 토픽들
+Overview & General Topics
 *************************
 
 .. toctree::
@@ -39,7 +39,7 @@ CodeIgniter4 사용자 가이드
 	general/index
 
 ****************
-리퀘스트 다루기
+Request Handling
 ****************
 
 .. toctree::
@@ -53,7 +53,7 @@ CodeIgniter4 사용자 가이드
 	outgoing/index
 
 ******************
-데이터베이스 다루기
+Handling Databases
 ******************
 
 .. toctree::
@@ -73,7 +73,7 @@ CodeIgniter4 사용자 가이드
 
 
 *******************
-라이브러리 & 헬퍼
+Libraries & Helpers
 *******************
 
 .. toctree::
@@ -87,7 +87,7 @@ CodeIgniter4 사용자 가이드
 	helpers/index
 
 ***************
-고급 주제들
+Advanced Topics
 ***************
 
 .. toctree::
@@ -109,4 +109,4 @@ CodeIgniter4 사용자 가이드
         :hidden:
 
         license
-		changelogs/index
+        changelogs/index

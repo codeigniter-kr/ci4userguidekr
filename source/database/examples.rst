@@ -1,17 +1,20 @@
 ##################################
-데이터베이스 시작하기: 샘플 코드
+Database Quick Start: Example Code
 ##################################
 
-다음 페이지에는 데이터베이스 클래스 사용 방법을 보여주는 예제 코드가 있습니다. 자세한 내용은 각 기능을 설명하는 개별 페이지를 참조하십시오.
+The following page contains example code showing how the database class
+is used. For complete details please read the individual pages
+describing each function.
 
-데이터베이스 클래스 초기화
+Initializing the Database Class
 ===============================
 
-다음 코드는 :doc:`구성설정 <configuration>`에 따라 데이터베이스 클래스를로드하고 초기화합니다.
+The following code loads and initializes the database class based on
+your :doc:`configuration <configuration>` settings::
 
 	$db = \Config\Database::connect();
 
-클래스가 로드되면 아래와 같이 사용할 수 있습니다.
+Once loaded the class is ready to be used as described below.
 
 Note: If all your pages require database access you can connect
 automatically. See the :doc:`connecting <connecting>` page for details.
@@ -84,7 +87,7 @@ Standard Insert
 
 	$sql = "INSERT INTO mytable (title, name) VALUES (".$db->escape($title).", ".$db->escape($name).")";
 	$db->query($sql);
-	echo $db->getAffectedRows();
+	echo $db->affectedRows();
 
 Query Builder Query
 ===================
@@ -101,7 +104,7 @@ means of retrieving data::
 
 The above get() function retrieves all the results from the supplied
 table. The :doc:`Query Builder <query_builder>` class contains a full
-compliment of functions for working with data.
+complement of functions for working with data.
 
 Query Builder Insert
 ====================

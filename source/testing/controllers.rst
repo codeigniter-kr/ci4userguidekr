@@ -4,7 +4,7 @@ Testing Controllers
 
 Testing your controllers is made convenient with a couple of new helper classes and traits. When testing controllers,
 you can execute the code within a controller, without first running through the entire application bootstrap process.
-Often times, using the `Feature Testing tools </testing/feature>`_ will be simpler, but this functionality is here in
+Often times, using the `Feature Testing tools <feature.html>`_ will be simpler, but this functionality is here in
 case you need it.
 
 .. note:: Because the entire framework has not been bootstrapped, there will be times when you cannot test a controller
@@ -18,7 +18,7 @@ within your tests::
 
     <?php namespace CodeIgniter;
 
-    use Tests\Support\Helpers\ControllerTester;
+    use CodeIgniter\Test\ControllerTester;
 
     class TestControllerA extends \CIDatabaseTestCase
     {
@@ -32,7 +32,7 @@ to run as the parameter::
 
     <?php namespace CodeIgniter;
 
-    use Tests\Support\Helpers\ControllerTester;
+    use CodeIgniter\Test\ControllerTester;
 
     class TestControllerA extends \CIDatabaseTestCase
     {
@@ -106,6 +106,20 @@ Allows you to provide a **Response** instance::
                      ->execute('showCategories');
 
 If you do not provide one, a new Response instance with the default application values will be passed
+into your controller.
+
+**withLogger($logger)**
+
+Allows you to provide a **Logger** instance::
+
+    $logger = new CodeIgniter\Log\Handlers\FileHandler();
+
+    $results = $this->withResponse($response)
+                    -> withLogger($logger)
+                     ->controller(\App\Controllers\ForumController::class)
+                     ->execute('showCategories');
+
+If you do not provide one, a new Logger instance with the default configuration values will be passed
 into your controller.
 
 **withURI($uri)**

@@ -90,6 +90,15 @@ The following functions are available:
 		The above examples would create a form similar to this::
 
 			<form method="post" accept-charset="utf-8" action="http://example.com/index.php/email/send" class="email" id="myform">
+			
+		If CSRF filter is turned on `form_open()` will generate CSRF field at the beginning of the form. You can specify ID of this field by passing csrf_id as one of the $attribute array:
+		
+			form_open('/u/sign-up', ['csrf_id' => 'my-id']);
+			
+		will return:
+		
+			<form action="/u/sign-up" method="post" accept-charset="utf-8">
+			<input type="hidden" id="my-id" name="csrf_field" value="964ede6e0ae8a680f7b8eab69136717d" />
 
 	**Adding Hidden Input Fields**
 
@@ -310,7 +319,7 @@ The following functions are available:
 
 			<select name="shirts">
 				<option value="small">Small Shirt</option>
-				<option value="med">Medium  Shirt</option>
+				<option value="med">Medium Shirt</option>
 				<option value="large" selected="selected">Large Shirt</option>
 				<option value="xlarge">Extra Large Shirt</option>
 			</select>
@@ -323,7 +332,7 @@ The following functions are available:
 
 			<select name="shirts" multiple="multiple">
 				<option value="small" selected="selected">Small Shirt</option>
-				<option value="med">Medium  Shirt</option>
+				<option value="med">Medium Shirt</option>
 				<option value="large" selected="selected">Large Shirt</option>
 				<option value="xlarge">Extra Large Shirt</option>
 			</select>
