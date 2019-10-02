@@ -1,217 +1,191 @@
-Composer Installation
+Composer로 설치
 ###############################################################################
 
 .. contents::
     :local:
     :depth: 1
 
-Composer can be used in several ways to install CodeIgniter4 on your system.
+Composer는 CodeIgniter4를 시스템에 설치하는 데 여러 가지 방법으로 사용할 수 있습니다.
 
-The first two techniques describe creating a skeleton project
-using CodeIgniter4, that you would then use as the base for a new webapp.
-The third technique described below lets you add CodeIgniter4 to an existing
-webapp, 
+처음 두 가지는 CodeIgniter4를 사용하여 새로운 웹앱을 작성할 수 있는 골격(skeleton) 프로젝트를 만드는 방법을 설명합니다.
 
-**Note**: if you are using a Git repository to store your code, or for
-collaboration with others, then the ``vendor`` folder would normally
-be "git ignored". In such a case, you will need to do a ``composer update``
-when you clone the repository to a new system.
+세 번째 방법은 기존 웹 앱에 CodeIgniter4를 추가합니다.
 
-App Starter
+.. note:: 만약 당신이 코드를 저장하거나 다른 사람들과 협업하기 위해 Git 저장소를 사용한다면, ``vendor`` 폴더는 일반적으로 "git ignored"\ 가 될 것입니다. 
+          이 경우 저장소(repository)를 새 시스템으로 복제(clone)할 때 ``composer update``\ 를 실행해야 합니다.
+
+앱 스타터
 ============================================================
 
-The `CodeIgniter 4 app starter <https://github.com/codeigniter4/appstarter>`_ 
-repository holds a skeleton application, with a composer dependency on
-the latest released version of the framework.
+`CodeIgniter 4 app starter <https://github.com/codeigniter4/appstarter>`_ 리포지토리는 
+최신 버전의 프레임워크에 대한 composer 의존성과 함께 골격(skeleton) 애플리케이션을 보유하고 있습니다.
 
-This installation technique would suit a developer who wishes to start
-a new CodeIgniter4 based project.
+이 설치 방법은 새로운 CodeIgniter4 기반 프로젝트를 시작하고자 하는 개발자에게 적합합니다.
 
-Installation & Setup
+설치 및 설정(setup)
 -------------------------------------------------------
 
-In the folder above your project root::
+프로젝트 루트(root) 폴더에서 다음과 같이 입력합니다.::
 
     composer create-project codeigniter4/appstarter project-root -s rc
 
-The command above will create a "project-root" folder.
+위의 명령은 "project-root" 폴더를 생성합니다.
 
-If you omit the "project-root" argument, the command will create an
-"appstarter" folder, which can be renamed as appropriate.
+"project-root" 인수(argument)를 생략하면 명령어는 "appstarter" 폴더를 생성하며, 이 폴더의 이름은 바꿀 수 있습니다.
 
-If you don't need or want phpunit installed, and all of its composer
-dependencies, then add the "--no-dev" option to the end of the above
-command line. That will result in only the framework, and the three
-trusted dependencies that we bundle, being composer-installed.
+phpunit이 필요 없다면 위의 명령줄 끝에 "---no-dev" 옵션을 추가하십시오.
 
-A sample such installation command, using the default project-root "appstarter"::
+이렇게 할 경우 composer는 프레임워크에 필요한 세 가지 의존성 패키지만 설치합니다.
+
+기본 프로젝트 폴더 "appstarter"로 지정 하는 설치 명령 샘플::
 
     composer create-project codeigniter4/appstarter -s rc --no-dev
 
-After installation you should follow the steps in the "Upgrading" section.
+설치 후에는 "업그레이드" 섹션의 단계를 따르십시오.
 
-Upgrading
+업그레이드
 -------------------------------------------------------
 
-Whenever there is a new release, then from the command line in your project root::
+새 릴리즈가 있을 때마다 프로젝트 루트에서 다음 명령을 입력합니다.::
 
     composer update 
 
-If you used the "--no-dev" option when you created the project, it
-would be appropriate to do so here too, i.e. ``composer update --no-dev``.
+프로젝트를 만들 때 "---dev" 옵션을 사용했다면 ``composer update --no-dev``\ 를 입력합니다.
 
-Read the upgrade instructions, and check designated  ``app/Config`` folders for affected changes.
+업그레이드 지침을 읽고 지정된 ``app/Config`` 폴더에 영향을 주는 변경 사항이 있는지 확인하십시오.
 
-Pros
+장점
 -------------------------------------------------------
 
-Simple installation; easy to update
+간단한 설치; 쉬운 업데이트
 
-Cons
+단점
 -------------------------------------------------------
 
-You still need to check for ``app/Config`` changes after updating
+업데이트 후에도 ``app/Config`` 변경 사항을 확인해야 함
 
-Structure
+
+구조
 -------------------------------------------------------
 
-Folders in your project after setup:
+설정 후 프로젝트의 폴더:
 
 - app, public, tests, writable 
 - vendor/codeigniter4/framework/system
-- vendor/codeigniter4/framework/app & public (compare with yours after updating)
+- vendor/codeigniter4/framework/app & public (업데이트 후 확인)
 
 Dev Starter
 ============================================================
 
-Installation & Setup
+설치 및 설정(setup)
 -------------------------------------------------------
 
-The `CodeIgniter 4 dev starter <https://github.com/codeigniter4/devstarter>`_ 
-repository holds a skeleton application, just like the appstarter above,
-but with a composer dependency on
-the develop branch (unreleased) of the framework.
-It can be composer-installed as described here.
+`CodeIgniter 4 dev starter <https://github.com/codeigniter4/devstarter>`_  리포지토리는 위의 앱스타터(appstarter)와 
+마찬가지로 골격(skeleton) 애플리케이션을 보유하지만 프레임 워크의 개발 브랜치(릴리스되지 않음)에 대한 composer 패키기자
+설치되어 있습니다.
 
-This installation technique would suit a developer who wishes to start
-a new CodeIgniter4 based project, and who is willing to live with the
-latest unreleased changes, which may be unstable.
+이 설치 방법은 불안정하지만 최신 릴리스 변경 사항이 적용된 CodeIgniter4를 사용하고 싶은 개발자에게 적합합니다.
 
-The `development user guide <https://codeigniter4.github.io/CodeIgniter4/>`_ is accessible online.
-Note that this differs from the released user guide, and will pertain to the
-develop branch explicitly.
+`개발 사용자 가이드 <https://codeigniter4.github.io/CodeIgniter4/>`_\ 는 온라인으로 액세스 할 수 있습니다.
+이는 릴리스된 사용자 가이드와 다르며 개발 브랜치와 관련이 있다는 점을 유의하십시오.
 
-In the folder above your project root::
+프로젝트 루트(root) 폴더에서 다음 명령을 입력하십시오.::
 
     composer create-project codeigniter4/devstarter -s dev
 
-The command above will create a "devstarter" folder.
-Feel free to rename that for your project.
+위의 명령은 "devstarter" 폴더를 만듭니다.
+프로젝트의 이름을 자유롭게 바꿀수 있습니다.
 
-Just like the appstarter, you can provide your own project
-name as the third composer argument, and you can add
-the "--no-dev" argument if your don't want phpunit and its dependencies included.
-An example::
+앱스타터(appstarter)처럼 phpunit 관련 패키지가 필요 없다면 위의 명령줄 끝에 "---no-dev" 옵션을 추가하십시오.
+
+샘플::
 
     composer create-project codeigniter4/devstarter my-awesome-project -s dev --no-dev
 
 
-Upgrading
+업그레이드
 -------------------------------------------------------
 
-``composer update`` whenever you are ready for the latest changes,
-or ``composer update --no-dev`` if you used that argument when creating your project.
+최신 변경 사항이 있다면 ``composer update``\ 나 ``composer update --no-dev`` (---no-dev 옵션을 사용한 경우)를 사용하여 업데이트 합니다.
 
-Check the changelog to see if any recent changes affect your app,
-bearing in mind that the most recent changes may not have made it
-into the changelog!
+변경 로그(changelog)를 확인하여 최신 변경 사항이 앱에 영향을 미치는지 확인하십시오!
 
-Pros
+장점
 -------------------------------------------------------
 
-Simple installation; easy to update; bleeding edge version
+간단한 설치; 쉬운 업데이트; 최첨단 버전
 
-Cons
+단점
 -------------------------------------------------------
 
-This is not guaranteed to be stable; the onus is on you to upgrade.
-You still need to check for ``app/Config`` changes after updating.
+안정성이 보장되지 않습니다. 업그레이드는 당신에게 달려 있습니다.
+업데이트 후 ``app/Config`` 변경 사항을 확인해야합니다.
 
-Structure
+구조
 -------------------------------------------------------
 
-Folders in your project after setup:
+설정 후 프로젝트의 폴더:
 
 - app, public, tests, writable 
 - vendor/codeigniter4/codeigniter4/system
 - vendor/codeigniter4/codeigniter4/app & public (compare with yours after updating)
 
-Adding CodeIgniter4 to an Existing Project
+기존 프로젝트에 CodeIgniter4 추가
 ============================================================
 
-The same `CodeIgniter 4 framework <https://github.com/codeigniter4/framework>`_ 
-repository described in "Manual Installation" can also be added to an
-existing project using Composer.
+"수동 설치"에 설명된 것과 동일한 CodeIgniter4 프레임워크를 Composer를 사용하여 기존 프로젝트에 추가 할 수도 있습니다.
 
-Develop your app inside the ``app`` folder, and the ``public`` folder 
-will be your document root. 
+``app`` 폴더 안에서 앱을 개발하고 문서 루트(root)는 ``public`` 폴더가 됩니다..
 
-In your project root::
+프로젝트 루트(root)에서 다음 명령어를 입력하십시오.::
 
     composer require codeigniter4/framework @rc
 
-As with the earlier two composer install methods, you can omit installing
-phpunit and its dependencies by adding the "--no-dev" argument to the "composer require" command.
+앞서 설명한 두 가지 composer 설치 방법과 마찬가지로, phpunit 관련 패키지가 필요 없다면 위의 명령줄 끝에 "---no-dev" 옵션을 추가하십시오.
 
-Setup
+설정(Setup)
+-------------------------------------------------------
+``app``, ``public``, ``tests` 및 ``writable`` 폴더를 ``vendor/codeigniter4/framework``\ 에서 프로젝트 루트(root)로 복사
+
+``env``, ``phpunit.xml.dist`` 및 ``spark`` 파일을 ``vendor/codeigniter4/framework``\ 에서 프로젝트 루트로 복사
+
+``vendor/codeigniter/framework``\ 를 참조하기 위해 ``app/Config/Paths.php``\ 의 $systemDirectory 변수의 경로를 수정하십시오.
+
+업그레이드
 -------------------------------------------------------
 
-Copy the app, public, tests and writable folders from ``vendor/codeigniter4/framework`` 
-to your project root
-
-Copy the ``env``, ``phpunit.xml.dist`` and ``spark`` files, from
-``vendor/codeigniter4/framework`` to your project root
-
-You will have to adjust paths to refer to vendor/codeigniter/framework``, 
-- the $systemDirectory variable in ``app/Config/Paths.php``
-
-Upgrading
--------------------------------------------------------
-
-Whenever there is a new release, then from the command line in your project root::
+새 릴리즈가 있을 때마다 프로젝트 루트의 명령줄에서 다음 명령을 입력하십시오.::
 
     composer update 
 
-Read the upgrade instructions, and check designated 
-``app/Config`` folders for affected changes.
+업그레이드 지침을 읽고 ``app/Config`` 파일에 지정된 폴더에 영향을 받는 변경 사항이 있는지 확인하십시오
 
-Pros
+장점
 -------------------------------------------------------
 
-Relatively simple installation; easy to update
+비교적 간단한 설치, 쉬운 업데이트
 
-Cons
+단점
 -------------------------------------------------------
 
-You still need to check for ``app/Config`` changes after updating
+업데이트 후 ``app/Config`` 변경 사항을 확인해야 함
 
-Structure
+구조
 -------------------------------------------------------
 
-Folders in your project after setup:
+설정 후 프로젝트의 폴더:
 
 - app, public, tests, writable 
 - vendor/codeigniter4/framework/system
 
 
-Translations Installation
+번역된 시스템 메시지 설치
 ============================================================
 
-If you want to take advantage of the system message translations,
-they can be added to your project in a similar fashion. 
+번역된 시스템 메시지를 이용하려면 비슷한 방식으로 프로젝트에 추가할 수 있습니다.
 
-From the command line inside your project root::
+프로젝트 루트(root)에서 다음 명령을 입력하십시오.::
 
     composer require codeigniter4/translations @beta
 
-These will be updated along with the framework whenever you do a ``composer update``.
+업데이트된 내용은 ``composer update``\ 를 실행할 때마다 프레임워크와 함께 업데이트됩니다.

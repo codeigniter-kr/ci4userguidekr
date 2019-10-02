@@ -1,16 +1,12 @@
 ############
-Installation
+설치하기
 ############
 
-CodeIgniter4 can be installed in a number of different ways: manually,
-using `Composer <https://getcomposer.org>`_, or using
-`Git <https://git-scm.com/>`_. 
-Which is right for you?
+CodeIgniter4는 다양한 방법으로 설치할 수 있습니다.: 수동 설치, `Composer <https://getcomposer.org>`_\ 설치, `Git <https://git-scm.com/>`_\ 설치. 
+당신은 어떤 방법을 선호하나요?
 
-- If you would like the simple "download & go" install that CodeIgniter3
-  is known for, choose the manual installation.
-- If you plan to add third party packages to your project, we
-  recommend the Composer installation.
+- CodeIgniter3와 같이 "다운로드 및 이동" 설치를 원하면 수동 설치를 선택하십시오.
+- 프로젝트에 타사 패키지를 추가하려는 경우 Composer 설치를 권장합니다.
 - If you are thinking of contributing to the framework,
   then the Git installation is right for you.
 
@@ -25,11 +21,8 @@ Which is right for you?
     troubleshooting
     repositories
 
-However you choose to install and run CodeIgniter4, the 
-`user guide <https://codeigniter4.github.io/userguide/>`_ is accessible online.
+CodeIgniter4를 설치하고 실행 할 수 있지만, `사용자 가이드 <https://codeigniter4.github.io/userguide/>`_\ 는 온라인으로만 액세스할 수 있습니다.
 
-.. note:: Before using CodeIgniter 4, make sure that your server meets the
-          :doc:`requirements </intro/requirements>`, in particular the PHP
-          version and the PHP extensions that are needed.
-          You may find that you have to uncomment the ``php.ini`` "extension"
-          lines to enable "curl" and "intl", for instance.
+.. note:: CodeIgniter 4를 사용하기 전에 서버 :doc:`요구 사항 </intro/requirements>`\ 과 필요한 PHP 버전 및 
+          PHP 확장(extensions)을 충족하는지 확인하십시오.
+          예를 들어 "curl"및 "intl"을 활성화 하려면 ``php.ini`` "extension" 줄의 주석을 제거해야합니다.

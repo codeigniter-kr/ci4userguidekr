@@ -1,63 +1,60 @@
-Manual Installation
+수동 설치
 ###############################################################################
 
-The `CodeIgniter 4 framework <https://github.com/codeigniter4/framework>`_ 
-repository holds the released versions of the framework.
-It is intended for developers who do not wish to use Composer.
+`CodeIgniter 4 framework <https://github.com/codeigniter4/framework>`_  프레임워크 레파지토리에는 
+릴리스 된 버전의 프레임 워크가 있습니다.
+Composer를 사용하지 않으려는 개발자를 위한 것입니다.
 
-Develop your app inside the ``app`` folder, and the ``public`` folder 
-will be your public-facing document root. Do not change anything inside the ``system``
-folder!
+``app`` 폴더 안에서 앱을 개발하면 ``public`` 폴더는 당신의 공개 문서 루트(root)가 될 것이다. 
+``system`` 폴더 안에 있는 내용은 변경하지 마십시오!
 
-**Note**: This is the installation technique closest to that described 
-for `CodeIgniter 3 <https://www.codeigniter.com/user_guide/installation/index.html>`_.
+**Note**: 이 방법은 `CodeIgniter 3 <https://www.codeigniter.com/user_guide/installation/index.html>`_\ 의 
+          설치 방법과 가장 가까운 설치 방법입니다. 
 
-Installation
+설치
 ============================================================
 
-Download the `latest version <https://github.com/CodeIgniter4/framework/releases/latest>`_,
-and extract it to become your project root.
+`최신 버전 <https://github.com/CodeIgniter4/framework/releases/latest>`_\ 을 다운로드하고 프로젝트 
+루트(root)에 압축을 풀어주십시오.
 
-Setup
+설정
 -------------------------------------------------------
 
-None
+없음
 
-Upgrading
+업그레이드
 -------------------------------------------------------
 
-Download a new copy of the framework, and then follow the upgrade
-instructions in the release notice or changelog to merge that with your project.
+프레임워크의 새 사본을 다운로드한 다음, 릴리스 통지(notice) 또는 변경 로그(changelog)의 
+업그레이드 지침에 따라 이를 프로젝트와 병합하십시오.
 
-Typically, you replace the ``system`` folder, and check designated
-``app/Config`` folders for affected changes.
+일반적으로 ``system`` 폴더를 교체하고 지정된 ``app/Config`` 폴더에서 영향을 받는 변경 
+사항을 확인합니다.
 
-Pros
+장점
 -------------------------------------------------------
 
 Download and run
 
-Cons
+단점
 -------------------------------------------------------
 
-You are responsible for merge conflicts when updating
+프레임워크 업데이트 시 병합 충돌이 있을수 있습니다.
 
-Structure
+구조
 -------------------------------------------------------
 
-Folders in your project after setup:
-app, public, system, writable 
+설정 후 프로젝트의 폴더:
+
+- app, public, system, writable 
 
 
-Translations Installation
+번역 파일 설치
 ============================================================
 
-If you want to take advantage of the system message translations,
-they can be added to your project in a similar fashion.
+번역된 시스템 메시지 이용하려면 다운로드하여 프로젝트에 추가할 수 있습니다.
 
-Download the `latest version of them <https://github.com/codeigniter4/translations/releases/latest>`_.
-Extract the downloaded zip, and copy the ``Language`` folder contents in it
-to your ``PROJECT_ROOT/app/Languages`` folder.
+`번역 파일 <https://github.com/codeigniter4/translations/releases/latest>`_ 다운로드.
 
-This would need to be repeated to incorporate any updates
-to the translations.
+다운로드한 zip 파일 압축을 풀고 그 안에 있는 ``Language`` 폴더 내용을 
+``PROJECT_ROOT/app/Languages`` 폴더에 복사하십시오.
