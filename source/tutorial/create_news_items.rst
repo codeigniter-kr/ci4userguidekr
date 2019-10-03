@@ -1,19 +1,16 @@
-Create news items
+뉴스 아이템 만들기
 ###############################################################################
 
-You now know how you can read data from a database using CodeIgniter, but
-you haven't written any information to the database yet. In this section,
-you'll expand your news controller and model created earlier to include
-this functionality.
+CodeIgniter를 사용하여 데이터베이스에서 데이터를 읽는 방법을 알았지만 아직 데이터베이스에 정보를 쓰지는 않았습니다.
+이 섹션에서는 이 기능을 포함하기 위해 이전에 작성한 뉴스 컨트롤러 및 모델을 확장합니다.
 
 Create a form
 -------------------------------------------------------
 
-To input data into the database, you need to create a form where you can
-input the information to be stored. This means you'll be needing a form
-with two fields, one for the title and one for the text. You'll derive
-the slug from our title in the model. Create a new view at
-**app/Views/news/create.php**.
+데이터베이스에 데이터를 입력하려면 저장할 정보를 입력 할 수 있는 양식(form)을 작성해야 합니다.
+제목과 텍스트 입력을 위해 두 개의 필드가 있는 양식이 필요합니다.
+모델에서는 타이틀을 이용하여 슬러그를 만듭니다.
+**app/Views/news/create.php**\ 에 새로운 뷰를 만듭니다.
 
 ::
 
@@ -33,14 +30,12 @@ the slug from our title in the model. Create a new view at
 
     </form>
 
-There is only one thing here that probably look unfamiliar to you: the 
-``\Config\Services::validation()->listErrors()`` function. It is used to report
-errors related to form validation.
+여기에는 아직 익숙하지 않은 것이 하나 있습니다 : ``\Config\Services::validation()->listErrors()`` 함수. 
+이 함수는 양식(form)의 유효성 검사와 관련된 오류를 보고하는 데 사용됩니다.
 
-Go back to your ``News`` controller. You're going to do two things here,
-check whether the form was submitted and whether the submitted data
-passed the validation rules. You'll use the :doc:`form
-validation <../libraries/validation>` library to do this.
+``News`` 컨트롤러로 돌아갑니다.
+여기서 우리는 두 가지 작업, 양식이 제출되었는지와 제출된 데이터가 검증 규칙을 통과했는지 여부를 확인할 겁니다
+이를 위해 :doc:`form validation <../libraries/validation>` 라이브러리를 사용합니다.
 
 ::
 
@@ -70,46 +65,39 @@ validation <../libraries/validation>` library to do this.
         }
     }
 
-The code above adds a lot of functionality. The first few lines load the
-form helper and the NewsModel. After that, the Controller-provided helper
-function is used to validate the $_POST fields. In this case, the title and
-text fields are required.
+위의 코드는 많은 기능을 추가합니다.
+처음 몇 줄은 폼(form) 헬퍼와 NewsModel을 로드합니다.
+그런 다음 Controller가 제공하는 헬퍼 함수를 ​​사용하여 $_POST 필드의 유효성을 검증합니다.
+이를 위해 제목과 텍스트 필드가 필요합니다.
 
-CodeIgniter has a powerful validation library as demonstrated
-above. You can read :doc:`more about this library
-here <../libraries/validation>`.
+CodeIgniter에는 위에서 설명한 강력한 유효성 검사 라이브러리가 있습니다.
+이 라이브러리에 대한 자세한 내용은 :doc:`여기 <../libraries/validation>`\ 를 참조하십시오.
 
-Continuing down, you can see a condition that checks whether the form
-validation ran successfully. If it did not, the form is displayed; if it
-was submitted **and** passed all the rules, the model is called. This
-takes care of passing the news item into the model.
-This contains a new function, url\_title(). This function -
-provided by the :doc:`URL helper <../helpers/url_helper>` - strips down
-the string you pass it, replacing all spaces by dashes (-) and makes
-sure everything is in lowercase characters. This leaves you with a nice
-slug, perfect for creating URIs.
+계속해서 양식 유효성 검사가 성공적으로 실행되었는지 확인하는 조건을 볼 수 있습니다.
+그렇지 않은 경우 양식이 표시됩니다. 제출된 데이터가 모든 규칙을 통과 한 경우 모델이 호출됩니다.
+모델로 뉴스 아이템을 전달하는 것을 처리합니다.
+여기에는 새로운 함수인 url\_title()이 포함되어 있습니다.
+이 함수 - :doc:`URL helper <../helpers/url_helper>`\ 에서 제공 - 는 전달받은 문자열에서 
+모든 공백을 대시 (-)로 바꾸고 모든 문자가 소문자인지 확인합니다. 
+이 함수는 URI로 사용 가능한 완벽한 slug를 만듭니다.
 
-After this, a view is loaded to display a success message. Create a view at
-**app/Views/news/success.php** and write a success message. 
 
-This could be as simple as:::
+그런 다음 성공 메시지를 표시하기 위해 뷰가 로드됩니다.
+**app/Views/news/success.php**\ 로 뷰를 작성하고 성공 메시지를 추가하십시오.
+
+이것은 간단하게 :::
 
     News item created successfully. 
 
-Model Updating
+모델 업데이트
 -------------------------------------------------------
 
-The only thing that remains is ensuring that your model is setup
-to allow data to be saved properly. The ``save()`` method that was
-used will determine whether the information should be inserted
-or if the row already exists and should be updated, based on the presence
-of a primary key. In this case, there is no ``id`` field passed to it,
-so it will insert a new row into it's table, **news**.
+이제 데이터를 저장할 수 있도록 모델을 업데이트하겠습니다.
+``save()`` 메서드는 기본 키의 존재 여부에 따라 정보를 삽입할지, 업데이트할지를 결정합니다.
+``id`` 필드가 전달되지 않을 경우 **news** 테이블에 새 행이 삽입됩니다.
 
-However, by default the insert and update methods in the model will
-not actually save any data because it doesn't know what fields are
-safe to be updated. Edit the model to provide it a list of updatable
-fields in the ``$allowedFields`` property.
+그러나 모델의 insert 및 update 메서드는 기본적으로 업데이트할 안전한 필드를 모르기 때문에 실제로 데이터를 저장하지 않습니다.
+업데이트 가능한 필드 목록을 모델의 ``$allowedFields`` 속성에 작성합니다.
 
 ::
 
@@ -123,19 +111,20 @@ fields in the ``$allowedFields`` property.
         protected $allowedFields = ['title', 'slug', 'body'];
     }
 
-This new property now contains the fields that we allow to be saved to the
-database. Notice that we leave out the ``id``? That's because you will almost
-never need to do that, since it is an auto-incrementing field in the database.
-This helps protect against Mass Assignment Vulnerabilities. If your model is
-handling your timestamps, you would also leave those out.
 
-Routing
+이 새 속성에는 이제 데이터베이스에 저장할 수 있는 필드가 포함됩니다.
+
+.. note:: 
+    ``id``\ 는 데이터베이스의 자동 증가(auto-incrementing) 필드이기 때문에 $allowdFields에서 생략되었습니다.
+    이렇게하면 대량 할당 취약점으로부터 보호할 수 있습니다.
+    모델이 타임 스탬프를 처리하는 경우 해당 타임 스탬프도 제외합니다.
+
+라우팅
 -------------------------------------------------------
 
-Before you can start adding news items into your CodeIgniter application
-you have to add an extra rule to **app/Config/Routes.php** file. Make sure your
-file contains the following. This makes sure CodeIgniter sees 'create'
-as a method instead of a news item's slug.
+CodeIgniter 애플리케이션에 뉴스 항목을 추가하기 전에 **app/Config/Routes.php** 파일에 추가 규칙을 추가해야 합니다.
+파일에 다음 규칙이 포함되어 있는지 확인하십시오. 
+이를 통해 CodeIgniter는 뉴스 항목의 슬러그 대신 'create'를 메서드로 인식합니다.
 
 ::
 
@@ -144,9 +133,8 @@ as a method instead of a news item's slug.
     $routes->get('news', 'News::index');
     $routes->get('(:any)', 'Pages::view/$1');
 
-Now point your browser to your local development environment where you
-installed CodeIgniter and add ``/news/create`` to the URL.
-Add some news and check out the different pages you made.
+이제 웹 브라우저의 URL에 ``http://localhost/news/create``\ 를 입력하십시오.
+몇 가지 뉴스를 추가하고 페이지를 확인해 보세요.
 
 .. image:: ../images/tutorial3.png
     :align: center
@@ -162,11 +150,10 @@ Add some news and check out the different pages you made.
     :align: left
  
 
-Congratulations
+축하합니다
 -------------------------------------------------------
 
-You just completed your first CodeIgniter4 application!
+당신은 첫 번째 CodeIgniter4 애플리케이션을 방금 완료하셨습니다!
 
-The image to the left shows your project's **app** folder,
-with all of the files that you created in green.
-The two modified configuration files (Database & Routes) are not shown.
+왼쪽에 있는 이미지는 프로젝트의 **app** 폴더를 표시하며, 녹색으로 생성한 모든 파일을 표시합니다.
+수정된 두 구성 파일(Database & Routes)은 표시되지 않았습니다.
