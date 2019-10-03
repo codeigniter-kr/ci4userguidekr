@@ -1,83 +1,75 @@
-Git Installation
+Git 설치
 ###############################################################################
 
-This would *not* be suitable for app development, but *is* suitable
-for contributing to the framework.
+이 방법은 앱(App) 개발에는 *적합하지 않지만* 프레임워크에 *기여*\ 하는 데는 적합합니다.
 
-Installation
+설치
 -------------------------------------------------------
 
-Install the latest version of the codebase by
+코드베이스의 최신 버전 설치
 
-- forking the `codebase  <https://github.com/codeigniter4/CodeIgniter4>`_ to your github account
-- cloning **your** forked repository locally
+- 당신의 github 계정에 `codebase  <https://github.com/codeigniter4/CodeIgniter4>`_\ 를 포크(fork)합니다.
+- 로컬에 포크(fork)된 저장소를 복제(cloning) 하십시오.
 
-Setup
+설정
 -------------------------------------------------------
 
-The command above will create a "CodeIgniter4" folder.
-Feel free to rename that as you see fit.
+다음 명령은 "CodeIgniter4" 폴더를 생성합니다.
+폴더명은 자유롭게 이름을 바꿀수 있습니다.
 
-You will want to setup a remote repository alias, so you can synchronize
-your repository with the main one::
+원격 리포지토리 별칭을 다음과 같이 설정할 수 있습니다.::
 
     git remote add upstream https://github.com/codeigniter4/CodeIgniter4.git
 
-Copy the provided ``env`` file to ``.env``, and use that for your git-ignored configuration settings,
 
-Copy the provided ``phpunit.xml.dist`` to ``phpunit.xml`` and tailor it as needed,
-if you want custom unit testing for the framework.
+제공된 ``env`` 파일을 ``.env``\ 로 복사한 후 git-ignored 설정에 등록합니다.
 
-Upgrading
+단위 테스트를 원한다면 제공된 ``phpunit.xml.dist``\ 를 ``phpunit.xml``\ 로 복사한 후 자신의 환경에 맞게 설정하십시오.
+
+업그레이드
 -------------------------------------------------------
 
-Update your code anytime::
+코드 업그레이드는 다음과 같이 합니다.::
 
     git checkout develop
     git pull upstream develop
     git push origin develop
 
-Merge conflicts may arise when you pull from "upstream". 
-You will need to resolve them locally.
+"upstream"\ 을 pull 할 때 병합(merge) 충돌이 발생할 수 있습니다.
+이 문제는 여러분이 직접 해결해야 합니다.
 
-Pros
+장점
 -------------------------------------------------------
 
-- You have the latest version of the codebase (unreleased)
-- You can propose contributions to the framework, by creating a 
-    feature branch and submitting a pull request for it to the main repo
-- a pre-commit hook is installed for your repo, that binds it to the
-    coding-standard we use
+- 최신 버전(미출시된)의 코드베이스 사용
+- 생성한 브렌치를 pull request를 통하여 제출하여 프레임워크 발전에 기여 할 수 있습니다.
+- 리포지토리에 설치되어 있는 pre-commit은 우리가 사용하는 코딩 표준(Coding Standards)에 바인딩(binding)됩니다.
 
-Cons
+단점
 -------------------------------------------------------
 
-You need to resolve merge conflicts when you synch with the repo.
+- repo와 동기화할 때 병합 충돌을 해결해야 합니다.
+- 프로젝트 앱 개발에 사용하면 안됩니다.
 
-You would not use this technique for app development.
-
-Structure
+구조
 -------------------------------------------------------
 
-Folders in your project after setup:
+설정 후 프로젝트의 폴더:
 
 - app, public, system, tests, user_guide_src, writable
 
 
-Translations Installation
+번역된 시스템 메시지 설치
 ============================================================
 
-If you wish to contribute to the system message translations,
-then fork and clone the `translations repository
-<https://github.com/codeigniter4/translations>`_ separately from the codebase. 
-These are two independent repositories!
+`시스템 메시지 <https://github.com/codeigniter4/translations>`_ 번역에 기여하려면 코드 저장소(repository)와 
+별도로 번역 저장소를 포크하고 복제하십시오.
+이들은 두 개의 독립적인 저장소(repository)입니다!
 
 
-Coding Standards Installation
+코딩 표준(Coding Standards) 설치
 ============================================================
 
-This is bound and installed automatically as part of the
-codebase installation.
+이것은 코드베이스 설치의 일부로 자동으로 바인딩되고 설치됩니다.
 
-If you wish to use it inside your project too,
-``composer require codeigniter4/translations @beta``
+프로젝트 내부에서도 사용하려면, ``composer require codeigniter4/translations @beta``

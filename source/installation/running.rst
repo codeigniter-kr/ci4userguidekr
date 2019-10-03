@@ -1,96 +1,83 @@
-Running Your App
+앱 실행
 ###############################################################################
 
 .. contents::
     :local:
     :depth: 1
 
-A CodeIgniter 4 app can be run in a number of different ways: hosted on a web server, 
-using virtualization, or using CodeIgniter’s command line tool for testing. 
-This section addresses how to use each technique, and explains some of the pros and cons of them.
+CodeIgniter 4 앱은 웹 서버에서 호스팅하거나 가상화, CodeIgniter의 명령줄(command line) 도구를 사용하여 테스트할 수 있습니다.
+이 절에서는 각 기법을 사용하는 방법을 다루며, 이들의 장단점을 설명합니다.
 
-If you’re new to CodeIgniter, please read the :doc:`Getting Started </intro/index>`
-section of the User Guide to begin learning how to build dynamic PHP applications. Enjoy!
+CodeIgniter를 처음 사용하는 경우 사용자 가이드의 :doc:`Getting Started </intro/index>`\ 을 
+참조하여 동적 PHP 응용 프로그램을 구축하는 방법에 대해 알아보십시오. 해피 코딩!
 
-Initial Configuration & Setup
+초기 구성 및 설정
 =================================================
 
-#. Open the **app/Config/App.php** file with a text editor and
-   set your base URL. If you need more flexibility, the baseURL may
-   be set within the ``.env`` file as **app.baseURL="http://example.com"**.
-#. If you intend to use a database, open the
-   **app/Config/Database.php** file with a text editor and set your
-   database settings. Alternately, these could be set in your ``.env`` file.
+#. 텍스트 편집기로 **app/Config/App.php** 파일을 열고 기본(base) URL을 설정하십시오.
+   좀 더 유연하게 작성하고 싶다면 ``.env`` 파일의 **app.baseURL="http://example.com"** 
+   항목에 설정해도 됩니다.
+#. 데이터베이스를 사용하려면 **app/Config/Database.php** 파일에  데이터베이스 정보를 설정하십시오.
+   ``.env`` 파일에 설정해도 됩니다.
 
-One additional measure to take in production environments is to disable
-PHP error reporting and any other development-only functionality. In
-CodeIgniter, this can be done by setting the ``ENVIRONMENT`` constant, which
-is more fully described on the :doc:`environments page </general/environments>`.
-By default, the application will run using the "production" environment. To
-take advantage of the debugging tools provided, you should set the environment
-to "develop".
+production 환경(environment)에서 취해야 할 한 가지 추가 조치는 PHP 오류 보고 및 기타 개발 전용 기능을 비활성화하는 것입니다.
+이것은 CodeIgniter의 :doc:`environments page </general/environments>`\ 에 자세히 설명된 ``ENVIRONMENT`` 상수로 설정할 수 있습니다.
+기본적으로 애플리케이션은 "production" 환경을 사용하여 실행됩니다.
+제공된 디버깅 도구를 사용하려면 환경을 "develop"로 설정해야 합니다.
 
-.. note:: If you will be running your site using a web server (e.g. Apache or Nginx),
-    you will need to modify the permissions for the ``writable`` folder inside
-    your project, so that it is writable by the user or account used by your
-    web server.
+.. note:: 웹 서버(예: Apache 또는 Nginx)를 사용하여 사이트를 실행할때는 
+    프로젝트 내의 ``writable`` 폴더에 대한 사용 권한을 수정하여 웹 서버에서 쓰기 가능하도록 해야 합니다.
 
-Local Development Server
+로컬 개발 서버
 =================================================
 
-CodeIgniter 4 comes with a local development server, leveraging PHP's built-in web server
-with CodeIgniter routing. You can use the ``serve`` script to launch it,
-with the following command line in the main directory::
+CodeIgniter4는 PHP의 내장 웹 서버를 활용하여 CodeIgniter 라우팅이 동작하는 로컬 개발 서버와 함께 제공합니다.
+프로젝트 기본 디렉토리에서 제공되는 다음 명령과 ``serve`` 를 사용하여 실행할 수 있습니다.::
 
     php spark serve
 
-This will launch the server and you can now view your application in your browser at http://localhost:8080.
+이렇게 하면 서버가 실행되고, 이제 브라우저에서 http://localhost:8080를 통하여 실행된 앱을 볼 수 있습니다.
 
-.. note:: The built-in development server should only be used on local development machines. It should NEVER
-    be used on a production server.
+.. note:: 내장된 개발 서버는 개발 환경에서만 사용해야 합니다. 
+    프로덕션(production) 서버에서 절대 사용하지 마세요.
 
-If you need to run the site on a host other than simply localhost, you'll first need to add the host
-to your ``hosts`` file. The exact location of the file varies in each of the main operating systems, though
-all unix-type systems (include OS X) will typically keep the file at **/etc/hosts**.
+도메인을 localhost가 아닌 다른 도메인으로 실행해야 한다면 ``hosts`` 파일에 추가해야 합니다.
+대부분의 Unix 유형 시스템(OS X/Linux 포함)은 일반적으로 파일을 **/etc/hosts**\ 에 보관하지만, 파일의 정확한 위치는 운영 체제에 따라 다를수 있습니다.
 
-The local development server can be customized with three command line options:
+로컬 개발 서버는 사용자 정의 가능한 세 가지 명령줄 옵션을 제공 합니다.:
 
-- You can use the ``--host`` CLI option to specify a different host to run the application at::
+- 앱 실행시 ``--host`` 옵션을 사용하여 localhost가 아닌 다른 도메인을 지정할 수 있습니다.::
 
     php spark serve --host=example.dev
 
-- By default, the server runs on port 8080 but you might have more than one site running, or already have
-  another application using that port. You can use the ``--port`` CLI option to specify a different one::
+- 기본적으로 서버는 포트 8080에서 실행되지만 둘 이상의 사이트가 실행 중이거나 이미 해당 포트를 사용하는 다른 응용 프로그램이 있을 수 있습니다. 
+  ``--port`` 옵션을 사용하여 바꿀 수 있습니다.::
 
     php spark serve --port=8081
 
-- You can also specify a specific version of PHP to use, with the ``--php`` CLI option, with its value
-  set to the path of the PHP executable you want to use::
+- 사용할 PHP의 특정 버전을 ``--php`` 옵션과 함께 PHP 실행 파일의 경로를 지정할 수 있습니다
 
     php spark serve --php=/usr/bin/php7.6.5.4
 
-Hosting with Apache
+Apache를 사용한 호스팅
 =================================================
 
-A CodeIgniter4 webapp is normally hosted on a web server. 
-Apache’s ``httpd`` is the "standard" platform, and assumed in much of our documentation.
+CodeIgniter4 웹앱 (webapp)은 일반적으로 웹 서버에서 호스트됩니다.
 
-Apache is bundled with many platforms, but can also be downloaded in a bundle 
-with a database engine and PHP from [Bitnami](https://bitnami.com/stacks/infrastructure).
+아파치의 ``httpd``\ 는 "표준" 플랫폼이며, 사용자 가이드는 이를 가정하고 작성되었습니다.
+
+Apache는 여러 플랫폼과 함께 번들로 제공되지만, [Bitnami](https://bitnami.com/stacks/infrastructure)\ 에서 데이터베이스 엔진 및 PHP와 함께 번들로 다운로드할 수도 있습니다.
 
 .htaccess
 -------------------------------------------------------
 
-The “mod_rewrite” module enables URLs without “index.php” in them, and is assumed 
-in our user guide.
+“mod_rewrite” 모듈은 “index.php”가 없는 URL을 활성화합니다. 사용자 가이드는 이를 가정하여 작성되었습니다.
 
-Make sure that the rewrite module is enabled (uncommented) in the main 
-configuration file, eg. ``apache2/conf/httpd.conf``::
+기본 구성 파일에서 rewrite 모듈을 활성화(주석삭제)했는지 확인하십시오. eg. ``apache2/conf/httpd.conf``::
 
     LoadModule rewrite_module modules/mod_rewrite.so
 
-Also make sure that the default document root's <Directory> element enables this too, 
-in the "AllowOverride" setting::
+기본 문서 루트(default document root)의 <Directory> 요소중 "AllowOverride" 기능을 사용하도록 설정했는지 확인하십시오.::
 
     <Directory "/opt/lamp7.2/apache2/htdocs">
         Options Indexes FollowSymLinks
@@ -98,25 +85,23 @@ in the "AllowOverride" setting::
         Require all granted
     </Directory>
 
-Virtual Hosting
+가상 호스팅(Virtual Hosting)
 -------------------------------------------------------
 
-We recommend using “virtual hosting” to run your apps. 
-You can setup different aliases for each of the apps you work on,
+“virtual hosting”을 사용하여 애플리케이션 실행 권장합니다.
+작업하는 각 앱에 대해 서로 다른 별칭을 설정할 수 있습니다.
 
-Make sure that the virtual hosting module is enabled (uncommented) in the main 
-configuration file, eg. ``apache2/conf/httpd.conf``::
+가상 호스팅 모듈이 기본 구성 파일에서 활성화(주석삭제)되었는지 확인하십시오. eg. ``apache2/conf/httpd.conf``::
 
     LoadModule vhost_alias_module modules/mod_vhost_alias.so
 
-Add a host alias in your “hosts” file, typically ``/etc/hosts`` on unix-type platforms, 
-or ``c:/Windows/System32/drivers/etc/hosts`` on Windows. 
-Add a line to the file. This could be "myproject.local" or "myproject.test", for instance::
+호스트 별칭을 “hosts”  파일에 추가하십시오.
+유닉스 유형 플랫폼의 경우 ``/etc/hosts``, 윈도우즈의 경우 ``c:/Windows/System32/drivers/etc/hosts``\ 에 위치합니다.
+다음 줄을 추가 하십시오. 예를 들어 "myproject.local" 또는 "myproject.test"::
 
     127.0.0.1 myproject.local
 
-Add a <VirtualHost> element for your webapp inside the virtual hosting configuration, 
-eg. ``apache2/conf/extra/httpd-vhost.conf``::
+가상 호스팅 구성 내에 웹 앱의 <VirtualHost> 요소 추가. eg. ``apache2/conf/extra/httpd-vhost.conf``::
 
     <VirtualHost *:80>
         DocumentRoot "/opt/lamp7.2/apache2/htdocs/myproject/public"
@@ -125,47 +110,40 @@ eg. ``apache2/conf/extra/httpd-vhost.conf``::
         CustomLog "logs/myproject-access_log" common
     </VirtualHost>
 
-If your project folder is not a subfolder of the Apache document root, then your 
-<VirtualHost> element may need a nested <Directory> element to grant the web s
-erver access to the files.
+프로젝트 폴더가 Apache 문서 루트의 하위 폴더가 아닌 경우, 파일에 대한 웹서버 액세스 권한을 부여하기 위해 
+<VirtualHost>에 중첩된 <Directory> 요소(element)가 필요할 수 있습니다.
 
-Testing
+테스트
 -------------------------------------------------------
 
-With the above configuration, your webapp would be accessed with the URL ``http://myproject.local`` in your browser.
+위의 구성을 따른다면 브라우저에서 ``http://myproject.local``\ 로 웹앱에 액세스하게 됩니다.
 
-Apache needs to be restarted whenever you change its configuration.
+구성을 변경할 때마다 Apache를 다시 시작해야 합니다.
 
-Hosting with Vagrant
+Vagrant를 사용한 호스트
 =================================================
 
-Virtualization is an effective way to test your webapp in the environment you 
-plan to deploy on, even if you develop on a different one. 
-Even if you are using the same platform for both, virtualization provides an 
-isolated environment for testing.
+가상화는 개발환경이 실제 동작하는 환경과 다를 경우 웹 애플리케이션을 실제와 가깝게 테스트할 수 있는 좋은 방법입니다.
+두 가지(개발과 실제) 모두 동일한 플랫폼을 사용한다 하더라도 가상화는 테스트를 위한 격리된 환경을 제공합니다.
 
-The codebase comes with a ``VagrantFile.dist``, that can be copied to ``VagrantFile``
-and tailored for your system, for instance enabling access to specific database or caching engines.
+제공되는 코드베이스에는 ``VagrantFile.dist``\ 가 포함되어 있습니다.
+이 파일을 ``VagrantFile``\ 로 복사하여 사용자 시스템(특정 데이터베이스, 캐싱 엔진)에 맞게 조정합니다.
 
-Setup
+설정
 -------------------------------------------------------
 
-It assumes that you have installed `VirtualBox <https://www.virtualbox.org/wiki/Downloads>`_ and 
-`Vagrant <https://www.vagrantup.com/downloads.html>`_ 
-for your platform.
+`VirtualBox <https://www.virtualbox.org/wiki/Downloads>`_ 및 `Vagrant <https://www.vagrantup.com/downloads.html>`_\ 를 설치했다고 가정합니다.
 
-The Vagrant configuration file assumes you have the `ubuntu/bionic64 Vagrant box 
-<https://app.vagrantup.com/ubuntu/boxes/bionic64>`_ setup on your system::
+Vagrant 구성 파일(config file)은 시스템에 `ubuntu/bionic64 Vagrant box <https://app.vagrantup.com/ubuntu/boxes/bionic64>`_ 설정이 있다고 가정함::
 
     vagrant box add ubuntu/bionic64
 
-Testing
+테스트
 -------------------------------------------------------
 
-Once setup, you can then launch your webapp inside a VM, with the command::
+설정이 완료되면 다음 명령을 사용하여 VM 내부에서 웹앱을 시작할 수 있습니다.::
 
     vagrant up
 
-Your webapp will be accessible at ``http://localhost:8080``, with the code coverage 
-report for your build at ``http://localhost:8081`` and the user guide for 
-it at ``http://localhost:8082``.
+웹앱은 ``http://localhost:8080``\ 에 액세스 할 수 있으며, 빌드에 대한 코드 커버리지 보고서는 ``http://localhost:8081``\ 에 있고 사용자 안내서는 ``http://localhost:8082``.
+

@@ -1,71 +1,64 @@
-Static pages
+정적 페이지(Static pages)
 ###############################################################################
 
-**Note:** This tutorial assumes you've downloaded CodeIgniter and
-:doc:`installed the framework <../installation/index>` in your
-development environment.
+.. note:: 이 튜터리얼은 CodeIgniter를 다운로드하고 개발 환경에 
+		  :doc:`프레임워크를 설치 <../installation/index>` 했다고 가정합니다.
 
-The first thing you're going to do is set up a **controller** to handle
-static pages. A controller is simply a class that helps delegate work.
-It is the glue of your web application.
+가장 먼저 할 일은 정적 페이지를 처리​​할 **controller**\ 를 설정하는 것입니다. 
+컨트롤러는 웹 어플리케이션의 접착제 역활을 하며, 작업 위임을 돕는 클래스입니다.
 
-For example, when a call is made to:
+
+예를 들어 다음과 같이 요청할 때:
 
 	``http://example.com/news/latest/10``
 
-We might imagine that there is a controller named "news". The method
-being called on news would be "latest". The news method's job could be to
-grab 10 news items, and render them on the page. Very often in MVC,
-you'll see URL patterns that match:
+"news"라는 컨트롤러가 있다고 상상할 수 있습니다.
+news에서 호출되는 메서드는 "latest" 입니다.
+news의 latest 메서드가 진행할 작업은 10개의 뉴스 항목을 가져와 페이지에 렌더링하는 것입니다.
+
+MVC에서 매우 자주 보게되는 URL 패턴을 살펴봅시다.:
 
 	``http://example.com/[controller-class]/[controller-method]/[arguments]``
 
-As URL schemes become more complex, this may change. But for now, this
-is all we will need to know.
+URL은 체계가 복잡해짐에 따라 변경 될 수 있습니다. 
+그러나 지금은 이것이 우리가 알아야 할 전부입니다.
 
-Let's make our first controller
+첫 번째 컨트롤러를 만들기
 -------------------------------------------------------
 
-Create a file at **app/Controllers/Pages.php** with the following
-code.
+**app/Controllers/Pages.php** 파일을 만들고 다음 코드를 입력합니다.
 
 ::
 
-    <?php namespace App\Controllers;
-    use CodeIgniter\Controller;
+	<?php namespace App\Controllers;
+	use CodeIgniter\Controller;
 
 	class Pages extends Controller {
 
-        public function index()
-        {
-            return view('welcome_message');
-        }
+		public function index()
+		{
+			return view('welcome_message');
+		}
 
-        public function showme($page = 'home')
-        {
-        }
+		public function showme($page = 'home')
+		{
+		}
 	}
 
-You have created a class named ``Pages``, with a ``showme`` method that accepts
-one argument named ``$page``. It also has an ``index()`` method, the same
-as the default controller found in **app/Controllers/Home.php**; that method
-displays the CodeIgniter welcome page.
+우리는 ``$Page``\ 라는 하나의 인수(argument)를 허용하는 ``showme`` 메서드가 있는 ``Pages`` 클래스를 작성했습니다.
+그리고 기본 컨트롤러인 **app/Controllers/Home.php**\ 와 동일한 ``index()`` 메서드(method)를 가지고 있습니다. 
+이 메서드는 CodeIgniter의 welcome 페이지를 보여줍니다.
 
-The ``Pages`` class is extending the
-``CodeIgniter\Controller`` class. This means that the new Pages class can access the
-methods and variables defined in the ``CodeIgniter\Controller`` class
-(*system/Controller.php*).
+``Pages`` 클래스는 ``CodeIgniter\Controller`` 클래스를 확장하고 있습니다.
+이는 새 Pages 클래스가 ``CodeIgniter\Controller`` 클래스에 정의된 메서드와 변수를 이용할 수 있다는 것을 의미합니다.
 
-The **controller is what will become the center of every request** to
-your web application. Like any php class, you refer to
-it within your controllers as ``$this``.
+**컨트트롤러는 웹 어플리케이션에 대한 모든 요청의 중심**\ 이 될 것입니다.
+여느 php 클래스와 마찬가지로 컨트롤러내에서 ``$this``\ 라고 지칭합니다.
 
-Now that you've created your first method, it's time to make some basic page
-templates. We will be creating two "views" (page templates) that act as
-our page footer and header.
+첫 번째 메서드를 만들었으니, 이제 몇 가지 기본적인 페이지 템플릿을 만들어 봅시다.
+우리는 페이지 푸터(footer)와 헤더(header) 역할을 하는 두 개의 "뷰(view)"를 만들겁니다.
 
-Create the header at **app/Views/templates/header.php** and add
-the following code:
+**app/Views/templates/header.php**\ 를 생성하고 다음 코드를 추가하십시오.
 
 ::
 
@@ -78,11 +71,10 @@ the following code:
 
 		<h1><?= $title; ?></h1>
 
-The header contains the basic HTML code that you'll want to display
-before loading the main view, together with a heading. It will also
-output the ``$title`` variable, which we'll define later in the controller.
-Now, create a footer at **app/Views/templates/footer.php** that
-includes the following code:
+헤더에는 머리글과 함께 기본 보기를 로드하기 전에 표시할 기본 HTML 코드가 포함되어 있습니다.
+그리고 우리가 나중에 컨트롤러에서 정의할 ``$title`` 변수를 출력합니다.
+
+이제, 다음 코드를 포함하는  **app/Views/templates/footer.php**\ 로 푸터(footer)를 작성하십시오.
 
 ::
 
@@ -90,21 +82,18 @@ includes the following code:
 	</body>
 	</html>
 
-Adding logic to the controller
+컨트롤러에 로직 추가
 -------------------------------------------------------
 
-Earlier you set up a controller with a ``showme()`` method. The method
-accepts one parameter, which is the name of the page to be loaded. The
-static page bodies will be located in the **app/Views/pages/**
-directory.
+앞서 우리는 ``showme()`` 메서드를 컨트롤러에 추가했다. 이 메서드는 ``$Page``\ 라는 하나의 파라미터를 허용합니다.
+정적(static) 페이지 본문은 **app/Views/page/** 디렉토리에 위치합니다.
 
-In that directory, create two files named **home.php** and **about.php**.
-Within those files, type some text − anything you'd like − and save them.
-If you like to be particularly un-original, try "Hello World!".
+그 디렉토리에 **home.php**\ 과  **about.php**\ 이라는 이름의 파일을 두 개를 만드십시오.
+그 파일들 안에, 텍스트 − 당신이 원하는 어떤것 −\ 를 입력하고 저장합니다.
+만약 여러분이 특별히 독창적이지 않은 사람이 되고 싶다면, "Hello World!"를 입력해도 됩니다.
 
-In order to load those pages, you'll have to check whether the requested
-page actually exists. This will be the body of the ``showme()`` method
-in the ``Pages`` controller created above:
+이 페이지를 로드하려면 요청된 페이지가 실제로 존재하는지 확인해야 합니다.
+다음 내용은 위에서 만들어진 ``Pages``\ 컨트롤러 ``showme()`` 메서드의 본문이 됩니다.
 
 ::
 
@@ -123,111 +112,88 @@ in the ``Pages`` controller created above:
 		echo view('templates/footer', $data);
 	}
 
-Now, when the requested page does exist, it is loaded, including the header and
-footer, and displayed to the user. If the requested page doesn't exist, a "404
-Page not found" error is shown.
+이제 요청된 페이지가 존재하면 헤더와 푸터를 포함하여 본문이 로드되어 사용자에게 표시됩니다.
+요청된 페이지가 존재하지 않을 경우, "404 Page not found" 오류가 표시됩니다.
 
-The first line in this method checks whether the page actually exists.
-PHP's native ``is_file()`` function is used to check whether the file
-is where it's expected to be. The ``PageNotFoundException`` is a CodeIgniter
-exception that causes the default error page to show.
+이 메서드의 첫 번째 줄은 페이지가 실제로 존재하는지 여부를 확인합니다.
+PHP의 네이티브 함수 ``is_file()``\ 는 파일이 예상되는 위치에 있는지 확인하는 데 사용되었습니다.
+``PageNotFoundException``\ 은 기본 오류 페이지를 표시하는 CodeIgniter 예외입니다.
 
-In the header template, the ``$title`` variable was used to customize the
-page title. The value of title is defined in this method, but instead of
-assigning the value to a variable, it is assigned to the title element
-in the ``$data`` array.
+헤더 템플릿에서는 페이지 제목을 출력하기 위해 "$title" 변수가 사용되었습니다.
+$title의 값은 메서드에서 정의되지만, 변수에 직접 값을 할당하는 대신 ``$data`` 배열의 title 요소에 할당합니다.
 
-The last thing that has to be done is loading the views in the order
-they should be displayed. The ``view()`` method built-in to
-CodeIgniter will be used to do this. The second parameter in the ``view()`` method is
-used to pass values to the view. Each value in the ``$data`` array is
-assigned to a variable with the name of its key. So the value of
-``$data['title']`` in the controller is equivalent to ``$title`` in the
-view.
+마지막으로 해야 할 일은 뷰(view)를 표시되는 순서대로 로드하는 것입니다.
+이를 위해 CodeIgniter에 내장된 ``view()`` 함수를 사용합니다.
+``view()`` 메서드의 두 번째 매개변수는 뷰에 값을 전달하는 데 사용됩니다.
+``$data`` 배열의 값은 변수명을 키(key)로하여 할당됩니다.
+컨트롤러의 ``$data['title']`` 값은 뷰의 ``$title``\ 과 동일합니다.
 
-.. note:: Any files and directory names passed into the **view()** function MUST
-	match the case of the actual directory and file itself or the system will
-	throw errors on case-sensitive platforms.
+.. note:: **view()**  함수에 전달되는 모든 파일과 디렉토리 이름은 반드시 실제 디렉토리와 파일과 
+	일치해야 하며 그렇지 않은 경우 대소문자를 구분하는 시스템에서 오류를 발생시킬 것입니다.
 
-Running the App
+앱 실행Running the App
 -------------------------------------------------------
 
-Ready to test? You cannot run the app using PHP's built-in server,
-since it will not properly process the ``.htaccess`` rules that are provided in
-``public``, and which eliminate the need to specify "index.php/"
-as part of a URL. CodeIgniter has its own command that you can use though.
+테스트 준비가 완료되었나요?
+PHP의 내장 서버는 ``public`` 폴더에 있는 ``.htaccess`` 규칙(rule)을 제대로 처리하지 못하므로 URL에 "index.php/" 없이 앱을 실행할 수 없습니다. 
+CodeIgniter는 이를 위해 보완하는 자체 명령을 가지고 있습니다.
 
-From the command line, at the root of your project:
+명령줄에서 프로젝트의 루트(root)로 이동하여 다음과 같이 입력합니다.
 
 ::
 
     php spark serve
 
-will start a web server, accessible on port 8080. If you set the location field
-in your browser to ``localhost:8080``, you should see the CodeIgniter welcome page.
+포트 8080을 통하여 액세스할 수 있는 웹 서버를 시작됩니다.
+브라우저에서 ``localhost:8080``\ 을 입력하면 CodeIgniter Welcome 페이지가 나타나야 합니다.
 
-You can now try several URLs in the browser location field, to see what the `Pages`
-controller you made above produces...
+브라우저 몇 개의 URL을 입력하여 위에서 만든 `Pages` 컨트롤러가 어떻게 동작하는지 확인하십시오.
 
-- ``localhost:8080/pages`` will show the results from the `index` method
-  inside our `Pages` controller, which is to display the CodeIgniter "welcome" page,
-  because "index" is the default controller method
-- ``localhost:8080/pages/index`` will also show the CodeIgniter "welcome" page,
-  because we explicitly asked for the "index" method
-- ``localhost:8080/pages/showme`` will show the "home" page that you made above,
-  because it is the default "page" parameter to the `showme()` method.
-- ``localhost:8080/pages/showme/home`` will also show the "home" page that you made above,
-  because we explicitly asked for it
-- ``localhost:8080/pages/showme/about`` will show the "about" page that you made above,
-  because we explicitly asked for it
-- ``localhost:8080/pages/showme/shop`` will show a "404 - File Not Found" error page,
-  because there is no `app/Views/pages/shop.php`
+- ``localhost:8080/pages``\ 는 `Pages` 컨트롤러 내의  `index` 메서드의 결과인 CodeIgniter "welcome" 페이지를 표시합니다. 
+  `index`\ 는 컨트롤러의 기본(default) 메서드입니다.
+- ``localhost:8080/pages/index``\ 는 "index" 메서드를 명시적으로 요청하므로 CodeIgniter 환영 페이지가 표시됩니다. 
+- ``localhost:8080/pages/showme``\ 는 `showme()` 메서드의 "page" 매개 변수 기본 값인 "home"을 사용하여 위의 페이지를 보여줄 겁니다.
+- ``localhost:8080/pages/showme/home``\ 는 명시적으로 "home"을 요청하므로, 위와 동일한 결과를 보여줄 겁니다.
+- ``localhost:8080/pages/showme/about`` will show the "about" page that you made above,  because we explicitly asked for it
+- ``localhost:8080/pages/showme/about``\ 는 "about" 페이지를 보여줍니다.
+- ``localhost:8080/pages/showme/shop``\  `app/Views/pages/shop.php`\ 이 없기 때문에 "404 - File Not Found" 오류 페이지가 표시됩니다.
 
 
-Routing
+라우팅
 -------------------------------------------------------
 
-The controller is now functioning!
+컨트롤러가 작동합니다!
 
-Using custom routing rules, you have the power to map any URI to any
-controller and method, and break free from the normal convention:
+사용자 지정 라우팅 규칙을 사용하면 URI를 모든 컨트롤러 및 메서드에 매핑하는 일반적인 규칙에서 벗어날 수 있습니다.:
 ``http://example.com/[controller-class]/[controller-method]/[arguments]``
 
-Let's do that. Open the routing file located at
-*app/Config/Routes.php* and look for the "Route Definitions"
-section of the configuration file.
+그걸 해봅시다. 
+라우팅 파일 *app/Config/Routes.php*\ 를 열고 "Route Definitions" 섹션을 찾으세요.
 
-The only uncommented line there to start with should be:::
+주석 처리되지 않은 유일한 줄은::
 
     $routes->get('/', 'Home::index');
 
-This directive says that any incoming request without any content
-specified should be handled by the ``index`` method inside the ``Home`` controller.
+이 지시문은 지정되지 않은 요청에 대해 ``Home`` 컨트롤러 내의 ``index`` 메서드로 처리하라고 합니다.
 
-Add the following line, **after** the route directive for '/'.
+'/'에 대한 **경로 지시문 뒤**\ 에 다음 행을 추가하십시오.
 
 ::
 
 	$routes->get('(:any)', 'Pages::showme/$1');
 
-CodeIgniter reads its routing rules from top to bottom and routes the
-request to the first matching rule. Each rule is a regular expression
-(left-side) mapped to a controller and method name separated by slashes
-(right-side). When a request comes in, CodeIgniter looks for the first
-match, and calls the appropriate controller and method, possibly with
-arguments.
 
-More information about routing can be found in the URI Routing
-:doc:`documentation </incoming/routing>`.
+CodeIgniter는 라우팅 규칙을 위에서 아래로 읽고 요청과 첫 번째로 일치하는 규칙으로 라우팅합니다.
+각 규칙은 오른쪽의 슬래시로 구분된 컨트롤러와 메서드 이름에 매핑 된 왼쪽의  정규식입니다.
+요청이 들어 오면 CodeIgniter는 첫 번째 일치 항목을 찾고, 인수와 함께 적절한 컨트롤러와 메서드를 호출합니다.
 
-Here, the second rule in the ``$routes`` array matches **any** request
-using the wildcard string ``(:any)``. and passes the parameter to the
-``view()`` method of the ``Pages`` class.
+라우팅에 대한 자세한 내용은 :doc:`URI 라우팅 설명서 </incoming/routing>`\ 를 참조하십시오.
+여기서 ``$routes`` 배열의 두 번째 규칙은 와일드카드 문자열 ``(:any)``\ 를 사용한 요청과 일치하며, 매개변수를 ``Pages`` 클래스의 ``view()`` 메서드에 전달합니다.
 
-Now visit ``home``. Did it get routed correctly to the ``showme()``
-method in the pages controller? Awesome!
+이제 ``home``\ 을 확인합시다. pages 컨트롤러의 ``showme()`` 메서드로 올바르게 라우팅되었나요?
+Awesome!
 
-You should see something like the following:
+다음과 같은지 보세요.:
 
 .. image:: ../images/tutorial1.png
     :align: center
