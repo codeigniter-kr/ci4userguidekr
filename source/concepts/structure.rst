@@ -1,89 +1,82 @@
 #####################
-Application Structure
+응용 프로그램 구조
 #####################
 
-To get the most out of CodeIgniter, you need to understand how the application is structured, by default, and what you
-can change to meet the needs of your application.
+CodeIgniter를 최대한 활용하려면 기본적으로 응용 프로그램의 구성 방식과 요구에 맞게 변경할 수 있는 사항을 이해해야 합니다.
 
-Default Directories
+기본 디렉터리
 ===================
 
-A fresh install has six directories: ``/app``, ``/system``, ``/public``,
-``/writable``, ``/tests`` and possibly ``/docs``.
-Each of these directories has a very specific part to play.
+설치후 생성되는 6개의 디렉터리: ``/app``, ``/system``, ``/public``, ``/writable``, ``/tests``, ``/docs``.
+이 각각의 디렉터리는 매우 특정한 부분을 가지고 있습니다.
 
 app
 ---
-The ``app`` directory is where all of your application code lives. This comes with a default directory
-structure that works well for many applications. The following folders make up the basic contents:
+``app`` 디렉터리는 당신 작성한 모든 어플리케이션 코드가 있는 곳입니다.
+이것은 많은 응용 프로그램에서 잘 작동하는 기본 디렉터리 구조와 함께 제공됩니다. 다음 폴더는 기본 내용을 구성합니다:
 
 .. code-block:: none
 
 	/app
-		/Config         Stores the configuration files
-		/Controllers    Controllers determine the program flow
-		/Database       Stores the database migrations and seeds files
-		/Filters        Stores filter classes that can run before and after controller
-		/Helpers        Helpers store collections of standalone functions
-		/Language       Multiple language support reads the language strings from here
-		/Libraries      Useful classes that don't fit in another category
-		/Models         Models work with the database to represent the business entities.
-		/ThirdParty     ThirdParty libraries that can be used in application
-		/Views          Views make up the HTML that is displayed to the client.
+		/Config         구성 파일 저장
+		/Controllers    프로그램 흐름을 결정하는 컨트롤러
+		/Database       데이터베이스 마이그레이션 및 시드(seed) 파일 저장
+		/Filters        컨트롤러 전후에 실행할 수 있는 필터 클래스 저장
+		/Helpers        독립형 함수 모음(Helper) 저장
+		/Language       다국어 지원을 위한 언어 파일 저장
+		/Libraries      카테고리에 포함되지 않는 유용한 클래스 모음
+		/Models         데이터베이스와 함께 작동하는 모델 저장
+		/ThirdParty     응용 프로그램에서 사용할 수 있는 타사 라이브러리
+		/Views          클라이언트에 표시되는 HTML로 구성된 뷰
 
-Because the ``app`` directory is already namespaced, you should feel free to modify the structure
-of this directory to suit your application's needs. For example, you might decide to start using the Repository
-pattern and Entity Models to work with your data. In this case, you could rename the ``Models`` directory to
-``Repositories``, and add a new ``Entities`` directory.
+``app`` 디렉터리는 이미 네임스페이스이므로 애플리케이션의 요구에 맞게 이 디렉터리의 구조를 자유롭게 수정할 수 있습니다.
+예를 들면, 여러분은 리포지토리 패턴과 엔티티 모델을 사용하여 데이터 작업을 시작하기로 결정할 수 있습니다.
+이 경우 ``Models`` 디렉터리의 이름을 ``Repositories``\ 로 변경하고 새로운 ``Entities`` 디렉터리를 추가할 수 있다.
 
-.. note:: If you rename the ``Controllers`` directory, though, you will not be able to use the automatic method of
-		routing to controllers, and will need to define all of your routes in the routes file.
+.. note:: 만약 여러분이 ``Controllers`` 디렉터리의 이름을 바꾸면 컨트롤러 자동 라우팅이 동작 하지 않으므로 
+	모든 라우팅 설정을 ``app/Config/Routes.php`` 파일에 정의해야 합니다.
 
-All files in this directory live under the ``App`` namespace, though you are free to change that in
-**app/Config/Constants.php**.
+이 디렉터리의 모든 파일은 ``App`` 네임스페이스 아래에 있지만 **app/Config/Constants.php**\ 에서 자유롭게 변경할 수 있습니다.
 
 system
 ------
-This directory stores the files that make up the framework, itself. While you have a lot of flexibility in how you
-use the application directory, the files in the system directory should never be modified. Instead, you should
-extend the classes, or create new classes, to provide the desired functionality.
+이 디렉토리는 프레임워크 자체를 구성하는 파일을 저장합니다. 
+응용 프로그램 디렉토리를 사용하는 방법에는 많은 유연성이 있지만 시스템 디렉토리의 파일은 절대 수정해서는 안됩니다. 
+원하는 기능을 제공하고 싶다면 클래스를 확장하거나 새 클래스를 작성하면 됩니다.
 
-All files in this directory live under the ``CodeIgniter`` namespace.
+이 디렉토리의 모든 파일은 ``CodeIgniter`` 네임스페이스에 있습니다.
 
 public
 ------
 
-The **public** folder holds the browser-accessible portion of your web application,
-preventing direct access to your source code.
-It contains the main **.htaccess** file, **index.php**, and any application
-assets that you add, like CSS, javascript, or
-images.
+**public** 폴더에 브라우저로 액세스할 수 있는 웹 응용 프로그램의 일부를 보관합니다.
+여기에는  **.htaccess** 파일, **index.php** 및 CSS, javascript 또는 이미지와 같이 추가한 모든 응용 프로그램 자산이 포함됩니다.
 
-This folder is meant to be the "web root" of your site, and your web server
-would be configured to point to it.
+이 폴더는 당신의 사이트의 "웹 루트(web root)"를 의미하며, 웹 서버가 그것을 가리키도록 구성합니다.
 
 writable
 --------
-This directory holds any directories that might need to be written to in the course of an application's life.
-This includes directories for storing cache files, logs, and any uploads a user might send. You should add any other
-directories that your application will need to write to here. This allows you to keep your other primary directories
-non-writable as an added security measure.
+
+이 디렉토리는 응용프로그램의 동작하는 동안 작성되어야 할 모든것을 보관합니다.
+여기에는 캐시 파일, 로그 및 사용자가 업로드한 데이터를 저장하기 위한 디렉터리가 포함됩니다.
+응용 프로그램이 여기에 작성해야 하는 다른 디렉터리도 추가할 수 있습니다.
+이를 통해 추가 보안 조치로 다른 기본 디렉터리를 쓸 수 없는 상태로 유지할 수 있습니다.
 
 tests
 -----
-This directory is setup to hold your test files. The ``_support`` directory holds various mock classes and other
-utilities that you can use while writing your tests. This directory does not need to be transferred to your
-production servers.
+
+이 디렉토리는 테스트 파일을 보관하도록 설정되어 있습니다.
+``_support`` 디렉토리에는 테스트를 작성하는 동안 사용할 수 있는 다양한 모의 클래스 및 기타 유틸리티가 있습니다.
+이 디렉토리는 프로덕션 서버로 전송할 필요가 없습니다.
 
 docs
 ----
-If this directory is part of your project, it holds a local copy of the CodeIgniter4
-User Guide.
 
-Modifying Directory Locations
+이 디렉토리가 프로젝트의 일부인 경우, CodeIgniter4 사용자 안내서(guide)의 로컬 사본을 보관합니다.
+
+디렉토리 위치 수정
 -----------------------------
 
-If you've relocated any of the main directories, you can change the configuration
-settings inside ``app/Config/Paths``.
+기본 디렉터리를 재배치하고 싶다면 ``app/Config/Paths`` 내에서 구성 설정을 변경하면 됩니다.
 
-Please read `Managing your Applications <../general/managing_apps.html>`_
+더 많은 정보는 `애플리케이션 관리 <../general/managing_apps.html>`_\ 를 읽으십시오.

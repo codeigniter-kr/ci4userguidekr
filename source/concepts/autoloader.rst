@@ -1,13 +1,13 @@
-#################
-Autoloading Files
-#################
+########################
+파일 오토로드(autoload)
+########################
 
-Every application consists of a large number of classes in many different locations.
-The framework provides classes for core functionality. Your application will have a
-number of libraries, models, and other entities to make it work. You might have third-party
-classes that your project is using. Keeping track of where every single file is, and
-hard-coding that location into your files in a series of ``requires()`` is a massive
-headache and very error-prone. That's where autoloaders come in.
+모든 어플리케이션은 다른 위치에 있는 많은 수의 클래스로 구성되어 있습니다.
+프레임워크는 핵심 기능을 위한 클래스를 제공합니다.
+응용 프로그램이 작동하도록 하기 위해 여러 라이브러리, 모델 및 기타 엔티티가 있을 것입니다.
+프로젝트에서 사용하는 타사(third-party) 클래스가 있을 수도 있습니다.
+모든 파일이 어디에 있는지 추적하는 것과 그 위치를 일련의 ``requires()``\ 로 하드코딩하는 것은 엄청난 골칫거리이며 오류가 발생하기 쉽습니다.
+그래서 오토로더가 필요합니다.
 
 CodeIgniter provides a very flexible autoloader that can be used with very little configuration.
 It can locate individual non-namespaced classes, namespaced classes that adhere to

@@ -1,8 +1,8 @@
 #####################
-CodeIgniter4 Overview
+CodeIgniter4 개요
 #####################
 
-The following pages describe the architectural concepts behind CodeIgniter4:
+다음 페이지는 CodeIgniter4의 기본 개념을 설명합니다.:
 
 .. toctree::
 	:titlesonly:
