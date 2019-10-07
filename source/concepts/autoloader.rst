@@ -9,88 +9,75 @@
 모든 파일이 어디에 있는지 추적하는 것과 그 위치를 일련의 ``requires()``\ 로 하드코딩하는 것은 엄청난 골칫거리이며 오류가 발생하기 쉽습니다.
 그래서 오토로더가 필요합니다.
 
-CodeIgniter provides a very flexible autoloader that can be used with very little configuration.
-It can locate individual non-namespaced classes, namespaced classes that adhere to
-`PSR4 <http://www.php-fig.org/psr/psr-4/>`_ autoloading
-directory structures, and will even attempt to locate classes in common directories (like Controllers,
-Models, etc).
+CodeIgniter는 구성이 거의없이 사용할 수 있는 매우 유연한 오토로더를 제공합니다.
+CodeIgniter 오토로더는 네임스페이스가 없는 개별 클래스, `PSR4 <http://www.php-fig.org/psr/psr-4/>`_ 
+오토로드 디렉토리 구조를 준수하는 네임스페이스 클래스, 공통 디렉토리에서 클래스를 찾으려고 시도합니다.
+성능 향상을 위해 핵심 CodeIgniter 구성요소는 클래스맵에 추가되어 있습니다.
 
-For performance improvement, the core CodeIgniter components have been added to the classmap.
+오토로더는 그 자체로도 훌륭하게 작동하지만 필요하다면 `Composer <https://getcomposer.org>`_\ 와 같은 다른 오토로더 또는 사용자 정의 오토로더와 함께 작동 할 수 있습니다.
+그것들은 모두 `spl_autoload_register <http://php.net/manual/en/function.spl-autoload-register.php>`_\ 를 통해 등록 되기 때문에, 순서대로 작동하며 서로의 방식을 방해하지 않습니다.
 
-The autoloader works great by itself, but can also work with other autoloaders, like
-`Composer <https://getcomposer.org>`_, or even your own custom autoloaders, if needed.
-Because they're all registered through
-`spl_autoload_register <http://php.net/manual/en/function.spl-autoload-register.php>`_,
-they work in sequence and don't get in each other's way.
+오토로더는 프레임워크 실행 초기에 ``spl_autoload_register()``\ 에 등록되어 항상 활성화됩니다.
 
-The autoloader is always active, being registered with ``spl_autoload_register()`` at the
-beginning of the framework's execution.
+오토로더 구성
+=================
 
-Configuration
-=============
+초기 설정은 **/app/Config/Autoload.php**\ 에서 이루어집니다. 
+이 파일에는 두 개의 기본 배열이 포함되어 있습니다.: 하나는 클래스맵을 위한 것이고, 다른 하나는 PSR4 호환 네임스페이스를 위한 것입니다.
 
-Initial configuration is done in **/app/Config/Autoload.php**. This file contains two primary
-arrays: one for the classmap, and one for PSR4-compatible namespaces.
+네임스페이스
+================
 
-Namespaces
-==========
-
-The recommended method for organizing your classes is to create one or more namespaces for your
-application's files. This is most important for any business-logic related classes, entity classes,
-etc. The ``psr4`` array in the configuration file allows you to map the namespace to the directory
-those classes can be found in::
+클래스를 구성하는데 권장되는 방법은 응용 프로그램 파일의 네임스페이스를 하나 이상 만드는 것입니다.
+이것은 비즈니스 로직 관련 클래스, 엔티티 클래스등에 가장 중요합니다.
+구성 파일의 ``psr4`` 배열을 사용하면 네임스페이스를 해당 클래스가 있는 디렉토리에 매핑 할 수 있습니다.::
 
 	$psr4 = [
 		'App'         => APPPATH,
 		'CodeIgniter' => SYSTEMPATH,
 	];
 
-The key of each row is the namespace itself. This does not need a trailing slash. If you use double-quotes
-to define the array, be sure to escape the backward slash. That means that it would be ``My\\App``,
-not ``My\App``. The value is the location to the directory the classes can be found in. They should
-have a trailing slash.
+각 배열 행의 키는 네임스페이스이며, 슬래시가 필요하지 않습니다.
+배열의 키를 정의할 때 큰따옴표(")를 사용한다면 백 슬래시(\\)를 사용할 때 주의하십시오.
+``My\App``\ 이 아니라 ``My\\App``\ 입니다.
+배열의 값은 클래스를 찾을 수 있는 디렉토리의 위치이며, 슬래시(/)가 있어야 합니다.
 
-By default, the application folder is namespace to the ``App`` namespace. While you are not forced to namespace the controllers,
-libraries, or models in the application directory, if you do, they will be found under the ``App`` namespace.
-You may change this namespace by editing the **/app/Config/Constants.php** file and setting the
-new namespace value under the ``APP_NAMESPACE`` setting::
+기본적으로 애플리케이션 폴더는 네임스페이스 ``App``\ 로 되어 있습니다.
+애플리케이션 디렉토리의 컨트롤러, 라이브러리 또는 모델의 네임스페이스를 지정하지 않을 경우 ``App`` 네임스페이스 아래 위치합니다.
+**/app/Config/Constants.php** 파일의 ``APP_NAMESPACE``\ 를 수정하면 이 네임스페이스를 변경할 수 있습니다.::
 
 	define('APP_NAMESPACE', 'App');
 
-You will need to modify any existing files that are referencing the current namespace.
+이렇게 할 경우 현재 네임스페이스를 참조하는 기존 파일을 모두 수정해야 합니다.
 
-.. important:: Config files are namespaced in the ``Config`` namespace, not in ``App\Config`` as you might
-	expect. This allows the core system files to always be able to locate them, even when the application
-	namespace has changed.
+.. important:: 구성(config) 파일의 네임스페이스는 ``App\Config``\ 가 아니라 ``Config``\ 입니다.
+	따라서 애플리케이션 네임스페이스가 변경된 경우에도 코어 시스템 파일은 항상 찾을 수 있습니다.
 
-Classmap
-========
+클래스 맵
+===========
 
-The classmap is used extensively by CodeIgniter to eke the last ounces of performance out of the system
-by not hitting the file-system with extra ``is_file()`` calls. You can use the classmap to link to
-third-party libraries that are not namespaced::
+CodeIgniter의 클래스 맵은  파일 시스템의 충돌을 피하고자 ``is_file()``\ 을 사용하므로 시스템의 성능을 최대로 끌어올릴 수 있습니다.
+클래스 맵을 사용하여 네임스페이스가 없는 타사 라이브러리에 연결할 수 있습니다.::
 
 	$classmap = [
 		'Markdown' => APPPATH .'third_party/markdown.php'
 	];
 
-The key of each row is the name of the class that you want to locate. The value is the path to locate it at.
+각 행의 키는 찾으려는 클래스의 이름입니다. 값은 위치를 지정하는 경로입니다.
 
-Legacy Support
+레거시 지원
 ==============
 
-If neither of the above methods finds the class, and the class is not namespaced, the autoloader will look in the
-**/app/Libraries** and **/app/Models** directories to attempt to locate the files. This provides
-a measure to help ease the transition from previous versions.
+위의 방법으로 클래스를 찾지 못하고 클래스가 네임스페이스가 아닌 경우 오토로더는 **/app/Libraries** 및 **/app/Models** 디렉토리에서 파일을 찾으려고 시도합니다. 
+이를 통해 이전 버전에서 전환을 쉽게 할 수 있습니다.
 
-There are no configuration options for legacy support.
+별도의 레거시 지원을 위한 구성 옵션은 없습니다.
 
-Composer Support
+Composer 지원
 ================
 
-Composer support is automatically initialized by default. By default, it looks for Composer's autoload file at
-ROOTPATH.'vendor/autoload.php'. If you need to change the location of that file for any reason, you can modify
-the value defined in ``Config\Constants.php``.
+Composer 지원은 기본적으로 자동 초기화됩니다.
+기본적으로 ``ROOTPATH``\ 에서 Composer의 오토로드('vendor/autolload.php') 파일을 찾습니다. 
+해당 파일의 위치를 ​​변경해야 한다면 ``Config\Constants.php``\ 에 정의 된 값을 수정할 수 있습니다.
 
-.. note:: If the same namespace is defined in both CodeIgniter and Composer, CodeIgniter's autoloader will be
-    the first one to get a chance to locate the file.
+.. note:: CodeIgniter와 Composer에 동일한 네임스페이스가 정의되어 있다면 CodeIgniter의 오토로더에게 우선권이 부여됩니다.
