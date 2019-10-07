@@ -1,121 +1,112 @@
 ########
-Services
+서비스
 ########
 
 .. contents::
     :local:
     :depth: 2
 
-Introduction
+소개
 ============
 
-All of the classes within CodeIgniter are provided as "services". This simply means that, instead
-of hard-coding a class name to load, the classes to call are defined within a very simple
-configuration file. This file acts as a type of factory to create new instances of the required class.
+CodeIgniter 내의 모든 클래스는 "서비스"로 제공됩니다.
+이는 단순히 로드할 클래스 이름을 하드코딩하는 대신 호출할 클래스가 매우 단순한 구성 파일 내에 정의된다는 것을 의미합니다.
+이 파일은 팩토리(factory) 유형으로 작동하여 필요한 클래스의 새 인스턴스를 생성합니다.
 
-A quick example will probably make things clearer, so imagine that you need to pull in an instance
-of the Timer class. The simplest method would simply be to create a new instance of that class::
+타이머 클래스를 예로 들겠습니다. 타이머 클래스의 새 인스턴스를 만드는 방법입니다.::
 
 	$timer = new \CodeIgniter\Debug\Timer();
 
-And this works great. Until you decide that you want to use a different timer class in its place.
-Maybe this one has some advanced reporting the default timer does not provide. In order to do this,
-you now have to locate all of the locations in your application that you have used the timer class.
-Since you might have left them in place to keep a performance log of your application constantly
-running, this might be a time-consuming and error-prone way to handle this. That's where services
-come in handy.
+다른 타이머 클래스를 사용하기로 결정할 때까지 이는 매우 잘 작동합니다.
+이 타이머 클래스는 기본 타이머가 제공하지 않는 고급 보고 기능이 있을 수 있으며, 이 경우 애플리케이션의 성능 로그를 보관하기 위해 시간이 많이 걸리고 오류가 발생할 수 있습니다.
+이를 수정하려면 응용프로그램에서 타이머 클래스를 사용한 모든 위치를 찾아야합니다.
+이럴때 서비스가 유용해집니다.
 
-Instead of creating the instance ourself, we let a central class create an instance of the
-class for us. This class is kept very simple. It only contains a method for each class that we want
-to use as a service. The method typically returns a shared instance of that class, passing any dependencies
-it might have into it. Then, we would replace our timer creation code with code that calls this new class::
+우리가 인스턴스를 직접 만드는 대신 중앙 클래스가 클래스의 인스턴스를 만들도록 합니다.
+이 클래스는 매우 간단합니다.
+서비스로 사용하려는 각 클래스에 대한 메소드 만 포함합니다.
+이 메소드는 일반적으로 해당 클래스의 공유 인스턴스를 반화하여 해당 클래스의 종속성을 전달합니다.
+그런 다음 타이머 생성 코드를 이 새로운 클래스를 호출하는 코드로 바꿉니다.::
 
 	$timer = \Config\Services::timer();
 
-When you need to change the implementation used, you can modify the services configuration file, and
-the change happens automatically throughout your application without you having to do anything. Now
-you just need to take advantage of any new functionality and you're good to go. Very simple and
-error-resistant.
+사용 된 구현을 변경해야 할 경우 서비스 구성 파일을 수정할 수 있으며 변경 작업없이 응용 프로그램 전체에서 자동으로 반영됩니다.
+이제 새로운 기능을 활용하기만 하면됩니다. 
+매우 간단하고 오류에 강합니다.
 
-.. note:: It is recommended to only create services within controllers. Other files, like models and libraries should have the dependencies either passed into the constructor or through a setter method.
+.. note:: 서비스는 컨트롤러에서 생성하는 것이 좋습니다. 
+    모델 및 라이브러리와 같은 다른 파일에는 종속성이 생성자 또는 setter 메소드를 통해 전달되어야 합니다.
 
 
-Convenience Functions
+편의 기능
 ---------------------
 
-Two functions have been provided for getting a service. These functions are always available.
+서비스를 위해 두 가지 기능이 제공되며, 이 기능은 항상 사용 가능합니다.
 
-The first is ``service()`` which returns a new instance of the requested service. The only
-required parameter is the service name. This is the same as the method name within the Services
-file always returns a SHARED instance of the class, so calling the function multiple times should
-always return the same instance::
+첫 번째는 ``service()``\ 이며 요청 된 서비스의 새 인스턴스를 반환합니다.
+필요한 매개 변수(parameter)는 한 개이며, 서비스 명입니다.
+이는 서비스 파일 내의 메서드 이름은 클래스의 SHARED 인스턴스를 반환하므로 함수를 여러 번 호출해도 항상 동일한 인스턴스가 반환됩니다.::
 
 	$logger = service('logger');
 
-If the creation method requires additional parameters, they can be passed after the service name::
+서비스 생성시 추가 매개 변수가 필요한 경우 서비스 이름 뒤에 전달할 수 있습니다.::
 
 	$renderer = service('renderer', APPPATH.'views/');
 
-The second function, ``single_service()`` works just like ``service()`` but returns a new instance of
-the class::
+두 번째는 ``single_service()``\  로 ``service()``\ 와 똑같이 작동하지만 호출할 때마다 새로운 클래스 인스턴스를 반환합니다.::
 
 	$logger = single_service('logger');
 
-Defining Services
+서비스 정의
 =================
 
-To make services work well, you have to be able to rely on each class having a constant API, or
-`interface <http://php.net/manual/en/language.oop5.interfaces.php>`_, to use. Almost all of
-CodeIgniter's classes provide an interface that they adhere to. When you want to extend or replace
-core classes, you only need to ensure you meet the requirements of the interface and you know that
-the classes are compatible.
+서비스가 제대로 작동하려면 사용하기에 일정한 API, 즉 인터페이스를 가진 각 클래스에 의존해야 합니다.
+CodeIgniter의 모든 클래스는 인터페이스를 제공합니다.
+핵심 클래스를 확장하거나 바꾸려면 인터페이스의 요구 사항을 충족해야 하며 클래스가 호환 가능해야 합니다.
 
-For example, the ``RouterCollection`` class implements the ``RouterCollectionInterface``. When you
-want to create a replacement that provides a different way to create routes, you just need to
-create a new class that implements the ``RouterCollectionInterface``::
+``RouterCollectionInterface``\ 를 구현한 ``RouterCollection`` 클래스를 예로 들어보겠습니다.
+경로를 생성하는 다른 방법을 제공하는 클래스를 만든다면, ``RouterCollectionInterface``\ 를 구현하는 새 클래스를 만들어야 합니다.::
 
 	class MyRouter implements \CodeIgniter\Router\RouteCollectionInterface
 	{
 		// Implement required methods here.
 	}
 
-Finally, modify **/app/Config/Services.php** to create a new instance of ``MyRouter``
-instead of ``CodeIgniter\Router\RouterCollection``::
+마지막으로 **/app/Config/Services.php**\ 를 수정하여 ``CodeIgniter\Router\RouterCollection`` 대신  ``MyRouter``\ 의 새 인스턴스를 생성합니다.::
 
 	public static function routes()
 	{
 		return new \App\Router\MyRouter();
 	}
 
-Allowing Parameters
+매개 변수 허용
 -------------------
 
-In some instances, you will want the option to pass a setting to the class during instantiation.
-Since the services file is a very simple class, it is easy to make this work.
+경우에 따라 인스턴스화 중에 클래스에 설정을 전달하는 옵션이 필요할 수 있습니다.
+서비스는 매우 간단한 클래스이므로, 이 작업을 쉽게 수행 할 수 있습니다.
 
-A good example is the ``renderer`` service. By default, we want this class to be able
-to find the views at ``APPPATH.views/``. We want the developer to have the option of
-changing that path, though, if their needs require it. So the class accepts the ``$viewPath``
-as a constructor parameter. The service method looks like this::
+좋은 예는 ``renderer`` 서비스입니다. 기본적으로 이 클래스는 ``APPPATH.'views/'``\ 에서 뷰를 찾습니다.
+그러나 개발자는 필요에 따라 경로를 변경할 수 있는 옵션을 원하며, 이 클래스는 ``$viewPath``\ 를 생성자 매개 변수(parameter)로 허용합니다.
+서비스 방법은 다음과 같습니다.::
 
 	public static function renderer($viewPath=APPPATH.'views/')
 	{
 		return new \CodeIgniter\View\View($viewPath);
 	}
 
-This sets the default path in the constructor method, but allows for easily changing
-the path it uses::
+생성자 메서드에서 기본 경로를 설정하지만, 사용하고자 하는 경로로 쉽게 변경할 수 있습니다.::
 
 	$renderer = \Config\Services::renderer('/shared/views');
 
-Shared Classes
+
+공유 클래스
 -----------------
 
-There are occasions where you need to require that only a single instance of a service
-is created. This is easily handled with the ``getSharedInstance()`` method that is called from within the
-factory method. This handles checking if an instance has been created and saved
-within the class, and, if not, creates a new one. All of the factory methods provide a
-``$getShared = true`` value as the last parameter. You should stick to the method also::
+서비스의 단일 인스턴스만 생성하도록 요구해야 하는 경우가 있습니다.
+이것은 팩토리 메서드(factory method) 내에서 호출하는 ``getSharedInstance()`` 메서드로 쉽게 처리됩니다.
+클래스 내에서 인스턴스가 생성 및 저장되었는지 확인하고 그렇지 않은 경우 새 인스턴스를 만듭니다. 
+모든 팩토리 메소드는 ``$getShared = true`` 값을 마지막 매개 변수로 제공합니다.
+이를 방법을 지켜야 합니다.::
 
     class Services
     {
@@ -130,22 +121,24 @@ within the class, and, if not, creates a new one. All of the factory methods pro
         }
     }
 
-Service Discovery
+서비스 검색
 -----------------
 
-CodeIgniter can automatically discover any Config\\Services.php files you may have created within any defined namespaces.
-This allows simple use of any module Services files. In order for custom Services files to be discovered, they must
-meet these requirements:
+CodeIgniter는 ``Config\\Services``\ 를 자동으로 검색 할 수 있습니다.
+php 파일은 정의 된 네임스페이스 내에 있습니다.
+이를 통해 모듈 서비스 파일을 간단하게 사용할 수 있습니다.
+사용자 정의 서비스 파일을 검색하려면 다음 요구 사항을 충족해야 합니다.
 
-- Its namespace must be defined in ``Config\Autoload.php``
-- Inside the namespace, the file must be found at ``Config\Services.php``
-- It must extend ``CodeIgniter\Config\BaseService``
+- 네임스페이스 정의는 ``Config\Autoload.php``\ 에 해야 합니다.
+- 네임스페이스에 속한 파일은 ``Config\Services.php``\ 에서 찾을 수 있어야 합니다.
+- 반드시 ``CodeIgniter\Config\BaseService``\ 를 확장(extend)해야 합니다.
 
-A small example should clarify this.
+다음의 작은 예시는 이것을 명확히 합니다
 
-Imagine that you've created a new directory, ``Blog`` in your root directory. This will hold a **blog module** with controllers,
-models, etc, and you'd like to make some of the classes available as a service. The first step is to create a new file:
-``Blog\Config\Services.php``. The skeleton of the file should be::
+루트 디렉토리에 Blog라는 새 디렉토리를 만들었다고 상상하십시오.
+여기에는 컨트롤러, 모델 등이 포함 된 **블로그 모듈**\ 이 있으며 일부 클래스를 서비스로 제공하려고합니다.
+첫 번째 단계는 ``Blog\Config\Services.php``\ 라는 새 파일을 만드는 것입니다.
+파일의 골격은::
 
     <?php namespace Blog\Config;
 
@@ -159,9 +152,9 @@ models, etc, and you'd like to make some of the classes available as a service. 
         }
     }
 
-Now you can use this file as described above. When you want to grab the posts service from any controller, you
-would simply use the framework's ``Config\Services`` class to grab your service::
+이제 위에서 설명한대로 이 파일을 사용할 수 있습니다.
+컨트롤러에서 게시물 서비스를 가져 오려면 프레임워크의 ``Config\Services`` 클래스를 사용하여 서비스를 가져 오면됩니다.
 
     $postManager = Config\Services::postManager();
 
-.. note:: If multiple Services files have the same method name, the first one found will be the instance returned.
+.. note:: 여러 서비스 파일의 메소드 이름이 동일한 경우 발견된 첫 번째 파일의 인스턴스가 반화(return)됩니다.

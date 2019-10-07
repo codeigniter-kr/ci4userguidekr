@@ -1,52 +1,47 @@
 ##########################
-Working With HTTP Requests
+HTTP 요청(Requests) 작업 
 ##########################
 
-In order to get the most out of CodeIgniter, you need to have a basic understanding of how HTTP requests
-and responses work. Since this is what you work with while developing web applications, understanding the
-concepts behind HTTP is a **must** for all developers that want to be successful.
+CodeIgniter를 최대한 활용하려면 HTTP 요청 및 응답의 작동 방식에 대한 기본적인 이해가 필요합니다.
+웹 애플리케이션을 개발하는 동안 이 작업이 수행되므로 HTTP의 개념을 이해하는 것은 모든 개발자에게 **필수** 입니다.
 
-The first part of this chapter gives an overview. After the concepts are out of the way, we will discuss
-how to work with the requests and responses within CodeIgniter.
 
-What is HTTP?
-=============
+이 장의 첫 부분은 개요를 제공합니다.
+개념이 끝나면 CodeIgniter 내에서 요청 및 응답을 처리하는 방법에 대해 논의합니다.
 
-HTTP is simply a text-based convention that allows two machines to talk to each other. When a browser
-requests a page, it asks the server if it can get the page. The server then prepares the page and sends
-a response back to the browser that asked for it. That's pretty much it. Obviously, there are some complexities
-that you can use, but the basics are really pretty simple.
+HTTP 란 무엇입니까?
+=======================
 
-HTTP is the term used to describe that exchange convention. It stands for HyperText Transfer Protocol. Your goal when
-you develop web applications is to always understand what the browser is requesting, and be able to
-respond appropriately.
+HTTP는 단순히 두 시스템이 서로 통신 할 수있는 텍스트 기반 규칙입니다
+브라우저가 페이지를 요청하면 서버가 페이지를 가져올 수 있는지 묻습니다.
+그런 다음 서버는 페이지를 준비하고 요청한 브라우저로 응답을 보냅니다.
+거의 다됐다. 분명히 사용할 수 있는 몇 가지 복잡성이 있지만 기본 사항은 매우 간단합니다.
 
-The Request
------------
-Whenever a client (a web browser, smartphone app, etc) makes a request, it sends a small text message
-to the server and waits for a response.
+HTTP는 해당 교환 규칙을 설명하는 데 사용되는 용어이며 하이퍼 텍스트 전송 프로토콜(HyperText Transfer Protocol)라는 정식 명칭을 가지고 있습니다.
+웹 응용 프로그램을 개발할 때는 항상 브라우저가 요청하는 내용을 이해하고 적절하게 대응할 수 있어야 합니다.
 
-The request would look something like this::
+요청(request)
+----------------
+클라이언트(web browser, smartphone app, etc)가 요청을하면 작은 문자 메시지를 서버로 보내고 응답을 기다립니다.
+
+요청은 다음과 같습니다::
 
 	GET / HTTP/1.1
 	Host codeigniter.com
 	Accept: text/html
 	User-Agent: Chrome/46.0.2490.80
 
-This message displays all of the information necessary to know what the client is requesting. It tells the
-method for the request (GET, POST, DELETE, etc), and the version of HTTP it supports.
+이 메시지는 클라이언트가 요청하는 내용을 알기 위해 필요한 모든 정보를 표시합니다.
+요청 방법(GET, POST, DELETE, etc)과 지원하는 HTTP 버전을 알려줍니다.
 
-The request also includes a number of optional request headers that can contain a wide variety of
-information such as what languages the client wants the content displayed as, the types of formats the
-client accepts, and much more. Wikipedia has an article that lists `all header fields
-<https://en.wikipedia.org/wiki/List_of_HTTP_header_fields>`_ if you want to look it over.
+요청에는 클라이언트가 컨텐츠를 표시하려는 언어, 클라이언트가 허용하는 형식 유형 등과 같은 다양한 정보를 포함할 수 있는 여러 선택적 요청 헤더도 포함됩니다.
+Wikipedia에는 `모든 헤더 필드 <https://en.wikipedia.org/wiki/List_of_HTTP_header_fields>`_\ 를 나열하는 기사가 있습니다.
 
-The Response
-------------
+응답(Response)
+----------------
 
-Once the server receives the request, your application will take that information and generate some output.
-The server will bundle your output as part of its response to the client. This is also represented as
-a simple text message that looks something like this::
+서버가 요청을 받으면 응용 프로그램에서 해당 정보를 가져 와서 결과물 일부를 생성합니다.
+서버는 클라이언트에 대한 응답 결과물을 번들로 묶어 이와 같은 단순한 문자 메시지로 표현됩니다.::
 
 	HTTP/1.1 200 OK
 	Server: nginx/1.8.0
@@ -57,18 +52,16 @@ a simple text message that looks something like this::
 		. . .
 	</html>
 
-The response tells the client what version of the HTTP specification that it's using and, probably most
-importantly, the status code (200). The status code is one of a number of codes that have been standardized
-to have a very specific meaning to the client. This can tell them that it was successful (200), or that the page
-wasn't found (404). Head over to IANA for a `full list of HTTP status codes
-<https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml>`_.
+응답은 클라이언트에게 사용중인 HTTP 사양의 버전과 상태 코드(200)를 알려줍니다.
+상태 코드는 클라이언트에게 매우 특정한 의미를 갖도록 표준화 된 여러 코드중 하나입니다
+이를 통해 성공(200)했거나 페이지를 찾을 수 없음(404)을 알 수 있습니다. `전체 HTTP 코드 목록 <https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml>`_\ 을 보려면 IANA로 가십시오.
 
-Working with Requests and Responses
+요청 및 응답에 대한 작업
 -----------------------------------
 
-While PHP provides ways to interact with the request and response headers, CodeIgniter, like most frameworks,
-abstracts them so that you have a consistent, simple interface to them. The :doc:`IncomingRequest class </incoming/incomingrequest>`
-is an object-oriented representation of the HTTP request. It provides everything you need::
+PHP는 요청 및 응답 헤더와 상호 작용하는 방법을 제공하지만 CodeIgniter는 대부분의 프레임 워크와 마찬가지로 일관되고 간단한 인터페이스를 제공하도록 추상화합니다.
+:doc:`IncomingRequest class </incoming/incomingrequest>` 클래스는 HTTP 요청의 객체 지향 표현입니다.
+필요한 모든 것을 제공합니다.::
 
 	use CodeIgniter\HTTP\IncomingRequest;
 
@@ -94,11 +87,11 @@ is an object-oriented representation of the HTTP request. It provides everything
 
 	$request->getMethod();  // GET, POST, PUT, etc
 
-The request class does a lot of work in the background for you, that you never need to worry about.
-The ``isAJAX()`` and ``isSecure()`` methods check several different methods to determine the correct answer.
+요청 클래스는 백그라운드에서 많은 작업을 수행하므로 여러분은 걱정할 필요가 없습니다.
+``isAJAX()`` 및 ``isSecure()`` 메서드는 여러 가지 다른 메서드를 확인하여 올바른 답을 판별합니다.
 
-CodeIgniter also provides a :doc:`Response class </outgoing/response>` that is an object-oriented representation
-of the HTTP response. This gives you an easy and powerful way to construct your response to the client::
+CodeIgniter는 HTTP 응답의 객체 지향 표현 인 :doc:`Response class </outgoing/response>`\ 도 제공합니다.
+이를 통해 클라이언트에 대한 응답을 쉽고 강력하게 구성 할 수 있습니다::
 
   use CodeIgniter\HTTP\Response;
 
@@ -112,4 +105,4 @@ of the HTTP response. This gives you an easy and powerful way to construct your 
   // Sends the output to the browser
   $response->send();
 
-In addition, the Response class allows you to work the HTTP cache layer for the best performance.
+또한 Response 클래스를 사용하면 최상의 성능을 위해 HTTP 캐시 계층을 작업할 수 있습니다.
