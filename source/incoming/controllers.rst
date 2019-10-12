@@ -1,36 +1,35 @@
 ###########
-Controllers
+컨트롤러
 ###########
 
-Controllers are the heart of your application, as they determine how HTTP requests should be handled.
+컨트롤러는 HTTP 요청 처리 방법을 결정하며, 응용프로그램의 핵심입니다.
 
 .. contents::
     :local:
     :depth: 2
 
 
-What is a Controller?
-=====================
+컨트롤러란 무엇입니까?
+=========================
 
-A Controller is simply a class file that is named in a way that it can be associated with a URI.
+컨트롤러는 URI와 연결될 수 있는 방식으로 이름 붙여진 클래스 파일이다.
 
-Consider this URI::
+다음 URI를 살펴보세요.::
 
 	example.com/index.php/blog/
 
-In the above example, CodeIgniter would attempt to find a controller named Blog.php and load it.
+위의 예제에서 CodeIgniter는 Blog.php 라는 컨트롤러를 찾아 로드하려고 시도합니다.
 
-**When a controller's name matches the first segment of a URI, it will be loaded.**
+**컨트롤러 이름이 URI의 첫 번째 세그먼트와 일치하면 로드됩니다.**
 
-Let's try it: Hello World!
+해봅시다 - Hello World!
 ==========================
 
-Let's create a simple controller so you can see it in action. Using your text editor, create a file called Blog.php,
-and put the following code in it::
+간단한 컨트롤러를 만들어 실제로 볼 수 있도록 하겠습니다. 에디터를 사용하여 Blog.php 라는 파일을 만들고 다음 코드를 넣습니다.::
 
 	<?php namespace App\Controllers;
 
-        use CodeIgniter\Controller;
+	use CodeIgniter\Controller;
 
 	class Blog extends Controller
         {
@@ -40,60 +39,58 @@ and put the following code in it::
 		}
 	}
 
-Then save the file to your **/app/Controllers/** directory.
+그런 다음 파일을 **/app/Controllers/** 디렉토리에 저장하십시오.
 
-.. important:: The file must be called 'Blog.php', with a capital 'B'.
+.. important:: 'Blog.php'는 대문자 'B'로 시작되어야 합니다.
 
-Now visit your site using a URL similar to this::
+이제 이와 유사한 URL을 사용하여 사이트를 방문하십시오.::
 
 	example.com/index.php/blog
 
-If you did it right, you should see::
+제대로 했다면 결과는::
 
 	Hello World!
 
-.. important:: Class names must start with an uppercase letter.
+.. important:: 클래스 이름은 대문자로 시작해야합니다.
 
-This is valid::
+올바른 예::
 
 	<?php namespace App\Controllers;
 
-        use CodeIgniter\Controller;
+	use CodeIgniter\Controller;
 
 	class Blog extends Controller {
 
 	}
 
-This is **not** valid::
+틀린 예::
 
 	<?php namespace App\Controllers;
 
-        use CodeIgniter\Controller;
+	use CodeIgniter\Controller;
 
 	class blog extends Controller {
 
 	}
 
-Also, always make sure your controller extends the parent controller
-class so that it can inherit all its methods.
+또한 컨트롤러가 항상 모든 메서드를 상속할 수 있도록 상위 컨트롤러 클래스를 확장해야 합니다.
 
-Methods
-=======
+메서드
+=========
 
-In the above example, the method name is ``index()``. The "index" method
-is always loaded by default if the **second segment** of the URI is
-empty. Another way to show your "Hello World" message would be this::
+위 예제에서 메소드 이름은 ``index()``\ 입니다.
+URI의 **두 번째 세그먼트**\ 가 비어 있으면 "index" 메서드가 항상 기본적으로 로드됩니다.
+"Hello World" 메시지를 표시하는 다른 방법은 다음과 같습니다.::
 
 	example.com/index.php/blog/index/
 
-**The second segment of the URI determines which method in the
-controller gets called.**
+**URI의 두 번째 세그먼트는 컨트롤러에서 호출할 메서드를 결정합니다.**
 
-Let's try it. Add a new method to your controller::
+컨트롤러에 새로운 메서드를 추가해봅시다.::
 
 	<?php namespace App\Controllers;
 
-        use CodeIgniter\Controller;
+	use CodeIgniter\Controller;
 
 	class Blog extends Controller
         {
@@ -109,27 +106,26 @@ Let's try it. Add a new method to your controller::
 		}
 	}
 
-Now load the following URL to see the comment method::
+이제 다음 URL을로드하여 comments 메소드를 봅니다.::
 
 	example.com/index.php/blog/comments/
 
-You should see your new message.
+새로운 메시지가 표시됩니다.
 
-Passing URI Segments to your methods
+메서드에 URI 세그먼트 전달
 ====================================
 
-If your URI contains more than two segments they will be passed to your
-method as parameters.
+URI에 세 개 이상의 세그먼트가 포함되어 있으면 메서드에 매개 변수(parameters)로 전달됩니다.
 
-For example, let's say you have a URI like this::
+예를 들어 이와 같은 URI가 있다고 가정 해 봅시다.::
 
 	example.com/index.php/products/shoes/sandals/123
 
-Your method will be passed URI segments 3 and 4 ("sandals" and "123")::
+메서드에 URI 세그먼트 3과 세그먼트 4가 전달됩니다. ("sandals" 와 "123")::
 
 	<?php namespace App\Controllers;
 
-        use CodeIgniter\Controller;
+	use CodeIgniter\Controller;
 
 	class Products extends Controller
         {
@@ -141,46 +137,41 @@ Your method will be passed URI segments 3 and 4 ("sandals" and "123")::
 		}
 	}
 
-.. important:: If you are using the :doc:`URI Routing <routing>`
-	feature, the segments passed to your method will be the re-routed
-	ones.
+.. important:: :doc:`URI 라우팅 <routing>` 기능을 사용하는 경우 메소드에 전달 된 세그먼트가 다시 라우팅됩니다.
 
-Defining a Default Controller
+기본 컨트롤러 정의
 =============================
 
-CodeIgniter can be told to load a default controller when a URI is not
-present, as will be the case when only your site root URL is requested.
-To specify a default controller, open your **app/Config/Routes.php**
-file and set this variable::
+사이트 루트 URL만 요청하는 경우와 같이 URI가 없는 경우, 기본 컨트롤러를 로드하도록 CodeIgniter에 지시할 수 있습니다.
+기본 컨트롤러를 지정하려면 **app/Config/Routes.php** 파일을 열고 아래 부분을 수정하십시오.
+
+::
 
 	$routes->setDefaultController('Blog');
 
-Where 'Blog' is the name of the controller class you want to be used. If you now
-load your main index.php file without specifying any URI segments you'll
-see your "Hello World" message by default.
+여기서 'Blog'는 사용하려는 기본 컨트롤러 클래스의 이름입니다.
+URI 세그먼트를 지정하지 않고 기본 index.php 파일을 로드하면 기본적으로 "Hello World" 메시지가 표시됩니다.
 
-For more information, please refer to the "Routes Configuration Options" section of the
-:doc:`URI Routing <routing>` documentation.
+자세한 내용은 :doc:`URI 라우팅 <routing>` 설명서의 "라우트 구성 옵션" 섹션을 참조하십시오.
 
-Remapping Method Calls
+리매핑 메서드 호출
 ======================
 
-As noted above, the second segment of the URI typically determines which
-method in the controller gets called. CodeIgniter permits you to override
-this behavior through the use of the ``_remap()`` method::
+위에서 언급 한 바와 같이, URI의 두 번째 세그먼트는 일반적으로 컨트롤러에서 호출되는 메서드를 결정합니다.
+``_remap()`` 메서드를 사용하면 CodeIgniter의 이 동작을 재정의 할 수 있습니다.
+
+::
 
 	public function _remap()
 	{
 		// Some code here...
 	}
 
-.. important:: If your controller contains a method named _remap(),
-	it will **always** get called regardless of what your URI contains. It
-	overrides the normal behavior in which the URI determines which method
-	is called, allowing you to define your own method routing rules.
+.. important:: 컨트롤러에 _remap()\ 이라는 메서드가 포함되어 있으면 URI에 포함 된 내용에 관계없이 **항상** 호출됩니다.
+	URI는 어떤 메소드가 호출되는지 판별하여 사용자 고유의 메서드 라우팅 규칙을 정의할 수 있는 일반적인 동작을 대체합니다.
 
-The overridden method call (typically the second segment of the URI) will
-be passed as a parameter to the ``_remap()`` method::
+재정의 된 메서드 호출(일반적으로 URI의 두 번째 세그먼트)은 ``_remap()`` 메서드에 매개 변수로 전달됩니다.
+::
 
 	public function _remap($method)
 	{

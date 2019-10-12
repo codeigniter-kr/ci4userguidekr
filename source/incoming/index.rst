@@ -1,8 +1,8 @@
 #######################
-Controllers and Routing
+컨트롤러 및 라우팅
 #######################
 
-Controllers handle incoming requests.
+컨트롤러는 들어온 요청을 처리합니다.
 
 .. toctree::
     :titlesonly:
