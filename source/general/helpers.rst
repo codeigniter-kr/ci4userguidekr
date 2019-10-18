@@ -1,121 +1,100 @@
 ################
-Helper Functions
+헬퍼(helper)
 ################
 
-Helpers, as the name suggests, help you with tasks. Each helper file is
-simply a collection of functions in a particular category. There are **URL
-Helpers**, that assist in creating links, there are **Form Helpers** that help
-you create form elements, **Text Helpers** perform various text formatting
-routines, **Cookie Helpers** set and read cookies, **File Helpers** help you
-deal with files, etc.
+이름에서 알 수 있듯이 헬퍼는 작업을 도와줍니다.
+각 헬퍼 파일은 단순히 특정 범주의 함수(function) 모음입니다.
+링크를 만드는 데 도움이되는 **URL 헬퍼**\ 가 있고, 양식 요소를 만드는 데 도움이되는 **Form 헬퍼**\ 가 있습니다. **Text 헬퍼**\ 는 다양한 텍스트 서식 루틴을 수행합니다. **Cookie 헬퍼** 쿠키 읽기, **File 헬퍼**\ 는 파일 처리 등을 도와줍니다.
 
 .. contents::
     :local:
     :depth: 2
 
-Unlike most other systems in CodeIgniter, Helpers are not written in an
-Object Oriented format. They are simple, procedural functions. Each
-helper function performs one specific task, with no dependence on other
-functions.
+CodeIgniter의 헬퍼는 다른 대부분의 시스템과 달리 객체 지향(OOP) 형식으로 작성되지 않습니다.
+각 헬퍼 기능은 단순하고 절차적인 기능으로, 다른 기능에 의존하지 않고 하나의 특정 작업을 수행합니다.
 
-CodeIgniter does not load Helper Files by default, so the first step in
-using a Helper is to load it. Once loaded, it becomes globally available
-in your :doc:`controller </incoming/controllers>` and
-:doc:`views </outgoing/views>`.
 
-Helpers are typically stored in your **system/Helpers**, or
-**app/Helpers directory**. CodeIgniter will look first in your
-**app/Helpers directory**. If the directory does not exist or the
-specified helper is not located there CI will instead look in your
-global *system/Helpers/* directory.
+CodeIgniter는 기본적으로 헬퍼 파일을 로드(load)하지 않으므로 헬퍼 사용의 첫 번째 단계는 헬퍼 파일을 로드하는 것입니다. 
+일단 로드되면 컨트롤러 및 뷰에서 전체적으로 사용할 수 있습니다.
 
-Loading a Helper
+헬퍼는 일반적으로 **system/Helpers** 또는 **app/Helpers** 디렉토리에 저장됩니다. CodeIgniter는 **app/Helpers** 디렉토리에서 헬퍼를 먼저 찾습니다.
+**app/Helpers** 디렉토리가 존재하지 않거나 지정된 헬퍼가 없는 경우 **system/Helpers** 디렉토리를 찾습니다.
+
+헬퍼 로드(load)
 ================
 
-Loading a helper file is quite simple using the following method::
+다음 메서드를 사용하여 헬퍼 파일을 매우 간단하게 로드합니다.
+
+::
 
 	helper('name');
 
-Where **name** is the file name of the helper, without the .php file
-extension or the "helper" part.
+여기서 **name**\ 은 .php 파일 확장자 부분이 없는 "헬퍼"\ 의 파일 이름입니다.
 
-For example, to load the **Cookie Helper** file, which is named
-**cookie_helper.php**, you would do this::
+예를 들어, **Cookie 헬퍼**\ 를 사용하기 위해 **cookie_helper.php** 파일을 로드하려면 다음과 같이 하십시오.
+
+::
 
 	helper('cookie');
 
-If you need to load more than one helper at a time, you can pass
-an array of file names in and all of them will be loaded::
+한 번에 둘 이상의 헬퍼를 로드해야 하는 경우 파일 이름 배열을 전달하면 모든 파일이 로드됩니다.
+
+::
 
 	helper(['cookie', 'date']);
 
-A helper can be loaded anywhere within your controller methods (or
-even within your View files, although that's not a good practice), as
-long as you load it before you use it. You can load your helpers in your
-controller constructor so that they become available automatically in
-any function, or you can load a helper in a specific function that needs
-it.
+헬퍼를 사용하기 위해 컨트롤러 메서드(또는 좋지는 않지만 뷰 파일 내에서도)의 어느 위치에서도 로드할 수 있습니다.
+모든 함수에서 자동으로 사용 가능하도록 헬퍼를 컨트롤러 생성자(_construct)에서 로드하거나, 필요한 특정 함수에서도 헬퍼를 로드할 수 있습니다.
 
-.. note:: The Helper loading method above does not return a value, so
-	don't try to assign it to a variable. Just use it as shown.
+.. note:: 위의 헬퍼 로딩 방법은 값을 반환하지 않으므로, 변수에 값을 할당하지 마십시오. 표시된대로 사용하십시오.
 
-.. note:: The URL helper is always loaded so you do not need to load it yourself.
+.. note:: URL 헬퍼는 항상 로드되므로 직접 로드 할 필요는 없습니다.
 
-Loading from Non-standard Locations
+비표준 위치에서 로드
 -----------------------------------
 
-Helpers can be loaded from directories outside of **app/Helpers** and
-**system/Helpers**, as long as that path can be found through a namespace that
-has been setup within the PSR-4 section of the :doc:`Autoloader config file <../concepts/autoloader>`.
-You would prefix the name of the Helper with the namespace that it can be located
-in. Within that namespaced directory, the loader expects it to live within a
-sub-directory named ``Helpers``. An example will help understand this.
 
-For this example, assume that we have grouped together all of our Blog-related
-code into its own namespace, ``Example\Blog``. The files exist on our server at
-**/Modules/Blog/**. So, we would put our Helper files for the blog module in
-**/Modules/Blog/Helpers/**. A **blog_helper** file would be at
-**/Modules/Blog/Helpers/blog_helper.php**. Within our controller we could
-use the following command to load the helper for us::
+Autoloader 구성 파일의 PSR-4 섹션에 네임스페이스를 설정하면 **app/Helpers** 및 **system/Helpers**\ 외부에서 헬퍼를 로드할 수 있습니다.
+헬퍼 이름 앞에 네임스페이스를 지정할 수 있으며, 로더는 네임스페이스가 있는 디렉토리의 ``Helpers``\ 서브 디렉토리에서 헬퍼를 찾습니다. 
+이를 이해하는 데 도움을 줄 예를 들어 보겠습니다.
+
+먼저 모든 블로그 관련 코드를 자체 네임스페이스 인 ``Example\Blog``\ 로 그룹화 했다고 가정합니다.
+파일은 서버의 **/Modules/Blog/**\ 디렉토리에 존재합니다.
+따라서 블로그 모듈의 헬퍼 파일을 **/Modules/Blog/Helpers/**\ 에 넣습니다. **blog_helper** 파일은 **/Modules/Blog/Helpers/blog_helper.php**\ 에 있습니다.
+컨트롤러 내에서 다음 메서드를 사용하여 헬퍼를 로드할 수 있습니다.
+
+::
 
 	helper('Modules\Blog\blog');
 
-.. note:: The functions within files loaded this way are not truly namespaced.
-		The namespace is simply used as a convenient way to locate the files.
+.. note:: 이러한 방식으로 로드된 파일내의 함수는 실제로 네임스페이스가 아닙니다.
+		네임스페이스는 단순히 파일을 찾기 위한 방법으로 사용됩니다.
 
-Using a Helper
+헬퍼 사용하기
 ==============
 
-Once you've loaded the Helper File containing the function you intend to
-use, you'll call it the way you would a standard PHP function.
+사용하려는 함수가 포함 된 헬퍼 파일을 로드하면 표준 PHP 함수와 같은 방식으로 호출합니다.
 
-For example, to create a link using the ``anchor()`` function in one of
-your view files you would do this::
+예를 들어, 뷰 파일 중 하나에서 ``anchor()`` 함수를 ​​사용하여 링크를 만들려면 다음과 같이 합니다.
+
+::
 
 	<?php echo anchor('blog/comments', 'Click Here');?>
 
-Where "Click Here" is the name of the link, and "blog/comments" is the
-URI to the controller/method you wish to link to.
+여기서 "Click Here"\ 는 링크의 이름이고 "blog/comments"\ 은 링크하려는 컨트롤러/메서드의 URI입니다.
 
-"Extending" Helpers
+헬퍼 확장
 ===================
 
-To "extend" Helpers, create a file in your **app/Helpers/** folder
-with an identical name to the existing Helper.
+헬퍼를 "확장"\ 하려면 **app/Helpers/** 폴더에 기존 헬퍼와 동일한 이름으로 파일을 작성하십시오.
+기존 헬퍼에 일부 기능을 추가하기 - 하나 또는 두 개의 함수를 추가하거나 특정 도우미 함수의 작동 방식을 변경 - 위해 전체 헬퍼를 새로운 버전으로 교체하는 것은 과도합니다.
+이 경우 헬퍼를 "확장"하는 것이 좋습니다.
 
-If all you need to do is add some functionality to an existing helper -
-perhaps add a function or two, or change how a particular helper
-function operates - then it's overkill to replace the entire helper with
-your version. In this case, it's better to simply "extend" the Helper.
+.. note:: "확장"\ 이라는 용어는 헬퍼 기능이 절차적이고 개별적이며 전통적인 프로그램 의미로 확장 될 수 없기 때문에 느슨하게 사용되며, 헬퍼에 기능을 추가하거나 교체할 수 있는 능력을 제공 합니다.
 
-.. note:: The term "extend" is used loosely since Helper functions are
-	procedural and discrete and cannot be extended in the traditional
-	programmatic sense. Under the hood, this gives you the ability to
-	add to, or to replace the functions a Helper provides.
+예를 들어 네이티브 **Array Helper**\ 를 확장하려면 **app/Helpers/array_helper.php**\ 라는 파일을 만들고 함수를 추가하거나 재정의합니다.
 
-For example, to extend the native **Array Helper** you'll create a file
-named **app/Helpers/array_helper.php**, and add or override
-functions::
+::
 
 	// any_in_array() is not in the Array Helper, so it defines a new function
 	function any_in_array($needle, $haystack)
@@ -140,17 +119,16 @@ functions::
 		return array_pop($array);
 	}
 
-The **helper()** method will scan through all PSR-4 namespaces defined in **app/Config/Autoload.php**
-and load in ALL matching helpers of the same name. This allows any module's helpers
-to be loaded, as well as any helpers you've created specifically for this application. The load order
-is as follows:
 
-1. app/Helpers - Files loaded here are always loaded first.
-2. {namespace}/Helpers - All namespaces are looped through in the order they are defined.
-3. system/Helpers - The base file is loaded last
+**helper()** 메서드는 **app/Config/Autoload.php**\ 에 정의된 모든 PSR-4 네임스페이스를 검색하여 동일한 이름과 일치하는 모든 헬퍼를 로드합니다.
+이를 통해 모듈의 헬퍼와 이 응용프로그램을 위해 특별히 만든 헬퍼를 로드할 수 있습니다.
+로드 순서는 다음과 같습니다.
+
+1. app/Helpers - 여기에 있는 파일은 항상 먼저 로드됩니다..
+2. {namespace}/Helpers - 모든 네임 스페이스는 정의 된 순서대로 반복하여 검색됩니다.
+3. system/Helpers - 기본 파일이 마지막으로 로드됩니다
 
 Now What?
 =========
 
-In the Table of Contents, you'll find a list of all the available Helper
-Files. Browse each one to see what they do.
+목차에는 사용 가능한 모든 헬퍼 파일 목록이 있습니다. 그들이 하는 일을 보려면 각각을 찾아보십시오.

@@ -1,9 +1,9 @@
 ##############################
-Global Functions and Constants
+전역 함수 및 상수
 ##############################
 
-CodeIgniter uses provides a few functions and variables that are globally defined, and are available to you at any point.
-These do not require loading any additional libraries or helpers.
+CodeIgniter는 전역적으로 정의되어 있으며 언제든지 사용할 수 있는 몇 가지 함수와 상수를 제공합니다.
+이를 사용하기 위해 추가 라이브러리 나 헬퍼를 로드할 필요가 없습니다.
 
 .. contents::
     :local:
@@ -11,21 +11,20 @@ These do not require loading any additional libraries or helpers.
 
 
 ================
-Global Functions
+전역 함수
 ================
 
-Service Accessors
+서비스 Accessors
 =================
 
 .. php:function:: cache ( [$key] )
 
-    :param  string $key: The cache name of the item to retrieve from cache (Optional)
-    :returns: Either the cache object, or the item retrieved from the cache
+    :param  string $key: 캐시에서 검색할 항목의 캐시 이름 (Optional)
+    :returns: 캐시 오브젝트 또는 캐시에서 검색된 항목
     :rtype: mixed
 
-    If no $key is provided, will return the Cache engine instance. If a $key
-    is provided, will return the value of $key as stored in the cache currently,
-    or null if no value is found.
+    $key가 제공되지 않으면 캐시 엔진 인스턴스를 반환합니다.
+	$key가 제공되면 현재 캐시에 저장된 $key의 값을 반환하거나 값이 없으면 null을 반환합니다.
 
     Examples::
 
@@ -34,62 +33,59 @@ Service Accessors
 
 .. php:function:: env ( $key[, $default=null])
 
-	:param string $key: The name of the environment variable to retrieve
-	:param mixed  $default: The default value to return if no value is found.
-	:returns: The environment variable, the default value, or null.
+	:param string $key: 검색 할 환경 변수의 이름
+	:param mixed  $default: 값을 찾지 못하면 반환할 기본값
+	:returns: 환경 변수, 기본값 또는 null
 	:rtype: mixed
 
-	Used to retrieve values that have previously been set to the environment,
-	or return a default value if it is not found. Will format boolean values
-	to actual booleans instead of string representations.
+	이전에 환경으로 설정된 값을 검색하거나 기본값을 찾을 수 없는 경우, 기본값을 반환하는 데 사용합니다.
+	부울(bool) 값을 문자열 표현 대신 실제 부울로 형식화합니다.
 
-	Especially useful when used in conjunction with .env files for setting
-	values that are specific to the environment itself, like database
-	settings, API keys, etc.
+	데이터베이스 설정, API 키 등과 같이 환경 자체에 특정한 값을 설정하기 위해 .env 파일과 함께 사용하면 특히 유용합니다.
 
 .. php:function:: esc ( $data, $context='html' [, $encoding])
 
-	:param   string|array   $data: The information to be escaped.
-	:param   string   $context: The escaping context. Default is 'html'.
-	:param   string   $encoding: The character encoding of the string.
-	:returns: The escaped data.
+	:param   string|array   $data: 이스케이프할 정보(문자열)
+	:param   string   $context: escaping context. 기본값은 'html'
+	:param   string   $encoding: 문자열의 문자 인코딩.
+	:returns: escaped data.
 	:rtype: mixed
 
-	Escapes data for inclusion in web pages, to help prevent XSS attacks.
-	This uses the Zend Escaper library to handle the actual filtering of the data.
+	XSS 공격을 방지하기 위해 웹 페이지에 포함할 데이터를 이스케이프합니다.
+	Zend Escaper 라이브러리를 사용하여 데이터의 실제 필터링을 처리합니다
 
-	If $data is a string, then it simply escapes and returns it.
-	If $data is an array, then it loops over it, escaping each 'value' of the key/value pairs.
+	$data가 문자열(string)이면 단순히 이스케이프하여 반환합니다.
+	$data가 배열이면 키/값 쌍의 각 '값'을 이스케이프 반복 처리합니다.
 
-	Valid context values: html, js, css, url, attr, raw, null
+	지적 가능한 context 값: html, js, css, url, attr, raw, null
 
 .. php:function:: helper( $filename )
 
-	:param   string|array  $filename: The name of the helper file to load, or an array of names.
+	:param   string|array  $filename: 로드할 헬퍼 파일의 이름 또는 이름의 배열.
 
-	Loads a helper file.
+	헬퍼 파일을 로드합니다.
 
-	For full details, see the :doc:`helpers` page.
+	자세한 내용은 :doc:`helpers` 페이지를 참조하십시오.
 
 .. php:function:: lang($line[, $args[, $locale ]])
 
-	:param string $line: The line of text to retrieve
-	:param array  $args: An array of data to substitute for placeholders.
-	:param string $locale: Specify a different locale to be used instead of default one.
+	:param string $line: 검색 할 텍스트
+	:param array  $args: 자리표시자(placeholders)를 대체 할 데이터 배열
+	:param string $locale: 기본 로케일(locale) 대신 사용할 다른 로케일
 
-	Retrieves a locale-specific file based on an alias string.
+	문자열을 기반으로 로케일 특정 파일을 검색합니다.
 
-	For more information, see the :doc:`Localization </outgoing/localization>` page.
+	자세한 내용은 :doc:`Localization </outgoing/localization>` 페이지를 참조하십시오.
 
 .. php:function:: old( $key[, $default = null, [, $escape = 'html' ]] )
 
-	:param string $key: The name of the old form data to check for.
-	:param mixed  $default: The default value to return if $key doesn't exist.
-	:param mixed  $escape: An `escape <#esc>`_ context or false to disable it.
-	:returns: The value of the defined key, or the default value.
+	:param string $key: 확인할 이전 양식 데이터의 이름
+	:param mixed  $default: $key가 존재하지 않으면 반환 할 기본값
+	:param mixed  $escape: `이스케이프 <#esc>`_ 컨텍스트 또는 false
+	:returns: 정의된 키의 값 또는 기본값
 	:rtype: mixed
 
-	Provides a simple way to access "old input data" from submitting a form.
+	제출된 양식(form)의 "이전 입력 데이터"에 액세스하는 간단한 방법을 제공합니다.
 
 	Example::
 
@@ -106,27 +102,25 @@ Service Accessors
 		// Or with arrays
 		<input type="email" name="user[email]" value="<?= old('user.email') ?>">
 
-.. note:: If you are using the :doc:`form helper </helpers/form_helper>`, this feature is built-in. You only
-		need to use this function when not using the form helper.
+.. note:: :doc:`폼(form) 헬퍼 </helpers/form_helper>`\ 를 사용하는 경우 이 기능이 내장되어 있습니다. 폼 헬퍼를 사용하지 않는 경우에만 이 기능을 사용하십시오.
 
 .. php:function:: session( [$key] )
 
-	:param string $key: The name of the session item to check for.
-	:returns: An instance of the Session object if no $key, the value found in the session for $key, or null.
+	:param string $key: 확인할 세션 항목의 이름
+	:returns: $key가 없는 경우 Session 객체의 인스턴스, 세션에서 찾은 $key 값 또는 null
 	:rtype: mixed
 
-	Provides a convenient way to access the session class and to retrieve a
-	stored value. For more information, see the :doc:`Sessions </libraries/sessions>` page.
+	세션 클래스에 액세스하고 저장된 값을 검색하는 편리한 방법을 제공합니다.
+	자세한 내용은 :doc:`세션 </libraries/sessions>` 페이지를 참조하십시오.
 
 .. php:function:: timer( [$name] )
 
-	:param string $name: The name of the benchmark point.
-	:returns: The Timer instance
+	:param string $name: 벤치 마크 포인트의 이름.
+	:returns: 타이머 인스턴스
 	:rtype: CodeIgniter\Debug\Timer
 
-	A convenience method that provides quick access to the Timer class. You can pass in the name
-	of a benchmark point as the only parameter. This will start timing from this point, or stop
-	timing if a timer with this name is already running.
+	타이머(Timer) 클래스에 빠르게 액세스할 수있는 편리한 메서드입니다. 벤치 마크 지점의 이름을 매개 변수로 전달할 수 있습니다.
+	이 시점부터 타이밍이 시작되거나 이 이름의 타이머가 이미 실행중인 경우 타이밍이 중지됩니다.
 
 	Example::
 
@@ -140,23 +134,19 @@ Service Accessors
 
 .. php:function:: view ($name [, $data [, $options ]])
 
-	:param   string   $name: The name of the file to load
-	:param   array    $data: An array of key/value pairs to make available within the view.
-	:param   array    $options: An array of options that will be passed to the rendering class.
-	:returns: The output from the view.
+	:param   string   $name: 로드 할 파일 이름
+	:param   array    $data: 뷰 내에서 사용할 수있는 키/값 쌍의 배열
+	:param   array    $options: 렌더링 클래스로 전달 될 옵션 배열
+	:returns: 뷰의 출력
 	:rtype: string
 
-	Grabs the current RendererInterface-compatible class
-	and tells it to render the specified view. Simply provides
-	a convenience method that can be used in Controllers,
-	libraries, and routed closures.
+	RendererInterface 호환 클래스에게 지정된 뷰를 렌더링하도록 지시합니다.
+	컨트롤러, 라이브러리 및 라우팅 클로저에서 뷰를 사용할 수있는 편리한 방법을 제공합니다.
 
-	Currently, only one option is available for use within the `$options` array, `saveData` which specifies
-	that data will persistent between multiple calls to `view()` within the same request. By default, the
-	data for that view is forgotten after displaying that single view file.
+	현재는 `$options` 배열 내에 `saveData` 옵션 하나만 사용할 수 있으며, 동일한 요청에 대해 `view()`\ 를 여러번 호출해도 데이터가 지속되도록 지정합니다.
+	기본적으로 해당 단일 뷰 파일을 표시하면 해당 뷰의 데이터는 지워집니다.
 
-	The $option array is provided primarily to facilitate third-party integrations with
-	libraries like Twig.
+	$option 배열은 주로 Twig 같은 타사(third-party) 라이브러리와 통합을 용이하게 하기 위해 제공됩니다.
 
 	Example::
 
@@ -164,87 +154,92 @@ Service Accessors
 
 		echo view('user_profile', $data);
 
-	For more details, see the :doc:`Views </outgoing/views>` page.
+	자세한 내용은 :doc:`뷰 </outgoing/views>` 페이지를 참조하십시오.
 
-Miscellaneous Functions
+
+기타 기능
 =======================
 
 .. php:function:: csrf_token ()
 
-	:returns: The name of the current CSRF token.
+	:returns: 현재 사용중인 CSRF 토큰의 이름
 	:rtype: string
 
-	Returns the name of the current CSRF token.
+	현재 사용중인 CSRF 토큰의 이름을 반환합니다.
 
 .. php:function:: csrf_header ()
 
-	:returns: The name of the header for current CSRF token.
+	:returns: 현재 사용중인 CSRF 토큰의 헤더 이름
 	:rtype: string
 
-	The name of the header for current CSRF token.
+	현재 사용중인 CSRF 토큰의 헤더 이름입니다.
 
 .. php:function:: csrf_hash ()
 
-	:returns: The current value of the CSRF hash.
+	:returns: CSRF 해시의 현재 값
 	:rtype: string
 
-	Returns the current CSRF hash value.
+	현재 사용중인 CSRF 해시 값을 반환합니다.
 
 .. php:function:: csrf_field ()
 
-	:returns: A string with the HTML for hidden input with all required CSRF information.
+	:returns: CSRF 정보가 포함된 숨겨진 입력(hidden input) HTML 문자열
 	:rtype: string
 
-	Returns a hidden input with the CSRF information already inserted:
+	CSRF 정보가 포함된 숨겨진 입력(hidden input) HTML 문자열을 반환합니다.
+	
+	::
 
 		<input type="hidden" name="{csrf_token}" value="{csrf_hash}">
 
 .. php:function:: csrf_meta ()
 
-	:returns: A string with the HTML for meta tag with all required CSRF information.
+	:returns: CSRF 정보가 포함 된 메타 태그용 HTML 문자열
 	:rtype: string
 
-	Returns a meta tag with the CSRF information already inserted:
+	CSRF 정보가 포함된 메타 태그를 반환합니다.
+	
+	::
 
 		<meta name="{csrf_header}" content="{csrf_hash}">
 
 .. php:function:: force_https ( $duration = 31536000 [, $request = null [, $response = null]] )
 
-	:param  int  $duration: The number of seconds browsers should convert links to this resource to HTTPS.
-	:param  RequestInterface $request: An instance of the current Request object.
-	:param  ResponseInterface $response: An instance of the current Response object.
+	:param  int  $duration: 브라우저가 이 리소스에 대한 링크를 HTTPS로 변환해야 하는 시간(초)
+	:param  RequestInterface $request: 요청(request) 개체의 인스턴스
+	:param  ResponseInterface $response: 응답(response) 개체의 인스턴스
 
-	Checks to see if the page is currently being accessed via HTTPS. If it is, then
-	nothing happens. If it is not, then the user is redirected back to the current URI
-	but through HTTPS. Will set the HTTP Strict Transport Security header, which instructs
-	modern browsers to automatically modify any HTTP requests to HTTPS requests for the $duration.
+	페이지가 현재 HTTPS를 통해 액세스되고 있는지 확인합니다.
+	HTTPS를 통해 액세스 되고 있다면 아무 일도 일어나지 않습니다. 
+	그렇지 않은 경우 사용자는 HTTPS를 통해 현재 URI로 다시 리디렉션됩니다.
+	HTTP Strict Transport Security 헤더를 설정하여 최신 브라우저가 HTTP 요청을 $duration에 대한 HTTPS 요청으로 자동 수정하도록 지시합니다.
 
 .. php:function:: is_cli ()
 
-	:returns: TRUE if the script is being executed from the command line or FALSE otherwise.
+	:returns: TRUE(명령 행(command line)에서 스크립트를 실행중인 경우) 또는 FALSE(아닌 경우)
 	:rtype: bool
 
 .. php:function:: log_message ($level, $message [, $context])
 
-	:param   string   $level: The level of severity
-	:param   string   $message: The message that is to be logged.
-	:param   array    $context: An associative array of tags and their values that should be replaced in $message
-	:returns: TRUE if was logged successfully or FALSE if there was a problem logging it
+	:param   string   $level: 심각도 수준
+	:param   string   $message: 기록 될 메시지
+	:param   array    $context: $message로 바꿔야할 태그와 값의 연관 배열
+	:returns: TRUE(성공적으로 기록 된 경우) 또는 FALSE(기록하는 데 문제가있는 경우)
 	:rtype: bool
 
-	Logs a message using the Log Handlers defined in **app/Config/Logger.php**.
+	**app/Config/Logger.php**\ 에 정의된 로그 처리기를 사용하여 메시지를 기록합니다..
 
-	Level can be one of the following values: **emergency**, **alert**, **critical**, **error**, **warning**,
-	**notice**, **info**, or **debug**.
+	레벨은 다음 값 중 하나일 수 있습니다: **emergency**, **alert**, **critical**, **error**, **warning**, **notice**, **info**, **debug**
 
-	Context can be used to substitute values in the message string. For full details, see the
-	:doc:`Logging Information <logging>` page.
+	컨텍스트는 메시지 문자열에서 값을 대체하는데 사용될 수 있습니다. 자세한 내용은 :doc:`로깅 정보 <logging>` 페이지를 참조하십시오.
 
 .. php:function:: redirect( string $uri )
 
-	:param  string  $uri: The URI to redirect the user to.
+	:param  string  $uri: 사용자를 리디렉션 할 URI
 
-	Returns a RedirectResponse instance allowing you to easily create redirects::
+	쉽게 리디렉션을 만들수 있는 RedirectResponse 인스턴스를 반환합니다.
+	
+	::
 
 		// Go back to the previous page
 		return redirect()->back();
@@ -261,21 +256,21 @@ Miscellaneous Functions
 		// Set a flash message
 		return redirect()->back()->with('foo', 'message');
 
-	When passing a URI into the function, it is treated as a reverse-route request, not a relative/full URI, treating
-        it the same as using redirect()->route()::
+	URI를 함수에 전달할 때, 상대/전체 URI가 아닌 역방향 경로 요청(reverse-route request)을 전달하면 redirect()->route()를 사용하는 것과 동일하게 처리됩니다.
+	
+	::
 
-                // Go to a named/reverse-routed URI
+		// Go to a named/reverse-routed URI
 		return redirect('named_route');
 
 .. php:function:: remove_invisible_characters($str[, $urlEncoded = TRUE])
 
-	:param	string	$str: Input string
-	:param	bool	$urlEncoded: Whether to remove URL-encoded characters as well
-	:returns:	Sanitized string
+	:param	string	$str: 입력 문자열
+	:param	bool	$urlEncoded: URL 인코딩 문자도 제거할지 여부
+	:returns: 안전한 문자열
 	:rtype:	string
 
-	This function prevents inserting NULL characters between ASCII
-	characters, like Java\\0script.
+	이 함수는 "Java\\0script"와 같은 문자열에서 NULL 문자를 제거 합니다.
 
 	Example::
 
@@ -284,24 +279,23 @@ Miscellaneous Functions
 
 .. php:function:: route_to ( $method [, ...$params] )
 
-	:param   string   $method: The named route alias, or name of the controller/method to match.
-	:param   mixed   $params: One or more parameters to be passed to be matched in the route.
+	:param   string   $method: 명명된 라우트의 별명 또는 일치하는 컨트롤러/메서드의 이름입니다.
+	:param   mixed   $params: 경로에서 일치시키기 위해 전달될 하나 이상의 매개 변수
 
-	Generates a relative URI for you based on either a named route alias, or a controller::method
-	combination. Will take parameters into effect, if provided.
+	명명된 경로 별칭 또는 컨트롤러::메서드를 기반으로 사용자를 위한 상대 URI를 생성합니다.
+	매개 변수가 제공된 경우 적용합니다.
 
-	For full details, see the :doc:`/incoming/routing` page.
+	자세한 내용은 :doc:`/incoming/routing` 페이지를 참조하십시오.
 
 .. php:function:: service ( $name [, ...$params] )
 
-	:param   string   $name: The name of the service to load
-	:param   mixed    $params: One or more parameters to pass to the service method.
-	:returns: An instance of the service class specified.
+	:param   string   $name: 로드 할 서비스의 이름
+	:param   mixed    $params: 서비스 메서드에 전달할 하나 이상의 매개 변수
+	:returns: 지정된 서비스 클래스의 인스턴스
 	:rtype: mixed
 
-	Provides easy access to any of the :doc:`Services <../concepts/services>` defined in the system.
-	This will always return a shared instance of the class, so no matter how many times this is called
-	during a single request, only one class instance will be created.
+	시스템에 정의 된 모든 :doc:`서비스 <../concepts/services>`에 쉽게 액세스 할 수 있습니다.
+	서비스 클래스의 공유 인스턴스가 반환되므로, 여러번 호출하더라도 인스턴스는 하나만 생성됩니다.
 
 	Example::
 
@@ -310,84 +304,83 @@ Miscellaneous Functions
 
 .. php:function:: single_service ( $name [, ...$params] )
 
-	:param   string   $name: The name of the service to load
-	:param   mixed    $params: One or more parameters to pass to the service method.
+	:param   string   $name: 로드 할 서비스의 이름
+	:param   mixed    $params: 서비스 메서드에 전달할 하나 이상의 매개 변수
 	:returns: An instance of the service class specified.
 	:rtype: mixed
 
-	Identical to the **service()** function described above, except that all calls to this
-	function will return a new instance of the class, where **service** returns the same
-	instance every time.
+	이 함수에 대한 모든 호출이 클래스의 새 인스턴스를 반화한다는 점을 제외하고 위에서 설명한 **service()** 함수와 동일합니다. 
+	**service**\ 는 매번 동일한 인스턴스를 리턴합니다.
 
 .. php:function:: stringify_attributes ( $attributes [, $js] )
 
-	:param   mixed    $attributes: string, array of key value pairs, or object
-	:param   boolean  $js: TRUE if values do not need quotes (Javascript-style)
-	:returns: String containing the attribute key/value pairs, comma-separated
+	:param   mixed    $attributes: 문자열, 키/값 쌍의 배열, 객체
+	:param   boolean  $js: TRUE (값에 따옴표가 필요하지 않은 경우, Javascript-style)
+	:returns: 쉼표로 구분된 속성의 키/값 쌍을 포함하는 문자열
 	:rtype: string
 
-	Helper function used to convert a string, array, or object of attributes to a string.
+	문자열, 배열 또는 속성 개체를 문자열로 변환하는 데 사용되는 도우미 함수입니다.
 
 ================
-Global Constants
+전역 상수
 ================
 
-The following constants are always available anywhere within your application.
+다음 상수는 응용 프로그램내 어디에서나 항상 사용할 수 있습니다.
 
-Core Constants
-==============
+코어(Core) 상수
+==================
 
 .. php:const:: APPPATH
 
-	The path to the **app** directory.
+	**app** 디렉토리 경로
 
 .. php:const:: ROOTPATH
 
-	The path to the project root directory. Just above ``APPPATH``.
+	프로젝트 루트 디렉토리의 경로. 바로 위 ``APPPATH``
 
 .. php:const:: SYSTEMPATH
 
-	The path to the **system** directory.
+	**system** 디렉토리 경로
 
 .. php:const:: FCPATH
 
-	The path to the directory that holds the front controller.
+	프론트 컨트롤러의 디렉토리 경로
 
 .. php:const:: WRITEPATH
 
-	The path to the **writable** directory.
+	**writable** 디렉토리 경로
 
-Time Constants
+시간 상수
 ==============
 
 .. php:const:: SECOND
 
-	Equals 1.
+	1 초
 
 .. php:const:: MINUTE
 
-	Equals 60.
+	60 초
 
 .. php:const:: HOUR
 
-	Equals 3600.
+	3600 초
 
 .. php:const:: DAY
 
-	Equals 86400.
+	86400 초
 
 .. php:const:: WEEK
 
-	Equals 604800.
+	604800 초
 
 .. php:const:: MONTH
 
-	Equals 2592000.
+	2592000 초
 
 .. php:const:: YEAR
 
-	Equals 31536000.
+	31536000 초
 
 .. php:const:: DECADE
 
-	Equals 315360000.
+	315360000 초
