@@ -1,28 +1,30 @@
 ##############
-Error Handling
+오류 처리
 ##############
 
-CodeIgniter builds error reporting into your system through Exceptions, both the `SPL collection <http://php.net/manual/en/spl.exceptions.php>`_, as
-well as a few custom exceptions that are provided by the framework. Depending on your environment's setup, the
-default action when an error or exception is thrown is to display a detailed error report, unless the application
-is running under the ``production`` environment. In this case, a more generic message is displayed to
-keep the best user experience for your users.
+CodeIgniter는 프레임워크에서 제공하는 몇 가지 사용자 정의 예외뿐만 아니라 `SPL collection <http://php.net/manual/en/spl.exceptions.php>`_\ 과 예외(exception)를 통해 시스템에 오류 보고를 빌드합니다.
+애플리케이션이 ``production`` 환경에서 실행되고 있지 않다면, 환경 설정에 따라 오류 또는 예외가 발생하면 자세한 오류 보고서를 표시합니다.
+이 경우 사용자에게 최상의 사용자 환경을 유지하기 위해 보다 일반적인 메시지가 표시됩니다.
 
 .. contents::
     :local:
     :depth: 2
 
-Using Exceptions
+예외 사용
 ================
 
-This section is a quick overview for newer programmers, or for developers who are not experienced with using exceptions.
+이 섹션은 새로운 프로그래머 또는 예외 사용 경험이 없는 개발자를 위한 것입니다.
 
-Exceptions are simply events that happen when the exception is "thrown". This halts the current flow of the script, and
-execution is then sent to the error handler which displays the appropriate error page::
+예외(exception)는 단순히 예외가 "발생(thrown)"\ 할 때 발생하는 이벤트입니다.
+아래와 같이하면 스크립트의 현재 흐름은 중단되고, 해당 오류 페이지를 표시하는 오류 처리기로 실행이 전송됩니다.
+
+::
 
 	throw new \Exception("Some message goes here");
 
-If you are calling a method that might throw an exception, you can catch that exception using a ``try/catch`` block::
+예외를 던질 수 있는 메서드를 호출하는 경우 ``try/catch`` 블록을 사용하여 해당 예외를 포착할 수 있습니다.
+
+::
 
 	try {
 		$user = $userModel->find($id);
@@ -32,20 +34,23 @@ If you are calling a method that might throw an exception, you can catch that ex
 		die($e->getMessage());
 	}
 
-If the ``$userModel`` throws an exception, it is caught and the code within the catch block is executed. In this example,
-the scripts dies, echoing the error message that the ``UserModel`` defined.
+``$userModel``\ 에서 예외가 발생하면 예외가 포착되고 catch 블록 내의 코드가 실행됩니다.
+이 예제에서 스크립트는 실행을 중단하고 ``UserModel``\ 이 정의한 오류 메시지를 반영합니다.
 
-In this example, we catch any type of Exception. If we only want to watch for specific types of exceptions, like
-a UnknownFileException, we can specify that in the catch parameter. Any other exceptions that are thrown and are
-not child classes of the caught exception will be passed on to the error handler::
+이 예에서는 모든 유형(Exception)의 예외를 포착합니다.
+UnknownFileException과 같은 특정 유형의 예외만 감시하려는 경우 catch 매개 변수에서 예외를 지정할 수 있습니다.
+발생된 예외의 하위 클래스가 아닌 다른 예외는 오류 처리기로 전달됩니다.
+
+::
 
 	catch (\CodeIgniter\UnknownFileException $e)
 	{
 		// do something here...
 	}
 
-This can be handy for handling the error yourself, or for performing cleanup before the script ends. If you want
-the error handler to function as normal, you can throw a new exception within the catch block::
+이는 오류를 직접 처리하거나 스크립트가 끝나기 전에 필요한 뭔가를 정리하는데 유용할 수 있습니다.
+
+::
 
 	catch (\CodeIgniter\UnknownFileException $e)
 	{
@@ -54,72 +59,77 @@ the error handler to function as normal, you can throw a new exception within th
 		throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
 	}
 
-Configuration
+구성
 =============
 
-By default, CodeIgniter will display all errors in the ``development`` and ``testing`` environments, and will not
-display any errors in the ``production`` environment. You can change this by setting the ``CI_ENVIRONMENT`` variable
-in the ``.env`` file.
+기본적으로 CodeIgniter는 ``development`` 및 ``testing`` 환경에서는 모든 오류를 표시하고 ``production`` 환경에서는 오류를 표시하지 않습니다.
+이 값을 변경하려면 ``.env`` 파일의 ``CI_ENVIRONMENT`` 상수에 값을 설정하면 됩니다.
 
-.. important:: Disabling error reporting DOES NOT stop logs from being written if there are errors.
+.. important:: 오류 보고를 비활성화해도 오류가 있는 경우 로그 쓰기가 중지되지 않습니다.
 
-Logging Exceptions
+로깅 예외
 ------------------
 
-By default, all Exceptions other than 404 - Page Not Found exceptions are logged. This can be turned on and off
-by setting the **$log** value of ``Config\Exceptions``::
+기본적으로 404 - Page Not Found 예외 이외의 모든 예외가 기록됩니다.
+``Config\Exceptions``\ 의 **$log** 값을 설정하여 켜거나 끌 수 있습니다.
+
+::
 
     class Exceptions
     {
         public $log = true;
     }
 
-To ignore logging on other status codes, you can set the status code to ignore in the same file::
+다른 상태 코드에 대한 로깅을 무시하려면 동일한 파일에서 상태 코드를 무시하도록 설정할 수 있습니다.
+
+::
 
     class Exceptions
     {
         public $ignoredCodes = [ 404 ];
     }
 
-.. note:: It is possible that logging still will not happen for exceptions if your current Log settings
-    are not setup to log **critical** errors, which all exceptions are logged as.
+.. note:: 현재 로그 설정이 모든 예외가 기록되는 **critical**\ 로 설정되지 않은 경우에도 예외에 대해 로깅이 발생하지 않을 수 있습니다.
 
-Custom Exceptions
-=================
+사용자 정의 예외
+==================
 
-The following custom exceptions are available:
+다음과 같은 사용자 정의 예외를 사용할 수 있습니다.
 
 PageNotFoundException
 ---------------------
 
-This is used to signal a 404, Page Not Found error. When thrown, the system will show the view found at
-``/app/views/errors/html/error_404.php``. You should customize all of the error views for your site.
-If, in ``Config/Routes.php``, you have specified a 404 Override, that will be called instead of the standard
-404 page::
+404, Page Not Found 오류를 알리는 데 사용됩니다.
+예외가 발생하면 시스템은 ``/app/views/errors/html/error_404.php``\ 에 있는 뷰를 보여줍니다.
+``Config/Routes.php``\ 에서 404 오류를 재정의하여 지정하면 표준 404 페이지 대신 호출됩니다.
+
+::
 
 	if (! $page = $pageModel->find($id))
 	{
 		throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
 	}
 
-You can pass a message into the exception that will be displayed in place of the default message on the 404 page.
+404 페이지의 기본 메시지 대신 표시될 예외로 메시지를 전달할 수 있습니다.
 
 ConfigException
 ---------------
 
-This exception should be used when the values from the configuration class are invalid, or when the config class
-is not the right type, etc::
+이 예외는 구성 클래스의 값이 유효하지 않거나, 구성 클래스가 올바른 유형이 아닌 경우에 사용해야 합니다.
+
+::
 
 	throw new \CodeIgniter\Exceptions\ConfigException();
 
-This provides an HTTP status code of 500 and an exit code of 3.
+HTTP 상태 코드는 500이고 종료 코드는 3입니다.
 
 DatabaseException
 -----------------
 
-This exception is thrown for database errors, such as when the database connection cannot be created,
-or when it is temporarily lost::
+이 예외는 데이터베이스 연결을 작성할 수 없거나 일시적으로 유실 된 경우와 같은 데이터베이스 오류에 대해 발생합니다.
+
+::
 
 	throw new \CodeIgniter\Database\Exceptions\DatabaseException();
 
-This provides an HTTP status code of 500 and an exit code of 8.
+HTTP 상태 코드는 500이고 종료 코드는 8입니다.

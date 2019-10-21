@@ -1,57 +1,44 @@
-################
-Web Page Caching
-################
+##########################
+웹 페이지 캐싱(caching)
+##########################
 
-CodeIgniter lets you cache your pages in order to achieve maximum
-performance.
+CodeIgniter를 사용하면 최대 성능을 위해 페이지를 캐시할 수 있습니다.
 
-Although CodeIgniter is quite fast, the amount of dynamic information
-you display in your pages will correlate directly to the server
-resources, memory, and processing cycles utilized, which affect your
-page load speeds. By caching your pages, since they are saved in their
-fully rendered state, you can achieve performance much closer to that of
-static web pages.
+CodeIgniter는 매우 빠르지만, 페이지에 표시되는 동적 정보의 양은 사용되는 서버 리소스, 메모리 및 처리 주기와 직접적으로 연관되어 페이지 로드 속도에 영향을 줍니다.
+페이지를 캐싱하면 페이지가 완전히 렌더링된 상태로 저장되므로 정적 웹 페이지와 유사한 성능을 얻을 수 있습니다.
 
-How Does Caching Work?
-======================
+캐싱은 어떻게 작동합니까?
+=============================
 
-Caching can be enabled on a per-page basis, and you can set the length
-of time that a page should remain cached before being refreshed. When a
-page is loaded for the first time, the file will be cached using the
-currently configured cache engine. On subsequent page loads, the cache file
-will be retrieved and sent to the requesting user's browser. If it has
-expired, it will be deleted and refreshed before being sent to the
-browser.
+캐싱은 페이지별로 활성화할 수 있으며 페이지를 캐시 상태를 유지해야 하는 시간을 설정할 수 있습니다.
+페이지가 처음 로드되면 현재 구성된 캐시 엔진을 사용하여 파일로 캐시됩니다.
+그 이후 페이지 로드시, 캐시 파일이 검색되어 요청하는 사용자의 브라우저로 전송됩니다.
+캐시가 만료된 경우 브라우저로 전송되기 전에 삭제되고 새로 고쳐집니다.
 
-.. note:: The Benchmark tag is not cached so you can still view your page
-	load speed when caching is enabled.
+.. note:: 벤치 마크 태그는 캐시되지 않으므로 캐싱이 활성화된 경우에도 페이지 로드 속도를 볼 수 있습니다.
 
-Enabling Caching
+캐싱 활성화
 ================
 
-To enable caching, put the following tag in any of your controller
-methods::
+캐싱을 사용하려면 컨트롤러 메소드에 다음 코드를 추가하세요.
+
+::
 
 	$this->cachePage($n);
 
-Where ``$n`` is the number of **seconds** you wish the page to remain
-cached between refreshes.
+여기서 ``$n``\ 은 페이지를 캐시 상태로 유지하려는 시간(**초**)입니다.
 
-The above tag can go anywhere within a method. It is not affected by
-the order that it appears, so place it wherever it seems most logical to
-you. Once the tag is in place, your pages will begin being cached.
+위의 코드는 메소드내 어디든 갈 수 있습니다.
+나타나는 순서의 영향을 받지 않으므로 가장 논리적으로 보이는 곳에 배치하십시오.
+코드가 있으면 페이지는 캐시되기 시작합니다.
 
-.. important:: If you change configuration options that might affect
-	your output, you have to manually delete your cache files.
+.. important:: 출력(output)에 영향을 줄 수 있는 구성 옵션을 변경하면 캐시 파일을 수동으로 삭제해야 합니다.
 
-.. note:: Before the cache files can be written you must set the cache
-	engine up by editing **app/Config/Cache.php**.
+.. note:: 캐시 파일을 작성하기 전에 **app/Config/Cache.php** 파일의 캐시 엔진을 설정해야 합니다
 
-Deleting Caches
+캐시 삭제
 ===============
 
-If you no longer wish to cache a file you can remove the caching tag and
-it will no longer be refreshed when it expires.
+더 이상 캐시를 사용 하지 않기 위해 캐싱 코드를 제거하면, 파일이 만료 될 때 캐시 파일은 갱신되지 않습니다.
 
-.. note:: Removing the tag will not delete the cache immediately. It will
-	have to expire normally.
+.. note:: 태그를 제거해도 캐시는 즉시 삭제되지 않습니다. 정상적으로 만료되어야합니다.
