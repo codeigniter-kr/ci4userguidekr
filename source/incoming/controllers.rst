@@ -12,9 +12,11 @@
 컨트롤러란 무엇입니까?
 =========================
 
-컨트롤러는 URI와 연결될 수 있는 방식으로 이름 붙여진 클래스 파일이다.
+컨트롤러는 URI와 연결될 수 있는 방식으로 이름 붙여진 클래스 파일입니다.
 
-다음 URI를 살펴보세요.::
+다음 URI를 살펴보세요.
+
+::
 
 	example.com/index.php/blog/
 
@@ -25,7 +27,9 @@
 해봅시다 - Hello World!
 ==========================
 
-간단한 컨트롤러를 만들어 실제로 볼 수 있도록 하겠습니다. 에디터를 사용하여 Blog.php 라는 파일을 만들고 다음 코드를 넣습니다.::
+간단한 컨트롤러를 만들어 실제로 볼 수 있도록 하겠습니다. 에디터를 사용하여 Blog.php 라는 파일을 만들고 다음 코드를 넣습니다.
+
+::
 
 	<?php namespace App\Controllers;
 
@@ -39,11 +43,13 @@
 		}
 	}
 
-그런 다음 파일을 **/app/Controllers/** 디렉토리에 저장하십시오.
+이 파일을 **/app/Controllers/** 디렉토리에 저장합니다.
 
 .. important:: 'Blog.php'는 대문자 'B'로 시작되어야 합니다.
 
-이제 이와 유사한 URL을 사용하여 사이트를 방문하십시오.::
+이제 이와 유사한 URL을 사용하여 사이트를 방문하십시오.
+
+::
 
 	example.com/index.php/blog
 
@@ -73,20 +79,24 @@
 
 	}
 
-또한 컨트롤러가 항상 모든 메서드를 상속할 수 있도록 상위 컨트롤러 클래스를 확장해야 합니다.
+여러분이 작성한 컨트롤러가 모든 메서드를 상속받을 수 있도록 상위 컨트롤러 클래스를 확장해야 합니다.
 
 메서드
 =========
 
 위 예제에서 메서드 이름은 ``index()``\ 입니다.
 URI의 **두 번째 세그먼트**\ 가 비어 있으면 "index" 메서드가 항상 기본적으로 로드됩니다.
-"Hello World" 메시지를 표시하는 다른 방법은 다음과 같습니다.::
+"Hello World" 메시지를 표시하는 다른 방법은 다음과 같습니다.
+
+::
 
 	example.com/index.php/blog/index/
 
 **URI의 두 번째 세그먼트는 컨트롤러에서 호출할 메서드를 결정합니다.**
 
-컨트롤러에 새로운 메서드를 추가해봅시다.::
+컨트롤러에 새로운 메서드를 추가해 봅시다.
+
+::
 
 	<?php namespace App\Controllers;
 
@@ -106,7 +116,7 @@ URI의 **두 번째 세그먼트**\ 가 비어 있으면 "index" 메서드가 �
 		}
 	}
 
-이제 다음 URL을로드하여 comments 메서드를 봅니다.::
+이제 다음 URL을 로드하여 comments 메서드를 봅니다.::
 
 	example.com/index.php/blog/comments/
 
@@ -185,8 +195,8 @@ URI 세그먼트를 지정하지 않고 기본 index.php 파일을 로드하면 
 		}
 	}
 
-Any extra segments after the method name are passed into ``_remap()``. These parameters can be passed to the method
-to emulate CodeIgniter's default behavior.
+메서드 이름 뒤의 추가 세그먼트는 ``_remap()``\ 에 전달됩니다.
+이러한 매개 변수는 CodeIgniter의 기본 동작을 에뮬레이트하기 위해 메서드로 전달될 수 있습니다.
 
 Example::
 
@@ -200,99 +210,99 @@ Example::
 		throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
 	}
 
-Private methods
+비공개 메서드
 ===============
 
-In some cases, you may want certain methods hidden from public access.
-In order to achieve this, simply declare the method as being private
-or protected and it will not be served via a URL request. For example,
-if you were to have a method like this::
+경우에 따라 외부에 특정 메서드를 숨겨야할 수도 있습니다.
+메서드를 private 또는 protected로 선언하면 URL 요청을 통해 접근할 수 없습니다.
+이와 같은 방법을 사용한 예입니다.
+
+::
 
 	protected function utility()
 	{
 		// some code
 	}
 
-Trying to access it via the URL, like this, will not work::
+아래와 같이 URL을 통해 액세스하려고 하면 동작하지 않습니다.
+
+::
 
 	example.com/index.php/blog/utility/
 
-Organizing Your Controllers into Sub-directories
+컨트롤러를 하위 디렉토리로 구성
 ================================================
 
-If you are building a large application you might want to hierarchically
-organize or structure your controllers into sub-directories. CodeIgniter
-permits you to do this.
+CodeIgniter를 사용하면 컨트롤러를 하위(sub) 디렉터리에 계층적으로 구성하여 큰 어플리케이션을 구축할 수 있습니다.
 
-Simply create sub-directories under the main *app/Controllers/*
-one and place your controller classes within them.
+메인 *app/Controllers/* 아래에 하위 디렉토리를 만들고 그 안에 컨트롤러 클래스를 배치하십시오.
 
-.. note:: When using this feature the first segment of your URI must
-	specify the folder. For example, let's say you have a controller located
-	here::
+.. note:: 이 기능을 사용할 때 URI의 첫 번째 세그먼트는 폴더를 지정해야 합니다.
+	예를 들어 다음과 같은 컨트롤러가 있다고 가정해 봅시다.
+	
+	::
 
 		app/Controllers/products/Shoes.php
 
-	To call the above controller your URI will look something like this::
+	위의 컨트롤러를 호출하기 위한 URI는 다음과 같습니다.
+	
+	::
 
 		example.com/index.php/products/shoes/show/123
 
-Each of your sub-directories may contain a default controller which will be
-called if the URL contains *only* the sub-directory. Simply put a controller
-in there that matches the name of your 'default_controller' as specified in
-your *app/Config/Routes.php* file.
+각 하위 디렉토리에는 URL에 하위 디렉토리만 호출하는 경우를 위하여 기본 컨트롤러가 지정할 수 있습니다.
+*app/Config/Routes.php* 파일의 'default_controller'\ 에 이를 위한 컨트롤러를 지정하십시오.
 
-CodeIgniter also permits you to remap your URIs using its :doc:`URI Routing <routing>` feature.
+CodeIgniter에서는 :doc:`URI 라우팅 <routing>` 기능을 사용하여 URI를 다시 매핑할 수도 있습니다.
 
-
-Included Properties
+포함된 속성
 ===================
 
-Every controller you create should extend ``CodeIgniter\Controller`` class.
-This class provides several features that are available to all of your controllers.
+생성하는 모든 컨트롤러는 ``CodeIgniter\Controller`` 클래스를 확장해야 합니다.
+이 클래스는 모든 컨트롤러에서 사용할 수 있는 몇 가지 기능을 제공합니다.
 
 **Request Object**
 
-The application's main :doc:`Request Instance </incoming/request>` is always available
-as a class property, ``$this->request``.
+어플리케이션의 :doc:`Request 인스턴스 </incoming/request>`\ 는 클래스의 ``$this->request`` 속성으로 제공됩니다.
 
 **Response Object**
 
-The application's main :doc:`Response Instance </outgoing/response>` is always available
-as a class property, ``$this->response``.
+어플리케이션의 :doc:`Response 인스턴스 </outgoing/response>`\ 는 클래스의 ``$this->response`` 속성으로 제공됩니다.
 
 **Logger Object**
 
-An instance of the :doc:`Logger <../general/logging>` class is available as a class property,
-``$this->logger``.
+:doc:`Logger <../general/logging>` 클래스의 인스턴스는 클래스 ``$this->logger`` 속성으로 제공됩니다.
 
 **forceHTTPS**
 
-A convenience method for forcing a method to be accessed via HTTPS is available within all
-controllers::
+HTTPS를 통해 메서드에 액세스할 수있는 편리한 메서드를 모든 컨트롤러에서 사용할 수 있습니다.
+
+::
 
 	if (! $this->request->isSecure())
 	{
 		$this->forceHTTPS();
 	}
 
-By default, and in modern browsers that support the HTTP Strict Transport Security header, this
-call should force the browser to convert non-HTTPS calls to HTTPS calls for one year. You can
-modify this by passing the duration (in seconds) as the first parameter::
+기본적으로, HTTP Strict Transport Security 헤더를 지원하는 최신 브라우저는 이 호출을 통하여 HTTPS가 아닌 호출을 1년 동안 HTTPS 호출로 변환하도록 강제합니다.
+지속 시간(초)은 매개 변수를 전달하여 수정할 수 있습니다.
+
+::
 
 	if (! $this->request->isSecure())
 	{
 		$this->forceHTTPS(31536000);    // one year
 	}
 
-.. note:: A number of :doc:`time-based constants </general/common_functions>` are always available for you to use, including YEAR, MONTH, and more.
+.. note:: 숫자 대신 YEAR, MONTH등 :doc:`시간 기반 상수 </general/common_functions>`\ 를 사용할 수도 있습니다.
 
-helpers
+헬퍼
 -------
 
-You can define an array of helper files as a class property. Whenever the controller is loaded,
-these helper files will be automatically loaded into memory so that you can use their methods anywhere
-inside the controller::
+클래스 속성에 헬퍼를 배열로 정의할 수 있습니다.
+컨트롤러가 로드될 때마다 정의된 헬퍼도 자동으로 로드되며, 컨트롤러 내부의 어느 위치에서든 헬퍼에 정의된 메서드를 사용할 수 있습니다.
+
+::
 
 	namespace App\Controllers;
         use CodeIgniter\Controller;
@@ -302,14 +312,15 @@ inside the controller::
 		protected $helpers = ['url', 'form'];
 	}
 
-Validating data
+데이터 검증
 ======================
 
-The controller also provides a convenience method to make validating data a little simpler, ``validate()`` that
-takes an array of rules to test against as the first parameter, and, optionally,
-an array of custom error messages to display if the items don't pass. Internally, this uses the controller's
-**$this->request** instance to get the data through. The :doc:`Validation Library docs </libraries/validation>`
-has details on the format of the rules and messages arrays, as well as available rules.::
+컨트롤러는 데이터를 좀 더 간단하게 검증할 수 있는 방법을 제공합니다. 
+이는 매개 변수로 테스트할 규칙을 배열로 전달하고, 검증을 통과하지 못한 항목을 표시할 사용자 정의 오류 메시지를 배열로 받을수 있습니다.
+이 데이타는 컨트롤러 내부의 **$this->request** 인스턴스를 사용하여 가져옵니다.
+:doc:`유효성 검사 라이브러리 문서 </libraries/validation>`\ 에는 이에 대한 메시지 배열의 형식과 사용 가능한 규칙에 대한 세부 정보가 있습니다.
+
+::
 
     public function updateUser(int $userID)
     {
@@ -326,8 +337,9 @@ has details on the format of the rules and messages arrays, as well as available
         // do something here if successful...
     }
 
-If you find it simpler to keep the rules in the configuration file, you can replace the $rules array with the
-name of the group, as defined in ``Config\Validation.php``::
+``Config\Validation.php``\ 에 정의된 규칙의 그룹 이름을 ``$rules`` 배열에 명시하여 간단하게 구성 파일에 정의된 규칙을 적용할 수 있습니다.
+
+::
 
     public function updateUser(int $userID)
     {
@@ -341,10 +353,10 @@ name of the group, as defined in ``Config\Validation.php``::
         // do something here if successful...
     }
 
-.. note:: Validation can also be handled automatically in the model. Where you handle validation is up to you,
-            and you will find that some situations are simpler in the controller than then model, and vice versa.
+.. note:: 모델에서 유효성 검사를 자동으로 처리할 수 있습니다.
+		유효성 검사를 처리하는 위치는 사용자의 결정에 달려 있으며, 상황에 따라 컨트롤러에서 하는 것보다 단순할 수도 있고 그 반대인 경우도 있습니다.
 
-That's it!
-==========
+이게 다임!
+============
 
-That, in a nutshell, is all there is to know about controllers.
+이것이 컨트롤러에 대해 알아야 할 모든 것입니다.
