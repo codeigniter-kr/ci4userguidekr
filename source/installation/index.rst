@@ -7,8 +7,7 @@ CodeIgniter4는 다양한 방법으로 설치할 수 있습니다.: 수동 설�
 
 - CodeIgniter3와 같이 "다운로드 및 이동" 설치를 원하면 수동 설치를 선택하십시오.
 - 프로젝트에 타사 패키지를 추가하려는 경우 Composer 설치를 권장합니다.
-- If you are thinking of contributing to the framework,
-  then the Git installation is right for you.
+- 프레임워크에 기여할 생각이라면 Git 설치가 적합합니다.
 
 .. toctree::
     :titlesonly:
