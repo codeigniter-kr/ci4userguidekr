@@ -1,31 +1,33 @@
 ##################
-Controller Filters
+컨트롤러 필터
 ##################
 
 .. contents::
     :local:
     :depth: 2
 
-Controller Filters allow you to perform actions either before or after the controllers execute. Unlike :doc:`events </extending/events>`,
-you can very simply choose which URI's in your application have the filters applied to them. Incoming filters may
-modify the Request, while after filters can act on and even modify the Response, allowing for a lot of flexibility
-and power. Some common examples of tasks that might be performed with filters are:
+컨트롤러 필터를 사용하면 컨트롤러 실행 전후에 작업을 수행할 수 있습니다.
+:doc:`이벤트 </extending/events>`\ 와 달리 응용 프로그램에서 필터를 적용할 URI를 쉽게 선택할 수 있습니다.
+수신(Incoming) 필터는 요청을 수정하는 반면 사후(after)필터는 응답에 대해 작동하고 데이터를 수정할 수 있기 때문에 많은 유연성과 성능을 제공합니다.
+필터로 수행할 수있는 일반적인 예는 다음과 같습니다:
 
-* Performing CSRF protection on the incoming requests
-* Restricting areas of your site based upon their Role
-* Perform rate limiting on certain endpoints
-* Display a "Down for Maintenance" page
-* Perform automatic content negotiation
+* 수신 요청(request)에 대한 CSRF 보호
+* 역할(role)에 따른 사이트 영역 제한
+* 특정 엔드 포인트의 속도 제한
+* "유지 보수 또는 서버 점검" 페이지 표시
+* 자동 컨텐츠 협상(content negotiation)
 * and more..
 
 *****************
-Creating a Filter
+필터 만들기
 *****************
 
-Filters are simple classes that implement ``CodeIgniter\Filters\FilterInterface``.
-They contain two methods: ``before()`` and ``after()`` which hold the code that
-will run before and after the controller respectively. Your class must contain both methods
-but may leave the methods empty if they are not needed. A skeleton filter class looks like::
+필터는 ``CodeIgniter\Filters\FilterInterface``\ 를 구현(implement)하는 간단한 클래스입니다.
+두 개의 메소드 ``before()`` 와 ``after()``\ 를 가지고 있으며, 컨트롤러 전후에 각각 실행됩니다.
+클래스에는 두 메소드가 모두 포함되어야하지만 필요하지 않은 경우 메소드를 비워둘 수 있습니다.
+스켈레톤 필터 클래스는 다음과 같습니다.
+
+::
 
     <?php namespace App\Filters;
 
@@ -48,15 +50,16 @@ but may leave the methods empty if they are not needed. A skeleton filter class 
         }
     }
 
-Before Filters
+사전(Before) 필터
 ==============
 
-From any filter, you can return the ``$request`` object and it will replace the current Request, allowing you
-to make changes that will still be present when the controller executes.
+모든 필터는 ``$request`` 오브젝트를 반환할 수 있으며, 컨트롤러가 실행될 때 변경 사항을 적용할 수 있도록 현재 요청(Request)을 대체합니다.
 
-Since before filters are executed prior to your controller being executed, you may at times want to stop the
-actions in the controller from happening. You can do this by passing back anything that is not the request object.
-This is typically used to perform redirects, like in this example::
+가끔 사전 필터가 실행되기 전에 컨트롤러의 작업을 중지할 필요가 있습니다.
+요청 오브젝트가 아닌 것을 전달하면 이것을 수행 할 수 있습니다.
+아래 예는 리디렉션을 수행합니다.
+
+::
 
     public function before(RequestInterface $request)
     {
@@ -68,23 +71,23 @@ This is typically used to perform redirects, like in this example::
         }
     }
 
-If a Response instance is returned, the Response will be sent back to the client and script execution will stop.
-This can be useful for implementing rate limiting for API's. See **app/Filters/Throttle.php** for an
-example.
+응답(Response) 인스턴스가 리턴되면 응답이 클라이언트로 전송되고 컨트롤러 실행이 중지됩니다.
+이는 요금에 따른 API 제한을 구현하는데 유용할 수 있다.
+**app/Filters/Throttle.php** 예제를 참조하세요.
 
-After Filters
-=============
+사후(After) 필터
+====================
 
-After filters are nearly identical to before filters, except that you can only return the ``$response`` object,
-and you cannot stop script execution. This does allow you to modify the final output, or simply do something with
-the final output. This could be used to ensure certain security headers were set the correct way, or to cache
-the final output, or even to filter the final output with a bad words filter.
+사후(After) 필터는 ``$response`` 객체만 반환할 수 있으며, 컨트롤러 실행을 중지할 수 없다는 점을 제외하면 사전(After) 필터와 거의 동일합니다.
+이를 통해 최종 출력을 수정하거나, 최종 출력으로 무언가를 수행할 수 있습니다.
+이를 이용하여 특정 보안 헤더가 올바른 방식으로 설정되도록 하거나, 최종 출력을 캐시하거나, 나쁜(bad) 단어 필터로 최종 출력을 필터링하는 데 사용할 수 있습니다.
 
 *******************
-Configuring Filters
+필터 구성
 *******************
 
-Once you've created your filters, you need to configure when they get run. This is done in ``app/Config/Filters.php``.
+Once you've created your filters, you need to configure when they get run. 
+This is done in ``app/Config/Filters.php``.
 This file contains four properties that allow you to configure exactly when the filters run.
 
 $aliases
