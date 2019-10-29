@@ -59,7 +59,7 @@ Wikipedia에는 `모든 헤더 필드 <https://en.wikipedia.org/wiki/List_of_HTT
 요청 및 응답에 대한 작업
 -----------------------------------
 
-PHP는 요청 및 응답 헤더와 상호 작용하는 방법을 제공하지만 CodeIgniter는 대부분의 프레임 워크와 마찬가지로 일관되고 간단한 인터페이스를 제공하도록 추상화합니다.
+PHP는 요청 및 응답 헤더와 상호 작용하는 방법을 제공하지만 CodeIgniter는 대부분의 프레임워크와 마찬가지로 일관되고 간단한 인터페이스를 제공하도록 추상화합니다.
 :doc:`IncomingRequest class </incoming/incomingrequest>` 클래스는 HTTP 요청의 객체 지향 표현입니다.
 필요한 모든 것을 제공합니다.::
 

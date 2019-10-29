@@ -1,151 +1,158 @@
 ###########
-URI Routing
+URI 라우팅
 ###########
 
 .. contents::
     :local:
     :depth: 2
 
-Typically there is a one-to-one relationship between a URL string and its corresponding
-controller class/method. The segments in a URI normally follow this pattern::
+일반적으로 URL 문자열과 해당 컨트롤러 클래스/메서드 사이에는 일대일 관계가 있습니다.
+URI의 세그먼트는 일반적으로 이 패턴을 따릅니다.
+
+::
 
     example.com/class/function/id/
 
-In some instances, however, you may want to remap this relationship so that a different
-class/method can be called instead of the one corresponding to the URL.
+그러나 경우에 따라 URL에 해당하는 클래스 대신 다른 클래스/메소드를 호출할 수 있도록 이 관계를 다시 맵핑해야 할 경우가 있습니다.
 
-For example, let’s say you want your URLs to have this prototype::
+예를 들어 URL에 이런 프로토타입이 있어야 한다고 가정해 보겠습니다.
+
+::
 
     example.com/product/1/
     example.com/product/2/
     example.com/product/3/
     example.com/product/4/
 
-Normally the second segment of the URL is reserved for the method name, but in the example
-above it instead has a product ID. To overcome this, CodeIgniter allows you to remap the URI handler.
+일반적으로 URL의 두 번째 세그먼트는 메소드 이름으로 예약되어 있지만 위의 예제에서는 대신 제품 ID가 있습니다.
+이를 위해 CodeIgniter는 URI 처리기(handler)를 다시 매핑할 수 있습니다.
 
-Setting your own routing rules
+자신만의 라우팅 규칙 설정
 ==============================
 
-Routing rules are defined in the **app/config/Routes.php** file. In it you'll see that
-it creates an instance of the RouteCollection class that permits you to specify your own routing criteria.
-Routes can be specified using placeholders or Regular Expressions.
+라우팅 규칙(rule)은 **app/config/Routes.php** 파일에 정의되어 있습니다.
+여기에서 고유한 라우팅 기준을 지정할 수 있는 RouteCollection 클래스의 인스턴스가 생성됩니다.
+자리 표시자(placeholder) 또는 정규식(Regular Expressions)을 사용하여 경로를 지정할 수 있습니다.
 
-A route simply takes the URI on the left, and maps it to the controller and method on the right,
-along with any parameters that should be passed to the controller. The controller and method should
-be listed in the same way that you would use a static method, by separating the fully-namespaced class
-and its method with a double-colon, like ``Users::list``. If that method requires parameters to be
-passed to it, then they would be listed after the method name, separated by forward-slashes::
+라우터는 왼쪽의 URI를 가져와 컨트롤러에 전달해야 하는 매개 변수를 오른쪽의 컨트롤러/메소드에 맵핑합니다.
+컨트롤러와 메소드는 완전한 이름 공간 클래스(fully-namespaced class)와 ``Users::list``\ 와 같이 이중 콜론(정적 메소드를 사용하는 것과 동일한 방식)으로 분리하여 나열합니다.
+해당 메소드에 매개 변수를 전달해야 한다면 메소드 이름 뒤에 슬래시로 구분하여 나열합니다.
+
+::
 
 	// Calls the $Users->list()
 	Users::list
 	// Calls $Users->list(1, 23)
 	Users::list/1/23
 
-Placeholders
-============
+자리 표시자(Placeholder)
+===========================
 
-A typical route might look something like this::
+일반적으로 경로(route)는 다음과 같습니다
+
+::
 
     $routes->add('product/(:num)', 'App\Catalog::productLookup');
 
-In a route, the first parameter contains the URI to be matched, while the second parameter
-contains the destination it should be re-routed to. In the above example, if the literal word
-"product" is found in the first segment of the URL, and a number is found in the second segment,
-the "App\Catalog" class and the "productLookup" method are used instead.
+경로에서 첫 번째 매개 변수는 일치할 URI이고, 두 번째 매개 변수는 다시 라우팅해야 하는 대상입니다.
+위의 예제는 URL의 첫 번째 세그먼트가 "product"\ 이고 두 번째 세그먼트에 숫자가 있으면 "App\Catalog" 클래스의 "productLookup" 메소드로 라우팅됩니다.
 
-Placeholders are simply strings that represent a Regular Expression pattern. During the routing
-process, these placeholders are replaced with the value of the Regular Expression. They are primarily
-used for readability.
+자리 표시자는 단순히 정규식 패턴을 나타내는 문자열입니다.
+라우팅 프로세스가 진행되는 동안 이러한 자리 표시자는 정규식 값으로 대체됩니다.
+이들은 주로 가독성을 위해 사용됩니다.
 
-The following placeholders are available for you to use in your routes:
+경로에서 사용할 수있는 자리 표시자는 다음과 같습니다.
 
-* **(:any)** will match all characters from that point to the end of the URI. This may include multiple URI segments.
-* **(:segment)** will match any character except for a forward slash (/) restricting the result to a single segment.
-* **(:num)** will match any integer.
-* **(:alpha)** will match any string of alphabetic characters
-* **(:alphanum)** will match any string of alphabetic characters or integers, or any combination of the two.
-* **(:hash)** is the same as **:segment**, but can be used to easily see which routes use hashed ids (see the :doc:`Model </models/model>` docs).
+* **(:any)** 해당 시점부터 URI 끝까지의 모든 문자와 일치하며, 여기에는 여러 URI 세그먼트가 포함될 수 있습니다.
+* **(:segment)** 결과를 단일 세그먼트로 제한하는 슬래시(/)를 제외한 모든 문자와 일치합니다.
+* **(:num)** 모든 정수와 일치합니다.
+* **(:alpha)** 모든 알파벳 문자와 일치합니다
+* **(:alphanum)** 영문자, 정수 문자열, 둘의 조합과 일치합니다.
+* **(:hash)** **:segment**\ 와 같습니다. 그러나 hashded id를 사용합니다. (:doc:`모델 </models/model>` 문서 참조).
 
-.. note:: **{locale}** cannot be used as a placeholder or other part of the route, as it is reserved for use
-    in :doc:`localization </outgoing/localization>`.
+.. note:: **{locale}** :doc:`현지화(localization) </outgoing/localization>`\ 에 사용하도록 예약되어 있으므로 자리 표시자 또는 경로의 다른 부분으로 사용할 수 없습니다.
 
 Examples
 ========
 
-Here are a few basic routing examples::
+다음은 기본적인 몇 가지 라우팅 예입니다.
+
+::
 
 	$routes->add('journals', 'App\Blogs');
 
-A URL containing the word "journals" in the first segment will be remapped to the "App\Blogs" class,
-and the default method, which is usually ``index()``::
+첫 번째 세그먼트에 "journals"\ 라는 단어가 포함된 URL은 "App\Blogs" 클래스의 기본 메소드인 ``index()``\ 로 매핑됩니다.
+
+::
 
 	$routes->add('blog/joe', 'Blogs::users/34');
 
-A URL containing the segments "blog/joe" will be remapped to the “\Blogs” class and the “users” method.
-The ID will be set to “34”::
+"blog/joe" 세그먼트가 포함된 URL은 "\Blogs" 클래스의 "users" 메소드로 매핑됩니다. ID는 "34"로 설정됩니다.
+
+::
 
 	$routes->add('product/(:any)', 'Catalog::productLookup');
 
-A URL with “product” as the first segment, and anything in the second will be remapped to the “\Catalog” class
-and the “productLookup” method::
+첫 번째 세그먼트가 "product"\ 이고 두 번째 세그먼트가 있는 URL은 "\Catalog" 클래스의 "productLookup" 메서드로 매핑됩니다.
+
+::
 
 	$routes->add('product/(:num)', 'Catalog::productLookupByID/$1';
 
-A URL with “product” as the first segment, and a number in the second will be remapped to the “\Catalog” class
-and the “productLookupByID” method passing in the match as a variable to the method.
+첫 번째 세그먼트가 "product"\ 이고 두 번째로 숫자가 있는 URL은 "\Catalog" 클래스의 "productLookupByID" 메서드로 매핑되고, 
+두 번째 세그먼트의 숫자를 메서드 변수에 전달합니다.
 
-.. important:: While the ``add()`` method is convenient, it is recommended to always use the HTTP-verb-based
-    routes, described below, as it is more secure. It will also provide a slight performance increase, since
-    only routes that match the current request method are stored, resulting in fewer routes to scan through
-    when trying to find a match.
+.. important:: ``add()`` 메소드는 편리하지만 아래 설명된 HTTP 동사 기반 경로(route)를 사용하십시오. 더 안전하며, 경로와 일치하는 항목을 찾을때 
+	요청(request) 방법을 이용해 검색해야 할 경로가 적어지므로 성능이 약간 향상됩니다.
 
-Custom Placeholders
-===================
+맞춤(custom) 자리 표시자
+==========================
 
-You can create your own placeholders that can be used in your routes file to fully customize the experience
-and readability.
+가독성을 위해 경로(route) 파일에 사용자 정의 자리 표시자를 만들어 사용할 수 있습니다.
 
-You add new placeholders with the ``addPlaceholder`` method. The first parameter is the string to be used as
-the placeholder. The second parameter is the Regular Expression pattern it should be replaced with.
-This must be called before you add the route::
+``addPlaceholder`` 메서드를 사용하여 새로운 자리 표시자를 추가합니다.
+첫 번째 매개 변수는 자리 표시자로 사용될 문자열입니다.
+두 번째 매개 변수는 정규식 패턴입니다.
+경로(route)를 추가하기 전에 호출해야 합니다
+
+::
 
 	$routes->addPlaceholder('uuid', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
 	$routes->add('users/(:uuid)', 'Users::show/$1');
 
-Regular Expressions
+정규식
 ===================
 
-If you prefer you can use regular expressions to define your routing rules. Any valid regular expression
-is allowed, as are back-references.
+원하는 경우 정규식을 사용하여 라우팅 규칙을 정의할 수 있습니다.
+역 참조와 마찬가지로 유효한 정규식이 허용됩니다.
 
-.. important:: Note: If you use back-references you must use the dollar syntax rather than the double backslash syntax.
-    A typical RegEx route might look something like this::
+.. important:: Note: 역 참조를 사용하는 경우 이중 백 슬래시 구문 대신 달러($) 구문을 사용해야합니다.
+    일반적인 RegEx 경로는 다음과 같습니다::
 
 	$routes->add('products/([a-z]+)/(\d+)', '$1::id_$2');
 
-In the above example, a URI similar to products/shirts/123 would instead call the “\Shirts” controller class
-and the “id_123” method.
+위의 예에서 to products/shirts/123과 유사한 URI는 "\Shirts" 컨트롤러 클래스의 "id_123" 메서드를 호출합니다.
 
-With regular expressions, you can also catch a segment containing a forward slash (‘/’), which would usually
-represent the delimiter between multiple segments.
+정규 표현식을 사용하면 일반적으로 여러 세그먼트 사이의 구분 기호를 나타내는 슬래시('/')가 포함된 세그먼트를 잡을 수도 있습니다.
 
-For example, if a user accesses a password protected area of your web application and you wish to be able to
-redirect them back to the same page after they log in, you may find this example useful::
+사용자가 웹 애플리케이션의 비밀번호로 보호된 영역에 액세스하고 로그인한 후 동일한 페이지로 다시 리디렉션하려는 경우 이 예제가 유용할 수 있습니다.
+
+::
 
 	$routes->add('login/(.+)', 'Auth::login/$1');
 
-For those of you who don’t know regular expressions and want to learn more about them,
-`regular-expressions.info <http://www.regular-expressions.info/>`_ might be a good starting point.
+정규 표현식에 대해 더 배우고 싶은 사람들에게 `regular-expressions.info <http://www.regular-expressions.info/>`_\ 가 좋은 출발점이 될 수 있습니다.
 
-.. important:: Note: You can also mix and match wildcards with regular expressions.
+.. important:: Note: 와일드 카드를 정규식과 혼합하여 일치시킬 수도 있습니다.
 
-Closures
-========
+클로저(Closure)
+==================
 
-You can use an anonymous function, or Closure, as the destination that a route maps to. This function will be
-executed when the user visits that URI. This is handy for quickly executing small tasks, or even just showing
-a simple view::
+경로가 매핑되는 대상으로 익명 함수(anonymous function) 또는 클로저를 사용할 수 있습니다.
+이 기능은 사용자가 해당 URI를 방문할 때 실행됩니다.
+작은 작업을 빠르게 실행하거나 간단히 뷰만 표시하는 데 편리합니다.
+
+::
 
     $routes->add('feed', function()
     {
@@ -153,12 +160,13 @@ a simple view::
         return $rss->feed('general');
     });
 
-Mapping multiple routes
+다중 경로 매핑
 =======================
 
-While the add() method is simple to use, it is often handier to work with multiple routes at once, using
-the ``map()`` method. Instead of calling the ``add()`` method for each route that you need to add, you can
-define an array of routes and then pass it as the first parameter to the `map()` method::
+한 번에 여러 경로에 대해 매핑하려면 `add()` 메서드보다 ``map()`` 메서드를 사용하는것이 편리합니다.
+추가해야 할 각 경로에 대해 `add()` 메소드를 여러번 호출하는 대신 배열로 경로(route)를 정의한 다음 이를 ``map()`` 메소드에 매개 변수로 전달할 수 있습니다.
+
+::
 
 	$routes = [];
 	$routes['product/(:num)']      = 'Catalog::productLookupById';
@@ -166,14 +174,17 @@ define an array of routes and then pass it as the first parameter to the `map()`
 
 	$collection->map($routes);
 
-Redirecting Routes
+라우트 리디렉션
 ==================
 
-Any site that lives long enough is bound to have pages that move. You can specify routes that should redirect
-to other routes with the ``addRedirect()`` method. The first parameter is the URI pattern for the old route. The
-second parameter is either the new URI to redirect to, or the name of a named route. The third parameter is
-the HTTP status code that should be sent along with the redirect. The default value is ``302`` which is a temporary
-redirect and is recommended in most cases::
+서비스를 오래 동안 유지한 사이트는 페이지가 이동되기 마련입니다.
+라우트의 ``addRedirect()`` 메소드를 사용하면 이전 경로를 다른 경로로 리디렉션(redirect)할 수 있습니다.
+첫 번째 매개 변수는 이전 경로의 URI 패턴입니다.
+두 번째 매개 변수는 리디렉션할 새 URI 또는 명명된 경로(route)명입니다.
+세 번째 매개 변수는 리디렉션과 함께 전송되어야 하는 HTTP 상태 코드입니다.
+기본값은 임시 리디렉션을 뜻하는 ``302``\ 이며  대부분의 경우 권장됩니다
+
+::
 
     $routes->add('users/profile', 'Users::profile', ['as' => 'profile']);
 
@@ -182,15 +193,16 @@ redirect and is recommended in most cases::
     // Redirect to a URI
     $routes->addRedirect('users/about', 'users/profile');
 
-If a redirect route is matched during a page load, the user will be immediately redirected to the new page before a
-controller can be loaded.
+페이지 로드중 요청(request) 경로가 리디렉션 경로와 일치하면 컨트롤러를 로드하기 전에 사용자는 새 페이지로 리디렉션됩니다.
 
-Grouping Routes
+라우트 그룹화
 ===============
 
-You can group your routes under a common name with the ``group()`` method. The group name becomes a segment that
-appears prior to the routes defined inside of the group. This allows you to reduce the typing needed to build out an
-extensive set of routes that all share the opening string, like when building an admin area::
+``group()`` 메소드를 사용하여 경로를 그룹화 할 수 있습니다.
+그룹 이름은 그룹 내부에 정의된 경로 앞에 나타나는 세그먼트가 됩니다.
+이렇게 하면 관리자 영역을 구축할 때와 같이 시작 문자열을 공유하는 광범위한 경로 작성에 필요한 입력(typing)을 줄일 수 있습니다.
+
+::
 
 	$routes->group('admin', function($routes)
 	{
@@ -198,8 +210,10 @@ extensive set of routes that all share the opening string, like when building an
 		$routes->add('blog', 'Admin\Blog::index');
 	});
 
-This would prefix the 'users' and 'blog" URIs with "admin", handling URLs like ``/admin/users`` and ``/admin/blog``.
-It is possible to nest groups within groups for finer organization if you need it::
+이것은 'users'\ 와 'blog' URI를 접두사 "admin"\ 을 사용하여 ``/admin/users`` 및 ``/admin/blog``\ 로 만들어 줍니다.
+필요한 경우 더 나은 구성(organization)을 위해 그룹내에 그룹을 중첩할 수 있습니다.
+
+::
 
 	$routes->group('admin', function($routes)
 	{
@@ -210,51 +224,54 @@ It is possible to nest groups within groups for finer organization if you need i
 
 	});
 
-This would handle the URL at ``admin/users/list``.
+위 예는 ``admin/users/list``\ URL을 처리합니다.
 
-If you need to assign options to a group, like a `namespace <#assigning-namespace>`_, do it before the callback::
+콜백 전에 `namespace <#assigning-namespace>`_\ 처럼 그룹에 옵션을 할당해야 하는 경우::
 
 	$routes->group('api', ['namespace' => 'App\API\v1'], function($routes)
 	{
 		$routes->resource('users');
 	});
 
-This would handle a resource route to the ``App\API\v1\Users`` controller with the ``/api/users`` URI.
+위 예는 ``/api/users`` URI를 사용하여 ``App\API\v1\Users`` 컨트롤러에 대한 리소스 경로(route)를 처리합니다.
 
-You can also use a specific `filter <filters.html>`_ for a group of routes. This will always
-run the filter before or after the controller. This is especially handy during authentication or api logging::
+라우트 그룹에 특정 `필터(filter) <filters.html>`_\ 를 사용할 수도 있습니다.
+필터를 사용하면 컨트롤러 전후에 필터를 실행하며, 인증이나 api 로깅에 유용합니다.
+
+::
 
     $routes->group('api', ['filter' => 'api-auth'], function($routes)
     {
         $routes->resource('users');
     });
 
-The value for the filter must match one of the aliases defined within ``app/Config/Filters.php``.
+필터 값은 ``app/Config/Filters.php``\ 에 정의된 별칭(aliase)중 하나와 일치해야 합니다.
 
-Environment Restrictions
-========================
+환경 제한(Restrictions)
+===========================
 
-You can create a set of routes that will only be viewable in a certain environment. This allows you to create
-tools that only the developer can use on their local machines that are not reachable on testing or production servers.
-This can be done with the ``environment()`` method. The first parameter is the name of the environment. Any
-routes defined within this closure are only accessible from the given environment::
+특정 환경에서만 볼 수있는 일련의 경로를 만들 수 있습니다.
+이를 통해 개발자는 테스트나 프로덕션 서버에서 접근할 수 없지만 로컬 컴퓨터에서 개발자만 사용할 수 있는 도구를 만들 수 있습니다.
+``environment()`` 메소드에 환경 이름을 전달하여 이를 정의할 수 있습니다.
+이렇게 폐쇄적으로 정의한 모든 경로는 주어진 환경에서만 액세스할 수 있습니다
 
-	$routes->environment('development', function($routes)
-	{
+::
+
+	$routes->environment('development', function($routes) {
 		$routes->add('builder', 'Tools\Builder::index');
 	});
 
-Reverse Routing
-===============
+리버스(Reverse) 라우팅
+========================
 
-Reverse routing allows you to define the controller and method, as well as any parameters, that a link should go
-to, and have the router lookup the current route to it. This allows route definitions to change without you having
-to update your application code. This is typically used within views to create links.
+리버스 라우팅은 링크와 연결해야 하는 모든 매개변수뿐만 아니라, 컨트롤러와 메소드를 정의하고, 라우터가 현재 경로를 조회하도록 할 수 있습니다.
+이렇게 하면 응용 프로그램 코드를 업데이트하지 않고도 경로 정의를 변경할 수 있습니다. 이것은 일반적으로 링크를 만들기 위해 뷰에서 사용됩니다.
 
-For example, if you have a route to a photo gallery that you want to link to, you can use the ``route_to()`` helper
-function to get the current route that should be used. The first parameter is the fully qualified Controller and method,
-separated by a double colon (::), much like you would use when writing the initial route itself. Any parameters that
-should be passed to the route are passed in next::
+예를 들어, 연결하려는 사진 갤러리에 대한 경로가 있는 경우 ``route_to()`` 헬퍼 함수를 사용하여 현재 경로를 얻을 수 있습니다.
+첫 번째 매개 변수는 초기 경로 자체를 작성할 때 사용하는 것과 같이 정규화된 컨트롤러 및 메서드이며 이중 콜론(::)으로 구분합니다.
+경로로 전달되어야하는 모든 매개 변수는 다음 매개 변수에 전달됩니다.
+
+::
 
 	// The route is defined as:
 	$routes->add('users/(:id)/gallery(:any)', 'App\Controllers\Galleries::showUserGallery/$1/$2');
@@ -263,13 +280,14 @@ should be passed to the route are passed in next::
 	// Generates: /users/15/gallery/12
 	<a href="<?= route_to('App\Controllers\Galleries::showUserGallery', 15, 12) ?>">View Gallery</a>
 
-Using Named Routes
+명명된 경로 사용
 ==================
 
-You can name routes to make your application less fragile. This applies a name to a route that can be called
-later, and even if the route definition changes, all of the links in your application built with ``route_to``
-will still work without you having to make any changes. A route is named by passing in the ``as`` option
-with the name of the route::
+응용 프로그램의 취약성을 낮추기 위해 경로 이름을 지정할 수 있습니다.
+이렇게하면 나중에 호출할 수있는 경로에 이름이 적용되며, 경로 정의가 변경되더라도 ``route_to``\ 로 구축된 응용 프로그램의 모든 링크를 수정하지 않아도 계속 작동합니다.
+경로 이름과 함께 ``as`` 옵션을 전달하여 경로 이름을 지정합니다.
+
+::
 
     // The route is defined as:
     $routes->add('users/(:id)/gallery(:any)', 'Galleries::showUserGallery/$1/$2', ['as' => 'user_gallery');
@@ -278,39 +296,46 @@ with the name of the route::
     // Generates: /users/15/gallery/12
     <a href="<?= route_to('user_gallery', 15, 12) ?>">View Gallery</a>
 
-This has the added benefit of making the views more readable, too.
+이렇게 하면 뷰를 더 읽기 쉽게 만들 수 있는 이점도 있습니다.
 
-Using HTTP verbs in routes
-==========================
+라우트에 HTTP 동사(verbs) 사용
+=================================
 
-It is possible to use HTTP verbs (request method) to define your routing rules. This is particularly
-useful when building RESTFUL applications. You can use any standard HTTP verb (GET, POST, PUT, DELETE, etc).
-Each verb has its own method you can use::
+HTTP 동사(request method)를 사용하여 라우팅 규칙을 정의 할 수 있습니다.
+RESTFUL 애플리케이션을 빌드할 때 특히 유용합니다.
+표준 HTTP 동사(GET, POST, PUT, DELETE 등)를 사용할 수 있습니다.
+각 동사는 사용할 수 있는 고유한 메소드가 있습니다.
+
+::
 
 	$routes->get('products', 'Product::feature');
 	$routes->post('products', 'Product::feature');
 	$routes->put('products/(:num)', 'Product::feature');
 	$routes->delete('products/(:num)', 'Product::feature');
 
-You can supply multiple verbs that a route should match by passing them in as an array to the ``match`` method::
+``match`` 메소드에 배열로 일치해야 하는 여러 동사에 경로를 제공할 수 있습니다.
+
+::
 
 	$routes->match(['get', 'put'], 'products', 'Product::feature');
 
-Command-Line only Routes
-========================
+명령줄(command-line) 전용 라우트
+===================================
 
-You can create routes that work only from the command-line, and are inaccessible from the web browser, with the
-``cli()`` method. This is great for building cronjobs or CLI-only tools. Any route created by any of the HTTP-verb-based
-route methods will also be inaccessible from the CLI, but routes created by the ``any()`` method will still be
-available from the command line::
+``cli()`` 메소드를 사용하여 명령행(cronjob 또는 CLI 전용 도구)에서만 작동하고 웹 브라우저에서 액세스할 수 없는 경로(route)를 작성할 수 있습니다.
+CLI에서 HTTP 동사 기반 라우트 메소드(get, post, put 등)로 작성된 라우트는 액세스할 수 없지만, ``any()`` 메소드로 작성된 라우트는 명령줄에서 사용 가능합니다.
+
+::
 
 	$routes->cli('migrate', 'App\Database::migrate');
 
-Global Options
+전역 옵션
 ==============
 
-All of the methods for creating a route (add, get, post, `resource <restful.html>`_ etc) can take an array of options that
-can modify the generated routes, or further restrict them. The ``$options`` array is always the last parameter::
+경로(route)를 만드는 모든 메소드(add, get, post, `resource <restful.html>`_ etc)는 생성된 경로를 수정하거나 추가로 제한할 수 있는 옵션을 배열로 취할 수 있습니다.
+``$options`` 배열은 항상 마지막 매개 변수(parameter)입니다
+
+::
 
 	$routes->add('from', 'to', $options);
 	$routes->get('from', 'to', $options);
@@ -325,32 +350,38 @@ can modify the generated routes, or further restrict them. The ``$options`` arra
 	$routes->map($array, $options);
 	$routes->group('name', $options, function());
 
-Applying Filters
+필터 적용
 ----------------
 
-You can alter the behavior of specific routes by supplying a filter to run before or after the controller. This is especially handy during authentication or api logging::
+컨트롤러 전후에 실행할 필터를 제공하여 특정 경로의 동작을 변경할 수 있습니다.
+이것은 인증 또는 API 로깅에 이용하면 편리합니다.
+
+::
 
     $routes->add('admin',' AdminController::index', ['filter' => 'admin-auth']);
 
-The value for the filter must match one of the aliases defined within ``app/Config/Filters.php``. You may also supply parameters to be passed to the filter's ``before()`` and ``after()`` methods::
+필터 값은 ``app/Config/Filters.php``\ 에 정의된 별칭 중 하나와 일치해야 합니다.
+필터의 ``before()`` 및 ``after()`` 메소드에 전달할 매개 변수를 제공할 수도 있습니다.
+
+::
 
     $routes->add('users/delete/(:segment)', 'AdminController::index', ['filter' => 'admin-auth:dual,noreturn']);
 
-See `Controller filters <filters.html>`_ for more information on setting up filters.
+필터 설정에 대한 자세한 내용은 `컨트롤러 필터 <filters.html>`\ 를 참조하십시오.
 
-Assigning Namespace
--------------------
+네임 스페이스 할당
+---------------------
 
-While a default namespace will be prepended to the generated controllers (see below), you can also specify
-a different namespace to be used in any options array, with the ``namespace`` option. The value should be the
-namespace you want modified::
+기본 네임 스페이스가 컨트롤러(아래 참조) 앞에 추가되지만, ``namespace`` 옵션을 사용하여 다른 네임 스페이스를 지정할 수도 있습니다.
+값은 수정하려는 네임스페이스여야 합니다.
+
+::
 
 	// Routes to \Admin\Users::index()
 	$routes->add('admin/users', 'Users::index', ['namespace' => 'Admin']);
 
-The new namespace is only applied during that call for any methods that create a single route, like get, post, etc.
-For any methods that create multiple routes, the new namespace is attached to all routes generated by that function
-or, in the case of ``group()``, all routes generated while in the closure.
+새로운 네임스페이스는 get, post 등과 같이 단일 경로를 만드는 메소드에 대해서만 적용됩니다.
+다중 경로를 만드는 모든 메서드의 경우 새로운 네임스페이스를 해당 함수에 의해 생성된 모든 경로 또는 ``group()``\ 일 경우 클로저에 생성된 모든 경로에 연결됩니다.
 
 Limit to Hostname
 -----------------

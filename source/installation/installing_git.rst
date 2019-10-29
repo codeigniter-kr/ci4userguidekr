@@ -17,7 +17,7 @@ Git 설치
 다음 명령은 "CodeIgniter4" 폴더를 생성합니다.
 폴더명은 자유롭게 이름을 바꿀수 있습니다.
 
-원격 리포지토리 별칭을 다음과 같이 설정할 수 있습니다.::
+원격 레파지토리 별칭을 다음과 같이 설정할 수 있습니다.::
 
     git remote add upstream https://github.com/codeigniter4/CodeIgniter4.git
 
@@ -43,7 +43,7 @@ Git 설치
 
 - 최신 버전(미출시된)의 코드베이스 사용
 - 생성한 브렌치를 pull request를 통하여 제출하여 프레임워크 발전에 기여 할 수 있습니다.
-- 리포지토리에 설치되어 있는 pre-commit은 우리가 사용하는 코딩 표준(Coding Standards)에 바인딩(binding)됩니다.
+- 레파지토리에 설치되어 있는 pre-commit은 우리가 사용하는 코딩 표준(Coding Standards)에 바인딩(binding)됩니다.
 
 단점
 -------------------------------------------------------

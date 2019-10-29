@@ -2,7 +2,7 @@
 Tutorial
 ########
 
-이 튜토리얼은 CodeIgniter4 프레임 워크와 MVC 아키텍처의 기본 원칙을 소개하고,
+이 튜토리얼은 CodeIgniter4 프레임워크와 MVC 아키텍처의 기본 원칙을 소개하고,
 기본적인 CodeIgniter 애플리케이션이 단계별로 구성되는 방법을 보여줍니다.
 
 
