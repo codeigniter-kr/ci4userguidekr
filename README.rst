@@ -12,26 +12,28 @@ CodeIgniter 사용자 가이드는 Sphinx를 사용하여 문서를 관리하고
 설치전 확인
 =============
 
-Sphinx에는 Python이 필요하며, OS X를 사용하고 있다면 이미 설치되어 있습니다.
+Sphinx는 Python이 필요하며, OS X를 사용하고 있다면 이미 설치되어 있습니다.
 python 설치 여부는 터미널 창에서 ``python``\ 을 입력하여 확인할 수 있습니다.
 설치된 버전이 2.7 이상이 아닌 경우 http://python.org/download/releases/2.7.2/ 에서 설치하십시오.
 
-easy_install을 이용한 설치방법
-==================================
+`Windows python, pip, Sphinx 설치 방법(영문) <https://www.sphinx-doc.org/en/1.6/install.html#windows-install-python-and-sphinx>`_
+
+pip를 이용한 sphinx 설치방법
+================================
+
+1. ``pip install sphinx``
+2. ``pip install sphinxcontrib-phpdomain``
+3. PHP, HTML, CSS, and JavaScript 코드 샘플의 구문 강조를 위해 CI Lexer를 설치 (see *cilexer/README*)
+5. ``cd user_guide_src``
+6. ``make html``
+
+easy_install을 이용한 sphinx 설치방법
+==========================================
 
 1. `easy_install <http://peak.telecommunity.com/DevCenter/EasyInstall#installing-easy-install>`_ 설치
 2. ``easy_install "sphinx==1.4.5"``
 3. ``easy_install sphinxcontrib-phpdomain``
 4. PHP, HTML, CSS, and JavaScript 코드 샘플의 구문 강조를 위해 CI Lexer를 설치 (see *cilexer/README*)
-5. ``cd user_guide_src``
-6. ``make html``
-
-pip를 이용한 설치방법
-========================
-
-1. ``pip install sphinx``
-2. ``pip install sphinxcontrib-phpdomain``
-3. PHP, HTML, CSS, and JavaScript 코드 샘플의 구문 강조를 위해 CI Lexer를 설치 (see *cilexer/README*)
 5. ``cd user_guide_src``
 6. ``make html``
 
