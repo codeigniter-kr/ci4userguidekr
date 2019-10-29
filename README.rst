@@ -24,8 +24,8 @@ pip를 이용한 sphinx 설치방법
 1. ``pip install sphinx``
 2. ``pip install sphinxcontrib-phpdomain``
 3. PHP, HTML, CSS, and JavaScript 코드 샘플의 구문 강조를 위해 CI Lexer를 설치 (see *cilexer/README*)
-5. ``cd user_guide_src``
-6. ``make html``
+4. ``cd user_guide_src``
+5. ``make html``
 
 easy_install을 이용한 sphinx 설치방법
 ==========================================
