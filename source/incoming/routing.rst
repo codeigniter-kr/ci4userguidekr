@@ -367,7 +367,7 @@ CLI에서 HTTP 동사 기반 라우트 메소드(get, post, put 등)로 작성�
 
     $routes->add('users/delete/(:segment)', 'AdminController::index', ['filter' => 'admin-auth:dual,noreturn']);
 
-필터 설정에 대한 자세한 내용은 `컨트롤러 필터 <filters.html>`\ 를 참조하십시오.
+필터 설정에 대한 자세한 내용은 `컨트롤러 필터 <filters.html>`_\ 를 참조하십시오.
 
 네임 스페이스 할당
 ---------------------
@@ -383,62 +383,68 @@ CLI에서 HTTP 동사 기반 라우트 메소드(get, post, put 등)로 작성�
 새로운 네임스페이스는 get, post 등과 같이 단일 경로를 만드는 메소드에 대해서만 적용됩니다.
 다중 경로를 만드는 모든 메서드의 경우 새로운 네임스페이스를 해당 함수에 의해 생성된 모든 경로 또는 ``group()``\ 일 경우 클로저에 생성된 모든 경로에 연결됩니다.
 
-Limit to Hostname
------------------
+호스트 이름(Hostname)으로 제한
+-------------------------------------
 
-You can restrict groups of routes to function only in certain domain or sub-domains of your application
-by passing the "hostname" option along with the desired domain to allow it on as part of the options array::
+"hostname" 옵션을 원하는 도메인과 함께 전달하여 경로(route) 그룹이 특정 도메인 또는 하위 도메인에서만 작동하도록 제한할 수 있습니다.
+
+::
 
 	$collection->get('from', 'to', ['hostname' => 'accounts.example.com']);
 
-This example would only allow the specified hosts to work if the domain exactly matched "accounts.example.com".
-It would not work under the main site at "example.com".
+이 예는 도메인이 "accounts.example.com".과 정확히 일치하는 경우에만 작동하도록 허용합니다.
+기본 사이트인 "example.com" 에서는 작동하지 않습니다.
 
-Limit to Subdomains
--------------------
+서브도메인(Subdomain)으로 제한
+----------------------------------------
 
-When the ``subdomain`` option is present, the system will restrict the routes to only be available on that
-sub-domain. The route will only be matched if the subdomain is the one the application is being viewed through::
+``subdomain`` 옵션이 있으면 시스템은 해당 서브도메인에서만 경로(route)를 사용할 수 있도록 제한합니다.
+경로는 서브도메인(subdomain)이 애플리케이션을 통해 보고 있는 영역인 경우에만 일치합니다.
+
+::
 
 	// Limit to media.example.com
 	$routes->add('from', 'to', ['subdomain' => 'media']);
 
-You can restrict it to any subdomain by setting the value to an asterisk, (*). If you are viewing from a URL
-that does not have any subdomain present, this will not be matched::
+값을 별표(*)로 설정하여 하위 도메인으로 제한할 수 있습니다.
+하위 도메인이 없는 URL에서 보는 경우 일치하지 않습니다
+
+::
 
 	// Limit to any sub-domain
 	$routes->add('from', 'to', ['subdomain' => '*']);
 
-.. important:: The system is not perfect and should be tested for your specific domain before being used in production.
-	Most domains should work fine but some edge case ones, especially with a period in the domain itself (not used
-	to separate suffixes or www) can potentially lead to false positives.
+.. important:: 시스템이 완벽하지 않으므로 프로덕션(production) 환경에서 사용하기 전에 특정 도메인에 대해 테스트해야 합니다.
+	대부분의 도메인에서 제대로 작동하지만, 일부 도메인, 특히 도메인 자체에 마침표가 있는 경우(접미사 또는 www를 구분하는 데 사용되지 않음)에는 잘못 탐지할 수 있습니다.
 
-Offsetting the Matched Parameters
----------------------------------
+일치하는 매개 변수(Parameter) 상쇄(offset)
+--------------------------------------------
 
-You can offset the matched parameters in your route by any numeric value with the ``offset`` option, with the
-value being the number of segments to offset.
+``offset`` 옵션을 사용하여 경로에서 일치하는 매개 변수를 숫자 값으로 상쇄(offset)할 수 있으며 값은 상쇄할 세그먼트 수입니다.
 
-This can be beneficial when developing API's with the first URI segment being the version number. It can also
-be used when the first parameter is a language string::
+이 기능은 첫 번째 URI 세그먼트가 버전 번호인 API를 개발할 때 유용할 수 있습니다.
+첫 번째 매개 변수가 언어(language) 문자열 인 경우에도 사용할 수 있습니다.
+
+::
 
 	$routes->get('users/(:num)', 'users/show/$1', ['offset' => 1]);
 
 	// Creates:
 	$routes['users/(:num)'] = 'users/show/$2';
 
-Routes Configuration Options
+경로(Route) 구성 옵션
 ============================
 
-The RoutesCollection class provides several options that affect all routes, and can be modified to meet your
-application's needs. These options are available at the top of `/app/Config/Routes.php`.
+RoutesCollection 클래스는 모든 경로에 영향을 주는 몇 가지 옵션을 제공하며 응용 프로그램의 요구에 맞게 수정할 수 있습니다.
+이 옵션들은 `/app/Config/Routes.php` 상단에 있습니다.
 
-Default Namespace
------------------
+기본 네임 스페이스
+----------------------
 
-When matching a controller to a route, the router will add the default namespace value to the front of the controller
-specified by the route. By default, this value is empty, which leaves each route to specify the fully namespaced
-controller::
+기본 네임 스페이스 값이 지정되어 있으면, 라우터는 경로로 지정된 컨트롤러 앞에 이 값을 추가합니다.
+기본적으로 이 값은 비어 있으며, 각 경로는 컨트롤러를 전체 네임 스페이스와 함께 지정합니다.
+
+::
 
     $routes->setDefaultNamespace('');
 
@@ -448,8 +454,9 @@ controller::
     // Controller is \Admin\Users
     $routes->add('users', 'Admin\Users::index');
 
-If your controllers are not explicitly namespaced, there is no need to change this. If you namespace your controllers,
-then you can change this value to save typing::
+컨트롤러의 네임 스페이스가 명시적으로 지정되지 않은 경우 이 값을 설정하여 컨트롤러에 네임 스페이스를 지정할 수 있습니다.
+
+::
 
 	$routes->setDefaultNamespace('App');
 
@@ -459,56 +466,60 @@ then you can change this value to save typing::
 	// Controller is \App\Admin\Users
 	$routes->add('users', 'Admin\Users::index');
 
-Default Controller
+기본 컨트롤러
 ------------------
 
-When a user visits the root of your site (i.e. example.com) the controller to use is determined by the value set by
-the ``setDefaultController()`` method, unless a route exists for it explicitly. The default value for this is ``Home``
-which matches the controller at ``/app/Controllers/Home.php``::
+사용자가 사이트의 루트(예 : example.com)를 방문할 때 경로가 명시적으로 존재하지 않으면 사용할 컨트롤러는 ``setDefaultController()`` 메서드에 의해 설정된 값에 의해 결정됩니다.
+기본값은 ``/app/Controllers/Home.php``\ 의 ``Home`` 컨트롤러입니다.
+
+::
 
 	// example.com routes to app/Controllers/Welcome.php
 	$routes->setDefaultController('Welcome');
 
-The default controller is also used when no matching route has been found, and the URI would point to a directory
-in the controllers directory. For example, if the user visits ``example.com/admin``, if a controller was found at
-``/app/Controllers/admin/Home.php`` it would be used.
+일치하는 경로를 찾지 못한 경우에도 기본 컨트롤러가 사용되며, URI는 컨트롤러 디렉토리를 가리킵니다.
+예를 들어 사용자가 ``example.com/admin``\ 을 방문하면 ``/app/Controllers/admin/Home.php`` 컨트롤러가 사용됩니다.
 
-Default Method
+기본 메소드
 --------------
 
-This works similar to the default controller setting, but is used to determine the default method that is used
-when a controller is found that matches the URI, but no segment exists for the method. The default value is
-``index``::
+이 메소드는 기본 컨트롤러 설정과 유사하게 작동하며, URI와 일치하는 컨트롤러를 발견되었으나, 메서드에 대한 세그먼트가 없을 때 사용됩니다.
+기본값은 ``index``\ 입니다.
+
+::
 
 	$routes->setDefaultMethod('listAll');
 
-In this example, if the user were to visit example.com/products, and a Products controller existed, the
-``Products::listAll()`` method would be executed.
+사용자가 "example.com/products"\ 를 방문하였을때 products 컨트롤러가 존재한다면, ``Products::listAll()`` 메소드가 실행됩니다.
 
-Translate URI Dashes
+URI 대시(-) 변환
 --------------------
 
-This option enables you to automatically replace dashes (‘-‘) with underscores in the controller and method
-URI segments, thus saving you additional route entries if you need to do that. This is required because the
-dash isn’t a valid class or method name character and would cause a fatal error if you try to use it::
+이 옵션을 사용하면 컨트롤러 및 메소드 URI 세그먼트에서 대시 ('-')를 밑줄('_')로 자동 대체할 수 있습니다.
+대시는 클래스 또는 메서드명의 유효한 문자가 아니므로 사용하면 치명적인 오류가 발생합니다.
+URI에 대시를 사용하고자 할 때 이 옵션 사용은 필수입니다.
+
+::
 
 	$routes->setTranslateURIDashes(true);
 
-Use Defined Routes Only
+정의된 경로만 사용
 -----------------------
 
-When no defined route is found that matches the URI, the system will attempt to match that URI against the
-controllers and methods as described above. You can disable this automatic matching, and restrict routes
-to only those defined by you, by setting the ``setAutoRoute()`` option to false::
+URI와 일치하는 정의된 경로가 없으면 시스템은 위에서 설명한대로 컨트롤러 및 메소드와 해당 URI를 일치 시키려고 시도합니다.
+``setAutoRoute()`` 옵션을 false로 설정하면 자동 일치 기능을 비활성화하여 사용자가 정의한 경로로만 접근하도록 제한 할 수 있습니다
+
+::
 
 	$routes->setAutoRoute(false);
 
-404 Override
-------------
+404 재정의
+--------------
 
-When a page is not found that matches the current URI, the system will show a generic 404 view. You can change
-what happens by specifying an action to happen with the ``set404Override()`` option. The value can be either
-a valid class/method pair, just like you would show in any route, or a Closure::
+현재 URI와 일치하는 페이지를 찾지 못하면 시스템은 일반 404 뷰를 표시합니다.
+``set404Override()`` 옵션을 사용하여 404 뷰대신 컨트롤러 클래스/메소드 또는 클로저(Closure)로 변경할 수 있습니다.
+
+::
 
     // Would execute the show404 method of the App\Errors class
     $routes->set404Override('App\Errors::show404');

@@ -1,14 +1,11 @@
-Request Class
+요청(Request) Class
 ****************************************************
 
-The request class is an object-oriented representation of an HTTP request. This is meant to
-work for both incoming, such as a request to the application from a browser, and outgoing requests,
-like would be used to send a request from the application to a third-party application. This class
-provides the common functionality they both need, but both cases have custom classes that extend
-from the Request class to add specific functionality.
+요청 클래스는 HTTP 요청의 객체 지향 표현입니다.
+이는 브라우저에서 응용 프로그램으로 들어오는 요청과 응용 프로그램에서 타사 응용 프로그램으로 요청을 보내는 발신 요청 모두에서 작동합니다.
+이 클래스는 둘 다 필요한 공통 기능을 제공하지만 두 경우 모두 특정 기능을 추가하기 위해 Request 클래스에서 확장되는 사용자 정의 클래스가 있습니다.
 
-See the documentation for the :doc:`IncomingRequest Class </incoming/incomingrequest>` and
-:doc:`CURLRequest Class </libraries/curlrequest>` for more usage details.
+자세한 사용법은 :doc:`IncomingRequest Class </incoming/incomingrequest>` 및 :doc:`CURLRequest Class </libraries/curlrequest>` 문서를 참조하십시오.
 
 Class Reference
 ============================================================
@@ -17,32 +14,29 @@ Class Reference
 
 	.. php:method:: getIPAddress()
 
-		:returns: The user's IP Address, if it can be detected, or null. If the IP address
-					is not a valid IP address, then will return 0.0.0.0
+		:returns: 사용자의 IP 주소 또는 null, IP 주소가 유효하지 않은 경우 0.0.0.0을 반환
 		:rtype: string
 
-		Returns the IP address for the current user. If the IP address is not valid, the method
-		will return '0.0.0.0'::
+		현재 사용자의 IP 주소를 반환합니다. IP 주소가 유효하지 않은 경우 메소드는 '0.0.0.0'을 리턴합니다.
+		
+		::
 
 			echo $request->getIPAddress();
 
-		.. important:: This method takes into account the ``App->proxyIPs`` setting and will
-			return the reported HTTP_X_FORWARDED_FOR, HTTP_CLIENT_IP, HTTP_X_CLIENT_IP, or
-			HTTP_X_CLUSTER_CLIENT_IP address for the allowed IP address.
+		.. important:: 이 메소드는 ``App->proxyIPs``\ 에 허용하도록 설정된 IP 주소에 대해 ``HTTP_X_FORWARDED_FOR``, ``HTTP_CLIENT_IP``, ``HTTP_X_CLIENT_IP`` 또는 ``HTTP_X_CLUSTER_CLIENT_IP`` 주소를 반환합니다.
 
 	.. php:method:: isValidIP($ip[, $which = ''])
 
 		:param	string	$ip: IP address
 		:param	string	$which: IP protocol ('ipv4' or 'ipv6')
-		:returns:	true if the address is valid, false if not
+		:returns:	주소가 유효하면 true, 그렇지 않으면 false
 		:rtype:	bool
 
-		Takes an IP address as input and returns true or false (boolean) depending
-		on whether it is valid or not.
+		IP 주소를 입력으로 사용하고 유효한지 여부에 따라 true 또는 false(부울)를 리턴합니다.
 
-		.. note:: The $request->getIPAddress() method above automatically validates the IP address.
+		.. note:: 위의 $request->getIPAddress() 메소드는 IP 주소를 자동으로 검증합니다.
 
-                ::
+		::
 
 			if ( ! $request->isValidIP($ip))
 			{
@@ -53,39 +47,39 @@ Class Reference
                             echo 'Valid';
 			}
 
-		Accepts an optional second string parameter of 'ipv4' or 'ipv6' to specify
-		an IP format. The default checks for both formats.
+		IP 형식을 지정하기 위해 'ipv4' 또는 'ipv6'의 선택적 두 번째 매개 변수를 사용합니다. 지정하지 않으면 두 형식을 모두 확인합니다.
 
 	.. php:method:: getMethod([$upper = FALSE])
 
-		:param	bool	$upper: Whether to return the request method name in upper or lower case
-		:returns:	HTTP request method
+		:param	bool	$upper: 요청 메소드 이름을 대문자 또는 소문자로 반환할지 여부
+		:returns:	HTTP 요청 방법
 		:rtype:	string
 
-		Returns the ``$_SERVER['REQUEST_METHOD']``, with the option to set it
-		in uppercase or lowercase.
+		설정 옵션에 따라 대문자 또는 소문자로 ``$_SERVER['REQUEST_METHOD']``\ 를 반환합니다.
+
 		::
 
 			echo $request->getMethod(TRUE); // Outputs: POST
 			echo $request->getMethod(FALSE); // Outputs: post
 			echo $request->getMethod(); // Outputs: post
 
-	.. php:method:: getServer([$index = null[, $filter = null[, $flags = null]]])
-                :noindex:
+	.. php:method:: getServer([$index = null[, $filter = null[, $flags = null]]]) 
+		:noindex:
 
-		:param	mixed	$index: Value name
-		:param  int     $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`__.
-		:param  int     $flags: Flags to apply. A list of flags can be found `here <http://php.net/manual/en/filter.filters.flags.php>`__.
-		:returns:	$_SERVER item value if found, NULL if not
+		:param	mixed	$index: 값 이름
+		:param  int     $filter: 적용할 필터 유형, 필터 목록은 `여기 <http://php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
+		:param  int     $flags: 적용 할 플래그, 플래그 목록은 `여기 <http://php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
+		:returns:	발견되면 $_SERVER 항목 값, 그렇지 않으면 NULL
 		:rtype:	mixed
 
-		This method is identical to the ``post()``, ``get()`` and ``cookie()`` methods from the
-		:doc:`IncomingRequest Class </incoming/incomingrequest>`, only it fetches getServer data (``$_SERVER``)::
+		이 메소드는 :doc:`IncomingRequest Class </incoming/incomingrequest>`\ 의 ``post()``, ``get()`` 및 ``cookie()`` 메소드와 동일하며 getServer 데이터(``$_SERVER``)만 가져옵니다.
+		
+		::
 
 			$request->getServer('some_data');
 
-		To return an array of multiple ``$_SERVER`` values, pass all the required keys
-		as an array.
+		``$_SERVER``\ 의 여러개의 값을 배열을 받고싶다면, 필요한 모든 키를 배열로 전달하십시오.
+		
 		::
 
 			$require->getServer(['SERVER_PROTOCOL', 'REQUEST_URI']);
