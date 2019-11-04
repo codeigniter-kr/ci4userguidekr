@@ -1,24 +1,24 @@
 ====================
-HTTP Method Spoofing
+HTTP 메소드 스푸핑
 ====================
 
-When working with HTML forms you can only use GET or POST HTTP verbs. In most cases, this is just fine. However, to
-support REST-ful routing you need to support other, more correct, verbs, like DELETE or PUT. Since the browsers
-don't support this, CodeIgniter provides you with a way to spoof the method that is being used. This allows you to
-make a POST request, but tell the application that it should be treated as a different request type.
+HTML 양식으로 작업 할 때는 ``GET`` 또는 ``POST`` HTTP 동사만 사용할 수 있습니다. 대부분의 경우 이것은 별 문제가 없습니다.
+그러나 REST-ful 라우팅을 지원하려면 ``DELETE`` 또는 ``PUT``\ 과 같은 보다 정확하고 다른 동사를 지원해야합니다. 
+브라우저는 이를 지원하지 않기 때문에 CodeIgniter는 사용하고자 하는 메소드를 스푸핑하는 방법을 제공합니다.
+이를 통해 POST 요청이지만 다른 요청 유형으로 처리해야 한다고 응용 프로그램에 알려주십시오.
 
-To spoof the method, a hidden input is added to the form with the name of ``_method``. It's value is the HTTP verb
-that you want the request to be::
+메소드를 스푸핑하기 위해 숨겨진 입력(hidden input)이 ``_method``\ 라는 이름으로 폼(form)에 추가됩니다.
+값은 요청하려는 HTTP 동사입니다.
+
+::
 
     <form action="" method="post">
         <input type="hidden" name="_method" value="PUT" />
 
     </form>
 
-This form is converted into a PUT request and is a true PUT request as far as the routing and the IncomingRequest
-class are concerned.
+이 폼은 PUT 요청으로 변환되며 라우팅 및 IncomingRequest 클래스에서 실제 PUT 요청으로 처리합니다.
 
-The form that you are using must be a POST request. GET requests cannot be spoofed.
+사용중인 양식은 POST 요청이어야 합니다. GET 요청은 스푸핑될 수 없습니다.
 
-.. note:: Be sure to check your web server's configuration as some servers do not support all HTTP verbs
-    with the default configuration, and must have additional packages enabled to work.
+.. note:: 일부 서버는 추가 패키지를 설정하지 않으면 모든 HTTP 동사를 지원하지 않습니다. 웹 서버 구성을 확인하십시오.

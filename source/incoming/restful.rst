@@ -1,34 +1,26 @@
-RESTful Resource Handling
+RESTful 리소스 처리
 #######################################################
 
 .. contents::
     :local:
     :depth: 2
 
-Representational State Transfer (REST) is an architectural style for
-distributed applications, first described by Roy Fielding in his
-2000 PhD dissertation, `Architectural Styles and
-the Design of Network-based Software Architectures 
-<https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm>`_.
-That might be a bit of a dry read, and you might find Martin Fowler's
-`Richardson Maturity Model <https://martinfowler.com/articles/richardsonMaturityModel.html>`_ 
-a gentler introduction.
+REST(Representational State Transfer)는 2000년 박사학위 논문, `Architectural Styles and the Design of Network-based Software Architectures <https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm>`_\ 에서 Roy Fielding에 의해 처음 설명된 분산 응용 프로그램을위한 아키텍쳐 스타일입니다.
+이 논문은 약간의 읽기 어려울 수 있으며, Martin Fowler의 `Richardson Maturity Model <https://martinfowler.com/articles/richardsonMaturityModel.html>`_\ 이 더 부드럽게 이를 소개합니다.
 
-REST has been interpreted, and mis-interpreted, in more ways than most
-software architectures, and it might be easier to say that the more
-of Roy Fielding's principles that you embrace in an architecture, the
-most "RESTful" your application would be considered.
+REST는 대부분의 소프트웨어 아키텍처보다 더 많은 방식으로 해석되고 잘못 해석되었으며, 여러분이 아키텍처에서 채택하는 Roy Fielding의 원칙 중 가장 "RESTful"이 고려된다고 말하는 것이 더 쉬울 수도 있습니다.
 
-CodeIgniter makes it easy to create RESTful APIs for your resources,
-with its resource routes and `ResourceController`.
+CodeIgniter를 사용하면 리소스 경로(Resource route)와 `ResourceController`\ 를 사용하여 리소스에 대한 RESTful API를 쉽게 만들 수 있습니다.
 
-Resource Routes
+리소스 경로(Resource route)
 ============================================================
 
-You can quickly create a handful of RESTful routes for a single resource with the ``resource()`` method. This
-creates the five most common routes needed for full CRUD of a resource: create a new resource, update an existing one,
-list all of that resource, show a single resource, and delete a single resource. The first parameter is the resource
-name::
+``resource()`` 메소드를 사용하여 단일 리소스에 대한 RESTful 경로를 빠르게 만들 수 있습니다.
+이렇게하면 리소스의 전체 CRUD에 필요한 5가지 가장 일반적인 경로가 만들어집니다. 
+새 리소스를 만들고, 기존 리소스를 업데이트하고, 해당 리소스를 모두 나열하고, 단일 리소스를 표시하고, 단일 리소스를 삭제합니다.
+첫 번째 매개 변수는 리소스명입니다
+
+::
 
     $routes->resource('photos');
 
@@ -42,11 +34,12 @@ name::
     $routes->patch('photos/(:segment)',    'Photos::update/$1');
     $routes->put('photos/(:segment)',      'Photos::update/$1');
 
-.. important:: The routes are matched in the order they are specified, so if you have a resource photos above a get 'photos/poll' the show action's route for the resource line will be matched before the get line. To fix this, move the get line above the resource line so that it is matched first.
+.. important:: 경로는 지정된 순서대로 일치하므로 get 'photos/poll' 위에 리소스(resource) photos가 있으면 리소스 라인에 대한 작업의 경로가 get 라인보다 우선하게 됩니다. 이 문제를 해결하려면 get 줄을 리소스 위로 이동하여 우선 하도록 하십시오.
 
-The second parameter accepts an array of options that can be used to modify the routes that are generated. While these
-routes are geared toward API-usage, where more methods are allowed, you can pass in the 'websafe' option to have it
-generate update and delete methods that work with HTML forms::
+두 번째 매개 변수는 생성된 경로를 수정하는데 사용할 수 있는 옵션 배열입니다. 
+이 경로는 더 많은 메소드가 허용되는 API 사용을 목표로하고 있지만 'websafe' 옵션을 전달하여 HTML 폼에서 작동하는 업데이트 및 삭제 메소드를 생성할 수 있습니다.
+
+::
 
     $routes->resource('photos', ['websafe' => 1]);
 
@@ -54,50 +47,58 @@ generate update and delete methods that work with HTML forms::
     $routes->post('photos/(:segment)/delete', 'Photos::delete/$1');
     $routes->post('photos/(:segment)',        'Photos::update/$1');
 
-Change the Controller Used
+사용된 컨트롤러 변경
 --------------------------
 
-You can specify the controller that should be used by passing in the ``controller`` option with the name of
-the controller that should be used::
+컨트롤러 이름과 함께 ``controller`` 옵션을 전달하여 사용해야 하는 컨트롤러를 지정할 수 있습니다.
+
+::
 
 	$routes->resource('photos', ['controller' =>'App\Gallery']);
 
 	// Would create routes like:
 	$routes->get('photos', 'App\Gallery::index');
 
-Change the Placeholder Used
----------------------------
+사용된 자리 표시자(Placeholder) 변경
+----------------------------------------
 
-By default, the ``segment`` placeholder is used when a resource ID is needed. You can change this by passing
-in the ``placeholder`` option with the new string to use::
+기본적으로 ``segment`` 자리 표시자는 리소스 ID가 필요할 때 사용됩니다.
+``placeholder`` 옵션과 함께 문자열을 전달하여 이를 변경할 수 있습니다.
+
+::
 
 	$routes->resource('photos', ['placeholder' => '(:id)']);
 
 	// Generates routes like:
 	$routes->get('photos/(:id)', 'Photos::show/$1');
 
-Limit the Routes Made
+생성 경로 제한
 ---------------------
 
-You can restrict the routes generated with the ``only`` option. This should be an array or comma separated list of method names that should
-be created. Only routes that match one of these methods will be created. The rest will be ignored::
+``only`` 옵션으로 생성된 경로를 제한할 수 있습니다.
+이것은 배열 또는 쉼표로 구분된 메소드 이름 목록이어야 합니다.
+이 메소드들 중 하나와 일치하는 경로만 생성되고 나머지는 무시됩니다.
+
+::
 
 	$routes->resource('photos', ['only' => ['index', 'show']]);
 
-Otherwise you can remove unused routes with the ``except`` option. This option run after ``only``::
+``except`` 옵션을 사용하여 사용하지 않는 경로를 제거할 수도 있습니다. 이 옵션은 ``only`` 이후에 실행됩니다
+
+::
 
 	$routes->resource('photos', ['except' => 'new,edit']);
 
-Valid methods are: index, show, create, update, new, edit and delete.
+유효한 메소드: index, show, create, update, new, edit, delete.
 
 ResourceController
 ============================================================
 
-The `ResourceController` provides a convenient starting point for your RESTful API,
-with methods that correspond to the resource routes above.
+"ResourceController"는 위의 리소스 경로에 해당하는 RESTful API에 편리한 시작점을 제공합니다.
 
-Extend it, over-riding the `modelName` and `format` properties, and then
-implement those methods that you want handled.::
+`modelName` 과 `format` 특성을 재정의하여 확장한 다음 처리하려는 메소드를 구현하십시오.
+
+::
 
 	<?php namespace App\Controllers;
 
@@ -119,21 +120,22 @@ implement those methods that you want handled.::
                 // ...
 	}
 
-The routing for this would be::
+이것에 대한 라우팅은
+
+::
 
     $routes->resource('photos');
 
-Presenter Routes
+프리젠터(presenter) 경로
 ============================================================
 
-You can quickly create a presentation controller which aligns
-with a resource controller, using the ``presenter()`` method. This
-creates routes for the controller methods that would return views
-for your resource, or process forms submitted from those views.
+``presenter()`` 메서드를 사용하여 리소스 컨트롤러에 맞는 프리젠테이션 컨트롤러를 빠르게 만들 수 있습니다.
+이렇게하면 리소스에 대한 뷰를 반환하거나 해당 뷰에서 제출된 프로세스 양식을 반환하는 컨트롤러 메서드에 대한 경로가 생성됩니다.
 
-It is not needed, since the presentation can be handled with
-a conventional controller - it is a convenience.
-Its usage is similar to the resosurce routing::
+프레젠테이션은 기존 컨트롤러로 처리할 수 있으므로 필요하지 않습니다.
+사용법은 resosurce 라우팅과 유사합니다.
+
+::
 
     $routes->presenter('photos');
 
@@ -149,64 +151,72 @@ Its usage is similar to the resosurce routing::
     $routes->post('photos/delete/(:segment)',      'Photos::update/$1');
     $routes->get('photos/(:segment)',      'Photos::show/$1');  // alias
  
-You would not have routes for `photos` for both a resource and a presenter
-controller. You need to distinguish them, for instance::
+리소스와 프리젠터 컨트롤러 대해 'photos'\ 에 대한 경로는 없습니다.
+사례를 들어 구별해야합니다.
+
+::
 
     $routes->resource('api/photo');
     $routes->presenter('admin/photos');
 
 
-The second parameter accepts an array of options that can be used to modify the routes that are generated. 
+두 번째 매개 변수는 생성된 경로를 수정하는데 사용할 수 있는 옵션 배열입니다.
 
-Change the Controller Used
+사용된 컨트롤러 변경
 --------------------------
 
-You can specify the controller that should be used by passing in the ``controller`` option with the name of
-the controller that should be used::
+사용할 컨트롤러 이름과 함께 ``controller`` 옵션을 전달하여 사용할 컨트롤러를 지정할 수 있습니다.
+
+::
 
 	$routes->presenter('photos', ['controller' =>'App\Gallery']);
 
 	// Would create routes like:
 	$routes->get('photos', 'App\Gallery::index');
 
-Change the Placeholder Used
+사용된 자리 표시자 변경
 ---------------------------
 
-By default, the ``segment`` placeholder is used when a resource ID is needed. You can change this by passing
-in the ``placeholder`` option with the new string to use::
+기본적으로 ``segment`` 자리 표시자는 리소스 ID가 필요할 때 사용됩니다. 사용할 새 문자열과 함께 ``placeholder`` 옵션을 전달하면 이 항목을 변경할 수 있습니다.
+
+::
 
 	$routes->presenter('photos', ['placeholder' => '(:id)']);
 
 	// Generates routes like:
 	$routes->get('photos/(:id)', 'Photos::show/$1');
 
-Limit the Routes Made
----------------------
+경로(Route) 제한
+--------------------------
 
-You can restrict the routes generated with the ``only`` option. This should be an array or comma separated list of method names that should
-be created. Only routes that match one of these methods will be created. The rest will be ignored::
+``only`` 옵션에 배열 또는 쉼표로 구분 된 메소드 이름 목록을 전달하여 생성된 경로를 제한 할 수 있습니다.
+메소드 중 일치하는 경로만 접근할 수 있으며, 나머지는 무시됩니다.
+
+::
 
 	$routes->presenter('photos', ['only' => ['index', 'show']]);
 
-Otherwise you can remove unused routes with the ``except`` option. This option run after ``only``::
+``except`` 옵션을 사용하여 사용하지 않는 경로를 제거할 수 있습니다.
+이 옵션은 ``only`` 이 후에 실행됩니다.
+
+::
 
 	$routes->presenter('photos', ['except' => 'new,edit']);
 
-Valid methods are: index, show, new, create, edit, update, remove and delete.
+유효한 메소드: index, show, new, create, edit, update, remove and delete.
 
 ResourcePresenter
 ============================================================
 
-The `ResourcePresenter` provides a convenient starting point for presenting views
-of your resource, and processing data from forms in those views,
-with methods that align to the resource routes above.
+`ResourcePresenter`\ 는 리소스의 뷰를 제공하고 위의 리소스 경로에 맞는 방법으로 해당 뷰의 폼에서 데이터를 처리하기 위한 편리한 시작점을 제공합니다.
 
-Extend it, over-riding the `modelName` property, and then
-implement those methods that you want handled.::
+`modelName` 속성을 재정의하여 확장한 다음 처리하려는 메소드를 구현하십시오.
+
+::
 
 	<?php namespace App\Controllers;
 
-        use CodeIgniter\RESTful\ResourcePresenter;
+    use CodeIgniter\RESTful\ResourcePresenter;
 
 	class Photos extends ResourcePresenter
         {
@@ -224,6 +234,8 @@ implement those methods that you want handled.::
                 // ...
 	}
 
-The routing for this would be::
+이것에 대한 경로는
+
+::
 
     $routes->presenter('photos');

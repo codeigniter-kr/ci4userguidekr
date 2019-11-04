@@ -1,9 +1,8 @@
 IncomingRequest Class
 *********************
 
-The IncomingRequest class provides an object-oriented representation of an HTTP request from a client, like a browser.
-It extends from, and has access to all the methods of the :doc:`Request </incoming/request>` and :doc:`Message </incoming/message>`
-classes, in addition to the methods listed below.
+IncomingRequest 클래스는 브라우저와 같은 클라이언트의 HTTP 요청(request)에 대한 객체 지향 표현을 제공합니다.
+아래 나열된 메소드 외에도 :doc:`요청(Request) </incoming/request>` 및 :doc:`메시지(Message) </incoming/message>` 클래스의 모든 메소드에 액세스 할 수 있습니다.
 
 .. contents::
     :local:
@@ -12,12 +11,13 @@ classes, in addition to the methods listed below.
 Accessing the Request
 ----------------------------------------------------------------------------
 
-An instance of the request class already populated for you if the current class is a descendant of
-``CodeIgniter\Controller`` and can be accessed as a class property::
+클래스가 ``CodeIgniter\Controller``\ 를 상속 받았다면 클래스의 request 속성을 통해 요청(request) 클래스 인스턴스에 엑세스할 수 있습니다.
 
-        <?php namespace App\Controllers;
+::
 
-        user CodeIgniter\Controller;
+	<?php namespace App\Controllers;
+
+	user CodeIgniter\Controller;
 
 	class UserController extends Controller
 	{
@@ -30,16 +30,18 @@ An instance of the request class already populated for you if the current class 
 		}
 	}
 
-If you are not within a controller, but still need access to the application's Request object, you can
-get a copy of it through the :doc:`Services class </concepts/services>`::
+컨트롤러가 아닌 곳에서 요청(Request) 객체에 액세스해야 하는 경우 :doc:`서비스(Services) class </concepts/services>`\ 를 통해 사본을 얻을 수 있습니다.
+
+::
 
 	$request = \Config\Services::request();
 
-It's preferable, though, to pass the request in as a dependency if the class is anything other than
-the controller, where you can save it as a class property::
+컨트롤러 이외의 클래스에서 클래스 속성으로 엑세스하고 싶다면 요청(Request)을 종속성으로 전달하는 것이 좋습니다.
+
+::
 
 	<?php 
-        use CodeIgniter\HTTP\RequestInterface;
+	use CodeIgniter\HTTP\RequestInterface;
 
 	class SomeClass
 	{
@@ -53,11 +55,12 @@ the controller, where you can save it as a class property::
 
 	$someClass = new SomeClass(\Config\Services::request());
 
-Determining Request Type
+요청 유형 결정
 ----------------------------------------------------------------------------
 
-A request could be of several types, including an AJAX request or a request from the command line. This can
-be checked with the ``isAJAX()`` and ``isCLI()`` methods::
+요청은 AJAX 요청 또는 명령 행에서의 요청등 여러 유형을 포함할 수 있으며, ``isAJAX()``\ 와 ``isCLI()`` 메소드로 확인할 수 있습니다
+
+::
 
 	// Check for AJAX request.
 	if ($request->isAJAX())
@@ -71,78 +74,91 @@ be checked with the ``isAJAX()`` and ``isCLI()`` methods::
 		. . .
 	}
 
-You can check the HTTP method that this request represents with the ``method()`` method::
+``getMethod()`` 메소드를 이용하여 요청중인 HTTP 메소드를 확인할 수 있습니다.
+
+::
 
 	// Returns 'post'
 	$method = $request->getMethod();
 
-By default, the method is returned as a lower-case string (i.e. 'get', 'post', etc). You can get an
-uppercase version by passing in ``true`` as the only parameter::
+이 메소드는 기본적으로 소문자(예 : 'get', 'post', 등)로 값을 반환합니다.
+매개 변수로 ``true``\ 를 전달하여 대문자로 값을 얻을 수 있습니다
+
+::
 
 	// Returns 'GET'
 	$method = $request->getMethod(true);
 
-You can also check if the request was made through and HTTPS connection with the ``isSecure()`` method::
+``isSecure()`` 메서드를 이용하여 HTTPS 연결을 통해 요청이 이루어 졌는지 확인할 수 있습니다.
+
+::
 
 	if (! $request->isSecure())
 	{
 		force_https();
 	}
 
-Retrieving Input
+입력 검색
 ----------------------------------------------------------------------------
 
-You can retrieve input from $_SERVER, $_GET, $_POST, $_ENV, and $_SESSION through the Request object.
-The data is not automatically filtered and returns the raw input data as passed in the request. The main
-advantages to using these methods instead of accessing them directly ($_POST['something']), is that they
-will return null if the item doesn't exist, and you can have the data filtered. This lets you conveniently
-use data without having to test whether an item exists first. In other words, normally you might do something
-like this::
+요청(Request) 객체를 통해 ``$_SERVER``, ``$_GET``, ``$_POST``, ``$_ENV``, ``$_SESSION``\ 에서 입력을 검색 할 수 있습니다.
+데이터는 자동으로 필터링되지 않으며 요청에 전달 된대로 입력 데이터를 리턴합니다.
+전역 변수($_POST['something'])를 직접 액세스하는 대신 이러한 메소드를 사용하는 것의 주된 장점은 항목이 존재하지 않으면 null을 리턴하고 데이터를 필터링할 수 있다는 것입니다.
+다음과 같이 항목이 먼저 존재하는지 테스트하지 않고도 편리하게 데이터를 사용할 수 있습니다.
+
+::
 
 	$something = isset($_POST['foo']) ? $_POST['foo'] : NULL;
 
-With CodeIgniter’s built in methods you can simply do this::
+CodeIgniter의 내장 메소드를 사용하면 간단히 수행 할 수 있습니다.
+
+::
 
 	$something = $request->getVar('foo');
 
-The ``getVar()`` method will pull from $_REQUEST, so will return any data from $_GET, $POST, or $_COOKIE. While this
-is convenient, you will often need to use a more specific method, like:
+``getVar()`` 메소드는 ``$_REQUEST``\ 에서 데이터를 가져 오므로 ``$_GET``, ``$POST``, ``$_COOKIE``\ 의 모든 데이터를 반환합니다.
+이 방법이 편리하지만, 더욱 구체적인 방법을 사용해야 할 수도 있습니다:
 
 * ``$request->getGet()``
 * ``$request->getPost()``
 * ``$request->getServer()``
 * ``$request->getCookie()``
 
-In addition, there are a few utility methods for retrieving information from either $_GET or $_POST, while
-maintaining the ability to control the order you look for it:
+또한 ``$_GET`` 또는 ``$_POST`` 모두에서 정보를 검색하지만, 가져오는 순서를 제어하는 기능도 제공합니다.
 
 * ``$request->getPostGet()`` - checks $_POST first, then $_GET
 * ``$request->getGetPost()`` - checks $_GET first, then $_POST
 
-**Getting JSON data**
+**JSON 데이터 가져오기**
 
-You can grab the contents of php://input as a JSON stream with ``getJSON()``.
+``getJSON()``\ 을 사용하여 ``php://input``\ 의 내용을 JSON으로 가져올 수 있습니다.
 
-.. note::  This has no way of checking if the incoming data is valid JSON or not, you should only use this
-    method if you know that you're expecting JSON.
+.. note::  들어오는 데이터가 유효한 JSON인지 여부를 확인할 수있는 방법이 없으므로, JSON인 경우에만 이 메소드를 사용해야 합니다.
 
 ::
 
 	$json = $request->getJSON();
 
-By default, this will return any objects in the JSON data as objects. If you want that converted to associative
-arrays, pass in ``true`` as the first parameter.
+기본적으로 JSON 데이터의 모든 객체는 PHP 객체로 반환합니다.
+연관 배열로 변환하려면 첫 번째 매개 변수로 ``true``\ 를 전달하십시오.
 
-The second and third parameters match up to the ``depth`` and ``options`` arguments of the
-`json_decode <http://php.net/manual/en/function.json-decode.php>`_ PHP function.
+::
 
-**Retrieving Raw data (PUT, PATCH, DELETE)**
+	$json = $request->getJSON(true);
 
-Finally, you can grab the contents of php://input as a raw stream with ``getRawInput()``::
+두 번째와 세 번째 매개 변수는 PHP 함수 `json_decode <http://php.net/manual/en/function.json-decode.php>`_\ 의 ``depth``, ``options`` 매개 변수와 일치합니다.
+
+**원시(raw) 데이터 검색 (PUT, PATCH, DELETE)**
+
+마지막으로 ``getRawInput()``\ 을 사용하여 ``php://input``\ 의 내용을 원시(raw) 스트림으로 가져올 수 있습니다
+
+::
 
 	$data = $request->getRawInput();
 
-This will retrieve data and convert it to an array. Like this::
+다음처럼 데이터를 검색하여 배열로 변환합니다.
+
+::
 
 	var_dump($request->getRawInput());
 
@@ -151,26 +167,28 @@ This will retrieve data and convert it to an array. Like this::
 		'Param2' => 'Value2'
 	]
 
-**Filtering Input Data**
+**입력 데이터 필터링**
 
-To maintain security of your application, you will want to filter all input as you access it. You can
-pass the type of filter to use as the last parameter of any of these methods. The native ``filter_var()``
-function is used for the filtering. Head over to the PHP manual for a list of `valid
-filter types <http://php.net/manual/en/filter.filters.php>`_.
+응용 프로그램의 보안을 유지하려면 액세스하는 모든 입력을 필터링해야 합니다.
+위에 설명된 메소드들의 마지막 매개 변수로 사용할 필터 유형을 전달할 수 있습니다.
+``filter_var()``\ 네이티브(native) 함수가 필터링에 사용됩니다.
+`유효한 필터 유형 <http://php.net/manual/en/filter.filters.php>`_ 목록을 보려면 PHP 매뉴얼로 이동하십시오.
 
-Filtering a POST variable would look like this::
+POST 변수를 필터링하면 다음과 같습니다
+
+::
 
 	$email = $request->getVar('email', FILTER_SANITIZE_EMAIL);
 
-All of the methods mentioned above support the filter type passed in as the last parameter, with the
-exception of ``getJSON()``.
+.. important:: 마지막 매개 변수로 전달된 필터 유형 지원은 위에서 언급한 모든 메소드중 ``getJSON()``\ 을 제외 합니다.
 
-Retrieving Headers
+헤더 검색
 ----------------------------------------------------------------------------
 
-You can get access to any header that was sent with the request with the ``getHeaders()`` method, which returns
-an array of all headers, with the key as the name of the header, and the value is an instance of
-``CodeIgniter\HTTP\Header``::
+``getHeaders()`` 메서드로 요청과 함께 전송된 모든 헤더에 액세스 할 수 있습니다.
+이 메소드는 키를 헤더 이름으로 사용하여 모든 헤더의 배열을 ``CodeIgniter\HTTP\Header``\ 로 반환합니다.
+
+::
 
 	var_dump($request->getHeaders());
 
@@ -180,39 +198,51 @@ an array of all headers, with the key as the name of the header, and the value i
 		'Accept'        => CodeIgniter\HTTP\Header,
 	]
 
-If you only need a single header, you can pass the name into the ``getHeader()`` method. This will grab the
-specified header object in a case-insensitive manner if it exists. If not, then it will return ``null``::
+단일 헤더만 필요한 경우 ``getHeader()`` 메서드를 사용합니다.
+지정된 헤더 객체가 존재하는 경우 대소문자를 구분하지 않는 방식으로 가져오고, 그렇지 않으면 ``null``\ 을 반환합니다.
+
+::
 
 	// these are all equivalent
 	$host = $request->getHeader('host');
 	$host = $request->getHeader('Host');
 	$host = $request->getHeader('HOST');
 
-You can always use ``hasHeader()`` to see if the header existed in this request::
+``hasHeader()``\ 를 사용하여 헤더가 있는지 확인할 수 있습니다.
+
+::
 
 	if ($request->hasHeader('DNT'))
 	{
 		// Don't track something...
 	}
 
-If you need the value of header as a string with all values on one line, you can use the ``getHeaderLine()`` method::
+헤더의 모든 값을 가진 문자열이 필요하다면 ``getHeaderLine()`` 메소드를 사용합니다.
+
+::
 
     // Accept-Encoding: gzip, deflate, sdch
     echo 'Accept-Encoding: '.$request->getHeaderLine('accept-encoding');
 
-If you need the entire header, with the name and values in a single string, simply cast the header as a string::
+이름과 값을 가진 전체 헤더 문자열이 필요하면 헤더를 문자열로 캐스트(cast)합니다.
+
+::
 
 	echo (string)$header;
 
-The Request URL
+요청 URL
 ----------------------------------------------------------------------------
 
-You can retrieve a :doc:`URI </libraries/uri>` object that represents the current URI for this request through the
-``$request->uri`` property. You can cast this object as a string to get a full URL for the current request::
+``$request->uri`` 속성을 통해 요청에 대한 현재 URI를 나타내는 :doc:`URI </libraries/uri>` 객체를 검색할 수 있습니다.
+이 객체를 문자열로 캐스트하여 현재 요청에 대한 전체 URL을 얻을 수 있습니다.
+
+::
 
 	$uri = (string)$request->uri;
 
-The object gives you full abilities to grab any part of the request on it's own::
+이 개체는 요청의 일부를 얻을 수 있는 모든 기능을 제공합니다.
+
+::
 
 	$uri = $request->uri;
 
@@ -227,12 +257,12 @@ The object gives you full abilities to grab any part of the request on it's own:
 	echo $uri->getSegment(1);       // 'path'
 	echo $uri->getTotalSegments();  // 3
 
-Uploaded Files
+업로드(Upload) 파일
 ----------------------------------------------------------------------------
 
-Information about all uploaded files can be retrieved through ``$request->getFiles()``, which returns a
-:doc:`FileCollection </libraries/uploaded_files>` instance. This helps to ease the pain of working with uploaded files,
-and uses best practices to minimize any security risks.
+업로드된 모든 파일에 대한 정보는 ``$request->getFiles()``\ 를 통해 얻을 수 있으며, :doc:`FileCollection </libraries/uploaded_files>` 인스턴스를 반환합니다.
+이를 통하여 파일 업로드 작업이 쉬워지고 보안 위험을 최소화할 수 있습니다.
+
 ::
 
 	$files = $request->getFiles();
@@ -253,19 +283,24 @@ and uses best practices to minimize any security risks.
 		echo $file->getType();          // image/jpg
 	}
 
-You can retrieve a single file uploaded on its own, based on the filename given in the HTML file input::
+HTML 파일 입력에 지정된 파일 이름을 기반으로 업로드한 파일을 얻을 수 있습니다.
+
+::
 
 	$file = $request->getFile('uploadedfile');
 
-You can retrieve an array of same-named files uploaded as part of a 
-multi-file upload, based on the filename given in the HTML file input::
+HTML 파일 입력에 제공된 파일 이름을 기반으로 동일한 이름으로 업로드된 다중 파일 배열 얻을 수 있습니다.
+
+::
 
 	$files = $request->getFileMultiple('uploadedfile');
 
-Content Negotiation
+컨텐츠 협상
 ----------------------------------------------------------------------------
 
-You can easily negotiate content types with the request through the ``negotiate()`` method::
+``negotiate()`` 메소드를 통해 요청된 컨텐츠 유형을 쉽게 협상할 수 있습니다.
+
+::
 
 	$language    = $request->negotiate('language', ['en-US', 'en-GB', 'fr', 'es-mx']);
 	$imageType   = $request->negotiate('media', ['image/png', 'image/jpg']);
@@ -273,15 +308,14 @@ You can easily negotiate content types with the request through the ``negotiate(
 	$contentType = $request->negotiate('media', ['text/html', 'text/xml']);
 	$encoding    = $request->negotiate('encoding', ['gzip', 'compress']);
 
-See the :doc:`Content Negotiation </incoming/content_negotiation>` page for more details.
+자세한 내용은 :doc:`콘텐츠 협상 </incoming/content_negotiation>` 페이지를 참조하십시오.
 
 Class Reference
 ===========================================================================
 
-.. note:: In addition to the methods listed here, this class inherits the methods from the
-	:doc:`Request Class </incoming/request>` and the :doc:`Message Class </incoming/message>`.
+.. note:: 여기에 나열된 메소드 외에도 이 클래스는 :doc:`요청(Request) Class </incoming/request>`\ 와 :doc:`메시지(Message) Class </incoming/message>` 클래스의 메소드를 상속합니다.
 
-The methods provided by the parent classes that are available are:
+사용 가능한 부모(Parent) 클래스가 제공하는 메소드는 다음과 같습니다.:
 
 * :meth:`CodeIgniter\\HTTP\\Request::getIPAddress`
 * :meth:`CodeIgniter\\HTTP\\Request::validIP`
@@ -308,151 +342,164 @@ The methods provided by the parent classes that are available are:
 
 	.. php:method:: isCLI()
 
-		:returns: True if the request was initiated from the command line, otherwise false.
+		:returns: 명령 줄 요청 ``true``, 그렇지 않으면 ``false``
 		:rtype: bool
 
 	.. php:method:: isAJAX()
 
-		:returns: True if the request is an AJAX request, otherwise false.
+		:returns: AJAX 요청 ``true``, 그렇지 않으면 ``false``
 		:rtype: bool
 
 	.. php:method:: isSecure()
 
-		:returns: True if the request is an HTTPS request, otherwise false.
+		:returns: HTTPS 요청 ``true``, 그렇지 않으면 ``false``
 		:rtype: bool
 
 	.. php:method:: getVar([$index = null[, $filter = null[, $flags = null]]])
 
-		:param  string  $index: The name of the variable/key to look for.
-		:param  int     $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`__.
-		:param  int     $flags: Flags to apply. A list of flags can be found `here <http://php.net/manual/en/filter.filters.flags.php>`__.
-		:returns:   $_REQUEST if no parameters supplied, otherwise the REQUEST value if found, or null if not
+		:param  string  $index: 찾을 변수/키의 이름
+		:param  int     $filter: 적용할 필터 유형, 필터 목록은 `여기 <http://php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
+		:param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <http://php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
+		:returns:   제공된 매개 변수가 없는 경우 ``$_REQUEST``, 있으면 검색된 REQUEST 값 또는 ``null``
 		:rtype: mixed|null
 
-		The first parameter will contain the name of the REQUEST item you are looking for::
+		첫 번째 매개 변수에는 찾고자하는 REQUEST 항목의 이름입니다
+		
+		::
 
 			$request->getVar('some_data');
 
-		The method returns null if the item you are attempting to retrieve
-		does not exist.
+		검색하려는 항목이 존재하지 않으면 이 메소드는 널(null)을 리턴합니다.
 
-		The second optional parameter lets you run the data through the PHP's
-		filters. Pass in the desired filter type as the second parameter::
+		두 번째 선택적 매개 변수를 사용하면 PHP 필터를 통해 데이터를 필터링할 수 있습니다.
+		원하는 필터 유형을 두 번째 매개 변수로 전달하십시오.
+		
+		::
 
 			$request->getVar('some_data', FILTER_SANITIZE_STRING);
 
-		To return an array of all POST items call without any parameters.
+		모든 REQUEST 항목의 배열을 반환하려면 매개 변수없이 호출하십시오.
 
-		To return all POST items and pass them through the filter, set the
-		first parameter to null while setting the second parameter to the filter
-		you want to use::
+		모든 REQUEST 항목을 반환하고 필터를 통해 전달하려면 첫 번째 매개 변수를 ``null``\ 로 설정하고 두 번째 매개 변수를 사용하려는 필터로 설정하십시오.
+		
+		::
 
 			$request->getVar(null, FILTER_SANITIZE_STRING); // returns all POST items with string sanitation
 
-		To return an array of multiple POST parameters, pass all the required keys as an array::
+		여러 REQUEST 매개 변수의 배열을 반환하려면 필요한 모든 키를 배열로 전달하십시오.
+		
+		::
 
 			$request->getVar(['field1', 'field2']);
 
-		Same rule applied here, to retrieve the parameters with filtering, set the second parameter to
-		the filter type to apply::
+		매개 변수의 배열을 반환할 때 필터링을 사용하고 싶다면, 두 번째 매개 변수에 적용할 필터 유형을 설정하십시오.
+		
+		::
 
 			$request->getVar(['field1', 'field2'], FILTER_SANITIZE_STRING);
 
 	.. php:method:: getGet([$index = null[, $filter = null[, $flags = null]]])
 
-		:param  string  $index: The name of the variable/key to look for.
-		:param  int  $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`__.
-		:param  int     $flags: Flags to apply. A list of flags can be found `here <http://php.net/manual/en/filter.filters.flags.php>`__.
-		:returns:   $_GET if no parameters supplied, otherwise the GET value if found, or null if not
+		:param  string  $index: 찾을 변수/키의 이름.
+		:param  int  $filter: 적용할 필터 유형, 필터 목록은 `여기 <http://php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
+		:param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <http://php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
+		:returns:   제공된 매개 변수가 없는 경우 ``$_GET``, 있으면 검색된 GET 값 또는 ``null``
 		:rtype: mixed|null
 
-		This method is identical to ``getVar()``, only it fetches GET data.
+		``getVar()``\ 와 동일하지만, GET 데이터만 가져옵니다.
 
 	.. php:method:: getPost([$index = null[, $filter = null[, $flags = null]]])
 
-		:param  string  $index: The name of the variable/key to look for.
-		:param  int  $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`__.
-		:param  int     $flags: Flags to apply. A list of flags can be found `here <http://php.net/manual/en/filter.filters.flags.php>`__.
-		:returns:   $_POST if no parameters supplied, otherwise the POST value if found, or null if not
+		:param  string  $index: 찾을 변수/키의 이름
+		:param  int  $filter: 적용할 필터 유형, 필터 목록은 `여기 <http://php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
+		:param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <http://php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
+		:returns:   제공된 매개 변수가 없는 경우 ``$_POST``, 있으면 검색된 POST 값 또는 ``null``
 		:rtype: mixed|null
 
-			This method is identical to ``getVar()``, only it fetches POST data.
+		``getVar()``\ 와 동일하지만, POST 데이터만 가져옵니다.
 
 	.. php:method:: getPostGet([$index = null[, $filter = null[, $flags = null]]])
 
-		:param  string  $index: The name of the variable/key to look for.
-		:param  int     $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`__.
-		:param  int     $flags: Flags to apply. A list of flags can be found `here <http://php.net/manual/en/filter.filters.flags.php>`__.
-		:returns:   $_POST if no parameters supplied, otherwise the POST value if found, or null if not
+		:param  string  $index: 찾을 변수/키의 이름
+		:param  int     $filter: 적용할 필터 유형, 필터 목록은 `여기 <http://php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
+		:param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <http://php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
+		:returns:   제공된 매개 변수가 없는 경우 ``$_POST``, 있으면 검색된 POST 값 또는 ``null``
 		:rtype: mixed|null
 
-		This method works pretty much the same way as ``getPost()`` and ``getGet()``, only combined.
-		It will search through both POST and GET streams for data, looking first in POST, and
-		then in GET::
+		이 방법은 ``getPost()``, ``getGet()``\ 와 거의 같은 방식으로 작용하며, 2개의 메소드를 결합한 것입니다.
+		POST에서 먼저 검색하여 발견되지 않으면 GET에서 검색합니다.
+		
+		::
 
 			$request->getPostGet('field1');
 
 	.. php:method:: getGetPost([$index = null[, $filter = null[, $flags = null]]])
 
-		:param  string  $index: The name of the variable/key to look for.
-		:param  int     $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`__.
-		:param  int     $flags: Flags to apply. A list of flags can be found `here <http://php.net/manual/en/filter.filters.flags.php>`__.
-		:returns:   $_POST if no parameters supplied, otherwise the POST value if found, or null if not
+		:param  string  $index: 찾을 변수/키의 이름
+		:param  int     $filter: 적용할 필터 유형, 필터 목록은 `여기 <http://php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
+		:param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <http://php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
+		:returns:   제공된 매개 변수가 없는 경우 ``$_POST``, 있으면 검색된 POST 값 또는 ``null``
 		:rtype: mixed|null
 
-		This method works pretty much the same way as ``getPost()`` and ``getGet()``, only combined.
-		It will search through both POST and GET streams for data, looking first in GET, and
-		then in POST::
+		이 방법은 ``getPost()``, ``getGet()``\ 와 거의 같은 방식으로 작용하며, 2개의 메소드를 결합한 것입니다.
+		GET에서 먼저 검색하여 발견되지 않으면 POST에서 검색합니다.
+		
+		::
 
 			$request->getGetPost('field1');
 
 	.. php:method:: getCookie([$index = null[, $filter = null[, $flags = null]]])
 
                 :noindex:
-		:param	mixed	$index: COOKIE name
-		:param  int     $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`__.
-		:param  int     $flags: Flags to apply. A list of flags can be found `here <http://php.net/manual/en/filter.filters.flags.php>`__.
-		:returns:	$_COOKIE if no parameters supplied, otherwise the COOKIE value if found or null if not
+		:param	mixed	$index: COOKIE명
+		:param  int     $filter: 적용할 필터 유형, 필터 목록은 `여기 <http://php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
+		:param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <http://php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
+		:returns:	제공된 매개 변수가 없는 경우 ``$_COOKIE``, 있으면 검색된 COOKIE 값 또는 ``null``
 		:rtype:	mixed
 
-		This method is identical to ``getPost()`` and ``getGet()``, only it fetches cookie data::
+		``getPost()`` 와 ``getGet()``\ 과 동일하지만 값을 쿠키(cookie)에서 가져옵니다.
+		
+		::
 
 			$request->getCookie('some_cookie');
 			$request->getCookie('some_cookie', FILTER_SANITIZE_STRING); // with filter
 
-		To return an array of multiple cookie values, pass all the required keys as an array::
+		여러 쿠키 값의 배열을 반환하려면 필요한 모든 키를 배열로 전달하십시오.
+		
+		::
 
 			$request->getCookie(['some_cookie', 'some_cookie2']);
 
-		.. note:: Unlike the :doc:`Cookie Helper <../helpers/cookie_helper>`
-			function :php:func:`get_cookie()`, this method does NOT prepend
-			your configured ``$config['cookie_prefix']`` value.
+		.. note::  :doc:`Cookie Helper <../helpers/cookie_helper>` 함수 :php:func:`get_cookie()`\ 와 달리 이 메소드는 ``$config['cookie_prefix']``\ 의 값이 앞에 추가되지 않습니다.
 
 	.. php:method:: getServer([$index = null[, $filter = null[, $flags = null]]])
 
 		:param	mixed	$index: Value name
-		:param  int     $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`__.
-		:param  int     $flags: Flags to apply. A list of flags can be found `here <http://php.net/manual/en/filter.filters.flags.php>`__.
-		:returns:	$_SERVER item value if found, NULL if not
+		:param  int     $filter: 적용할 필터 유형, 필터 목록은 `여기 <http://php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
+		:param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <http://php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
+		:returns:	검색된 $_SERVER 값 또는 ``null``
 		:rtype:	mixed
 
-		This method is identical to the ``getPost()``, ``getGet()`` and ``getCookie()``
-		methods, only it fetches getServer data (``$_SERVER``)::
+		``getPost()``, ``getGet()``, ``getCookie()`` 메소드와 동일하지만 값을 ``$_SERVER``\ 에서 가져옵니다.
+		
+		::
 
 			$request->getServer('some_data');
 
-		To return an array of multiple ``$_SERVER`` values, pass all the required keys
-		as an array.
+		다수의 ``$_SERVER`` 값을 배열로 반환하려면, 필요한 모든 키를 배열로 전달하십시오.
+
 		::
 
 			$request->getServer(['SERVER_PROTOCOL', 'REQUEST_URI']);
 
 	.. php:method:: getUserAgent([$filter = null])
 
-		:param  int  $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`__.
-		:returns:  The User Agent string, as found in the SERVER data, or null if not found.
+		:param  int  $filter: 적용할 필터 유형, 필터 목록은 `여기 <http://php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
+		:returns:  SERVER 데이터에서 찾은 사용자 에이전트 문자열 또는 null
 		:rtype: mixed
 
-		This method returns the User Agent string from the SERVER data::
+		이 메소드는 SERVER 데이터에서 사용자 에이전트(User Agent) 문자열을 리턴합니다.
+		
+		::
 
 			$request->getUserAgent();
