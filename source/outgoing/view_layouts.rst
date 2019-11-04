@@ -1,23 +1,22 @@
-############
-View Layouts
-############
+################
+뷰 레이아웃
+################
 
 .. contents::
     :local:
     :depth: 2
 
-CodeIgniter supports a simple, yet very flexible, layout system that makes it simple to use one or more
-base page layouts across your application. Layouts support sections of content that can be inserted from
-any view being rendered. You could create different layouts to support one-column, two-column,
-blog archive pages, and more. Layouts are never directly rendered. Instead, you render a view, which
-specifies the layout that it wants to extend.
+CodeIgniter는 간단하지만 매우 유연한 레이아웃 시스템을 지원하므로 응용 프로그램에서 하나 이상의 기본 페이지 레이아웃을 간단하게 사용할 수 있습니다.
+레이아웃은 랜더링되는 모든 뷰에 삽입할 수있는 컨텐츠 섹션을 지원합니다.
+1열, 2열, 블로그 아카이브 페이지 등을 지원하기 위해 다른 레이아웃을 만들 수 있습니다.
+레이아웃은 절대 직접 랜더링되지 않으며, 레이아웃 지정하여 확장하려는 뷰를 랜더링합니다.
 
 *****************
-Creating A Layout
+레이아웃 만들기
 *****************
 
-Layouts are views like any other. The only difference is their intended usage. Layouts are the only view
-files that would make use of the ``renderSection()`` method. This method acts as a placeholder for content.
+레이아웃은 뷰와 같습니다. 뷰와 유일한 차이점은 ``renderSection()`` 메소드를 사용한다는 것입니다.
+이 메소드는 컨텐츠의 자리 표시자 역할을 합니다.
 
 ::
 
@@ -31,26 +30,31 @@ files that would make use of the ``renderSection()`` method. This method acts as
     </body>
     </html>
 
-The renderSection() method only has one argument - the name of the section. That way any child views know
-what to name the content section.
+``renderSection()`` 메소드에는 섹션 이름이라는 하나의 인수만 있습니다.
+이렇게 하면 모든 자식 뷰에서 내용 섹션의 이름을 알 수 있습니다.
 
 **********************
-Using Layouts in Views
+뷰에서 레이아웃 사용
 **********************
 
-Whenever a view wants to be inserted into a layout, it must use the ``extend()`` method at the top of the file::
+뷰를 레이아웃에 삽입하려면 맨 위에 ``extend()`` 메서드를 사용해야 합니다.
+
+::
 
     <?= $this->extend('default') ?>
 
-The extend method takes the name of any view file that you wish to use. Since they are standard views, they will
-be located just like a view. By default, it will look in the application's View directory, but will also scan
-other PSR-4 defined namespaces. You can include a namespace to locate the view in particular namespace View directory::
+``extend`` 메소드는 사용하려는 뷰 파일의 이름을 사용합니다. 표준 뷰이므로 뷰와 같은 위치에 배치됩니다.
+기본적으로 응용 프로그램의 View 디렉토리를 확인하지만 PSR-4 정의 네임 스페이스도 검색합니다.
+네임 스페이스를 지정하여 특정 뷰 디렉토리에서 뷰를 찾을 수 있습니다.
+
+::
 
     <?= $this->extend('Blog\Views\default') ?>
 
-All content within a view that extends a layout must be included within ``section($name)`` and ``endSection()`` method calls.
-Any content between these calls will be inserted into the layout wherever the ``renderSection($name)`` call that
-matches the section name exists.::
+레이아웃을 확장하는 뷰는 ``section($name)``\ 과 ``endSection()`` 메서드 호출이 포함되어야 합니다.
+이러한 호출 사이의 모든 내용은 섹션 이름과 일치하는 ``renderSection($name)`` 호출이 있을 경우 레이아웃에 삽입됩니다.
+
+::
 
     <?= $this->extend('default') ?>
 
@@ -58,27 +62,30 @@ matches the section name exists.::
         <h1>Hello World!</h1>
     <?= $this->endSection() ?>
 
-The ``endSection()`` does not need the section name. It automatically knows which one to close.
+``endSection()``\ 은 섹션 이름이 필요하지 않으며, 어느 것을 닫아야하는지 자동으로 인식합니다.
 
 ******************
-Rendering the View
+뷰 랜더링
 ******************
 
-Rendering the view and it's layout is done exactly as any other view would be displayed within a controller::
+레이아웃 랜더링은 다른 뷰가 컨트롤러 내에 하는것처럼 동일하게 수행됩니다.
+
+::
 
     public function index()
     {
         echo view('some_view');
     }
 
-The renderer is smart enough to detect whether the view should be rendered on its own, or if it needs a layout.
+렌더러는 매우 똑똑하여 뷰를 자체적으로 랜더링해야 할지,  레이아웃과 함께 랜더링해야 할지 감지할 수 있습니다.
 
 ***********************
-Including View Partials
+부분(Partial) 뷰 포함
 ***********************
 
-View partials are view files that do not extend any layout. They typically include content that can be reused from
-view to view. When using view layouts you must use ``$this->include()`` to include any view partials.
+부분 뷰는 레이아웃을 확장하지 않는 뷰 파일입니다.
+여기에는 일반적으로 재사용할 수있는 컨텐츠가 포함됩니다.
+``$this->include()``\ 를 사용하여 뷰 레이아웃dp 부분 뷰를 포함시킬수 있습니다.
 
 ::
 
@@ -90,5 +97,4 @@ view to view. When using view layouts you must use ``$this->include()`` to inclu
         <?= $this->include('sidebar') ?>
     <?= $this->endSection() ?>
 
-When calling the include() method, you can pass it all of the same options that can when rendering a normal view, including
-cache directives, etc.
+``include()`` 메소드를 호출할 때 캐시 지시문 등을 포함하여 랜더링에 사용되는 옵션을 일반 뷰에 전달할 수 있습니다.
