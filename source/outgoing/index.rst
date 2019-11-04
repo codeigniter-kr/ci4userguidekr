@@ -1,8 +1,8 @@
 ##################
-Building Responses
+요청 처리
 ##################
 
-View components are used to build what is returned to the user.
+View 구성 요소는 사용자에게 전달되는 내용을 작성하는데 사용됩니다.
 
 .. toctree::
     :titlesonly:
