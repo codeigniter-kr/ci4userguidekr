@@ -1,84 +1,86 @@
-#############
-View Renderer
-#############
+########################
+뷰 랜더러(Renderer)
+########################
 
 .. contents::
     :local:
     :depth: 2
 
-Using the View Renderer
+뷰 랜더러 사용하기
 ***************************
+``view()`` 함수는 ``renderer`` 서비스의 인스턴스를 가져와 데이터를 설정하고 뷰를 랜더링하는 편리한 함수입니다.
+이것은 잘 동작하지만, 이것을 직접해야 할 경우가 있다면 View 서비스에 직접 액세스할 수 있습니다.
 
-The ``view()`` function is a convenience function that grabs an instance of the
-``renderer`` service, sets the data, and renders the view. While this is often
-exactly what you want, you may find times where you want to work with it more directly.
-In that case you can access the View service directly::
+::
 
 	$view = \Config\Services::renderer();
 
-Alternately, if you are not using the ``View`` class as your default renderer, you
-can instantiate it directly::
+또는 ``View`` 클래스를 기본 렌더러로 사용하지 않는다면 직접 인스턴스화할 수 있습니다
+
+::
 
 	$view = new \CodeIgniter\View\View();
 
-.. important:: You should create services only within controllers. If you need
-	access to the View class from a library, you should set that as a dependency
-	in your library's constructor.
+.. important:: 컨트롤러 내에서만 서비스를 작성해야합니다. 라이브러리에서 View 클래스에 액세스해야 한다면, 라이브러리 생성자에서 종속성(dependency)으로 설정해야합니다.
 
-Then you can use any of the three standard methods that it provides:
-**render(viewpath, options, save)**, **setVar(name, value, context)** and **setData(data, context)**.
+그런 다음 제공하는 세 가지 표준 방법중 하나를 사용할 수 있습니다.:
+**render(viewpath, options, save)**, **setVar(name, value, context)**, **setData(data, context)**.
 
-What It Does
-============
+랜더러가 하는 일
+===================
 
-The ``View`` class processes conventional HTML/PHP scripts stored in the application's view path,
-after extracting view parameters into PHP variables, accessible inside the scripts.
-This means that your view parameter names need to be legal PHP variable names.
+``View`` 클래스는 스크립트내에서 액세스 할 수있는 PHP 변수로 뷰 매개 변수를 추출한 후 애플리케이션의 뷰 경로에 저장된 기존 HTML/PHP 스크립트를 처리합니다.
+이것은 뷰 파라미터 이름이 유효한 PHP 변수명이어야 함을 의미합니다.
 
-The View class uses an associative array internally, to accumulate view parameters
-until you call its ``render()``. This means that your parameter (or variable) names
-need to be unique, or a later variable setting will over-ride an earlier one.
+View 클래스는 연관 배열을 사용하여 ``render()``\ 를 호출할 때까지 뷰 매개 변수를 누적합니다.
+이는 매개 변수(또는 변수) 이름이 고유해야 하거나, 나중에 설정된 변수가 같은 이름의 이전 변수보다 우선함을 의미합니다.
 
-This also impacts escaping parameter values for different contexts inside your
-script. You will have to give each escaped value a unique parameter name.
+또한 스크립트 내부의 다른 컨텍스트에 대한 이스케이프 매개 변수값에 영향을 줍니다.
+이스케이프된 각 값에 고유한 매개 변수 이름을 지정해야 합니다.
 
-No special meaning is attached to parameters whose value is an array. It is up
-to you to process the array appropriately in your PHP code.
+값이 배열인 매개 변수에 특별한 의미는 없습니다.
+PHP 코드에서 배열을 적절하게 처리하는 것은 사용자의 책임입니다.
 
-Method Chaining
-===============
+메소드 체이닝(Chaining)
+===========================
 
-The `setVar()` and `setData()` methods are chainable, allowing you to combine a
-number of different calls together in a chain::
+`setVar()`\ 와 `setData()` 메소드는 체이닝이 가능하므로 여러 다른 호출을 결합할 수 있습니다
+
+::
 
 	$view->setVar('one', $one)
 	     ->setVar('two', $two)
 	     ->render('myView');
 
-Escaping Data
-=============
+이스케이핑(Escaping) 데이타
+=============================
 
-When you pass data to the ``setVar()`` and ``setData()`` functions you have the option to escape the data to protect
-against cross-site scripting attacks. As the last parameter in either method, you can pass the desired context to
-escape the data for. See below for context descriptions.
+``setVar()``\ 와 ``setData()`` 함수에 데이터를 전달할 때 교차 사이트 스크립팅 공격(cross-site scripting attacks)으로 부터 보호하기 위해 데이터를 이스케이프 처리하는 옵션이 있습니다.
+두 함수의 마지막 매개 변수로 원하는 컨텍스트를 전달하여 데이터를 이스케이프할 수 있습니다.
+컨텍스트 이스케이핑에 대한 설명은 아래를 참조하십시오.
 
-If you don't want the data to be escaped, you can pass `null` or `raw` as the final parameter to each function::
+데이터를 이스케이프하지 않으려면 각 함수에 'null' 또는 'raw'\ 를 전달하면 됩니다.
+
+::
 
 	$view->setVar('one', $one, 'raw');
 
-If you choose not to escape data, or you are passing in an object instance, you can manually escape the data within
-the view with the ``esc()`` function. The first parameter is the string to escape. The second parameter is the
-context to escape the data for (see below)::
+데이터를 이스케이프하지 않기로 선택하거나 객체 인스턴스를 전달하는 경우 ``esc()`` 함수를 사용하여 뷰의 데이터를 수동으로 이스케이프할 수 있습니다.
+첫 번째 매개 변수는 이스케이프할 문자열입니다. 두 번째 매개 변수는 데이터를 이스케이프하기 위한 컨텍스트입니다 (아래 참조).
+
+::
 
 	<?= \esc($object->getStat()) ?>
 
-Escaping Contexts
------------------
+이스케이핑 컨텍스트
+------------------------
 
-By default, the ``esc()`` and, in turn, the ``setVar()`` and ``setData()`` functions assume that the data you want to
-escape is intended to be used within standard HTML. However, if the data is intended for use in Javascript, CSS,
-or in an href attribute, you would need different escaping rules to be effective. You can pass in the name of the
-context as the second parameter. Valid contexts are 'html', 'js', 'css', 'url', and 'attr'::
+기본적으로 ``esc()``\ 와 ``setVar()``, ``setData()`` 함수는 이스케이프하려는 데이터가 표준 HTML을 사용한다고 가정합니다.
+그러나 데이터가 Javascript, CSS 또는 href 속성에서 사용된다면 다른 이스케이프 규칙이 더 효과적입니다.
+두 번째 매개 변수로 컨텍스트 종류를 전달할 수 있습니다.
+유효한 컨텍스트 종류는 ``html``, ``js``, ``css``, ``url``, ``attr``\ 입니다.
+
+::
 
 	<a href="<?= esc($url, 'url') ?>" data-foo="<?= esc($bar, 'attr') ?>">Some Link</a>
 
@@ -92,15 +94,14 @@ context as the second parameter. Valid contexts are 'html', 'js', 'css', 'url', 
 		}
 	</style>
 
-View Renderer Options
+뷰 랜더러 옵션
 =====================
 
-Several options can be passed to the ``render()`` or ``renderString()`` methods:
+``render()`` 또는 ``renderString()`` 메소드에 여러 옵션을 전달할 수 있습니다.
 
--   ``cache`` - the time in seconds, to save a view's results; ignored for renderString()
--   ``cache_name`` - the ID used to save/retrieve a cached view result; defaults to the viewpath;
-		ignored for renderString()
--   ``saveData`` - true if the view data parameters should be retained for subsequent calls
+-   ``cache`` - 뷰 결과를 저장하는 시간(초); renderString()은 무시
+-   ``cache_name`` - 캐시된 뷰 결과를 저장/검색하는데 사용되는 ID; 기본적으로 viewpath; renderString()은 무시
+-   ``saveData`` - 후속 호출에 대해 뷰 데이터 매개 변수를 유지해야 하는 경우 true
 
 Class Reference
 ***************
@@ -110,67 +111,70 @@ Class Reference
 	.. php:method:: render($view[, $options[, $saveData=false]]])
                 :noindex:
 
-		:param  string  $view: File name of the view source
-		:param  array   $options: Array of options, as key/value pairs
-		:param  boolean $saveData: If true, will save data for use with any other calls, if false, will clean the data after rendering the view.
-		:returns: The rendered text for the chosen view
+		:param  string  $view: 뷰 소스의 파일 이름
+		:param  array   $options: 옵션 배열, 키/값 쌍
+		:param  boolean $saveData: true 인 경우 다른 호출에 사용할 데이터를 저장, false인 경우 뷰를 렌더링 한 후 데이터를 정리
+		:returns: 선택된 뷰의 렌더링 된 텍스트
 		:rtype: string
 
-		Builds the output based upon a file name and any data that has already been set::
+		파일 이름과 이미 설정된 데이터를 기반으로 출력을 빌드합니다.
+		
+		::
 
 			echo $view->render('myview');
 
 	.. php:method:: renderString($view[, $options[, $saveData=false]]])
                 :noindex:
 
-		:param  string  $view: Contents of the view to render, for instance content retrieved from a database
-		:param  array   $options: Array of options, as key/value pairs
-		:param  boolean $saveData: If true, will save data for use with any other calls, if false, will clean the data after rendering the view.
-		:returns: The rendered text for the chosen view
+		:param  string  $view: 렌더링 할 뷰의 내용 (예 : 데이터베이스에서 검색된 내용)
+		:param  array   $options: 옵션 배열, 키/값 쌍
+		:param  boolean $saveData: true 인 경우 다른 호출에 사용할 데이터를 저장, false인 경우 뷰를 렌더링 한 후 데이터를 정리
+		:returns: 선택된 뷰의 렌더링 된 텍스트
 		:rtype: string
 
-		Builds the output based upon a view fragment and any data that has already been set::
+		뷰 프래그먼트와 이미 설정된 데이터를 기반으로 출력을 빌드합니다.
+		
+		::
 
 			echo $view->renderString('<div>My Sharona</div>');
 
-		This could be used for displaying content that might have been stored in a database,
-		but you need to be aware that this is a potential security vulnerability,
-		and that you **must** validate any such data, and probably escape it
-		appropriately!
+		데이터베이스에 저장된 컨텐츠를 표시하는데 사용될 수 있지만, 이러한 데이터의 유효성을 검사하고 적절하게 이스케이프 하지 않으면 잠재적인 보안 취약점이 됩니다.
 
 	.. php:method:: setData([$data[, $context=null]])
                 :noindex:
 
-		:param  array   $data: Array of view data strings, as key/value pairs
-		:param  string  $context: The context to use for data escaping.
-		:returns: The Renderer, for method chaining
+		:param  array   $data: 뷰 데이터 문자열의 배열, 키/값 쌍
+		:param  string  $context: 데이터 이스케이프에 사용할 컨텍스트
+		:returns: 메소드 체이닝을 위한 Renderer 객체
 		:rtype: CodeIgniter\\View\\RendererInterface.
 
-		Sets several pieces of view data at once::
+		한 번에 여러 개의 뷰 데이터를 설정합니다
+		
+		::
 
 			$view->setData(['name'=>'George', 'position'=>'Boss']);
 
-		Supported escape contexts: html, css, js, url, or attr or raw.
-		If 'raw', no escaping will happen.
+		지원되는 이스케이프 컨텍스트: ``html``, ``css``, ``js``, ``url``, ``attr``, ``raw``.
+		'raw'\ 면 이스케이프가 발생하지 않습니다.
 
-		Each call adds to the array of data that the object is accumulating,
-		until the view is rendered.
+		각 호출은 뷰가 렌더링될 때까지 객체가 누적하는 데이터 배열에 추가합니다.
 
 	.. php:method:: setVar($name[, $value=null[, $context=null]])
                 :noindex:
 
-		:param  string  $name: Name of the view data variable
-		:param  mixed   $value: The value of this view data
-		:param  string  $context: The context to use for data escaping.
-		:returns: The Renderer, for method chaining
+		:param  string  $name: 뷰 데이터 변수명
+		:param  mixed   $value: 뷰 데이터의 값
+		:param  string  $context: 데이터 이스케이프에 사용할 컨텍스트
+		:returns: 메소드 체이닝을 위한 Renderer 객체
 		:rtype: CodeIgniter\\View\\RendererInterface.
 
-		Sets a single piece of view data::
+		한 개의 뷰 데이터를 설정합니다
+		
+		::
 
 			$view->setVar('name','Joe','html');
 
-		Supported escape contexts: html, css, js, url, attr or raw.
-		If 'raw', no escaping will happen.
+		지원되는 이스케이프 컨텍스트: ``html``, ``css``, ``js``, ``url``, ``attr``, ``raw``.
+		'raw'\ 면 이스케이프가 발생하지 않습니다.
 
-		If you use the a view data variable that you have previously used
-		for this object, the new value will replace the existing one.
+		이 객체에 이전에 사용한 뷰 데이터 변수를 사용하면 새 값이 기존 값을 대체합니다.
