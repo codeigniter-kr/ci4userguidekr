@@ -1,9 +1,8 @@
-################
-HTML Table Class
-################
+#####################
+HTML Table 클래스
+#####################
 
-The Table Class provides methods that enable you to auto-generate HTML
-tables from arrays or database result sets.
+테이블 클래스는 배열 또는 데이터베이스 결과 세트에서 HTML 테이블을 자동 생성할 수있는 메소드를 제공합니다.
 
 .. contents::
   :local:
@@ -13,24 +12,23 @@ tables from arrays or database result sets.
   <div class="custom-index container"></div>
 
 *********************
-Using the Table Class
+Table 클래스 사용
 *********************
 
-Initializing the Class
+클래스 초기화
 ======================
 
-The Table class is not provided as a service, and should be instantiated
-"normally", for instance::
+Table 클래스는 서비스로 제공되지 않으며 "일반적으로" 인스턴스화해야 합니다.
+
+::
 
 	$table = new \CodeIgniter\View\Table();
 
 Examples
 ========
 
-Here is an example showing how you can create a table from a
-multi-dimensional array. Note that the first array index will become the
-table heading (or you can set your own headings using the ``setHeading()``
-method described in the function reference below).
+다음은 다차원 배열에서 테이블을 만드는 방법을 보여주는 예입니다.
+첫 번째 배열 인덱스는 테이블 제목이 됩니다(또는 아래 함수 참조에 설명된 ``setHeading()`` 메소드를 사용하여 자신의 제목을 설정할 수 있습니다).
 
 ::
 
@@ -45,10 +43,8 @@ method described in the function reference below).
 
 	echo $table->generate($data);
 
-Here is an example of a table created from a database query result. The
-table class will automatically generate the headings based on the table
-names (or you can set your own headings using the ``setHeading()``
-method described in the class reference below).
+다음은 데이터베이스 쿼리 결과에서 생성된 테이블의 예입니다.
+테이블 클래스는 테이블 이름을 기반으로 자동으로 제목을 생성합니다(또는 아래 함수 참조에 설명된 ``setHeading()`` 메소드를 사용하여 자신의 제목을 설정할 수 있습니다).
 
 ::
 
@@ -58,8 +54,9 @@ method described in the class reference below).
 
 	echo $table->generate($query);
 
-Here is an example showing how you might create a table using discrete
-parameters::
+다음은 이산 매개 변수를 사용하여 테이블을 작성하는 예입니다.
+
+::
 
 	$table = new \CodeIgniter\View\Table();
 
@@ -71,8 +68,9 @@ parameters::
 
 	echo $table->generate();
 
-Here is the same example, except instead of individual parameters,
-arrays are used::
+개별 매개 변수대신 배열이 사용하는 동일한 예가 있습니다.
+
+::
 
 	$table = new \CodeIgniter\View\Table();
 
@@ -84,11 +82,13 @@ arrays are used::
 
 	echo $table->generate();
 
-Changing the Look of Your Table
+테이블 모양 변경
 ===============================
 
-The Table Class permits you to set a table template with which you can
-specify the design of your layout. Here is the template prototype::
+테이블 클래스를 사용하면 레이아웃 디자인을 지정할 수있는 테이블 템플릿을 설정할 수 있습니다.
+템플릿 프로토 타입은 다음과 같습니다.
+
+::
 
 	$template = [
 		'table_open'		=> '<table border="0" cellpadding="4" cellspacing="0">',
@@ -127,13 +127,13 @@ specify the design of your layout. Here is the template prototype::
 
 	$table->setTemplate($template);
 
-.. note:: You'll notice there are two sets of "row" blocks in the
-	template. These permit you to create alternating row colors or design
-	elements that alternate with each iteration of the row data.
+.. note:: 템플릿에는 두 개의 "행" 블록 세트가 있습니다. 이를 통해 데이터를 나타내는 행별 배경색 또는 디자인 요소를 번갈아 나오도록 만들수 있습니다.
 
-You are NOT required to submit a complete template. If you only need to
-change parts of the layout you can simply submit those elements. In this
-example, only the table opening tag is being changed::
+완전한 템플릿을 제출할 필요는 없습니다.
+레이아웃의 일부만 변경해야하는 경우 해당 요소만 제출하면 됩니다.
+이 예에서는 테이블 열기 태그만 변경됩니다.
+
+::
 
 	$template = [
 		'table_open' => '<table border="1" cellpadding="2" cellspacing="1" class="mytable">'
@@ -141,8 +141,9 @@ example, only the table opening tag is being changed::
 
 	$table->setTemplate($template);
 	
-You can also set defaults for these by passing an array of template settings
-to the Table constructor.::
+템플릿 설정 배열을 Table 클래스 생성자에 전달하여 기본값을 설정할 수도 있습니다.
+
+::
 
 	$customSettings = [
 		'table_open' => '<table border="1" cellpadding="2" cellspacing="1" class="mytable">'
@@ -159,7 +160,8 @@ Class Reference
 
 	.. attribute:: $function = NULL
 
-		Allows you to specify a native PHP function or a valid function array object to be applied to all cell data.
+		모든 셀 데이터에 PHP 함수 또는 유효한 함수 배열 객체를 지정할 수 있습니다.
+
 		::
 
 			$table = new \CodeIgniter\View\Table();
@@ -170,36 +172,41 @@ Class Reference
 			$table->function = 'htmlspecialchars';
 			echo $table->generate();
 
-		In the above example, all cell data would be ran through PHP's :php:func:`htmlspecialchars()` function, resulting in::
+		위의 예제에서 모든 셀 데이터는 PHP의 :php:func:`htmlspecialchars()` 함수를 통해 실행됩니다.
+		
+		::
 
 			<td>Fred</td><td>&lt;strong&gt;Blue&lt;/strong&gt;</td><td>Small</td>
 
 	.. php:method:: generate([$tableData = NULL])
 
-		:param	mixed	$tableData: Data to populate the table rows with
+		:param	mixed	$tableData: 테이블 행을 채울 데이터
 		:returns:	HTML table
 		:rtype:	string
 
-		Returns a string containing the generated table. Accepts an optional parameter which can be an array or a database result object.
+		생성 된 테이블이 포함된 문자열을 리턴합니다. 배열 또는 데이터베이스 결과 객체일 수 있는 선택적 매개 변수를 승인합니다.
 
 	.. php:method:: setCaption($caption)
 
-		:param	string	$caption: Table caption
-		:returns:	Table instance (method chaining)
+		:param	string	$caption: 테이블 캡션
+		:returns:	메소드 체이닝을 위한 Table 객체
 		:rtype:	Table
 
-		Permits you to add a caption to the table.
+		테이블에 캡션을 추가합니다.
+
 		::
 
 			$table->setCaption('Colors');
 
 	.. php:method:: setHeading([$args = [] [, ...]])
 
-		:param	mixed	$args: An array or multiple strings containing the table column titles
-		:returns:	Table instance (method chaining)
+		:param	mixed	$args: 테이블 열 제목 배열 또는 문자열
+		:returns:	메소드 체이닝을 위한 Table 객체
 		:rtype:	Table
 
-		Permits you to set the table heading. You can submit an array or discrete params::
+		배열 또는 이산 매개 변수를 통하여 테이블 제목을 설정합니다. 
+		
+		::
 
 			$table->setHeading('Name', 'Color', 'Size'); // or
 
@@ -207,11 +214,13 @@ Class Reference
 
 	.. php:method:: setFooting([$args = [] [, ...]])
 
-		:param	mixed	$args: An array or multiple strings containing the table footing values
-		:returns:	Table instance (method chaining)
+		:param	mixed	$args: 테이블 푸터(footer) 배열 또는 문자열
+		:returns:	메소드 체이닝을 위한 Table 객체
 		:rtype:	Table
 
-		Permits you to set the table footing. You can submit an array or discrete params::
+		배열 또는 이산 매개 변수를 통하여 테이블 푸터(footer)를 설정합니다. 
+		
+		::
 
 			$table->setFooting('Subtotal', $subtotal, $notes); // or
 
@@ -219,18 +228,23 @@ Class Reference
 
 	.. php:method:: addRow([$args = array()[, ...]])
 
-		:param	mixed	$args: An array or multiple strings containing the row values
-		:returns:	Table instance (method chaining)
+		:param	mixed	$args: 행에 출력될 배열 또는 문자열
+		:returns:	메소드 체이닝을 위한 Table 객체
 		:rtype:	Table
 
-		Permits you to add a row to your table. You can submit an array or discrete params::
+		배열 또는 이산 매개 변수를 통하여 테이블 행(row)를 설정합니다. 
+		
+		::
 
 			$table->addRow('Blue', 'Red', 'Green'); // or
 
 			$table->addRow(['Blue', 'Red', 'Green']);
 
-		If you would like to set an individual cell's tag attributes, you can use an associative array for that cell.
-		The associative key **data** defines the cell's data. Any other key => val pairs are added as key='val' attributes to the tag::
+		개별 셀의 태그 속성을 설정하려면 해당 셀에 대해 연관 배열을 사용할 수 있습니다.
+		연관 키 **data**\ 는 셀의 데이터를 정의합니다. 
+		key => val 쌍은 HTML 태그 key='val' 속성(attribute)으로 추가됩니다.
+		
+		::
 
 			$cell = ['data' => 'Blue', 'class' => 'highlight', 'colspan' => 2];
 			$table->addRow($cell, 'Red', 'Green');
@@ -240,13 +254,13 @@ Class Reference
 
 	.. php:method:: makeColumns([$array = [] [, $columnLimit = 0]])
 
-		:param	array	$array: An array containing multiple rows' data
-		:param	int	$columnLimit: Count of columns in the table
-		:returns:	An array of HTML table columns
+		:param	array	$array: 여러 행의 데이터를 포함하는 배열
+		:param	int	$columnLimit: 테이블의 열 수
+		:returns:	HTML 테이블 열
 		:rtype:	array
 
-		This method takes a one-dimensional array as input and creates a multi-dimensional array with a depth equal to the number of columns desired.
-		This allows a single array with many elements to be displayed in a table that has a fixed column count. Consider this example::
+		이 방법은 1차원 배열을 사용하여 원하는 열과 동일한 깊이를 가진 다차원 배열을 만듭니다.
+		이를 이용하여 고정된 열 수를 가진 테이블에 많은 요소가 있는 단일 배열을 표시 할 수 있습니다. 다음 예를 고려하십시오::
 
 			$list = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
 
@@ -270,11 +284,12 @@ Class Reference
 
 	.. php:method:: setTemplate($template)
 
-		:param	array	$template: An associative array containing template values
-		:returns:	TRUE on success, FALSE on failure
+		:param	array	$template: 템플릿 값을 포함하는 연관 배열
+		:returns:	성공하면 TRUE, 실패하면 FALSE
 		:rtype:	bool
 
-		Permits you to set your template. You can submit a full or partial template.
+		전체 또는 부분 템플릿을 설정합니다.
+
 		::
 
 			$template = [
@@ -285,24 +300,24 @@ Class Reference
 
 	.. php:method:: setEmpty($value)
 
-		:param	mixed	$value: Value to put in empty cells
-		:returns:	Table instance (method chaining)
+		:param	mixed	$value: 빈 셀에 넣을 값
+		:returns:	메소드 체이닝을 위한 Table 객체
 		:rtype:	Table
 
-		Lets you set a default value for use in any table cells that are empty.
-		You might, for example, set a non-breaking space::
+		비어있는 테이블 셀에서 사용할 기본값을 설정합니다.
+		다음 예는 빈칸(&nbsp;)을 설정합니다
+		
+		::
 
 			$table->setEmpty("&nbsp;");
 
 	.. php:method:: clear()
 
-		:returns:	Table instance (method chaining)
+		:returns:	메소드 체이닝을 위한 Table 객체
 		:rtype:	Table
 
-		Lets you clear the table heading, row data and caption. If
-		you need to show multiple tables with different data you
-		should to call this method after each table has been
-		generated to clear the previous table information.
+		테이블 제목, 행 데이터 및 캡션을 지웁니다.
+		데이터가 다른 여러 테이블을 표시할 때 ,사용한 이전 테이블 정보를 삭제합니다.
 
 		Example ::
 
