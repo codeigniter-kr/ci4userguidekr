@@ -93,19 +93,21 @@ This file contains four properties that allow you to configure exactly when the 
 $aliases
 ========
 
-The ``$aliases`` array is used to associate a simple name with one or more fully-qualified class names that are the
-filters to run::
+``$aliases`` 배열은 하나 이상의 정규화된 클래스 이름을 실행될 간단한 필터 이름으로 연결하는 데 사용합니다.
+
+::
 
     public $aliases = [
         'csrf' => \CodeIgniter\Filters\CSRF::class
     ];
 
-Aliases are mandatory and if you try to use a full class name later, the system will throw an error. Defining them
-in this way makes it simple to switch out the class used. Great for when you decided you need to change to a
-different authentication system since you only change the filter's class and you're done.
+별명은 필수이며 이후 전체 클래스 이름을 사용하려고 하면 시스템에서 오류가 발생합니다.
+이런 식으로 정의하면 필터에 사용되는 클래스를 간단하게 전환할 수 있습니다.
+필터의 클래스만 변경하면 전환 완료되므로, 다른 인증 시스템으로 변경해야할 때 유용합니다.
 
-You can combine multiple filters into one alias, making complex sets of filters simple to apply::
+여러 필터를 하나의 별칭으로 결합하여 복잡한 필터 세트를 간단하게 적용할 수 있습니다.
 
+::
     public $aliases = [
         'apiPrep' => [
             \App\Filters\Negotiate::class,
@@ -113,14 +115,16 @@ You can combine multiple filters into one alias, making complex sets of filters 
         ]
     ];
 
-You should define as many aliases as you need.
+필요한만큼 별칭을 정의해야 합니다.
 
 $globals
 ========
 
-The second section allows you to define any filters that should be applied to every request made by the framework.
-You should take care with how many you use here, since it could have performance implications to have too many
-run on every request. Filters can be specified by adding their alias to either the before or after array::
+두 번째 섹션에서는 프레임 워크의 모든 요청에 적용해야하는 필터를 정의할 수 있습니다.
+모든 요청에 너무 많은 작업을 적용하는 것은 성능에 영향을 미칠 수 있으므로 여기에 얼마나 많은 것을 사용할지 주의해야 합니다.
+사전(before) 또는 사후(after) 배열에 별칭을 추가하여 필터를 지정할 수 있습니다.
+
+::
 
 	public $globals = [
 		'before' => [
@@ -129,10 +133,11 @@ run on every request. Filters can be specified by adding their alias to either t
 		'after'  => []
 	];
 
-There are times where you want to apply a filter to almost every request, but have a few that should be left alone.
-One common example is if you need to exclude a few URI's from the CSRF protection filter to allow requests from
-third-party websites to hit one or two specific URI's, while keeping the rest of them protected. To do this, add
-an array with the 'except' key and a uri to match as the value alongside the alias::
+모든 요청에 필터를 적용하고 싶을 때도 있지만, 몇 개만 남겨두어야 할 경우도 있습니다.
+한 가지 일반적인 예는 CSRF 보호 필터에 몇 개의 URI를 제외하여 제3자 웹 사이트의 요청이 하나 또는 두 개의 특정 URI를 도달할 수 있도록 하고 나머지 URI는 보호해야 하는 경우입니다.
+이렇게 하려면 'except' 키가 있는 배열을 별칭 과 함께 값으로 일치시킬 uri를 추가하십시오.
+
+::
 
 	public $globals = [
 		'before' => [
@@ -141,10 +146,11 @@ an array with the 'except' key and a uri to match as the value alongside the ali
 		'after'  => []
 	];
 
-Any place you can use a URI in the filter settings, you can use a regular expression or, like in this example, use
-an asterisk for a wildcard that will match all characters after that. In this example, any URL's starting with ``api/``
-would be exempted from CSRF protection, but the site's forms would all be protected. If you need to specify multiple
-URI's you can use an array of URI patterns::
+필터 설정에서 URI를 사용할 수 있는 모든 장소, 정규 표현식을 사용하거나 이 예에서와 같이 와일드 카드 별표(*)를 사용하여 그 이후의 모든 문자를 일치시킬 수 있습니다.
+다음 예는 ``api/``\ 로 시작하는 URL은 CSRF 보호에서 제외되지만 양식(Form)은 모두 보호됩니다.
+여러 개의 URI를 지정해야 하는 경우 URI 패턴 배열을 사용할 수 있습니다.
+
+::
 
 	public $globals = [
 		'before' => [
@@ -156,32 +162,34 @@ URI's you can use an array of URI patterns::
 $methods
 ========
 
-You can apply filters to all requests of a certain HTTP method, like POST, GET, PUT, etc. In this array, you would
-specify the method name in lowercase. It's value would be an array of filters to run. Unlike the ``$globals`` or the
-``$filters`` properties, these will only run as before filters::
+POST, GET, PUT등과 같은 특정 HTTP 메소드의 모든 요청에 필터를 적용 할 수 있습니다.
+이 배열에서는 메소드 이름을 소문자로 지정합니다.
+값은 실행할 필터 배열입니다. 
+``$globals`` 나 ``$filters`` 속성과 달리 이 속성은 이전(before) 필터처럼 실행됩니다.
+
+::
 
     public $methods = [
         'post' => ['foo', 'bar'],
         'get'  => ['baz']
     ]
 
-In addition to the standard HTTP methods, this also supports two special cases: 'cli', and 'ajax'. The names are
-self-explanatory here, but 'cli' would apply to all requests that were run from the command line, while 'ajax'
-would apply to every AJAX request.
+표준 HTTP 메소드 외에도 'cli'\ 와 'ajax' 두 가지 특수한 경우도 지원하며, 'cli'는 명령 줄에서 실행 된 모든 요청에 적용되고 'ajax'는 모든 AJAX 요청에 적용됩니다.
 
 $filters
 ========
 
-This property is an array of filter aliases. For each alias, you can specify before and after arrays that contain
-a list of URI patterns that filter should apply to::
+이 속성은 필터 별칭(alias)의 배열입니다. 
+각 별명(alias)에 대해 필터링해야 하는 URI 패턴 목록이 포함된 전후 배열을 지정할 수 있습니다.
 
+::
     public filters = [
         'foo' => ['before' => ['admin/*'], 'after' => ['users/*']],
         'bar' => ['before' => ['api/*', 'admin/*']]
     ];
 
 ****************
-Provided Filters
+제공되는 필터
 ****************
 
-Three filters are bundled with CodeIgniter4: Honeypot, Security, and DebugToolbar.
+CodeIgniter4에 3개의 필터가 번들로 제공됩니다: Honeypot, Security, DebugToolbar
