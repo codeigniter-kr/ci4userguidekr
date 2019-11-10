@@ -108,6 +108,7 @@ $aliases
 여러 필터를 하나의 별칭으로 결합하여 복잡한 필터 세트를 간단하게 적용할 수 있습니다.
 
 ::
+
     public $aliases = [
         'apiPrep' => [
             \App\Filters\Negotiate::class,
@@ -183,6 +184,7 @@ $filters
 각 별명(alias)에 대해 필터링해야 하는 URI 패턴 목록이 포함된 전후 배열을 지정할 수 있습니다.
 
 ::
+
     public filters = [
         'foo' => ['before' => ['admin/*'], 'after' => ['users/*']],
         'bar' => ['before' => ['api/*', 'admin/*']]
