@@ -1,18 +1,19 @@
 ######################
-Database Configuration
+데이터베이스 구성
 ######################
 
 .. contents::
     :local:
     :depth: 2
 
-CodeIgniter has a config file that lets you store your database
-connection values (username, password, database name, etc.). The config
-file is located at app/Config/Database.php. You can also set
-database connection values in the .env file. See below for more details.
+CodeIgniter에는 데이터베이스 연결 값(username, password, database name, etc.)을 저장할 수 있는 구성 파일이 있습니다.
+구성 파일은 ``app/Config/Database.php``\ 에 있습니다.
+``.env`` 파일에서 데이터베이스 연결 값을 설정할 수도 있습니다.
+자세한 내용은 아래를 참조하십시오.
 
-The config settings are stored in a class property that is an array with this
-prototype::
+구성 설정은 이 프로토타입이 포함된 배열인 클래스 속성에 저장됩니다.
+
+::
 
 	public $default = [
 		'DSN'	   => '',
@@ -35,13 +36,12 @@ prototype::
 		'failover' => [],
 	];
 
-The name of the class property is the connection name, and can be used
-while connecting to specify a group name.
+클래스 속성의 이름은 연결 이름이며, 연결 중에 그룹 이름을 지정할 수 있습니다.
 
-Some database drivers (such as PDO, PostgreSQL, Oracle, ODBC) might
-require a full DSN string to be provided. If that is the case, you
-should use the 'DSN' configuration setting, as if you're using the
-driver's underlying native PHP extension, like this::
+일부 데이터베이스 드라이버(예 : PDO, PostgreSQL, Oracle, ODBC)는 전체 DSN 문자열을 제공해야 합니다.
+이 경우 드라이버의 기본 PHP 확장을 사용하는 것처럼 'DSN'구성 설정을 사용해야 합니다.
+
+::
 
 	// PDO
 	$default['DSN'] = 'pgsql:host=localhost;port=5432;dbname=database_name';
@@ -49,15 +49,13 @@ driver's underlying native PHP extension, like this::
 	// Oracle
 	$default['DSN'] = '//localhost/XE';
 
-.. note:: If you do not specify a DSN string for a driver that requires it, CodeIgniter
-	will try to build it with the rest of the provided settings.
+.. note:: 필요한 드라이버에 대해 DSN 문자열을 지정하지 않으면 CodeIgniter는 제공된 나머지 설정으로 DSN 문자열을 빌드하려고 시도합니다.
 
-.. note:: If you provide a DSN string and it is missing some valid settings (e.g. the
-	database character set), which are present in the rest of the configuration
-	fields, CodeIgniter will append them.
+.. note:: DSN 문자열을 제공하고 나머지 구성 필드에 있는 유효한 설정(예 : 데이터베이스 문자 세트)이 누락된 경우 CodeIgniter가 추가합니다.
 
-You can also specify failovers for the situation when the main connection cannot connect for some reason.
-These failovers can be specified by setting the failover for a connection like this::
+메인 연결이 어떤 이유로 연결될 수 없는 상황에 대해 ``failover``\ 를 설정하여 장애 조치를 지정할 수 있습니다.
+
+::
 
 	$default['failover'] = [
 			[
@@ -98,13 +96,13 @@ These failovers can be specified by setting the failover for a connection like t
 			]
 		];
 
-You can specify as many failovers as you like.
+원하는 수만큼 장애 조치를 지정할 수 있습니다.
 
-You may optionally store multiple sets of connection
-values. If, for example, you run multiple environments (development,
-production, test, etc.) under a single installation, you can set up a
-connection group for each, then switch between groups as needed. For
-example, to set up a "test" environment you would do this::
+선택적으로 여러 연결 값 세트를 저장할 수 있습니다.
+예를 들어 단일 설치에서 여러 환경(개발, 프로덕션, 테스트 등)을 실행하는 경우 각각에 대해 연결 그룹을 설정한 다음 필요에 따라 그룹간에 전환할 수 있습니다.
+"test" 환경을 설정하는 다음 예를 살펴보세요.
+
+::
 
 	public $test = [
 		'DSN'	   => '',
@@ -127,18 +125,18 @@ example, to set up a "test" environment you would do this::
 		'failover' => []
 	);
 
-Then, to globally tell the system to use that group you would set this
-variable located in the config file::
+해당 그룹을 사용하도록 시스템에 전역적으로 알리려면 구성 파일에 이 변수를 설정합니다.
+
+::
 
 	$defaultGroup = 'test';
 
-.. note:: The name 'test' is arbitrary. It can be anything you want. By
-	default we've used the word "default" for the primary connection,
-	but it too can be renamed to something more relevant to your project.
+.. note:: 'test'\ 라는 이름은 임의적이며, 원한다면 어떤 이름이든 상관없습니다.
+	기본적으로 기본 연결에는 "default"라는 단어가 사용되었지만 프로젝트와 관련이 있는 다른 이름으로 바꿀 수도 있습니다.
 
-You could modify the config file to detect the environment and automatically
-update the `defaultGroup` value to the correct one by adding the required logic
-within the class' constructor::
+구성 파일을 수정하여 환경을 감지하고 클래스의 생성자내에 필요한 로직를 추가하여 'defaultGroup' 값을 올바른 값으로 자동 업데이트할 수 있습니다.
+
+::
 
 	class Database
 	{
@@ -152,72 +150,68 @@ within the class' constructor::
 		}
 	}
 
-Configuring With .env File
+.env 파일로 구성
 --------------------------
 
-You can also save your configuration values within a ``.env`` file with the current server's
-database settings. You only need to enter the values that change from what is in the
-default group's configuration settings. The values should be name following this format, where
-``default`` is the group name::
+현재 서버의 데이터베이스 설정으로 ``.env`` 파일내에 구성 값을 저장할 수 있습니다.
+You only need to enter the values that change from what is in the default group's configuration settings. The values should be name following this format, where ``default`` is the group name
+기본 그룹의 구성 설정에서 변경된 값만 입력하면 됩니다.
+값은 이 형식을 따르는 이름이어야 합니다. 여기서 ``default``\ 는 그룹 이름입니다.
+
+::
 
 	database.default.username = 'root';
 	database.default.password = '';
 	database.default.database = 'ci4';
 
-As with all other
+다른 모든 것도 마찬가지로
 
-Explanation of Values:
+값 설명
 ----------------------
 
 ======================  ===========================================================================================================
- Name Config             Description
+ Name Config             설명
 ======================  ===========================================================================================================
-**dsn**			The DSN connect string (an all-in-one configuration sequence).
-**hostname** 		The hostname of your database server. Often this is 'localhost'.
-**username**		The username used to connect to the database.
-**password**		The password used to connect to the database.
-**database**		The name of the database you want to connect to.
-**DBDriver**		The database type. eg: MySQLi, Postgre, etc. The case must match the driver name
-**DBPrefix**		An optional table prefix which will added to the table name when running
-			:doc:`Query Builder <query_builder>` queries. This permits multiple CodeIgniter
-			installations to share one database.
-**pConnect**		TRUE/FALSE (boolean) - Whether to use a persistent connection.
-**DBDebug**		TRUE/FALSE (boolean) - Whether database errors should be displayed.
-**cacheOn**		TRUE/FALSE (boolean) - Whether database query caching is enabled.
-**cacheDir**		The absolute server path to your database query cache directory.
-**charset**	    	The character set used in communicating with the database.
-**DBCollat**		The character collation used in communicating with the database
+**dsn**					DSN 연결 문자열 (일체형 구성)
+**hostname**			데이터베이스 서버의 호스트 이름, 대부분 'localhost'
+**username**			데이터베이스에 연결하는데 사용되는 사용자 이름
+**password**			데이터베이스에 연결하는데 사용되는 비밀번호
+**database**			연결하려는 데이터베이스의 이름
+**DBDriver**			데이터베이스 유형(MySQLi, Postgre, etc.), 드라이버 이름과 일치해야 합니다.
+**DBPrefix**			:doc:`쿼리 빌더 <query_builder>` 쿼리를 실행할 때 테이블 이름에 추가될 선택적 테이블 접두사, 이를 통해 설치된 여러개의 CodeIgniter가 하나의 데이터베이스를 공유할 수 있습니다.
+**pConnect**			TRUE/FALSE (boolean) - 지속적 연결 사용 여부
+**DBDebug**				TRUE/FALSE (boolean) - 데이터베이스 오류를 표시해야 하는지 여부
+**cacheOn**				TRUE/FALSE (boolean) - 데이터베이스 쿼리 캐싱 사용 여부
+**cacheDir**			데이터베이스 쿼리 캐시 디렉토리 서버의 절대 경로(absolute server path)
+**charset**				데이터베이스와 통신하는 데 사용되는 문자 세트(character set)
+**DBCollat**			데이터베이스와의 통신에 사용되는 문자 조합(character collation)
 
-			.. note:: Only used in the 'MySQLi' driver.
+						.. note:: 'MySQLi' 드라이버에서만 사용됩니다.
 
-**swapPre**		A default table prefix that should be swapped with dbprefix. This is useful for distributed
-			applications where you might run manually written queries, and need the prefix to still be
-			customizable by the end user.
-**schema**		The database schema, defaults to 'public'. Used by PostgreSQL and ODBC drivers.
-**encrypt**		Whether or not to use an encrypted connection.
+**swapPre**				dbprefix와 교체(swap)되는 기본 테이블 접두사. 수동으로 작성된 쿼리를 실행할 수 있고, 최종 사용자가 여전히 접두사를 사용자 정의할 수 있어야 하는 분산 응용 프로그램에 유용합니다.
+**schema**				데이터베이스 스키마, 기본적으로 'public', PostgreSQL 및 ODBC 드라이버에서 사용
+**encrypt**				암호화 된 연결을 사용할지 여부.
 
-			  - 'sqlsrv' and 'pdo/sqlsrv' drivers accept TRUE/FALSE
-			  - 'MySQLi' and 'pdo/mysql' drivers accept an array with the following options:
+						- 'sqlsrv'\ 과 'pdo/sqlsrv' 드라이버는 TRUE/FALSE
+						- 'MySQLi'\ 관 'pdo/mysql' 드라이버는 다음 옵션 배열로 설정:
 
-			    - 'ssl_key'    - Path to the private key file
-			    - 'ssl_cert'   - Path to the public key certificate file
-			    - 'ssl_ca'     - Path to the certificate authority file
-			    - 'ssl_capath' - Path to a directory containing trusted CA certificates in PEM format
-			    - 'ssl_cipher' - List of *allowed* ciphers to be used for the encryption, separated by colons (':')
-			    - 'ssl_verify' - TRUE/FALSE; Whether to verify the server certificate or not ('MySQLi' only)
+							- 'ssl_key'    - 개인키 파일의 경로
+							- 'ssl_cert'   - 공개키 인증서 파일의 경로
+							- 'ssl_ca'     - 인증 기관 파일의 경로
+							- 'ssl_capath' - PEM 형식의 신뢰할 수 있는 CA 인증서가 포함된 디렉토리 경로
+							- 'ssl_cipher' - 암호화에 사용될 *허용* 암호 목록, 콜론(':')으로 구분
+							- 'ssl_verify' - TRUE/FALSE; 서버 인증서를 확인할지 여부 ('MySQLi' 전용)
 
-**compress**		Whether or not to use client compression (MySQL only).
-**strictOn**		TRUE/FALSE (boolean) - Whether to force "Strict Mode" connections, good for ensuring strict SQL
-		    	while developing an application.
-**port**		The database port number. To use this value you have to add a line to the database config array.
-			::
+**compress**			클라이언트 압축 사용 여부 (MySQL 전용).
+**strictOn**			TRUE/FALSE (boolean) - "엄격 모드" 연결을 강제 적용할지 여부, 응용 프로그램을 개발하는 동안 엄격한 SQL을 보장하는데 좋습니다.
+**port**				데이터베이스 포트 번호, 이 값을 사용하려면 데이터베이스 구성 배열에 아래 행을 추가해야합니다.
 
-				$default['port'] = 5432;
+						::
+						
+							$default['port'] = 5432;
 
 ======================  ===========================================================================================================
 
-.. note:: Depending on what database platform you are using (MySQL, PostgreSQL,
-	etc.) not all values will be needed. For example, when using SQLite you
-	will not need to supply a username or password, and the database name
-	will be the path to your database file. The information above assumes
-	you are using MySQL.
+.. note:: 사용중인 데이터베이스 플랫폼(MySQL, PostgreSQL 등)에 따라 모든 값이 필요한 것은 아닙니다.
+	예를 들어, SQLite를 사용하는 경우 사용자 이름 또는 비밀번호를 제공할 필요가 없으며 데이터베이스 이름은 데이터베이스 파일의 경로가됩니다.
+	위의 정보는 사용자가 MySQL을 사용하고 있다고 가정합니다.
