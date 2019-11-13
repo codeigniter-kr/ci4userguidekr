@@ -1,77 +1,77 @@
 ###########################
-Connecting to your Database
+데이터베이스 연결
 ###########################
 
-You can connect to your database by adding this line of code in any
-function where it is needed, or in your class constructor to make the
-database available globally in that class.
+필요한 함수나 클래스 생성자에서 아래 코드를 추가하면 데이터베이스에 연결하여 해당 클래스에서 데이터베이스를 전역적으로 사용할 수 있도록 합니다.
 
 ::
 
 	$db = \Config\Database::connect();
 
-If the above function does **not** contain any information in the first
-parameter it will connect to the default group specified in your database config
-file. For most people, this is the preferred method of use.
+위 함수의 첫 번째 매개 변수에 정보가 **없으면** 데이터베이스 기본 그룹에 연결됩니다.
+대부분의 사람들에게 이것은 선호되는 사용 방법입니다.
 
-A convenience method exists that is purely a wrapper around the above line
-and is provided for your convenience::
+위의 줄을 감싸는 메소드가 편의를 위해 제공됩니다.
+
+::
 
     $db = db_connect();
 
-Available Parameters
---------------------
+사용 가능한 매개 변수
+--------------------------
 
-#. The database group name, a string that must match the config class' property name. Default value is $config->defaultGroup.
-#. TRUE/FALSE (boolean). Whether to return the shared connection (see
-   Connecting to Multiple Databases below).
+#. 데이터베이스 그룹 이름, 구성 클래스의 특성 이름과 일치 하는 문자열. 기본값은 $config->defaultGroup.
+#. TRUE/FALSE (boolean). 공유 연결을 반환할지 여부 (아래의 여러 데이터베이스에 연결 참조).
 
-Manually Connecting to a Database
+데이터베이스 수동 연결
 ---------------------------------
 
-The first parameter of this function can **optionally** be used to
-specify a particular database group from your config file. Examples:
+이 함수의 첫 번째 매개 변수는 ** 선택적으로 ** 구성 파일의 특정 데이터베이스 그룹을 지정하는 데 사용됩니다.
 
-To choose a specific group from your config file you can do this::
+샘플: 
+
+구성 파일의 특정 그룹을 선택하려면 아래와 같이 하십시오.
+
+::
 
 	$db = \Config\Database::connect('group_name');
 
-Where group_name is the name of the connection group from your config
-file.
+여기서 ``group_name``\ 은 구성 파일의 연결 그룹 이름입니다.
 
-Multiple Connections to Same Database
+동일한 데이터베이스 다중 연결
 -------------------------------------
 
-By default, the ``connect()`` method will return the same instance of the
-database connection every time. If you need to have a separate connection
-to the same database, send ``false`` as the second parameter::
+기본적으로 ``connect()`` 메서드는 매번 동일한 데이터베이스 연결 인스턴스를 반환합니다.
+동일한 데이터베이스에 대한 별도의 연결이 필요한 경우 두 번째 매개 변수를 ``false``\ 로 전송하십시오.
+
+::
 
 	$db = \Config\Database::connect('group_name', false);
 
-Connecting to Multiple Databases
+다중 데이터베이스 연결
 ================================
 
-If you need to connect to more than one database simultaneously you can
-do so as follows::
+둘 이상의 데이터베이스에 동시에 연결해야 하는 경우 다음과 같이합니다.
+
+::
 
 	$db1 = \Config\Database::connect('group_one');
 	$db  = \Config\Database::connect('group_two');
 
-Note: Change the words "group_one" and "group_two" to the specific
-group names you are connecting to.
+Note: "group_one"\ 과 "group_two"\ 라는 단어를 연결중인 특정 그룹 이름으로 변경하십시오.
 
-.. note:: You don't need to create separate database configurations if you
-	only need to use a different database on the same connection. You
-	can switch to a different database when you need to, like this:
+.. note:: 동일한 연결에서 다른 데이터베이스만 사용해야 할때는 별도의 데이터베이스 구성을 만들 필요가 없습니다.
+	다음과 같이하면 필요할 때 다른 데이터베이스로 전환할 수 있습니다::
 
-	| $db->setDatabase($database2_name);
+	$db->setDatabase($database2_name);
 
-Connecting with Custom Settings
+사용자 설정으로 연결
 ===============================
 
-You can pass in an array of database settings instead of a group name to get
-a connection that uses your custom settings. The array passed in must be
-the same format as the groups are defined in the configuration file::
+그룹 이름 대신 데이터베이스 설정 배열을 전달하여 사용자 지정 설정을 사용하는 연결을 얻을수 있습니다.
+전달된 배열은 그룹이 구성 파일에 정의된 형식과 같아야합니다.
+
+::
 
     $custom = [
 		'DSN'      => '',
@@ -97,27 +97,23 @@ the same format as the groups are defined in the configuration file::
     $db = \Config\Database::connect($custom);
 
 
-Reconnecting / Keeping the Connection Alive
+다시 연결 / 연결 유지
 ===========================================
 
-If the database server's idle timeout is exceeded while you're doing
-some heavy PHP lifting (processing an image, for instance), you should
-consider pinging the server by using the reconnect() method before
-sending further queries, which can gracefully keep the connection alive
-or re-establish it.
+PHP로 오랜 시간이 걸리는 무거운 작업(예 : 이미지 처리)으로 인해 데이터베이스 서버의 유휴 시간 초과가 발생하면 
+추가 쿼리를 보내기 전에 연결을 정상적으로 유지하거나 다시 설정할 수 있는 ``reconnect()`` 메서드를 사용하여 
+서버에 핑(ping)을 하는 것이 좋습니다.
 
-.. important:: If you are using MySQLi database driver, the reconnect() method
-	does not ping the server but it closes the connection then connects again.
+.. important:: MySQLi 데이터베이스 드라이버를 사용하는 경우 ``reconnect()`` 메소드는 서버에 핑(ping)을 하지 않고 연결을 닫은 다음 다시 연결합니다.
 
 ::
 
 	$db->reconnect();
 
-Manually closing the Connection
+수동 연결 종료
 ===============================
 
-While CodeIgniter intelligently takes care of closing your database
-connections, you can explicitly close the connection.
+CodeIgniter는 데이터베이스 연결을 지능적으로 처리하지만 연결을 명시적으로 닫을 수 있습니다.
 
 ::
 
