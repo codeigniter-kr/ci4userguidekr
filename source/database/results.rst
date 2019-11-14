@@ -61,7 +61,7 @@
 
 **getResultArray()**
 
-이 메소드는 조회 결과를 순수한 배열로 리턴하거나 결과가 생성되지 않으면 빈 배열을 리턴합니다. 
+이 메소드는 조회 결과를 순수한 배열로 반환하거나 결과가 생성되지 않으면 빈 배열을 반환합니다. 
 일반적으로 이것을 아래와 같은 foreach 루프에서 사용합니다
 
 ::
@@ -81,9 +81,9 @@
 
 **getRow()**
 
-이 메소드는 단일 결과 행을 리턴합니다.
+이 메소드는 단일 결과 행을 반환합니다.
 쿼리에 둘 이상의 행이 있으면 첫 번째 행만 반환합니다.
-결과는 **객체**로 반환됩니다. 사용법 예는 다음과 같습니다.
+결과는 **객체**\ 로 반환됩니다. 사용법 예는 다음과 같습니다.
 
 ::
 
@@ -98,7 +98,7 @@
         echo $row->body;
     }
 
-특정 행을 리턴하려면 첫 번째 매개 변수에 행 번호를 숫자로 제출하십시오.
+특정 행을 반환하려면 첫 번째 매개 변수에 행 번호를 숫자로 제출하십시오.
 
 ::
 
@@ -129,7 +129,7 @@
         echo $row['body'];
     }
 
-특정 행을 리턴하려면 첫 번째 매개 변수에서 행 번호를 숫자로 제출하십시오.
+특정 행을 반환하려면 첫 번째 매개 변수에서 행 번호를 숫자로 제출하십시오.
 
 ::
 
@@ -153,7 +153,7 @@
 
 **getUnbufferedRow()**
 
-이 메소드는 ``row()``\ 와 같이 메모리에서 전체 결과를 프리 페치 하지 않고, 단일 결과 행을 리턴합니다.
+이 메소드는 ``row()``\ 와 같이 메모리에서 전체 결과를 프리 페치 하지 않고, 단일 결과 행을 반환합니다.
 쿼리에 둘 이상의 행이 있으면 현재 행을 반환하고 내부 데이터 포인터를 앞으로 이동합니다.
 
 ::
@@ -179,7 +179,7 @@
 사용자 정의 결과 객체
 *********************
 
-``getResult()``\ 와 ``getResultArray()`` 메소드가 허용하는대로 ``stdClass`` 또는 배열 대신 사용자 정의 클래스의 인스턴스로 결과를 리턴할 수 있습니다.
+``getResult()``\ 와 ``getResultArray()`` 메소드가 허용하는대로 ``stdClass`` 또는 배열 대신 사용자 정의 클래스의 인스턴스로 결과를 반환할 수 있습니다.
 클래스가 아직 메모리에 로드되지 않은 경우 오토로더가 로드를 시도합니다.
 객체는 데이터베이스에서 반환된 모든 값을 속성으로 설정합니다.
 선언되었으나 공개되지 않은 속성의 경우 ``__set()`` 메소드를 제공하여 설정할 수 있습니다.
@@ -266,8 +266,8 @@ Example::
 
 **getFieldCount()**
 
-쿼리에서 반환 한 FIELDS (열) 갯수 입니다.
-Make sure to call the method using your query result object
+쿼리에서 반환한 FIELDS(컬럼)의 갯수 입니다.
+쿼리 결과(result) 객체를 사용하여 메서드를 호출해야 합니다.
 
 ::
 
@@ -277,8 +277,10 @@ Make sure to call the method using your query result object
 
 **getFieldNames()**
 
-Returns an array with the names of the FIELDS (columns) returned by the query.
-Make sure to call the method using your query result object::
+쿼리에서 반환한 FIELDS(컬럼)의 이름을 가진 배열을 반환합니다.
+쿼리 결과(result) 객체를 사용하여 메서드를 호출해야 합니다.
+
+::
 
     $query = $db->query('SELECT * FROM my_table');
 
@@ -286,11 +288,9 @@ Make sure to call the method using your query result object::
 
 **freeResult()**
 
-It frees the memory associated with the result and deletes the result
-resource ID. Normally PHP frees its memory automatically at the end of
-script execution. However, if you are running a lot of queries in a
-particular script you might want to free the result after each query
-result has been generated in order to cut down on memory consumption.
+결과(result)와 연관된 메모리를 비우고 결과 자원(resource) ID를 삭제합니다.
+일반적으로 PHP는 스크립트 실행이 끝날때 자동으로 메모리를 비웁니다.
+그러나 특정 스크립트에서 많은 쿼리를 실행하는 경우, 메모리 소비를 줄이기 위해 각 쿼리 결과가 생성된 후 결과를 해제할 수 있습니다.
 
 Example::
 
@@ -311,11 +311,10 @@ Example::
 
 **dataSeek()**
 
-This method sets the internal pointer for the next result row to be
-fetched. It is only useful in combination with ``getUnbufferedRow()``.
+이 메소드는 다음 결과 행에 대한 내부 포인터를 페치하도록 설정합니다.
+``getUnbufferedRow()``\ 와 함께 사용할 때 유용합니다.
 
-It accepts a positive integer value, which defaults to 0 and returns
-TRUE on success or FALSE on failure.
+양의 정수 값만 사용할 수 있으며, 기본값은 0입니다. 성공하면 TRUE, 실패하면 FALSE를 반환합니다.
 
 ::
 
@@ -323,8 +322,7 @@ TRUE on success or FALSE on failure.
 	$query->dataSeek(5); // Skip the first 5 rows
 	$row = $query->getUnbufferedRow();
 
-.. note:: Not all database drivers support this feature and will return FALSE.
-	Most notably - you won't be able to use it with PDO.
+.. note:: 데이터베이스 드라이버가 이 기능을 지원하지 않을때 FALSE를 반환합니다. 가장 주의할 점은 PDO와 함께 사용할 수 없다는 것입니다.
 
 ***************
 Class Reference
@@ -334,177 +332,167 @@ Class Reference
 
 	.. php:method:: getResult([$type = 'object'])
 
-		:param	string	$type: Type of requested results - array, object, or class name
-		:returns:	Array containing the fetched rows
+		:param	string	$type: 요청한 결과 유형 - array, object, class name
+		:returns:	페치된 행을 포함하는 배열
 		:rtype:	array
 
-		A wrapper for the ``getResultArray()``, ``getResultObject()``
-		and ``getCustomResultObject()`` methods.
+		``getResultArray()``, ``getResultObject()``, ``getCustomResultObject()`` 메소드에 대한 랩퍼(wrapper).
 
-		Usage: see `Result Arrays`_.
+		사용법: `결과 배열(Result Arrays)`_.
 
 	.. php:method:: getResultArray()
 
-		:returns:	Array containing the fetched rows
+		:returns:	페치된 행을 포함하는 배열
 		:rtype:	array
 
-		Returns the query results as an array of rows, where each
-		row is itself an associative array.
+		쿼리 결과를 각 행이 연관(associative) 배열로 이루어진 배열로 반환합니다.
 
-		Usage: see `Result Arrays`_.
+		사용법: `결과 배열(Result Arrays)`_.
 
 	.. php:method:: getResultObject()
 
-		:returns:	Array containing the fetched rows
+		:returns:	페치된 행을 포함하는 배열
 		:rtype:	array
 
-		Returns the query results as an array of rows, where each
-		row is an object of type ``stdClass``.
+		쿼리 결과를 각 행이 ``stdClass`` 객체로 이루어진 배열로 반환합니다.
 
-		Usage: see `Result Arrays`_.
+		사용법: `결과 배열(Result Arrays)`_.
 
 	.. php:method:: getCustomResultObject($class_name)
 
-		:param	string	$class_name: Class name for the resulting rows
-		:returns:	Array containing the fetched rows
+		:param	string	$class_name: 결과 행의 클래스명
+		:returns:	페치된 행을 포함하는 배열
 		:rtype:	array
 
-		Returns the query results as an array of rows, where each
-		row is an instance of the specified class.
+		쿼리 결과를 각 행이 지정된 클래스의 인스턴스로 이루어진 배열로 반환합니다
 
 	.. php:method:: getRow([$n = 0[, $type = 'object']])
 
-		:param	int	$n: Index of the query results row to be returned
-		:param	string	$type: Type of the requested result - array, object, or class name
-		:returns:	The requested row or NULL if it doesn't exist
+		:param	int	$n: 쿼리 결과(query result) 행의 인덱스
+		:param	string	$type: 요청한 결과의 유형 - array, object, class name
+		:returns:	요청 된 행, 존재하지 않는 경우 NULL
 		:rtype:	mixed
 
-		A wrapper for the ``getRowArray()``, ``getRowObject()`` and
-		``getCustomRowObject()`` methods.
+		``getRowArray()``, ``getRowObject()``, ``getCustomRowObject()``  메소드에 대한 랩퍼(wrapper).
 
-		Usage: see `Result Rows`_.
+		사용법: `결과 행(Result Rows)`_.
 
 	.. php:method:: getUnbufferedRow([$type = 'object'])
 
-		:param	string	$type: Type of the requested result - array, object, or class name
-		:returns:	Next row from the result set or NULL if it doesn't exist
+		:param	string	$type: 요청한 결과의 유형 - array, object, class name
+		:returns:	결과 집합의 다음 행, 존재하지 않는 경우 NULL
 		:rtype:	mixed
 
-		Fetches the next result row and returns it in the
-		requested form.
+		다음 결과 행을 가져 와서 요청된 유형으로 반환합니다.
 
-		Usage: see `Result Rows`_.
+		사용법: `결과 행(Result Rows)`_.
 
 	.. php:method:: getRowArray([$n = 0])
 
-		:param	int	$n: Index of the query results row to be returned
-		:returns:	The requested row or NULL if it doesn't exist
+		:param	int	$n: 쿼리 결과(query result) 행의 인덱스
+		:returns:	요청 된 행, 존재하지 않는 경우 NULL
 		:rtype:	array
 
-		Returns the requested result row as an associative array.
+		요청 된 결과행을 연관 배열로 반환합니다.
 
-		Usage: see `Result Rows`_.
+		사용법: `결과 행(Result Rows)`_.
 
 	.. php:method:: getRowObject([$n = 0])
 
-		:param	int	$n: Index of the query results row to be returned
-                :returns:	The requested row or NULL if it doesn't exist
+		:param	int	$n: 쿼리 결과(query result) 행의 인덱스
+		:returns:	요청 된 행, 존재하지 않는 경우 NULL
 		:rtype:	stdClass
 
-		Returns the requested result row as an object of type
-		``stdClass``.
+		요청 된 결과 행을 ``stdClass`` 객체로 반환합니다.
 
-		Usage: see `Result Rows`_.
+		사용법: `결과 행(Result Rows)`_.
 
 	.. php:method:: getCustomRowObject($n, $type)
 
-		:param	int	$n: Index of the results row to return
-		:param	string	$class_name: Class name for the resulting row
-		:returns:	The requested row or NULL if it doesn't exist
+		:param	int	$n: 쿼리 결과(query result) 행의 인덱스
+		:param	string	$class_name: 결과 행의 클래스 이름
+		:returns:	요청 된 행, 존재하지 않는 경우 NULL
 		:rtype:	$type
 
-		Returns the requested result row as an instance of the
-		requested class.
+		요청한 결과 행을 요청된 클래스의 인스턴스로 반환합니다.
 
 	.. php:method:: dataSeek([$n = 0])
 
-		:param	int	$n: Index of the results row to be returned next
-		:returns:	TRUE on success, FALSE on failure
+		:param	int	$n: 쿼리 결과(query result) 행의 인덱스
+		:returns:	성공하면 TRUE, 실패하면 FALSE
 		:rtype:	bool
 
-		Moves the internal results row pointer to the desired offset.
+		내부 결과 행 포인터를 원하는 오프셋으로 이동합니다.
 
-		Usage: see `Result Helper Methods`_.
+		사용법: `결과 헬퍼 메소드`_.
 
 	.. php:method:: setRow($key[, $value = NULL])
 
-		:param	mixed	$key: Column name or array of key/value pairs
-		:param	mixed	$value: Value to assign to the column, $key is a single field name
+		:param	mixed	$key: 열 이름 또는 키/값 쌍의 배열
+		:param	mixed	$value: 열에 할당할 값, $key 필드명
 		:rtype:	void
 
-		Assigns a value to a particular column.
+		특정 열에 값을 할당합니다.
 
 	.. php:method:: getNextRow([$type = 'object'])
 
-		:param	string	$type: Type of the requested result - array, object, or class name
-		:returns:	Next row of result set, or NULL if it doesn't exist
+		:param	string	$type: 요청한 결과의 유형 - array, object, class name
+		:returns:	결과 집합의 다음 행, 존재하지 않는 경우 NULL
 		:rtype:	mixed
 
-		Returns the next row from the result set.
+		결과 집합에서 다음 행을 반환합니다.
 
 	.. php:method:: getPreviousRow([$type = 'object'])
 
-		:param	string	$type: Type of the requested result - array, object, or class name
-		:returns:	Previous row of result set, or NULL if it doesn't exist
+		:param	string	$type: 요청한 결과의 유형 - array, object, class name
+		:returns:	결과 집합의 이전 행, 존재하지 않는 경우 NULL
 		:rtype:	mixed
 
-		Returns the previous row from the result set.
+		결과 집합에서 이전 행을 반환합니다.
 
 	.. php:method:: getFirstRow([$type = 'object'])
 
-		:param	string	$type: Type of the requested result - array, object, or class name
-		:returns:	First row of result set, or NULL if it doesn't exist
+		:param	string	$type: 요청한 결과의 유형 - array, object, class name
+		:returns:	결과 집합의 첫 번째 행, 존재하지 않는 경우 NULL
 		:rtype:	mixed
 
-		Returns the first row from the result set.
+		결과 집합에서 첫 번째 행을 반환합니다.
 
 	.. php:method:: getLastRow([$type = 'object'])
 
-		:param	string	$type: Type of the requested result - array, object, or class name
-		:returns:	Last row of result set, or NULL if it doesn't exist
+		:param	string	$type: 요청한 결과의 유형 - array, object, class name
+		:returns:	결과 세트의 마지막 행, 존재하지 않는 경우 NULL
 		:rtype:	mixed
 
-		Returns the last row from the result set.
+		결과 집합에서 마지막 행을 반환합니다.
 
 	.. php:method:: getFieldCount()
 
-		:returns:	Number of fields in the result set
+		:returns:	결과 집합 필드의 갯수
 		:rtype:	int
 
-		Returns the number of fields in the result set.
+		결과 집합 필드의 갯수를 반환합니다.
 
-		Usage: see `Result Helper Methods`_.
+		사용법: `결과 헬퍼 메소드`_.
 
     .. php:method:: getFieldNames()
 
-		:returns:	Array of column names
+		:returns:	열(column) 이름의 배열
 		:rtype:	array
 
-		Returns an array containing the field names in the
-		result set.
+		결과 집합의 필드 이름으로 구성된 배열을 반환합니다.
 
 	.. php:method:: getFieldData()
 
-		:returns:	Array containing field meta-data
+		:returns:	필드 메타 데이터로 구성된 배열
 		:rtype:	array
 
-		Generates an array of ``stdClass`` objects containing
-		field meta-data.
+		필드 메타 데이터로 구성된 ``stdClass`` 객체의 배열을 생성합니다.
 
 	.. php:method:: freeResult()
 
 		:rtype:	void
 
-		Frees a result set.
+		결과 집합을 해제합니다.
 
-		Usage: see `Result Helper Methods`_.
+		사용법: `결과 헬퍼 메소드`_.
