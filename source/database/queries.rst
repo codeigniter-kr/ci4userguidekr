@@ -1,5 +1,5 @@
 #######
-Queries
+쿼리
 #######
 
 .. contents::
@@ -7,39 +7,37 @@ Queries
     :depth: 2
 
 ************
-Query Basics
+기본 쿼리
 ************
 
-Regular Queries
+정규 쿼리
 ===============
 
-To submit a query, use the **query** function::
+쿼리를 제출하려면 **query** 함수를 사용하십시오.
+
+::
 
 	$db->query('YOUR QUERY HERE');
 
-The query() function returns a database result **object** when "read"
-type queries are run which you can use to :doc:`show your
-results <results>`. When "write" type queries are run it simply
-returns TRUE or FALSE depending on success or failure. When retrieving
-data you will typically assign the query to your own variable, like
-this::
+query() 함수는 "읽기" 유형의 쿼리가 실행될 때 데이터베이스 결과 **object**\ 를 반환합니다.
+이 쿼리는 :doc:`결과를 보여줍니다 <results>`.
+"쓰기" 유형 쿼리가 실행되면 성공 또는 실패에 따라 TRUE 또는 FALSE만 반환합니다.
+데이터를 검색할 때 일반적으로 다음과 같이 고유 변수에 쿼리를 할당합니다
+
+::
 
 	$query = $db->query('YOUR QUERY HERE');
 
-Simplified Queries
+단순화된 쿼리
 ==================
 
-The **simpleQuery** method is a simplified version of the
-$db->query() method. It DOES
-NOT return a database result set, nor does it set the query timer, or
-compile bind data, or store your query for debugging. It simply lets you
-submit a query. Most users will rarely use this function.
+**simpleQuery** 메소드는 $db->query() 메소드의 단순화된 버전입니다.
+데이터베이스 결과 세트를 리턴하지 않으며 쿼리 타이머를 설정하거나 바인드 데이터를 컴파일하거나 디버깅을 위해 쿼리를 저장하지 않습니다.
+단순히 쿼리를 제출할 수 있습니다.
+대부분의 사용자는 이 기능을 거의 사용하지 않습니다.
 
-It returns whatever the database drivers' "execute" function returns.
-That typically is TRUE/FALSE on success or failure for write type queries
-such as INSERT, DELETE or UPDATE statements (which is what it really
-should be used for) and a resource/object on success for queries with
-fetchable results.
+데이터베이스 드라이버의 "execute" 함수가 리턴하는 모든 것을 리턴합니다.
+이는 일반적으로 INSERT, DELETE 또는 UPDATE문 (실제로 사용해야 하는것)과 같은 쓰기 유형 쿼리의 성공 또는 실패와 페치 가능한 결과가 있는 쿼리의 성공시 리소스/객체에 대한 TRUE/FALSE입니다.
 
 ::
 
@@ -52,122 +50,120 @@ fetchable results.
 		echo "Query failed!";
 	}
 
-.. note:: PostgreSQL's ``pg_exec()`` function (for example) always
-	returns a resource on success even for write type queries.
-	So keep that in mind if you're looking for a boolean value.
+.. note:: PostgreSQL의 ``pg_exec()`` 함수는 쓰기 유형 쿼리에서도 성공시 항상 리소스를 반환합니다.
+	부울(boolean) 값을 찾고 있다면 주의하십시오.
 
 ***************************************
-Working with Database prefixes manually
+데이터베이스 접두사(prefix) 수동 작업
 ***************************************
 
-If you have configured a database prefix and would like to prepend it to
-a table name for use in a native SQL query for example, then you can use
-the following::
+데이터베이스 접두사를 구성하고 네이티브 SQL 쿼리에 사용하기 위해 테이블 이름 앞에 접두사를 추가하고 싶다면 다음과 같이 하십시오.
+
+::
 
 	$db->prefixTable('tablename'); // outputs prefix_tablename
 
-If for any reason you would like to change the prefix programmatically
-without needing to create a new connection you can use this method::
+새로운 연결을 만들지 않고 프로그래밍 방식으로 접두사를 변경하려면 다음 메소드를 사용할 수 있습니다
+
+::
 
 	$db->setPrefix('newprefix');
 	$db->prefixTable('tablename'); // outputs newprefix_tablename
 
-You can get the current prefix any time with this method::
+다음 메소드로 언제든지 현재 사용중인 접두사를 얻을 수 있습니다
+
+::
 	
 	$DBPrefix = $db->getPrefix();
 
 **********************
-Protecting identifiers
+식별자 보호
 **********************
 
-In many databases, it is advisable to protect table and field names - for
-example with backticks in MySQL. **Query Builder queries are
-automatically protected**, but if you need to manually protect an
-identifier you can use::
+데이터베이스의 테이블명과 필드명은 보호하는 것이 좋습니다.(예 : MySQL의 백틱) **쿼리 빌더의 쿼리는 자동으로 보호되지만** 식별자를 수동으로 보호해야 하는 경우 다음 메소드를 사용하십시오.
+
+::
 
 	$db->protectIdentifiers('table_name');
 
-.. important:: Although the Query Builder will try its best to properly
-	quote any field and table names that you feed it. Note that it
-	is NOT designed to work with arbitrary user input. DO NOT feed it
-	with unsanitized user data.
+.. important:: 쿼리 빌더는 피드를 제공하는 필드와 테이블명을 올바르게 인용하기 위해 최선을 다하지만, 임의의 사용자 입력과 함께 작동하도록 설계되지 않았으므로 손상된 사용자 데이터는 공급하지 마십시오.
 
-This function will also add a table prefix to your table, assuming you
-have a prefix specified in your database config file. To enable the
-prefixing set TRUE (boolean) via the second parameter::
+이 함수는 또한 데이터베이스 구성 파일에 접두사가 지정되어 있으면 지정된 접두사를 테이블에 추가할 수 있습니다.
+접두사 세트를 활성화하려면 두 번째 매개 변수에 TRUE(부울)를 전달하십시오. 
+
+::
 
 	$db->protectIdentifiers('table_name', TRUE);
 
 ****************
-Escaping Queries
+이스케이프 쿼리
 ****************
 
-It's a very good security practice to escape your data before submitting
-it into your database. CodeIgniter has three methods that help you do
-this:
+데이터베이스에 데이터를 제출하기 전에 데이터를 이스케이프 처리하는 것이 좋습니다. 
+CodeIgniter에는 이를 수행하는 데 도움이 되는 세 가지 방법이 있습니다:
 
-#. **$db->escape()** This function determines the data type so
-   that it can escape only string data. It also automatically adds
-   single quotes around the data so you don't have to:
+#. **$db->escape()** 함수는 문자열 데이터만 이스케이프할 수 있도록 데이터 유형을 결정합니다. 
+   또한 데이터 주위에 작은 따옴표를 자동으로 추가하므로 별도의 추가 작업이 필요하지 않습니다.
+
    ::
 
 	$sql = "INSERT INTO table (title) VALUES(".$db->escape($title).")";
 
-#. **$db->escapeString()** This function escapes the data passed to
-   it, regardless of type. Most of the time you'll use the above
-   function rather than this one. Use the function like this:
+#. **$db->escapeString()** 함수는 유형에 관계없이 전달된 데이터를 이스케이프합니다. 
+   대부분 이 기능보다는 위의 기능을 사용합니다. 
+   다음과 같은 기능을 사용하십시오.
+
    ::
 
 	$sql = "INSERT INTO table (title) VALUES('".$db->escapeString($title)."')";
 
-#. **$db->escapeLikeString()** This method should be used when
-   strings are to be used in LIKE conditions so that LIKE wildcards
-   ('%', '\_') in the string are also properly escaped.
+#. **$db->escapeLikeString()** 함수는 문자열에서 LIKE 와일드 카드('%', '\ _')도 올바르게 이스케이프합니다. 
+   LIKE 조건에서 문자열을 사용하는 경우 이 메소드를 사용해야 합니다.
 
-::
+   ::
 
         $search = '20% raise';
         $sql = "SELECT id FROM table WHERE column LIKE '%" .
         $db->escapeLikeString($search)."%' ESCAPE '!'";
 
-.. important:: The ``escapeLikeString()`` method uses '!' (exclamation mark)
-	to escape special characters for *LIKE* conditions. Because this
-	method escapes partial strings that you would wrap in quotes
-	yourself, it cannot automatically add the ``ESCAPE '!'``
-	condition for you, and so you'll have to manually do that.
+.. important:: ``escapeLikeString()`` 메소드는 '!'(느낌표)는 *LIKE* 조건에 대한 특수 문자를 이스케이프합니다.
+    이 메소드는 따옴표로 묶은 부분 문자열을 이스케이프 처리하기 때문에 자동으로 ``ESCAPE '!'`` 조건을 추가 할 수 없으므로 수동으로 수행해야 합니다.
 
 **************
-Query Bindings
+쿼리 바인딩
 **************
 
-Bindings enable you to simplify your query syntax by letting the system
-put the queries together for you. Consider the following example::
+바인딩을 사용하면 시스템에서 쿼리를 조합하여 쿼리 구문을 단순화할 수 있습니다. 
+다음 예를 고려하십시오
+
+::
 
 	$sql = "SELECT * FROM some_table WHERE id = ? AND status = ? AND author = ?";
 	$db->query($sql, [3, 'live', 'Rick']);
 
-The question marks in the query are automatically replaced with the
-values in the array in the second parameter of the query function.
+쿼리의 물음표는 쿼리 함수의 두 번째 매개 변수 배열의 값으로 자동 대체됩니다.
 
-Binding also work with arrays, which will be transformed to IN sets::
+바인딩은 또한 배열과도 함께 작동하며 IN 세트로 변환됩니다.
+
+::
 
 	$sql = "SELECT * FROM some_table WHERE id IN ? AND status = ? AND author = ?";
 	$db->query($sql, [[3, 6], 'live', 'Rick']);
 
-The resulting query will be::
+결과 쿼리는::
 
 	SELECT * FROM some_table WHERE id IN (3,6) AND status = 'live' AND author = 'Rick'
 
-The secondary benefit of using binds is that the values are
-automatically escaped producing safer queries.
-You don't have to remember to manually escape data — the engine does it automatically for you.
+바인드 사용의 두 번째 이점은 값이 자동으로 이스케이프되어 안전한 쿼리를 생성한다는 것입니다.
+데이터를 수동으로 이스케이프할 필요는 없습니다. 
+엔진이 자동으로 데이터를 처리합니다.
 
-Named Bindings
+명명된 바인딩
 ==============
 
-Instead of using the question mark to mark the location of the bound values,
-you can name the bindings, allowing the keys of the values passed in to match
-placeholders in the query::
+바인딩된 값의 위치를 표시하기 위해 물음표를 사용하는 대신 바인딩의 이름을 지정하여 전달된 값의 키가 쿼리의 자리 표시자와 일치하도록 할 수 있습니다
+
+::
 
         $sql = "SELECT * FROM some_table WHERE id = :id: AND status = :status: AND author = :name:";
         $db->query($sql, [
@@ -176,43 +172,47 @@ placeholders in the query::
                 'name'   => 'Rick'
         ]);
 
-.. note:: Each name in the query MUST be surrounded by colons.
+.. note:: 쿼리의 각 이름은 콜론(:)으로 묶어야합니다.
 
 ***************
-Handling Errors
+오류 처리
 ***************
 
 **$db->error();**
 
-If you need to get the last error that has occurred, the error() method
-will return an array containing its code and message. Here's a quick
-example::
+마지막으로 발생한 오류를 가져와야 하는 경우 error() 메서드는 해당 코드와 메시지가 포함된 배열을 반환합니다. 
+다음은 간단한 예입니다
+
+::
 
 	if ( ! $db->simpleQuery('SELECT `example_field` FROM `example_table`'))
 	{
 		$error = $db->error(); // Has keys 'code' and 'message'
 	}
 
-****************
-Prepared Queries
-****************
+************************
+준비된(Prepared) 쿼리
+************************
 
-Most database engines support some form of prepared statements, that allow you to prepare a query once, and then run
-that query multiple times with new sets of data. This eliminates the possibility of SQL injection since the data is
-passed to the database in a different format than the query itself. When you need to run the same query multiple times
-it can be quite a bit faster, too. However, to use it for every query can have major performance hits, since you're calling
-out to the database twice as often. Since the Query Builder and Database connections already handle escaping the data
-for you, the safety aspect is already taken care of for you. There will be times, though, when you need to ability
-to optimize the query by running a prepared statement, or prepared query.
+대부분의 데이터베이스 엔진은 쿼리를 한 번 준비한 다음 새로운 데이터 세트를 사용하여 해당 쿼리를 여러 번 실행할 수 있는 일부 형식의 준비된 명령문을 지원합니다.
+이는 데이터가 쿼리 자체와 다른 형식으로 데이터베이스에 전달되므로 SQL 삽입 가능성(SQL injection)을 제거합니다.
+When you need to run the same query multiple times it can be quite a bit faster, too. However, to use it for every query can have major performance hits, since you're calling out to the database twice as often. Since the Query Builder and Database connections already handle escaping the data for you, the safety aspect is already taken care of for you. 
+동일한 쿼리를 여러 번 실행해야 할 때도 훨씬 빠릅니다. 
+그러나 데이터베이스를 두 번 호출하기 때문에 모든 쿼리에 사용하면 성능이 크게 저하 될 수 있습니다. 
+Codeigniter의 쿼리 빌더 및 데이터베이스 연결은 이미 데이터 이스케이프를 처리하여 안전을 확보합니다.
+그러나 준비된 명령문 또는 준비된 쿼리를 실행하여 쿼리를 최적화하는 기능이 필요할 때가 있습니다.
 
-Preparing the Query
+쿼리 준비(Preparing)
 ===================
 
-This can be easily done with the ``prepare()`` method. This takes a single parameter, which is a Closure that returns
-a query object. Query objects are automatically generated by any of the "final" type queries, including **insert**,
-**update**, **delete**, **replace**, and **get**. This is handled the easiest by using the Query Builder to
-run a query. The query is not actually run, and the values don't matter since they're never applied, acting instead
-as placeholders. This returns a PreparedQuery object::
+``prepare()`` 메소드로 이를 쉽게 할 수 있습니다.
+단일 매개 변수 값으로 클로저(Closure)를 사용하며 쿼리 개체를 반환합니다.
+쿼리 객체는 **insert**, **update**, **delete**, **replace**, **get**\ 을 포함하여 "final" 유형 쿼리에 의해 자동으로 생성됩니다.
+이는 쿼리 빌더를 사용하여 쿼리를 실행할 때 가장 쉽게 처리됩니다. 
+쿼리는 실제로 실행되지 않으며 값도 적용되지 않고 자리 표시자로 사용되므로, 어떤 값인지는 중요하지 않습니다. 
+이것은 ``PreparedQuery`` 오브젝트를 리턴합니다.
+
+::
 
     $pQuery = $db->prepare(function($db)
     {
@@ -224,8 +224,9 @@ as placeholders. This returns a PreparedQuery object::
                    ]);
     });
 
-If you don't want to use the Query Builder you can create the Query object manually using question marks for
-value placeholders::
+쿼리 작성기를 사용하지 않는 경우 값 자리 표시자에 물음표를 사용하여 수동으로 쿼리 개체를 만들 수 있습니다.
+
+::
 
     use CodeIgniter\Database\Query;
 
@@ -236,8 +237,9 @@ value placeholders::
         return (new Query($db))->setQuery($sql);
     });
 
-If the database requires an array of options passed to it during the prepare statement phase you can pass that
-array through in the second parameter::
+데이터베이스 준비(prepare) 명령문에 옵션 배열을 전달할 필요가 있을때, 두 번째 매개 변수에 해당 배열을 전달할 수 있습니다.
+
+::
 
     use CodeIgniter\Database\Query;
 
@@ -248,13 +250,15 @@ array through in the second parameter::
         return (new Query($db))->setQuery($sql);
     }, $options);
 
-Executing the Query
+쿼리 실행될
 ===================
 
-Once you have a prepared query you can use the ``execute()`` method to actually run the query. You can pass in as
-many variables as you need in the query parameters. The number of parameters you pass must match the number of
-placeholders in the query. They must also be passed in the same order as the placeholders appear in the original
-query::
+준비된 쿼리가 있으면 ``execute()`` 메서드를 사용하여 실제로 쿼리를 실행할 수 있습니다.
+쿼리 매개 변수에 필요한 만큼 변수를 전달할 수 있습니다.
+전달하는 매개 변수 수는 쿼리의 자리 표시자 수와 일치해야합니다. 
+또한 자리 표시자가 원래 검색어에 표시되는 순서와 동일한 순서로 전달되어야 합니다.
+
+::
 
     // Prepare the Query
     $pQuery = $db->prepare(function($db)
@@ -275,79 +279,85 @@ query::
     // Run the Query
     $results = $pQuery->execute($name, $email, $country);
 
-This returns a standard :doc:`result set </database/results>`.
+표준 :doc:`result set </database/results>`\ 를 반환합니다.
 
-Other Methods
+다른 메소드들
 =============
 
-In addition to these two primary methods, the prepared query object also has the following methods:
+이 두 가지 기본 메소드 외에도 준비된 쿼리 개체에는 다음과 같은 메스도가 있습니다:
 
 **close()**
 
-While PHP does a pretty good job of closing all open statements with the database it's always a good idea to
-close out the prepared statement when you're done with it::
+PHP는 데이터베이스로 모든 열린 명령문을 닫는 작업을 꽤 잘 수행하지만 준비(prepare)된 명령문을 완료하면 항상 닫는 것이 좋습니다.
+
+::
 
     $pQuery->close();
 
 **getQueryString()**
 
-This returns the prepared query as a string.
+준비된 쿼리를 문자열로 반환합니다.
 
 **hasError()**
 
-Returns boolean true/false if the last execute() call created any errors.
+마지막 execute() 호출에서 오류가 발생한 경우 부울 true / false를 리턴합니다.
 
 **getErrorCode()**
 **getErrorMessage()**
 
-If any errors were encountered these methods can be used to retrieve the error code and string.
+오류가 발생하면 이 메소드를 사용하여 오류 코드와 문자열을 검색할 수 있습니다.
 
 **************************
-Working with Query Objects
+쿼리 개체 작업
 **************************
 
-Internally, all queries are processed and stored as instances of
-\CodeIgniter\Database\Query. This class is responsible for binding
-the parameters, otherwise preparing the query, and storing performance
-data about its query.
+내부적으로 모든 쿼리는 \CodeIgniter\Database\Query의 인스턴스로 처리 및 저장됩니다.
+이 클래스는 매개 변수 바인딩, 쿼리 준비, 쿼리 성능 데이터 저장을 합니다.
 
 **getLastQuery()**
 
-When you just need to retrieve the last Query object, use the
-getLastQuery() method::
+마지막 Query 객체만 검색해야 하는 경우 getLastQuery() 메소드를 사용하십시오.
+
+::
 
 	$query = $db->getLastQuery();
 	echo (string)$query;
 
-The Query Class
+쿼리 클래스
 ===============
 
-Each query object stores several pieces of information about the query itself.
-This is used, in part, by the Timeline feature, but is available for your use
-as well.
+각 쿼리 개체는 쿼리 자체에 대한 몇 가지 정보를 저장합니다.
+이것은 부분적으로 타임 라인 기능에서 사용하지만 사용자도 사용할 수 있습니다.
 
 **getQuery()**
 
-Returns the final query after all processing has happened. This is the exact
-query that was sent to the database::
+모든 처리가 수행 된 후 최종 쿼리를 반환합니다.
+데이터베이스로 전송된 실제 쿼리입니다.
+
+::
 
 	$sql = $query->getQuery();
 
-This same value can be retrieved by casting the Query object to a string::
+Query 객체를 문자열로 캐스팅하여 동일한 값을 얻을수 있습니다.
+
+::
 
 	$sql = (string)$query;
 
 **getOriginalQuery()**
 
-Returns the raw SQL that was passed into the object. This will not have any
-binds in it, or prefixes swapped out, etc::
+오브젝트에 전달된 SQL을 리턴합니다.
+여기에는 바인드가 없거나 접두사가 바뀌지 않습니다.
+
+::
 
 	$sql = $query->getOriginalQuery();
 
 **hasError()**
 
-If an error was encountered during the execution of this query this method
-will return true::
+쿼리를 실행하는 동안 오류가 발생하면 이 메소드는 true를 리턴합니다.
+
+::
 
 	if ($query->hasError())
 	{
@@ -357,8 +367,9 @@ will return true::
 
 **isWriteType()**
 
-Returns true if the query was determined to be a write-type query (i.e.
-INSERT, UPDATE, DELETE, etc)::
+쿼리가 쓰기 유형 쿼리인 것으로 확인된 경우 true를 리턴합니다.(i.e. INSERT, UPDATE, DELETE, etc)
+
+::
 
 	if ($query->isWriteType())
 	{
@@ -367,20 +378,25 @@ INSERT, UPDATE, DELETE, etc)::
 
 **swapPrefix()**
 
-Replaces one table prefix with another value in the final SQL. The first
-parameter is the original prefix that you want replaced, and the second
-parameter is the value you want it replaced with::
+최종 SQL에서 하나의 테이블 접두사를 다른 값으로 대체합니다.
+첫 번째 매개 변수는 바꾸려는 원래 접두사이고, 두 번째 매개 변수는 바꾸려는 값입니다.
+
+::
 
 	$sql = $query->swapPrefix('ci3_', 'ci4_');
 
 **getStartTime()**
 
-Gets the time the query was executed in seconds with microseconds::
+쿼리가 마이크로초 단위로 실행된 시간을 가져옵니다.
+
+::
 
 	$microtime = $query->getStartTime();
 
 **getDuration()**
 
-Returns a float with the duration of the query in seconds with microseconds::
+쿼리 지속 시간을 마이크로초 단위로 반환합니다.
+
+::
 
 	$microtime = $query->getDuration();
