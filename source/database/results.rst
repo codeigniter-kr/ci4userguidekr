@@ -1,22 +1,23 @@
 ########################
-Generating Query Results
+쿼리 결과 생성
 ########################
 
-There are several ways to generate query results:
+쿼리 결과를 생성하는 몇 가지 방법이 있습니다.
 
 .. contents::
     :local:
     :depth: 2
 
-*************
-Result Arrays
-*************
+***************************
+결과 배열(Result Arrays)
+***************************
 
 **getResult()**
 
-This method returns the query result as an array of **objects**, or
-**an empty array** on failure. Typically you'll use this in a foreach
-loop, like this::
+이 메소드는 쿼리 결과를 **objects**\ 의 배열로 반환하고, 실패시는 **빈 배열**\ 을 반환합니다. 
+일반적으로 아래와 같이 foreach 루프에 사용합니다.
+
+::
 
     $query = $db->query("YOUR QUERY");
 
@@ -27,10 +28,11 @@ loop, like this::
         echo $row->body;
     }
 
-The above method is an alias of ``getResultObject()``.
+위의 메소드는``getResultObject()``\ 의 별칭입니다.
 
-You can pass in the string 'array' if you wish to get your results
-as an array of arrays::
+결과를 배열의 배열로 얻으려면 문자열 'array'를 전달합니다.
+
+::
 
     $query = $db->query("YOUR QUERY");
 
@@ -41,10 +43,9 @@ as an array of arrays::
         echo $row['body'];
     }
 
-The above usage is an alias of ``getResultArray()``.
+위의 사용법은 ``getResultArray()``\ 의 별칭입니다.
 
-You can also pass a string to ``getResult()`` which represents a class to
-instantiate for each result object
+``getResult()``\ 의 각 결과 객체에 대해 인스턴스화 할 클래스를 나타내는 문자열을 전달할 수도 있습니다.
 
 ::
 
@@ -56,13 +57,14 @@ instantiate for each result object
         echo $user->reverseName(); // or methods defined on the 'User' class
     }
 
-The above method is an alias of ``getCustomResultObject()``.
+위의 메소드는``getCustomResultObject()``\ 의 별칭입니다.
 
 **getResultArray()**
 
-This method returns the query result as a pure array, or an empty
-array when no result is produced. Typically you'll use this in a foreach
-loop, like this::
+이 메소드는 조회 결과를 순수한 배열로 리턴하거나 결과가 생성되지 않으면 빈 배열을 리턴합니다. 
+일반적으로 이것을 아래와 같은 foreach 루프에서 사용합니다
+
+::
 
     $query = $db->query("YOUR QUERY");
 
@@ -73,15 +75,17 @@ loop, like this::
         echo $row['body'];
     }
 
-***********
-Result Rows
-***********
+**************************
+결과 행(Result Rows)
+**************************
 
 **getRow()**
 
-This method returns a single result row. If your query has more than
-one row, it returns only the first row. The result is returned as an
-**object**. Here's a usage example::
+이 메소드는 단일 결과 행을 리턴합니다.
+쿼리에 둘 이상의 행이 있으면 첫 번째 행만 반환합니다.
+결과는 **객체**로 반환됩니다. 사용법 예는 다음과 같습니다.
+
+::
 
     $query = $db->query("YOUR QUERY");
 
@@ -94,13 +98,15 @@ one row, it returns only the first row. The result is returned as an
         echo $row->body;
     }
 
-If you want a specific row returned you can submit the row number as a
-digit in the first parameter::
+특정 행을 리턴하려면 첫 번째 매개 변수에 행 번호를 숫자로 제출하십시오.
+
+::
 
 	$row = $query->getRow(5);
 
-You can also add a second String parameter, which is the name of a class
-to instantiate the row with::
+행을 인스턴스화하는 클래스의 이름인 두 번째 문자열 매개 변수를 추가할 수도 있습니다.
+
+::
 
 	$query = $db->query("SELECT * FROM users LIMIT 1;");
 	$row = $query->getRow(0, 'User');
@@ -110,8 +116,7 @@ to instantiate the row with::
 
 **getRowArray()**
 
-Identical to the above ``row()`` method, except it returns an array.
-Example::
+위의 ``row()`` 메서드와 동일하지만 배열을 반환합니다. 샘플::
 
     $query = $db->query("YOUR QUERY");
 
@@ -124,36 +129,32 @@ Example::
         echo $row['body'];
     }
 
-If you want a specific row returned you can submit the row number as a
-digit in the first parameter::
+특정 행을 리턴하려면 첫 번째 매개 변수에서 행 번호를 숫자로 제출하십시오.
+
+::
 
 	$row = $query->getRowArray(5);
 
-In addition, you can walk forward/backwards/first/last through your
-results using these variations:
+또한 이러한 변형을 사용하여 결과를 "forward/backwards/first/last"로 검색할 수 있습니다:
 
 	| **$row = $query->getFirstRow()**
 	| **$row = $query->getLastRow()**
 	| **$row = $query->getNextRow()**
 	| **$row = $query->getPreviousRow()**
 
-By default they return an object unless you put the word "array" in the
-parameter:
+매개 변수에 "array"라는 단어를 넣지 않으면 기본적으로 객체를 반환합니다.:
 
 	| **$row = $query->getFirstRow('array')**
 	| **$row = $query->getLastRow('array')**
 	| **$row = $query->getNextRow('array')**
 	| **$row = $query->getPreviousRow('array')**
 
-.. note:: All the methods above will load the whole result into memory
-	(prefetching). Use ``getUnbufferedRow()`` for processing large
-	result sets.
+.. note:: 위의 모든 메소드는 전체 결과를 메모리에 로드합니다.(프리 페치) 큰 결과 집합을 처리하려면 ``getUnbufferedRow()``\ 를 사용하십시오.
 
 **getUnbufferedRow()**
 
-This method returns a single result row without prefetching the whole
-result in memory as ``row()`` does. If your query has more than one row,
-it returns the current row and moves the internal data pointer ahead.
+이 메소드는 ``row()``\ 와 같이 메모리에서 전체 결과를 프리 페치 하지 않고, 단일 결과 행을 리턴합니다.
+쿼리에 둘 이상의 행이 있으면 현재 행을 반환하고 내부 데이터 포인터를 앞으로 이동합니다.
 
 ::
 
@@ -166,23 +167,22 @@ it returns the current row and moves the internal data pointer ahead.
         echo $row->body;
     }
 
-You can optionally pass 'object' (default) or 'array' in order to specify
-the returned value's type::
+반환된 값의 유형을 지정하기 위해 선택적으로 'object'(기본값) 또는 'array'를 전달할 수 있습니다.
+
+::
 
 	$query->getUnbufferedRow();		    // object
 	$query->getUnbufferedRow('object');	// object
 	$query->getUnbufferedRow('array');	// associative array
 
 *********************
-Custom Result Objects
+사용자 정의 결과 객체
 *********************
 
-You can have the results returned as an instance of a custom class instead
-of a ``stdClass`` or array, as the ``getResult()`` and ``getResultArray()``
-methods allow. If the class is not already loaded into memory, the Autoloader
-will attempt to load it. The object will have all values returned from the
-database set as properties. If these have been declared and are non-public
-then you should provide a ``__set()`` method to allow them to be set.
+``getResult()``\ 와 ``getResultArray()`` 메소드가 허용하는대로 ``stdClass`` 또는 배열 대신 사용자 정의 클래스의 인스턴스로 결과를 리턴할 수 있습니다.
+클래스가 아직 메모리에 로드되지 않은 경우 오토로더가 로드를 시도합니다.
+객체는 데이터베이스에서 반환된 모든 값을 속성으로 설정합니다.
+선언되었으나 공개되지 않은 속성의 경우 ``__set()`` 메소드를 제공하여 설정할 수 있습니다.
 
 Example::
 
@@ -216,14 +216,12 @@ Example::
 		}
 	}
 
-In addition to the two methods listed below, the following methods also can
-take a class name to return the results as: ``getFirstRow()``, ``getLastRow()``,
-``getNextRow()``, and ``getPreviousRow()``.
+아래 나열된 두 가지 메소드 외에 ``getFirstRow()``, ``getLastRow()``, ``getNextRow()``, ``getPreviousRow()`` 메소드에서도 클래스 이름을 사용하여 결과를 다음과 같이 반환할 수 있습니다.
 
 **getCustomResultObject()**
 
-Returns the entire result set as an array of instances of the class requested.
-The only parameter is the name of the class to instantiate.
+요청된 클래스의 인스턴스 배열로 전체 결과 집합을 반환합니다.
+인스턴스화 할 클래스의 이름을 단일 매개 변수로 사용합니다.
 
 Example::
 
@@ -240,8 +238,9 @@ Example::
 
 **getCustomRowObject()**
 
-Returns a single row from your query results. The first parameter is the row
-number of the results. The second parameter is the class name to instantiate.
+쿼리 결과에서 단일 행을 반환합니다.
+첫 번째 매개 변수는 결과의 행 번호입니다.
+두 번째 매개 변수는 인스턴스화 할 클래스 이름입니다.
 
 Example::
 
@@ -255,20 +254,22 @@ Example::
 		echo $row->last_login('Y-m-d');   // access class methods
 	}
 
-You can also use the ``getRow()`` method in exactly the same way.
+``getRow()`` 메서드를 같은 방식으로 사용할 수 있습니다.
 
 Example::
 
 	$row = $query->getCustomRowObject(0, 'User');
 
 *********************
-Result Helper Methods
+결과 헬퍼 메소드
 *********************
 
 **getFieldCount()**
 
-The number of FIELDS (columns) returned by the query. Make sure to call
-the method using your query result object::
+쿼리에서 반환 한 FIELDS (열) 갯수 입니다.
+Make sure to call the method using your query result object
+
+::
 
 	$query = $db->query('SELECT * FROM my_table');
 
