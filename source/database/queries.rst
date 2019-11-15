@@ -196,7 +196,6 @@ CodeIgniter에는 이를 수행하는 데 도움이 되는 세 가지 방법이 
 
 대부분의 데이터베이스 엔진은 쿼리를 한 번 준비한 다음 새로운 데이터 세트를 사용하여 해당 쿼리를 여러 번 실행할 수 있는 일부 형식의 준비된 명령문을 지원합니다.
 이는 데이터가 쿼리 자체와 다른 형식으로 데이터베이스에 전달되므로 SQL 삽입 가능성(SQL injection)을 제거합니다.
-When you need to run the same query multiple times it can be quite a bit faster, too. However, to use it for every query can have major performance hits, since you're calling out to the database twice as often. Since the Query Builder and Database connections already handle escaping the data for you, the safety aspect is already taken care of for you. 
 동일한 쿼리를 여러 번 실행해야 할 때도 훨씬 빠릅니다. 
 그러나 데이터베이스를 두 번 호출하기 때문에 모든 쿼리에 사용하면 성능이 크게 저하 될 수 있습니다. 
 Codeigniter의 쿼리 빌더 및 데이터베이스 연결은 이미 데이터 이스케이프를 처리하여 안전을 확보합니다.
