@@ -37,22 +37,25 @@ Query Builder는 특별히 클래스를 요청할 때만 메모리에 로드되�
 
 **$builder->get()**
 
-Runs the selection query and returns the result. Can be used by itself
-to retrieve all records from a table::
+select 쿼리를 실행하고 결과를 반환하며, 테이블에서 모든 레코드를 검색할 수 있습니다
+
+::
 
     $builder = $db->table('mytable');
     $query   = $builder->get();  // Produces: SELECT * FROM mytable
 
-The first and second parameters enable you to set a limit and offset
-clause::
+첫 번째와 두 번째 매개 변수를 사용하여 limit과 offset을 설정할 수 있습니다
+
+::
 
 	$query = $builder->get(10, 20);
 
 	// Executes: SELECT * FROM mytable LIMIT 20, 10
 	// (in MySQL. Other databases have slightly different syntax)
 
-You'll notice that the above function is assigned to a variable named
-$query, which can be used to show the results::
+위 함수는 $query 라는 변수에 할당되어 있으며 결과를 표시하는데 사용할 수 있습니다.
+
+::
 
 	$query = $builder->get();
 
@@ -61,13 +64,12 @@ $query, which can be used to show the results::
 		echo $row->title;
 	}
 
-Please visit the :doc:`result functions <results>` page for a full
-discussion regarding result generation.
+결과 생성에 대한 자세한 내용은 :doc:`결과(result) 함수 <results>` 페이지를 참조하십시오.
 
 **$builder->getCompiledSelect()**
 
-Compiles the selection query just like **$builder->get()** but does not *run*
-the query. This method simply returns the SQL query as a string.
+**$builder->get()**\ 처럼 select 쿼리를 컴파일하지만 쿼리를 *실행*\ 하지는 않습니다.
+이 메서드는 SQL 쿼리를 문자열로 반환합니다.
 
 Example::
 
@@ -76,8 +78,9 @@ Example::
 
 	// Prints string: SELECT * FROM mytable
 
-The first parameter enables you to set whether or not the query builder query
-will be reset (by default it will be reset, just like when using `$builder->get()`)::
+첫 번째 매개 변수를 사용하면 쿼리 빌더의 쿼리를 재설정할지 여부를 설정할 수 있습니다. (기본적으로 `$builder->get()`\ 을 사용할 때와 같이 재설정됩니다)
+
+::
 
 	echo $builder->limit(10,20)->getCompiledSelect(false);
 
@@ -88,39 +91,34 @@ will be reset (by default it will be reset, just like when using `$builder->get(
 
 	// Prints string: SELECT title, content, date FROM mytable LIMIT 20, 10
 
-The key thing to notice in the above example is that the second query did not
-utilize **$builder->from()** and did not pass a table name into the first
-parameter. The reason for this outcome is because the query has not been
-executed using **$builder->get()** which resets values or reset directly
-using **$builder->resetQuery()**.
+위 예제에서 두 번째 쿼리가 **$builder->from()**\ 을 사용하거나, 테이블 이름을 첫 번째 매개 변수에 전달하지 않았다는 것에 주목하십시오.
+이렇게 사용 가능한 이유는 **$builder->get()**\ 을 사용하여 쿼리가 실행되지 않았기 때문이며, 값을 재설정해야 한다면 **$builder->resetQuery()**\ 를 사용해야 합니다.
 
 **$builder->getWhere()**
 
-Identical to the ``get()`` function except that it permits you to add a
-"where" clause in the first parameter, instead of using the db->where()
-function::
+db->where() 함수를 사용하는 대신 첫 번째 매개 변수에 "where"\ 절을 추가 할 수 있다는 점을 제외하고 ``get()`` 함수와 동일합니다.
+
+::
 
 	$query = $builder->getWhere(['id' => $id], $limit, $offset);
 
-Please read about the `where` function below for more information.
+자세한 내용은 아래의 `where` 함수에 대해 읽으십시오.
 
 **$builder->select()**
 
-Permits you to write the SELECT portion of your query::
+쿼리의 SELECT 부분을 쓸 수 있습니다
+
+::
 
 	$builder->select('title, content, date');
 	$query = $builder->get();
 
 	// Executes: SELECT title, content, date FROM mytable
 
-.. note:: If you are selecting all (\*) from a table you do not need to
-	use this function. When omitted, CodeIgniter assumes that you wish
-	to select all fields and automatically adds 'SELECT \*'.
+.. note:: 테이블에서 모든 (\*)를 선택하는 경우 이 기능을 사용할 필요가 없습니다. 생략하면 CodeIgniter는 모든 필드를 선택하고 'SELECT \*'를 자동으로 추가합니다.
 
-``$builder->select()`` accepts an optional second parameter. If you set it
-to FALSE, CodeIgniter will not try to protect your field or table names.
-This is useful if you need a compound select statement where automatic
-escaping of fields may break them.
+``$builder->select()``\ 는 두 번째 매개 변수를 옵션으로 허용하며, 이를 FALSE로 설정하면 CodeIgniter는 필드 또는 테이블 이름을 보호하지 않습니다.
+필드의 자동 이스케이프가 필드를 손상시킬 수 있는 복합 선택문이 필요한 경우에 유용합니다.
 
 ::
 
@@ -129,8 +127,8 @@ escaping of fields may break them.
 
 **$builder->selectMax()**
 
-Writes a ``SELECT MAX(field)`` portion for your query. You can optionally
-include a second parameter to rename the resulting field.
+쿼리의 ``SELECT MAX(field)`` 부분을 작성합니다.
+옵션으로 두 번째 매개 변수에 결과 필드의 이름을 전달하여 바꿀 수 있습니다.
 
 ::
 
@@ -142,9 +140,8 @@ include a second parameter to rename the resulting field.
 
 **$builder->selectMin()**
 
-Writes a "SELECT MIN(field)" portion for your query. As with
-selectMax(), You can optionally include a second parameter to rename
-the resulting field.
+쿼리의 "SELECT MIN(field)" 부분을 작성합니다.
+selectMax()와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 매개 변수를 옵션으로 제공합니다.
 
 ::
 
@@ -153,9 +150,8 @@ the resulting field.
 
 **$builder->selectAvg()**
 
-Writes a "SELECT AVG(field)" portion for your query. As with
-selectMax(), You can optionally include a second parameter to rename
-the resulting field.
+쿼리의 "SELECT AVG(field)" 부분을 작성합니다.
+selectMax()와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 매개 변수를 옵션으로 제공합니다.
 
 ::
 
@@ -164,9 +160,8 @@ the resulting field.
 
 **$builder->selectSum()**
 
-Writes a "SELECT SUM(field)" portion for your query. As with
-selectMax(), You can optionally include a second parameter to rename
-the resulting field.
+쿼리의 "SELECT SUM(field)" 부분을 작성합니다.
+selectMax()와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 매개 변수를 옵션으로 제공합니다.
 
 ::
 
@@ -175,12 +170,11 @@ the resulting field.
 
 **$builder->selectCount()**
 
-Writes a "SELECT COUNT(field)" portion for your query. As with
-selectMax(), You can optionally include a second parameter to rename
-the resulting field.
+쿼리의 "SELECT COUNT(field)" 부분을 작성합니다.
+selectMax()와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 매개 변수를 옵션으로 제공합니다.
 
-.. note:: This method is particularly helpful when used with ``groupBy()``. For
-        counting results generally see ``countAll()`` or ``countAllResults()``.
+
+.. note:: 이 메소드는 ``groupBy()``\ 와 함께 사용할 때 특히 유용합니다. 카운트 결과는 일반적으로 ``countAll()`` 또는 ``countAllResults()``\ 를 참조하십시오.
 
 ::
 
@@ -189,19 +183,21 @@ the resulting field.
 
 **$builder->from()**
 
-Permits you to write the FROM portion of your query::
+쿼리의 FROM 부분을 작성합니다.
+
+::
 
 	$builder->select('title, content, date');
 	$builder->from('mytable');
 	$query = $builder->get();  // Produces: SELECT title, content, date FROM mytable
 
-.. note:: As shown earlier, the FROM portion of your query can is specified
-	in the $db->table() function. Additional calls to from() will add more tables
-	to the FROM portion of your query.
+.. note:: 앞에서 설명한 것처럼 쿼리의 FROM 부분은 $db->table() 함수에서 지정할 수 있습니다. from()에 대한 추가 호출은 쿼리의 FROM 부분에 더 많은 테이블을 추가합니다.
 
 **$builder->join()**
 
-Permits you to write the JOIN portion of your query::
+쿼리의 JOIN 부분을 작성합니다.
+
+::
 
     $builder->db->table('blog');
     $builder->select('*');
@@ -211,12 +207,10 @@ Permits you to write the JOIN portion of your query::
     // Produces:
     // SELECT * FROM blogs JOIN comments ON comments.id = blogs.id
 
-Multiple function calls can be made if you need several joins in one
-query.
+하나의 쿼리에 여러 개의 조인이 필요한 경우 여러번 함수를 호출할 수 있습니다.
 
-If you need a specific type of JOIN you can specify it via the third
-parameter of the function. Options are: left, right, outer, inner, left
-outer, and right outer.
+특정 유형의 JOIN이 필요한 경우 함수의 세 번째 매개 변수를 통해 지정할 수 있습니다.
+제공 옵션 : ``left``, ``right``, ``outer``, ``inner``, ``left outer``, ``right outer``.
 
 ::
 
@@ -224,27 +218,24 @@ outer, and right outer.
 	// Produces: LEFT JOIN comments ON comments.id = blogs.id
 
 *************************
-Looking for Specific Data
+특정 데이터 찾기
 *************************
 
 **$builder->where()**
 
-This function enables you to set **WHERE** clauses using one of four
-methods:
+이 함수를 사용하면 네 가지 방법중 하나를 사용하여 **WHERE** 절을 설정할 수 있습니다:
 
-.. note:: All values passed to this function are escaped automatically,
-	producing safer queries.
+.. note:: 이 함수에 전달된 모든 값은 자동으로 이스케이프되어 안전한 쿼리를 생성합니다.
 
-#. **Simple key/value method:**
+#. **단순 key/value 방법:**
 
 	::
 
 		$builder->where('name', $name); // Produces: WHERE name = 'Joe'
 
-	Notice that the equal sign is added for you.
+	등호(=)가 추가되었습니다.
 
-	If you use multiple function calls they will be chained together with
-	AND between them:
+	여러 함수 호출을 사용하는 경우 AND와 함께 체인으로 연결됩니다:
 
 	::
 
@@ -253,17 +244,16 @@ methods:
 		$builder->where('status', $status);
 		// WHERE name = 'Joe' AND title = 'boss' AND status = 'active'
 
-#. **Custom key/value method:**
+#. **사용자 key/value 방법:**
 
-	You can include an operator in the first parameter in order to
-	control the comparison:
+	비교를 제어하기 위해 첫 번째 매개 변수에 연산자를 포함시킬 수 있습니다:
 
 	::
 
 		$builder->where('name !=', $name);
 		$builder->where('id <', $id); // Produces: WHERE name != 'Joe' AND id < 45
 
-#. **Associative array method:**
+#. **연관 배열 방법:**
 
 	::
 
@@ -271,138 +261,135 @@ methods:
 		$builder->where($array);
 		// Produces: WHERE name = 'Joe' AND title = 'boss' AND status = 'active'
 
-	You can include your own operators using this method as well:
+	이 방법을 사용하여 사용자 연산자를 포함시킬 수도 있습니다:
 
 	::
 
 		$array = ['name !=' => $name, 'id <' => $id, 'date >' => $date];
 		$builder->where($array);
 
-#. **Custom string:**
-	You can write your own clauses manually::
+#. **맞춤 문자열:**
+
+	비교절을 직접 작성할 수 있습니다
+	
+	::
 
 		$where = "name='Joe' AND status='boss' OR status='active'";
 		$builder->where($where);
 
-    ``$builder->where()`` accepts an optional third parameter. If you set it to
-    FALSE, CodeIgniter will not try to protect your field or table names.
+	``$builder->where()``\ 는 세 번째 매개 변수를 옵션으로 허용하며, FALSE로 설정하면 CodeIgniter는 필드 또는 테이블 이름을 보호하지 않습니다.
 
-    ::
+	::
 
-        $builder->where('MATCH (field) AGAINST ("value")', NULL, FALSE);
+		$builder->where('MATCH (field) AGAINST ("value")', NULL, FALSE);
 
-#. **Subqueries:**
-    You can use an anonymous function to create a subquery.
+#. **서브 쿼리:**
 
-    ::
+	익명 함수를 사용하여 서브 쿼리를 만들 수 있습니다.
 
-        $builder->where('advance_amount <', function(BaseBuilder $builder) {
-            return $builder->select('MAX(advance_amount)', false)->from('orders')->where('id >', 2);
-        });
-        // Produces: WHERE "advance_amount" < (SELECT MAX(advance_amount) FROM "orders" WHERE "id" > 2)
+	::
+
+		$builder->where('advance_amount <', function(BaseBuilder $builder) {
+			return $builder->select('MAX(advance_amount)', false)->from('orders')->where('id >', 2);
+		});
+		// Produces: WHERE "advance_amount" < (SELECT MAX(advance_amount) FROM "orders" WHERE "id" > 2)
 
 **$builder->orWhere()**
 
-This function is identical to the one above, except that multiple
-instances are joined by OR
+이 함수는 여러 인스턴스가 OR로 결합된다는 점을 제외하고 위의 함수와 동일합니다.
 
-    ::
+::
 
 	$builder->where('name !=', $name);
 	$builder->orWhere('id >', $id);  // Produces: WHERE name != 'Joe' OR id > 50
 
 **$builder->whereIn()**
 
-Generates a WHERE field IN ('item', 'item') SQL query joined with AND if
-appropriate
+적절한 경우 AND로 결합된 ``WHERE field IN ('item', 'item')`` SQL 쿼리를 생성합니다.
 
-    ::
+::
 
-        $names = ['Frank', 'Todd', 'James'];
-        $builder->whereIn('username', $names);
-        // Produces: WHERE username IN ('Frank', 'Todd', 'James')
+	$names = ['Frank', 'Todd', 'James'];
+	$builder->whereIn('username', $names);
+	// Produces: WHERE username IN ('Frank', 'Todd', 'James')
 
-You can use subqueries instead of an array of values.
+값 배열 대신 서브 쿼리를 사용할 수 있습니다.
 
-    ::
+::
 
-        $builder->whereIn('id', function(BaseBuilder $builder) {
-            return $builder->select('job_id')->from('users_jobs')->where('user_id', 3);
-        });
-        // Produces: WHERE "id" IN (SELECT "job_id" FROM "users_jobs" WHERE "user_id" = 3)
+	$builder->whereIn('id', function(BaseBuilder $builder) {
+		return $builder->select('job_id')->from('users_jobs')->where('user_id', 3);
+	});
+	// Produces: WHERE "id" IN (SELECT "job_id" FROM "users_jobs" WHERE "user_id" = 3)
 
 **$builder->orWhereIn()**
 
-Generates a WHERE field IN ('item', 'item') SQL query joined with OR if
-appropriate
+적절한 경우 OR로 결합된 ``WHERE field IN ('item', 'item')`` SQL 쿼리를 생성합니다.
 
-    ::
+::
 
-        $names = ['Frank', 'Todd', 'James'];
-        $builder->orWhereIn('username', $names);
-        // Produces: OR username IN ('Frank', 'Todd', 'James')
+	$names = ['Frank', 'Todd', 'James'];
+	$builder->orWhereIn('username', $names);
+	// Produces: OR username IN ('Frank', 'Todd', 'James')
 
-You can use subqueries instead of an array of values.
+값 배열 대신 서브 쿼리를 사용할 수 있습니다.
 
-    ::
+::
 
-        $builder->orWhereIn('id', function(BaseBuilder $builder) {
-            return $builder->select('job_id')->from('users_jobs')->where('user_id', 3);
-        });
+	$builder->orWhereIn('id', function(BaseBuilder $builder) {
+		return $builder->select('job_id')->from('users_jobs')->where('user_id', 3);
+	});
 
-        // Produces: OR "id" IN (SELECT "job_id" FROM "users_jobs" WHERE "user_id" = 3)
+	// Produces: OR "id" IN (SELECT "job_id" FROM "users_jobs" WHERE "user_id" = 3)
 
 **$builder->whereNotIn()**
 
-Generates a WHERE field NOT IN ('item', 'item') SQL query joined with
-AND if appropriate
+적절한 경우 AND로 결합된 ``WHERE field NOT IN ('item', 'item')`` SQL 쿼리를 생성합니다.
 
-    ::
+::
 
-        $names = ['Frank', 'Todd', 'James'];
-        $builder->whereNotIn('username', $names);
-        // Produces: WHERE username NOT IN ('Frank', 'Todd', 'James')
+	$names = ['Frank', 'Todd', 'James'];
+	$builder->whereNotIn('username', $names);
+	// Produces: WHERE username NOT IN ('Frank', 'Todd', 'James')
 
-You can use subqueries instead of an array of values.
+값 배열 대신 서브 쿼리를 사용할 수 있습니다.
 
-    ::
+::
 
-        $builder->whereNotIn('id', function(BaseBuilder $builder) {
-            return $builder->select('job_id')->from('users_jobs')->where('user_id', 3);
-        });
+	$builder->whereNotIn('id', function(BaseBuilder $builder) {
+		return $builder->select('job_id')->from('users_jobs')->where('user_id', 3);
+	});
 
-        // Produces: WHERE "id" NOT IN (SELECT "job_id" FROM "users_jobs" WHERE "user_id" = 3)
+	// Produces: WHERE "id" NOT IN (SELECT "job_id" FROM "users_jobs" WHERE "user_id" = 3)
 
 
 **$builder->orWhereNotIn()**
 
-Generates a WHERE field NOT IN ('item', 'item') SQL query joined with OR
-if appropriate
+적절한 경우 OR로 결합된 ``WHERE field NOT IN ('item', 'item')`` SQL 쿼리를 생성합니다.
 
-    ::
+::
 
-        $names = ['Frank', 'Todd', 'James'];
-        $builder->orWhereNotIn('username', $names);
-        // Produces: OR username NOT IN ('Frank', 'Todd', 'James')
+	$names = ['Frank', 'Todd', 'James'];
+	$builder->orWhereNotIn('username', $names);
+	// Produces: OR username NOT IN ('Frank', 'Todd', 'James')
 
-You can use subqueries instead of an array of values.
+값 배열 대신 서브 쿼리를 사용할 수 있습니다.
 
-    ::
+::
 
-        $builder->orWhereNotIn('id', function(BaseBuilder $builder) {
-            return $builder->select('job_id')->from('users_jobs')->where('user_id', 3);
-        });
+	$builder->orWhereNotIn('id', function(BaseBuilder $builder) {
+		return $builder->select('job_id')->from('users_jobs')->where('user_id', 3);
+	});
 
-        // Produces: OR "id" NOT IN (SELECT "job_id" FROM "users_jobs" WHERE "user_id" = 3)
+	// Produces: OR "id" NOT IN (SELECT "job_id" FROM "users_jobs" WHERE "user_id" = 3)
 
 ************************
-Looking for Similar Data
+유사한 데이터 찾기
 ************************
 
 **$builder->like()**
 
-This method enables you to generate **LIKE** clauses, useful for doing
-searches.
+This method enables you to generate **LIKE** clauses, useful for doing searches.
 
 .. note:: All values passed to this method are escaped automatically.
 
