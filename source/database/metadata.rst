@@ -1,24 +1,25 @@
-#################
-Database Metadata
-#################
+##############################
+데이터베이스 메타데이터
+##############################
 
 .. contents::
     :local:
     :depth: 2
 
-**************
-Table MetaData
-**************
+*************************
+테이블 메타데이터
+*************************
 
-These functions let you fetch table information.
+이 함수를 사용하면 테이블 정보를 가져올 수 있습니다.
 
-List the Tables in Your Database
+데이터베이스의 테이블 정보
 ================================
 
 **$db->listTables();**
 
-Returns an array containing the names of all the tables in the database
-you are currently connected to. Example::
+연결된 데이터베이스의 모든 테이블 이름이 포함된 배열을 반환합니다.
+
+::
 
 	$tables = $db->listTables();
 
@@ -27,37 +28,39 @@ you are currently connected to. Example::
 		echo $table;
 	}
 	
-.. note:: Some drivers have additional system tables that are excluded from this return.
+.. note:: 일부 드라이버에는 반환된 배열에 제외된 추가 시스템 테이블이 있습니다.
 
-Determine If a Table Exists
+테이블이 존재하는지 확인
 ===========================
 
 **$db->tableExists();**
 
-Sometimes it's helpful to know whether a particular table exists before
-running an operation on it. Returns a boolean TRUE/FALSE. Usage example::
+때로는 작업을 실행하기 전에 특정 테이블이 존재하는지 확인하는 것이 도움이됩니다. 
+TRUE / FALSE를 반환합니다.
+
+::
 
 	if ($db->tableExists('table_name'))
 	{
 		// some code...
 	}
 
-.. note:: Replace *table_name* with the name of the table you are looking for.
+.. note:: **table_name**\ 을 찾고있는 테이블 이름으로 바꾸십시오.
 
-**************
-Field MetaData
-**************
+*******************
+필드 메타데이터
+*******************
 
-List the Fields in a Table
+테이블의 필드 정보
 ==========================
 
 **$db->getFieldNames()**
 
-Returns an array containing the field names. This query can be called
-two ways:
+필드명을 포함한 배열을 반환합니다. 이 쿼리는 두 가지 방법으로 호출할 수 있습니다:
 
-1. You can supply the table name and call it from the $db->
-object::
+1. $db->getFieldNames()에 테이블 이름을 제공하고 호출합니다.
+
+::
 
 	$fields = $db->getFieldNames('table_name');
 
@@ -66,8 +69,9 @@ object::
 		echo $field;
 	}
 
-2. You can gather the field names associated with any query you run by
-calling the function from your query result object::
+2. 실행한 쿼리의 결과 객체에서 함수를 호출하여 관련된 필드명을 수집합니다.
+
+::
 
 	$query = $db->query('SELECT * FROM some_table');
 
@@ -76,36 +80,35 @@ calling the function from your query result object::
 		echo $field;
 	}
 
-Determine If a Field is Present in a Table
+필드가 테이블에 존재하는지 확인
 ==========================================
 
 **$db->fieldExists()**
 
-Sometimes it's helpful to know whether a particular field exists before
-performing an action. Returns a boolean TRUE/FALSE. Usage example::
+때로는 작업을 수행하기 전에 특정 필드가 존재하는지 확인하는 것이 도움이됩니다. 
+TRUE / FALSE를 반환합니다.
+
+::
 
 	if ($db->fieldExists('field_name', 'table_name'))
 	{
 		// some code...
 	}
 
-.. note:: Replace *field_name* with the name of the column you are looking
-	for, and replace *table_name* with the name of the table you are
-	looking for.
+.. note:: **field_name**\ 을 찾고있는 열 이름으로 바꾸고 **table_name**\ 을 찾고있는 테이블 이름으로 바꾸십시오.
 
-Retrieve Field Metadata
+필드 메타데이터 검색
 =======================
 
 **$db->getFieldData()**
 
-Returns an array of objects containing field information.
+필드 정보가 포함된 객체의 배열을 반환합니다.
 
-Sometimes it's helpful to gather the field names or other metadata, like
-the column type, max length, etc.
+때로는 필드 이름이나 열 유형, 최대 길이 등과 같은 다른 메타 데이터를 수집하는 것이 도움이됩니다.
 
-.. note:: Not all databases provide meta-data.
+.. note:: 모든 데이터베이스가 메타데이터를 제공하는 것은 아닙니다.
 
-Usage example::
+::
 
 	$fields = $db->getFieldData('table_name');
 
@@ -117,19 +120,19 @@ Usage example::
 		echo $field->primary_key;
 	}
 
-If you have run a query already you can use the result object instead of
-supplying the table name::
+이미 쿼리를 실행한 경우 테이블 이름을 제공하는 대신 결과 객체를 사용할 수 있습니다
+
+::
 
 	$query  = $db->query("YOUR QUERY");
 	$fields = $query->fieldData();
 
-The following data is available from this function if supported by your
-database:
+데이터베이스에서 지원하는 경우이 기능에서 다음 데이터를 사용할 수 있습니다:
 
--  name - column name
--  max_length - maximum length of the column
--  primary_key - 1 if the column is a primary key
--  type - the type of the column
+-  name - 컬럼명
+-  max_length - 컬럼의 최대 길이
+-  primary_key - 1 이면 primary key
+-  type - 컬럼 타입(type)
 
 List the Indexes in a Table
 ===========================

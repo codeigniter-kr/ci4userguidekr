@@ -15,7 +15,7 @@ CodeIgniter는 전통적인 구조와 Query Builder 패턴을 모두 지원하�
     쿼리 결과 생성 <results>
     쿼리 헬퍼 함수 <helpers>
     쿼리 빌더 클래스 <query_builder>
-    트랜젹션 <transactions>
+    트랜잭션 <transactions>
     메타 데이터 얻기 <metadata>
     커스텀 함수 호출 <call_function>
     데이터베이스 이벤트 <events>
