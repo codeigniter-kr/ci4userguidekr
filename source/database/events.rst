@@ -1,22 +1,22 @@
-###############
-Database Events
-###############
+########################
+데이터베이스 이벤트
+########################
 
-The Database classes contain a few :doc:`Events </extending/events>` that you can tap into in
-order to learn more about what is happening during the database execution. These events can
-be used to collect data for analysis and reporting. The :doc:`Debug Toolbar </testing/debugging>`
-uses this to collect the queries to display in the Toolbar.
+데이터베이스 클래스에는 데이터베이스 실행중 발생하는 상황에 대해 자세히 알아볼 수 있는 몇 가지 :doc:`이벤트 </extending/events>`\ 가 있습니다.
+이러한 이벤트는 분석 및 보고를 위해 데이터를 수집하는 데 사용될 수 있습니다. :doc:`디버그 툴바 </testing/debugging>`\ 는 이를 사용하여 툴바에 표시할 쿼리를 수집합니다.
 
 ==========
-The Events
+이벤트
 ==========
 
 **DBQuery**
 
-This event is triggered whenever a new query has been run, whether successful or not. The only parameter is
-a :doc:`Query </database/queries>` instance of the current query. You could use this to display all queries
-in STDOUT, or logging to a file, or even creating tools to do automatic query analysis to help you spot
-potentially missing indexes, slow queries, etc. An example usage might be::
+이 이벤트는 성공 여부와 관계없이 새 쿼리가 실행될 때 마다 트리거됩니다. 
+단일 매개 변수로 사용중인 쿼리의 :doc:`Query </database/queries>` 인스턴스입니다.
+이를 사용하여 모든 쿼리를 STDOUT으로 표시하거나, 파일에 로깅하거나, 자동으로 쿼리 분석을 수행하는 도구를 작성하여 잠재적으로 누락 된 인덱스, 느린 쿼리 등을 발견할 수 있습니다. 
+사용 예는 다음과 같습니다.
+
+::
 
     // In Config\Events.php
     Events::on('DBQuery', 'CodeIgniter\Debug\Toolbar\Collectors\Database::collect');

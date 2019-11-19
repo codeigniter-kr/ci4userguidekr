@@ -1,20 +1,23 @@
 ########################
-Utilities
+유틸리티
 ########################
 
-The Database Utility Class contains methods that help you manage your database.
+데이터베이스 유틸리티 클래스에는 데이터베이스 관리를 돕는 메소드가 포함되어 있습니다.
 
 .. contents::
     :local:
     :depth: 2
 
 *******************
-Get XML FROM Result
+결과를 XML로 변환
 *******************
 
 **getXMLFromResult()**
 
-This method returns the xml result from database result. You can do like this::
+이 메소드는 데이터베이스 결과를 xml로 리턴합니다. 
+다음과 같이 하십시오.
+
+::
 
     $model = new class extends \CodeIgniter\Model {
         protected $table      = 'foo';
@@ -27,7 +30,9 @@ This method returns the xml result from database result. You can do like this::
     $util = (new \CodeIgniter\Database\Database())->loadUtils($db);
     echo $util->getXMLFromResult($model->get());
 
-and it will get the following xml result::
+다음과 같은 XML 결과를 얻을 수 있습니다.
+
+::
 
     <root>
         <element>

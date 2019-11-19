@@ -1,38 +1,40 @@
 #####################
-Custom Function Calls
+커스텀 함수 호출
 #####################
 
 $db->callFunction();
 ============================
 
-This function enables you to call PHP database functions that are not
-natively included in CodeIgniter, in a platform-independent manner. For
-example, let's say you want to call the mysql_get_client_info()
-function, which is **not** natively supported by CodeIgniter. You could
-do so like this::
+이 함수를 사용하면 플랫폼 독립적인 방식으로 CodeIgniter에 기본적으로 포함되지 않은 PHP 데이터베이스 함수를 호출할 수 있습니다.
+예를 들어, mysql_get_client_info() 함수를 호출한다고 가정해 봅시다.
+이 함수는 CodeIgniter에서 기본적으로 **지원하지 않습니다**.
+다음과 같이 할 수 있습니다
+
+::
 
 	$db->callFunction('get_client_info');
 
-You must supply the name of the function, **without** the mysql\_
-prefix, in the first parameter. The prefix is added automatically based
-on which database driver is currently being used. This permits you to
-run the same function on different database platforms. Obviously, not all
-function calls are identical between platforms, so there are limits to
-how useful this function can be in terms of portability.
+첫 번째 매개 변수에 mysql\_ 접두사를 **붙이지 않고** 함수 이름을 제공해야합니다.
+접두사는 현재 사용중인 데이터베이스 드라이버에 따라 자동으로 추가됩니다.
+이를 통해 다른 데이터베이스 플랫폼에서 동일한 기능을 실행할 수 있습니다.
+분명 모든 함수 호출이 플랫폼간에 동일하지는 않으므로 이식성 측면에서 이 함수가 얼마나 유용한 지에 대한 한계가 있습니다.
 
-Any parameters needed by the function you are calling will be added to
-the second parameter.
+함수 호출에 필요한 매개 변수는 두 번째 매개 변수에 추가합니다.
 
 ::
 
 	$db->callFunction('some_function', $param1, $param2, etc..);
 
-Often, you will either need to supply a database connection ID or a
-database result ID. The connection ID can be accessed using::
+종종 데이터베이스 연결(connect) ID 또는 데이터베이스 결과 ID를 제공해야합니다. 
+연결 ID는 다음과 같이 액세스할 수 있습니다.
+
+::
 
 	$db->connID;
 
-The result ID can be accessed from within your result object, like this::
+결과(result) 객체내에서 결과 ID에 액세스하려면 다음과 같이 하십시오.
+
+::
 
 	$query = $db->query("SOME QUERY");
 

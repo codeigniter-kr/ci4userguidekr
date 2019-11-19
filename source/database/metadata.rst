@@ -134,14 +134,14 @@ TRUE / FALSE를 반환합니다.
 -  primary_key - 1 이면 primary key
 -  type - 컬럼 타입(type)
 
-List the Indexes in a Table
+테이블의 인덱스 정보
 ===========================
 
 **$db->getIndexData()**
 
-Returns an array of objects containing index information.
+인덱스 정보가 포함된 객체의 배열을 반환합니다.
 
-Usage example::
+::
 
 	$keys = $db->getIndexData('table_name');
 
@@ -152,15 +152,14 @@ Usage example::
 		echo $key->fields;  // array of field names
 	}
 
-The key types may be unique to the database you are using.
-For instance, MySQL will return one of primary, fulltext, spatial, index or unique
-for each key associated with a table.
+키 유형은 사용중인 데이터베이스에 따라 다를수 있습니다.
+예를 들어, MySQL은 테이블과 관련된 각 키에 대해 primary, fulltext, spatial, index, unique 중 하나를 반환합니다.
 
 **$db->getForeignKeyData()**
 
-Returns an array of objects containing foreign key information.
+외래(foreign) 키 정보가 포함된 객체의 배열을 반환합니다.
 
-Usage example::
+::
 
 	$keys = $db->getForeignKeyData('table_name');
 
@@ -173,6 +172,5 @@ Usage example::
 		echo $key->foreign_column_name;
 	}
 
-The object fields may be unique to the database you are using. For instance, SQLite3 does
-not return data on column names, but has the additional *sequence* field for compound
-foreign key definitions.
+오브젝트 필드는 사용중인 데이터베이스에 다를수 있습니다.
+예를 들어, SQLite3은 열 이름에 대한 데이터를 리턴하지 않지만 복합 외부 키 정의에 대한 *sequence* 추가 필드를 갖습니다.
