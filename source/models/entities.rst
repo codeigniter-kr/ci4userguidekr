@@ -1,29 +1,29 @@
 #####################
-Working With Entities
+엔터티 작업
 #####################
 
-CodeIgniter supports Entity classes as a first-class citizen in it's database layer, while keeping
-them completely optional to use. They are commonly used as part of the Repository pattern, but can
-be used directly with the :doc:`Model </models/model>` if that fits your needs better.
+CodeIgniter는 데이터베이스 계층에서 Entity 클래스를 1급 시민으로 지원하며, 완전히 선택적으로 사용할 수 있도록 유지합니다.
+일반적으로 리포지토리 패턴의 일부로 사용되지만 필요에 따라 :doc:`모델 </models/model>`\ 과 함께 직접 사용할 수 있습니다.
 
 .. contents::
     :local:
     :depth: 2
 
-Entity Usage
-============
+엔터티 사용법
+=================
 
-At its core, an Entity class is simply a class that represents a single database row. It has class properties
-to represent the database columns, and provides any additional methods to implement the business logic for
-that row. The core feature, though, is that it doesn't know anything about how to persist itself. That's the
-responsibility of the model or the repository class. That way, if anything changes on how you need to save the
-object, you don't have to change how that object is used throughout the application. This makes it possible to
-use JSON or XML files to store the objects during a rapid prototyping stage, and then easily switch to a
-database when you've proven the concept works.
+기본적으로 Entity 클래스는 단일 데이터베이스 행을 나타내는 클래스입니다.
+여기에는 데이터베이스 열을 나타내는 클래스 속성이 있으며, 해당 행에 대한 비즈니스 논리를 구현하기 위한 추가 방법을 제공합니다.
+여기에서 핵심은 지속 방법에 대해 전혀 모른다는 것입니다.
+지속방법에 대해서는 모델 또는 저장소 클래스의 책임입니다.
+이렇게하면 객체 저장 방법에 변화가 생길 경우 응용 프로그램 전체에서 객체가 사용되는 방식을 변경할 필요가 없습니다.
+따라서 빠른 프로토 타이핑 단계에서 JSON 또는 XML 파일을 사용하여 객체를 저장한 다음 개념이 작동하는 것이 입증되면 데이터베이스로 쉽게 전환할 수 있습니다.
 
-Let's walk through a very simple User Entity and how we'd work with it to help make things clear.
+매우 간단한 User Entity를 살펴보고이를 명확하게하는 데 도움이되는 방법을 살펴 보겠습니다.
 
-Assume you have a database table named ``users`` that has the following schema::
+다음 스키마를 가진 ``users``\ 라는 데이터베이스 테이블이 있다고 가정하십시오.
+
+::
 
     id          - integer
     username    - string
@@ -31,12 +31,12 @@ Assume you have a database table named ``users`` that has the following schema::
     password    - string
     created_at  - datetime
 
-Create the Entity Class
------------------------
+엔터티 클래스 만들기
+-------------------------
 
-Now create a new Entity class. Since there's no default location to store these classes, and it doesn't fit
-in with the existing directory structure, create a new directory at **app/Entities**. Create the
-Entity itself at **app/Entities/User.php**.
+이제 새 엔티티 클래스를 작성합니다.
+이러한 클래스를 저장할 기본 위치는 없으며, 기존 디렉토리 구조와 맞지 않기 때문에 **app/Entities**\ 에 새 디렉토리를 작성합니다.
+**app/Entities/User.php**\ 에 엔티티를 작성하십시오.
 
 ::
 
@@ -49,12 +49,14 @@ Entity itself at **app/Entities/User.php**.
         //
     }
 
-At its simplest, this is all you need to do, though we'll make it more useful in a minute.
+간단하지만 이것은 당신이 해야 할 모든 것입니다. 우리는 잠시 후 이를 더 유용하게 사용할 것입니다.
 
-Create the Model
+모델 만들기
 ----------------
 
-Create the model first at **app/Models/UserModel.php** so that we can interact with it::
+먼저 상호 작용을 위해 모델을 **app/Models/UserModel.php**\ 에 작성합니다.
+
+::
 
     <?php namespace App\Models;
 
@@ -70,11 +72,11 @@ Create the model first at **app/Models/UserModel.php** so that we can interact w
         protected $useTimestamps = true;
     }
 
-The model uses the ``users`` table in the database for all of its activities. We've set the ``$allowedFields`` property
-to include all of the fields that we want outside classes to change. The ``id``, ``created_at``, and ``updated_at`` fields
-are handled automatically by the class or the database, so we don't want to change those. Finally, we've set our Entity
-class as the ``$returnType``. This ensures that all methods on the model that return rows from the database will return
-instances of our User Entity class instead of an object or array like normal.
+모델은 모든 활동은 데이터베이스의 ``users`` 테이블을 사용합니다.
+``$allowedFields`` 속성을 클래스 외부에서 변경하려는 모든 필드를 포함하도록 설정했습니다.
+``id``, ``created_at``, ``updated_at`` 필드는 클래스 또는 데이터베이스에서 자동으로 처리되므로 변경하지 않습니다.
+마지막으로 Entity 클래스를 ``$returnType``\ 으로 설정했습니다.
+이를 통해 데이터베이스에서 행을 반환하는 모델의 모든 메소드가 일반 객체나 배열 대신 User Entity 클래스의 인스턴스를 반환합니다.
 
 Working With the Entity Class
 -----------------------------
