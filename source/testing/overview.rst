@@ -1,70 +1,74 @@
 #######
-Testing
+테스트
 #######
 
-CodeIgniter has been built to make testing both the framework and your application as simple as possible.
-Support for ``PHPUnit`` is built in, and the framework provides a number of convenient
-helper methods to make testing every aspect of your application as painless as possible.
+CodeIgniter는 프레임워크와 애플리케이션을 최대한 간단하게 테스트할 수 있도록 개발되었습니다.
+``PHPUnit``\ 에 대한 지원이 내장되어 있으며 프레임워크는 응용프로그램의 모든 측면을 가능한 한 쉽게 테스트할 수 있는 편리한 헬퍼 메소드를 제공합니다.
+
 
 .. contents::
     :local:
     :depth: 2
 
-************
-System Setup
-************
+***************
+시스템 설정
+***************
 
-Installing phpUnit
+phpUnit 설치
 ==================
 
-CodeIgniter uses `phpUnit <https://phpunit.de/>`__ as the basis for all of its testing. There are two ways to install
-phpUnit to use within your system.
+CodeIgniter는 `phpUnit <https://phpunit.de/>`__\ 을 모든 테스트의 기준으로 사용합니다.
+시스템에서 phpUnit을 사용하기 위해 설치하는 두 가지 방법이 있습니다.
 
 Composer
 --------
 
-The recommended method is to install it in your project using `Composer <https://getcomposer.org/>`__. While it's possible
-to install it globally we do not recommend it, since it can cause compatibility issues with other projects on your
-system as time goes on.
+권장되는 방법은 `Composer <https://getcomposer.org/>`__\ 를 사용하여 프로젝트에 설치하는 것입니다.
+전역(global)으로 설치할 수는 있지만 시간이 지남에 따라 시스템의 다른 프로젝트와 호환성 문제가 발생할 수 있으므로 권장하지 않습니다.
 
-Ensure that you have Composer installed on your system. From the project root (the directory that contains the
-application and system directories) type the following from the command line::
+시스템에 Composer가 설치되어 있는지 확인 후 프로젝트 루트(응용 프로그램 및 시스템 디렉토리를 포함하는 디렉토리)의 명령줄에 다음을 입력하십시오.
+
+::
 
     > composer require --dev phpunit/phpunit
 
-This will install the correct version for your current PHP version. Once that is done, you can run all of the
-tests for this project by typing::
+현재 PHP 버전에 맞는 버전이 설치됩니다. 
+완료되면 다음을 입력하여 이 프로젝트에 대한 모든 테스트를 실행할 수 있습니다
+
+::
 
     > ./vendor/bin/phpunit
 
 Phar
 ----
 
-The other option is to download the .phar file from the `phpUnit <https://phpunit.de/getting-started/phpunit-7.html>`__ site.
-This is a standalone file that should be placed within your project root.
+다른 방법은 `phpUnit <https://phpunit.de/getting-started/phpunit-7.html>`__ 사이트에서 .phar 파일을 다운로드하는 것입니다.
+이것은 프로젝트 루트 내에 배치해야 하는 독립형 파일입니다.
 
 
 ************************
-Testing Your Application
+응용프로그램 테스트
 ************************
 
-PHPUnit Configuration
+PHPUnit 구성
 =====================
 
-The framework has a ``phpunit.xml.dist`` file in the project root. This controls unit
-testing of the framework itself. If you provide your own ``phpunit.xml``, it will
-over-ride this.
+프레임워크에는 프로젝트 루트에 ``phpunit.xml.dist`` 파일이 있습니다.
+이는 프레임워크 자체의 단위 테스트를 제어합니다. 
+만약 당신이 자신만의 ``phpunit.xml``\ 을 제공하면 이를 무시합니다.
 
-Your ``phpunit.xml`` should exclude the ``system`` folder, as well as any ``vendor`` or
-``ThirdParty`` folders, if you are unit testing your application.
+응용 프로그램을 단위로 테스트하는 경우 ``phpunit.xml``\ 에서 ``system`` 폴더와 ``vendor`` 또는 ``ThirdParty`` 폴더를 제외해야합니다.
 
-The Test Class
+
+Test 클래스
 ==============
 
-In order to take advantage of the additional tools provided, your tests must extend ``\CIUnitTestCase``. All tests
-are expected to be located in the **tests/app** directory by default.
+제공된 추가 도구를 이용하려면 테스트가 ``\CIUnitTestCase``\ 를 확장해야 합니다.
+모든 테스트는 기본적으로 **tests/app** 디렉토리에 있어야 합니다.
 
-To test a new library, **Foo**, you would create a new file at **tests/app/Libraries/FooTest.php**::
+새 라이브러리 **Foo**\ 를 테스트하려면 **tests/app/Libraries/FooTest.php**\ 에 새 파일을 만듭니다.
+
+::
 
     <?php namespace App\Libraries;
 
@@ -76,7 +80,9 @@ To test a new library, **Foo**, you would create a new file at **tests/app/Libra
         }
     }
 
-To test one of your models, you might end up with something like this in ``tests/app/Models/OneOfMyModelsTest.php``::
+모델 중 하나를 테스트하기 위해 ``tests/app/Models/OneOfMyModelsTest.php``\ 에 다음과 같이 할 수 있습니다.
+
+::
 
     <?php namespace App\Models;
 
@@ -89,22 +95,23 @@ To test one of your models, you might end up with something like this in ``tests
     }
 
 
-You can create any directory structure that fits your testing style/needs. When namespacing the test classes,
-remember that the **app** directory is the root of the ``App`` namespace, so any classes you use must
-have the correct namespace relative to ``App``.
+테스트 스타일/요건에 맞는 디렉토리 구조를 만들 수 있습니다. 
+테스트 클래스의 이름을 지정할 때 **app** 디렉토리는 ``App`` 네임스페이스의 루트이므로 사용하는 모든 클래스는``App``\ 에 대해 올바른 네임스페이스를 가져야합니다.
 
-.. note:: Namespaces are not strictly required for test classes, but they are helpful to ensure no class names collide.
+.. note:: 네임스페이스는 테스트 클래스에 반드시 필요한 것은 아니지만 클래스 이름이 충돌하지 않도록 하는 데 도움이 됩니다.
 
-When testing database results, you must use the `CIDatabaseTestClass <database.html>`_ class.
+데이터베이스 결과를 테스트할 때는 `CIDatabaseTestClass <database.html>`_ 클래스를 사용해야 합니다.
 
-Additional Assertions
----------------------
+추가 어설션(Assertion)
+--------------------------
 
-``CIUnitTestCase`` provides additional unit testing assertions that you might find useful.
+``CIUnitTestCase``\ 는 유용한 추가 단위 테스트 어설션을 제공합니다.
 
 **assertLogged($level, $expectedMessage)**
 
-Ensure that something you expected to be logged actually was::
+실제로 기록될 것으로 예상되는 것
+
+::
 
         $config = new LoggerConfig();
         $logger = new Logger($config);
@@ -116,7 +123,9 @@ Ensure that something you expected to be logged actually was::
 
 **assertEventTriggered($eventName)**
 
-Ensure that an event you expected to be triggered actually was::
+실제로 트리거될 것으로 예상되는 이벤트
+
+::
 
     Events::on('foo', function($arg) use(&$result) {
         $result = $arg;
@@ -128,7 +137,9 @@ Ensure that an event you expected to be triggered actually was::
 
 **assertHeaderEmitted($header, $ignoreCase=false)**
 
-Ensure that a header or cookie was actually emitted::
+헤더 또는 쿠키가 실제로 방출되었는지 확인
+
+::
 
     $response->setCookie('foo', 'bar');
 
@@ -138,12 +149,13 @@ Ensure that a header or cookie was actually emitted::
 
     $this->assertHeaderEmitted("Set-Cookie: foo=bar");
 
-Note: the test case with this should be `run as a separate process
-in PHPunit <https://phpunit.readthedocs.io/en/7.4/annotations.html#runinseparateprocess>`_.
+Note: 테스트 케이스는 `PHPunit에서 별도의 프로세스로 실행 <https://phpunit.readthedocs.io/en/7.4/annotations.html#runinseparateprocess>`_\ 되어야 합니다.
 
 **assertHeaderNotEmitted($header, $ignoreCase=false)**
 
-Ensure that a header or cookie was not emitted::
+헤더 또는 쿠키가 방출되지 않았는지 확인
+
+::
 
     $response->setCookie('foo', 'bar');
 
@@ -153,42 +165,44 @@ Ensure that a header or cookie was not emitted::
 
     $this->assertHeaderNotEmitted("Set-Cookie: banana");
 
-Note: the test case with this should be `run as a separate process
-in PHPunit <https://phpunit.readthedocs.io/en/7.4/annotations.html#runinseparateprocess>`_.
+Note: 테스트 케이스는 `PHPunit에서 별도의 프로세스로 실행 <https://phpunit.readthedocs.io/en/7.4/annotations.html#runinseparateprocess>`_\ 되어야 합니다.
 
 **assertCloseEnough($expected, $actual, $message='', $tolerance=1)**
 
-For extended execution time testing, tests that the absolute difference
-between expected and actual time is within the prescribed tolerance.::
+확장된 실행 시간 테스트의 경우 예상 시간과 실제 시간의 절대 차이가 규정된 허용 오차 내에 있는지 테스트합니다.
+
+::
 
     $timer = new Timer();
     $timer->start('longjohn', strtotime('-11 minutes'));
     $this->assertCloseEnough(11 * 60, $timer->getElapsedTime('longjohn'));
 
-The above test will allow the actual time to be either 660 or 661 seconds.
+위의 테스트를 통해 실제 시간은 660 초 또는 661 초가 될 수 있습니다.
 
 **assertCloseEnoughString($expected, $actual, $message='', $tolerance=1)**
 
-For extended execution time testing, tests that the absolute difference
-between expected and actual time, formatted as strings, is within the prescribed tolerance.::
+확장된 실행 시간 테스트의 경우 문자열 형식의 예상 시간과 실제 시간의 절대 차이가 규정된 허용 오차내에 있는지 테스트합니다.
+
+::
 
     $timer = new Timer();
     $timer->start('longjohn', strtotime('-11 minutes'));
     $this->assertCloseEnoughString(11 * 60, $timer->getElapsedTime('longjohn'));
 
-The above test will allow the actual time to be either 660 or 661 seconds.
+위의 테스트를 통해 실제 시간은 660 초 또는 661 초가 될 수 있습니다.
 
 
-Accessing Protected/Private Properties
+Protected/Private 속성에 액세스
 --------------------------------------
 
-When testing, you can use the following setter and getter methods to access protected and private methods and
-properties in the classes that you are testing.
+테스트할 때 다음 setter 및 getter 메소드를 사용하여 테스트중인 클래스의 Protected/Private 메소드 및 특성에 액세스할 수 있습니다.
 
 **getPrivateMethodInvoker($instance, $method)**
 
-Enables you to call private methods from outside the class. This returns a function that can be called. The first
-parameter is an instance of the class to test. The second parameter is the name of the method you want to call.
+클래스 외부에서 private 메소드를 호출할 수 있습니다. 
+이렇게 하면 호출할 수있는 함수를 반환합니다.
+첫 번째 매개 변수는 테스트할 클래스의 인스턴스입니다. 
+두 번째 매개 변수는 호출하려는 메소드의 이름입니다.
 
 ::
 
@@ -203,8 +217,9 @@ parameter is an instance of the class to test. The second parameter is the name 
 
 **getPrivateProperty($instance, $property)**
 
-Retrieves the value of a private/protected class property from an instance of a class. The first parameter is an
-instance of the class to test. The second parameter is the name of the property.
+클래스의 인스턴스에서 private/protected 클래스 속성 값을 검색합니다.
+첫 번째 매개 변수는 테스트할 클래스의 인스턴스입니다.
+두 번째 매개 변수는 속성 이름입니다.
 
 ::
 
@@ -216,8 +231,12 @@ instance of the class to test. The second parameter is the name of the property.
 
 **setPrivateProperty($instance, $property, $value)**
 
-Set a protected value within a class instance. The first parameter is an instance of the class to test. The second
-parameter is the name of the property to set the value of. The third parameter is the value to set it to::
+클래스 인스턴스 내에서 private/protected 속성에 값을 설정합니다.
+첫 번째 매개 변수는 테스트할 클래스의 인스턴스입니다.
+두 번째 매개 변수는 값을 설정할 속성의 이름입니다.
+세 번째 매개 변수는 설정할 값입니다.
+
+::
 
     // Create an instance of the class to test
     $obj = new Foo();
@@ -227,18 +246,18 @@ parameter is the name of the property to set the value of. The third parameter i
 
     // Do normal testing...
 
-Mocking Services
-================
+모의(Moking) 서비스
+=======================
 
-You will often find that you need to mock one of the services defined in **app/Config/Services.php** to limit
-your tests to only the code in question, while simulating various responses from the services. This is especially
-true when testing controllers and other integration testing. The **Services** class provides two methods to make this
-simple: ``injectMock()``, and ``reset()``.
+**app/Config/Services.php**에 정의된 서비스 중 하나를 모의 실행하여 테스트를 문제의 코드로만 제한하고 서비스의 다양한 응답을 시뮬레이션해야 하는 경우가 종종 있습니다.
+이는 컨트롤러와 기타 통합 테스트를 테스트할 때 특히 그렇습니다.
+**Services** 클래스는 이것을 간단하게 하기 위해 ``injectMock()``\ 과 ``reset()`` 두 가지 메소드를 제공합니다.
 
 **injectMock()**
 
-This method allows you to define the exact instance that will be returned by the Services class. You can use this to
-set properties of a service so that it behaves in a certain way, or replace a service with a mocked class.
+이 메소드를 사용하면 Services 클래스에서 리턴할 정확한 인스턴스를 정의할 수 있습니다.
+이를 사용하여 특정 방식으로 동작하도록 서비스의 속성을 설정하거나 서비스를 모의 클래스로 바꿀 수 있습니다.
+
 ::
 
     public function testSomething()
@@ -251,24 +270,28 @@ set properties of a service so that it behaves in a certain way, or replace a se
         // Do normal testing here....
     }
 
-The first parameter is the service that you are replacing. The name must match the function name in the Services
-class exactly. The second parameter is the instance to replace it with.
+첫 번째 매개 변수는 교체할 서비스입니다. 
+이름은 Services 클래스의 함수 이름과 정확히 일치해야합니다.
+두 번째 매개 변수는 이를 대체할 인스턴스입니다.
 
 **reset()**
 
-Removes all mocked classes from the Services class, bringing it back to its original state.
+서비스 클래스에서 모든 모의(mock) 클래스를 제거하여 원래 상태로 되돌립니다.
 
 
 
-Stream Filters
-==============
+스트림(Stream) 필터
+=========================
 
-**CITestStreamFilter** provides an alternate to these helper methods.
+테스트하기 어려운 것을 테스트해야 할 수도 있습니다.
+때로는 PHP 자체 STDOUT 또는 STDERR과 같은 스트림 캡처가 도움이 될 수 있습니다.
+``CITestStreamFilter``\ 는 선택한 스트림의 출력을 캡처하는 데 도움이됩니다.
 
-You may need to test things that are difficult to test. Sometimes, capturing a stream, like PHP's own STDOUT, or STDERR,
-might be helpful. The ``CITestStreamFilter`` helps you capture the output from the stream of your choice.
+**CITestStreamFilter**는 이러한 헬퍼 메소드의 대안을 제공합니다.
 
-An example demonstrating this inside one of your test cases::
+
+테스트 사례중 하나에서 이것을 보여주는 예제
+::
 
     public function setUp()
     {
