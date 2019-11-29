@@ -1,40 +1,42 @@
-Database Forge Class
-####################
+Database Forge 클래스
+##########################
 
-The Database Forge Class contains methods that help you manage your
-database.
+Database Forge 클래스에는 데이터베이스 관리에 도움이되는 메소드가 포함되어 있습니다.
 
 .. contents::
     :local:
     :depth: 2
 
 ****************************
-Initializing the Forge Class
+Forge 클래스 초기화
 ****************************
 
-.. important:: In order to initialize the Forge class, your database
-	driver must already be running, since the forge class relies on it.
+.. important:: Forge 클래스는 데이터베이스 드라이버에 의존하므로 Forge 클래스를 초기화하려면 데이터베이스 드라이버가 이미 실행 중이어야 합니다.
 
-Load the Forge Class as follows::
+다음과 같이 Forge 클래스를 로드합니다.
+
+::
 
 	$forge = \Config\Database::forge();
 
-You can also pass another database group name to the DB Forge loader, in case
-the database you want to manage isn't the default one::
+관리하려는 데이터베이스가 기본 데이터베이스가 아닌 경우 다른 데이터베이스 그룹 이름을 DB Forge 로더에 전달할 수 있습니다.
+
+::
 
 	$this->myforge = \Config\Database::forge('other_db');
 
-In the above example, we're passing the name of a different database group
-to connect to as the first parameter.
+위의 예처럼 매개 변수로 연결할 다른 데이터베이스 그룹의 이름을 전달합니다.
 
 *******************************
-Creating and Dropping Databases
+데이터베이스 생성 및 삭제
 *******************************
 
 **$forge->createDatabase('db_name')**
 
-Permits you to create the database specified in the first parameter.
-Returns TRUE/FALSE based on success or failure::
+첫 번째 매개 변수로 지정된 데이터베이스를 생성합니다.
+성공 또는 실패에 따라 TRUE/FALSE를 반환합니다.
+
+::
 
 	if ($forge->createDatabase('my_db'))
 	{
@@ -43,8 +45,10 @@ Returns TRUE/FALSE based on success or failure::
 
 **$forge->dropDatabase('db_name')**
 
-Permits you to drop the database specified in the first parameter.
-Returns TRUE/FALSE based on success or failure::
+첫 번째 매개 변수로 지정된 데이터베이스를 삭제합니다.
+성공 또는 실패에 따라 TRUE/FALSE를 반환합니다.
+
+::
 
 	if ($forge->dropDatabase('my_db'))
 	{
@@ -52,20 +56,19 @@ Returns TRUE/FALSE based on success or failure::
 	}
 
 ****************************
-Creating and Dropping Tables
+테이블 생성 및 삭제
 ****************************
 
-There are several things you may wish to do when creating tables. Add
-fields, add keys to the table, alter columns. CodeIgniter provides a
-mechanism for this.
+테이블을 만들때 수행할 수 있는 작업이 몇 가지 있습니다.
+필드를 추가, 테이블에 키를 추가, 컬럼 변경.
+CodeIgniter는 이를 위한 메커니즘을 제공합니다.
 
-Adding fields
+필드 추가
 =============
 
-Fields are normally created via an associative array. Within the array, you must
-include a 'type' key that relates to the datatype of the field. For
-example, INT, VARCHAR, TEXT, etc. Many datatypes (for example VARCHAR)
-also require a 'constraint' key.
+필드는 일반적으로 연관 배열을 통해 생성됩니다. 
+배열 내에 필드의 데이터 유형과 관련된 'type' 키를 포함해야 합니다.
+예를 들면 INT, VARCHAR, TEXT 등입니다. 많은 데이터 유형(예 : VARCHAR)에 'constraint' 키가 필요합니다.
 
 ::
 
@@ -77,16 +80,13 @@ also require a 'constraint' key.
 	];
 	// will translate to "users VARCHAR(100)" when the field is added.
 
-Additionally, the following key/values can be used:
+또한 다음 키/값을 사용할 수 있습니다:
 
--  unsigned/true : to generate "UNSIGNED" in the field definition.
--  default/value : to generate a default value in the field definition.
--  null/true : to generate "NULL" in the field definition. Without this,
-   the field will default to "NOT NULL".
--  auto_increment/true : generates an auto_increment flag on the
-   field. Note that the field type must be a type that supports this,
-   such as integer.
--  unique/true : to generate a unique key for the field definition.
+-  unsigned/true : 필드 정의에서 "UNSIGNED"를 생성합니다.
+-  default/value : 필드 정의에서 기본값을 생성합니다.
+-  null/true : 필드 정의에서 "NULL"을 생성합니다. 이 옵션이 없으면 필드는 기본적으로 "NOT NULL"이 됩니다.
+-  auto_increment/true : 필드에 auto_increment 플래그를 생성합니다. 필드 유형은 정수와 같이 이를 지원하는 유형이어야합니다.
+-  unique/true : 필드 정의를 위한 고유 키를 생성합니다.
 
 ::
 
@@ -118,51 +118,46 @@ Additionally, the following key/values can be used:
 		],
 	];
 
-After the fields have been defined, they can be added using
-``$forge->addField($fields);`` followed by a call to the
-``createTable()`` method.
+필드가 정의 된 후 ``$forge->addField($ fields);``\ 를 사용하여 추가하고 ``createTable()`` 메소드를 호출합니다.
 
 **$forge->addField()**
 
-The add fields method will accept the above array.
+필드 추가 메소드는 위의 배열을 승인합니다.
 
-Passing strings as fields
+문자열을 필드로 전달
 -------------------------
 
-If you know exactly how you want a field to be created, you can pass the
-string into the field definitions with addField()
+필드 생성 방법을 정확히 알고 있다면 addField()를 사용하여 필드 정의에 문자열을 전달할 수 있습니다.
 
 ::
 
 	$forge->addField("label varchar(100) NOT NULL DEFAULT 'default label'");
 
-.. note:: Passing raw strings as fields cannot be followed by ``addKey()`` calls on those fields.
+.. note:: 문자열을 필드로 전달한 후에는 해당 필드에서 ``addKey()`` 호출을 수행 할 수 없습니다.
 
-.. note:: Multiple calls to addField() are cumulative.
+.. note:: addField()를 여러 번 호출하면 누적됩니다.
 
-Creating an id field
+id 필드 만들기
 --------------------
 
-There is a special exception for creating id fields. A field with type
-id will automatically be assigned as an INT(9) auto_incrementing
-Primary Key.
+id 필드는 만들때 특별한 예외가 적용됩니다.
+유형이 id 인 필드는 자동으로 INT(9) auto_incrementing Primary 키로 할당됩니다.
 
 ::
 
 	$forge->addField('id');
 	// gives id INT(9) NOT NULL AUTO_INCREMENT
 
-Adding Keys
+키 추가
 ===========
 
-Generally speaking, you'll want your table to have Keys. This is
-accomplished with $forge->addKey('field'). The optional second
-parameter set to TRUE will make it a primary key and the third
-parameter set to TRUE will make it a unique key. Note that addKey()
-must be followed by a call to createTable().
+일반적으로 테이블에 키가 필요합니다.
+이것은 $forge->addKey( 'field')로 추가합니다.
+선택 사항인 두 번째 매개 변수를 TRUE로 설정하면 기본(Primary) 키가 되고 세 번째 매개 변수가 TRUE로 설정되면 고유(Unique) 키가 됩니다.
+addKey() 다음에 createTable()을 호출해야 합니다.
 
-Multiple column non-primary keys must be sent as an array. Sample output
-below is for MySQL.
+기본 키가 아닌 경우 여러 컬럼을 혼합하여 키를 만들 때는 배열로 보내야 합니다.
+아래 샘플 출력은 MySQL 용입니다.
 
 ::
 
@@ -182,8 +177,9 @@ below is for MySQL.
 	$forge->addKey(['blog_id', 'uri'], FALSE, TRUE);
 	// gives UNIQUE KEY `blog_id_uri` (`blog_id`, `uri`)
 
-To make code reading more objective it is also possible to add primary
-and unique keys with specific methods::
+코드를 보다 객관적으로 만들려면 특정 메소드로 기본 및 고유 키를 추가할 수 있습니다
+
+::
 
 	$forge->addPrimaryKey('blog_id');
 	// gives PRIMARY KEY `blog_id` (`blog_id`)
@@ -192,53 +188,54 @@ and unique keys with specific methods::
 	// gives UNIQUE KEY `blog_id_uri` (`blog_id`, `uri`)
 
 
-Adding Foreign Keys
-===================
+외래(Foreign) 키 추가
+==========================
 
-Foreign Keys help to enforce relationships and actions across your tables. For tables that support Foreign Keys,
-you may add them directly in forge::
+외래 키는 테이블 전체에서 관계 및 작업을 시행하는 데 도움이됩니다. 외래 키를 지원하는 테이블의 경우 forge에서 직접 추가 할 수 있습니다
+
+::
 
         $forge->addForeignKey('users_id','users','id');
         // gives CONSTRAINT `TABLENAME_users_foreign` FOREIGN KEY(`users_id`) REFERENCES `users`(`id`)
 
-You can specify the desired action for the "on delete" and "on update" properties of the constraint::
+구속 조건의 "on delete" 및 "on update" 속성에 대해 원하는 작업을 지정할 수 있습니다.
+
+::
 
         $forge->addForeignKey('users_id','users','id','CASCADE','CASCADE');
         // gives CONSTRAINT `TABLENAME_users_foreign` FOREIGN KEY(`users_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 
-Creating a table
-================
+테이블 만들기
+==================
 
-After fields and keys have been declared, you can create a new table
-with
+필드와 키가 선언되면 다음과 같이 새 테이블을 만들 수 있습니다.
 
 ::
 
 	$forge->createTable('table_name');
 	// gives CREATE TABLE table_name
 
-An optional second parameter set to TRUE adds an "IF NOT EXISTS" clause
-into the definition
+선택적으로 두 번째 매개 변수를 TRUE로 설정하면 "IF NOT EXISTS"절이 정의에 추가됩니다.
 
 ::
 
 	$forge->createTable('table_name', TRUE);
 	// gives CREATE TABLE IF NOT EXISTS table_name
 
-You could also pass optional table attributes, such as MySQL's ``ENGINE``::
+MySQL의``ENGINE``\ 과 같은 선택적 테이블 속성을 전달할 수 있습니다.
+
+::
 
 	$attributes = ['ENGINE' => 'InnoDB'];
 	$forge->createTable('table_name', FALSE, $attributes);
 	// produces: CREATE TABLE `table_name` (...) ENGINE = InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci
 
-.. note:: Unless you specify the ``CHARACTER SET`` and/or ``COLLATE`` attributes,
-	``createTable()`` will always add them with your configured *charset*
-	and *DBCollat* values, as long as they are not empty (MySQL only).
+.. note:: ``CHARACTER SET`` 또는 ``COLLATE`` 속성을 지정하지 않으면 ``createTable()``\ 은 미리 구성된 *charset* 과 *DBCollat* 값을 추가합니다. (MySQL 만 해당).
 
-Dropping a table
+테이블 삭제
 ================
 
-Execute a DROP TABLE statement and optionally add an IF EXISTS clause.
+DROP TABLE 문을 실행하고 옵션으로 IF EXISTS 절을 추가합니다.
 
 ::
 
@@ -248,20 +245,20 @@ Execute a DROP TABLE statement and optionally add an IF EXISTS clause.
 	// Produces: DROP TABLE IF EXISTS table_name
 	$forge->dropTable('table_name',TRUE);
 
-Dropping a Foreign Key
+외래 키 삭제
 ======================
 
-Execute a DROP FOREIGN KEY.
+DROP FOREIGN KEY 문을 실행합니다.
 
 ::
 
 	// Produces: ALTER TABLE 'tablename' DROP FOREIGN KEY 'users_foreign'
 	$forge->dropForeignKey('tablename','users_foreign');
 
-Renaming a table
-================
+테이블 이름 바꾸기
+===========================
 
-Executes a TABLE rename
+TABLE rename 문을 실행합니다.
 
 ::
 
@@ -269,17 +266,16 @@ Executes a TABLE rename
 	// gives ALTER TABLE old_table_name RENAME TO new_table_name
 
 ****************
-Modifying Tables
+테이블 수정
 ****************
 
-Adding a Column to a Table
+테이블에 컬럼 추가
 ==========================
 
 **$forge->addColumn()**
 
-The ``addColumn()`` method is used to modify an existing table. It
-accepts the same field array as above, and can be used for an unlimited
-number of additional fields.
+``addColumn()`` 메소드는 기존 테이블을 수정하는데 사용됩니다.
+위와 동일한 필드 배열을 허용하며 추가 필드를 무제한으로 사용할 수 있습니다.
 
 ::
 
@@ -289,10 +285,9 @@ number of additional fields.
 	$forge->addColumn('table_name', $fields);
 	// Executes: ALTER TABLE table_name ADD preferences TEXT
 
-If you are using MySQL or CUBIRD, then you can take advantage of their
-AFTER and FIRST clauses to position the new column.
+MySQL 또는 CUBIRD를 사용하는 경우 AFTER 및 FIRST 절을 활용하여 새 컬럼을 배치할 수 있습니다.
 
-Examples::
+::
 
 	// Will place the new column after the `another_field` column:
 	$fields = [
@@ -304,25 +299,24 @@ Examples::
 		'preferences' => ['type' => 'TEXT', 'first' => TRUE]
 	];
 
-Dropping a Column From a Table
+테이블의 컬럼 삭제
 ==============================
 
 **$forge->dropColumn()**
 
-Used to remove a column from a table.
+테이블에서 컬럼을 제거하는 데 사용됩니다.
 
 ::
 
 	$forge->dropColumn('table_name', 'column_to_drop');
 
-Modifying a Column in a Table
+테이블의 컬럼 수정
 =============================
 
 **$forge->modifyColumn()**
 
-The usage of this method is identical to ``addColumn()``, except it
-alters an existing column rather than adding a new one. In order to
-change the name, you can add a "name" key into the field defining array.
+이 메소드의 사용법은 ``addColumn()``\ 과 동일하지만 새 컬럼을 추가하는 대신 기존 컬럼을 변경한다는 점이 다릅니다.
+이름을 변경하기 위해 필드 정의 배열에 "name" 키를 추가할 수 있습니다.
 
 ::
 
@@ -343,105 +337,105 @@ Class Reference
 
 	.. php:method:: addColumn($table[, $field = []])
 
-		:param	string	$table: Table name to add the column to
-		:param	array	$field: Column definition(s)
-		:returns:	TRUE on success, FALSE on failure
+		:param	string	$table: 컬럼을 추가 할 테이블 이름
+		:param	array	$field: 컬럼 정의
+		:returns:	TRUE면 성공, FALSE면 실패
 		:rtype:	bool
 
-		Adds a column to a table. Usage:  See `Adding a Column to a Table`_.
+		테이블에 컬럼을 추가합니다. 사용법:  `테이블에 컬럼 추가`_.
 
 	.. php:method:: addField($field)
 
-		:param	array	$field: Field definition to add
+		:param	array	$field: 추가 할 필드 정의
 		:returns:	\CodeIgniter\Database\Forge instance (method chaining)
 		:rtype:	\CodeIgniter\Database\Forge
 
-                Adds a field to the set that will be used to create a table. Usage:  See `Adding fields`_.
+                테이블을 만드는데 사용될 필드를 세트에 추가합니다. 사용법: `필드 추가`_.
 
 	.. php:method:: addKey($key[, $primary = FALSE[, $unique = FALSE]])
 
-		:param	mixed	$key: Name of a key field or an array of fields
-		:param	bool	$primary: Set to TRUE if it should be a primary key or a regular one
-		:param	bool	$unique: Set to TRUE if it should be a unique key or a regular one
+		:param	mixed	$key: 키 필드 또는 필드 배열의 이름
+		:param	bool	$primary: 기본(Primary) 키여야 하는 경우 TRUE로 설정
+		:param	bool	$unique: 고유(Unique) 키여야 하는 경우 TRUE로 설정
 		:returns:	\CodeIgniter\Database\Forge instance (method chaining)
 		:rtype:	\CodeIgniter\Database\Forge
 
-		Adds a key to the set that will be used to create a table. Usage:  See `Adding Keys`_.
+		테이블 작성할 때 사용될 키를 세트에 추가합니다. 사용법:  `키 추가`_.
 
 	.. php:method:: addPrimaryKey($key)
 
-		:param	mixed	$key: Name of a key field or an array of fields
+		:param	mixed	$key: 키 필드 또는 필드 배열의 이름
 		:returns:	\CodeIgniter\Database\Forge instance (method chaining)
 		:rtype:	\CodeIgniter\Database\Forge
 
-		Adds a primary key to the set that will be used to create a table. Usage:  See `Adding Keys`_.
+		테이블 작성할 때 사용될 기본 키를 세트에 추가합니다. 사용법:  `키 추가`_.
 
 	.. php:method:: addUniqueKey($key)
 
-		:param	mixed	$key: Name of a key field or an array of fields
+		:param	mixed	$key: 키 필드 또는 필드 배열의 이름
 		:returns:	\CodeIgniter\Database\Forge instance (method chaining)
 		:rtype:	\CodeIgniter\Database\Forge
 
-		Adds a unique key to the set that will be used to create a table. Usage:  See `Adding Keys`_.
+		테이블 작성할 때 사용될 고유 키를 세트에 추가합니다. 사용법:  `키 추가`_.
 
 	.. php:method:: createDatabase($db_name)
 
-		:param	string	$db_name: Name of the database to create
-		:returns:	TRUE on success, FALSE on failure
+		:param	string	$db_name: 생성할 데이터베이스 이름
+		:returns:	TRUE면 성공, FALSE면 실패
 		:rtype:	bool
 
-		Creates a new database. Usage:  See `Creating and Dropping Databases`_.
+		새로운 데이터베이스를 생성합니다. 사용법: `데이터베이스 생성 및 삭제`_.
 
 	.. php:method:: createTable($table[, $if_not_exists = FALSE[, array $attributes = []]])
 
-		:param	string	$table: Name of the table to create
-		:param	string	$if_not_exists: Set to TRUE to add an 'IF NOT EXISTS' clause
-		:param	string	$attributes: An associative array of table attributes
-		:returns:  Query object on success, FALSE on failure
+		:param	string	$table: 생성할 테이블 이름
+		:param	string	$if_not_exists: 'IF NOT EXISTS' 절을 추가하려면 TRUE로 설정
+		:param	string	$attributes: 테이블 속성의 연관 배열
+		:returns:  Query 객체면 성공, FALSE면 실패
 		:rtype:	mixed
 
-		Creates a new table. Usage:  See `Creating a table`_.
+		새로운 테이블을 생성합니다. 사용법:  `테이블 만들기`_.
 
 	.. php:method:: dropColumn($table, $column_name)
 
-		:param	string	$table: Table name
-		:param	array	$column_name: The column name to drop
-		:returns:	TRUE on success, FALSE on failure
+		:param	string	$table: 테이블 이름
+		:param	array	$column_name: 제거할 컬럼 이름
+		:returns:	TRUE면 성공, FALSE면 실패
 		:rtype:	bool
 
-		Drops a column from a table. Usage:  See `Dropping a Column From a Table`_.
+		테이블에서 컬럼을 제거합니다.. 사용법:  `테이블의 컬럼 삭제`_.
 
 	.. php:method:: dropDatabase($db_name)
 
-		:param	string	$db_name: Name of the database to drop
-		:returns:	TRUE on success, FALSE on failure
+		:param	string	$db_name: 제거할 데이터베이스 이름
+		:returns:	TRUE면 성공, FALSE면 실패
 		:rtype:	bool
 
-		Drops a database. Usage:  See `Creating and Dropping Databases`_.
+		데이터베이스를 제거합니다. 사용법:  `데이터베이스 생성 및 삭제`_.
 
 	.. php:method:: dropTable($table_name[, $if_exists = FALSE])
 
-		:param	string	$table: Name of the table to drop
-		:param	string	$if_exists: Set to TRUE to add an 'IF EXISTS' clause
-		:returns:	TRUE on success, FALSE on failure
+		:param	string	$table: 제거할 테이블 이름
+		:param	string	$if_exists: 'IF EXISTS' 절을 추가하려면 TRUE로 설정
+		:returns:	TRUE면 성공, FALSE면 실패
 		:rtype:	bool
 
-		Drops a table. Usage:  See `Dropping a table`_.
+		테이블을 제거합니다.. 사용법:  `테이블 삭제`_.
 
 	.. php:method:: modifyColumn($table, $field)
 
-		:param	string	$table: Table name
-		:param	array	$field: Column definition(s)
-		:returns:	TRUE on success, FALSE on failure
+		:param	string	$table: 테이블 이름
+		:param	array	$field: 컬럼 정의
+		:returns:	TRUE면 성공, FALSE면 실패
 		:rtype:	bool
 
-		Modifies a table column. Usage:  See `Modifying a Column in a Table`_.
+		테이블의 컬럼을 수정합니다. 사용법:  `테이블의 컬럼 수정`_.
 
 	.. php:method:: renameTable($table_name, $new_table_name)
 
-		:param	string	$table: Current of the table
-		:param	string	$new_table_name: New name of the table
-		:returns:  Query object on success, FALSE on failure
+		:param	string	$table: 테이블 이름
+		:param	string	$new_table_name: 테이블의 새로운 이름
+		:returns:  Query 객체면 성공, FALSE면 실패
 		:rtype:	mixed
 
-		Renames a table. Usage:  See `Renaming a table`_.
+		테이블 이름을 바꿉니다. 사용법:  `테이블 이름 바꾸기`_.

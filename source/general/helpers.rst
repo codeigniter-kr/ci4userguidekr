@@ -125,7 +125,7 @@ Autoloader 구성 파일의 PSR-4 섹션에 네임스페이스를 설정하면 *
 로드 순서는 다음과 같습니다.
 
 1. app/Helpers - 여기에 있는 파일은 항상 먼저 로드됩니다..
-2. {namespace}/Helpers - 모든 네임 스페이스는 정의 된 순서대로 반복하여 검색됩니다.
+2. {namespace}/Helpers - 모든 네임스페이스는 정의 된 순서대로 반복하여 검색됩니다.
 3. system/Helpers - 기본 파일이 마지막으로 로드됩니다
 
 Now What?
