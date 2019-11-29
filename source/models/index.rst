@@ -8,4 +8,4 @@ CodeIgniter에는 데이터베이스 테이블 및 레코드를 모델링하고 
     :titlesonly:
 
     CodeIgniter 모델 사용 <model>
-    엔터티 클래스 사용 <entities>
+    Entity 클래스 사용 <entities>
