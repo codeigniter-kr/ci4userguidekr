@@ -53,7 +53,7 @@ Test 데이터베이스 설정
 
 데이터베이스 테스트를 실행할 때 테스트중에 사용할 수있는 데이터베이스를 제공해야 합니다.
 프레임워크는 PHPUnit 내장 데이터베이스 기능을 사용하는 대신 CodeIgniter 전용 도구를 제공합니다.
-첫 번째 단계는 **app/Config/Database.php **\ 에 ``tests`` 데이터베이스 그룹 설정이 있는지 확인하는 것입니다.
+첫 번째 단계는 **app/Config/Database.php**\ 에 ``tests`` 데이터베이스 그룹 설정이 있는지 확인하는 것입니다.
 다른 데이터를 안전하게 유지하기 위해 테스트를 실행하는 동안에만 사용되는 데이터베이스 연결을 지정합니다.
 
 팀에 여러 개발자가 있는 경우 자격 증명 저장소를 **.env** 파일에 보관할 수 있습니다.
@@ -102,23 +102,25 @@ true인 경우 모든 마이그레이션이 버전 0으로 롤백되고 데이�
 
 **$namespace**
 
-By default, CodeIgniter will look in **tests/_support/DatabaseTestMigrations/Database/Migrations** to locate the migrations
-that it should run during testing. You can change this location by specifying a new namespace in the ``$namespace`` properties.
-This should not include the **Database/Migrations** path, just the base namespace.
+기본적으로 CodeIgniter는 **tests/_support/DatabaseTestMigrations/Database/Migrations**\ 에서 테스트 중에 실행해야 할 마이그레이션을 찾습니다.
+``$namespace`` 속성에 새 네임스페이스를 지정하여 이 위치를 변경할 수 있습니다.
+이 속성 **Database/Migrations** 경로가 아니라 기본 네임스페이스가 포함되어야 합니다.
 
-Helper Methods
+헬퍼 메소드
 ==============
 
-The **CIDatabaseTestCase** class provides several helper methods to aid in testing your database.
+**CIDatabaseTestCase** 클래스는 데이터베이스 테스트에 도움이 되는 몇 가지 헬퍼 메소드를 제공합니다.
 
 **seed($name)**
 
-Allows you to manually load a Seed into the database. The only parameter is the name of the seed to run. The seed
-must be present within the path specified in ``$basePath``.
+시드를 데이터베이스에 수동으로 로드할 수 있습니다. 
+유일한 매개 변수는 실행할 시드 이름입니다.
+시드는 ``$basePath``\ 에 지정된 경로내에 있어야 합니다.
 
 **dontSeeInDatabase($table, $criteria)**
 
-Asserts that a row with criteria matching the key/value pairs in ``$criteria`` DOES NOT exist in the database.
+``$criteria``\ 의 키/값 쌍과 일치하는 행이 데이터베이스에 존재하지 않도록 지정합니다.
+
 ::
 
     $criteria = [
@@ -129,7 +131,8 @@ Asserts that a row with criteria matching the key/value pairs in ``$criteria`` D
 
 **seeInDatabase($table, $criteria)**
 
-Asserts that a row with criteria matching the key/value pairs in ``$criteria`` DOES exist in the database.
+``$criteria``\ 의 키/값 쌍과 일치하는 행이 데이터베이스에 존재한다고 가정합니다.
+
 ::
 
     $criteria = [
@@ -140,16 +143,19 @@ Asserts that a row with criteria matching the key/value pairs in ``$criteria`` D
 
 **grabFromDatabase($table, $column, $criteria)**
 
-Returns the value of ``$column`` from the specified table where the row matches ``$criteria``. If more than one
-row is found, it will only test against the first one.
+지정된 테이블에서 ``$criteria``\ 와 일치하는 행의 ``$column`` 값을 반환합니다.
+둘 이상의 행이 발견되면 첫 번째 행에 대해서만 테스트합니다.
+
 ::
 
     $username = $this->grabFromDatabase('users', 'username', ['email' => 'joe@example.com']);
 
 **hasInDatabase($table, $data)**
 
-Inserts a new row into the database. This row is removed after the current test runs. ``$data`` is an associative
-array with the data to insert into the table.
+데이터베이스에 새로운 행을 삽입합니다.
+이 행은 현재 테스트가 실행된 후 제거됩니다.
+``$data``\ 는 테이블에 삽입할 데이터가 있는 연관 배열입니다.
+
 ::
 
     $data = [
@@ -160,7 +166,8 @@ array with the data to insert into the table.
 
 **seeNumRecords($expected, $table, $criteria)**
 
-Asserts that a number of matching rows are found in the database that match ``$criteria``.
+데이터베이스에서 ``$criteria``\ 와 일치하는 여러 개의 행이 있다고 가정합니다.
+
 ::
 
     $criteria = [

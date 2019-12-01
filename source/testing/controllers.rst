@@ -1,20 +1,19 @@
 ###################
-Testing Controllers
+컨트롤러 테스트
 ###################
 
-Testing your controllers is made convenient with a couple of new helper classes and traits. When testing controllers,
-you can execute the code within a controller, without first running through the entire application bootstrap process.
-Often times, using the `Feature Testing tools <feature.html>`_ will be simpler, but this functionality is here in
-case you need it.
+컨트롤러를 테스트하는것은 몇 가지 새로운 헬퍼 클래스와 특성(trait)으로 편리합니다. 
+컨트롤러를 테스트는 전체 응용프로그램 부트스트랩 프로세스를 실행하지 않고도 컨트롤러내에서 코드를 실행할 수 있습니다.
+종종 `기능 테스트 도구 <feature.html>`_\ 를 사용하는 것이 더 간단하며 이 기능은 필요할 때 사용할 수 있습니다.
 
-.. note:: Because the entire framework has not been bootstrapped, there will be times when you cannot test a controller
-    this way.
+.. note:: 전체 프레임워크가 부트스트랩되지 않았으므로 이 방법으로 컨트롤러를 테스트할 수 없는 경우가 있습니다.
 
-The Helper Trait
-================
+헬퍼 특성(Trait)
+==================
 
-You can use either of the base test classes, but you do need to use the ``ControllerTester`` trait
-within your tests::
+기본 테스트 클래스중 하나를 사용할 수 있지만 테스트할 때는 ``ControllerTester`` 특성을 사용합니다.
+
+::
 
     <?php namespace CodeIgniter;
 
@@ -25,10 +24,11 @@ within your tests::
         use ControllerTester;
     }
 
-Once the trait has been included, you can start setting up the environment, including the request and response classes,
-the request body, URI, and more. You specify the controller to use with the ``controller()`` method, passing in the
-fully qualified class name of your controller. Finally, call the ``execute()`` method with the name of the method
-to run as the parameter::
+특성을 포함하면 요청 및 응답 클래스, 요청 본문, URI등에 대해 환경 설정을 할 수 있습니다.
+``controller()`` 메서드에 컨트롤러의 클래스 이름을 전달하여 사용할 컨트롤러를 지정합니다.
+마지막으로 실행할 메서드 이름을 매개 변수로 ``execute()`` 메서드를 호출합니다.
+
+::
 
     <?php namespace CodeIgniter;
 
@@ -48,29 +48,36 @@ to run as the parameter::
         }
     }
 
-Helper Methods
+헬퍼 메소드
 ==============
 
 **controller($class)**
 
-Specifies the class name of the controller to test. The first parameter must be a fully qualified class name
-(i.e. include the namespace)::
+테스트할 컨트롤러의 클래스 이름을 지정합니다. 
+첫 번째 매개 변수는 정규화된 클래스 이름이어야 합니다 (네임스페이스 포함).
+
+::
 
     $this->controller(\App\Controllers\ForumController::class);
 
 **execute($method)**
 
-Executes the specified method within the controller. The only parameter is the name of the method to run::
+컨트롤러 내에서 지정된 메소드를 실행합니다. 
+단일 매개 변수로 실행할 메소드의 이름입니다.
+
+::
 
     $results = $this->controller(\App\Controllers\ForumController::class)
                      ->execute('showCategories');
 
-This returns a new helper class that provides a number of routines for checking the response itself. See below
-for details.
+응답 자체를 검사하기 위한 많은 루틴을 제공하는 새로운 헬퍼 클래스를 리턴합니다.
+자세한 내용은 아래를 참조하십시오.
 
 **withConfig($config)**
 
-Allows you to pass in a modified version of **Config\App.php** to test with different settings::
+다른 설정으로 테스트하기 위해 수정된 버전의 **Config\App.php**\ 를 전달할 수 있습니다.
+
+::
 
     $config = new Config\App();
     $config->appTimezone = 'America/Chicago';
@@ -79,11 +86,13 @@ Allows you to pass in a modified version of **Config\App.php** to test with diff
                      ->controller(\App\Controllers\ForumController::class)
                      ->execute('showCategories');
 
-If you do not provide one, the application's App config file will be used.
+다른 설정을 제공하지 않으면 애플리케이션의 앱 구성 파일이 사용됩니다.
 
 **withRequest($request)**
 
-Allows you to provide an **IncomingRequest** instance tailored to your testing needs::
+테스트 요구에 맞는 **IncomingRequest** 인스턴스를 제공합니다.
+
+::
 
     $request = new CodeIgniter\HTTP\IncomingRequest(new Config\App(), new URI('http://example.com'));
     $request->setLocale($locale);
@@ -92,12 +101,13 @@ Allows you to provide an **IncomingRequest** instance tailored to your testing n
                      ->controller(\App\Controllers\ForumController::class)
                      ->execute('showCategories');
 
-If you do not provide one, a new IncomingRequest instance with the default application values will be passed
-into your controller.
+인스턴스를 제공하지 않으면 기본 애플리케이션 값을 가진 새로운 IncomingRequest 인스턴스가 컨트롤러로 전달됩니다.
 
 **withResponse($response)**
 
-Allows you to provide a **Response** instance::
+**Response** 인스턴스를 제공 할 수 있습니다
+
+::
 
     $response = new CodeIgniter\HTTP\Response(new Config\App());
 
@@ -105,12 +115,13 @@ Allows you to provide a **Response** instance::
                      ->controller(\App\Controllers\ForumController::class)
                      ->execute('showCategories');
 
-If you do not provide one, a new Response instance with the default application values will be passed
-into your controller.
+Response를 제공하지 않으면 기본 애플리케이션 값을 가진 새 Response 인스턴스가 컨트롤러에 전달됩니다.
 
 **withLogger($logger)**
 
-Allows you to provide a **Logger** instance::
+**Logger** 인스턴스를 제공할 수 있습니다
+
+::
 
     $logger = new CodeIgniter\Log\Handlers\FileHandler();
 
@@ -119,8 +130,7 @@ Allows you to provide a **Logger** instance::
                      ->controller(\App\Controllers\ForumController::class)
                      ->execute('showCategories');
 
-If you do not provide one, a new Logger instance with the default configuration values will be passed
-into your controller.
+Logger를 제공하지 않으면 기본 애플리케이션 값을 가진 새 Logger 인스턴스가 컨트롤러에 전달됩니다..
 
 **withURI($uri)**
 
@@ -136,8 +146,11 @@ It is a good practice to always provide the URI during testing to avoid surprise
 
 **withBody($body)**
 
-Allows you to provide a custom body for the request. This can be helpful when testing API controllers where
-you need to set a JSON value as the body. The only parameter is a string that represents the body of the request::
+요청에 대한 사용자 정의 본문을 제공할 수 있습니다.
+이는 JSON 값을 본문으로 설정해야하는 API 컨트롤러를 테스트할 때 유용합니다.
+유일한 매개 변수는 요청의 본문을 나타내는 문자열입니다
+
+::
 
     $body = json_encode(['foo' => 'bar']);
 
@@ -145,16 +158,19 @@ you need to set a JSON value as the body. The only parameter is a string that re
                      ->controller(\App\Controllers\ForumController::class)
                      ->execute('showCategories');
 
-Checking the Response
+응답(Response) 확인
 =====================
 
-When the controller is executed, a new **ControllerResponse** instance will be returned that provides a number
-of helpful methods, as well as direct access to the Request and Response that were generated.
+컨트롤러가 실행되면 생성된 요청 및 응답에 대한 직접 액세스뿐만 아니라 여러 유용한 메소드를 제공하는 새로운 **ControllerResponse** 인스턴스가 리턴됩니다.
 
 **isOK()**
 
-This provides a simple check that the response would be considered a "successful" response. This primarily checks that
-the HTTP status code is within the 200 or 300 ranges::
+This provides a simple check that the response would be considered a "successful" response. 
+This primarily checks that the HTTP status code is within the 200 or 300 ranges
+이는 응답이 "성공"인지 간단하게 확인합니다.
+주로 HTTP 상태 코드가 200 또는 300 범위 내에 있는지 확인합니다.
+
+::
 
     $results = $this->withBody($body)
                      ->controller(\App\Controllers\ForumController::class)
@@ -167,7 +183,9 @@ the HTTP status code is within the 200 or 300 ranges::
 
 **isRedirect()**
 
-Checks to see if the final response was a redirection of some sort::
+최종 응답이 일종의 리디렉션인지 확인합니다.
+
+::
 
     $results = $this->withBody($body)
                      ->controller(\App\Controllers\ForumController::class)
