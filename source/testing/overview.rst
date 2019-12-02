@@ -287,7 +287,7 @@ Protected/Private 속성에 액세스
 때로는 PHP 자체 STDOUT 또는 STDERR과 같은 스트림 캡처가 도움이 될 수 있습니다.
 ``CITestStreamFilter``\ 는 선택한 스트림의 출력을 캡처하는 데 도움이됩니다.
 
-**CITestStreamFilter**는 이러한 헬퍼 메소드의 대안을 제공합니다.
+**CITestStreamFilter**\ 는 이러한 헬퍼 메소드의 대안을 제공합니다.
 
 
 테스트 사례중 하나에서 이것을 보여주는 예제
