@@ -1,22 +1,21 @@
 ####################
-HTTP Feature Testing
+HTTP 기능 테스트
 ####################
 
-Feature testing allows you to view the results of a single call to your application. This might be returning the
-results of a single web form, hitting an API endpoint, and more. This is handy because it allows you to test the entire
-life-cycle of a single request, ensuring that the routing works, the response is the correct format, analyze the results,
-and more.
+기능 테스트를 통해 애플리케이션에 대한 단일 호출 결과를 볼 수 있습니다.
+단일 웹 양식의 결과를 반환하거나 API 엔드 포인트에 도달하는 등의 결과일 수 있습니다.
+이는 단일 요청의 전체 수명주기를 테스트하여 라우팅이 작동하고, 응답이 올바른 형식이며, 결과를 분석하는 등의 작업을 수행할 수 있기 때문에 편리합니다.
 
 .. contents::
     :local:
     :depth: 2
 
-The Test Class
-==============
+테스트 클래스
+=================
 
-Feature testing requires that all of your test classes extend the ``CodeIgniter\Test\FeatureTestCase`` class. Since this
-extends `CIDatabaseTestCase <database.html>`_ you must always ensure that ``parent::setUp()`` and ``parent::tearDown()``
-are called before you take your actions.
+기능 테스트를 위해서는 모든 테스트 클래스가 ``CodeIgniter\Test\FeatureTestCase`` 클래스를 확장해야 합니다.
+이렇게 하면 `CIDatabaseTestCase <database.html>`_\ 로 확장되므로 작업을 수행하기 전에 항상 ``parent::setUp()`` 와 ``parent::tearDown()``\ 이 호출되는지 확인해야 합니다.
+
 ::
 
     <?php namespace App;
@@ -36,14 +35,16 @@ are called before you take your actions.
         }
     }
 
-Requesting A Page
+페이지 요청
 =================
 
-Essentially, the FeatureTestCase simply allows you to call an endpoint on your application and get the results back.
-to do this, you use the ``call()`` method. The first parameter is the HTTP method to use (most frequently either GET or POST).
-The second parameter is the path on your site to test. The third parameter accepts an array that is used to populate the
-superglobal variables for the HTTP verb you are using. So, a method of **GET** would have the **$_GET** variable
-populated, while a **post** request would have the **$_POST** array populated.
+기본적으로 FeatureTestCase를 사용하면 애플리케이션에서 엔드 포인트를 호출하고 결과를 다시 얻을 수 있습니다.
+이렇게 하려면 ``call()`` 메서드를 사용하십시오. 
+첫 번째 매개 변수는 사용할 HTTP 메소드입니다.(대부분 GET 또는 POST)
+두 번째 매개 변수는 테스트할 사이트의 경로입니다.
+세 번째 매개 변수는 사용중인 HTTP 동사에 대한 수퍼 글로벌 변수를 채우는데 사용되는 배열입니다.
+따라서 **GET** 메소드는 **$_GET** 변수가 채워지고 **post** 메소드는 **$_POST** 배열이 채워집니다.
+
 ::
 
     // Get a simple page
@@ -55,7 +56,9 @@ populated, while a **post** request would have the **$_POST** array populated.
         'email' => 'flintyfred@example.com'
     ]);
 
-Shorthand methods for each of the HTTP verbs exist to ease typing and make things clearer::
+타이핑을 쉽고 더 명확하게 하기 위해 각 HTTP 동사에 대한 속기 방법이 있습니다.
+
+::
 
     $this->get($path, $params);
     $this->post($path, $params);
@@ -64,13 +67,15 @@ Shorthand methods for each of the HTTP verbs exist to ease typing and make thing
     $this->delete($path, $params);
     $this->options($path, $params);
 
-.. note:: The $params array does not make sense for every HTTP verb, but is included for consistency.
+.. note:: $params 배열은 모든 HTTP 동사에 대해 의미가 없지만 일관성을 위해 포함됩니다.
 
-Setting Different Routes
+다른 경로(route) 설정
 ------------------------
 
-You can use a custom collection of routes by passing an array of "routes" into the ``withRoutes()`` method. This will
-override any existing routes in the system::
+"routes" 배열을 ``withRoutes()`` 메서드에 전달하여 사용자 지정 경로 모음을 사용할 수 있습니다.
+이것은 시스템의 기존 경로를 무시합니다
+
+::
 
     $routes = [
        [ 'get', 'users', 'UserController::list' ]
@@ -79,16 +84,16 @@ override any existing routes in the system::
     $result = $this->withRoutes($routes)
         ->get('users');
 
-Each of the "routes" is a 3 element array containing the HTTP verb (or "add" for all),
-the URI to match, and the routing destination.
+각 "routes"는 HTTP동사 (또는 "all"), 일치할 URI,  라우팅 대상을 포함하는 3요소 배열입니다.
 
 
-Setting Session Values
+세션 값 설정
 ----------------------
 
-You can set custom session values to use during a single test with the ``withSession()`` method. This takes an array
-of key/value pairs that should exist within the $_SESSION variable when this request is made. This is handy for testing
-authentication and more.
+``withSession()`` 메소드를 사용하여 단일 테스트 중에 사용할 사용자 정의 세션 값을 설정할 수 있습니다.
+요청이 이루어질때 $_SESSION 변수 내에 존재해야 하는 키/값 쌍의 배열이 사용됩니다.
+인증 등을 테스트할 때 편리합니다.
+
 ::
 
     $values = [
@@ -98,11 +103,14 @@ authentication and more.
     $result = $this->withSession($values)
         ->get('admin');
 
-Bypassing Events
+이벤트 우회
 ----------------
 
-Events are handy to use in your application, but can be problematic during testing. Especially events that are used
-to send out emails. You can tell the system to skip any event handling with the ``skipEvents()`` method::
+이벤트는 응용 프로그램에서 사용하기 편리하지만 테스트중에 문제가 될 수 있습니다.
+특히 이메일을 보내는데 사용되는 이벤트. 
+``skipEvents()`` 메소드로 이벤트 처리를 건너 뛰도록 시스템에 지시할 수 있습니다
+
+::
 
     $result = $this->skipEvents()
         ->post('users', $userInfo);
