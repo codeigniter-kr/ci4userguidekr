@@ -5,7 +5,7 @@ RESTful 리소스 처리
     :local:
     :depth: 2
 
-REST(Representational State Transfer)는 2000년 박사학위 논문, `Architectural Styles and the Design of Network-based Software Architectures <https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm>`_\ 에서 Roy Fielding에 의해 처음 설명된 분산 응용 프로그램을위한 아키텍쳐 스타일입니다.
+REST(Representational State Transfer)는 2000년 박사학위 논문, `Architectural Styles and the Design of Network-based Software Architectures <https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm>`_\ 에서 Roy Fielding에 의해 처음 설명된 분산 애플리케이션을위한 아키텍쳐 스타일입니다.
 이 논문은 약간의 읽기 어려울 수 있으며, Martin Fowler의 `Richardson Maturity Model <https://martinfowler.com/articles/richardsonMaturityModel.html>`_\ 이 더 부드럽게 이를 소개합니다.
 
 REST는 대부분의 소프트웨어 아키텍처보다 더 많은 방식으로 해석되고 잘못 해석되었으며, 여러분이 아키텍처에서 채택하는 Roy Fielding의 원칙 중 가장 "RESTful"이 고려된다고 말하는 것이 더 쉬울 수도 있습니다.

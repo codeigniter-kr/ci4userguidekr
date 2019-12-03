@@ -115,7 +115,7 @@ HTTP 캐싱(Caching)
 ======================
 
 HTTP 사양에는 클라이언트(종종 웹 브라우저)가 결과를 캐시하는데 도움이 되는 도구가 내장되어 있습니다.
-올바르게 사용하면 아무것도 변경되지 않았기 때문에 클라이언트가 서버에 전혀 연결할 필요가 없음을 알리기 때문에 응용 프로그램의 성능을 크게 향상시킬 수 있습니다.
+올바르게 사용하면 아무것도 변경되지 않았기 때문에 클라이언트가 서버에 전혀 연결할 필요가 없음을 알리기 때문에 애플리케이션의 성능을 크게 향상시킬 수 있습니다.
 
 이는 ``Cache-Control``\ 와 ``ETag`` 헤더를 통해 처리됩니다.
 이 안내서는 모든 캐시 헤더 기능을 완전히 소개하기에 적합한 곳은 아니지만 `Google Developers <https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching>`_\ 와 `Mobify Blog <https://www.mobify.com/blog/beginners-guide-to-http-cache-headers/>`_\ 에서 잘 이해할 수 있습니다.
@@ -160,7 +160,7 @@ CSP 켜기
 --------------
 
 기본적으로 이 기능은 꺼져있습니다. 
-응용 프로그램에서 지원을 활성화하려면  **app/Config/App.php**\ 에서 ``CSPEnabled`` 값을 수정하십시오.
+애플리케이션에서 지원을 활성화하려면  **app/Config/App.php**\ 에서 ``CSPEnabled`` 값을 수정하십시오.
 
 ::
 

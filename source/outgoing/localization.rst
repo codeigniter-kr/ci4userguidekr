@@ -10,8 +10,8 @@
 지역화 작업
 ********************
 
-CodeIgniter는 응용 프로그램을 다른 언어로 지역화하는데 도움이 되는 몇 가지 도구를 제공합니다.
-응용 프로그램의 전체 지역화는 복잡한 주제이지만 응용 프로그램에서 지원되는 언어로 문자열을 바꾸는 것은 간단합니다.
+CodeIgniter는 애플리케이션을 다른 언어로 지역화하는데 도움이 되는 몇 가지 도구를 제공합니다.
+애플리케이션의 전체 지역화는 복잡한 주제이지만 애플리케이션에서 지원되는 언어로 문자열을 바꾸는 것은 간단합니다.
 
 Language strings are stored in the **app/Language** directory, with a sub-directory for each supported language
 언어 문자열은 지원되는 각 언어의 하위 디렉토리와 함께 **app/Language** 디렉토리에 저장됩니다.
