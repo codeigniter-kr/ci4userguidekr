@@ -1,5 +1,5 @@
 **************************
-Debugging Your Application
+애플리케이션 디버깅
 **************************
 
 .. contents::
@@ -7,72 +7,74 @@ Debugging Your Application
     :depth: 2
 
 ================
-Replace var_dump
+var_dump 교체
 ================
 
-While using XDebug and a good IDE can be indispensable to debug your application, sometimes a quick ``var_dump()`` is
-all you need. CodeIgniter makes that even better by bundling in the excellent `Kint <https://kint-php.github.io/kint/>`_
-debugging tool for PHP. This goes way beyond your usual tool, providing many alternate pieces of data, like formatting
-timestamps into recognizable dates, showing you hexcodes as colors, display array data like a table for easy reading,
-and much, much more.
+XDebug와 좋은 IDE를 사용하여 응용 프로그램을 디버깅할 수 있지만 때로는 ``var_dump()``\ 만 있으면 됩니다.
+CodeIgniter는 PHP를위한 훌륭한 `Kint <https://kint-php.github.io/kint/>`_ 디버깅 툴을 번들로 제공함으로써 이를 더욱 향상시킵니다.
+이것은 일반적인 도구를 넘어서서 타임스탬프를 인식 가능한 날짜로 포맷하는 것, 16진 코드를 색상으로 표시하고, 배열 데이터를 쉽게 읽을 수 있도록 테이블에 표시하는 등 많은 대체 데이터를 제공합니다.
 
-Enabling Kint
-=============
+Kint 활성화
+===============
 
-By default, Kint is enabled in **development** and **testing** environments only. This can be altered by modifying
-the ``$useKint`` value in the environment configuration section of the main **index.php** file::
+Kint는 기본적으로 **development** 와 **testing** 환경에서만 활성화됩니다. 
+기본 **index.php** 파일의 환경 구성 섹션에서 ``$useKint`` 값을 수정하여 이를 변경할 수 있습니다.
+
+::
 
     $useKint = true;
 
-Using Kint
-==========
+Kint 사용
+=============
 
 **d()**
 
-The ``d()`` method dumps all of the data it knows about the contents passed as the only parameter to the screen, and
-allows the script to continue executing::
+``d()`` 메소드는 화면에 유일한 매개 변수로 전달된 내용에 대해 알고 있는 모든 데이터를 덤프하고 스크립트가 계속 실행되도록 합니다.
+
+::
 
     d($_SERVER);
 
 **dd()**
 
-This method is identical to ``d()``, except that it also ``dies()`` and no further code is executed this request.
+이 메소드는 ``dies()``\ 이며 다른 코드는 이 요청에서 실행되지 않는다는 점을 제외하고는 ``d()``\ 와 동일합니다.
 
 **trace()**
 
-This provides a backtrace to the current execution point, with Kint's own unique spin::
+이것은 Kint의 고유한 기능으로 현재 실행 지점에 역 추적을 제공합니다.
+
+::
 
     trace();
 
-For more information, see `Kint's page <https://kint-php.github.io/kint//>`_.
+자세한 내용은 `Kint's page <https://kint-php.github.io/kint//>`_\ 를 참조하십시오.
 
 =================
-The Debug Toolbar
+디버그 툴바
 =================
 
-The Debug Toolbar provides at-a-glance information about the current page request, including benchmark results,
-queries you have run, request and response data, and more. This can all prove very useful during development
-to help you debug and optimize.
+디버그 툴바는 벤치 마크 결과, 실행한 쿼리, 요청 및 응답 데이터 등을 포함하여 현재 페이지 요청에 대한 정보를 한 눈에 보여줍니다.
+이는 개발 과정에서 디버그 및 최적화에 도움이 되는 매우 유용한 기능입니다.
 
-.. note:: The Debug Toolbar is still under construction with several planned features not yet implemented.
+.. note:: 디버그 툴바는 아직 구현되지 않은 몇 가지 계획된 기능으로 아직 구축 중입니다.
 
-Enabling the Toolbar
+툴바 활성화
 ====================
 
-The toolbar is enabled by default in any environment *except* production. It will be shown whenever the
-constant CI_DEBUG is defined and it's value is positive. This is defined in the boot files (i.e.
-app/Config/Boot/development.php) and can be modified there to determine what environments it shows
-itself in.
+툴바는 프로덕션 환경을 *제외한* 모든 환경에서 기본적으로 사용됩니다.
+상수 CI_DEBUG가 정의되고 값이 양수일 때 표시됩니다.
+부팅 파일 (예 : app/Config/Boot/development.php)에 정의되어 있으며, 어떤 환경에 표시되는지를 결정하기 위해 수정될 수 있습니다.
 
-The toolbar itself is displayed as an :doc:`After Filter </incoming/filters>`. You can stop it from ever
-running by removing it from the ``$globals`` property of **app/Config/Filters.php**.
+툴바 자체는 :doc:`After Filter </incoming/filters>`\ 로 표시됩니다. 
+**app/Config/Filters.php**\ 의 ``$ globals`` 속성에서 제거하여 실행을 중지할 수 있습니다.
 
-Choosing What to Show
----------------------
+무엇을 표시할지 선택
+------------------------
 
-CodeIgniter ships with several Collectors that, as the name implies, collect data to display on the toolbar. You
-can easily make your own to customize the toolbar. To determine which collectors are shown, again head over to
-the App configuration file::
+CodeIgniter에는 이름에서 알 수 있듯이 툴바에 표시할 데이터를 수집하는 여러 수집기가 제공되며, 툴바를 쉽게 사용자 정의할 수 있습니다.
+표시되는 수집기를 확인하려면, 에플리케이션 구성 파일을 살펴보십시오.
+
+::
 
 	public $toolbarCollectors = [
 		'CodeIgniter\Debug\Toolbar\Collectors\Timers',
@@ -84,37 +86,39 @@ the App configuration file::
 		'CodeIgniter\Debug\Toolbar\Collectors\Routes',
 	];
 
-Comment out any collectors that you do not want to show. Add custom Collectors here by providing the fully-qualified
-class name. The exact collectors that appear here will affect which tabs are shown, as well as what information is
-shown on the Timeline.
+표시하고 싶지 않은 수집기를 주석 처리하십시오.
+정규화된 클래스 이름을 제공하여 사용자 정의 수집기를 추가하십시오.
+여기에 표시되는 수집기는 표시되는 탭과 타임라인에 표시되는 정보에 영향을줍니다.
 
-.. note:: Some tabs, like Database and Logs, will only display when they have content to show. Otherwise, they
-    are removed to help out on smaller displays.
+.. note:: 데이터베이스 및 로그와 같은 일부 탭은 표시할 컨텐츠가 있는 경우에만 표시됩니다. 그렇지 않으면 더 작은 디스플레이를 위해 제거됩니다.
 
-The Collectors that ship with CodeIgniter are:
+CodeIgniter와 함께 제공되는 수집기:
 
-* **Timers** collects all of the benchmark data, both by the system and by your application.
-* **Database** Displays a list of queries that all database connections have performed, and their execution time.
-* **Logs** Any information that was logged will be displayed here. In long-running systems, or systems with many items being logged, this can cause memory issues and should be disabled.
-* **Views** Displays render time for views on the timeline, and shows any data passed to the views on a separate tab.
-* **Cache** Will display information about cache hits and misses, and execution times.
-* **Files** displays a list of all files that have been loaded during this request.
-* **Routes** displays information about the current route and all routes defined in the system.
+* **Timers** 시스템과 응용 프로그램에 의해 모든 벤치 마크 데이터를 수집합니다.
+* **Database** 모든 데이터베이스 연결이 수행한 쿼리 목록과 해당 실행 시간을 표시합니다.
+* **Logs** 기록된 모든 정보가 여기에 표시됩니다. 장기 실행 시스템 또는 많은 항목이 기록된 시스템에서는 메모리 문제가 발생할 수 있으므로 비활성화해야 합니다.
+* **Views** 타임라인 바에 뷰의 렌더링 시간을 표시하고 뷰에 전달된 모든 데이터를 별도의 탭에 표시합니다.
+* **Cache** 캐시 적중, 누락과 실행 시간에 대한 정보를 표시합니다.
+* **Files** 요청 중에 로드된 모든 파일 목록을 표시합니다.
+* **Routes** 시스템에 정의된 현재 경로 및 모든 경로에 대한 정보를 표시합니다.
 
-Setting Benchmark Points
+벤치마크 포인트 설정
 ========================
 
 In order for the Profiler to compile and display your benchmark data you must name your mark points using specific syntax.
 
 Please read the information on setting Benchmark points in the :doc:`Benchmark Library </testing/benchmark>` page.
+프로파일러가 벤치마크 데이터를 컴파일하고 표시하려면 특정 구문을 사용하여 마크 포인트의 이름을 지정해야합니다.
 
-Creating Custom Collectors
+:doc:`벤치마크 라이브러리 </testing/benchmark>` 페이지에서 벤치마크 포인트 설정에 대한 정보를 읽으십시오.
+
+사용자 정의 수집기 생성
 ==========================
 
-Creating custom collectors is a straightforward task. You create a new class, fully-namespaced so that the autoloader
-can locate it, that extends ``CodeIgniter\Debug\Toolbar\Collectors\BaseCollector``. This provides a number of methods
-that you can override, and has four required class properties that you must correctly set depending on how you want
-the Collector to work
+사용자 정의 수집기는 간단하게 작성할 수 있습니다.
+오토로더가 찾을 수 있도록 완전한(full) 네임스페이스의 ``CodeIgniter\Debug\Toolbar\Collectors\BaseCollector``\ 를 확장하는 새 클래스를 작성합니다.
+여기에는 재정의할 수있는 여러 가지 메소드가 제공되며 수집기 작동 방식에 따라 올바르게 설정해야하는 4가지 필수 클래스 속성이 있습니다.
+
 ::
 
 	<?php namespace MyNamespace;
@@ -132,47 +136,48 @@ the Collector to work
 		protected $title         = '';
 	}
 
-**$hasTimeline** should be set to ``true`` for any Collector that wants to display information in the toolbar's
-timeline. If this is true, you will need to implement the ``formatTimelineData()`` method to format and return the
-data for display.
+**$hasTimeline** 툴바의 타임 라인에 정보를 표시하려는 수집기에 대해 ``true``\ 로 설정합니다.
+이값이 true라면, 표시할 데이터를 포맷하고 반환하기 위해 ``formatTimelineData()`` 메소드를 구현해야 합니다.
 
-**$hasTabContent** should be ``true`` if the Collector wants to display its own tab with custom content. If this
-is true, you will need to provide a ``$title``, implement the ``display()`` method to render out tab's contents,
-and might need to implement the ``getTitleDetails()`` method if you want to display additional information just
-to the right of the tab content's title.
+**$hasTabContent** 수집기가 사용자 정의 컨텐츠 자체를 탭에 표시하고자 하는 경우 ``true``\ 로 설정합니다.
+If this is true, you will need to provide a ``$title``, implement the ``display()`` method to render out tab's contents, and might need to implement the ``getTitleDetails()`` method if you want to display additional information just to the right of the tab content's title.
+이것이 true라면 ``$title``\ 을 제공하고 탭의 내용을 렌더링gksms ``display()`` 메소드를 구현해야 하며, 탭 내용의 제목 오른쪽에 추가 정보를 표시하기 위해 ``getTitleDetails()`` 메소드를 구현해야 할 수도 있습니다.
 
-**$hasVarData** should be ``true`` if this Collector wants to add additional data to the ``Vars`` tab. If this
-is true, you will need to implement the ``getVarData()`` method.
+**$hasVarData** 수집기가 ``Vars`` 탭에 추가 데이터를 추가하려면 ``true``\ 로 설정합니다.
+이것이 true라면, ``getVarData()`` 메소드를 구현해야 합니다.
 
-**$title** is displayed on open tabs.
+**$title** 은 열려 있는 탭에 표시됩니다.
 
-Displaying a Toolbar Tab
+툴바 탭 표시
 ------------------------
 
-To display a toolbar tab you must:
+툴바 탭을 표시하려면:
 
-1. Fill in ``$title`` with the text displayed as both the toolbar title and the tab header.
-2. Set ``$hasTabContent`` to ``true``.
-3. Implement the ``display()`` method.
-4. Optionally, implement the ``getTitleDetails()`` method.
+1. 툴바 제목과 탭 머리글에 모두 표시되는 텍스트를 ``$title``\ 에 채웁니다.
+2. ``$hasTabContent``\ 를 ``true``\ 로 설정합니다.
+3. ``display()`` 메소드를 구현합니다.
+4. 필요에 따라 ``getTitleDetails()`` 메소드를 구현합니다.
 
-The ``display()`` creates the HTML that is displayed within the tab itself. It does not need to worry about
-the title of the tab, as that is automatically handled by the toolbar. It should return a string of HTML.
+``display()``\ 는 탭 자체에 표시되는 HTML을 만듭니다.
+탭 제목은 툴바에서 자동으로 처리되므로 걱정하지 않아도됩니다.
+HTML 문자열을 반환해야 합니다.
 
-The ``getTitleDetails()`` method should return a string that is displayed just to the right of the tab's title.
-it can be used to provide additional overview information. For example, the Database tab displays the total
-number of queries across all connections, while the Files tab displays the total number of files.
+``getTitleDetails()`` 메소드는 탭 제목의 오른쪽에 표시되는 문자열을 반환해야 합니다.
+추가 개요 정보를 제공하는데 사용할 수 있습니다.
+예를 들어 데이터베이스 탭에는 모든 연결에 대한 총 쿼리 수가 표시되고 파일 탭에는 총 파일 수가 표시됩니다.
 
-Providing Timeline Data
+타임 라인 데이터 제공
 -----------------------
 
-To provide information to be displayed in the Timeline you must:
+타임 라인에 표시할 정보를 제공하려면:
 
-1. Set ``$hasTimeline`` to ``true``.
-2. Implement the ``formatTimelineData()`` method.
+1. ``$hasTimeline``\ 을 ``true``\ 로 설정합니다.
+2. ``formatTimelineData()`` 메소드를 구현합니다.
 
-The ``formatTimelineData()`` method must return an array of arrays formatted in a way that the timeline can use
-it to sort it correctly and display the correct information. The inner arrays must include the following information::
+``formatTimelineData()`` 메서드는 타임 라인에서 이를 사용하여 올바르게 정렬하고, 올바른 정보를 표시할 수있는 형식의 배열 배열을 반환해야 합니다. 
+내부 배열에는 다음 정보가 포함되어야 합니다.
+
+::
 
 	$data[] = [
 		'name'      => '',     // Name displayed on the left of the timeline
@@ -181,16 +186,18 @@ it to sort it correctly and display the correct information. The inner arrays mu
 		'duration'  => 0.00    // duration, like mircrotime(true) - microtime(true)
 	];
 
-Providing Vars
+Vars 제공
 --------------
 
-To add data to the Vars tab you must:
+Vars 탭에 데이터를 추가하려면 다음을 수행합니다.
 
-1. Set ``$hasVarData`` to ``true``
-2. Implement ``getVarData()`` method.
+1. ``$hasVarData``\ 을 ``true``\ 로 설정합니다.
+2. ``getVarData()`` 메소드를 구현합니다.
 
-The ``getVarData()`` method should return an array containing arrays of key/value pairs to display. The name of the
-outer array's key is the name of the section on the Vars tab::
+``getVarData()`` 메소드는 표시할 키/값 쌍의 배열을 포함하는 배열을 반환해야 합니다.
+외부 배열 키의 이름은 Vars 탭의 섹션 이름입니다.
+
+::
 
 	$data = [
 		'section 1' => [
