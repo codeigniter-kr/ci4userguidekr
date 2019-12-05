@@ -216,7 +216,7 @@ CodeIgniter는 전역적으로 정의되어 있으며 언제든지 사용할 수
 
 .. php:function:: is_cli ()
 
-	:returns: TRUE(명령 행(command line)에서 스크립트를 실행중인 경우) 또는 FALSE(아닌 경우)
+	:returns: TRUE(커맨드 라인(command line)에서 스크립트를 실행중인 경우) 또는 FALSE(아닌 경우)
 	:rtype: bool
 
 .. php:function:: log_message ($level, $message [, $context])

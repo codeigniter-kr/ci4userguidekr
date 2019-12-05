@@ -72,7 +72,7 @@ Kint 사용
 ------------------------
 
 CodeIgniter에는 이름에서 알 수 있듯이 툴바에 표시할 데이터를 수집하는 여러 수집기가 제공되며, 툴바를 쉽게 사용자 정의할 수 있습니다.
-표시되는 수집기를 확인하려면, 에플리케이션 구성 파일을 살펴보십시오.
+표시되는 수집기를 확인하려면, 애플리케이션 구성 파일을 살펴보십시오.
 
 ::
 
@@ -140,7 +140,6 @@ Please read the information on setting Benchmark points in the :doc:`Benchmark L
 이값이 true라면, 표시할 데이터를 포맷하고 반환하기 위해 ``formatTimelineData()`` 메소드를 구현해야 합니다.
 
 **$hasTabContent** 수집기가 사용자 정의 컨텐츠 자체를 탭에 표시하고자 하는 경우 ``true``\ 로 설정합니다.
-If this is true, you will need to provide a ``$title``, implement the ``display()`` method to render out tab's contents, and might need to implement the ``getTitleDetails()`` method if you want to display additional information just to the right of the tab content's title.
 이것이 true라면 ``$title``\ 을 제공하고 탭의 내용을 렌더링gksms ``display()`` 메소드를 구현해야 하며, 탭 내용의 제목 오른쪽에 추가 정보를 표시하기 위해 ``getTitleDetails()`` 메소드를 구현해야 할 수도 있습니다.
 
 **$hasVarData** 수집기가 ``Vars`` 탭에 추가 데이터를 추가하려면 ``true``\ 로 설정합니다.

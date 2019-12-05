@@ -58,7 +58,7 @@ Accessing the Request
 요청 유형 결정
 ----------------------------------------------------------------------------
 
-요청은 AJAX 요청 또는 명령 행에서의 요청등 여러 유형을 포함할 수 있으며, ``isAJAX()``\ 와 ``isCLI()`` 메소드로 확인할 수 있습니다
+요청은 AJAX 요청 또는 커맨드 라인에서의 요청등 여러 유형을 포함할 수 있으며, ``isAJAX()``\ 와 ``isCLI()`` 메소드로 확인할 수 있습니다
 
 ::
 
@@ -342,7 +342,7 @@ Class Reference
 
 	.. php:method:: isCLI()
 
-		:returns: 명령 줄 요청 ``true``, 그렇지 않으면 ``false``
+		:returns: 커맨드 라인 요청 ``true``, 그렇지 않으면 ``false``
 		:rtype: bool
 
 	.. php:method:: isAJAX()

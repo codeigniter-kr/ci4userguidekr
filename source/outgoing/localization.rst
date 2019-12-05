@@ -25,7 +25,7 @@ Language strings are stored in the **app/Language** directory, with a sub-direct
             /fr
                 app.php
 
-.. important:: 로케일 감지는 ``IncomingRequest`` 클래스를 사용하는 웹 기반 요청에만 작동합니다. 명령 줄 요청에는 이러한 기능이 없습니다.
+.. important:: 로케일 감지는 ``IncomingRequest`` 클래스를 사용하는 웹 기반 요청에만 작동합니다. 커맨드 라인 요청에는 이러한 기능이 없습니다.
 
 지역화 구성
 ======================
