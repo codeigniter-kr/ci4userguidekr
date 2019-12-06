@@ -1,8 +1,8 @@
 ##################
-Command Line Usage
+컨맨드 라인 사용
 ##################
 
-CodeIgniter 4 can also be used with command line programs.
+CodeIgniter4는 컨맨드 라인 프로그램과 함께 사용할 수 있습니다.
 
 .. toctree::
     :titlesonly:

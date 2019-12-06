@@ -1,24 +1,26 @@
-###########
-CLI Library
-###########
+##################
+CLI 라이브러리
+##################
 
-CodeIgniter's CLI library makes creating interactive command-line scripts simple, including:
+CodeIgniter의 CLI 라이브러리를 사용하면 다음을 포함하여 대화식 명령 줄 스크립트를 간단하게 만들 수 있습니다.
 
-* Prompting the user for more information
-* Writing multi-colored text the terminal
-* Beeping (be nice!)
-* Showing progress bars during long tasks
-* Wrapping long text lines to fit the window.
+* 사용자에게 더 많은 정보를 요구
+* 터미널에 멀티 컬러 텍스트 쓰기
+* 경고음 (좋아요!)
+* 긴 작업 중에 진행률 표시 줄 표시
+* 긴 텍스트 줄을 창에 맞게 줄 바꿈하십시오.
 
 .. contents::
     :local:
     :depth: 2
 
-Initializing the Class
+클래스 초기화
 ======================
 
-You do not need to create an instance of the CLI library, since all of it's methods are static. Instead, you simply
-need to ensure your controller can locate it via a ``use`` statement above your class::
+모든 메소드가 정적이므로 CLI 라이브러리의 인스턴스를 작성할 필요가 없습니다.
+대신, 컨트롤러는 클래스 위의 ``use``\ 문을 통해 컨트롤러를 찾을 수 있어야 합니다.
+
+::
 
 	<?php namespace App\Controllers;
 
@@ -29,53 +31,66 @@ need to ensure your controller can locate it via a ``use`` statement above your 
 		. . .
 	}
 
-The class is automatically initialized when the file is loaded the first time.
+파일이 처음 로드될 때 클래스가 자동으로 초기화됩니다.
 
-Getting Input from the User
+사용자로부터 입력 받기
 ===========================
 
-Sometimes you need to ask the user for more information. They might not have provided optional command-line
-arguments, or the script may have encountered an existing file and needs confirmation before overwriting. This is
-handled with the ``prompt()`` method.
+때때로 사용자에게 추가 정보를 요청해야합니다. 
+선택적 명령 행 인수를 제공하지 않았거나 스크립트에 기존 파일이 있어서 겹쳐 쓰기 전에 확인이 필요한 경우등..
+이것은``prompt ()``메소드로 처리됩니다.
 
-You can provide a question by passing it in as the first parameter::
+질문을 첫 번째 매개 변수로 전달하여 질문을 제공 할 수 있습니다.
+
+::
 
 	$color = CLI::prompt('What is your favorite color?');
 
-You can provide a default answer that will be used if the user just hits enter by passing the default in the
-second parameter::
+두 번째 매개 변수에서 기본값을 전달하여 사용자가 Enter 키를 누르는 경우 사용할 기본 답변을 제공할 수 있습니다
+
+::
 
 	$color = CLI::prompt('What is your favorite color?', 'blue');
 
-You can restrict the acceptable answers by passing in an array of allowed answers as the second parameter::
+허용 된 답변의 배열을 두 번째 매개 변수로 전달하여 허용되는 답변을 제한할 수 있습니다.
+
+::
 
 	$overwrite = CLI::prompt('File exists. Overwrite?', ['y','n']);
 
-Finally, you can pass validation rules to the answer input as the third parameter::
+마지막으로, 검증 규칙을 세 번째 매개 변수로 답변 입력에 전달할 수 있습니다.
+
+::
 
 	$email = CLI::prompt('What is your email?', null, 'required|valid_email');
 
-Providing Feedback
+피드백 제공
 ==================
 
 **write()**
 
-Several methods are provided for you to provide feedback to your users. This can be as simple as a single status update
-or a complex table of information that wraps to the user's terminal window. At the core of this is the ``write()``
-method which takes the string to output as the first parameter::
+사용자에게 피드백을 제공하기 위해 몇 가지 방법이 제공됩니다.
+이는 단일 상태 업데이트나 사용자의 터미널 창으로 래핑되는 복잡한 정보 테이블처럼 간단할 수 있습니다.
+이것의 핵심은 문자열을 첫 번째 매개 변수로 출력하는 ``write()`` 메소드입니다
+
+::
 
 	CLI::write('The rain in Spain falls mainly on the plains.');
 
-You can change the color of the text by passing in a color name as the first parameter::
+첫 번째 매개 변수로 색상 이름을 전달하여 텍스트 색상을 변경할 수 있습니다
+
+::
 
 	CLI::write('File created.', 'green');
 
-This could be used to differentiate messages by status, or create 'headers' by using a different color. You can
-even set background colors by passing the color name in as the third parameter::
+상태별로 메시지를 구분하거나 다른 색상을 사용하여 '헤더'를 만드는 데 사용할 수 있습니다.
+색 이름을 세 번째 매개 변수로 전달하여 배경색을 설정할 수도 있습니다
+
+::
 
 	CLI::write('File overwritten.', 'light_red', 'dark_gray');
 
-The following foreground colors are available:
+다음과 같은 전경색을 사용할 수 있습니다:
 
 * black
 * dark_gray
@@ -95,7 +110,7 @@ The following foreground colors are available:
 * light_gray
 * white
 
-And a smaller number are available as background colors:
+더 작은 숫자를 배경색으로 사용할 수 있습니다:
 
 * black
 * blue
@@ -108,10 +123,12 @@ And a smaller number are available as background colors:
 
 **print()**
 
-Print functions identically to the ``write()`` method, except that it does not force a newline either before or after.
-Instead it prints it to the screen wherever the cursor is currently. This allows you to print multiple items all on
-the same line, from different calls. This is especially helpful when you want to show a status, do something, then
-print "Done" on the same line::
+전후에 개행을 강요하지 않는다는 점을 제외하면 ``write()`` 메서드와 동일합니다.
+대신 커서가 현재 어디에 있든지 화면에 인쇄합니다.
+이를 통해 다른 호출에서 동일한 라인에 여러 항목을 인쇄할 수 있습니다.
+이것은 상태를 보여주고 무언가를 한 다음 같은 줄에 "완료"를 인쇄할 때 특히 유용합니다.
+
+::
 
     for ($i = 0; $i <= 10; $i++)
     {
@@ -120,15 +137,15 @@ print "Done" on the same line::
 
 **color()**
 
-While the ``write()`` command will write a single line to the terminal, ending it with a EOL character, you can
-use the ``color()`` method to make a string fragment that can be used in the same way, except that it will not force
-an EOL after printing. This allows you to create multiple outputs on the same row. Or, more commonly, you can use
-it inside of a ``write()`` method to create a string of a different color inside::
+``write()`` 명령은 터미널에 한 줄을 쓰고 EOL 문자로 끝나는 반면, 인쇄 후 EOL을 강제하지 않는다는 점을 제외하고 ``color()``메서드를 사용하여 동일한 문자열을 만들 수 있습니다 . 
+이를 통해 동일한 행에 여러 출력을 만들 수 있습니다. 
+또는 더 일반적으로 ``write()`` 메서드 내부에서 다른 색상의 문자열을 만들 수 있습니다
+
+::
 
 	CLI::write("fileA \t". CLI::color('/path/to/file', 'white'), 'yellow');
 
-This example would write a single line to the window, with ``fileA`` in yellow, followed by a tab, and then
-``/path/to/file`` in white text.
+이 예제는 창에 ``fileS``\ 가 노란색으로 표시되고 탭이 오고 흰색 텍스트로 ``/path/to/file``\ 이 표시됩니다.
 
 **error()**
 

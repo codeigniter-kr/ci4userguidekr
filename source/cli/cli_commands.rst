@@ -1,84 +1,94 @@
-###################
-Custom CLI Commands
-###################
+#################################
+사용자 정의 CLI 명령(Command)
+#################################
 
-While the ability to use cli commands like any other route is convenient, you might find times where you
-need a little something different. That's where CLI Commands come in. They are simple classes that do not
-need to have routes defined for, making them perfect for building tools that developers can use to make
-their jobs simpler, whether by handling migrations or database seeding, checking cronjob status, or even
-building out custom code generators for your company.
+다른 경로처럼 cli 명령을 사용하는 것이 편리하지만 조금 다른 것이 필요할 수도 있습니다.
+이때 CLI Commands가 제공됩니다.
+이 클래스는 경로를 정의할 필요가 없는 간단한 클래스로, 마이그레이션 또는 데이터베이스 시드 처리, cronjob 상태 확인 또는 회사에서 사용할 맞춤형 코드 생성기 등 개발자가 작업을 단순화하는 데 사용할 도구를 구축할 수 있습니다.
 
 .. contents::
     :local:
     :depth: 2
 
 ****************
-Running Commands
+명령 실행
 ****************
 
-Commands are run from the command line, in the root directory. The same one that holds the **/app**
-and **/system** directories. A custom script, **spark** has been provided that is used to run any of the
-cli commands::
+명령은 루트 디렉토리의 명령 행에서 실행됩니다.
+**/app** 과 **/system** 디렉토리를 보유하는 것은 동일합니다.
+cli 명령을 실행하는데 사용되는 사용자 정의 스크립트 **spark**\ 가 제공됩니다.
+
+::
 
     > php spark
 
-When called without specifying a command, a simple help page is displayed that also provides a list of
-available commands. You should pass the name of the command as the first argument to run that command::
+명령을 지정하지 않고 호출하면 사용 가능한 명령 목록을 제공하는 간단한 도움말 페이지가 표시됩니다.
+명령 이름을 첫 번째 인수로 전달하여 해당 명령을 실행합니다.
+
+::
 
     > php spark migrate
 
-Some commands take additional arguments, which should be provided directly after the command, separated by spaces::
+일부 명령은 추가 인수를 사용하며 명령 뒤에 바로 제공하며 공백으로 구분됩니다.
+
+::
 
     > php spark db:seed DevUserSeeder
 
-For all of the commands CodeIgniter provides, if you do not provide the required arguments, you will be prompted
-for the information it needs to run correctly::
+CodeIgniter가 제공하는 모든 명령에 대해 필요한 인수를 제공하지 않으면 올바르게 실행하는 데 필요한 정보를 묻는 메시지가 표시됩니다.
+
+::
 
     > php spark migrate:version
     > Version?
 
-******************
-Using Help Command
-******************
+********************
+도움말 명령 사용
+********************
 
-You can get help about any CLI command using the help command as follows::
+help 명령을 사용하여 CLI 명령에 대한 도움말을 얻을 수 있습니다.
+::
 
     > php spark help db:seed
 
 *********************
-Creating New Commands
+새로운 명령 만들기
 *********************
 
-You can very easily create new commands to use in your own development. Each class must be in its own file,
-and must extend ``CodeIgniter\CLI\BaseCommand``, and implement the ``run()`` method.
+개발에 사용할 새 명령을 매우 쉽게 작성할 수 있습니다.
+각 명령에 대한 클래스 파일이 있어야 하며 ``CodeIgniter\CLI\BaseCommand``\ 를 확장하고 ``run()`` 메서드를 구현해야 합니다.
 
-The following properties should be used in order to get listed in CLI commands and to add help functionality to your command:
+CLI 명령에 나열되고 명령 도움말 기능을 추가하려면 다음 특성을 사용합니다.
 
-* ($group): a string to describe the group the command is lumped under when listing commands. For example (Database)
-* ($name): a string to describe the command's name. For example (migrate:create)
-* ($description): a string to describe the command. For example (Creates a new migration file.)
-* ($usage): a string to describe the command usage. For example (migrate:create [migration_name] [Options])
-* ($arguments): an array of strings to describe each command argument. For example ('migration_name' => 'The migration file name')
-* ($options): an array of strings to describe each command option. For example ('-n' => 'Set migration namespace')
+* ($group) : 명령을 나열 할 때 명령이 집중된 그룹을 설명하는 문자열, ex> (Database)
+* ($name) : 명령 이름을 나타내는 문자열, ex> (migrate : create)
+* ($description) : 명령을 설명하는 문자열, ex> (새 마이그레이션 파일을 만듭니다.)
+* ($usage) : 명령 사용법을 설명하는 문자열, ex> (migrate : create [migration_name] [Options])
+* ($arguments) : 각 명령 인수를 설명하는 문자열 배열, ex> ( 'migration_name'=> '마이그레이션 파일 이름')
+* ($options) : 각 명령 옵션을 설명하는 문자열 배열, ex> ( '-n'=> '마이그레이션 네임 스페이스 설정')
 
-**Help description will be automatically generated according to the above parameters.**
+** 도움말 설명은 위의 매개 변수에 따라 자동으로 생성됩니다. **
 
-File Location
+파일 위치
 =============
 
-Commands must be stored within a directory named **Commands**. However, that directory can be located anywhere
-that the :doc:`Autoloader </concepts/autoloader>` can locate it. This could be in **/app/Commands**, or
-a directory that you keep commands in to use in all of your project development, like **Acme/Commands**.
+Commands must be stored within a directory named **Commands**. 
+However, that directory can be located anywhere that the :doc:`Autoloader </concepts/autoloader>` can locate it. This could be in **/app/Commands**, or a directory that you keep commands in to use in all of your project development, like **Acme/Commands**.
 
-.. note:: When the commands are executed, the full CodeIgniter cli environment has been loaded, making it
- possible to get environment information, path information, and to use any of the tools you would use when making a Controller.
+.. note:: When the commands are executed, the full CodeIgniter cli environment has been loaded, making it possible to get environment information, path information, and to use any of the tools you would use when making a Controller.
 
-An Example Command
+명령은 **Commands** 디렉토리에 저장해야 합니다.
+그러나 해당 디렉토리는 :doc:`오토로더 </concepts/autoloader>`\ 가 있는 위치에 있을 수 있으며, **/app/Comms** 또는 **Acme/andss**\ 와 같이 프로젝트 개발 모두에 사용하도록 명령을 보관하는 디렉토리일 수 있습니다.
+
+.. note:: 명령이 실행될 때 전체 CodeIgniter cli 환경이 로드되어 환경 정보, 경로 정보를 가져오며 Controller 작성시 사용할 도구를 사용할 수 있습니다.
+
+예제 명령
 ==================
 
-Let's step through an example command whose only function is to report basic information about the application
-itself, for demonstration purposes. Start by creating a new file at **/app/Commands/AppInfo.php**. It
-should contain the following code::
+데모 목적으로 애플리케이션 자체에 대한 기본 정보를 보고하는 예제 명령을 살펴 보겠습니다.
+**/app/Commands/AppInfo.php**\ 에 다음 코드를 작성하여 새 파일을 생성하십시오.
+
+::
 
     <?php namespace App\Commands;
 
@@ -97,34 +107,40 @@ should contain the following code::
         }
     }
 
-If you run the **list** command, you will see the new command listed under its own ``demo`` group. If you take
-a close look, you should see how this works fairly easily. The ``$group`` property simply tells it how to organize
-this command with all of the other commands that exist, telling it what heading to list it under.
+**list** 명령을 실행하면 새 명령이 ``demo`` 그룹 아래에 표시됩니다.
+이를 살펴보면 이 명령이 어떻게 작동하는지 알 수 있을 것입니다.
+``$group`` 속성은 단순히 존재하는 다른 모든 명령으로 이 명령을 구성하는 방법을 알려주며, 그 아래에 나열할 제목을 알려줍니다.
 
-The ``$name`` property is the name this command can be called by. The only requirement is that it must not contain
-a space, and all characters must be valid on the command line itself. By convention, though, commands are lowercase,
-with further grouping of commands being done by using a colon with the command name itself. This helps keep
-multiple commands from having naming collisions.
+``$name`` 속성은 이 명령을 호출할 수 있는 이름입니다.
+유일한 요구 사항은 공백을 포함하지 않아야하며 모든 문자는 명령 행 자체에서 유효해야합니다.
+그러나 일반적으로 명령은 소문자이며 명령 이름 자체와 함께 콜론을 사용하여 명령 그룹을 추가로 그룹화합니다.
+그룹화는 여러 명령의 이름 충돌을 방지하는데 도움이됩니다.
 
-The final property, ``$description`` is a short string that is displayed in the **list** command and should describe
-what the command does.
+최종 속성 ``$description``\ 은 **list** 명령에 표시되는 짧은 문자열이며 명령의 기능을 설명해야합니다.
 
 run()
 -----
 
-The ``run()`` method is the method that is called when the command is being run. The ``$params`` array is a list of
-any cli arguments after the command name for your use. If the cli string was::
+``run()`` 메소드는 명령이 실행될 때 호출되는 메소드입니다. 
+``$params`` 배열은 사용할 명령 이름 뒤의 cli 인수의 목록입니다. 
+cli 문자열이 아래와 같다면
+
+::
 
     > php spark foo bar baz
 
-Then **foo** is the command name, and the ``$params`` array would be::
+**foo**\ 는 명령이고 ``$params`` 배열은
+
+::
 
     $params = ['bar', 'baz'];
 
-This can also be accessed through the :doc:`CLI </cli/cli_library>` library, but this already has your command removed
-from the string. These parameters can be used to customize how your scripts behave.
+이것도 :doc:`CLI </cli/cli_library>` 라이브러리를 통해 액세스할 수 있지만 문자열에서 이미 명령이 제거되었습니다.
+이 매개 변수는 스크립트 동작 방식을 사용자 정의할 때 사용할 수 있습니다.
 
-Our demo command might have a ``run`` method something like::
+데모 명령의 ``run`` 메소드는 다음과 같습니다.
+
+::
 
     public function run(array $params)
     {
@@ -137,30 +153,33 @@ Our demo command might have a ``run`` method something like::
     }
 
 ***********
-BaseCommand
+기본 명령
 ***********
 
-The ``BaseCommand`` class that all commands must extend have a couple of helpful utility methods that you should
-be familiar with when creating your own commands. It also has a :doc:`Logger </general/logging>` available at
-**$this->logger**.
+모든 명령이 확장해야 하는 ``BaseCommand`` 클래스에는 고유한 명령을 작성할 때 유용한 유틸리티 메소드가 있습니다.
+또한 **$this->logger**\ 를 통해 사용 가능한 :doc:`Logger </general/logging>`\ 도 있습니다.
 
 .. php:class:: CodeIgniter\CLI\BaseCommand
 
     .. php:method:: call(string $command[, array $params=[] ])
 
-        :param string $command: The name of another command to call.
-        :param array $params: Additional cli arguments to make available to that command.
+        :param string $command: 호출 할 다른 명령의 이름
+        :param array $params: 해당 명령에 사용 가능한 추가 cli 인수
 
-        This method allows you to run other commands during the execution of your current command::
+        이 메소드를 사용하면 현재 명령을 실행하는 동안 다른 명령을 실행할 수 있습니다
+        
+        ::
 
-        $this->call('command_one');
-        $this->call('command_two', $params);
+            $this->call('command_one');
+            $this->call('command_two', $params);
 
     .. php:method:: showError(\Exception $e)
 
-        :param Exception $e: The exception to use for error reporting.
+        :param Exception $e: 오류보고에 사용할 예외
 
-        A convenience method to maintain a consistent and clear error output to the cli::
+        CLI에 일관성 있고 명확한 오류 출력을 유지하는 편리한 메소드
+        
+        ::
 
             try
             {
@@ -173,19 +192,23 @@ be familiar with when creating your own commands. It also has a :doc:`Logger </g
 
     .. php:method:: showHelp()
 
-        A method to show command help: (usage,arguments,description,options)
+        명령 도움말을 표시하는 메소드: (usage,arguments,description,options)
 
     .. php:method:: getPad($array, $pad)
 
-        :param array    $array: The  $key => $value array.
-        :param integer  $pad: The pad spaces.
+        :param array    $array: $key => $value 배열
+        :param integer  $pad: pad spaces.
 
-        A method to calculate padding for $key => $value array output. The padding can be used to output a will formatted table in CLI::
+
+        $key => $value 배열 출력에 대한 패딩을 계산하는 메소드.
+        패딩은 CLI에서 테이블을 출력할 때 사용할 수 있습니다
+        
+        ::
 
             $pad = $this->getPad($this->options, 6);
             foreach ($this->options as $option => $description)
             {
-                    CLI::write($tab . CLI::color(str_pad($option, $pad), 'green') . $description, 'yellow');
+                CLI::write($tab . CLI::color(str_pad($option, $pad), 'green') . $description, 'yellow');
             }
 
             // Output will be
