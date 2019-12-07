@@ -1,36 +1,37 @@
-#################
-CURLRequest Class
-#################
+##########################
+CURLRequest 클래스
+##########################
 
-The ``CURLRequest`` class is a lightweight HTTP client based on CURL that allows you to talk to other
-web sites and servers. It can be used to get the contents of a Google search, retrieve a web page or image,
-or communicate with an API, among many other things.
+``CURLRequest`` 클래스는 다른 웹 사이트 또는 서버와 통신할 수있는 CURL 기반의 경량 HTTP 클라이언트입니다.
+Google 검색 내용을 가져 오거나 웹 페이지 또는 이미지를 검색하거나 API와 통신하는데 사용할 수 있습니다.
 
 .. contents::
     :local:
     :depth: 2
 
-This class is modeled after the `Guzzle HTTP Client <http://docs.guzzlephp.org/en/latest/>`_ library since
-it is one of the more widely used libraries. Where possible, the syntax has been kept the same so that if
-your application needs something a little more powerful than what this library provides, you will have
-to change very little to move over to use Guzzle.
+이 클래스는 `Guzzle HTTP Client <http://docs.guzzlephp.org/en/latest/>`_ 라이브러리를 모델로합니다. 
+가장 널리 사용되는 라이브러리중 하나이기 때문입니다.
+가능한 경우 Guzzle의 구문과 동일하게 유지되므로, 응용 프로그램에서 이 라이브러리를 대신하여 Guzzle로 바꾸어도 거의 변경없이 사용 가능합니다.
 
-.. note:: This class requires the `cURL Library <http://php.net/manual/en/book.curl.php>`_ to be installed
-    in your version of PHP. This is a very common library that is typically available but not all hosts
-    will provide it, so please check with your host to verify if you run into problems.
+.. note:: 이 클래스는 사용하기 위해서는 PHP 버전의 `cURL 라이브러리 <http://php.net/manual/en/book.curl.php>`_\ 를 설치해야합니다. 
+	이 라이브러리는 일반적으로 사용 가능하지만 모든 호스트가 제공하지는 않으므로 문제가 발생한다면 호스트에 문의하여 설치를 확인하십시오.
 
 *******************
-Loading the Library
+라이브러리 로드
 *******************
 
-The library can be loaded either manually or through the :doc:`Services class </concepts/services>`.
+라이브러리는 수동으로 또는 :doc:`서비스 클래스 </concepts/services>`\ 를 통해 로드할 수 있습니다.
 
-To load with the Services class call the ``curlrequest()`` method::
+서비스 클래스를 통하여 로드하려면 ``curlrequest()`` 메서드를 호출하십시오.
+
+::
 
 	$client = \Config\Services::curlrequest();
 
-You can pass in an array of default options as the first parameter to modify how cURL will handle the request.
-The options are described later in this document::
+cURL이 요청을 처리하는 방법을 수정하기 위해 기본 옵션 배열을 첫 번째 매개 변수로 전달할 수 있습니다.
+옵션은 이 문서의 뒷부분에서 설명합니다
+
+::
 
 	$options = [
 		'base_uri' => 'http://example.com/api/v1/',
@@ -38,9 +39,13 @@ The options are described later in this document::
 	];
 	$client = \Config\Services::curlrequest($options);
 
-When creating the class manually, you need to pass a few dependencies in. The first parameter is an
-instance of the ``Config\App`` class. The second parameter is a URI instance. The third
-parameter is a Response object. The fourth parameter is the optional ``$options`` array::
+클래스를 수동으로 만들 때는 몇 가지 종속성을 전달해야 합니다.
+첫 번째 매개 변수는 ``Config\App`` 클래스의 인스턴스입니다.
+두 번째 매개 변수는 URI 인스턴스입니다.
+세 번째 매개 변수는 Response 객체입니다.
+네 번째 매개 변수는 ``$options`` 배열입니다.(선택)
+
+::
 
 	$client = new \CodeIgniter\HTTP\CURLRequest(
 		new \Config\App(),
@@ -50,18 +55,18 @@ parameter is a Response object. The fourth parameter is the optional ``$options`
 	);
 
 ************************
-Working with the Library
+라이브러리 작업
 ************************
 
-Working with CURL requests is simply a matter of creating the Request and getting a
-:doc:`Response object </outgoing/response>` back. It is meant to handle the communications. After that
-you have complete control over how the information is handled.
+CURL 요청 작업은 통신을 처리하기 위해 요청(request)을 작성하고 :doc:`응답(response) 객체 </outgoing/response>`\ 를 얻는 문제입니다.
+그 후 정보 처리 방법을 완전히 제어할 수 있습니다.
 
-Making Requests
+요청 만들기
 ===============
 
-Most communication is done through the ``request()`` method, which fires off the request, and then returns
-a Response instance to you. This takes the HTTP method, the url and an array of options as the parameters.
+대부분의 통신은``request()`` 메소드를 통해 이루어지며, 이 메소드는 요청을 시작한 다음 Response 인스턴스를 리턴합니다.
+HTTP 메소드, url 및 옵션 배열을 매개 변수로 사용합니다.
+
 ::
 
 	$client = \Config\Services::curlrequest();
@@ -70,16 +75,19 @@ a Response instance to you. This takes the HTTP method, the url and an array of 
 		'auth' => ['user', 'pass']
 	]);
 
-Since the response is an instance of ``CodeIgniter\HTTP\Response`` you have all of the normal information
-available to you::
+응답은 ``CodeIgniter\HTTP\Response``\ 의 인스턴스이므로 모든 일반 정보를 사용할 수 있습니다
+
+::
 
 	echo $response->getStatusCode();
 	echo $response->getBody();
 	echo $response->getHeader('Content-Type');
 	$language = $response->negotiateLanguage(['en', 'fr']);
 
-While the ``request()`` method is the most flexible, you can also use the following shortcut methods. They
-each take the URL as the first parameter and an array of options as the second::
+``request()`` 메소드가 가장 유연하지만 다음 단축 메소드를 사용할 수도 있습니다.
+각각 URL을 첫 번째 매개 변수로 사용하고 옵션 배열을 두 번째 매개 변수로 사용합니다.
+
+::
 
 * $client->get('http://example.com');
 * $client->delete('http://example.com');
@@ -92,9 +100,11 @@ each take the URL as the first parameter and an array of options as the second::
 Base URI
 --------
 
-A ``base_uri`` can be set as one of the options during the instantiation of the class. This allows you to
-set a base URI, and then make all requests with that client using relative URLs. This is especially handy
-when working with APIs::
+클래스를 인스턴스화하는 동안 ``base_uri``\ 을 옵션 중 하나로 설정할 수 있습니다.
+이를 통해 기본 URI를 설정한 다음 상대 URL을 사용하여 해당 클라이언트와의 모든 요청을 할 수 있습니다.
+API로 작업할 때 특히 유용합니다
+
+::
 
 	$client = \Config\Services::curlrequest([
 		'base_uri' => 'https://example.com/api/v1/'
@@ -106,10 +116,8 @@ when working with APIs::
 	// GET http:example.com/api/v1/photos/13
 	$client->delete('photos/13');
 
-When a relative URI is provided to the ``request()`` method or any of the shortcut methods, it will be combined
-with the base_uri according to the rules described by
-`RFC 2986, section 2 <http://tools.ietf.org/html/rfc3986#section-5.2>`_. To save you some time, here are some
-examples of how the combinations are resolved.
+상대 URI가 ``request()`` 메소드 또는 임의의 단축키 메소드에 제공되면, `RFC 2986, section 2 <http://tools.ietf.org/html/rfc3986#section-5.2>`_\ 에 설명된 규칙에 따라 base_uri와 결합됩니다. 
+다음은 조합에 대한 몇 가지 예입니다.
 
 	===================   ==============   ======================
 	base_uri              URI              Result
@@ -122,18 +130,22 @@ examples of how the combinations are resolved.
 	http://foo.com/?bar   bar              http://foo.com/bar
 	===================   ==============   ======================
 
-Using Responses
+응답 사용
 ===============
 
-Each ``request()`` call returns a Response object that contains a lot of useful information and some helpful
-methods. The most commonly used methods let you determine the response itself.
+각 ``request()`` 호출은 유용한 정보와 메소드를 포함하는 응답 객체를 반환합니다.
+가장 일반적으로 사용되는 메소드를 사용하여 반응 자체를 확인할 수 있습니다.
 
-You can get the status code and reason phrase of the response::
+응답의 상태 코드 및 이유를 확인할 수 있습니다.
+
+::
 
 	$code   = $response->getStatusCode();    // 200
 	$reason = $response->getReason();      // OK
 
-You can retrieve headers from the response::
+응답에서 헤더를 검색할 수 있습니다
+
+::
 
 	// Get a header line
 	echo $response->getHeaderLine('Content-Type');
@@ -144,36 +156,43 @@ You can retrieve headers from the response::
 		echo $name .': '. $response->getHeaderLine($name) ."\n";
 	}
 
-The body can be retrieved using the ``getBody()`` method::
+``getBody()`` 메소드를 사용하여 본문을 검색할 수 있습니다.
+
+::
 
 	$body = $response->getBody();
 
-The body is the raw body provided by the remote getServer. If the content type requires formatting, you will need
-to ensure that your script handles that::
+본문은 원격 getServer에서 제공하는 원시 본문입니다.
+컨텐츠 유형에 형식이 필요한 경우 스크립트가 해당 형식을 처리하는지 확인해야 합니다.
+
+::
 
 	if (strpos($response->getHeader('content-type'), 'application/json') !== false)
 	{
 		$body = json_decode($body);
 	}
 
-***************
-Request Options
-***************
+**********************
+요청(Request) 옵션
+**********************
 
-This section describes all of the available options you may pass into the constructor, the ``request()`` method,
-or any of the shortcut methods.
+이 섹션에서는 생성자, ``request()`` 메서드 또는 바로 가기 메서드에 전달할 수 있는 모든 옵션에 대해 설명합니다.
 
 allow_redirects
 ===============
 
-By default, cURL will follow all "Location:" headers the remote servers send back. The ``allow_redirects`` option
-allows you to modify how that works.
+기본적으로 cURL은 원격 서버가 보내는 모든 "Location:" 헤더를 따릅니다.
+``allow_redirects`` 옵션을 사용하면 작동 방식을 수정할 수 있습니다.
 
-If you set the value to ``false``, then it will not follow any redirects at all::
+값을 ``false``\ 로 설정하면 리디렉션을 따르지 않습니다.
+
+::
 
 	$client->request('GET', 'http://example.com', ['allow_redirects' => false]);
 
-Setting it to ``true`` will apply the default settings to the request::
+``true``\ 로 설정하면 기본 설정이 요청에 적용됩니다.
+
+::
 
 	$client->request('GET', 'http://example.com', ['allow_redirects' => true]);
 
@@ -182,14 +201,16 @@ Setting it to ``true`` will apply the default settings to the request::
 	'strict'    => true, // Ensure POST requests stay POST requests through redirects
 	'protocols' => ['http', 'https'] // Restrict redirects to one or more protocols
 
-You can pass in array as the value of the ``allow_redirects`` option to specify new settings in place of the defaults::
+``allow_redirects`` 옵션 값을 배열로 전달하여 기본값 대신 새 설정을 지정할 수 있습니다.
+
+::
 
 	$client->request('GET', 'http://example.com', ['allow_redirects' => [
 		'max'       => 10,
 		'protocols' => ['https'] // Force HTTPS domains only.
 	]]);
 
-.. note:: Following redirects does not work when PHP is in safe_mode or open_basedir is enabled.
+.. note:: PHP가 safe_mode에 있거나 open_basedir이 활성화되어 있으면 다음 리디렉션이 작동하지 않습니다.
 
 auth
 ====
