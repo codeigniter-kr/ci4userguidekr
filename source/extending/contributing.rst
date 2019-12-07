@@ -1,71 +1,61 @@
 ###########################
-Contributing to CodeIgniter
+CodeIgniter에 기여
 ###########################
 
-CodeIgniter is a community driven project and accepts contributions of code
-and documentation from the community. These contributions are made in the form
-of Issues or `Pull Requests <https://help.github.com/articles/using-pull-requests/>`_
-on the `CodeIgniter4 repository <https://github.com/codeigniter4/CodeIgniter4>`_ on GitHub.
+CodeIgniter는 커뮤니티 기반 프로젝트이며 커뮤니티로부터 코드 및 문서의 기여를 받아들입니다. 
+이러한 기여는 GitHub의 `CodeIgniter4 저장소 <https://github.com/codeigniter4/CodeIgniter4>`_\ 의 이슈(Issue)s 또는 `Pull Requests <https://help.github.com/articles/using-pull-requests/>`_ 형태로 이루어집니다.
 
-Issues are a quick way to point out a bug. If you find a bug or documentation
-error in CodeIgniter then please check a few things first:
+이슈(Issue)는 버그를 지적하는 빠른 방법입니다. 
+CodeIgniter에서 버그 또는 설명서 오류를 발견한 경우 몇 가지 사항을 먼저 확인하십시오.
 
-- There is not already an open Issue
-- The issue has already been fixed (check the develop branch, or look for
-  closed Issues)
-- Is it something really obvious that you fix it yourself?
+- 아직 공개되지 않은 이슈(Issue)인가?
+- 이미 해결된 이슈(Issue)인가? (개발 지점을 확인하거나 닫힌 이슈(Issue)를 찾으십시오)
+- 스스로 고친 것이 분명한가?
 
-Reporting issues is helpful but an even better approach is to send a Pull
-Request, which is done by "Forking" the main repository and committing to your
-own copy. This will require you to use the version control system called Git.
+이슈(Issue) 보고는 도움이 되지만 더 나은 방법은 풀 리퀘스트(Pull Request)를 보내는 것입니다. 
+풀 리퀘스트는 메인 리포지토리를 "Forking"\ 하고 자신의 사본을 커밋함으로써 수행됩니다.
+이를 위해서는 Git이라는 버전 제어 시스템을 사용해야 합니다.
 
-Please see the `Contributing to CodeIgniter4 <https://github.com/codeigniter4/CodeIgniter4/tree/develop/contributing>`_ 
-section of our code repository.
+코드 저장소의 `CodeIgniter4에 기여하기 <https://github.com/codeigniter4/CodeIgniter4/tree/develop/contributing>`_ 섹션을 참조하십시오.
 
+*******************
+지원(Support)
+*******************
 
-*******
-Support
-*******
+GitHub는 일반적인 지원을 질문하는 곳이 아닙니다.
+CodeIgniter를 사용하는데 문제가 있으면 `공식 포럼 <http://forum.codeigniter.com/>`_\ 이나 `CodeIgniter 한국 사용자 포럼 <http://cikorea.net/>`_에 도움을 요청하십시오.
 
-Please note that GitHub is not for general support questions! If you are
-having trouble using a feature of CodeIgniter, ask for help on our
-`forums <http://forum.codeigniter.com/>`_ instead.
-
-If you are not sure whether you are using something correctly or if you
-have found a bug, again - please ask on the forums first.
+무언가를 올바르게 사용하고 있는지 확실하지 않거나 버그를 발견했다면 다시 포럼에 문의하십시오.
 
 ********
-Security
+보안
 ********
 
-Did you find a security issue in CodeIgniter?
+CodeIgniter에서 보안 문제를 찾았습니까?
 
-Please *don't* disclose it publicly, but e-mail us at security@codeigniter.com,
-or report it via our page on `HackerOne <https://hackerone.com/codeigniter>`_.
+공개적으로 공개하지 말고 security@codeigniter.com으로 이메일을 보내거나 `HackerOne <https://hackerone.com/codeigniter>`_ 페이지를 통해 알려주십시오.
 
-If you've found a critical vulnerability, we'd be happy to credit you in our
-`ChangeLog <../changelogs/index.html>`_.
+치명적인 취약점을 발견한 경우 `ChangeLog <../ changelogs / index.html>`_\ 에 기꺼이 알려 드리겠습니다.
 
-****************************
-Tips for a Good Issue Report
-****************************
+************************************
+좋은 이슈(Issue) 보고서를 위한 팁
+************************************
 
-Use a descriptive subject line (eg parser library chokes on commas) rather than a vague one (eg. your code broke).
+모호한 제목이 아닌 설명적인 제목(예 : 쉼표의 파서 라이브러리 초크)을 사용하십시오 (예 : 코드가 깨졌습니다).
 
-Address a single issue in a report.
+하나의 보고서에서 하나의 이슈(Issue)를 해결하십시오.
 
-Identify the CodeIgniter version (eg 4.0.1) and the component if you know it (eg. parser library)
+CodeIgniter 버전(예 : 4.0.1)과 구성 요소를 알고있는 경우(예 : 파서 ​​라이브러리)
 
-Explain what you expected to happen, and what did happen.
-Include error messages and stack trace, if any.
+무슨 일이 일어날지, 무슨 일이 있었는지 설명하십시오.
+오류 메시지와 스택 추적이 있으면 포함하십시오.
 
-Include short code segments if they help to explain.
-Use a pastebin or dropbox facility to include longer segments of code or screenshots - do not include them in the issue report itself.
-This means setting a reasonable expiry for those until the issue is resolved or closed.
+설명을 돕기 위해 짧은 코드 세그먼트를 포함하십시오.
+이슈 보고서에 포함하기 힘든 긴 코드나 스크린샷 세그먼트는 pastebin 또는 dropbox 기능을 사용하여 포함합니다.
+이때 이슈가 해결되거나 종결될 때까지 만료 기간을 지나지 않도록 설정해야 합니다.
 
-If you know how to fix the issue, you can do so in your own fork & branch, and submit a pull request.
-The issue report information above should be part of that.
+이슈를 해결하는 방법을 알고 있다면 자신의 포크(fork) 와 브랜치(brench)에서 문제를 해결하고 풀 리퀘스트를 제출할 수 있습니다.
+위의 이슈 보고서 정보는 그 일부가 되어야합니다.
 
-If your issue report can describe the steps to reproduce the problem, that is great.
-If you can include a unit test that reproduces the problem, that is even better, as it gives whoever is fixing
-it a clearer target!
+이슈 보고서에 이슈를 재현하는 단계가 설명되어 있으면 좋습니다.
+이슈를 재현하는 단위 테스트를 포함시킬 수 있다면 수정하는 사람에게 제공하는 것이 더 좋습니다.
