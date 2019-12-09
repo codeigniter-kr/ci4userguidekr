@@ -30,9 +30,6 @@ CodeIgniter의 강력한 이메일(email) 클래스는 다음 기능을 지원�
 이메일 보내기
 =============
 
-Sending email is not only simple, but you can configure it on the fly or set your preferences in the **app/Config/Email.php** file.
-
-Here is a basic example demonstrating how you might send email
 이메일 전송은 간단하며 관련 구성을 즉시하거나 **app/Config/Email.php** 파일을 통하여 환경 설정을 구성할 수 있습니다.
 
 다음은 이메일을 보내는 방법을 보여주는 기본 예입니다.
@@ -99,9 +96,7 @@ Preference          Default Value          Options                      Descript
 **SMTPCrypto**      No Default             tls or ssl                   SMTP Encryption
 **wordWrap**        TRUE                   TRUE or FALSE (boolean)      자동 줄 바꿈을 활성화 여부
 **wrapChars**       76                                                  랩핑할 문자 수
-**mailType**        text                   text or html                 메일 유형. HTML 이메일을 보내려면 완전한 웹 페이지로 보내야합니다.
-																		상대 링크 또는 상대 이미지 경로가 없는지 확인하십시오. 
-																		그렇지 않으면 작동하지 않습니다.
+**mailType**        text                   text or html                 메일 유형. HTML 이메일을 보내려면 완전한 웹 페이지로 보내야합니다. 상대 링크 또는 상대 이미지 경로가 없는지 확인하십시오. 그렇지 않으면 작동하지 않습니다.
 **charset**         utf-8                                               Character set (utf-8, iso-8859-1, etc.).
 **validate**        TRUE                   TRUE or FALSE (boolean)      이메일 주소의 유효성 검사 여부
 **priority**        3                      1, 2, 3, 4, 5                이메일 우선 순위: 1 = highest. 5 = lowest. 3 = normal.
@@ -391,7 +386,7 @@ Class Reference
 	.. php:method:: printDebugger($include = ['headers', 'subject', 'body'])
 
 		:param	array	$include: 인쇄 할 메시지 부분
-		:returns:	형식화 된 디버그 데이터
+		:returns:	형식화된 디버그 데이터
 		:rtype:	string
 
 		서버 메시지, 이메일 헤더, 메시지가 포함된 문자열을 반환합니다. 
