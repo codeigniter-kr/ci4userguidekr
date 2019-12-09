@@ -23,7 +23,7 @@ CodeIgniter에서 버그 또는 설명서 오류를 발견한 경우 몇 가지 
 *******************
 
 GitHub는 일반적인 지원을 질문하는 곳이 아닙니다.
-CodeIgniter를 사용하는데 문제가 있으면 `공식 포럼 <http://forum.codeigniter.com/>`_\ 이나 `CodeIgniter 한국 사용자 포럼 <http://cikorea.net/>`_에 도움을 요청하십시오.
+CodeIgniter를 사용하는데 문제가 있으면 `공식 포럼 <http://forum.codeigniter.com/>`_\ 이나 `CodeIgniter 한국 사용자 포럼 <http://cikorea.net/>`_\ 에 도움을 요청하십시오.
 
 무언가를 올바르게 사용하고 있는지 확실하지 않거나 버그를 발견했다면 다시 포럼에 문의하십시오.
 
