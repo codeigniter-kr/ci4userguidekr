@@ -1,34 +1,26 @@
 ##################
-Encryption Service
+암호화 서비스
 ##################
 
-.. important:: DO NOT use this or any other *encryption* library for
-	user password storage! Passwords must be *hashed* instead, and you
-	should do that via PHP's own `Password Hashing extension
-	<http://php.net/password>`_.
+.. important:: 사용자 암호 저장에 이 라이브러리나 다른 *encryption* 라이브러리를 사용하지 마십시오! 암호는 *hashed* 이어야하며, PHP의 `암호 해싱 확장 <http://php.net/password>`_\ 을 통해 암호를 만들어야합니다
 
-The Encryption Service provides two-way symmetric (secret key) data encryption. 
-The encryption manager will instantiate and/or initialize an
-encryption handler to suit your parameters, explained below.
+암호화 서비스는 양방향 대칭(비밀 키) 데이터 암호화를 제공합니다.
+암호화 관리자는 아래 설명 된대로 매개 변수에 맞게 암호화 처리기를 인스턴스화 또는 초기화합니다.
 
-The handlers adapt our simple ``EncrypterInterface`` to use an
-appropriate PHP cryptographic extension or third party library.
-Such extensions may need to be explicitly enabled in your instance of PHP.
+처리기는 ``EncrypterInterface``\ 를 PHP 암호화 확장(extension) 또는 타사 라이브러리를 사용하도록 조정합니다.
+이러한 확장은 PHP 인스턴스에서 명시적으로 활성화해야 합니다.
 
-The following extensions are currently supported:
+현재 다음 확장이 지원됩니다:
 
 - `OpenSSL <http://php.net/openssl>`_
 
-.. note:: Support for the ``MCrypt`` extension has been dropped, as that has
-    been deprecated as of PHP 7.2.
+.. note:: ``MCrypt`` 확장에 대한 지원은 PHP 7.2에서 더 이상 사용되지 않으므로 제거되었습니다.
 
-This is not a full cryptographic solution. If you need more capabilities,
-for instance public key encryption, we suggest you consider using the
-above extensions directly, or look into some of the more comprehensive
-packages, like:
+이것은 완전한 암호화 솔루션이 아닙니다. 
+더 많은 기능(예 : 공개 키 암호화)이 필요한 경우 위의 확장을 직접 사용하거나, 다음과 같은 보다 포괄적인 패키지를 살펴보십시오.
 
-- `Halite <https://github.com/paragonie/halite>`_, an O-O package built on libsodium, or
-- `Sodium_compat <https://github.com/paragonie/sodium_compat>`_, a pure PHP implementation that adds libsodium support to earlier versions of PHP (5.2.4+)
+- `Halite <https://github.com/paragonie/halite>`_, libsodium으로 구축된 O-O 패키지, or
+- `Sodium_compat <https://github.com/paragonie/sodium_compat>`_, 이전 버전의 PHP(5.2.4+)에 libsodium 지원을 추가하는 순수한 PHP 구현
 
 .. contents::
   :local:
@@ -38,16 +30,18 @@ packages, like:
   <div class="custom-index container"></div>
 
 ****************************
-Using the Encryption Library
+암호화 라이브러리 사용
 ****************************
 
-Like all services in CodeIgniter, it can be loaded via ``Config\Services``::
+CodeIgniter의 모든 서비스와 마찬가지로 ``Config\Services``\ 를 통해 로드할 수 있습니다
+
+::
 
     $encrypter = \Config\Services::encrypter();
 
-Assuming you have set your starting key (see below), 
-encrypting and decrypting data is simple - pass the appropriate string to the
-``encrypt()`` and/or ``decrypt()`` methods::
+암호화 키를 설정했다고 가정하면 (아래 참조) 데이터 암호화 및 암호 해독은 간단합니다 - 적절한 문자열을 ``encrypt()`` 또는 ``decrypt()`` 메소드에 전달하십시오.
+
+::
 
 	$plain_text = 'This is a plain-text message!';
 	$ciphertext = $encrypter->encrypt($plaintext);
@@ -55,19 +49,18 @@ encrypting and decrypting data is simple - pass the appropriate string to the
 	// Outputs: This is a plain-text message!
 	echo $encrypter->decrypt($ciphertext);
 
-And that's it! The Encryption library will do everything necessary
-for the whole process to be cryptographically secure out-of-the-box.
-You don't need to worry about it.
+이걸로 끝입니다! 
+암호화 라이브러리는 전체 프로세스를 암호로 안전하게 보호하는데 필요한 모든 것을 수행합니다.
+당신은 그것에 대해 걱정할 필요가 없습니다.
 
 .. _configuration:
 
-Configuring the library
+라이브러리 구성
 =======================
 
-The example above uses the default configuration settings,
-found in ``application/config/Encryption.php``.
+위의 예는 ``application/config/Encryption.php``\ 에 있는 기본 구성 설정을 사용합니다.
 
-There are only two settings:
+두 가지 설정만 있습니다.
 
 ======== ===============================================
 Option   Possible values (default in parentheses)
@@ -76,54 +69,49 @@ driver   Preferred handler (OpenSSL)
 key      Encryption key starter
 ======== ===============================================
 
-You can over-ride any of these settings by passing your own ``Config`` object
-to the Services::
+고유한 ``Config`` 객체를 서비스에 전달하여 이러한 설정을 무시할 수 있습니다.
+
+::
 
     $encrypter = \Config\Services::encrypter($config);
 
-Default behavior
+기본 행동
 ================
 
-By default, the Encryption Library will use the OpenSSL handler, with
-the AES-256-CTR cipher, 
-using your configured *key* and SHA512 HMAC authentication.
+기본적으로 암호화 라이브러리는 구성된 *key*\ 와 SHA512 HMAC 인증을 사용하여 AES-256-CTR 암호와 함께 OpenSSL 핸들러를 사용합니다.
 
-The *key* you provide is used to derive
-two separate keys from your configured one: 
-one for encryption and one for authentication. This is
-done via a technique called `HMAC-based Key Derivation Function
-<http://en.wikipedia.org/wiki/HKDF>`_ (HKDF).
+제공한 *key*\ 는 구성된 키에서 두 개의 개별 키를 파생시키는 데 사용됩니다.
+하나는 암호화 용이고 다른 하나는 인증 용입니다.
+이는 `HMAC 기반 키 파생 함수(HKDF) <http://en.wikipedia.org/wiki/HKDF>`_\ 라는 기술을 통해 수행됩니다.
 
-Setting your encryption key
+암호화 키 설정
 ===========================
 
-Your encryption key **must** be as long as the encryption algorithm in use
-allows. For AES-256, that's 256 bits or 32 bytes (characters) long.
+사용중인 암호화 알고리즘의 암호화 키는 **반드시** 있어야합니다.
+AES-256의 경우 길이는 256 비트 또는 32 바이트 (문자)입니다.
 
-The key should be as random as possible and it **must not** be a regular
-text string, nor the output of a hashing function, etc. In order to create
-a proper key, you can use the Encryption library's ``createKey()`` method
+키는 가능한 랜덤해야 하며 일반 텍스트 문자열이거나 해시 함수의 출력이 아니어야 합니다.
+적절한 키를 만들려면 암호화 라이브러리의 ``createKey()`` 메서드를 사용할 수 있습니다
+
 ::
 
 	// $key will be assigned a 32-byte (256-bit) random key
 	$key = Encryption::createKey(32);
 
-The key can be either stored in your *application/Config/Encryption.php*, or
-you can design your own storage mechanism and pass the key dynamically
-when encrypting/decrypting.
+키는 *application/Config/Encryption.php*\ 에 저장되거나, 직접 저장 메커니즘을 설계하고 암호화/암호 해독시 동적으로 키를 전달할 수 있습니다.
 
-To save your key to your *application/Config/Encryption.php*, open the file
-and set::
+*application/Config/Encryption.php*\ 에 키를 저장하려면 파일을 열고 다음을 설정하십시오.
+
+::
 
 	$key = 'YOUR KEY';
 
-Encoding Keys or Results
+인코딩 키 또는 결과
 ------------------------
 
-You'll notice that the ``createKey()`` method outputs binary data, which
-is hard to deal with (i.e. a copy-paste may damage it), so you may use
-``bin2hex()``, ``hex2bin()`` or Base64-encoding to work with the key in
-a more friendly manner. For example::
+``createKey()`` 메서드는 처리하기 어려운 이진 데이터를 출력하므로 (복사-붙여 넣기로 인해 손상 될 수 있음) ``bin2hex()``, ``hex2bin()`` 또는 Base64 인코딩으로 키를 문자열로 전환하여 작업합니다.
+
+::
 
 	// Get a hex-encoded representation of the key:
 	$encoded = bin2hex($encrypter->createKey(32));
@@ -132,44 +120,40 @@ a more friendly manner. For example::
 	// so that it is still passed as binary to the library:
 	$key = hex2bin(<your hex-encoded key>);
 
-You might find the same technique useful for the results
-of encryption::
+암호화 결과에 동일한 기술이 유용할 수 있습니다.
+
+::
 
 	// Encrypt some text & make the results text
 	$encoded = base64_encode($encrypter->encrypt($plaintext));
 
-Encryption Handler Notes
+암호화 처리기 노트
 ========================
 
-OpenSSL Notes
--------------
+OpenSSL 노트
+------------------
 
-OpenSSL has been a standard part of PHP for some time.
+OpenSSL은 한동안 PHP의 표준이었습니다.
 
-The OpenSSL handler uses the AES-256-CTR cipher.
+OpenSSL 핸들러는 AES-256-CTR 암호를 사용합니다.
 
-Message Length
+메시지 길이
 ==============
 
-An encrypted string is usually
-longer than the original, plain-text string (depending on the cipher).
+암호화된 문자열은 일반적으로 암호에 따라 원래의 일반 텍스트 문자열보다 깁니다.
 
-This is influenced by the cipher algorithm itself, the initialization vector (IV) 
-prepended to the
-cipher-text and the HMAC authentication message that is also prepended.
-Furthermore, the encrypted message is also Base64-encoded so that it is safe
-for storage and transmission, regardless of a possible character set in use.
+이는 암호 알고리즘 자체, 암호 텍스트 앞에 붙는 초기화 벡터(IV)와 앞에 붙는 HMAC 인증 메시지의 영향을 받습니다.
+또한 암호화된 메시지는 Base64로 인코딩되어 사용 가능한 문자 세트에 관계없이 저장 및 전송에 안전합니다.
 
-Keep this information in mind when selecting your data storage mechanism.
-Cookies, for example, can only hold 4K of information.
+데이터 저장 메커니즘을 선택할 때 이를 명심하십시오.
+쿠키를 예로 들자면 4K의 정보만 저장할 수 있습니다.
 
-Using the Encryption manager directly
+암호화 관리자를 직접 사용
 =====================================
 
-Instead of, or in addition to, using the `Services` described
-at the beginning of this page, you can use the encryption manager
-directly, to create an ``Encrypter`` or to change the settings
-of the current one::
+이 페이지의 시작 부분에 설명된 'Services' 대신 암호화 관리자를 직접 사용하여 ``Encrypter``\ 를 만들거나 현재의 설정을 변경할 수 있습니다
+
+::
 
     $encryption = new \Encryption\Encryption();
     $encrypter = $encryption->initialize($config);
@@ -183,46 +167,44 @@ Class Reference
 
 	.. php:staticmethod:: createKey($length)
 
-		:param	int	$length: Output length
-		:returns:	A pseudo-random cryptographic key with the specified length, or FALSE on failure
+		:param	int	$length: 출력 길이
+		:returns:	지정된 길이의 의사 난수 암호화 키, 실패시 FALSE
 		:rtype:	string
 
-		Creates a cryptographic key by fetching random data from
-		the operating system's sources (i.e. /dev/urandom).
+		운영 체제 소스(i.e. /dev/urandom)에서 임의의 데이터를 가져와서 암호화 키를 작성합니다.
 
 
 	.. php:method:: initialize($config)
 
-		:param	BaseConfig	$config: Configuration parameters
+		:param	BaseConfig	$config: 구성 매개 변수
 		:returns:	CodeIgniter\\Encryption\\EncrypterInterface instance
 		:rtype:	CodeIgniter\\Encryption\\EncrypterInterface
 		:throws:	CodeIgniter\\Encryption\\EncryptionException
 
-		Initializes (configures) the library to use different settings.
+		다른 설정을 사용하도록 라이브러리를 초기화(구성)합니다.
 
-		Example::
+		::
 
 			$encrypter = $encryption->initialize(['cipher' => '3des']);
 
-		Please refer to the :ref:`configuration` section for detailed info.
+		자세한 정보는 :ref:`configuration` 섹션을 참조하십시오.
 
 .. php:interface:: CodeIgniter\\Encryption\\EncrypterInterface
 
 	.. php:method:: encrypt($data, $params = null)
 
-		:param	string	$data: Data to encrypt
-		:param		$params: Configuration parameters (key)
-		:returns:	Encrypted data or FALSE on failure
+		:param	string	$data: 암호화할 데이터
+		:param		$params: 구성 매개 변수 (key)
+		:returns:	암호화된 데이터, 실패시 FALSE
 		:rtype:	string
 		:throws:	CodeIgniter\\Encryption\\EncryptionException
 
-		Encrypts the input data and returns its ciphertext.
+		입력 데이터를 암호화하고 암호문을 리턴합니다.
 
-                If you pass parameters as the second argument, the ``key`` element
-                will be used as the starting key for this operation if ``$params``
-                is an array; or the starting key may be passed as a string.
+		두 번째 인수로 전달되는 매개 변수 ``$params``\ 가 배열인 경우 ``key`` 요소가 암호화 키로 사용됩니다. 
+		암호화 키는 문자열로 전달될 수 있습니다.
 
-		Examples::
+		::
 
 			$ciphertext = $encrypter->encrypt('My secret message');
 			$ciphertext = $encrypter->encrypt('My secret message', ['key' => 'New secret key']);
@@ -230,17 +212,16 @@ Class Reference
 
 	.. php:method:: decrypt($data, $params = null)
 
-		:param	string	$data: Data to decrypt
-		:param		$params: Configuration parameters (key)
-		:returns:	Decrypted data or FALSE on failure
+		:param	string	$data: 해독할 데이터
+		:param		$params: 구성 매개 변수 (key)
+		:returns:	암호 해독된 데이터, 실패시 FALSE
 		:rtype:	string
 		:throws:	CodeIgniter\\Encryption\\EncryptionException
 
-		Decrypts the input data and returns it in plain-text.
+		입력 데이터를 해독하여 일반 텍스트로 반환합니다.
 
-                If you pass parameters as the second argument, the ``key`` element
-                will be used as the starting key for this operation if ``$params``
-                is an array; or the starting key may be passed as a string.
+		두 번째 인수로 전달되는 매개 변수 ``$params``\ 가 배열인 경우 ``key`` 요소가 암호화 키로 사용됩니다. 
+		암호화 키는 문자열로 전달될 수 있습니다.
 
 
 		Examples::
