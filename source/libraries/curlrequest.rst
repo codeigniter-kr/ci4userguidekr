@@ -366,7 +366,7 @@ json
 multipart
 =========
 
-POST 요청을 통해 파일 및 기타 데이터를 보내야 할 경우 `CURLFile 클래스<http://php.net/manual/en/class.curlfile.php>`_\ 와 함께 ``multipart`` 옵션을 사용합니다.
+POST 요청을 통해 파일 및 기타 데이터를 보내야 할 경우 `CURLFile 클래스 <http://php.net/manual/en/class.curlfile.php>`_\ 와 함께 ``multipart`` 옵션을 사용합니다.
 값은 전송할 POST 데이터의 연관 배열이어야 합니다. 
 보다 안전한 사용을 위해 파일 이름 앞에 `@`\ 를 붙여 파일을 업로드하는 기존 방법이 비활성화되었습니다.
 보내려는 모든 파일은 ``CURLFile``\ 의 인스턴스로 전달되어야 합니다.

@@ -1,30 +1,31 @@
 ******************
-Working with Files
+파일 작업
 ******************
 
-CodeIgniter provides a File class that wraps the `SplFileInfo <http://php.net/manual/en/class.splfileinfo.php>`_ class
-and provides some additional convenience methods. This class is the base class for :doc:`uploaded files </libraries/uploaded_files>`
-and :doc:`images </libraries/images>`.
+CodeIgniter는 `SplFileInfo <http://php.net/manual/en/class.splfileinfo.php>`_ 클래스를 감싸는 File 클래스를 제공하고 추가적으로 편리한 메소드를 제공합니다.
+이 클래스는 :doc:`업로드 파일 </libraries/uploaded_files>`\ 과 :doc:`images </libraries/images>`\ 의 기본(base) 클래스입니다.
 
 .. contents::
     :local:
     :depth: 2
 
-Getting a File instance
+파일 인스턴스 얻기
 =======================
 
-You create a new File instance by passing in the path to the file in the constructor.
-By default, the file does not need to exist. However, you can pass an additional argument of "true"
-to check that the file exists and throw ``FileNotFoundException()`` if it does not.
+생성자의 파일 경로를 전달하여 새 File 인스턴스를 만듭니다.
+기본적으로 파일은 존재하지 않아도 됩니다.
+그러나 추가 인수로 "true"를 전달하여 파일이 존재하는지 확인하고, 파일이 없으면 ``FileNotFoundException()``\ 을 던질 수 있습니다.
 
 ::
 
     $file = new \CodeIgniter\Files\File($path);
 
-Taking Advantage of Spl
+Spl의 장점 활용
 =======================
 
-Once you have an instance, you have the full power of the SplFileInfo class at the ready, including::
+인스턴스가 있으면 다음을 포함하여 SplFileInfo 클래스의 모든 기능을 사용할 수 있습니다.
+
+::
 
     // Get the file's basename
     echo $file->getBasename();
@@ -46,23 +47,27 @@ Once you have an instance, you have the full power of the SplFileInfo class at t
         }
     }
 
-New Features
-============
+새로운 기능
+===============
 
-In addition to all of the methods in the SplFileInfo class, you get some new tools.
+SplFileInfo 클래스의 모든 메소드 외에도 몇 가지 새로운 도구가 제공됩니다.
 
 **getRandomName()**
 
-You can generate a cryptographically secure random filename, with the current timestamp prepended, with the ``getRandomName()``
-method. This is especially useful to rename files when moving it so that the filename is unguessable::
+``getRandomName()`` 메소드를 사용하여 현재 타임 스탬프와 미리 지정된 암호로 안전한 임의의 파일 이름을 생성할 수 있습니다.
+파일을 이동할 때 파일 이름을 알아볼 수 없도록 이름을 바꾸는 데 특히 유용합니다.
+
+::
 
 	// Generates something like: 1465965676_385e33f741.jpg
 	$newName = $file->getRandomName();
 
 **getSize()**
 
-Returns the size of the uploaded file in bytes. You can pass in either 'kb' or 'mb' as the first parameter to get
-the results in kilobytes or megabytes, respectively::
+업로드 된 파일의 크기를 바이트 단위로 반환합니다. 
+'kb' 또는 'mb'\ 를 첫 번째 매개 변수로 전달하여 각각 킬로바이트 또는 메가 바이트 단위로 결과를 얻을 수 있습니다.
+
+::
 
 	$bytes     = $file->getSize();      // 256901
 	$kilobytes = $file->getSize('kb');  // 250.880
@@ -70,8 +75,10 @@ the results in kilobytes or megabytes, respectively::
 
 **getMimeType()**
 
-Retrieve the media type (mime type) of the file. Uses methods that are considered as secure as possible when determining
-the type of file::
+파일의 미디어 타입 (mime type)을 얻어 옵니다. 
+파일 유형을 결정할 때 가능한 한 안전한 것으로 간주되는 메소드를 사용합니다
+
+::
 
 	$type = $file->getMimeType();
 
@@ -79,27 +86,35 @@ the type of file::
 
 **guessExtension()**
 
-Attempts to determine the file extension based on the trusted ``getMimeType()`` method. If the mime type is unknown,
-will return null. This is often a more trusted source than simply using the extension provided by the filename. Uses
-the values in **app/Config/Mimes.php** to determine extension::
+신뢰할 수 있는 ``getMimeType()`` 메소드를 기반으로 파일 확장자를 판별합니다.
+MIME 형식을 알 수 없으면 null을 반환합니다.
+이 방법은 파일 이름으로 제공되는 확장자를 사용하는 것보다 더 신뢰할 수 있습니다.
+확장을 결정하기 위해 **app/Config/Mimes.php**\ 의 값을 사용합니다
+
+::
 
 	// Returns 'jpg' (WITHOUT the period)
 	$ext = $file->guessExtension();
 
-Moving Files
+파일 이동
 ------------
 
-Each file can be moved to its new location with the aptly named ``move()`` method. This takes the directory to move
-the file to as the first parameter::
+각 파일은 적절하게 이름이 지정된 ``move()`` 메소드를 사용하여 새 위치로 이동할 수 있습니다.
+이것은 디렉토리를 사용하여 파일을 첫 번째 매개 변수로 이동시킵니다
+
+::
 
 	$file->move(WRITEPATH.'uploads');
 
-By default, the original filename was used. You can specify a new filename by passing it as the second parameter::
+기본적으로 원래 파일 이름이 사용됩니다. 두 번째 매개 변수에 새 파일 이름을 지정할 수 있습니다
+
+::
 
 	$newName = $file->getRandomName();
 	$file->move(WRITEPATH.'uploads', $newName);
 
-The move() method returns a new File instance that for the relocated file, so you must capture the result if the
-resulting location is needed::
+move() 메소드는 재배치된 파일에 대한 새 File 인스턴스를 리턴하므로 이동된 위치가 필요한 경우 결과를 캡처해야 합니다.
+
+::
 
     $file = $file->move(WRITEPATH.'uploads');
