@@ -1,30 +1,32 @@
 ##############
-Security Class
+보안 클래스
 ##############
 
-The Security Class contains methods that help protect your site against Cross-Site Request Forgery attacks.
+보안 클래스에는 사이트 간 요청 위조 공격(Cross-Site Request Forgery attacks)으로부터 사이트를 보호하는 데 도움이 되는 방법이 포함되어 있습니다.
 
 .. contents::
     :local:
     :depth: 2
 
 *******************
-Loading the Library
+라이브러리 로드
 *******************
 
-If your only interest in loading the library is to handle CSRF protection, then you will never need to load it,
-as it runs as a filter and has no manual interaction.
+라이브러리 로드를 하려는 이유가 CSRF 보호를 위한것이라면, 입력이 필터로 실행되고 수동으로 상호 작용을 하지 않으므로 로드할 필요는 없습니다.
 
-If you find a case where you do need direct access though, you may load it through the Services file::
+경우에 따라 직접 액세스가 필요하다면 서비스를 통해 로드합니다.
+
+::
 
 	$security = \Config\Services::security();
 
 *********************************
-Cross-site request forgery (CSRF)
+사이트 간 요청 위조 (CSRF)
 *********************************
 
-You can enable CSRF protection by altering your **app/Config/Filters.php**
-and enabling the `csrf` filter globally::
+**app/Config/Filters.php**\ 파일의 `csrf` 필터를 활성화하여 사이트 전체적으로 CSRF 보호(protection)를 활성화할 수 있습니다
+
+::
 
 	public $globals = [
 		'before' => [
@@ -33,9 +35,13 @@ and enabling the `csrf` filter globally::
 		]
 	];
 
-Select URIs can be whitelisted from CSRF protection (for example API
-endpoints expecting externally POSTed content). You can add these URIs
-by adding them as exceptions in the filter::
+Select URIs can be whitelisted from CSRF protection (for example API endpoints expecting externally POSTed content). 
+You can add these URIs by adding them as exceptions in the filter
+
+URI를 화이트리스트에 추가하여 CSRF 보호를 제외할 수 있습니다. (예 : 외부 POST 컨텐츠를 예상하는 API 엔드 포인트)
+사전 필터에 예외로 URI를 추가하여 제외시킵니다.
+
+::
 
 	public $globals = [
 		'before' => [
@@ -43,7 +49,9 @@ by adding them as exceptions in the filter::
 		]
 	];
 
-Regular expressions are also supported (case-insensitive)::
+정규식도 지원합니다. (대/소문자 구분)
+
+::
 
     public $globals = [
 		'before' => [
@@ -51,42 +59,40 @@ Regular expressions are also supported (case-insensitive)::
 		]
 	];
 
-If you use the :doc:`form helper <../helpers/form_helper>`, then
-:func:`form_open()` will automatically insert a hidden csrf field in
-your forms. If not, then you can use the always available ``csrf_token()``
-and ``csrf_hash()`` functions
+:doc:`form helper <../helpers/form_helper>`\ 의 :func:`form_open()`\ 를 사용하면 자동으로 폼(form)에 숨겨진  추가합니다.
+직접 폼에 csrf 필드를 추가하고 싶다면 ``csrf_token()`` 와 ``csrf_hash()`` 함수를 사용합니다
+
 ::
 
 	<input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
 
-Additionally, you can use the ``csrf_field()`` method to generate this
-hidden input field for you::
+또한, ``csrf_field ()`` 메서드를 사용하면 숨겨진 입력 필드를 생성할 수 있습니다
+
+::
 
 	// Generates: <input type="hidden" name="{csrf_token}" value="{csrf_hash}" />
 	<?= csrf_field() ?>
 
-When sending a JSON request the CSRF token can also be passed as one of the parameters.
-The next way to pass the CSRF token is a special Http header that's name is available by
-``csrf_header()`` function.
+JSON 요청을 보낼 때 CSRF 토큰을 매개 변수중 하나로 전달할 수 있습니다.
+CSRF 토큰을 전달하는 방법은 특수한 Http 헤더이며, ``csrf_header()`` 함수를 사용합니다.
 
-Additionally, you can use the ``csrf_meta()`` method to generate this handy
-meta tag for you::
+``csrf_meta()`` 메서드를 사용 하면 메타 태그를 편리하게 생성 할 수 있습니다
+
+::
 
 	// Generates: <meta name="{csrf_header}" content="{csrf_hash}" />
 	<?= csrf_meta() ?>
 
-The order of checking the avability of the CSRF token is as follows:
+CSRF 토큰을 확인하는 순서는 다음과 같습니다.
 
 1. ``$_POST`` array
 2. Http header
-3. ``php://input`` (JSON request) - bare in mind that this approach is the slowest one since we have to decode JSON and then encode it again
+3. ``php://input`` (JSON 요청) - JSON을 디코딩한 다음 다시 인코딩해야 하기 때문에 이 방법이 가장 느립니다.
 
-Tokens may be either regenerated on every submission (default) or
-kept the same throughout the life of the CSRF cookie. The default
-regeneration of tokens provides stricter security, but may result
-in usability concerns as other tokens become invalid (back/forward
-navigation, multiple tabs/windows, asynchronous actions, etc). You
-may alter this behavior by editing the following config parameter
+토큰은 제출할 때마다 재생성되거나(기본값), CSRF 쿠키 존재하는 동안 동일하게 유지됩니다.
+토큰의 기본 재생성은 강력한 보안을 제공하지만, 다른 토큰이 뒤로/앞으로 탐색, 여러 탭/창, 비동기 작업 등으로 무효화됨에 따라 사용성 문제가 발생할 수 있습니다.
+다음과 같이 구성 매개 변수를 편집하여 이 동작을 변경할 수 있습니다.
+
 ::
 
 	public $CSRFRegenerate  = true;
