@@ -97,29 +97,31 @@ CSRF 토큰을 확인하는 순서는 다음과 같습니다.
 
 	public $CSRFRegenerate  = true;
 
-When a request fails the CSRF validation check, it will redirect to the previous page by default,
-setting an ``error`` flash message that you can display to the end user. This provides a nicer experience
-than simply crashing. This can be turned off by editing the ``$CSRFRedirect`` value in
-**app/Config/App.php**::
+요청이 CSRF 유효성 검사에 실패하면 기본적으로 이전 페이지로 리디렉션되어 최종 사용자에게 표시 할 수있는 ``error`` 플래시 메시지를 설정합니다. 
+이것은 단순히 충돌하는 것보다 더 좋은 경험을 제공합니다. 
+**app/Config/App.php**\ 의 ``$CSRFRedirect`` 값을 편집하여 끌 수 있습니다
+
+::
 
 	public $CSRFRedirect = false;
 
-Even when the redirect value is **true**, AJAX calls will not redirect, but will throw an error.
+리디렉션 값이 **true**\ 인 경우 AJAX 호출은 리디렉션되지 않지만 오류가 발생합니다.
 
 *********************
-Other Helpful Methods
+다른 유용한 메소드
 *********************
 
-You will never need to use most of the methods in the Security class directly. The following are methods that
-you might find helpful that are not related to the CSRF protection.
+Security 클래스의 대부분의 메소드를 직접 사용할 필요는 없습니다.
+다음은 CSRF 보호와 관련이 없는 유용한 메소드입니다.
 
 **sanitizeFilename()**
 
-Tries to sanitize filenames in order to prevent directory traversal attempts and other security threats, which is
-particularly useful for files that were supplied via user input. The first parameter is the path to sanitize.
+디렉토리 탐색 시도 및 기타 보안 위협을 방지하기 위해 파일 이름을 삭제하려고 시도합니다. 
+이는 사용자 입력을 통해 제공된 파일에 특히 유용합니다. 
+첫 번째 매개 변수는 처리(sanitize) 경로입니다.
 
-If it is acceptable for the user input to include relative paths, e.g. file/in/some/approved/folder.txt, you can set
-the second optional parameter, $relative_path to true.
+사용자 입력이 상대 경로를 포함하는 것이 허용되는 경우(예 : file/in/some/approved/folder.txt), 두 번째 선택적 매개 변수 ``$relative_path``\ 를 ``true``\ 로 설정합니다.
+
 ::
 
 	$path = $security->sanitizeFilename($request->getVar('filepath'));

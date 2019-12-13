@@ -1,12 +1,10 @@
-###############
-Session Library
-###############
+###################
+세션 라이브러리
+###################
 
-The Session class permits you to maintain a user's "state" and track their
-activity while they browse your site.
+Session 클래스를 사용하면 사용자의 "상태"를 유지하고 사이트를 탐색하는 동안 활동을 추적할 수 있습니다.
 
-CodeIgniter comes with a few session storage drivers, that you can see
-in the last section of the table of contents:
+CodeIgniter에는 목차의 마지막 섹션에서 볼 수 있는 몇 가지 세션 스토리지 드라이버가 제공됩니다.
 
 .. contents::
     :local:
@@ -16,128 +14,124 @@ in the last section of the table of contents:
 
   <div class="custom-index container"></div>
 
-Using the Session Class
-*********************************************************************
+세션 클래스 사용
+*******************
 
-Initializing a Session
-==================================================================
+세션 초기화
+=================
 
-Sessions will typically run globally with each page load, so the Session
-class should be magically initialized.
+세션은 일반적으로 각 페이지를 로드할 때마다 전체적으로 실행되므로 세션 클래스를 초기화해야 합니다.
 
-To access and initialize the session::
+세션에 액세스하고 초기화하려면
+
+::
 
 	$session = \Config\Services::session($config);
 
-The ``$config`` parameter is optional - your application configuration.
-If not provided, the services register will instantiate your default
-one.
+``$config`` 매개 변수는 선택 사항이며, 제공되지 않으면 서비스 레지스터가 기본 설정을 인스턴스화 합니다.
 
-Once loaded, the Sessions library object will be available using::
+로드되면, 세션 라이브러리 객체를 사용할 수 있습니다
+
+::
 
 	$session
 
-Alternatively, you can use the helper function that will use the default
-configuration options. This version is a little friendlier to read,
-but does not take any configuration options.
+또는 기본 구성 옵션을 사용하는 헬퍼 기능을 사용할 수 있습니다.
+이 버전은 읽기 쉽지만 구성 옵션이 없습니다.
+
 ::
 
 	$session = session();
 
-How do Sessions work?
-=====================
+세션은 어떻게 작동합니까?
+=============================
 
-When a page is loaded, the session class will check to see if a valid
-session cookie is sent by the user's browser. If a sessions cookie does
-**not** exist (or if it doesn't match one stored on the server or has
-expired) a new session will be created and saved.
+페이지가 로드되면 세션 클래스는 사용자의 브라우저에서 유효한 세션 쿠키가 전송되는지 확인합니다.
+세션 쿠키가 존재하지 않거나, 서버에 저장된 쿠키와 일치하지 않거나, 만료된 경우 새 세션이 생성되고 저장됩니다.
 
-If a valid session does exist, its information will be updated. With each
-update, the session ID may be regenerated if configured to do so.
+유효한 세션이 존재하면 해당 정보가 업데이트됩니다. 
+업데이트할 때마다 세션 ID가 다시 생성될 수 있습니다.
 
-It's important for you to understand that once initialized, the Session
-class runs automatically. There is nothing you need to do to cause the
-above behavior to happen. You can, as you'll see below, work with session
-data, but the process of reading, writing, and updating a session is
-automatic.
+일단 Session 클래스가 초기화되면 자동으로 실행된다는 것을 이해하는 것이 중요합니다.
+위의 동작을 발생시키기 위해 수행해야 할 작업은 없습니다.
+아래에서 볼 수 있듯이 세션 데이터로 작업할 수 있지만, 세션을 읽고, 쓰고, 업데이트하는 프로세스는 자동입니다.
 
-.. note:: Under CLI, the Session library will automatically halt itself,
-	as this is a concept based entirely on the HTTP protocol.
+.. note:: 세션 라이브러리는 HTTP 프로토콜을 기반으로 하는 개념이므로 CLI에서는 자동으로 중지됩니다.
 
-A note about concurrency
+동시성에 대한 메모
 ------------------------
 
-Unless you're developing a website with heavy AJAX usage, you can skip this
-section. If you are, however, and if you're experiencing performance
-issues, then this note is exactly what you're looking for.
+AJAX 사용량이 많은 웹 사이트를 개발하지 않는다면 이 섹션을 건너 뛸 수 있습니다.
+그러나 세션으로 인해 성능 문제가 발생한다면, 이 메모를 참고 하십시오.
 
-Sessions in previous versions of CodeIgniter didn't implement locking,
-which meant that two HTTP requests using the same session could run exactly
-at the same time. To use a more appropriate technical term - requests were
-non-blocking.
+이전 버전의 CodeIgniter의 세션은 잠금을 구현하지 않았으므로, 동일한 세션을 사용하는 두 개의 HTTP 요청이 동시에 실행될 수 있었습니다. - 보다 적절한 기술 용어를 사용하면 요청이 차단되지 않았습니다.
 
-However, non-blocking requests in the context of sessions also means
-unsafe, because, modifications to session data (or session ID regeneration)
-in one request can interfere with the execution of a second, concurrent
-request. This detail was at the root of many issues and the main reason why
-CodeIgniter 4 has a completely re-written Session library.
+그러나 세션 컨텍스트에 대해 비차단 요청은 안전하지 않음을 의미하기도 합니다. 
+한 요청에서 세션 데이터(또는 세션 ID 재생성)를 수정하면 두 번째 동시 요청의 실행을 방해할 수 있기 때문입니다. 
+이러한 세부 사항은 많은 문제의 근원이며, CodeIgniter 4가 세션 라이브러리를 완전히 다시 작성된 주된 이유입니다.
 
-Why are we telling you this? Because it is likely that after trying to
-find the reason for your performance issues, you may conclude that locking
-is the issue and therefore look into how to remove the locks ...
+왜 우리가 이것을 말합니까? 
+성능 문제의 원인을 찾은 후에는 세션 잠금이 문제라는 결론을 내릴 수 있으므로 세션 잠금을 제거하는 방법을 조사 할 수 있습니다.
 
-DO NOT DO THAT! Removing locks would be **wrong** and it will cause you
-more problems!
+그렇게 하지 마세요! 잠금 장치를 제거하는 것은 **잘못된** 방법이며, 더 많은 문제를 일으킬 수 있습니다!
 
-Locking is not the issue, it is a solution. Your issue is that you still
-have the session open, while you've already processed it and therefore no
-longer need it. So, what you need is to close the session for the
-current request after you no longer need it.
+잠금은 문제가 아니며 해결책입니다. 
+문제는 여전히 세션을 이미 처리했지만 더 이상 필요하지 않은 상태에서 열어두는 것 입니다.
+따라서 현재 요청이 더 이상 세션을 필요하지 않다면 세션을 아래와 같이 닫아주세요.
+
 ::
 
     $session->destroy();
 
-What is Session Data?
-=====================
+세션 데이터란 무엇입니까?
+============================
 
-Session data is simply an array associated with a particular session ID
-(cookie).
+세션 데이터는 단순히 특정 세션 ID(cookie)와 연결된 배열입니다.
 
-If you've used sessions in PHP before, you should be familiar with PHP's
-`$_SESSION superglobal <http://php.net/manual/en/reserved.variables.session.php>`_
-(if not, please read the content on that link).
+If you've used sessions in PHP before, you should be familiar with PHP's `$_SESSION superglobal <http://php.net/manual/en/reserved.variables.session.php>`_ (if not, please read the content on that link).
 
-CodeIgniter gives access to its session data through the same means, as it
-uses the session handlers' mechanism provided by PHP. Using session data is
-as simple as manipulating (read, set and unset values) the ``$_SESSION``
-array.
+CodeIgniter gives access to its session data through the same means, as it uses the session handlers' mechanism provided by PHP. 
+Using session data is as simple as manipulating (read, set and unset values) the ``$_SESSION`` array.
 
-In addition, CodeIgniter also provides 2 special types of session data
-that are further explained below: flashdata and tempdata.
+In addition, CodeIgniter also provides 2 special types of session data that are further explained below: flashdata and tempdata.
+PHP에서 세션을 사용해 본 적이 있다면 PHP의 `$_SESSION superglobal <http://php.net/manual/en/reserved.variables.session.php>`_\ 에 익숙해야 합니다.(그렇지 않은 경우 해당 링크의 내용을 읽으십시오.)
 
-Retrieving Session Data
+CodeIgniter는 PHP에서 제공하는 세션 핸들러 메커니즘을 사용하는 것과 동일한 방법으로 세션 데이터에 액세스합니다.
+세션 데이터를 사용하는 것은``$ _SESSION ''배열을 조작 (읽기, 설정 및 설정 해제)하는 것만 큼 간단합니다.
+
+또한 CodeIgniter는 아래에서 자세히 설명하는 두 가지 특수 유형의 세션 데이터 (flashdata 및 tempdata)도 제공합니다.
+
+세션 데이터 검색
 =======================
 
-Any piece of information from the session array is available through the
-``$_SESSION`` superglobal::
+세션 배열의 모든 정보는 ``$_SESSION`` superglobal을 통해 사용할 수 있습니다
+
+::
 
 	$_SESSION['item']
 
-Or through the conventional accessor method::
+또는 기존의 접근자 메소드를 통해
+
+::
 
 	$session->get('item');
 
-Or through the magic getter::
+또는 매직 게터(magic gatter)를 통해
+
+::
 
 	$session->item
 
-Or even through the session helper method::
+또는 세션 헬퍼 메소드를 통해서도
+
+::
 
 	session('item');
 
-Where ``item`` is the array key corresponding to the item you wish to fetch.
-For example, to assign a previously stored 'name' item to the ``$name``
-variable, you will do this::
+여기서 ``item``\ 은 가져 오려는 항목에 해당하는 배열 키입니다.
+예를 들어, 이전에 저장된 'name' 항목을 ``$name`` 변수에 할당하려면 다음과 같이 합니다.
+
+::
 
 	$name = $_SESSION['name'];
 
@@ -149,11 +143,11 @@ variable, you will do this::
 
 	$name = $session->get('name');
 
-.. note:: The ``get()`` method returns NULL if the item you are trying
-	to access does not exist.
+.. note:: 액세스하려는 항목이 존재하지 않으면 ``get()`` 메소드는 NULL을 반환합니다.
 
-If you want to retrieve all of the existing userdata, you can simply
-omit the item key (magic getter only works for single property values)::
+기존 사용자 데이터를 모두 검색하려면 항목 키를 생략하면 됩니다. (magic getter 는 단일 속성 값에 대해서만 작동합니다)
+
+::
 
 	$_SESSION
 
@@ -161,25 +155,29 @@ omit the item key (magic getter only works for single property values)::
 
 	$session->get();
 
-Adding Session Data
+세션 데이터 추가
 ===================
 
-Let's say a particular user logs into your site. Once authenticated, you
-could add their username and e-mail address to the session, making that
-data globally available to you without having to run a database query when
-you need it.
+Let's say a particular user logs into your site. Once authenticated, you could add their username and e-mail address to the session, making that data globally available to you without having to run a database query when you need it.
 
-You can simply assign data to the ``$_SESSION`` array, as with any other
-variable. Or as a property of ``$session``.
+You can simply assign data to the ``$_SESSION`` array, as with any other variable. Or as a property of ``$session``.
 
-The former userdata method is deprecated,
-but you can pass an array containing your new session data to the
-``set()`` method::
+The former userdata method is deprecated, but you can pass an array containing your new session data to the ``set()`` method::
+특정 사용자가 사이트에 로그인한다고 가정해 보겠습니다. 
+인증되면 사용자 이름과 전자 메일 주소를 세션에 추가하여 필요할 때 데이터베이스 쿼리를 실행할 필요없이 해당 데이터를 전체적으로 사용할 수 있습니다.
+
+다른 변수와 마찬가지로 간단히 ``$_SESSION`` 배열 또는 ``$session``\ 의 속성에 데이터를 할당할 수 있습니다.
+
+이전 userdata 메소드는 더 이상 사용되지 않지만, 새로운 세션 데이터를 포함하는 배열을 ``set()`` 메소드로 전달할 수 있습니다.
+
+::
 
 	$session->set($array);
 
-Where ``$array`` is an associative array containing your new data. Here's
-an example::
+여기서 ``$array``\ 는 새 데이터를 포함하는 연관 배열입니다.
+여기에 예가 있습니다.
+
+::
 
 	$newdata = [
 		'username'  => 'johndoe',
@@ -189,35 +187,42 @@ an example::
 
 	$session->set($newdata);
 
-If you want to add session data one value at a time, ``set()`` also
-supports this syntax::
+``set()``\ 은 한 번에 하나의 값으로 세션 데이터를 추가하는 것도 지원합니다
+
+::
 
 	$session->set('some_name', 'some_value');
 
-If you want to verify that a session value exists, simply check with
-``isset()``::
+세션 값이 존재하는지 확인하려면 ``isset()``\ 으로 확인하십시오.
+
+::
 
 	// returns FALSE if the 'some_name' item doesn't exist or is NULL,
 	// TRUE otherwise:
 	isset($_SESSION['some_name'])
 
-Or you can call ``has()``::
+또는 ``has()``\ 를 호출 할 수도 있습니다.
+
+::
 
 	$session->has('some_name');
 
-Pushing new value to session data
+세션 데이터에 새로운 값 제공
 =================================
 
-The push method is used to push a new value onto a session value that is an array.
-For instance, if the 'hobbies' key contains an array of hobbies, you can add a new value onto the array like so::
+push 메소드는 배열인 세션 값으로 새로운 값을 푸시하는 데 사용됩니다.
+예를 들어, 'hobbies' 키에 일련의 취미가 포함된 경우 다음과 같이 배열에 새로운 값을 추가할 수 있습니다
+
+::
 
 $session->push('hobbies', ['sport'=>'tennis']);
 
-Removing Session Data
+세션 데이터 제거
 =====================
 
-Just as with any other variable, unsetting a value in ``$_SESSION`` can be
-done through ``unset()``::
+다른 변수와 마찬가지로 ``$_SESSION``\ 의 값 설정 해제는 ``unset()``\ 을 통해 수행합니다.
+
+::
 
 	unset($_SESSION['some_name']);
 
@@ -228,99 +233,104 @@ done through ``unset()``::
 		$_SESSION['another_name']
 	);
 
-Also, just as ``set()`` can be used to add information to a
-session, ``remove()`` can be used to remove it, by passing the
-session key. For example, if you wanted to remove 'some_name' from your
-session data array::
+또한 ``set()``\ 을 사용하여 세션에 정보를 추가할 수 있는 것처럼 세션 키를 ``remove()``\ 메소드에 전달하여 정보를 제거할 수 있습니다.
+예를 들어, 세션 데이터 배열에서 'some_name'\ 을 제거하려는 경우
+
+::
 
 	$session->remove('some_name');
 
-This method also accepts an array of item keys to unset::
+이 방법은 또한 설정 해제를 위해 일련의 항목 키를 허용합니다.
+
+::
 
 	$array_items = ['username', 'email'];
 	$session->remove($array_items);
 
-Flashdata
-=========
+플래시 데이터
+=================
 
-CodeIgniter supports "flashdata", or session data that will only be
-available for the next request, and is then automatically cleared.
+CodeIgniter는 세션 데이터를 다음 요청에서만 사용한 다음 자동으로 지워지는 "flashdata"\ 를 지원합니다.
 
-This can be very useful, especially for one-time informational, error or
-status messages (for example: "Record 2 deleted").
+이는 일회성 정보, 오류 또는 상태 메시지 (예 : "레코드 2 삭제됨")에 매우 유용합니다.
 
-It should be noted that flashdata variables are regular session variables,
-managed inside the CodeIgniter session handler.
+flashdata 변수는 CodeIgniter 세션 핸들러내에서 관리되는 일반 세션 변수입니다.
 
-To mark an existing item as "flashdata"::
+기존 항목을 "flashdata"로 표시하려면
+
+::
 
 	$session->markAsFlashdata('item');
 
-If you want to mark multiple items as flashdata, simply pass the keys as an
-array::
+여러 항목을 플래시 데이터로 표시하려면 키를 배열로 전달하면됩니다.
+
+::
 
 	$session->markAsFlashdata(['item', 'item2']);
 
-To add flashdata::
+플래시 데이터를 추가하려면
+
+::
 
 	$_SESSION['item'] = 'value';
 	$session->markAsFlashdata('item');
 
-Or alternatively, using the ``setFlashdata()`` method::
+또는 ``setFlashdata()`` 메서드를 사용하여
+
+::
 
 	$session->setFlashdata('item', 'value');
 
-You can also pass an array to ``setFlashdata()``, in the same manner as
-``set()``.
+``set()``\ 과 같은 방식으로 ``setFlashdata()``\ 에 배열을 전달할 수도 있습니다.
 
-Reading flashdata variables is the same as reading regular session data
-through ``$_SESSION``::
+플래시 데이터 변수를 읽는 것은 ``$_SESSION``\ 을 통해 일반 세션 데이터를 읽는 것과 같습니다.
+
+::
 
 	$_SESSION['item']
 
-.. important:: The ``get()`` method WILL return flashdata items when
-	retrieving a single item by key. It will not return flashdata when
-	grabbing all userdata from the session, however.
+.. important:: ``get()`` 메소드는 키로 단일 항목을 검색할 때 플래시 데이터 항목을 반환합니다. 그러나 세션에서 모든 사용자 데이터를 가져올 때 플래시 데이터를 반환하지 않습니다.
 
-However, if you want to be sure that you're reading "flashdata" (and not
-any other kind), you can also use the ``getFlashdata()`` method::
+``getFlashdata()`` 메서드를 사용하면 "flashdata"\ 의 값만 가져올 수 있습니다
+
+::
 
 	$session->getFlashdata('item');
 
-Or to get an array with all flashdata, simply omit the key parameter::
+모든 플래시 데이터가 있는 배열을 얻으려면 키 매개 변수를 생략하십시오.
+
+::
 
 	$session->getFlashdata();
 
-.. note:: The ``getFlashdata()`` method returns NULL if the item cannot be
-	found.
+.. note:: ``getFlashdata()`` 메소드는 항목을 찾을 수 없는 경우 NULL을 리턴합니다.
 
-If you find that you need to preserve a flashdata variable through an
-additional request, you can do so using the ``keepFlashdata()`` method.
-You can either pass a single item or an array of flashdata items to keep.
+추가 요청을 통해 플래시 데이터 변수를 유지해야 하는 경우 ``keepFlashdata()`` 메서드를 사용하여 이를 수행 할 수 있습니다.
+단일 항목 또는 플래시 데이터 항목 배열을 전달하여 유지합니다.
 
 ::
 
 	$session->keepFlashdata('item');
 	$session->keepFlashdata(['item1', 'item2', 'item3']);
 
-Tempdata
-========
+tempdata
+===============
 
-CodeIgniter also supports "tempdata", or session data with a specific
-expiration time. After the value expires, or the session expires or is
-deleted, the value is automatically removed.
+CodeIgniter는 특정 만료 시간을 가지는 세션 데이터 "tempdata"도 지원합니다. 
+값이 만료되거나, 세션이 만료되거나, 삭제되면 값이 자동으로 제거됩니다.
 
-Similarly to flashdata, tempdata variables are managed internally by the
-CodeIgniter session handler.
+flashdata와 마찬가지로 tempdata 변수는 CodeIgniter 세션 처리기에 의해 내부적으로 관리됩니다.
 
-To mark an existing item as "tempdata", simply pass its key and expiry time
-(in seconds!) to the ``mark_as_temp()`` method::
+기존 항목을 "tempdata"로 전환하려면 해당 키와 만료 시간 (초)을 ``mark_as_temp()`` 메서드에 전달하면 됩니다.
+
+::
 
 	// 'item' will be erased after 300 seconds
 	$session->markAsTempdata('item', 300);
 
-You can mark multiple items as tempdata in two ways, depending on whether
-you want them all to have the same expiry time or not::
+모두 동일한 만료 시간을 원하는지 여부에 따라 두 가지 방법으로 여러 항목을 tempdata로 표시할 수 있습니다.
+
+::
 
 	// Both 'item' and 'item2' will expire after 300 seconds
 	$session->markAsTempdata(['item', 'item2'], 300);
@@ -332,63 +342,72 @@ you want them all to have the same expiry time or not::
 		'item2'	=> 240
 	]);
 
-To add tempdata::
+tempdata를 추가하려면
+
+::
 
 	$_SESSION['item'] = 'value';
 	$session->markAsTempdata('item', 300); // Expire in 5 minutes
 
-Or alternatively, using the ``setTempdata()`` method::
+또는 ``setTempdata()`` 메서드를 사용하여
+
+::
 
 	$session->setTempdata('item', 'value', 300);
 
-You can also pass an array to ``set_tempdata()``::
+``set_tempdata()``\ 에 배열을 전달할 수 있습니다.
+::
 
 	$tempdata = ['newuser' => TRUE, 'message' => 'Thanks for joining!'];
 	$session->setTempdata($tempdata, NULL, $expire);
 
-.. note:: If the expiration is omitted or set to 0, the default
-	time-to-live value of 300 seconds (or 5 minutes) will be used.
+.. note:: 만료를 생략하거나 0으로 설정하면 기본 활성 시간 값인 300 초(5 분)가 사용됩니다.
 
-To read a tempdata variable, again you can just access it through the
-``$_SESSION`` superglobal array::
+tempdata 변수를 읽으려면 ``$_SESSION`` 슈퍼 전역 배열을 통해 액세스할 수 있습니다
+
+::
 
 	$_SESSION['item']
 
-.. important:: The ``get()`` method WILL return tempdata items when
-	retrieving a single item by key. It will not return tempdata when
-	grabbing all userdata from the session, however.
+.. important:: The ``get()`` method WILL return tempdata items when retrieving a single item by key. It will not return tempdata when grabbing all userdata from the session, however.
 
-Or if you want to be sure that you're reading "tempdata" (and not any
-other kind), you can also use the ``getTempdata()`` method::
+Or if you want to be sure that you're reading "tempdata" (and not any other kind), you can also use the ``getTempdata()`` method
+``get()`` 메소드는 키로 단일 항목을 검색할 때 tempdata 항목을 반환합니다. 
+그러나 세션에서 모든 사용자 데이터를 가져 오면 tempdata를 반환하지 않습니다.
+
+``getTempdata()`` 메서드를 사용하여 "tempdata"\ 의 값만 가져올수 있습니다
+
+::
 
 	$session->getTempdata('item');
 
-And of course, if you want to retrieve all existing tempdata::
+물론 기존의 모든 tempdata를 검색하려는 경우
+
+::
 
 	$session->getTempdata();
 
-.. note:: The ``getTempdata()`` method returns NULL if the item cannot be
-	found.
+.. note:: ``getTempdata()`` 메소드는 항목을 찾을 수 없는 경우 NULL을 리턴합니다.
 
-If you need to remove a tempdata value before it expires, you can directly
-unset it from the ``$_SESSION`` array::
+만료되기 전에 tempdata 값을 제거해야 하는 경우 ``$_SESSION`` 배열에서 직접 설정을 해제 할 수 있습니다.
+
+::
 
 	unset($_SESSION['item']);
 
-However, this won't remove the marker that makes this specific item to be
-tempdata (it will be invalidated on the next HTTP request), so if you
-intend to reuse that same key in the same request, you'd want to use
-``removeTempdata()``::
+그러나 이 특정 항목을 tempdata로 만드는 마커를 제거하지는 않으므로 (다음 HTTP 요청에서 무효화 됨) 동일한 요청에서 동일한 키를 재사용하려는 경우 ``removeTempdata()`` 메소드를 호출합니다.
+
+::
 
 	$session->removeTempdata('item');
 
-Destroying a Session
+세션 파괴
 ====================
 
-To clear the current session (for example, during a logout), you may
-simply use either PHP's `session_destroy() <http://php.net/session_destroy>`_
-function, or the library's ``destroy()`` method. Both will work in exactly the
-same way::
+현재 세션을 지우려면 (예 : 로그 아웃 중) PHP의 `session_destroy() <http://php.net/session_destroy>`_ 함수 또는 라이브러리의 ``destroy()`` 메소드를 사용하면됩니다.
+둘 다 정확히 같은 방식으로 작동합니다.
+
+::
 
 	session_destroy();
 
@@ -396,75 +415,61 @@ same way::
 
 	$session->destroy();
 
-.. note:: This must be the last session-related operation that you do
-	during the same request. All session data (including flashdata and
-	tempdata) will be destroyed permanently and functions will be
-	unusable during the same request after you destroy the session.
+.. note:: 동일한 요청 중에 수행한 마지막 세션 관련 작업이어야 합니다. 모든 세션 데이터 (플래시 데이터 및 tmpdata 포함)는 영구적으로 삭제되며 세션을 삭제한 후 동일한 요청 중에 기능을 사용할 수 없습니다.
 
-You may also use the ``stop()`` method to completely kill the session
-by removing the old session_id, destroying all data, and destroying
-the cookie that contained the session id::
+``stop()`` 메서드를 사용하여 이전 session_id와 모든 데이터를 삭제하고, 세션 ID가 포함된 쿠키를 삭제하여 세션을 완전히 종료할 수 있습니다
+
+::
 
     $session->stop();
 
-Accessing session metadata
+세션 메타 데이터 액세스
 ==========================
 
-In previous CodeIgniter versions, the session data array included 4 items
-by default: 'session_id', 'ip_address', 'user_agent', 'last_activity'.
+이전 CodeIgniter 버전에서 세션 데이터 배열에 4개의 항목이 포함되었습니다: 'session_id', 'ip_address', 'user_agent', 'last_activity'.
 
-This was due to the specifics of how sessions worked, but is now no longer
-necessary with our new implementation. However, it may happen that your
-application relied on these values, so here are alternative methods of
-accessing them:
+이 항목들은 세션의 작동 방식에 대한 세부 사항을 위한 것이지만 이제는 새로운 구현에 더 이상 필요하지 않습니다.
+그러나 애플리케이션이 이러한 값에 의존한다면, 다음과 같은 방법으로 액세스할 수 있습니다.
 
   - session_id: ``session_id()``
   - ip_address: ``$_SERVER['REMOTE_ADDR']``
   - user_agent: ``$_SERVER['HTTP_USER_AGENT']`` (unused by sessions)
   - last_activity: Depends on the storage, no straightforward way. Sorry!
 
-Session Preferences
-*********************************************************************
+세션 환경 설정
+***********************
 
-CodeIgniter will usually make everything work out of the box. However,
-Sessions are a very sensitive component of any application, so some
-careful configuration must be done. Please take your time to consider
-all of the options and their effects.
+CodeIgniter는 일반적으로 모든 것을 즉시 사용할 수 있도록 합니다.
+그러나 세션은 모든 응용 프로그램에서 매우 민감한 구성 요소이므로 신중하게 구성해야합니다. 
+시간을내어 모든 옵션과 그 효과를 고려하십시오.
 
-You'll find the following Session related preferences in your
-**app/Config/App.php** file:
+**app/Config/App.php** 파일에서 다음 세션 관련 환경 설정을 찾을 수 있습니다.
 
 ============================== ========================================= ============================================== ============================================================================================
 Preference                     Default                                   Options                                        Description
 ============================== ========================================= ============================================== ============================================================================================
-**sessionDriver**              CodeIgniter\Session\Handlers\FileHandler  CodeIgniter\Session\Handlers\FileHandler       The session storage driver to use.
+**sessionDriver**              CodeIgniter\Session\Handlers\FileHandler  CodeIgniter\Session\Handlers\FileHandler       사용할 세션 스토리지 드라이버
                                                                          CodeIgniter\Session\Handlers\DatabaseHandler
                                                                          CodeIgniter\Session\Handlers\MemcachedHandler
                                                                          CodeIgniter\Session\Handlers\RedisHandler
                                                                          CodeIgniter\Session\Handlers\ArrayHandler
-**sessionCookieName**          ci_session                                [A-Za-z\_-] characters only                    The name used for the session cookie.
-**sessionExpiration**          7200 (2 hours)                            Time in seconds (integer)                      The number of seconds you would like the session to last.
-                                                                                                                        If you would like a non-expiring session (until browser is closed) set the value to zero: 0
-**sessionSavePath**            NULL                                      None                                           Specifies the storage location, depends on the driver being used.
-**sessionMatchIP**             FALSE                                     TRUE/FALSE (boolean)                           Whether to validate the user's IP address when reading the session cookie.
-                                                                                                                        Note that some ISPs dynamically changes the IP, so if you want a non-expiring session you
-                                                                                                                        will likely set this to FALSE.
-**sessionTimeToUpdate**        300                                       Time in seconds (integer)                      This option controls how often the session class will regenerate itself and create a new
-                                                                                                                        session ID. Setting it to 0 will disable session ID regeneration.
-**sessionRegenerateDestroy**   FALSE                                     TRUE/FALSE (boolean)                           Whether to destroy session data associated with the old session ID when auto-regenerating
-                                                                                                                        the session ID. When set to FALSE, the data will be later deleted by the garbage collector.
+**sessionCookieName**          ci_session                                [A-Za-z\_-] characters only                    세션 쿠키에 사용되는 이름
+**sessionExpiration**          7200 (2 hours)                            Time in seconds (integer)                      세션이 지속되기를 원하는 시간 (초), 
+                                                                                                                        만료되지 않는 세션을 원할 경우 (브라우저가 닫힐 때까지) 값을 0으로 설정하십시오.
+**sessionSavePath**            NULL                                      None                                           사용중인 드라이버에 따라 저장 위치를 지정
+**sessionMatchIP**             FALSE                                     TRUE/FALSE (boolean)                           세션 쿠키를 읽을 때 사용자의 IP 주소를 확인할지 여부,
+                                                                                                                        일부 ISP는 동적으로 IP를 변경하므로 만료되지 않는 세션을 원할 경우 FALSE로 설정합십시오.
+**sessionTimeToUpdate**        300                                       Time in seconds (integer)                      이 옵션은 세션 클래스가 자신을 재생성하고 새 세션 ID를 작성하는 빈도를 제어합니다. 
+                                                                                                                        0 으로 설정하면 세션 ID 재생성이 비활성화됩니다.
+**sessionRegenerateDestroy**   FALSE                                     TRUE/FALSE (boolean)                           세션 ID를 자동 재생성 할 때 이전 세션 ID와 연관된 세션 데이터를 삭제할지 여부,
+                                                                                                                        FALSE로 설정하면 나중에 가비지 콜렉터가 데이터를 삭제합니다.
 ============================== ========================================= ============================================== ============================================================================================
 
-.. note:: As a last resort, the Session library will try to fetch PHP's
-	session related INI settings, as well as legacy CI settings such as
-	'sess_expire_on_close' when any of the above is not configured.
-	However, you should never rely on this behavior as it can cause
-	unexpected results or be changed in the future. Please configure
-	everything properly.
+.. note:: 세션 라이브러리는 PHP의 세션 관련 INI 설정과 위의 항목 중 하나라도 구성되지 않은 경우, 최후의 수단으로 'sess_expire_on_close'\ 와 같은 레거시 CI 설정을 가져 오려고 시도합니다.
+	그러나 예기치 않은 결과가 발생하거나 나중에 변경될 수 있으므로 이 방법에 의존해서는 안됩니다. 모든 것을 올바르게 구성하십시오.
 
-In addition to the values above, the cookie and native drivers apply the
-following configuration values shared by the :doc:`IncomingRequest </incoming/incomingrequest>` and
-:doc:`Security <security>` classes:
+In addition to the values above, the cookie and native drivers apply the following configuration values shared by the :doc:`IncomingRequest </incoming/incomingrequest>` and :doc:`Security <security>` classes:
+위의 값 외에도 쿠키 및 기본 드라이버는 :doc:`IncomingRequest </incoming / incomingrequest>`및 : doc :`Security <security>`클래스에서 공유하는 다음 구성 값을 적용합니다.
 
 ================== =============== ===========================================================================
 Preference         Default         Description
