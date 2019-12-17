@@ -88,12 +88,6 @@ AJAX 사용량이 많은 웹 사이트를 개발하지 않는다면 이 섹션�
 
 세션 데이터는 단순히 특정 세션 ID(cookie)와 연결된 배열입니다.
 
-If you've used sessions in PHP before, you should be familiar with PHP's `$_SESSION superglobal <http://php.net/manual/en/reserved.variables.session.php>`_ (if not, please read the content on that link).
-
-CodeIgniter gives access to its session data through the same means, as it uses the session handlers' mechanism provided by PHP. 
-Using session data is as simple as manipulating (read, set and unset values) the ``$_SESSION`` array.
-
-In addition, CodeIgniter also provides 2 special types of session data that are further explained below: flashdata and tempdata.
 PHP에서 세션을 사용해 본 적이 있다면 PHP의 `$_SESSION superglobal <http://php.net/manual/en/reserved.variables.session.php>`_\ 에 익숙해야 합니다.(그렇지 않은 경우 해당 링크의 내용을 읽으십시오.)
 
 CodeIgniter는 PHP에서 제공하는 세션 핸들러 메커니즘을 사용하는 것과 동일한 방법으로 세션 데이터에 액세스합니다.
@@ -158,11 +152,6 @@ CodeIgniter는 PHP에서 제공하는 세션 핸들러 메커니즘을 사용하
 세션 데이터 추가
 ===================
 
-Let's say a particular user logs into your site. Once authenticated, you could add their username and e-mail address to the session, making that data globally available to you without having to run a database query when you need it.
-
-You can simply assign data to the ``$_SESSION`` array, as with any other variable. Or as a property of ``$session``.
-
-The former userdata method is deprecated, but you can pass an array containing your new session data to the ``set()`` method::
 특정 사용자가 사이트에 로그인한다고 가정해 보겠습니다. 
 인증되면 사용자 이름과 전자 메일 주소를 세션에 추가하여 필요할 때 데이터베이스 쿼리를 실행할 필요없이 해당 데이터를 전체적으로 사용할 수 있습니다.
 
@@ -648,14 +637,6 @@ MemcachedHandler 드라이버
 
 .. note:: Memcached의 잠금 메커니즘에 직접 접근할 수 없으므로, 이 드라이버의 잠금은 최대 300초 동안 유지되는 별도의 값으로 에뮬레이션됩니다.
 
-The 'MemcachedHandler' driver is very similar to the 'RedisHandler' one in all of its properties, except perhaps for availability, because PHP's `Memcached <http://php.net/memcached>`_ extension is distributed via PECL and some Linux distributions make it available as an easy to install package.
-
-Other than that, and without any intentional bias towards Redis, there's not much different to be said about Memcached - it is also a popular product that is usually used for caching and famed for its speed.
-
-However, it is worth noting that the only guarantee given by Memcached is that setting value X to expire after Y seconds will result in it being deleted after Y seconds have passed (but not necessarily that it won't expire earlier than that time). 
-This happens very rarely, but should be considered as it may result in loss of sessions.
-
-The ``$sessionSavePath`` format is fairly straightforward here, being just a ``host:port`` pair
 'MemcachedHandler' 드라이버는 PHP의 `Memcached <http://php.net/memcached>`_ 확장이 PECL과 일부 Linux를 통해 배포되기 때문에 가용성을 제외하고 모든면에서 'RedisHandler' 드라이버와 매우 유사합니다. 
 배포판은 설치하기 쉬운 패키지로 제공됩니다.
 

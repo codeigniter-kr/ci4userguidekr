@@ -1,56 +1,57 @@
-#########
-Throttler
-#########
+##########################
+스로틀러(Throttler)
+##########################
 
 .. contents::
     :local:
     :depth: 2
 
-The Throttler class provides a very simple way to limit an activity to be performed to a certain number of attempts
-within a set period of time. This is most often used for performing rate limiting on API's, or restricting the number
-of attempts a user can make against a form to help prevent brute force attacks. The class itself can be used
-for anything that you need to throttle based on actions within a set time interval.
+Throttler 클래스는 일정 기간 동안 특정 횟수의 시도로 수행할 활동을 제한하는 매우 간단한 방법을 제공합니다.
+API에 대해 속도 제한을 수행하거나 무차별 대입 공격을 방지하기 위해 사용자가 양식에 대해 시도할 수있는 횟수를 제한하는데 가장 많이 사용됩니다.
+클래스 자체는 설정된 시간 간격내 동작을 기반으로 조절해야 하는 모든 항목에 사용할 수 있습니다.
 
 ********
-Overview
+개요
 ********
 
-The Throttler implements a simplified version of the `Token Bucket <https://en.wikipedia.org/wiki/Token_bucket>`_
-algorithm. This basically treats each action that you want as a bucket. When you call the ``check()`` method,
-you tell it how large the bucket is, and how many tokens it can hold and the time interval. Each ``check()`` call uses
-1 of the available tokens, by default. Let's walk through an example to make this clear.
+Throttler는 `Token Bucket <https://en.wikipedia.org/wiki/Token_bucket>`_ 알고리즘의 단순화된 버전을 구현합니다.
+기본적으로 원하는 각 작업을 버킷으로 처리합니다. 
+``check()`` 메서드를 호출하면 버킷의 크기, 보유할 수 있는 토큰 수 및 시간 간격을 알려줍니다.
+각 ``check()`` 호출은 기본적으로 사용 가능한 토큰중 하나를 사용합니다. 
+이를 명확하게하기 위해 예제를 살펴 보겠습니다.
 
-Let's say we want an action to happen once every second. The first call to the Throttler would look like the following.
-The first parameter is the bucket name, the second parameter the number of tokens the bucket holds, and
-the third being the amount of time it takes the bucket to refill::
+우리가 매 초마다 한 번씩 행동(action)을 원한다고 가정해 봅시다.
+Throttler에 대한 첫 번째 호출은 다음과 같습니다.
+첫 번째 매개 변수는 버킷 이름이고, 두 번째 매개 변수는 버킷이 보유하는 토큰 수이며, 세 번째 매개 변수는 버킷을 채우는 데 걸리는 시간입니다.
+
+::
 
     $throttler = \Config\Services::throttler();
     $throttler->check($name, 60, MINUTE);
 
-Here we're using one of the :doc:`global constants </general/common_functions>` for the time, to make it a little
-more readable. This says that the bucket allows 60 actions every minute, or 1 action every second.
+여기서는 좀 더 읽기 쉽도록 :doc:`global constants </general/common_functions>`\ 중 하나를 사용하고 있습니다.
+버킷은 1분에 60개의 동작 또는 1초에 1개의 동작을 허용합니다.
 
-Let's say that a third-party script was trying to hit a URL repeatedly. At first, it would be able to use all 60
-of those tokens in less than a second. However, after that the Throttler would only allow one action per second,
-potentially slowing down the requests enough that they attack is no longer worth it.
+타사 스크립트가 URL을 반복해서 누르려고 한다고 가정해 보겠습니다. 처음에는 1초 안에 60개의 토큰을 모두 사용할 수 있습니다.
+그러나 그 후 Throttler는 초당 하나의 작업만 허용하므로 공격이 더 이상 가치가 없을 정도로 요청 속도가 느려집니다.
 
-.. note:: For the Throttler class to work, the Cache library must be setup to use a handler other than dummy.
-            For best performance, an in-memory cache, like Redis or Memcached, is recommended.
+.. note:: Throttler 클래스가 작동하려면 더미 이외의 핸들러를 사용하도록 캐시 라이브러리를 설정해야합니다.
+    최상의 성능을 위해서는 Redis 또는 Memcached와 같은 인-메모리(in-memory) 캐시가 권장됩니다.
 
 *************
-Rate Limiting
+속도 제한
 *************
 
-The Throttler class does not do any rate limiting or request throttling on its own,  but is the key to making
-one work. An example :doc:`Filter </incoming/filters>` is provided that implements a very simple rate limiting at
-one request per second per IP address. Here we will run through how it works, and how you could set it up and
-start using it in your application.
+Throttler 클래스는 자체적으로 속도 제한이나 요청 제한을 수행하지 않지만 하나의 작업을 수행하는 열쇠입니다.
+매우 간단한 속도 제한을 구현하는 IP 주소별 1초당 1요청 예제 :doc:`Filter </incoming/filters>`\ 가 제공됩니다.
+여기서는 작동 방식과 애플리케이션에서 설정과 사용을 시작하는 방법을 설명합니다.
 
-The Code
+Code
 ========
 
-You could make your own Throttler filter, at **app/Filters/Throttle.php**, 
-along the lines of:: 
+**app/Filters/Throttle.php**\ 에 Throttler 필터를 직접 만들 수 있습니다.
+
+:: 
 
     <?php namespace App\Filters;
 
@@ -97,32 +98,34 @@ along the lines of::
             }
     }
 
-When run, this method first grabs an instance of the throttler. Next, it uses the IP address as the bucket name,
-and sets things to limit them to one request per second. If the throttler rejects the check, returning false,
-then we return a Response with the status code set to 429 - Too Many Attempts, and the script execution ends
-before it ever hits the controller. This example will throttle based on a single IP address across all requests
-made to the site, not per page.
+실행될 때 이 메소드는 먼저 스로틀러 인스턴스를 가져옵니다.
+그런 다음 IP 주소를 버킷 이름으로 사용하여 초당 하나의 요청으로 제한하도록 설정합니다.
+스로틀러가 검사를 거부하고 false를 반환하면 상태 코드가 ``429-Too Many Attempts``\ 로 설정된 응답을 반환하고, 스크립트 실행이 컨트롤러에 도달하기 전에 종료됩니다.
+이 예는 페이지 당이 아니라 사이트의 모든 요청에 대해 단일 IP 주소를 기반으로 조절됩니다.
 
-Applying the Filter
+필터 적용
 ===================
 
-We don't necessarily need to throttle every page on the site. For many web applications, this makes the most sense
-to apply only to POST requests, though API's might want to limit every request made by a user. In order to apply
-this to incoming requests, you need to edit **/app/Config/Filters.php** and first add an alias to the
-filter::
+사이트의 모든 페이지를 반드시 조절할 필요는 없습니다.
+많은 웹 애플리케이션에서는 POST 요청에만 적용하는 것이 가장 적합하지만, API는 사용자의 모든 요청을 제한하고자 할 수 있습니다.
+수신 요청에 이를 적용하려면 먼저 필터에 별명(alias)을 **/app/Config/Filters.php**\ 에 추가해야 합니다.
+
+::
 
 	public $aliases = [
 		...
 		'throttle' => \App\Filters\Throttle::class
 	];
 
-Next, we assign it to all POST requests made on the site::
+그런 다음, 사이트의 모든 POST 요청에 대해 필터를 적용합니다.
+
+::
 
     public $methods = [
         'post' => ['throttle', 'CSRF']
     ];
 
-And that's all there is to it. Now all POST requests made on the site will have to be rate limited.
+이제 설정이 끝났습니다. 사이트의 모든 POST 요청은 속도가 제한됩니다.
 
 ***************
 Class Reference
@@ -130,22 +133,20 @@ Class Reference
 
 .. php:method:: check(string $key, int $capacity, int $seconds[, int $cost = 1])
 
-    :param string $key: The name of the bucket
-    :param int $capacity: The number of tokens the bucket holds
-    :param int $seconds: The number of seconds it takes for a bucket to completely fill
-    :param int $cost: The number of tokens that are spent on this action
-    :returns: TRUE if action can be performed, FALSE if not
+    :param string $key: 버킷(bucket) 이름
+    :param int $capacity: 버킷이 보유한 토큰 수
+    :param int $seconds: 버킷이 완전히 채워지는데 걸리는 시간 (초)
+    :param int $cost: 이 작업에 사용되는 토큰 수
+    :returns: 작업을 수행할 수 있으면 TRUE, 그렇지 않으면 FALSE
     :rtype: bool
 
-    Checks to see if there are any tokens left within the bucket, or if too many have
-    been used within the allotted time limit. During each check the available tokens
-    are reduced by $cost if successful.
+    버킷 내에 남아있는 토큰이 있는지 또는 할당된 시간 제한 내에 너무 많은 토큰이 사용되었는지 확인합니다.
+    매번 확인할 때마다 사용 가능한 토큰은 성공하면 ``$cost``\ 를 차감합니다.
 
 .. php:method:: getTokentime()
 
-    :returns: The number of seconds until another token should be available.
+    :returns: 다른 토큰을 사용할 수 있을 때까지의 시간(초)
     :rtype: integer
 
-    After ``check()`` has been run and returned FALSE, this method can be used
-    to determine the time until a new token should be available and the action can be
-    tried again. In this case, the minimum enforced wait time is one second.
+    ``check ()``\ 가 실행되고 FALSE가 반환된 후 이 메소드를 사용하여 새 토큰을 사용할 수 있고, 조치를 다시 시도할 수있는 시간을 판별할 수 있습니다. 
+    이 경우 최소 대기 시간은 1 초입니다.
