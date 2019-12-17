@@ -197,17 +197,6 @@ UploadedFile 인스턴스를 검색한 후에는 파일에 대한 정보를 안�
 		throw new RuntimeException($file->getErrorString().'('.$file->getError().')');
 	}
 
-As seen in this example, if a file had an upload error, you can retrieve the error code (an integer) and the error message with the ``getError()`` and ``getErrorString()`` methods. 
-The following errors can be discovered through this method:
-
-* The file exceeds your upload_max_filesize ini directive.
-* The file exceeds the upload limit defined in your form.
-* The file was only partially uploaded.
-* No file was uploaded.
-* The file could not be written on disk.
-* File could not be uploaded: missing temporary directory.
-* File upload was stopped by a PHP extension.
-
 이 예제에서 볼 수 있듯이 파일에 업로드 오류가 있는 경우 ``getError()``\ 와 ``getErrorString()`` 메소드를 사용하여 오류 코드(정수)와 오류 메시지를 검색할 수 있습니다.
 이 방법을 통해 다음과 같은 오류를 발견할 수 있습니다.
 
@@ -263,9 +252,6 @@ The following errors can be discovered through this method:
 
 **getClientMimeType()**
 
-Returns the mime type (mime type) of the file as provided by the client. 
-This is NOT a trusted value. 
-For a trusted version, use ``getMimeType()`` instead
 클라이언트가 제공한 파일의 MIME 유형 (MIM 유형)을 리턴합니다.
 신뢰할 수 없습니다.
 신뢰할 수 있는 MIME 유형을 원한다면 ``getMimeType()``\ 을 사용하십시오.
