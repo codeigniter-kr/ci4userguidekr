@@ -468,27 +468,23 @@ Preference                     Default                                   Options
 .. note:: 세션 라이브러리는 PHP의 세션 관련 INI 설정과 위의 항목 중 하나라도 구성되지 않은 경우, 최후의 수단으로 'sess_expire_on_close'\ 와 같은 레거시 CI 설정을 가져 오려고 시도합니다.
 	그러나 예기치 않은 결과가 발생하거나 나중에 변경될 수 있으므로 이 방법에 의존해서는 안됩니다. 모든 것을 올바르게 구성하십시오.
 
-In addition to the values above, the cookie and native drivers apply the following configuration values shared by the :doc:`IncomingRequest </incoming/incomingrequest>` and :doc:`Security <security>` classes:
-위의 값 외에도 쿠키 및 기본 드라이버는 :doc:`IncomingRequest </incoming / incomingrequest>`및 : doc :`Security <security>`클래스에서 공유하는 다음 구성 값을 적용합니다.
+위의 값 외에도 쿠키 및 기본 드라이버는 :doc:`IncomingRequest </incoming/incomingrequest>`\ 와 :doc:`Security <security>` 클래스에서 공유하는 다음 구성 값을 적용합니다.
 
 ================== =============== ===========================================================================
 Preference         Default         Description
 ================== =============== ===========================================================================
-**cookieDomain**   ''              The domain for which the session is applicable
-**cookiePath**     /               The path to which the session is applicable
-**cookieSecure**   FALSE           Whether to create the session cookie only on encrypted (HTTPS) connections
+**cookieDomain**   ''              세션 적용 도메인
+**cookiePath**     /               세션 적용 가능 경로
+**cookieSecure**   FALSE           암호화된 (HTTPS) 연결에서만 세션 쿠키를 작성할 지 여부
 ================== =============== ===========================================================================
 
-.. note:: The 'cookieHTTPOnly' setting doesn't have an effect on sessions.
-	Instead the HttpOnly parameter is always enabled, for security
-	reasons. Additionally, the 'cookiePrefix' setting is completely
-	ignored.
+.. note::'cookieHTTPOnly' 설정은 세션에 영향을 미치지 않습니다.
+	대신 보안상의 이유로 HttpOnly 매개 변수가 항상 사용되며, 'cookiePrefix'설정은 완전히 무시됩니다.
 
-Session Drivers
-*********************************************************************
+세션 드라이버
+*************************
 
-As already mentioned, the Session library comes with 4 handlers, or storage
-engines, that you can use:
+이미 언급했듯이 세션 라이브러리는 다음 4가지개의 사용할 수 있는 핸들러 또는 스토리지 엔진을 제공합니다.
 
   - CodeIgniter\Session\Handlers\FileHandler
   - CodeIgniter\Session\Handlers\DatabaseHandler
@@ -496,96 +492,76 @@ engines, that you can use:
   - CodeIgniter\Session\Handlers\RedisHandler
   - CodeIgniter\Session\Handlers\ArrayHandler
 
-By default, the ``FileHandler`` Driver will be used when a session is initialized,
-because it is the safest choice and is expected to work everywhere
-(virtually every environment has a file system).
+``FileHandler`` 드라이버는 가장 안전한 선택이며, 모든 곳에서 작동할 것으로 예상되기 때문에 세션이 초기화 될 때 기본적으로 사용됩니다. (모든 환경에는 파일 시스템이 있습니다)
 
-However, any other driver may be selected via the ``public $sessionDriver``
-line in your **app/Config/App.php** file, if you chose to do so.
-Have it in mind though, every driver has different caveats, so be sure to
-get yourself familiar with them (below) before you make that choice.
+그러나 다른 드라이버는 **app/Config/App.php** 파일의 ``public $sessionDriver``\ 을 통해 선택할 수 있습니다. (원하는 경우)
+모든 드라이버는 각기 다른 주의 사항이 있으며, 이를 염두에 두어야합니다. 
+따라서 선택하기 전에 반드시 아래 부분을 잘 읽어보십시오.
 
-.. note:: The ArrayHandler is used during testing and stores all data within
-    a PHP array, while preventing the data from being persisted.
+.. note:: ArrayHandler는 테스트할 때 사용되며, PHP배열에 모든 세션 데이터를 저장하여 데이터가 테스트 이후 유지되는 것을 방지합니다.
 
-FileHandler Driver (the default)
-==================================================================
+FileHandler 드라이버 (기본)
+=============================================
 
-The 'FileHandler' driver uses your file system for storing session data.
+'FileHandler' 드라이버는 파일 시스템을 사용하여 세션 데이터를 저장합니다.
 
-It can safely be said that it works exactly like PHP's own default session
-implementation, but in case this is an important detail for you, have it
-mind that it is in fact not the same code and it has some limitations
-(and advantages).
+PHP의 기본 세션 구현과 똑같이 작동고 안전하다고 말할 수 있지만, 이것이 중요한 세부사항의 경우 기본 세션과 동일한 코드가 아니며 몇 가지 제한 사항과 장점이 있습니다.
 
-To be more specific, it doesn't support PHP's `directory level and mode
-formats used in session.save_path
-<http://php.net/manual/en/session.configuration.php#ini.session.save-path>`_,
-and it has most of the options hard-coded for safety. Instead, only
-absolute paths are supported for ``public $sessionSavePath``.
+좀 더 구체적으로 말하면 session.save_path <http://php.net/manual/en/session.configuration.php#ini.session.save-path>_\ 에서 사용되는 PHP의 디렉토리 레벨 및 모드 형식을 지원하지 않습니다. 
+안전을 위해 대부분의 옵션이 하드 코딩되어 있으며, ``public $sessionSavePath``\ 는 절대 경로만 지원됩니다.
 
-Another important thing that you should know, is to make sure that you
-don't use a publicly-readable or shared directory for storing your session
-files. Make sure that *only you* have access to see the contents of your
-chosen *sessionSavePath* directory. Otherwise, anybody who can do that, can
-also steal any of the current sessions (also known as "session fixation"
-attack).
+알아야 할 또 다른 중요한 사항은 공개적으로 읽거나 공유 디렉토리를 사용하여 세션 파일을 저장하지 않도록 하는 것입니다.
+선택한 *sessionSavePath* 디렉토리의 내용을 볼 수있는 권한이 *당신에게만* 있는지 확인하십시오.
+그렇지 않으면 이를 수행할 수 있는 모든 사람이 현재 세션 ("sessiion fixation" 공격이라고도 함)을 도용할 수 있습니다.
 
-On UNIX-like operating systems, this is usually achieved by setting the
-0700 mode permissions on that directory via the `chmod` command, which
-allows only the directory's owner to perform read and write operations on
-it. But be careful because the system user *running* the script is usually
-not your own, but something like 'www-data' instead, so only setting those
-permissions will probably break your application.
+유닉스 계열 운영 체제에서, 이것은 일반적으로 `chmod` 명령을 통해 해당 디렉토리에 대한 0700 모드 권한을 설정함으로써 달성되며, 디렉토리 소유자만 디렉토리에 대한 읽기 및 쓰기 작업을 수행할 수 있습니다.
+그러나 스크립트를 실행하는 시스템 사용자는 일반적으로 사용자 자신이 아니라 'www-data'\ 와 같은 것이기 때문에 이러한 권한을 설정하면 애플리케이션이 동작하지 않을수 있으므로 주의하십시오.
 
-Instead, you should do something like this, depending on your environment
+환경에 따라 아래와 같은 작업을 수행합니다.
+
 ::
 
 	mkdir /<path to your application directory>/Writable/sessions/
 	chmod 0700 /<path to your application directory>/Writable/sessions/
 	chown www-data /<path to your application directory>/Writable/sessions/
 
-Bonus Tip
---------------------------------------------------------
+보너스 팁
+-------------------
 
-Some of you will probably opt to choose another session driver because
-file storage is usually slower. This is only half true.
+파일 저장 공간이 일반적으로 느리기 때문에 여러분중 일부는 다른 세션 드라이버를 선택하게 될 것입니다. 하지만 이것은 반만 맞습니다.
 
-A very basic test will probably trick you into believing that an SQL
-database is faster, but in 99% of the cases, this is only true while you
-only have a few current sessions. As the sessions count and server loads
-increase - which is the time when it matters - the file system will
-consistently outperform almost all relational database setups.
+매우 기본적인 테스트는 아마도 SQL 데이터베이스가 더 빠르다고 생각하도록 속이는 것입니다. 
+그러나 99%의 경우 현재 세션이 거의 없는 동안에만 해당됩니다.
+세션 수가 많아지고, 서버로드가 증가할수록 (시간이 중요 함) 파일 시스템은 거의 모든 관계형 데이터베이스보다 지속적으로 성능이 뛰어납니다.
 
-In addition, if performance is your only concern, you may want to look
-into using `tmpfs <http://eddmann.com/posts/storing-php-sessions-file-caches-in-memory-using-tmpfs/>`_,
-(warning: external resource), which can make your sessions blazing fast.
+또한 성능이 유일한 관심사라면 파일 세션을 `tmpfs <http://eddmann.com/posts/storing-php-sessions-file-caches-in-memory-using-tmpfs/>`_ 에 저장하는 방법도 있습니다. (경고 : 외부 리소스)
 
-DatabaseHandler Driver
-==================================================================
 
-The 'DatabaseHandler' driver uses a relational database such as MySQL or
-PostgreSQL to store sessions. This is a popular choice among many users,
-because it allows the developer easy access to the session data within
-an application - it is just another table in your database.
+DatabaseHandler 드라이버
+=============================
 
-However, there are some conditions that must be met:
+'DatabaseHandler' 드라이버는 MySQL 또는 PostgreSQL과 같은 관계형 데이터베이스를 사용하여 세션을 저장합니다. 
+이는 개발자가 애플리케이션내에서 세션 데이터에 쉽게 액세스할 수 있기 때문에 많은 사용자에게 인기있는 선택입니다. 
+이는 데이터베이스의 다른 테이블 일뿐입니다.
 
-  - You can NOT use a persistent connection.
-  - You can NOT use a connection with the *cacheOn* setting enabled.
+그러나 몇 가지 조건을 충족해야합니다.
 
-In order to use the 'DatabaseHandler' session driver, you must also create this
-table that we already mentioned and then set it as your
-``$sessionSavePath`` value.
-For example, if you would like to use 'ci_sessions' as your table name,
-you would do this::
+   - 영구 연결을 사용할 수 없습니다.
+   - *cacheOn* 설정이 활성화된 연결을 사용할 수 없습니다.
+
+'DatabaseHandler' 세션 드라이버를 사용하려면 세션 테이블을 만든 다음 이를 ``$sessionSavePath``\ 의 값으로 설정해야 합니다.
+예를 들어 테이블 이름으로 'ci_sessions'을 사용하려면 다음과 같이합니다.
+
+::
 
 	public $sessionDriver   = 'CodeIgniter\Session\Handlers\DatabaseHandler';
 	public $sessionSavePath = 'ci_sessions';
 
-And then of course, create the database table ...
+물론 데이터베이스 테이블을 생성하십시오 ...
 
-For MySQL::
+MySQL
+
+::
 
 	CREATE TABLE IF NOT EXISTS `ci_sessions` (
 		`id` varchar(128) NOT NULL,
@@ -595,7 +571,9 @@ For MySQL::
 		KEY `ci_sessions_timestamp` (`timestamp`)
 	);
 
-For PostgreSQL::
+PostgreSQL
+
+::
 
 	CREATE TABLE "ci_sessions" (
 		"id" varchar(128) NOT NULL,
@@ -606,8 +584,10 @@ For PostgreSQL::
 
 	CREATE INDEX "ci_sessions_timestamp" ON "ci_sessions" ("timestamp");
 
-You will also need to add a PRIMARY KEY **depending on your 'sessionMatchIP'
-setting**. The examples below work both on MySQL and PostgreSQL::
+또한 *'sessionMatchIP' 설정에 따라 기본 키를 추가*\ 해야 합니다. 
+아래 예제는 MySQL과 PostgreSQL 모두에서 작동합니다.
+
+::
 
 	// When sessionMatchIP = TRUE
 	ALTER TABLE ci_sessions ADD PRIMARY KEY (id, ip_address);
@@ -618,102 +598,88 @@ setting**. The examples below work both on MySQL and PostgreSQL::
 	// To drop a previously created primary key (use when changing the setting)
 	ALTER TABLE ci_sessions DROP PRIMARY KEY;
 
-You can choose the Database group to use by adding a new line to the
-**application\Config\App.php** file with the name of the group to use::
+사용할 데이터베이스 그룹 이름을 **application\Config\App.php** 파일의 ``$sessionDBGroup``\ 에 지정할 수 있습니다.
+
+::
 
   public $sessionDBGroup = 'groupName';
 
-If you'd rather not do all of this by hand, you can use the ``session:migration`` command
-from the cli to generate a migration file for you::
+직접 이 작업을 모두 수행하지 않으려면 cli에서 ``session:migration`` 명령을 사용하여 마이그레이션 파일을 생성하십시오.
+
+::
 
   > php spark session:migration
   > php spark migrate
 
-This command will take the **sessionSavePath** and **sessionMatchIP** settings into account
-when it generates the code.
+이 명령은 코드를 생성할 때 **sessionSavePath**\ 와 **sessionMatchIP** 설정을 고려합니다.
 
-.. important:: Only MySQL and PostgreSQL databases are officially
-	supported, due to lack of advisory locking mechanisms on other
-	platforms. Using sessions without locks can cause all sorts of
-	problems, especially with heavy usage of AJAX, and we will not
-	support such cases. Use ``session_write_close()`` after you've
-	done processing session data if you're having performance
-	issues.
+.. important:: 다른 데이터베이스 플랫폼은 잠금 메커니즘에 접근할 수 없기 때문에 MySQL 및 PostgreSQL 데이터베이스만 공식적으로 지원됩니다.
+	특히 AJAX를 많이 사용하는 경우 잠금없이 세션을 사용할 경우 문제가 발생할 수 있으므로, 잠금을 지원하지 않는 경우는 지원하지 않습니다.
+	성능 문제가 발생한다면 세션 데이터 처리를 완료한 후 ``session_write_close()``\ 를 사용하십시오.
 
-RedisHandler Driver
-==================================================================
+RedisHandler 드라이버
+============================
 
-.. note:: Since Redis doesn't have a locking mechanism exposed, locks for
-	this driver are emulated by a separate value that is kept for up
-	to 300 seconds.
+.. note:: Redis의 잠금 메커니즘에 직접 접근할 수 없으므로 ,이 드라이버의 잠금은 최대 300초 동안 유지되는 별도의 값으로 에뮬레이션됩니다.
 
-Redis is a storage engine typically used for caching and popular because
-of its high performance, which is also probably your reason to use the
-'RedisHandler' session driver.
+Redis는 고성능으로 인해 캐싱에 일반적으로 사용되는 스토리지 엔진으로 'RedisHandler' 세션 드라이버를 사용하는 가장 큰 이유입니다.
 
-The downside is that it is not as ubiquitous as relational databases and
-requires the `phpredis <https://github.com/phpredis/phpredis>`_ PHP
-extension to be installed on your system, and that one doesn't come
-bundled with PHP.
-Chances are, you're only be using the RedisHandler driver only if you're already
-both familiar with Redis and using it for other purposes.
+단점은 관계형 데이터베이스만큼 편재적이지 않으며 시스템에 `phpredis <https://github.com/phpredis/phpredis>`_ PHP 확장이 설치되어 있어야 하며, PHP 번들로 제공되지 않는다는 것입니다.
+이미 Redis에 익숙하고 다른 목적으로 사용하는 경우 RedisHandler 드라이버를 사용하고 있을 가능성이 있습니다.
 
-Just as with the 'FileHandler' and 'DatabaseHandler' drivers, you must also configure
-the storage location for your sessions via the
-``$sessionSavePath`` setting.
-The format here is a bit different and complicated at the same time. It is
-best explained by the *phpredis* extension's README file, so we'll simply
-link you to it:
+'FileHandler'\ 와 'DatabaseHandler' 드라이버와 마찬가지로 ``$sessionSavePath`` 설정을 통해 세션의 저장 위치를 ​​구성합니다.
+'RedisHandler' 형식(format)은 약간 다르며 복잡합니다.
+*phpredis* 확장의 README 파일에 잘 설명되므로 링크해 드립니다.
 
 	https://github.com/phpredis/phpredis#php-session-handler
 
-.. warning:: CodeIgniter's Session library does NOT use the actual 'redis'
-	``session.save_handler``. Take note **only** of the path format in
-	the link above.
+.. warning:: CodeIgniter의 세션 라이브러리는 실제 'redis'\ 의 ``session.save_handler``\ 를 사용하지 않습니다.
+	위 링크에서 **오직** 경로 형식(path format)만 참고하십시오.
 
-For the most common case however, a simple ``host:port`` pair should be
-sufficient::
+그러나 대부분의 경우, 간단한 ``host:port``\ 쌍만 있어도 충분합니다
+
+::
 
 	public $sessionDiver    = 'CodeIgniter\Session\Handlers\RedisHandler';
 	public $sessionSavePath = 'tcp://localhost:6379';
 
-MemcachedHandler Driver
-==================================================================
+MemcachedHandler 드라이버
+=================================
 
-.. note:: Since Memcached doesn't have a locking mechanism exposed, locks
-	for this driver are emulated by a separate value that is kept for
-	up to 300 seconds.
+.. note:: Memcached의 잠금 메커니즘에 직접 접근할 수 없으므로, 이 드라이버의 잠금은 최대 300초 동안 유지되는 별도의 값으로 에뮬레이션됩니다.
 
-The 'MemcachedHandler' driver is very similar to the 'RedisHandler' one in all of its
-properties, except perhaps for availability, because PHP's `Memcached
-<http://php.net/memcached>`_ extension is distributed via PECL and some
-Linux distributions make it available as an easy to install package.
+The 'MemcachedHandler' driver is very similar to the 'RedisHandler' one in all of its properties, except perhaps for availability, because PHP's `Memcached <http://php.net/memcached>`_ extension is distributed via PECL and some Linux distributions make it available as an easy to install package.
 
-Other than that, and without any intentional bias towards Redis, there's
-not much different to be said about Memcached - it is also a popular
-product that is usually used for caching and famed for its speed.
+Other than that, and without any intentional bias towards Redis, there's not much different to be said about Memcached - it is also a popular product that is usually used for caching and famed for its speed.
 
-However, it is worth noting that the only guarantee given by Memcached
-is that setting value X to expire after Y seconds will result in it being
-deleted after Y seconds have passed (but not necessarily that it won't
-expire earlier than that time). This happens very rarely, but should be
-considered as it may result in loss of sessions.
+However, it is worth noting that the only guarantee given by Memcached is that setting value X to expire after Y seconds will result in it being deleted after Y seconds have passed (but not necessarily that it won't expire earlier than that time). 
+This happens very rarely, but should be considered as it may result in loss of sessions.
 
-The ``$sessionSavePath`` format is fairly straightforward here,
-being just a ``host:port`` pair::
+The ``$sessionSavePath`` format is fairly straightforward here, being just a ``host:port`` pair
+'MemcachedHandler' 드라이버는 PHP의 `Memcached <http://php.net/memcached>`_ 확장이 PECL과 일부 Linux를 통해 배포되기 때문에 가용성을 제외하고 모든면에서 'RedisHandler' 드라이버와 매우 유사합니다. 
+배포판은 설치하기 쉬운 패키지로 제공됩니다.
+
+그 외에도 Redis에 대한 의도적인 편견이 없다면 Memcached에 대해 언급할 점이 별로 다르지 않습니다. 
+일반적으로 캐싱에 사용되며 속도로 유명한 인기있는 제품이기도 합니다.
+
+그러나 Memcached가 제공하는 유일한 보증은 Y초 후에 값 X가 만료되도록 설정하면 Y초가 지난후에 삭제된다는 것입니다 (그러나 반드시 그 시간보다 빨리 만료되지는 않습니다).
+이것은 매우 드물게 발생하지만 세션이 손실될 수 있으므로 고려해야 합니다.
+
+``$sessionSavePath`` 형식(format)은 ``host:port`` 쌍으로 매우 간단합니다.
+
+::
 
 	public $sessionDriver   = 'CodeIgniter\Session\Handlers\MemcachedHandler';
 	public $sessionSavePath = 'localhost:11211';
 
-Bonus Tip
---------------------------------------------------------
+보너스 팁
+--------------
 
-Multi-server configuration with an optional *weight* parameter as the
-third colon-separated (``:weight``) value is also supported, but we have
-to note that we haven't tested if that is reliable.
+콜론으로 구분된 세 번째 (``: weight``) 값으로 옵션 *weight* 매개 변수를 사용하는 다중 서버 구성도 지원되지만, 신뢰할 수 있는지 테스트하지 않았다는 점에 유의해야 합니다.
 
-If you want to experiment with this feature (on your own risk), simply
-separate the multiple server paths with commas::
+(여러 위험을 감수하고) 이 기능을 직접 시험해보고 싶다면 서버의 여러 경로를 쉼표(,)로 구분하여 작성합니다.
+
+::
 
 	// localhost will be given higher priority (5) here,
 	// compared to 192.0.2.1 with a weight of 1.
