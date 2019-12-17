@@ -1,35 +1,36 @@
 ###############
-Dates and Times
+날짜와 시간
 ###############
 
-CodeIgniter provides a fully-localized, immutable, date/time class that is built on PHP's DateTime object, but uses the Intl
-extension's features to convert times across timezones and display the output correctly for different locales. This class
-is the **Time** class and lives in the **CodeIgniter\\I18n** namespace.
+CodeIgniter는 PHP의 DateTime 객체를 기반으로 하는 완전히 현지화된 변하지 않는 날짜/시간 클래스를 제공하지만, 
+Intl 확장 기능을 사용하여 시간을 시간대별로 변환하고 다른 로케일에 대한 출력을 올바르게 표시합니다.
+이 클래스는 **Time** 클래스이며 **CodeIgniter\\I18n** 네임 스페이스에 있습니다.
 
-.. note:: Since the Time class extends DateTime, if there are features that you need that this class doesn't provide,
-    you can likely find them within the DateTime class itself.
+.. note:: Time 클래스는 DateTime을 확장하므로 이 클래스에서 제공하지 않는 기능이 있으면 DateTime 클래스 자체에서 찾을수 있습니다.
 
 .. contents::
     :local:
     :depth: 1
 
 =============
-Instantiating
+인스턴스화
 =============
 
-There are several ways that a new Time instance can be created. The first is simply to create a new instance
-like any other class. When you do it this way, you can pass in a string representing the desired time. This can
-be any string that PHP's strtotime function can parse::
+새로운 Time 인스턴스를 만들 수 있는 방법에는 여러 가지가 있습니다.
+첫 번째는 다른 클래스와 마찬가지로 새 인스턴스를 만드는 것입니다.
+이렇게하면 원하는 시간을 나타내는 문자열을 전달할 수 있으며, 문자열은 PHP의 strtotime 함수가 구문 분석할 수 있는 모든 문자열입니다.
+
+::
 
     use CodeIgniter\I18n\Time;
 
     $myTime = new Time('+3 week');
     $myTime = new Time('now');
 
-You can pass in strings representing the timezone and the locale in the second and parameters, respectively. Timezones
-can be any supported by PHP's `DateTimeZone <http://php.net/manual/en/timezones.php>`__ class. The locale can be
-any supported by PHP's `Locale <http://php.net/manual/en/class.locale.php>`__ class. If no locale or timezone is
-provided, the application defaults will be used.
+시간대와 로케일을 나타내는 문자열을 각각 두 번째와 세 번째 매개 변수로 전달할 수 있습니다.
+시간대는 PHP의 `DateTimeZone <http://php.net/manual/en/timezones.php>`__ 클래스를 지원합니다.
+로케일은 PHP의 `Locale <http://php.net/manual/en/class.locale.php>`__ 클래스를 지원합니다.
+로케일이나 시간대가 제공되지 않으면 애플리케이션의 기본값이 사용됩니다.
 
 ::
 
@@ -38,9 +39,10 @@ provided, the application defaults will be used.
 now()
 -----
 
-The Time class has several helper methods to instantiate the class. The first of these is the **now()** method
-that returns a new instance set to the current time. You can pass in strings representing the timezone and the locale
-in the second and parameters, respectively. If no locale or timezone is provided, the application defaults will be used.
+Time 클래스에는 클래스를 인스턴스화하는 몇 가지 도우미 메서드가 있습니다.
+이 중 첫 번째는 현재 시간으로 설정된 새 인스턴스를 반환하는 **now()** 메서드입니다.
+시간대와 로케일을 나타내는 문자열을 각각 두 번째 및 세번째 매개 변수로 전달할 수 있습니다.
+로케일이나 시간대가 제공되지 않으면 애플리케이션의 기본값이 사용됩니다.
 
 ::
 
@@ -49,41 +51,51 @@ in the second and parameters, respectively. If no locale or timezone is provided
 parse()
 -------
 
-This helper method is a static version of the default constructor. It takes a string acceptable as DateTime's
-constructor as the first parameter, a timezone as the second parameter, and the locale as the third parameter.::
+이 헬퍼 메소드는 기본 생성자의 정적 버전입니다.
+첫 번째 매개 변수로 DateTime의 생성자로 허용되는 문자열, 두 번째 매개 변수로 시간대 및 세 번째 매개 변수로 로케일을 사용합니다.
+
+::
 
     $myTime = Time::parse('next Tuesday', 'America/Chicago', 'en_US');
 
 today()
 -------
 
-Returns a new instance with the date set to the current date, and the time set to midnight. It accepts strings
-for the timezone and locale in the second and third parameters::
+날짜가 현재 날짜로 설정되고 시간이 자정(00:00)으로 설정된 새 인스턴스를 반환합니다.
+두 번째와 세 번째 매개 변수에서 시간대 및 로케일 문자열을 허용합니다.
+
+::
 
     $myTime = Time::today('America/Chicago', 'en_US');
 
 yesterday()
 -----------
 
-Returns a new instance with the date set to the yesterday's date and the time set to midnight. It accepts strings
-for the timezone and locale in the second and third parameters::
+날짜가 어제 날짜로 설정되고 시간이 자정으로 설정된 새 인스턴스를 반환합니다.
+두 번째와 세 번째 매개 변수에서 시간대 및 로케일 문자열을 허용합니다.
+
+::
 
     $myTime = Time::yesterday('America/Chicago', 'en_US');
 
 tomorrow()
 -----------
 
-Returns a new instance with the date set to tomorrow's date and the time set to midnight. It accepts strings
-for the timezone and locale in the second and third parameters::
+날짜가 내일 날짜로 설정되고 시간이 자정으로 설정된 새 인스턴스를 반환합니다.
+두 번째와 세 번째 매개 변수에서 시간대 및 로케일 문자열을 허용합니다.
+
+::
 
     $myTime = Time::tomorrow('America/Chicago', 'en_US');
 
 createFromDate()
 ----------------
 
-Given separate inputs for **year**, **month**, and **day**, will return a new instance. If any of these parameters
-are not provided, it will use the current value to fill it in. Accepts strings for the timezone and locale in the
-fourth and fifth parameters::
+**year**, **month**, **day**\ 에 대해 별도의 입력이 주어지면 새 인스턴스가 반환됩니다.
+이러한 매개 변수 중 하나가 제공되지 않으면 현재 값을 사용하여 입력합니다.
+네 번째와 다섯 번째 매개 변수에서 시간대 및 로케일 문자열을 허용합니다.
+
+::
 
     $today       = Time::createFromDate();            // Uses current year, month, and day
     $anniversary = Time::createFromDate(2018);  // Uses current month and day
@@ -92,9 +104,11 @@ fourth and fifth parameters::
 createFromTime()
 ----------------
 
-Like **createFromDate** except it is only concerned with the **hours**, **minutes**, and **seconds**. Uses the
-current day for the date portion of the Time instance. Accepts strings for the timezone and locale in the
-fourth and fifth parameters::
+**createFromDate**\ 와 같으며, **hours**, **minutes**, **seconds**\ 에만 관련됩니다.
+Time 인스턴스의 날짜 부분에 현재 날짜를 사용합니다.
+네 번째와 다섯 번째 매개 변수에서 시간대 및 로케일 문자열을 허용합니다.
+
+::
 
     $lunch  = Time::createFromTime(11, 30)       // 11:30 am today
     $dinner = Time::createFromTime(18, 00, 00)  // 6:00 pm today
@@ -103,33 +117,40 @@ fourth and fifth parameters::
 create()
 --------
 
-A combination of the previous two methods, takes **year**, **month**, **day**, **hour**, **minutes**, and **seconds**
-as separate parameters. Any value not provided will use the current date and time to determine. Accepts strings for the
-timezone and locale in the fourth and fifth parameters::
+이전 두 방법의 조합으로 **year**, **month**, **day**, **hour**, **minutes**, **seconds**\ 를 별도의 매개 변수로 사용합니다.
+제공되지 않은 값은 현재 날짜와 시간을 사용하여 결정합니다.
+네 번째와 다섯 번째 매개 변수에서 시간대 및 로케일 문자열을 허용합니다.
+
+::
 
     $time = Time::create($year, $month, $day, $hour, $minutes, $seconds, $timezone, $locale);
 
 createFromFormat()
 ------------------
 
-This is a replacement for DateTime's method of the same name. This allows the timezone to be set at the same time,
-and returns a **Time** instance, instead of DateTime::
+이것은 같은 이름의 DateTime 메서드를 대체합니다. 
+이렇게하면 시간대를 동시에 설정할 수 있으며 DateTime 대신 **Time** 인스턴스를 반환합니다.
+
+::
 
     $time = Time::createFromFormat('j-M-Y', '15-Feb-2009', 'America/Chicago');
 
 createFromTimestamp()
 ---------------------
 
-This method takes a UNIX timestamp and, optionally, the timezone and locale, to create a new Time instance::
+이 메소드는 새로운 Time 인스턴스를 생성하기 위해 UNIX 타임스탬프를 사용하며, 옵션으로 시간대, 로케일을 사용합니다.
+
+::
 
     $time = Time::createFromTimestamp(1501821586, 'America/Chicago', 'en_US');
 
 instance()
 ----------
 
-When working with other libraries that provide a DateTime instance, you can use this method to convert that
-to a Time instance, optionally setting the locale. The timezone will be automatically determined from the DateTime
-instance passed in::
+DateTime 인스턴스를 제공하는 다른 라이브러리로 작업할 때 이 메서드를 사용하여 선택적으로 로케일을 설정하여 Time 인스턴스로 변환 할 수 있습니다. 
+시간대는 전달된 DateTime 인스턴스를 통하여 자동으로 결정됩니다.
+
+::
 
     $dt   = new DateTime('now');
     $time = Time::instance($dt, 'en_US');
@@ -137,26 +158,28 @@ instance passed in::
 toDateTime()
 ------------
 
-While not an instantiator, this method is the opposite of the **instance** method, allowing you to convert a Time
-instance into a DateTime instance. This preserves the timezone setting, but loses the locale, since DateTime is
-not aware of locales::
+인스턴스 생성기는 아니지만 이 메소드는 **instance** 메소드와 반대이므로 Time 인스턴스를 DateTime 인스턴스로 변환할 수 있습니다.
+DateTime에서 로케일을 인식하지 못하므로 시간대 설정은 유지되지만 로케일은 손실됩니다.
+
+::
 
     $datetime = Time::toDateTime();
 
 ====================
-Displaying the Value
+값 표시
 ====================
 
-Since the Time class extends DateTime, you get all of the output methods that provides, including the format() method.
-However, the DateTime methods do not provide a localized result. The Time class does provide a number of helper methods
-to display localized versions of the value, though.
+Time 클래스는 DateTime을 확장하므로 format() 메소드를 포함한 DateTime 클래스가 제공하는 모든 출력 메소드를 사용할 수 있습니다.
+그러나 DateTime 메서드는 지역화된 결과를 제공하지 않습니다. 
+Time 클래스는 현지화된 버전의 값을 표시하기 위한 여러 가지 헬퍼 메서드를 제공합니다.
 
 toLocalizedString()
 -------------------
 
-This is the localized version of DateTime's format() method. Instead of using the values you might be familiar with, though,
-you must use values acceptable to the `IntlDateFormatter <http://php.net/manual/en/class.intldateformatter.php>`__ class.
-A full listing of values can be found `here <http://www.icu-project.org/apiref/icu4c/classSimpleDateFormat.html#details>`__.
+현지화된 DateTime() 형식 메서드 버전입니다. 
+하지만 익숙한 값을 사용하는 대신 `IntlDateFormatter <http://php.net/manual/en/class.intldateformatter.php>`__ 클래스에 허용되는 값을 사용해야 합니다.
+전체 값 목록은 <http://www.icu-project.org/apiref/icu4c/classSimpleDateFormat.html#details>`__\ 에서 찾을 수 있습니다.
+
 ::
 
     $time = Time::parse('March 9, 2016 12:00:00', 'America/Chicago');
@@ -165,8 +188,10 @@ A full listing of values can be found `here <http://www.icu-project.org/apiref/i
 toDateTimeString()
 ------------------
 
-This is the first of three helper methods to work with the IntlDateFormatter without having to remember their values.
-This will return a string formatted as you would commonly use for datetime columns in a database (Y-m-d H:i:s)::
+이 메소드는 값을 기억하지 않고 ``IntlDateFormatter``\ 와 함께 작동하는 세 가지 도우미 메소드 중 첫 번째입니다.
+데이터베이스에서 datetime 열에 일반적으로 사용되는 형식의 문자열(Y-m-d H:i:s)을 반환합니다. 
+
+::
 
     $time = Time::parse('March 9, 2016 12:00:00', 'America/Chicago');
     echo $time->toDateTimeString();     // 2016-03-09 12:00:00
@@ -174,7 +199,9 @@ This will return a string formatted as you would commonly use for datetime colum
 toDateString()
 --------------
 
-Displays just the date portion of the Time::
+시간의 날짜 부분만 표시합니다.
+
+::
 
     $time = Time::parse('March 9, 2016 12:00:00', 'America/Chicago');
     echo $time->toDateTimeString();     // 2016-03-09
@@ -182,7 +209,9 @@ Displays just the date portion of the Time::
 toTimeString()
 --------------
 
-Displays just the time portion of the value::
+값의 시간 부분만 표시합니다.
+
+::
 
     $time = Time::parse('March 9, 2016 12:00:00', 'America/Chicago');
     echo $time->toTimeString();     // 12:00:00
@@ -190,16 +219,17 @@ Displays just the time portion of the value::
 humanize()
 ----------
 
-This methods returns a string that displays the difference between the current date/time and the instance in a
-human readable format that is geared towards being easily understood. It can create strings like '3 hours ago',
-'in 1 month', etc::
+이 메서드는 현재 날짜/시간과 인스턴스간의 차이를 사람이 읽을 수있는 형식으로 쉽게 이해할 수 있도록 표시하는 문자열을 반환합니다. 
+'3 hours ago', 'in 1 month'\ 등과 같은 문자열을 만들 수 있습니다.
+
+::
 
     // Assume current time is: March 10, 2017 (America/Chicago)
     $time = Time::parse('March 9, 2016 12:00:00', 'America/Chicago');
 
     echo $time->humanize();     // 1 year ago
 
-The exact time displayed is determined in the following manner:
+표시되는 정확한 시간은 다음과 같은 방식으로 결정됩니다.
 
 =============================== =================================
 Time difference                  Result
@@ -214,23 +244,24 @@ $time > now && < 1 hour          in 35 minutes / 35 minutes ago
 $time == now                     Now
 =============================== =================================
 
-The exact language used is controlled through the language file, Time.php.
+사용되는 언어는 언어 파일 ``Time.php``\ 를 통해 제어됩니다.
 
 ==============================
-Working with Individual Values
+개별 값으로 작업
 ==============================
 
-The Time object provides a number of methods to allow to get and set individual items, like the year, month, hour, etc,
-of an existing instance. All of the values retrieved through the following methods will be fully localized and respect
-the locale that the Time instance was created with.
+Time 객체는 기존 인스턴스의 연도, 월, 시간등과 같은 개별 항목을 가져오고 설정할 수있는 여러 가지 방법을 제공합니다.
+다음 방법을 통해 검색된 모든 값은 완전히 지역화되며 Time 인스턴스가 만들어진 로캐일을 따릅니다.
 
-All of the following `getX` and `setX` methods can also be used as if they were a class property. So, any calls to methods
-like `getYear` can also be accessed through `$time->year`, and so on.
+다음의 `getX`\ 와 `setX` 메소드는 모두 클래스 속성인 것처럼 사용할 수 있습니다.
+따라서 `getYear`\ 와 같은 메소드에 대한 모든 호출은 `$time->year`\ 등을 통해 액세스할 수 있습니다.
 
 Getters
 -------
 
-The following basic getters exist::
+다음과 같은 기본 게터(getter)를 제공합니다.
+
+::
 
     $time = Time::parse('August 12, 2016 4:15:23pm');
 
@@ -248,7 +279,9 @@ The following basic getters exist::
     echo $time->minute;         // 15
     echo $time->second;         // 23
 
-In addition to these, a number of methods exist to provide additional information about the date::
+이 외에도 날짜에 대한 추가 정보를 제공하는 여러 가지 방법이 있습니다.
+
+::
 
     $time = Time::parse('August 12, 2016 4:15:23pm');
 
@@ -269,8 +302,10 @@ In addition to these, a number of methods exist to provide additional informatio
 getAge()
 --------
 
-Returns the age, in years, of between the Time's instance and the current time. Perfect for checking
-the age of someone based on their birthday::
+Time 인스턴스와 현재 시간 사이의 나이를 년 단위로 반환합니다. 
+생일을 기준으로 누군가의 나이를 확인하는데 적합합니다.
+
+::
 
     $time = Time::parse('5 years ago');
 
@@ -280,7 +315,9 @@ the age of someone based on their birthday::
 getDST()
 --------
 
-Returns boolean true/false based on whether the Time instance is currently observing Daylight Savings Time::
+Time 인스턴스가 현재 일광 절약 시간(Daylight Savings Time)을 준수하는지 여부에 따라 부울 true / false를 반환합니다.
+
+::
 
     echo Time::createFromDate(2012, 1, 1)->getDst();     // false
     echo Time::createFromDate(2012, 9, 1)->dst;     // true
@@ -288,7 +325,9 @@ Returns boolean true/false based on whether the Time instance is currently obser
 getLocal()
 ----------
 
-Returns boolean true if the Time instance is in the same timezone as the application is currently running in::
+Time 인스턴스가 현재 애플리케이션이 실행되는 시간대와 동일한 시간대에 있으면 부울 true를 반환합니다.
+
+::
 
     echo Time::now()->getLocal();       // true
     echo Time::now('Europe/London');    // false
@@ -296,7 +335,9 @@ Returns boolean true if the Time instance is in the same timezone as the applica
 getUtc()
 --------
 
-Returns boolean true if the Time instance is in UTC time::
+Time 인스턴스가 UTC 시간인 경우 부울 true를 리턴합니다.
+
+::
 
     echo Time::now('America/Chicago')->getUtc();    // false
     echo Time::now('UTC')->utc;                     // true
@@ -304,8 +345,9 @@ Returns boolean true if the Time instance is in UTC time::
 getTimezone()
 -------------
 
-Returns a new `DateTimeZone <http://php.net/manual/en/class.datetimezone.php>`__ object set the timezone of the Time
-instance::
+Time 인스턴스의 시간대를 설정하는 새로운 `DateTimeZone <http://php.net/manual/en/class.datetimezone.php>`__ 객체를 반환합니다.
+
+::
 
     $tz = Time::now()->getTimezone();
     $tz = Time::now()->timezone;
@@ -316,7 +358,9 @@ instance::
 getTimezoneName()
 -----------------
 
-Returns the full `timezone string <http://php.net/manual/en/timezones.php>`__ of the Time instance::
+Time 인스턴스의 전체 `시간대 문자열 <http://php.net/manual/en/timezones.php>`__\ 을 반환합니다.
+
+::
 
     echo Time::now('America/Chicago')->getTimezoneName();   // America/Chicago
     echo Time::now('Europe/London')->timezoneName;          // Europe/London
@@ -324,12 +368,12 @@ Returns the full `timezone string <http://php.net/manual/en/timezones.php>`__ of
 Setters
 =======
 
-The following basic setters exist. If any of the values set are out of range, an ``InvalidArgumentExeption`` will be
-thrown.
+다음과 같은 기본 세터(setter)가 존재합니다. 
+설정된 값 중 하나가 범위를 벗어나면 ``InvalidArgumentExeption``\ 이 발생합니다.
 
-.. note:: All setters will return a new Time instance, leaving the original instance untouched.
+.. note:: 모든 세터는 새 인스턴스를 반환하고 원본 인스턴스는 그대로 유지합니다.
 
-.. note:: All setters will throw an InvalidArgumentException if the value is out of range.
+.. note:: 값이 범위를 벗어나면 모든 세터가 ``InvalidArgumentException``\ 을 발생시킵니다.
 
 ::
 
@@ -345,7 +389,9 @@ thrown.
 setTimezone()
 -------------
 
-Converts the time from it's current timezone into the new one::
+현재 시간대의 시간을 새로운 시간대로 변환합니다.
+
+::
 
     $time  = Time::parse('May 10, 2017', 'America/Chicago');
     $time2 = $time->setTimezone('Europe/London');           // Returns new instance converted to new timezone
@@ -356,7 +402,9 @@ Converts the time from it's current timezone into the new one::
 setTimestamp()
 --------------
 
-Returns a new instance with the date set to the new timestamp::
+날짜가 새 타임 스탬프로 설정된 새 인스턴스를 반환합니다.
+
+::
 
     $time = Time::parse('May 10, 2017', 'America/Chicago');
     $time2 = $time->setTimestamp(strtotime('April 1, 2017'));
@@ -364,11 +412,11 @@ Returns a new instance with the date set to the new timestamp::
     echo $time->toDateTimeString();     // 2017-05-10 00:00:00
     echo $time2->toDateTimeString();     // 2017-04-01 00:00:00
 
-Modifying the Value
+값 수정
 ===================
 
-The following methods allow you to modify the date by adding or subtracting values to the current Time. This will not
-modify the existing Time instance, but will return a new instance.
+다음 방법을 사용하면 현재 시간에 값을 더하거나 빼서 날짜를 수정할 수 있습니다.
+기존 Time 인스턴스는 수정하지 않지만 새 인스턴스를 반환합니다.
 
 ::
 
@@ -386,35 +434,39 @@ modify the existing Time instance, but will return a new instance.
     $time = $time->subMonths(14);
     $time = $time->subYears(5);
 
-Comparing Two Times
+두개의 시간 비교
 ===================
 
-The following methods allow you to compare one Time instance with another. All comparisons are first converted to UTC
-before comparisons are done, to ensure that different timezones respond correctly.
+다음 메소드를 사용하면 한 Time 인스턴스를 다른 Time 인스턴스와 비교할 수 있습니다.
+다른 시간대가 올바르게 응답할 수 있도록 비교전 모든 비교 데이타는 먼저 UTC로 변환됩니다.
 
 equals()
 --------
 
-Determines if the datetime passed in is equal to the current instance. Equal in this case means that they represent the
-same moment in time, and are not required to be in the same timezone, as both times are converted to UTC and compared
-that way::
+전달된 날짜/시간이 현재 인스턴스와 같은지 확인합니다.
+이 경우 동일하다는 것은 동일한 시간을 나타내며, 두 시간대 모두 UTC로 변환되어 비교되므로 동일한 시간대에 있지 않아도 됩니다.
+
+::
 
     $time1 = Time::parse('January 10, 2017 21:50:00', 'America/Chicago');
     $time2 = Time::parse('January 11, 2017 03:50:00', 'Europe/London');
 
     $time1->equals($time2);    // true
 
-The value being tested against can be a Time instance, a DateTime instance, or a string with the full date time in
-a manner that a new DateTime instance can understand. When passing a string as the first parameter, you can pass
-a timezone string in as the second parameter. If no timezone is given, the system default will be used::
+테스트중인 값은 Time 인스턴스, DateTime 인스턴스, 새 DateTime 인스턴스가 이해할 수있는 방식으로 전체 날짜 시간이 포함 된 문자열 일 수 있습니다.
+문자열을 첫 번째 매개 변수로 전달할 때 시간대 문자열을 두 번째 매개 변수로 전달할 수 있습니다.
+시간대를 지정하지 않으면 시스템 기본값이 사용됩니다.
+
+::
 
     $time1->equals('January 11, 2017 03:50:00', 'Europe/London');  // true
 
 sameAs()
 --------
 
-This is identical to the **equals** method, except that it only returns true when the date, time, AND timezone are
-all identical::
+날짜, 시간 및 시간대가 모두 동일한 경우에만 true를 리턴한다는 점을 제외하면 **equals** 메소드와 동일합니다.
+
+::
 
     $time1 = Time::parse('January 10, 2017 21:50:00', 'America/Chicago');
     $time2 = Time::parse('January 11, 2017 03:50:00', 'Europe/London');
@@ -425,8 +477,9 @@ all identical::
 isBefore()
 ----------
 
-Checks if the passed in time is before the the current instance. The comparison is done against the UTC versions of
-both times::
+전달된 시간이 현재 인스턴스 이전인지 확인합니다. 두 시간은 UTC로 변환후 비교가 이루어집니다.
+
+::
 
     $time1 = Time::parse('January 10, 2017 21:50:00', 'America/Chicago');
     $time2 = Time::parse('January 11, 2017 03:50:00', 'America/Chicago');
@@ -434,16 +487,20 @@ both times::
     $time1->isBefore($time2);  // true
     $time2->isBefore($time1);  // false
 
-The value being tested against can be a Time instance, a DateTime instance, or a string with the full date time in
-a manner that a new DateTime instance can understand. When passing a string as the first parameter, you can pass
-a timezone string in as the second parameter. If no timezone is given, the system default will be used::
+테스트중인 값은 Time 인스턴스, DateTime 인스턴스, 새 DateTime 인스턴스가 이해할 수있는 방식으로 전체 날짜 시간이 포함 된 문자열 일 수 있습니다.
+문자열을 첫 번째 매개 변수로 전달할 때 시간대 문자열을 두 번째 매개 변수로 전달할 수 있습니다.
+시간대를 지정하지 않으면 시스템 기본값이 사용됩니다
+
+::
 
     $time1->isBefore('March 15, 2013', 'America/Chicago');  // false
 
 isAfter()
 ---------
 
-Works exactly the same as **isBefore()** except checks if the time is after the time passed in::
+**isBefore()**\ 와 동일하게 작동합니다. 시간이 지났는지 확인합니다.
+
+::
 
     $time1 = Time::parse('January 10, 2017 21:50:00', 'America/Chicago');
     $time2 = Time::parse('January 11, 2017 03:50:00', 'America/Chicago');
@@ -451,12 +508,14 @@ Works exactly the same as **isBefore()** except checks if the time is after the 
     $time1->isAfter($time2);  // false
     $time2->isAfter($time1);  // true
 
-Viewing Differences
+차이점 보기
 ===================
 
-To compare two Times directly, you would use the **difference()** method, which returns a **CodeIgniter\I18n\TimeDifference**
-instance. The first parameter is either a Time instance, a DateTime instance, or a string with the date/time. If
-a string is passed in the first parameter, the second parameter can be a timezone string::
+두개의 시간을 직접 비교할 때 **difference()** 메소드를 사용하면 **CodeIgniter\I18n\TimeDifference** 인스턴스를 반환합니다.
+첫 번째 매개 변수는 Time 인스턴스, DateTime 인스턴스 또는 날짜/시간이 포함된 문자열입니다.
+문자열이 첫 번째 매개 변수에 전달되면 두 번째 매개 변수는 시간대 문자열일 수 있습니다.
+
+::
 
     $time = Time::parse('March 10, 2017', 'America/Chicago');
 
@@ -464,9 +523,10 @@ a string is passed in the first parameter, the second parameter can be a timezon
     $diff = $time->difference(new DateTime('July 4, 1975', 'America/Chicago');
     $diff = $time->difference('July 4, 1975 13:32:05', 'America/Chicago');
 
-Once you have the TimeDifference instance, you have several methods you can use to find information about the difference
-between the two times. The value returned will be negative if it was in the past, or positive if in the future from
-the original time::
+``TimeDifference`` 인스턴스가 있으면 두 시간의 차이에 대한 정보를 찾는데 사용할 수 있는 몇 가지 메소드가 있습니다.
+과거인 경우 반환된 값은 음수이고 원래 시간보다 미래인 경우 양수입니다.
+
+::
 
     $current = Time::parse('March 10, 2017', 'America/Chicago');
     $test    = Time::parse('March 10, 2010', 'America/Chicago');
@@ -481,7 +541,9 @@ the original time::
     echo $diff->getMinutes();   // -3682080
     echo $diff->getSeconds();   // -220924800
 
-You can use either **getX()** methods, or access the calculate values as if they were properties::
+**getX()** 메소드를 사용하거나, 속성처럼 계산 값에 액세스할 수 있습니다.
+
+::
 
     echo $diff->years;     // -7
     echo $diff->months;    // -84
@@ -494,9 +556,11 @@ You can use either **getX()** methods, or access the calculate values as if they
 humanize()
 ----------
 
-Much like Time's humanize() method, this returns a string that displays the difference between the times in a
-human readable format that is geared towards being easily understood. It can create strings like '3 hours ago',
-'in 1 month', etc. The biggest differences are in how very recent dates are handled::
+Time의 humanize() 메소드와 마찬가지로, 쉽게 이해할 수 있도록 사람이 읽을 수 있는 형식으로 두개의 시간 차이를 표시하는 문자열을 반환합니다.
+'3 hours ago', 'in 1 month'\ 등과 같은 문자열을 만들 수 있습니다.
+가장 큰 차이점은 최근 날짜를 처리하는 방법에 있습니다
+
+::
 
     $current = Time::parse('March 10, 2017', 'America/Chicago')
     $test    = Time::parse('March 9, 2016 12:00:00', 'America/Chicago');
@@ -505,7 +569,7 @@ human readable format that is geared towards being easily understood. It can cre
 
     echo $diff->humanize();     // 1 year ago
 
-The exact time displayed is determined in the following manner:
+표시되는 정확한 시간은 다음과 같은 방식으로 결정됩니다.
 
 =============================== =================================
 Time difference                  Result
@@ -519,4 +583,4 @@ $time > 1 minute && < 1 hour     in 35 minutes / 35 minutes ago
 $time < 1 minute                 Now
 =============================== =================================
 
-The exact language used is controlled through the language file, Time.php.
+사용되는 언어는 언어 파일 ``Time.php``\ 를 통해 제어됩니다.
