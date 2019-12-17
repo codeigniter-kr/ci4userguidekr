@@ -1,57 +1,52 @@
-##########
-Typography
-##########
+################
+타이포그래피
+################
 
-The Typography library contains methods that help you format text
-in semantically relevant ways.
+타이포그래피 라이브러리에는 의미적으로 관련된 방식으로 텍스트의 서식을 지정하는데 도움이 되는 메소드가 포함되어 있습니다.
 
 *******************
-Loading the Library
+라이브러리 로드
 *******************
 
-Like all services in CodeIgniter, it can be loaded via ``Config\Services``, though you usually will not need
-to load it manually::
+CodeIgniter의 다른 서비스와 마찬가지로 ``Config\Services``\ 를 통해 로드할 수 있지만, 일반적으로 수동으로 로드할 필요는 없습니다.
+
+::
 
     $typography = \Config\Services::typography();
 
 **************************
-Available static functions
+사용 가능한 정적 함수
 **************************
 
-The following functions are available:
+다음 기능을 사용할 수 있습니다:
 
 **autoTypography()**
 
 .. php:function:: autoTypography($str[, $reduce_linebreaks = FALSE])
 
-	:param	string	$str: Input string
-	:param	bool	$reduce_linebreaks: Whether to reduce multiple instances of double newlines to two
+	:param	string	$str: 입력 문자열
+	:param	bool	$reduce_linebreaks: 이중 개행의 여러 인스턴스를 2개로 줄일지 여부
 	:returns:	HTML-formatted typography-safe string
 	:rtype: string
 
-	Formats text so that it is semantically and typographically correct
-	HTML.
+	텍스트를 변형하여 의미론적으로 정확한 HTML을 만듭니다.
 
 	Usage example::
 
 		$string = $typography->autoTypography($string);
 
-	.. note:: Typographic formatting can be processor intensive, particularly if
-		you have a lot of content being formatted. If you choose to use this
-		function you may want to consider :doc:`caching <../general/caching>` your
-		pages.
+	.. note:: Typographic 형식은 특히 많은 콘텐츠를 포맷하는 경우 프로세서를 많이 사용할 수 있습니다. 
+		이 기능을 사용하기로 했다면 :doc:`caching <../general/caching>` 페이지를 고려하십시오.
 
 **formatCharacters()**
 
 .. php:function:: formatCharacters($str)
 
-	:param	string	$str: Input string
-	:returns:	String with formatted characters.
+	:param	string	$str: 입력 문자열
+	:returns:	형식이 지정된 문자가 포함된 문자열
 	:rtype:	string
 
-	This function mainly converts double and single quotes
-	to curly entities, but it also converts em-dashes,
-	double spaces, and ampersands.
+	이 함수는 주로 큰 따옴표와 작은 따옴표를 중괄호로 변환하지만 em-dashes, 이중 공백(double spaces), 앰퍼샌드(&)도 변환합니다.
 
 	Usage example::
 
@@ -61,13 +56,12 @@ The following functions are available:
 
 .. php:function:: nl2brExceptPre($str)
 
-	:param	string	$str: Input string
+	:param	string	$str: 입력 문자열
 	:returns:	String with HTML-formatted line breaks
 	:rtype:	string
 
-	Converts newlines to <br /> tags unless they appear within <pre> tags.
-	This function is identical to the native PHP ``nl2br()`` function,
-	except that it ignores <pre> tags.
+	줄 바꿈이 <pre> 태그내에 나타나지 않으면 개행을 <br /> 태그로 변환합니다.
+	이 함수는 <pre> 태그를 무시한다는 점을 제외하면 PHP 네이티브 ``nl2br()`` 함수와 동일합니다.
 
 	Usage example::
 

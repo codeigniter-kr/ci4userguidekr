@@ -1,50 +1,59 @@
 ***************************
-Working with Uploaded Files
+업로드된 파일 작업
 ***************************
 
-CodeIgniter makes working with files uploaded through a form much simpler and more secure than using PHP's ``$_FILES``
-array directly. This extends the :doc:`File class </libraries/files>` and thus gains all of the features of that class.
+CodeIgniter는 PHP의 ``$_FILES`` 배열을 직접 사용하는 것보다 훨씬 간단하고 안전한 형식으로 업로드된 파일로 작업합니다.
+이것은 :doc:`파일 클래스 </libraries/files>`\ 를 확장하며, 해당 클래스의 모든 기능을 사용할 수 있습니다.
 
-.. note:: This is not the same as the File Uploading class in previous versions of CodeIgniter. This provides a raw
-	interface to the uploaded files with a few small features.
+.. note:: 이 클래스는 이전 버전의 CodeIgniter의 파일 업로드 클래스와 동일하지 않으며, 몇 가지 작은 기능으로 업로드된 파일에 대한 원시 인터페이스를 제공합니다.
 
 .. contents::
     :local:
     :depth: 2
 
 ===============
-Accessing Files
+파일 접근
 ===============
 
 All Files
 ----------
 
-When you upload files they can be accessed natively in PHP through the ``$_FILES`` superglobal. This array has some
-major shortcomings when working with multiple files uploaded at once, and has potential security flaws many developers
-are not aware of. CodeIgniter helps with both of these situations by standardizing your usage of files behind a
-common interface.
+파일을 업로드하면 슈퍼 글로벌 ``$_FILES``\ 을 통해 PHP에서 업로드된 파일에 액세스할 수 있습니다.
+이 배열은 한 번에 업로드된 여러 파일을 작업할 때 몇 가지 중요한 단점이 있으며, 많은 개발자가 알지 못하는 잠재적인 보안 결함이 있습니다.
+CodeIgniter는 공통 인터페이스뒤에서 파일 사용을 표준화하여 이러한 상황을 모두 지원합니다.
 
-Files are accessed through the current ``IncomingRequest`` instance. To retrieve all files that were uploaded with this
-request, use ``getFiles()``. This will return an array of files represented by instances of ``CodeIgniter\HTTP\Files\UploadedFile``::
+업로드된 파일은 ``IncomingRequest`` 인스턴스를 통해 액세스됩니다.
+이 요청을 통해 업로드된 모든 파일을 검색하려면 ``getFiles()``\ 를 사용하십시오.
+``CodeIgniter\HTTP\Files\UploadedFile``\ 의 인스턴스로 표시되는 파일 배열을 반환합니다.
+
+::
 
 	$files = $this->request->getFiles();
 
-Of course, there are multiple ways to name the file input, and anything but the simplest can create strange results.
-The array returns in a manner that you would expect. With the simplest usage, a single file might be submitted like::
+물론, 파일 입력의 이름을 지정하는 방법은 여러 가지가 있으며 가장 간단한 것 이외의 것은 이상한 결과를 만들 수 있습니다.
+사용자가 원하는 방식으로 배열이 반환됩니다. 가장 간단한 사용법으로 단일 파일은 다음과 같이 제출됩니다.
+
+::
 
 	<input type="file" name="avatar" />
 
-Which would return a simple array like::
+다음과 같은 간단한 배열을 반환합니다.
+
+::
 
 	[
 		'avatar' => // UploadedFile instance
 	]
 
-If you used an array notation for the name, the input would look something like::
+이름에 배열 표기법을 사용한 경우 입력은 다음과 같습니다.
+
+::
 
 	<input type="file" name="my-form[details][avatar]" />
 
-The array returned by ``getFiles()`` would look more like this::
+``getFiles()``\ 에 의해 반환된 배열은 다음과 같습니다.
+
+::
 
 	[
 		'my-form' => [
@@ -54,12 +63,16 @@ The array returned by ``getFiles()`` would look more like this::
 		]
 	]
 
-In some cases, you may specify an array of files to upload::
+경우에 따라 업로드할 파일 배열을 지정할 수 있습니다.
+
+::
 
 	Upload an avatar: <input type="file" name="my-form[details][avatars][]" />
 	Upload an avatar: <input type="file" name="my-form[details][avatars][]" />
 
-In this case, the returned array of files would be more like::
+이 경우 반환 된 파일 배열은
+
+::
 
 	[
 		'my-form' => [
@@ -71,40 +84,54 @@ In this case, the returned array of files would be more like::
 		]
 	]
 
-Single File
------------
+단일 파일
+--------------
 
-If you just need to access a single file, you can use ``getFile()`` to retrieve the file instance directly. This will return an instance of ``CodeIgniter\HTTP\Files\UploadedFile``:
+단일 파일에 액세스해야 하는 경우 ``getFile()``\ 을 사용하여 파일 인스턴스를 직접 검색 할 수 있습니다. 
+``CodeIgniter\HTTP\Files\UploadedFile``\ 의 인스턴스를 반환합니다.
 
-Simplest usage
-^^^^^^^^^^^^^^
+가장 간단한 사용법
+^^^^^^^^^^^^^^^^^^^^^^^
 
-With the simplest usage, a single file might be submitted like::
+가장 간단한 사용법으로 단일 파일은 다음과 같이 제출(submit)될 수 있습니다.
+
+::
 
 	<input type="file" name="userfile" />
 
-Which would return a simple file instance like::
+다음과 같은 간단한 파일 인스턴스를 반환합니다.
+
+::
 
 	$file = $this->request->getFile('userfile');
 
-Array notation
-^^^^^^^^^^^^^^
+배열 표기법
+^^^^^^^^^^^^^^^^
 
-If you used an array notation for the name, the input would look something like::
+이름에 배열 표기법을 사용한 경우 입력은 다음과 같습니다.
+
+::
 
 	<input type="file" name="my-form[details][avatar]" />
 
-For get the file instance::
+파일 인스턴스를 얻으려면
+
+::
 
 	$file = $this->request->getFile('my-form.details.avatar');
 
-Multiple files
+다중 파일
 ^^^^^^^^^^^^^^
+
+HTML에서
+
 ::
 
     <input type="file" name="images[]" multiple />
 
-In controller::
+컨트롤러에서
+
+::
 
     if($imagefile = $this->request->getFiles())
     {
@@ -118,51 +145,60 @@ In controller::
        }
     }
 
-where the **images** is loop is from the form field name
+**images**\ 가 루프인 경우 폼(form) 필드 이름입니다.
 
-If there are multiple files with the same name you can use ``getFile()`` ro retrieve every file individually::
-In controller::
+이름이 같은 파일이 여러 개 있으면 ``getFile()``\ 을 사용하여 모든 파일을 개별적으로 검색할 수 있습니다.
+
+컨트롤러에서
+
+::
 
 	$file1 = $this->request->getFile('images.0');
 	$file2 = $this->request->getFile('images.1');
 
-You might find it easier to use ``getFileMultiple()``, to get an array of uploaded files with the same name::
+``getFileMultiple()``\ 을 사용하여 같은 이름으로  업로드된 파일의 배열을 얻는 것이 더 쉬울 수 있습니다.
+
+::
 
 	$files = $this->request->getFileMultiple('images');
 
 
-Another example::
+다른 예제
+
+::
 
 	Upload an avatar: <input type="file" name="my-form[details][avatars][]" />
 	Upload an avatar: <input type="file" name="my-form[details][avatars][]" />
 
-In controller::
+컨트롤러에서
+
+::
 
 	$file1 = $this->request->getFile('my-form.details.avatars.0');
 	$file2 = $this->request->getFile('my-form.details.avatars.1');
 
-.. note:: using ``getFiles()`` is more appropriate
+.. note:: ``getFiles()``\ 를 사용하는 것이 더 적절합니다.
 
 =====================
-Working With the File
+파일 작업
 =====================
 
-Once you've retrieved the UploadedFile instance, you can retrieve information about the file in safe ways, as well as
-move the file to a new location.
+UploadedFile 인스턴스를 검색한 후에는 파일에 대한 정보를 안전한 방법으로 검색하고 파일을 새 위치로 옮길 수 있습니다.
 
-Verify A File
+파일 확인
 -------------
 
-You can check that a file was actually uploaded via HTTP with no errors by calling the ``isValid()`` method::
+``isValid()`` 메소드를 호출하여 파일이 실제로 HTTP를 통해 오류없이 업로드되었는지 확인할 수 있습니다.
+
+::
 
 	if (! $file->isValid())
 	{
 		throw new RuntimeException($file->getErrorString().'('.$file->getError().')');
 	}
 
-As seen in this example, if a file had an upload error, you can retrieve the error code (an integer) and the error
-message with the ``getError()`` and ``getErrorString()`` methods. The following errors can be discovered through
-this method:
+As seen in this example, if a file had an upload error, you can retrieve the error code (an integer) and the error message with the ``getError()`` and ``getErrorString()`` methods. 
+The following errors can be discovered through this method:
 
 * The file exceeds your upload_max_filesize ini directive.
 * The file exceeds the upload limit defined in your form.
@@ -172,96 +208,135 @@ this method:
 * File could not be uploaded: missing temporary directory.
 * File upload was stopped by a PHP extension.
 
-File Names
+이 예제에서 볼 수 있듯이 파일에 업로드 오류가 있는 경우 ``getError()``\ 와 ``getErrorString()`` 메소드를 사용하여 오류 코드(정수)와 오류 메시지를 검색할 수 있습니다.
+이 방법을 통해 다음과 같은 오류를 발견할 수 있습니다.
+
+* 파일이 ini 지시문의 upload_max_filesize를 초과합니다.
+* 파일이 폼에 정의된 업로드 한도를 초과합니다.
+* 파일이 부분적으로 업로드되었습니다.
+* 파일이 업로드되지 않았습니다.
+* 파일을 디스크에 쓸 수 없습니다.
+* 파일을 업로드할 수 없습니다 : 임시 디렉토리가 없습니다.
+* PHP 확장자가 포함되어 파일 업로드가 중지되었습니다.
+
+파일 이름
 ----------
 
 **getName()**
 
-You can retrieve the original filename provided by the client with the ``getName()`` method. This will typically be the
-filename sent by the client, and should not be trusted. If the file has been moved, this will return the final name of
-the moved file::
+``getName()`` 메소드를 사용하여 클라이언트가 제공한 원래 파일 이름을 검색 할 수 있습니다. 
+이것은 일반적으로 클라이언트가 전송한 파일 이름이므로 신뢰할 수 없습니다. 
+파일이 이동된 경우 이동된 파일의 최종 이름을 반환합니다.
+
+::
 
 	$name = $file->getName();
 
 **getClientName()**
 
-Always returns the original name of the uploaded file as sent by the client, even if the file has been moved::
+파일이 이동된 경우에도 클라이언트가 전송한대로 업로드된 파일의 원래 이름을 반환합니다.
+
+::
 
   $originalName = $file->getClientName();
 
 **getTempName()**
 
-To get the full path of the temp file that was created during the upload, you can use the ``getTempName()`` method::
+업로드중에 생성된 임시 파일의 전체 경로를 얻으려면 ``getTempName()`` 메소드를 사용합니다.
+
+::
 
 	$tempfile = $file->getTempName();
 
-Other File Info
----------------
+파일의 다른 정보
+---------------------
 
 **getClientExtension()**
 
-Returns the original file extension, based on the file name that was uploaded. This is NOT a trusted source. For a
-trusted version, use ``getExtension()`` instead::
+업로드된 파일 이름을 기준으로 원본 파일 확장자를 반환합니다.
+신뢰할 수 없습니다.
+신뢰할 수 있는 확장자는 원한다면 ``getExtension()``\ 을 사용하십시오.
+
+::
 
 	$ext = $file->getClientExtension();
 
 **getClientMimeType()**
 
-Returns the mime type (mime type) of the file as provided by the client. This is NOT a trusted value. For a trusted
-version, use ``getMimeType()`` instead::
+Returns the mime type (mime type) of the file as provided by the client. 
+This is NOT a trusted value. 
+For a trusted version, use ``getMimeType()`` instead
+클라이언트가 제공한 파일의 MIME 유형 (MIM 유형)을 리턴합니다.
+신뢰할 수 없습니다.
+신뢰할 수 있는 MIME 유형을 원한다면 ``getMimeType()``\ 을 사용하십시오.
+
+::
 
 	$type = $file->getClientMimeType();
 
 	echo $type; // image/png
 
-Moving Files
+파일 이동
 ------------
 
-Each file can be moved to its new location with the aptly named ``move()`` method. This takes the directory to move
-the file to as the first parameter::
+각 파일은 적절하게 이름이 지정된 ``move()`` 메소드를 사용하여 새 위치로 이동할 수 있습니다.
+첫 번째 매개 변수로 디렉토리와 함께 사용하여 파일명을 전달하여 이동시킵니다.
+
+::
 
 	$file->move(WRITEPATH.'uploads');
 
-By default, the original filename was used. You can specify a new filename by passing it as the second parameter::
+기본적으로 원래 파일 이름이 사용됩니다. 
+두 번째 매개 변수로 새 파일 이름을 전달하여 수정할 수 있습니다
+
+::
 
 	$newName = $file->getRandomName();
 	$file->move(WRITEPATH.'uploads', $newName);
 
-Once the file has been removed the temporary file is deleted. You can check if a file has been moved already with
-the ``hasMoved()`` method, which returns a boolean::
+파일이 제거되면 임시 파일이 삭제됩니다.
+부울을 반환하는 ``hasMoved()`` 메소드로 파일이 이동했는지 확인할 수 있습니다.
+
+::
 
     if ($file->isValid() && ! $file->hasMoved())
     {
         $file->move($path);
     }
 
-Moving an uploaded file can fail, with an HTTPException, under several circumstances:
+다음과 같은 경우 업로드된 파일을 ``HTTP/Exception``\ 이 발생하며 이동하지 못할 수 있습니다.
 
-- the file has already been moved
-- the file did not upload successfully
-- the file move operation fails (eg. improper permissions)
+- 파일이 이미 이동되었습니다
+- 파일이 성공적으로 업로드되지 않았습니다
+- 파일 이동 작업이 실패합니다 (예 : 부적절한 권한)
 
-Store Files
+파일 저장
 ------------
 
-Each file can be moved to its new location with the aptly named ``store()`` method.
+각 파일은 ``store()`` 메소드를 사용하여 새 위치로 이동할 수 있습니다.
 
-With the simplest usage, a single file might be submitted like::
+가장 간단한 사용법으로 단일 파일이 다음과 같이 제출(submit)될 수 있습니다.
+
+::
 
 	<input type="file" name="userfile" />
 
-By default, Upload files are saved in writable/uploads directory. the YYYYMMDD folder
-and random file name will be created. return a file path::
+기본적으로 업로드 파일은 쓰기 가능한 업로드 디렉토리에 저장됩니다.
+YYYYMMDD 폴더와 같은 임의의 파일 이름이 생성되고 파일 경로를 반환합니다.
+
+::
 
 	$path = $this->request->getFile('userfile')->store();
 
-You can specify directory to movethe file to as the first parameter.a new filename by
-passing it as thesecond parameter::
+첫 번째 매개 변수로 파일이 이동할 디렉토리를 지정할 수 있습니다. 
+새 파일 이름은 두 번째 매개 변수로 전달합니다.
+
+::
 
 	$path = $this->request->getFile('userfile')->store('head_img/', 'user_name.jpg');
 
-Moving an uploaded file can fail, with an HTTPException, under several circumstances:
+다음과 같은 경우 업로드된 파일을 ``HTTP/Exception``\ 이 발생하며 이동하지 못할 수 있습니다.
 
-- the file has already been moved
-- the file did not upload successfully
-- the file move operation fails (eg. improper permissions)
+- 파일이 이미 이동되었습니다
+- 파일이 성공적으로 업로드되지 않았습니다
+- 파일 이동 작업이 실패합니다 (예 : 부적절한 권한)
