@@ -1,68 +1,58 @@
-Validation
-##################################################
+############################
+유효성 검사(Validation)
+############################
 
-CodeIgniter provides a comprehensive data validation class that
-helps minimize the amount of code you'll write.
+CodeIgniter는 작성하는 코드의 양을 최소화하는데 도움이되는 포괄적인 데이터 유효성 검사 클래스를 제공합니다.
 
 .. contents::
     :local:
     :depth: 2
 
-Overview
+개요
 ************************************************
 
-Before explaining CodeIgniter's approach to data validation, let's
-describe the ideal scenario:
+CodeIgniter의 데이터 유효성 검사 접근 방식을 설명하기 전에 이상적인 시나리오를 설명하겠습니다.
 
-#. A form is displayed.
-#. You fill it in and submit it.
-#. If you submitted something invalid, or perhaps missed a required
-   item, the form is redisplayed containing your data along with an
-   error message describing the problem.
-#. This process continues until you have submitted a valid form.
+#. 폼(form)이 표시됩니다.
+#. 작성하여 제출합니다.
+#. 잘못된 것을 제출했거나 필요한 항목이 빠진 경우 문제를 설명하는 오류 메시지와 함께 데이터가 포함된 폼이 다시 표시됩니다.
+#. 이 과정은 유효한 양식을 제출할 때까지 계속됩니다.
 
-On the receiving end, the script must:
+수신 측에서 스크립트는 다음을 수행해야 합니다.
 
-#. Check for required data.
-#. Verify that the data is of the correct type, and meets the correct
-   criteria. For example, if a username is submitted it must be
-   validated to contain only permitted characters. It must be of a
-   minimum length, and not exceed a maximum length. The username can't
-   be someone else's existing username, or perhaps even a reserved word.
-   Etc.
-#. Sanitize the data for security.
-#. Pre-format the data if needed (Does the data need to be trimmed? HTML
-   encoded? Etc.)
-#. Prep the data for insertion in the database.
+#. 필요한 데이터를 확인합니다.
+#. 데이터가 올바른 유형이고 올바른 기준을 충족하는지 확인합니다.
+   예를 들어, 사용자 이름이 제출되면 허용된 문자만 포함하도록 사용자 이름을 검증해야 합니다. 
+   최소 길이 여야하며 최대 길이를 초과하지 않아야 합니다. 
+   사용자 이름은 다른 사람의 기존 사용자 이름이거나 예약어일 수 없습니다. 
+   기타.
+#. 보안을 위해 데이터를 삭제합니다.
+#. 필요한 경우 데이터를 사전 형식화합니다. (데이터를 다듬어야합니까? HTML로 인코딩되어 있습니까? 등)
+#. 데이터베이스에 추가할 데이터를 준비하십시오.
 
-Although there is nothing terribly complex about the above process, it
-usually requires a significant amount of code, and to display error
-messages, various control structures are usually placed within the form
-HTML. Form validation, while simple to create, is generally very messy
-and tedious to implement.
+위의 프로세스는 매우 복잡한 것은 없지만 일반적으로 상당한 양의 코드가 필요하며, 오류 메시지를 표시하기 위해 다양한 제어 구조가 HTML 형식으로 배치됩니다. 
+폼 유효성 검사는 작성하기는 쉽지만 구현하기가 매우 지저분하고 지루합니다.
 
-Form Validation Tutorial
-************************************************
+폼 검증 튜토리얼
+**************************
 
-What follows is a "hands on" tutorial for implementing CodeIgniter's Form
-Validation.
+다음은 CodeIgniter의 폼 유효성 검사를 구현하기 위한 "실습" 자습서입니다.
 
-In order to implement form validation you'll need three things:
+양식 유효성 검사를 구현하려면 다음 세 가지가 필요합니다.
 
-#. A :doc:`View </outgoing/views>` file containing a form.
-#. A View file containing a "success" message to be displayed upon
-   successful submission.
-#. A :doc:`controller </incoming/controllers>` method to receive and
-   process the submitted data.
+#. 폼이 포함된 :doc:`뷰 </outgoing/views>` 파일.
+#. 제출(submit) 성공시 표시될 "성공" 메시지가 포함된 뷰 파일.
+#. 제출된 데이터를 수신하고 처리하는 :doc:`컨트롤러 </incoming/controllers>` 메소드
 
-Let's create those three things, using a member sign-up form as the
-example.
+회원 가입 폼을 예로 사용하여 이 세 가지를 만들어 봅시다.
 
-The Form
-================================================
+폼(Form)
+==============
 
-Using a text editor, create a form called **Signup.php**. In it, place this
-code and save it to your **app/Views/** folder::
+에디터를 사용하여 **Signup.php**\ 라는 폼을 만듭니다.
+여기에 이 코드를 넣고 **app/Views/** 폴더에 저장합니다.
+
+::
 
 	<html>
 	<head>
@@ -93,11 +83,14 @@ code and save it to your **app/Views/** folder::
 	</body>
 	</html>
 
-The Success Page
-================================================
+성공 페이지
+==================
 
-Using a text editor, create a form called **Success.php**. In it, place
-this code and save it to your **app/Views/** folder::
+
+에디터를 사용하여 **Success.php**\ 라는 폼을 작성합니다.
+여기에 이 코드를 넣고 **app/Views/** 폴더에 저장합니다.
+
+::
 
 	<html>
 	<head>
@@ -112,11 +105,13 @@ this code and save it to your **app/Views/** folder::
 	</body>
 	</html>
 
-The Controller
-================================================
+컨트롤러
+===============
 
-Using a text editor, create a controller called **Form.php**. In it, place
-this code and save it to your **app/Controllers/** folder::
+에디터를 사용하여 **Form.php**\ 라는 컨트롤러를 만듭니다.
+여기에 이 코드를 넣고 **app/Controllers/** 폴더에 저장합니다.
+
+::
 
 	<?php namespace App\Controllers;
 
@@ -142,91 +137,93 @@ this code and save it to your **app/Controllers/** folder::
 	}
 
 Try it!
-================================================
+===============
 
-To try your form, visit your site using a URL similar to this one::
+폼을 사용하려면 아래와 비슷한 URL을 사용하여 사이트를 방문합니다.
+
+::
 
 	example.com/index.php/form/
 
-If you submit the form you should simply see the form reload. That's
-because you haven't set up any validation rules yet.
+폼을 제출하면 폼이 새로 고침됩니다.
+아직 유효성 검사 규칙을 설정하지 않았기 때문입니다.
 
-**Since you haven't told the Validation class to validate anything
-yet, it returns false (boolean false) by default. The** ``validate()`` **method
-only returns true if it has successfully applied your rules without any
-of them failing.**
+**Validation 클래스에 아직 유효성을 검사하도록 지시하지 않았기 때문에 기본적으로 false(부울 false)를 반환합니다.**
 
-Explanation
-================================================
+``validate()`` **메서드는 규칙이 실패하지 않고 규칙을 성공적으로 적용한 경우에만 true를 반환합니다.**
 
-You'll notice several things about the above pages:
+설명
+============
 
-The form (Signup.php) is a standard web form with a couple of exceptions:
+위 페이지에 대해 몇 가지 사항을 알 수 있습니다.
 
-#. It uses a form helper to create the form opening. Technically, this
-   isn't necessary. You could create the form using standard HTML.
-   However, the benefit of using the helper is that it generates the
-   action URL for you, based on the URL in your config file. This makes
-   your application more portable in the event your URLs change.
-#. At the top of the form you'll notice the following function call:
-   ::
+폼(Signup.php)은 몇 가지 예외가 있는 표준 웹폼입니다.
 
-	<?= $validation->listErrors() ?>
+#. 폼 헬퍼를 사용하여 폼 열기를 만듭니다. 기술적으로는 필요하지 않습니다. 
+   표준 HTML을 사용하여 양식을 작성할 수 있습니다. 
+   그러나 헬퍼를 사용하면 구성 파일의 URL을 기반으로 action URL이 생성된다는 이점이 있습니다. 
+   이렇게 하면 URL이 변경될 때 애플리케이션의 이식성이 향상됩니다.
+#. 폼 상단에 다음 함수 호출이 있습니다.
 
-   This function will return any error messages sent back by the
-   validator. If there are no messages it returns an empty string.
+    ::
 
-The controller (Form.php) has one method: ``index()``. This method
-uses the Controller-provided validate method and loads the form helper and URL
-helper used by your view files. It also runs the validation routine.
-Based on whether the validation was successful it either presents the
-form or the success page.
+    <?= $validation->listErrors() ?>
 
-Loading the Library
-================================================
+    이 함수는 유효성 검사에서 보낸 모든 오류 메시지를 반환합니다.
+    메시지가 없으면 빈 문자열을 반환합니다.
 
-The library is loaded as a service named **validation**::
+컨트롤러(Form.php))에는 ``index()`` 메소드가 있습니다.
+이 메소드는 컨트롤러가 제공하는 유효성 검증 메소드를 사용하고 뷰 파일에서 사용하는 폼 헬퍼 및 URL 헬퍼를 로드합니다.
+유효성 검사 루틴도 실행합니다.
+유효성 검사 성공 여부에 따라 폼 또는 성공 페이지를 표시합니다.
+
+라이브러리 로드
+====================
+
+라이브러리는 **validation** 서비스로 로드됩니다.
+
+::
 
     $validation =  \Config\Services::validation();
 
-This automatically loads the ``Config\Validation`` file which contains settings
-for including multiple Rulesets, and collections of rules that can be easily reused.
+그러면 여러 규칙 세트를 포함하기 위한 설정과 쉽게 재사용할 수있는 규칙 모음이 포함된 ``Config\Validation`` 파일이 자동으로 로드됩니다.
 
-.. note:: You may never need to use this method, as both the :doc:`Controller </incoming/controllers>` and
-    the :doc:`Model </models/model>` provide methods to make validation even easier.
+.. note:: :doc:`컨트롤러 </incoming/controllers>`\ 와 :doc:`모델 </models/model>` 모두 검증을 보다 쉽게 수행할 수 있는 메소드를 제공하므로 이 메소드를 사용할 필요가 없습니다.
 
-Setting Validation Rules
+유효성 검사 규칙 설정
 ================================================
 
-CodeIgniter lets you set as many validation rules as you need for a
-given field, cascading them in order. To set validation rules you
-will use the ``setRule()``, ``setRules()``, or ``withRequest()``
-methods.
+CodeIgniter를 사용하면 주어진 필드에 필요한 만큼의 유효성 검사 규칙을 순서대로 설정할 수 있습니다.
+유효성 검사 규칙을 설정하려면 ``setRule()``, ``setRules()``, ``withRequest()`` 메서드를 사용합니다.
 
 setRule()
 ---------
 
-This method sets a single rule. It takes the name of the field as
-the first parameter, an optional label and a string with a pipe-delimited list of rules
-that should be applied::
+이 메소드는 단일 규칙을 설정합니다. 
+필드 이름을 첫 번째 매개 변수, 선택적 레이블 및 파이프(|)로 구분된 적용 규칙 목록을 문자열로 전달합니다.
+
+::
 
     $validation->setRule('username', 'Username', 'required');
 
-The **field name** must match the key of any data array that is sent in. If
-the data is taken directly from $_POST, then it must be an exact match for
-the form input name.
+**field name**\ 은 전송된 모든 데이터 배열의 키와 일치해야 합니다.
+데이터가 $_POST에서 직접 가져온 경우 폼 입력 이름과 정확히 일치해야 합니다.
 
 setRules()
 ----------
 
-Like, ``setRule()``, but accepts an array of field names and their rules::
+``setRule()``\ 과 비슷하지만 필드 이름 배열과 규칙을 허용합니다.
+
+::
 
     $validation->setRules([
         'username' => 'required',
         'password' => 'required|min_length[10]'
     ]);
 
-To give a labeled error message you can setup as::
+지정된 오류 메시지를 레이블을 제공하려면 다음과 같이 설정합니다.
+
+::
 
     $validation->setRules([
         'username' => ['label' => 'Username', 'rules' => 'required'],
@@ -236,22 +233,23 @@ To give a labeled error message you can setup as::
 withRequest()
 -------------
 
-One of the most common times you will use the validation library is when validating
-data that was input from an HTTP Request. If desired, you can pass an instance of the
-current Request object and it will take all of the input data and set it as the
-data to be validated::
+유효성 검사 라이브러리는 HTTP 요청에서 입력된 데이터를 유효성 검사 할 때 가장 일반적으로 사용됩니다.
+Request 객체의 인스턴스를 전달하면, 모든 입력 데이터를 가져 와서 유효성을 검사할 데이터로 설정합니다.
+
+::
 
     $validation->withRequest($this->request)
                ->run();
 
-Working with Validation
-************************************************
+검증 작업
+****************
 
-Validating Keys that are Arrays
+배열 키 검증
 ================================================
 
-If your data is in a nested associative array, you can use "dot array syntax" to
-easily validate your data::
+데이터가 중첩된 연관 배열dms "dot array syntax"\ 를 사용하여 데이터의 유효성을 쉽게 검증할 수 있습니다.
+
+::
 
     // The data to test:
     'contacts' => [
@@ -276,36 +274,41 @@ easily validate your data::
         'contacts.friends.name' => 'required'
     ]);
 
-You can use the '*' wildcard symbol to match any one level of the array::
+'*' 와일드 카드 기호를 사용하여 한 수준(one level)의 배열과 일치시킬 수 있습니다.
+
+::
 
     // Fred Flintsone & Wilma
     $validation->setRules([
         'contacts.*.name' => 'required'
     ]);
 
-Validate 1 Value
-================================================
+하나의 값 확인
+=======================
 
-Validate one value against a rule::
+규칙에 대해 하나의 값을 확인합니다.
+
+::
 
     $validation->check($value, 'required');
 
-Saving Sets of Validation Rules to the Config File
-=======================================================
+구성 파일에 유효성 검사 규칙 저장
+==================================
 
-A nice feature of the Validation class is that it permits you to store all
-your validation rules for your entire application in a config file. You organize
-the rules into "groups". You can specify a different group every time you run
-the validation.
+Validation 클래스의 좋은 기능은 애플리케이션 전체에 대한 모든 유효성 검사 규칙을 구성 파일에 저장할 수 있다는 것입니다.
+규칙을 "그룹"\ 으로 구성합니다.
+유효성 검사를 실행할 때마다 다른 그룹을 지정할 수 있습니다.
 
 .. _validation-array:
 
-How to save your rules
--------------------------------------------------------
+규칙을 저장하는 방법
+---------------------------
 
-To store your validation rules, simply create a new public property in the ``Config\Validation``
-class with the name of your group. This element will hold an array with your validation
-rules. As shown earlier, the validation array will have this prototype::
+유효성 검사 규칙을 저장하려면 ``Config\Validation`` 클래스에 그룹 이름으로 새로운 공용 속성을 만들면 됩니다.
+이 요소는 유효성 검사 규칙이있는 배열을 보유합니다. 
+다음은 유효성 검사 배열에 대한 프로토 타입입니다.
+
+::
 
     class Validation
     {
@@ -317,13 +320,16 @@ rules. As shown earlier, the validation array will have this prototype::
         ];
     }
 
-You can specify the group to use when you call the ``run()`` method::
+``run()`` 메소드를 호출할 때 사용할 그룹을 지정합니다.
+
+::
 
     $validation->run($data, 'signup');
 
-You can also store custom error messages in this configuration file by naming the
-property the same as the group, and appended with ``_errors``. These will automatically
-be used for any errors when this group is used::
+속성을 그룹과 동일하게 지정하고 ``_errors``\ 를 추가하여 이 구성 파일에 사용자 정의 오류 메시지를 저장할 수 있습니다.
+이 그룹을 사용할 때 오류는 자동으로 사용됩니다.
+
+::
 
     class Validation
     {
@@ -344,7 +350,9 @@ be used for any errors when this group is used::
         ];
     }
 
-Or pass all settings in an array::
+또는 배열에 모든 설정을 전달합니다.
+
+::
 
     class Validation
     {
@@ -366,45 +374,48 @@ Or pass all settings in an array::
         ];
     }
 
-See below for details on the formatting of the array.
+배열 형식(format)에 대한 자세한 내용은 아래를 참조하십시오.
 
-Getting & Setting Rule Groups
--------------------------------------------------------
+규칙 그룹 가져 오기 및 설정
+-----------------------------------
 
 **Get Rule Group**
 
-This method gets a rule group from the validation configuration::
+이 메소드는 유효성 검증 구성에서 규칙 그룹을 가져옵니다.
+
+::
 
     $validation->getRuleGroup('signup');
 
 **Set Rule Group**
 
-This method sets a rule group from the validation configuration to the validation service::
+이 메소드는 규칙 구성을 유효성 검사 구성에서 유효성 검사 서비스로 설정합니다.
+
+::
 
     $validation->setRuleGroup('signup');
 
-Working With Errors
-************************************************
+오류에 대한 작업
+*************************
 
-The Validation library provides several methods to help you set error messages, provide
-custom error messages, and retrieve one or more errors to display.
+유효성 검사 라이브러리는 오류 메시지를 설정하고, 사용자 지정 오류 메시지를 제공하며 표시할 하나 이상의 오류를 검색하는 데 도움이 되는 몇 가지 방법을 제공합니다.
 
-By default, error messages are derived from language strings in ``system/Language/en/Validation.php``, where
-each rule has an entry.
+기본적으로 오류 메시지는 ``system/Language/en/Validation.php``\ 의 언어 문자열에서 파생되며, 각 규칙에는 항목이 있습니다.
 
 .. _validation-custom-errors:
 
-Setting Custom Error Messages
-=============================
+사용자 정의 오류 메시지 설정
+==================================
 
-Both the ``setRule()`` and ``setRules()`` methods can accept an array of custom messages
-that will be used as errors specific to each field as their last parameter. This allows
-for a very pleasant experience for the user since the errors are tailored to each
-instance. If not custom error message is provided, the default value will be used.
+``setRule()``\ 과 ``setRules()`` 메소드는 각 필드마다 고유한 오류로 사용되는 사용자 정의 메시지 배열을 마지막 매개 변수로 승인할 수 있습니다.
+오류는 각 인스턴스에 맞게 조정되므로 사용자에게 매우 쾌적한 환경을 제공합니다.
+사용자 지정 오류 메시지가 제공되지 않으면 기본값이 사용됩니다.
 
-These are two ways to provide custom error messages.
+다음은 사용자 정의 오류 메시지를 제공하는 두 가지 방법입니다.
 
-As the last parameter::
+마지막 매개 변수로
+
+::
 
     $validation->setRules([
             'username' => 'required|is_unique[users.username]',
@@ -420,7 +431,9 @@ As the last parameter::
         ]
     );
 
-Or as a labeled style::
+또는 레이블이있는 스타일로
+
+::
 
     $validation->setRules([
             'username' => [
@@ -440,20 +453,22 @@ Or as a labeled style::
         ]
     );
 
-If you’d like to include a field’s “human” name, or the optional parameter some rules allow for (such as max_length),
-you can add the ``{field}`` and ``{param}`` tags to your message, respectively::
+필드에 사용자의 이름 또는 일부 규칙에서 허용하는 선택적 매개 변수(예 : max_length)를 각각 메시지에 포함하려면 ``{field}``\ 과 ``{param}`` 태그를 추가합니다.
+
+::
 
     'min_length' => '{field} must have at least {param} characters.'
 
-On a field with the human name Username and a rule of min_length[5], an error would display: “Username must have
-at least 5 characters.”
+사용자의 이름이 ``Username``\ 이고 규칙이 ``min_length[5]``\ 인 필드에서 오류가 발생하면 "Username must have at least 5 characters."\ 로 표시됩니다.
 
-.. note:: If you pass the last parameter the labeled style error messages will be ignored.
+.. note:: 마지막 매개 변수를 전달하면, 레이블에 지정된 스타일 오류 메시지는 무시됩니다.
 
-Getting All Errors
+모든 오류 얻기
 ==================
 
-If you need to retrieve all error messages for failed fields, you can use the ``getErrors()`` method::
+실패한 필드에 대한 모든 오류 메시지를 검색해야 하는 경우 ``getErrors()`` 메소드를 사용합니다
+
+::
 
     $errors = $validation->getErrors();
 
@@ -463,41 +478,49 @@ If you need to retrieve all error messages for failed fields, you can use the ``
         'field2' => 'error message',
     ]
 
-If no errors exist, an empty array will be returned.
+오류가 없으면 빈 배열이 반환됩니다.
 
-Getting a Single Error
+단일 오류 얻기
 ======================
 
-You can retrieve the error for a single field with the ``getError()`` method. The only parameter is the field
-name::
+``getError()`` 메소드를 사용하여 단일 필드의 오류를 검색할 수 있습니다.
+필드 이름을 단일 매개 변수로 사용합니다.
+
+::
 
     $error = $validation->getError('username');
 
-If no error exists, an empty string will be returned.
+오류가 없으면 빈 문자열이 반환됩니다.
 
-Check If Error Exists
+오류가 있는지 확인
 =====================
 
-You can check to see if an error exists with the ``hasError()`` method. The only parameter is the field name::
+``hasError()`` 메소드에 오류가 있는지 확인할 수 있습니다.
+필드 이름을 단일 매개 변수로 사용합니다.
+
+::
 
     if ($validation->hasError('username')
     {
         echo $validation->getError('username');
     }
 
-Customizing Error Display
+오류 표시 사용자 정의
 ************************************************
 
-When you call ``$validation->listErrors()`` or ``$validation->showError()``, it loads a view file in the background
-that determines how the errors are displayed. By default, they display with a class of ``errors`` on the wrapping div.
-You can easily create new views and use them throughout your application.
+``$validation->listErrors()`` 또는 ``$validation->showError()``\ 를 호출하면 백그라운드에서 오류가 표시되는 방법을 결정하고 뷰 파일을 로드합니다.
+기본적으로 래핑 div에 ``errors`` 클래스와 함께 표시됩니다.
+애플리케이션에서 새로운 뷰를 쉽게 작성하고 사용할 수 있습니다.
 
-Creating the Views
+뷰 생성
 ==================
 
-The first step is to create custom views. These can be placed anywhere that the ``view()`` method can locate them,
-which means the standard View directory, or any namespaced View folder will work. For example, you could create
-a new view at **/app/Views/_errors_list.php**::
+첫 번째 단계는 사용자 정의 뷰를 작성하는 것입니다.
+이들은 ``view()`` 메소드가 찾을 수 있는 곳이면 어디든지 배치할 수 있습니다. 
+즉 표준 View 디렉토리나 네임스페이스가 있는 View 폴더에 작성합니다.
+예를 들면 **/app/Views/_errors_list.php**\ 에 새로운 뷸를 만들 수 있습니다.
+
+::
 
     <div class="alert alert-danger" role="alert">
         <ul>
@@ -507,26 +530,33 @@ a new view at **/app/Views/_errors_list.php**::
         </ul>
     </div>
 
-An array named ``$errors`` is available within the view that contains a list of the errors, where the key is
-the name of the field that had the error, and the value is the error message, like this::
+``$errors``\ 라는 배열은 오류 목록이 포함된 뷰안에서 사용 가능합니다. 
+키는 오류가 있는 필드의 이름이고 값은 오류 메시지입니다.
+
+::
 
     $errors = [
         'username' => 'The username field must be unique.',
         'email'    => 'You must provide a valid email address.'
     ];
 
-There are actually two types of views that you can create. The first has an array of all of the errors, and is what
-we just looked at. The other type is simpler, and only contains a single variable, ``$error`` that contains the
-error message. This is used with the ``showError()`` method where a field must be specified::
+실제로 작성할 수 있는 두 가지 유형의 뷰가 있습니다.
+첫 번째는 모든 오류 배열을 가지고 있으며 방금 살펴본 것입니다.
+다른 유형은 더 단순하며 오류 메시지가 포함된 단일 변수 ``$error``\ 만 포함합니다.
+필드를 지정해야 하는 ``showError()`` 메서드와 함께 사용됩니다.
+
+::
 
     <span class="help-block"><?= esc($error) ?></span>
 
-Configuration
+구성
 =============
 
-Once you have your views created, you need to let the Validation library know about them. Open ``Config/Validation.php``.
-Inside, you'll find the ``$templates`` property where you can list as many custom views as you want, and provide an
-short alias they can be referenced by. If we were to add our example file from above, it would look something like::
+뷰를 만든 후에는 유효성 검사 라이브러리에 해당 뷰를 알려야 합니다.
+``Config/Validation.php``\ 에는 사용자 정의 뷰를 나열하고 참조 할 수 있는 짧은 별명(alias)을 제공하는 ``$templates``\ 속성이 있습니다.
+위의 예제 파일을 추가하면 다음과 같습니다.
+
+::
 
     public $templates = [
         'list'    => 'CodeIgniter\Validation\Views\list',
@@ -534,24 +564,30 @@ short alias they can be referenced by. If we were to add our example file from a
         'my_list' => '_errors_list'
     ];
 
-Specifying the Template
+템플릿 지정
 =======================
 
-You can specify the template to use by passing it's alias as the first parameter in ``listErrors``::
+``listErrors``\ 의 첫 번째 매개 변수로 별칭을 전달하여 사용할 템플릿을 지정할 수 있습니다
+
+::
 
     <?= $validation->listErrors('my_list') ?>
 
-When showing field-specific errors, you can pass the alias as the second parameter to the ``showError`` method,
-right after the name of the field the error should belong to::
+``showError`` 메소드를 사용하여 필드별 오류를 표시할 때, 첫 번째 매개 변수로 오류가 속하는 필드 이름과 두 번째 매개 변수로 별명을 전달할 수 있습니다.
+
+::
 
     <?= $validation->showError('username', 'my_single') ?>
 
-Creating Custom Rules
-************************************************
+사용자 정의 규칙 생성
+******************************
 
-Rules are stored within simple, namespaced classes. They can be stored any location you would like, as long as the
-autoloader can find it. These files are called RuleSets. To add a new RuleSet, edit **Config/Validation.php** and
-add the new file to the ``$ruleSets`` array::
+규칙은 단순한 네임스페이스 클래스내에 저장됩니다.
+오토로더가 찾을 수 있다면 원하는 어느 위치든 저장할 수 있습니다. 
+이러한 파일을 규칙 세트(RuleSet)라고합니다.
+새 규칙 세트를 추가하려면 **Config/Validation.php**\ 의 ``$ruleSets`` 배열에 추가하십시오.
+
+::
 
     public $ruleSets = [
 		\CodeIgniter\Validation\Rules::class,
@@ -559,11 +595,13 @@ add the new file to the ``$ruleSets`` array::
 		\CodeIgniter\Validation\CreditCardRules::class,
 	];
 
-You can add it as either a simple string with the fully qualified class name, or using the ``::class`` suffix as
-shown above. The primary benefit here is that it provides some extra navigation capabilities in more advanced IDEs.
+정규화된 클래스 이름을 가진 간단한 문자열 또는 위와 같은 ``::class`` 접미사를 사용하여 추가할 수 있습니다.
+여기서 가장 큰 장점은 고급 IDE에서 몇 가지 추가 탐색 기능을 제공한다는 것입니다.
 
-Within the file itself, each method is a rule and must accept a string as the first parameter, and must return
-a boolean true or false value signifying true if it passed the test or false if it did not::
+파일 자체에서 각 메소드는 규칙이며, 문자열을 첫 번째 매개 변수로 승인해야 합니다.
+테스트를 통과한 경우 부울 true 값을 그렇지 않은 경우 false를 리턴해야 합니다.
+
+::
 
     class MyRules
     {
@@ -573,9 +611,10 @@ a boolean true or false value signifying true if it passed the test or false if 
         }
     }
 
-By default, the system will look within ``CodeIgniter\Language\en\Validation.php`` for the language strings used
-within errors. In custom rules, you may provide error messages by accepting a $error variable by reference in the
-second parameter::
+기본적으로 시스템은 ``CodeIgniter\Language\en\Validation.php``\ 에서 오류에 사용되는 언어 문자열을 찾습니다.
+사용자 지정 규칙에서 두 번째 매개 변수에서 ``$error`` 변수를 참조하여 오류 메시지를 제공할 수 있습니다.
+
+::
 
     public function even(string $str, string &$error = null): bool
     {
@@ -588,114 +627,116 @@ second parameter::
         return true;
     }
 
-Your new custom rule could now be used just like any other rule::
+새로운 규칙은 다른 규칙처럼 사용합니다.
+
+::
 
     $this->validate($request, [
         'foo' => 'required|even'
     ]);
 
-Allowing Parameters
-===================
+허용되는 매개 변수
+=====================
 
-If your method needs to work with parameters, the function will need a minimum of three parameters: the string to validate,
-the parameter string, and an array with all of the data that was submitted the form. The $data array is especially handy
-for rules like ``require_with`` that needs to check the value of another submitted field to base its result on::
+분석법이 매개 변수와 함께 작동해야 하는 경우 함수에는 최소 세 개의 매개 변수가 필요합니다.
+유효성 검증 할 문자열, 매개 변수 문자열, 폼에서 제출한 모든 데이터가 있는 배열.
+$data 배열은 결과를 기반으로 제출된 다른 필드의 값을 확인해야 하는 ``require_with``\ 와 같은 규칙에 특히 유용합니다.
 
-	public function required_with($str, string $fields, array $data): bool
-	{
-		$fields = explode(',', $fields);
+::
 
-		// If the field is present we can safely assume that
-		// the field is here, no matter whether the corresponding
-		// search field is present or not.
-		$present = $this->required($str ?? '');
+    public function required_with($str, string $fields, array $data): bool
+    {
+        $fields = explode(',', $fields);
 
-		if ($present)
-		{
-			return true;
-		}
+        // If the field is present we can safely assume that
+        // the field is here, no matter whether the corresponding
+        // search field is present or not.
+        $present = $this->required($str ?? '');
+
+        if ($present)
+        {
+            return true;
+        }
 
         // Still here? Then we fail this test if
-		// any of the fields are present in $data
-		// as $fields is the lis
-		$requiredFields = [];
+        // any of the fields are present in $data
+        // as $fields is the lis
+        $requiredFields = [];
 
-		foreach ($fields as $field)
-		{
-			if (array_key_exists($field, $data))
-			{
-				$requiredFields[] = $field;
-			}
-		}
+        foreach ($fields as $field)
+        {
+            if (array_key_exists($field, $data))
+            {
+                $requiredFields[] = $field;
+            }
+        }
 
-		// Remove any keys with empty values since, that means they
-		// weren't truly there, as far as this is concerned.
-		$requiredFields = array_filter($requiredFields, function ($item) use ($data) {
-			return ! empty($data[$item]);
-		});
+        // Remove any keys with empty values since, that means they
+        // weren't truly there, as far as this is concerned.
+        $requiredFields = array_filter($requiredFields, function ($item) use ($data) {
+            return ! empty($data[$item]);
+        });
 
-		return empty($requiredFields);
-	}
+        return empty($requiredFields);
+    }
 
-Custom errors can be returned as the fourth parameter, just as described above.
+위에서 설명한 것처럼 사용자 지정 오류는 네 번째 매개 변수로 반환될 수 있습니다.
 
-Available Rules
-***************
+사용 가능한 규칙
+********************
 
-The following is a list of all the native rules that are available to use:
+다음은 사용 가능한 모든 기본 규칙의 목록입니다.
 
-.. note:: Rule is a string; there must be no spaces between the parameters, especially the "is_unique" rule.
-	There can be no spaces before and after "ignore_value".
+.. note:: 규칙은 문자열입니다. 매개 변수 사이에 공백은 없어야합니다 (특히 "is_unique"규칙).
+    "ignore_value"\ 전후에는 공백이 있을 수 없습니다.
 
-- "is_unique[supplier.name,uuid, $uuid]"   is not ok
-- "is_unique[supplier.name,uuid,$uuid ]"   is not ok
-- "is_unique[supplier.name,uuid,$uuid]"    is ok
+- "is_unique[supplier.name,uuid, $uuid]"   (X)
+- "is_unique[supplier.name,uuid,$uuid ]"   (X)
+- "is_unique[supplier.name,uuid,$uuid]"    (O)
 
 ======================= =========== =============================================================================================== ===================================================
 Rule                    Parameter   Description                                                                                     Example
 ======================= =========== =============================================================================================== ===================================================
-alpha                   No          Fails if field has anything other than alphabetic characters.
-alpha_space             No          Fails if field contains anything other than alphabetic characters or spaces.
-alpha_dash              No          Fails if field contains anything other than alpha-numeric characters, underscores or dashes.
-alpha_numeric           No          Fails if field contains anything other than alpha-numeric characters or numbers.
-alpha_numeric_space     No          Fails if field contains anything other than alpha-numeric characters, numbers or space.
-decimal                 No          Fails if field contains anything other than a decimal number.
-differs                 Yes         Fails if field does not differ from the one in the parameter.                                   differs[field_name]
-exact_length            Yes         Fails if field is not exactly the parameter value. One or more comma-separated values.          exact_length[5] or exact_length[5,8,12]
-greater_than            Yes         Fails if field is less than or equal to the parameter value or not numeric.                     greater_than[8]
-greater_than_equal_to   Yes         Fails if field is less than the parameter value, or not numeric.                                greater_than_equal_to[5]
-if_exist                No          If this rule is present, validation will only return possible errors if the field key exists,
-                                    regardless of its value.
-in_list                 Yes         Fails if field is not within a predetermined list.                                              in_list[red,blue,green]
-integer                 No          Fails if field contains anything other than an integer.
-is_natural              No          Fails if field contains anything other than a natural number: 0, 1, 2, 3, etc.
-is_natural_no_zero      No          Fails if field contains anything other than a natural number, except zero: 1, 2, 3, etc.
-is_unique               Yes         Checks if this field value exists in the database. Optionally set a                             is_unique[table.field,ignore_field,ignore_value]
-                                    column and value to ignore, useful when updating records to ignore itself.
-less_than               Yes         Fails if field is greater than or equal to the parameter value or not numeric.                  less_than[8]
-less_than_equal_to      Yes         Fails if field is greater than the parameter value or not numeric.                              less_than_equal_to[8]
-matches                 Yes         The value must match the value of the field in the parameter.                                   matches[field]
-max_length              Yes         Fails if field is longer than the parameter value.                                              max_length[8]
-min_length              Yes         Fails if field is shorter than the parameter value.                                             min_length[3]
-numeric                 No          Fails if field contains anything other than numeric characters.
-regex_match             Yes         Fails if field does not match the regular expression.                                           regex_match[/regex/]
-permit_empty            No          Allows the field to receive an empty array, empty string, null or false.
-required                No          Fails if the field is an empty array, empty string, null or false.
-required_with           Yes         The field is required when any of the other required fields are present in the data.            required_with[field1,field2]
-required_without        Yes         The field is required when all of the other fields are present in the data but not required.    required_without[field1,field2]
-string                  No          A generic alternative to the alpha* rules that confirms the element is a string
-timezone                No          Fails if field does match a timezone per ``timezone_identifiers_list``
-valid_base64            No          Fails if field contains anything other than valid Base64 characters.
-valid_json              No          Fails if field does not contain a valid JSON string.
-valid_email             No          Fails if field does not contain a valid email address.
-valid_emails            No          Fails if any value provided in a comma separated list is not a valid email.
-valid_ip                No          Fails if the supplied IP is not valid. Accepts an optional parameter of ‘ipv4’ or                valid_ip[ipv6]
-                                    ‘ipv6’ to specify an IP format.
-valid_url               No          Fails if field does not contain a valid URL.
-valid_date              No          Fails if field does not contain a valid date. Accepts an optional parameter                      valid_date[d/m/Y]
-                                    to matches a date format.
-valid_cc_number         Yes         Verifies that the credit card number matches the format used by the specified provider.          valid_cc_number[amex]
-                                    Current supported providers are: American Express (amex), China Unionpay (unionpay),
+alpha                   No          필드에 알파벳 이외의 문자가 있으면 실패합니다.
+alpha_space             No          필드에 알파벳 문자나 공백 이외의 것이 포함되어 있으면 실패합니다.
+alpha_dash              No          필드에 영숫자, 밑줄 또는 대시 이외의 문자가 포함되어 있으면 실패합니다.
+alpha_numeric           No          필드에 영숫자 또는 숫자 이외의 문자가 포함되어 있으면 실패합니다.
+alpha_numeric_space     No          필드에 영숫자, 숫자 또는 공백 이외의 것이 포함되어 있으면 실패합니다.
+decimal                 No          필드에 10진수 이외의 것이 있으면 실패합니다.
+differs                 Yes         필드가 매개 변수의 필드와 다르지 않으면 실패합니다.                                             differs[field_name]
+exact_length            Yes         필드가 정확히 매개 변수 값이 아닌 경우 실패합니다. 하나 이상의 값은 쉼표로 구분                 exact_length[5] or exact_length[5,8,12]
+greater_than            Yes         필드가 매개 변수 값보다 작거나, 같거나, 숫자가 아닌 경우 실패합니다.                            greater_than[8]
+greater_than_equal_to   Yes         필드가 매개 변수 값보다 작거나, 숫자가 아닌 경우 실패합니다.                                    greater_than_equal_to[5]
+if_exist                No          이 규칙이 있으면 유효성 검사는 필드 키가 존재하는 경우 값에 관계없이 가능한 오류만 반환합니다.
+in_list                 Yes         필드가 미리 정해진 목록에 없으면 실패합니다.                                                    in_list[red,blue,green]
+integer                 No          필드에 정수 이외의 것이 포함되어 있으면 실패합니다.
+is_natural              No          필드에 0, 1, 2, 3 등의 자연수 이외의 것이 포함되어 있으면 실패합니다.
+is_natural_no_zero      No          필드에 0, 1, 2, 3 등을 제외하고 자연수 이외의 것이 있으면 실패합니다.
+is_unique               Yes         이 필드 값이 데이터베이스에 존재하는지 확인합니다. 선택적으로 무시할 열과 값을 설정하면         is_unique[table.field,ignore_field,ignore_value]
+                                    레코드 자체를 무시하여 업데이트할 때 유용합니다.
+less_than               Yes         필드가 매개 변수 값보다 크거나 같거나 숫자가 아닌 경우 실패합니다.                              less_than[8]
+less_than_equal_to      Yes         필드가 매개 변수 값보다 크거나 숫자가 아닌 경우 실패합니다.                                     less_than_equal_to[8]
+matches                 Yes         값은 매개 변수의 필드 값과 일치해야합니다.                                                      matches[field]
+max_length              Yes         필드가 매개 변수 값보다 길면 실패합니다.                                                        max_length[8]
+min_length              Yes         필드가 매개 변수 값보다 짧은 경우 실패합니다.                                                   min_length[3]
+numeric                 No          필드에 숫자 이외의 문자가 포함되어 있으면 실패합니다.
+regex_match             Yes         필드가 정규식과 일치하지 않으면 실패합니다.                                                     regex_match[/regex/]
+permit_empty            No          필드가 빈 배열, 빈 문자열, null, false를 받을 수 있도록 합니다.
+required                No          필드가 빈 배열, 빈 문자열, null, false이면 실패합니다.
+required_with           Yes         다른 필수 필드중 하나라도 데이터에 있으면 이 필드가 필요합니다.                                 required_with[field1,field2]
+required_without        Yes         이 필드는 다른 모든 필드가 데이터에 있지만 필수는 아닌 경우 필수입니다.                         required_without[field1,field2]
+string                  No          요소가 문자열임을 확인하는 alpha* 규칙에 대한 일반적인 대안
+timezone                No          필드가 ``timezone_identifiers_list`` 시간대와 일치하지 않으면 실패
+valid_base64            No          필드에 유효한 Base64 문자 이외의 것이 포함되어 있으면 실패합니다.
+valid_json              No          필드에 유효한 JSON 문자열이 없으면 실패합니다.
+valid_email             No          필드에 유효한 이메일 주소가 없으면 실패합니다.
+valid_emails            No          쉼표로 구분된 목록에 제공된 값이 유효한 이메일이 아닌 경우 실패합니다.
+valid_ip                No          제공된 IP가 유효하지 않으면 실패합니다. IP 형식을 지정하기 위해 ‘ipv4’ 또는 ‘ipv6’의            valid_ip[ipv6]
+                                    선택적 매개 변수를 승인합니다.
+valid_url               No          필드에 유효한 URL이 없으면 실패합니다.
+valid_date              No          필드에 유효한 날짜가 없으면 실패합니다. 날짜 형식과 일치하도록 선택적 매개 변수를 승인합니다.   valid_date[d/m/Y]
+valid_cc_number         Yes         신용 카드 번호가 지정된 공급자가 사용하는 형식과 일치하는지 확인합니다.                         valid_cc_number[amex]
+                                    현재 지원되는 공급자: American Express (amex), China Unionpay (unionpay),
                                     Diners Club CarteBlance (carteblanche), Diners Club (dinersclub), Discover Card (discover),
                                     Interpayment (interpayment), JCB (jcb), Maestro (maestro), Dankort (dankort), NSPK MIR (mir),
                                     Troy (troy), MasterCard (mastercard), Visa (visa), UATP (uatp), Verve (verve),
@@ -704,13 +745,14 @@ valid_cc_number         Yes         Verifies that the credit card number matches
                                     HSBC Canada Card (hsbc)
 ======================= =========== =============================================================================================== ===================================================
 
-Rules for File Uploads
+파일 업로드 규칙
 ======================
 
-These validation rules enable you to do the basic checks you might need to verify that uploaded files meet your business needs.
-Since the value of a file upload HTML field doesn't exist, and is stored in the $_FILES global, the name of the input field will
-need to be used twice. Once to specify the field name as you would for any other rule, but again as the first parameter of all
-file upload related rules::
+업로드된 파일이 비즈니스 요구 사항을 충족하는지 확인하는데 유효성 검사 규칙을 사용하면 필요한 기본 검사를 수행할 수 있습니다.
+파일 업로드는 HTML 필드에 존재하지 않고 전역 변수 $_FILES에 저장되므로, 입력 필드의 이름을 두 번 사용해야 합니다.
+다른 규칙에서와 마찬가지로 필드 이름을 지정하지만, 파일 업로드 관련 규칙의 첫 번째 매개 변수로 다시 한 번 지정합니다.
+
+::
 
     // In the HTML
     <input type="file" name="avatar">
@@ -723,19 +765,16 @@ file upload related rules::
 ======================= =========== =============================================================================================== ========================================
 Rule                    Parameter   Description                                                                                     Example
 ======================= =========== =============================================================================================== ========================================
-uploaded                Yes         Fails if the name of the parameter does not match the name of any uploaded files.               uploaded[field_name]
-max_size                Yes         Fails if the uploaded file named in the parameter is larger than the second parameter in        max_size[field_name,2048]
-                                    kilobytes (kb).
-max_dims                Yes         Fails if the maximum width and height of an uploaded image exceed values. The first parameter   max_dims[field_name,300,150]
-                                    is the field name. The second is the width, and the third is the height. Will also fail if
-                                    the file cannot be determined to be an image.
-mime_in                 Yes         Fails if the file's mime type is not one listed in the parameters.                              mime_in[field_name,image/png,image/jpg]
-ext_in                  Yes         Fails if the file's extension is not one listed in the parameters.                              ext_in[field_name,png,jpg,gif]
-is_image                Yes         Fails if the file cannot be determined to be an image based on the mime type.                   is_image[field_name]
+uploaded                Yes         매개 변수 이름이 업로드된 파일 이름과 일치하지 않으면 실패합니다.                               uploaded[field_name]
+max_size                Yes         매개 변수에 이름이 업로드 된 파일이 두 번째 매개 변수 (KB)보다 큰 경우 실패합니다.              max_size[field_name,2048]
+max_dims                Yes         업로드 된 이미지의 최대 너비와 높이가 값을 초과하면 실패합니다. 첫 번째 매개 변수는             max_dims[field_name,300,150]
+                                    필드 이름입니다. 두 번째는 너비이고 세 번째는 높이입니다.
+                                    파일을 이미지로 결정할 수없는 경우에도 실패합니다.
+mime_in                 Yes         파일의 MIME 유형이 매개 변수에 나열된 유형이 아닌 경우 실패합니다.                              mime_in[field_name,image/png,image/jpg]
+ext_in                  Yes         파일 확장자가 매개 변수에 나열된 확장자가 아니면 실패합니다.                                    ext_in[field_name,png,jpg,gif]
+is_image                Yes         파일이 MIME 유형에 따라 이미지라고 판단할 수 없으면 실패합니다.                                 is_image[field_name]
 ======================= =========== =============================================================================================== ========================================
 
-The file validation rules apply for both single and multiple file uploads.
+파일 유효성 검사 규칙은 단일/다중 파일 업로드 모두에 적용됩니다.
 
-.. note:: You can also use any native PHP functions that permit up
-	to two parameters, where at least one is required (to pass
-	the field data).
+.. note:: 하나 이상의 매개 변수가 필요한 경우(필드 데이터를 전달하기 위해) 최대 2개의 매개 변수를 허용하는 기본 PHP 함수를 사용할 수 있습니다.
