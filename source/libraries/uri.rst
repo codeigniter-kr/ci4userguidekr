@@ -1,60 +1,73 @@
 *****************
-Working with URIs
+URI 작업
 *****************
 
-CodeIgniter provides an object oriented solution for working with URI's in your application. Using this makes it
-simple to ensure that the structure is always correct, no matter how complex the URI might be, as well as adding
-relative URI to an existing one and have it resolved safely and correctly.
+CodeIgniter는 애플리케이션에서 URI로 작업하기 위한 객체 지향 솔루션을 제공합니다.
+이를 사용하면 URI가 아무리 복잡하더라도 기존 URI에 상대 URI를 추가하고, 안전하고 올바르게 분석 할 수 있을 뿐만 아니라 구조가 항상 올바른지 간단하게 확인할 수 있습니다.
 
 .. contents::
     :local:
     :depth: 2
 
 ======================
-Creating URI instances
+URI 인스턴스 만들기
 ======================
 
-Creating a URI instance is as simple as creating a new class instance::
+URI 인스턴스는 아래와 같이 간단합니다.
+
+::
 
 	$uri = new \CodeIgniter\HTTP\URI();
 
-Alternatively, you can use the ``service()`` function to return an instance for you::
+``service()`` 함수를 사용하여 인스턴스를 받을수 있습니다
+
+::
 
 	$uri = service('uri');
 
-When you create the new instance, you can pass a full or partial URL in the constructor and it will be parsed
-into its appropriate sections::
+새 인스턴스를 만들 때 생성자에서 전체 또는 부분 URL을 전달하면 해당 섹션으로 구문 분석됩니다.
+
+::
 
 	$uri = new \CodeIgniter\HTTP\URI('http://www.example.com/some/path');
 	$uri = service('uri', 'http://www.example.com/some/path');
 
-The Current URI
+현재 URI
 ---------------
 
-Many times, all you really want is an object representing the current URL of this request. This can be accessed
-in two different ways. The first is to grab it directly from the current request object. Assuming that you're in
-a controller that extends ``CodeIgniter\Controller`` you can get it like::
+여러 경우에, 당신이 정말로 원하는 것은 요청에 대한 현재 URL을 나타내는 객체입니다.
+두 가지 방법으로 액세스할 수 있습니다.
+첫 번째는 현재 요청 객체에서 직접 가져 오는 것입니다.
+``CodeIgniter\Controller``\ 를 확장하는 컨트롤러에 있다고 가정하면 다음과 같이 얻을 수 있습니다
+
+::
 
 	$uri = $this->request->uri;
 
-Second, you can use one of the functions available in the **url_helper**::
+둘째, **url_helper**\ 에서 사용할 수 있는 기능중 하나를 사용할 수 있습니다
+
+::
 
 	$uri = current_url(true);
 
-You must pass ``true`` as the first parameter, otherwise, it will return the string representation of the current URL.
+첫 번째 매개 변수로 ``true``\ 를 전달해야 합니다. 
+그렇지 않으면 현재 URL의 문자열 표현이 반환됩니다.
 
-===========
-URI Strings
-===========
+===============
+URI 문자열
+===============
 
-Many times, all you really want is to get a string representation of a URI. This is easy to do by simply casting
-the URI as a string::
+많은 경우, 실제로 원하는 것은 URI의 문자열 표현을 얻는 것입니다. 
+이것은 단순히 URI를 문자열로 캐스팅하여 수행하기 쉽습니다.
+
+::
 
 	$uri = current_url(true);
 	echo (string)$uri;  // http://example.com
 
-If you know the pieces of the URI and just want to ensure it's all formatted correctly, you can generate a string
-using the URI class' static ``createURIString()`` method::
+URI 조각을 알고 있고 모든 형식이 올바른지 확인하려면 URI 클래스의 정적 ``createURIString()`` 메서드를 사용하여 문자열을 생성할 수 있습니다
+
+::
 
 	$uriString = URI::createURIString($scheme, $authority, $path, $query, $fragment);
 
@@ -62,16 +75,17 @@ using the URI class' static ``createURIString()`` method::
 	echo URI::createURIString('http', 'example.com', 'some/path', 'foo=bar', 'first-heading');
 
 =============
-The URI Parts
+URI 부분
 =============
 
-Once you have a URI instance, you can set or retrieve any of the various parts of the URI. This section will provide
-details on what those parts are, and how to work with them.
+URI 인스턴스가 있으면 URI의 다양한 부분을 설정하거나 검색할 수 있습니다.
+이 섹션에서는 해당 부분이 무엇인지, 어떻게 작동하는지 자세히 설명합니다.
 
-Scheme
-------
+스키마(Scheme)
+-------------------
 
-The scheme is frequently 'http' or 'https', but any scheme is supported, including 'file', 'mailto', etc.
+스키마(scheme)는 대부분 'http' 또는 'https'\ 지만 'file', 'mailto'\ 등을 포함한 모든 체계가 지원됩니다.
+
 ::
 
     $uri = new \CodeIgniter\HTTP\URI('http://www.example.com/some/path');
@@ -79,21 +93,24 @@ The scheme is frequently 'http' or 'https', but any scheme is supported, includi
     echo $uri->getScheme(); // 'http'
     $uri->setScheme('https');
 
-Authority
----------
+권한(Authority)
+-------------------
 
-Many URIs contain several elements that are collectively known as the 'authority'. This includes any user info,
-the host and the port number. You can retrieve all of these pieces as one single string with the ``getAuthority()``
-method, or you can manipulate the individual parts.
+많은 URI에는 총칭하여 'authority'으로 알려진 여러 요소가 포함되어 있습니다.
+여기에는 모든 사용자 정보, 호스트 및 포트 번호가 포함됩니다. 
+``getAuthority()`` 메소드를 사용하여 이러한 모든 부분을 하나의 단일 문자열로 검색하거나 개별 부분을 조작할 수 있습니다.
+
 ::
 
 	$uri = new \CodeIgniter\HTTP\URI('ftp://user:password@example.com:21/some/path');
 
 	echo $uri->getAuthority();  // user@example.com:21
 
-By default, this will not display the password portion since you wouldn't want to show that to anyone. If you want
-to show the password, you can use the ``showPassword()`` method. This URI instance will continue to show that password
-until you turn it off again, so always make sure that you turn it off as soon as you are finished with it::
+기본적으로 암호 부분은 다른 사람에게 노출하지 않기 위해 표시되지 않습니다.
+비밀번호를 표시하려면 ``showPassword()`` 메소드를 사용합니다.
+이 URI 인스턴스는 비밀번호를 다시 끌 때까지 계속 해당 비밀번호를 표시하므로, 작업이 완료되면 비밀번호를 끄십시오.
+
+::
 
 	echo $uri->getAuthority();  // user@example.com:21
 	echo $uri->showPassword()->getAuthority();   // user:password@example.com:21
@@ -101,40 +118,49 @@ until you turn it off again, so always make sure that you turn it off as soon as
 	// Turn password display off again.
 	$uri->showPassword(false);
 
-If you do not want to display the port, pass in ``true`` as the only parameter::
+포트를 표시하지 않으려면 ``true`` 를 매개 변수로 전달하십시오.
+
+::
 
 	echo $uri->getAuthority(true);  // user@example.com
 
-.. note:: If the current port is the default port for the scheme it will never be displayed.
+.. note:: 현재 포트가 구성표의 기본 포트인 경우 표시되지 않습니다.
 
-Userinfo
---------
+사용자 정보
+----------------
 
-The userinfo section is simply the username and password that you might see with an FTP URI. While you can get
-this as part of the Authority, you can also retrieve it yourself::
+사용자 정보 섹션은 FTP URI에서 사용 하는 사용자 이름과 비밀번호입니다. 
+권한의 일부로 이를 얻을 수는 있지만 직접 검색할 수도 있습니다
+
+::
 
 	echo $uri->getUserInfo();   // user
 
-By default, it will not display the password, but you can override that with the ``showPassword()`` method::
+기본적으로 비밀번호는 표시되지 않지만 ``showPassword()`` 메소드로 비밀번호를 대체할 수 있습니다.
+
+::
 
 	echo $uri->showPassword()->getUserInfo();   // user:password
 	$uri->showPassword(false);
 
-Host
-----
+호스트(Host)
+---------------
 
-The host portion of the URI is typically the domain name of the URL. This can be easily set and retrieved with the
-``getHost()`` and ``setHost()`` methods::
+URI의 호스트 부분은 일반적으로 URL의 도메인 이름입니다.
+이것은 ``getHost()``\ 와 ``setHost()`` 메소드로 쉽게 설정하고 검색할 수 있습니다
+
+::
 
 	$uri = new \CodeIgniter\HTTP\URI('http://www.example.com/some/path');
 
 	echo $uri->getHost();   // www.example.com
 	echo $uri->setHost('anotherexample.com')->getHost();    // anotherexample.com
 
-Port
-----
+포트(Port)
+---------------
 
-The port is an integer number between 0 and 65535. Each sheme has a default value associated with it.
+포트는 0에서 65535 사이의 정수입니다. 각 스키마(sheme)에는 기본값이 있습니다.
+
 ::
 
 	$uri = new \CodeIgniter\HTTP\URI('ftp://user:password@example.com:21/some/path');
@@ -142,27 +168,29 @@ The port is an integer number between 0 and 65535. Each sheme has a default valu
 	echo $uri->getPort();   // 21
 	echo $uri->setPort(2201)->getPort(); // 2201
 
-When using the ``setPort()`` method, the port will be checked that it is within the valid range and assigned.
+``setPort()`` 메소드를 사용하면 포트가 유효한 범위 내에 있고 할당되었는지 확인합니다.
 
-Path
-----
+패스(Path)
+---------------
 
-The path are all of the segments within the site itself. As expected, the ``getPath()`` and ``setPath()`` methods
-can be used to manipulate it::
+경로는 사이트의 모든 세그먼트입니다. 
+예상대로 ``getPath()`` \와 ``setPath()`` 메소드를 사용하여 조작할 수 있습니다.
+
+::
 
 	$uri = new \CodeIgniter\HTTP\URI('http://www.example.com/some/path');
 
 	echo $uri->getPath();   // 'some/path'
 	echo $uri->setPath('another/path')->getPath();  // 'another/path'
 
-.. note:: When setting the path this way, or any other way the class allows, it is sanitized to encode any dangerous
-	characters, and remove dot segments for safety.
+.. note:: 이 메소드로 또는 클래스가 허용하는 다른 방법으로 경로를 설정하면 위험한 문자를 인코딩하고 안전을 위해 점(dot) 세그먼트를 제거하는 것이 좋습니다.
 
-Query
------
+쿼리(Query)
+---------------
 
-The query variables can be manipulated through the class using simple string representations. Query values can only
-be set as a string currently.
+간단한 문자열 표현을 사용하여 클래스를 통해 쿼리 변수를 조작할 수 있습니다.
+쿼리 값은 현재 문자열로만 설정할 수 있습니다.
+
 ::
 
 	$uri = new \CodeIgniter\HTTP\URI('http://www.example.com?foo=bar');
@@ -170,22 +198,27 @@ be set as a string currently.
 	echo $uri->getQuery();  // 'foo=bar'
 	$uri->setQuery('foo=bar&bar=baz');
 
-.. note:: Query values cannot contain fragments. An InvalidArgumentException will be thrown if it does.
+.. note:: 쿼리 값에는 조각이 포함될 수 없습니다. 유효하지 않은 경우 ``InvalidArgumentException``\ 이 발생합니다.
 
-You can set query values using an array::
+배열을 사용하여 쿼리 값을 설정할 수 있습니다
+
+::
 
     $uri->setQueryArray(['foo' => 'bar', 'bar' => 'baz']);
 
-The ``setQuery()`` and ``setQueryArray()`` methods overwrite any existing query variables. You can add a value to the
-query variables collection without destroying the existing query variables with the ``addQuery()`` method. The first
-parameter is the name of the variable, and the second parameter is the value::
+``setQuery()``\ 와 ``setQueryArray()`` 메서드는 기존 쿼리 변수를 덮어 씁니다.
+``addQuery()`` 메소드를 사용하여 기존 쿼리 변수를 손상시키지 않고 쿼리 변수 컬렉션에 값을 추가할 수 있습니다.
+첫 번째 매개 변수는 변수의 이름이고 두 번째 매개 변수는 값입니다.
+
+::
 
     $uri->addQuery('foo', 'bar');
 
-**Filtering Query Values**
+**쿼리 값 필터링**
 
-You can filter the query values returned by passing an options array to the ``getQuery()`` method, with either an
-*only* or an *except* key::
+*only* 또는 *except* 키를 사용하여 ``getQuery()`` 메소드에 옵션 배열을 전달하여 리턴된 쿼리 값을 필터링할 수 있습니다.
+
+::
 
     $uri = new \CodeIgniter\HTTP\URI('http://www.example.com?foo=bar&bar=baz&baz=foz');
 
@@ -195,8 +228,10 @@ You can filter the query values returned by passing an options array to the ``ge
     // Returns 'foo=bar&baz=foz'
     echo $uri->getQuery(['except' => ['bar']]);
 
-This only changes the values returned during this one call. If you need to modify the URI's query values more permanently,
-you can use the ``stripQuery()`` and ``keepQuery()`` methods to change the actual object's query variable collection::
+이 한 번의 호출 동안 반환된 값만 변경됩니다.
+URI의 쿼리 값을보다 영구적으로 수정해야 하는 경우 ``stripQuery()``\ 와 ``keepQuery()`` 메서드를 사용하여 실제 객체의 쿼리 변수 컬렉션을 변경할 수 있습니다.
+
+::
 
     $uri = new \CodeIgniter\HTTP\URI('http://www.example.com?foo=bar&bar=baz&baz=foz');
 
@@ -206,11 +241,13 @@ you can use the ``stripQuery()`` and ``keepQuery()`` methods to change the actua
     // Leaves just the 'foo' variable
     $uri->keepQuery('foo');
 
-Fragment
---------
+조각(Fragment)
+-------------------
 
-Fragments are the portion at the end of the URL, preceded by the pound-sign (#). In HTML URL's these are links
-to an on-page anchor. Media URI's can make use of them in various other ways.
+조각(fragment)은 URL 끝 부분에 파운드 기호(#)가 옵니다.
+HTML URL에서 이들은 페이지 앵커에 대한 링크입니다. 
+미디어 URI는 다양한 방법으로 그것들을 사용할 수 있습니다.
+
 ::
 
 	$uri = new \CodeIgniter\HTTP\URI('http://www.example.com/some/path#first-heading');
@@ -218,12 +255,14 @@ to an on-page anchor. Media URI's can make use of them in various other ways.
 	echo $uri->getFragment();   // 'first-heading'
 	echo $uri->setFragment('second-heading')->getFragment();    // 'second-heading'
 
-============
-URI Segments
-============
+==================
+URI 세그먼트
+==================
 
-Each section of the path between the slashes is a single segment. The URI class provides a simple way to determine
-what the values of the segments are. The segments start at 1 being the furthest left of the path.
+슬래시 사이의 경로의 각 섹션은 단일 세그먼트입니다. 
+URI 클래스는 세그먼트 값이 무엇인지 판별하는 간단한 방법을 제공합니다.
+세그먼트는 경로에서 가장 왼쪽부터 인덱스는 1로 시작합니다.
+
 ::
 
 	// URI = http://example.com/users/15/profile
@@ -234,11 +273,15 @@ what the values of the segments are. The segments start at 1 being the furthest 
 		echo $request->uri->getSegment(2);
 	}
 
-You can get a count of the total segments::
+총 세그먼트 수를 얻을 수 있습니다.
+
+::
 
 	$total = $request->uri->getTotalSegments(); // 3
 
-Finally, you can retrieve an array of all of the segments::
+마지막으로 모든 세그먼트의 배열을 검색할 수 있습니다.
+
+::
 
 	$segments = $request->uri->getSegments();
 
