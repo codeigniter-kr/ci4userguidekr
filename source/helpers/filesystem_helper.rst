@@ -1,9 +1,8 @@
 #################
-Filesystem Helper
+Filesystem 헬퍼
 #################
 
-The Directory Helper file contains functions that assist in working with
-directories.
+디렉토리 헬퍼 파일에는 디렉토리 작업을 지원하는 기능이 있습니다.
 
 .. contents::
   :local:
@@ -12,47 +11,53 @@ directories.
 
   <div class="custom-index container"></div>
 
-Loading this Helper
+헬퍼 로드
 ===================
 
-This helper is loaded using the following code:
+이 헬퍼는 다음 코드를 사용하여 로드됩니다.
 
 ::
 
 	helper('filesystem');
 
-Available Functions
+사용 가능한 함수
 ===================
 
-The following functions are available:
+사용 가능한 함수는 다음과 같습니다.
 
 .. php:function:: directory_map($source_dir[, $directory_depth = 0[, $hidden = FALSE]])
 
-	:param	string  $source_dir: Path to the source directory
-	:param	int	    $directory_depth: Depth of directories to traverse (0 = fully recursive, 1 = current dir, etc)
-	:param	bool	$hidden: Whether to include hidden directories
-	:returns:	An array of files
+	:param	string  $source_dir: 소스 디렉토리의 경로
+	:param	int	    $directory_depth: 탐색할 디렉토리의 깊이 (0 = 완전 재귀, 1 = 현재 디렉토리 등)
+	:param	bool	$hidden: 숨겨진 디렉토리 포함 여부
+	:returns:	파일의 배열
 	:rtype:	array
 
 	Examples::
 
 		$map = directory_map('./mydirectory/');
 
-	.. note:: Paths are almost always relative to your main index.php file.
+	.. note:: 경로는 index.php 파일을 기준으로 합니다.
 
-	Sub-folders contained within the directory will be mapped as well. If
-	you wish to control the recursion depth, you can do so using the second
-	parameter (integer). A depth of 1 will only map the top level directory::
+	디렉토리에 포함된 하위 폴더도 매핑됩니다. 
+	재귀 깊이를 제어하려면 두 번째 매개 변수 (정수)를 사용하면됩니다. 
+	깊이 1은 최상위 디렉토리만 매핑합니다.
+
+	::
 
 		$map = directory_map('./mydirectory/', 1);
 
-	By default, hidden files will not be included in the returned array. To
-	override this behavior, you may set a third parameter to true (boolean)::
+	기본적으로 숨겨진 파일은 반환된 배열에 포함되지 않습니다.
+	이 동작을 재정의하기 위해 세 번째 매개 변수를 true(부울)로 설정할 수 있습니다.
+	
+	::
 
 		$map = directory_map('./mydirectory/', FALSE, TRUE);
 
-	Each folder name will be an array index, while its contained files will
-	be numerically indexed. Here is an example of a typical array::
+	각 폴더 이름은 배열 색인이며 포함된 파일은 숫자로 색인됩니다.
+	다음은 일반적인 배열의 예입니다.
+	
+	::
 
 		Array (
 			[libraries] => Array
@@ -80,18 +85,18 @@ The following functions are available:
 					[9] => uri.html
 				)
 
-	If no results are found, this will return an empty array.
+	결과가 없으면 빈 배열을 반환합니다.
 
 .. php:function:: write_file($path, $data[, $mode = 'wb'])
 
-	:param	string	$path: File path
-	:param	string	$data: Data to write to file
-	:param	string	$mode: ``fopen()`` mode
-	:returns:	TRUE if the write was successful, FALSE in case of an error
+	:param	string	$path: 파일 경로
+	:param	string	$data: 파일에 쓸 데이터
+	:param	string	$mode: ``fopen()`` 모드
+	:returns:	쓰기에 성공하면 TRUE, 오류가 발생하면 FALSE
 	:rtype:	bool
 
-	Writes data to the file specified in the path. If the file does not exist then the
-	function will create it.
+	경로에 지정된 파일에 데이터를 씁니다. 파
+	일이 존재하지 않으면 함수가 파일을 작성합니다.
 
 	Example::
 
@@ -105,56 +110,51 @@ The following functions are available:
 			echo 'File written!';
 		}
 
-	You can optionally set the write mode via the third parameter::
+	세번째 파라미터를 통해 쓰기 모드를 선택적으로 설정할 수 있습니다
+	
+	::
 
 		write_file('./path/to/file.php', $data, 'r+');
 
-	The default mode is 'wb'. Please see the `PHP user guide <http://php.net/manual/en/function.fopen.php>`_
-	for mode options.
+	기본 모드는 'wb'입니다. 모드 옵션에 대해서는 `PHP 사용자 안내서 <http://php.net/manual/en/function.fopen.php>`_\ 를 참조하십시오.
 
-	.. note:: In order for this function to write data to a file, its permissions must
-		be set such that it is writable. If the file does not already exist,
-		then the directory containing it must be writable.
+	.. note:: 이 함수가 파일에 데이터를 쓰려면 쓰기 가능하도록 권한을 설정해야합니다. 파일이 존재하지 않으면 파일을 포함하는 디렉토리는 쓰기 가능해야합니다.
 
-	.. note:: The path is relative to your main site index.php file, NOT your
-		controller or view files. CodeIgniter uses a front controller so paths
-		are always relative to the main site index.
+	.. note:: 경로는 컨트롤러나 뷰 파일이 아닌 사이트의 index.php 파일을 기준으로합니다. CodeIgniter는 프론트(front) 컨트롤러를 사용하므로 경로는 항상 사이트 index를 기준으로 합니다.
 
-	.. note:: This function acquires an exclusive lock on the file while writing to it.
+	.. note:: 이 기능은 파일에 쓰는 동안 파일에 대한 잠금(exclusive lock)을 획득합니다.
 
 .. php:function:: delete_files($path[, $del_dir = FALSE[, $htdocs = FALSE]])
 
-	:param	string	$path: Directory path
-	:param	bool	$del_dir: Whether to also delete directories
-	:param	bool	$htdocs: Whether to skip deleting .htaccess and index page files
-	:returns:	TRUE on success, FALSE in case of an error
+	:param	string	$path: 디렉토리 경로
+	:param	bool	$del_dir: 디렉토리를 삭제할지 여부
+	:param	bool	$htdocs: .htaccess 및 색인 페이지 파일 삭제를 건너 뛸지 여부
+	:returns:	성공시 TRUE, 오류 발생시 FALSE
 	:rtype:	bool
 
-	Deletes ALL files contained in the supplied path.
+	제공된 경로에 포함된 모든 파일을 삭제합니다.
 
 	Example::
 
 		delete_files('./path/to/directory/');
 
-	If the second parameter is set to TRUE, any directories contained within the supplied
-	root path will be deleted as well.
+	두 번째 매개 변수가 TRUE로 설정되면 제공된 루트 경로에 포함된 모든 디렉토리도 삭제됩니다.
 
 	Example::
 
 		delete_files('./path/to/directory/', TRUE);
 
-	.. note:: The files must be writable or owned by the system in order to be deleted.
+	.. note:: 파일을 삭제하려면 시스템에서 파일을 쓸 수 있거나 소유해야합니다.
 
 .. php:function:: get_filenames($source_dir[, $include_path = FALSE])
 
-	:param	string	$source_dir: Directory path
-	:param	bool	$include_path: Whether to include the path as part of the filenames
-	:returns:	An array of file names
+	:param	string	$source_dir: 디렉토리 경로
+	:param	bool	$include_path: 파일 이름의 일부로 경로를 포함할지 여부
+	:returns:	파일 이름의 배열
 	:rtype:	array
 
-	Takes a server path as input and returns an array containing the names of all files
-	contained within it. The file path can optionally be added to the file names by setting
-	the second parameter to TRUE.
+	서버 경로를 입력으로 사용하고 여기에 포함된 모든 파일의 이름이 포함된 배열을 반환합니다.
+	두 번째 매개 변수를 TRUE로 설정하여 파일 경로를 파일 이름에 선택적으로 추가할 수 있습니다.
 
 	Example::
 
@@ -162,15 +162,14 @@ The following functions are available:
 
 .. php:function:: get_dir_file_info($source_dir, $top_level_only)
 
-	:param	string	$source_dir: Directory path
-	:param	bool	$top_level_only: Whether to look only at the specified directory (excluding sub-directories)
-	:returns:	An array containing info on the supplied directory's contents
+	:param	string	$source_dir: 디렉토리 경로
+	:param	bool	$top_level_only: 지정된 디렉토리의 하위 디렉토리 제외 여부 
+	:returns:	제공된 디렉토리의 내용에 대한 정보를 포함하는 배열
 	:rtype:	array
 
-	Reads the specified directory and builds an array containing the filenames, filesize,
-	dates, and permissions. Sub-folders contained within the specified path are only read
-	if forced by sending the second parameter to FALSE, as this can be an intensive
-	operation.
+	지정된 디렉토리를 읽고 파일 이름, 파일 크기, 날짜 및 권한을 포함하는 배열을 만듭니다.
+	지정된 경로에 포함된 하위 폴더는 두 번째 매개 변수를 FALSE로 전달한 경우에만 읽힙니다. 
+	이는 많은 주의를 기울여 하는 작업이 될 수 있기 때문입니다.
 
 	Example::
 
@@ -178,26 +177,23 @@ The following functions are available:
 
 .. php:function:: get_file_info($file[, $returned_values = ['name', 'server_path', 'size', 'date']])
 
-	:param	string	        $file: File path
-	:param	array|string    $returned_values: What type of info to return to be passed as array or comma separated string
-	:returns:	An array containing info on the specified file or FALSE on failure
+	:param	string	        $file: 파일 경로
+	:param	array|string    $returned_values: 배열 또는 쉼표로 구분된 문자열로 전달하기 위해 반환할 정보 유형
+	:returns:	지정된 파일에 대한 정보가 포함된 배열, 실패시 FALSE
 	:rtype:	array
 
-	Given a file and path, returns (optionally) the *name*, *path*, *size* and *date modified*
-	information attributes for a file. Second parameter allows you to explicitly declare what
-	information you want returned.
+	파일 및 경로가 제공되면 파일의 *name*, *path*, *size*, *date modified* 정보 속성을 (선택적으로) 반환합니다.
+	두 번째 매개 변수를 사용하면 반환할 정보를 명시적으로 선언할 수 있습니다.
 
-	Valid ``$returned_values`` options are: `name`, `size`, `date`, `readable`, `writeable`,
-	`executable` and `fileperms`.
+	유효한 ``$returned_values`` 옵션: `name`, `size`, `date`, `readable`, `writeable`, `executable`, `fileperms`.
 
 .. php:function:: symbolic_permissions($perms)
 
-	:param	int	$perms: Permissions
-	:returns:	Symbolic permissions string
+	:param	int	$perms: 권한(Permission)
+	:returns:	심볼릭(Symbolic) 권한 문자열
 	:rtype:	string
 
-	Takes numeric permissions (such as is returned by ``fileperms()``) and returns
-	standard symbolic notation of file permissions.
+	숫자 사용 권한(예: ``fileperms()``\ 에 의해 반환된)을 사용하여 파일 사용 권한의 표준 기호를 반환합니다.
 
 	::
 
@@ -205,12 +201,11 @@ The following functions are available:
 
 .. php:function:: octal_permissions($perms)
 
-	:param	int	$perms: Permissions
-	:returns:	Octal permissions string
+	:param	int	$perms: 권한
+	:returns:	8진수 권한 문자열
 	:rtype:	string
 
-	Takes numeric permissions (such as is returned by ``fileperms()``) and returns
-	a three character octal notation of file permissions.
+	숫자 사용 권한(예: ``fileperms()``\ 에 의해 반환된)을 사용하여 파일 권한의 8진수 표기법를 반환합니다.
 
 	::
 
@@ -218,14 +213,12 @@ The following functions are available:
 
 .. php:function:: set_realpath($path[, $check_existence = FALSE])
 
-	:param	string	$path: Path
-	:param	bool	$check_existence: Whether to check if the path actually exists
-	:returns:	An absolute path
+	:param	string	$path: 경로
+	:param	bool	$check_existence: 경로가 실제로 존재하는지 확인
+	:returns:	절대 경로
 	:rtype:	string
 
-	This function will return a server path without symbolic links or
-	relative directory structures. An optional second argument will
-	cause an error to be triggered if the path cannot be resolved.
+	이 기능은 심볼릭 링크나 상대 디렉터리 구조가 없는 서버 경로를 반환합니다. 경로를 확인할 수 없는 경우 선택적 두 번째 인수로 인해 오류가 트리거됩니다.
 
 	Examples::
 
