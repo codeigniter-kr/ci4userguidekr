@@ -1,9 +1,8 @@
-###########
-Form Helper
-###########
+################
+폼(Form) 헬퍼
+################
 
-The Form Helper file contains functions that assist in working with
-forms.
+The Form Helper file contains functions that assist in working with forms.
 
 .. contents::
   :local:
@@ -12,136 +11,148 @@ forms.
 
   <div class="custom-index container"></div>
 
-Loading this Helper
+헬퍼 로드
 ===================
 
-This helper is loaded using the following code::
+이 헬퍼는 다음 코드를 사용하여 로드됩니다.
+
+::
 
 	helper('form');
 
-Escaping field values
+이스케이프 필드 값
 =====================
 
-You may need to use HTML and characters such as quotes within your form
-elements. In order to do that safely, you'll need to use
-:doc:`common function <../general/common_functions>`
-:func:`esc()`.
+폼 요소내의 HTML과 따옴표와 같은 문자를 사용해야 할 때가 있습니다.
+안전하게 이를 처리하려면 :doc:`공통 함수 <../ general / common_functions>`\ 의 :php:func:`esc()` 함수를 사용해야 합니다.
 
-Consider the following example::
+다음 예를 살펴보십시오.
+
+::
 
 	$string = 'Here is a string containing "quoted" text.';
 
 	<input type="text" name="myfield" value="<?= $string; ?>" />
 
-Since the above string contains a set of quotes, it will cause the form
-to break. The :php:func:`esc()` function converts HTML special
-characters so that it can be used safely::
+위의 문자열에는 따옴표 세트가 포함되어 있으므로 폼이 중단됩니다.
+:php:func:`esc ()` 함수는 HTML 특수 문자를 변환하여 안전하게 폼을 사용할 수 있도록 합니다.
+
+::
 
 	<input type="text" name="myfield" value="<?= esc($string); ?>" />
 
-.. note:: If you use any of the form helper functions listed on this page,
-        and you pass values as an associative array,
-	the form values will be automatically escaped, so there is no need
-	to call this function. Use it only if you are creating your own
-	form elements, which you would pass as strings.
+.. note:: 이 페이지에 나열된 폼 헬퍼 함수를 사용하고 값을 연관 배열로 전달하면 폼의 값이 자동으로 이스케이프되므로 :php:func:`esc()` 함수를 호출할 필요가 없습니다.
+	문자열로 전달할 양식 요소를 직접 만드는 경우에만 사용하십시오.
 
-Available Functions
+사용 가능한 함수
 ===================
 
-The following functions are available:
+사용 가능한 함수는 다음과 같습니다.
 
 .. php:function:: form_open([$action = ''[, $attributes = ''[, $hidden = []]]])
 
-	:param	string	$action: Form action/target URI string
-    	:param	mixed	$attributes: HTML attributes, as an array or escaped string
-    	:param	array	$hidden: An array of hidden fields' definitions
-    	:returns:	An HTML form opening tag
-    	:rtype:	string
+	:param	string	$action: 폼 액션/타겟 URI 문자열
+	:param	mixed	$attributes: HTML 속성, 배열 또는 이스케이프된 문자열
+	:param	array	$hidden: 숨겨진(hidden) 필드 정의의 배열
+	:returns:	HTML 폼 태그
+	:rtype:	string
 
-    	Creates an opening form tag with a base URL **built from your config preferences**.
-	It will optionally let you add form attributes and hidden input fields, and
-	will always add the `accept-charset` attribute based on the charset value in your
-	config file.
+	**환경 설정에서 빌드한 기본 URL**\ 을 사용하여 여는 폼 태그를 만듭니다.
+	선택적으로 폼 속성과 숨겨진 입력 필드를 추가할 수 있으며, 구성 파일의 문자 세트 값을 기반으로 `accept-charset` 속성을 추가합니다.
 
-	The main benefit of using this tag rather than hard coding your own HTML is that
-	it permits your site to be more portable in the event your URLs ever change.
+	HTML을 직접 하드 코딩하는 대신 이 태그를 사용하면, 사이트의 URL이 변경될 때 별도의 URL변경이 필요하지 않습니다.
 
 	Here's a simple example::
 
 		echo form_open('email/send');
 
-	The above example would create a form that points to your base URL plus the
-	"email/send" URI segments, like this::
+	위의 예는 기본 URL과 "email/send" URI 세그먼트를 가리키는 폼을 작성합니다.	
+
+	::
 
 		<form method="post" accept-charset="utf-8" action="http://example.com/index.php/email/send">
 
 	**Adding Attributes**
 
-		Attributes can be added by passing an associative array to the second
-		parameter, like this::
+		아래와 같이 두 번째 매개 변수에 연관 배열을 전달하여 속성을 추가할 수 있습니다.
+
+		::
 
 			$attributes = ['class' => 'email', 'id' => 'myform'];
 			echo form_open('email/send', $attributes);
 
-		Alternatively, you can specify the second parameter as a string::
+		또는 두 번째 매개 변수를 문자열로 지정할 수 있습니다.
+		
+		::
 
 			echo form_open('email/send', 'class="email" id="myform"');
 
-		The above examples would create a form similar to this::
+		위의 예제는 이와 비슷한 형식을 만듭니다.
+		
+		::
 
 			<form method="post" accept-charset="utf-8" action="http://example.com/index.php/email/send" class="email" id="myform">
 			
-		If CSRF filter is turned on `form_open()` will generate CSRF field at the beginning of the form. You can specify ID of this field by passing csrf_id as one of the $attribute array:
+		CSRF 필터가 켜져 있으면 `form_open()` 은 폼의 시작 부분에 CSRF 필드를 생성합니다.
+		csrf_id를 $attribute 배열 중 하나로 전달하여 이 필드의 ID를 지정할 수 있습니다.
+
+		::
 		
 			form_open('/u/sign-up', ['csrf_id' => 'my-id']);
 			
-		will return:
+		다음과 같이 표시됩니다.
+		
+		::
 		
 			<form action="/u/sign-up" method="post" accept-charset="utf-8">
 			<input type="hidden" id="my-id" name="csrf_field" value="964ede6e0ae8a680f7b8eab69136717d" />
 
 	**Adding Hidden Input Fields**
 
-		Hidden fields can be added by passing an associative array to the
-		third parameter, like this::
+		다음과 같이 연관 배열을 세 번째 매개 변수에 전달하여 숨겨진 필드를 추가할 수 있습니다.
+		
+		::
 
 			$hidden = ['username' => 'Joe', 'member_id' => '234'];
 			echo form_open('email/send', '', $hidden);
 
-		You can skip the second parameter by passing any false value to it.
+		잘못된 값을 전달하여 두 번째 매개 변수를 건너뛸 수 있습니다.
 
-		The above example would create a form similar to this::
+		위의 예는 이와 비슷한 폼을 만듭니다.
+		
+		::
 
 			<form method="post" accept-charset="utf-8" action="http://example.com/index.php/email/send">
-				<input type="hidden" name="username" value="Joe" />
-				<input type="hidden" name="member_id" value="234" />
+			<input type="hidden" name="username" value="Joe" />
+			<input type="hidden" name="member_id" value="234" />
 
 .. php:function:: form_open_multipart([$action = ''[, $attributes = ''[, $hidden = []]]])
 
-	:param	string	$action: Form action/target URI string
-    	:param	mixed	$attributes: HTML attributes, as an array or escaped string
-    	:param	array	$hidden: An array of hidden fields' definitions
-    	:returns:	An HTML multipart form opening tag
-    	:rtype:	string
+	:param	string	$action: 폼 액션/타겟 URI 문자열
+	:param	mixed	$attributes: HTML 속성, 배열 또는 이스케이프된 문자열
+	:param	array	$hidden: 숨겨진(hidden) 필드 정의의 배열
+	:returns:	HTML multipart 폼 시작 태그
+	:rtype:	string
 
-    	This function is identical to :php:func:`form_open()` above,
-	except that it adds a *multipart* attribute, which is necessary if you
-	would like to use the form to upload files with.
+	이 함수는 위의 :php:func:`form_open()`과 동일하지만, *multipart* 속성을 추가하여 파일을 업로드할 수 있습니다.
 
 .. php:function:: form_hidden($name[, $value = ''])
 
-	:param	string	$name: Field name
-    	:param	string	$value: Field value
-    	:returns:	An HTML hidden input field tag
-    	:rtype:	string
+	:param	string	$name: 필드 이름
+	:param	string	$value: 필드 값
+	:returns:	HTML 숨겨진 입력 필드 태그
+	:rtype:	string
 
-    	Lets you generate hidden input fields. You can either submit a
-    	name/value string to create one field::
+	숨겨진 입력 필드를 생성합니다. 하나의 필드를 만들기 위해 이름/값 문자열을 사용할 수 있습니다
+
+	::
 
 		form_hidden('username', 'johndoe');
 		// Would produce: <input type="hidden" name="username" value="johndoe" />
 
-	... or you can submit an associative array to create multiple fields::
+	... 또는 연관 배열을 사용하여 여러개 필드를 만들 수 있습니다
+	
+	::
 
 		$data = [
 			'name'	=> 'John Doe',
@@ -158,7 +169,9 @@ The following functions are available:
 			<input type="hidden" name="url" value="http://example.com" />
 		*/
 
-	You can also pass an associative array to the value field::
+	값 배열에 연관 배열을 전달할 수도 있습니다.
+	
+	::
 
 		$data = [
 			'name'	=> 'John Doe',
@@ -176,7 +189,9 @@ The following functions are available:
 			<input type="hidden" name="my_array[url]" value="http://example.com" />
 		*/
 
-	If you want to create hidden input fields with extra attributes::
+	추가 속성으로 숨겨진 입력 필드를 만들려면
+	
+	::
 
 		$data = [
 			'type'	=> 'hidden',
@@ -196,20 +211,22 @@ The following functions are available:
 
 .. php:function:: form_input([$data = ''[, $value = ''[, $extra = ''[, $type = 'text']]]])
 
-	:param	array	$data: Field attributes data
-	:param	string	$value: Field value
-	:param	mixed	$extra: Extra attributes to be added to the tag either as an array or a literal string
-	:param  string  $type: The type of input field. i.e. 'text', 'email', 'number', etc.
-	:returns:	An HTML text input field tag
+	:param	array	$data: 필드 속성 데이터
+	:param	string	$value: 필드 값
+	:param	mixed	$extra: 배열 또는 리터럴 문자열로 태그에 추가할 추가 특성
+	:param  string  $type: 입력 필드 유형 : 'text', 'email', 'number', etc.
+	:returns:	HTML 텍스트 입력 필드 태그
 	:rtype:	string
 
-	Lets you generate a standard text input field. You can minimally pass
-	the field name and value in the first and second parameter::
+	표준 텍스트 입력 필드를 생성합니다. 첫 번째, 두 번째 매개 변수에 필드 이름과 값을 전달합니다.
+
+	::
 
 		echo form_input('username', 'johndoe');
 
-	Or you can pass an associative array containing any data you wish your
-	form to contain::
+	또는 양식에 포함할 데이터가 들어 있는 연관 배열을 전달할 수 있습니다.
+	
+	::
 
 		$data = [
 			'name'      => 'username',
@@ -228,18 +245,23 @@ The following functions are available:
 			<input type="text" name="username" value="johndoe" id="username" maxlength="100" size="50" style="width:50%"  />
 		*/
 
-	If you would like your form to contain some additional data, like
-	JavaScript, you can pass it as a string in the third parameter::
+	JavaScript와 같은 일부 데이터를 폼에 추가하려면 문자열로 세 번째 매개 변수에 전달합니다.
+	
+	::
 
 		$js = 'onClick="some_function()"';
 		echo form_input('username', 'johndoe', $js);
 
-	Or you can pass it as an array::
+	또는 배열로 전달합니다.
+	
+	::
 
 		$js = ['onClick' => 'some_function();'];
 		echo form_input('username', 'johndoe', $js);
 
-	To support the expanded range of HTML5 input fields, you can pass an input type in as the fourth parameter::
+	HTML5 입력 필드의 확장된 입력 유형은 네 번째 매개 변수로 전달합니다.
+
+	::
 
 		echo form_input('email', 'joe@example.com', ['placeholder' => 'Email Address...'], 'email');
 
@@ -251,58 +273,50 @@ The following functions are available:
 
 .. php:function:: form_password([$data = ''[, $value = ''[, $extra = '']]])
 
-	:param	array	$data: Field attributes data
-    	:param	string	$value: Field value
-    	:param	mixed	$extra: Extra attributes to be added to the tag either as an array or a literal string
-    	:returns:	An HTML password input field tag
-    	:rtype:	string
+	:param	array	$data: 필드 속성 데이터
+	:param	string	$value: 필드 값
+	:param	mixed	$extra: 배열 또는 리터럴 문자열로 태그에 추가할 추가 속성
+	:returns:	HTML 비밀번호 입력 필드 태그
+	:rtype:	string
 
-    	This function is identical in all respects to the :php:func:`form_input()`
-	function above except that it uses the "password" input type.
+	이 함수는 "password" 입력 타입을 사용한다는 점을 제외하면 위의 :php:func:`form_input()` 함수와 동일합니다.
 
 .. php:function:: form_upload([$data = ''[, $value = ''[, $extra = '']]])
 
-	:param	array	$data: Field attributes data
-    	:param	string	$value: Field value
-    	:param	mixed	$extra: Extra attributes to be added to the tag either as an array or a literal string
-    	:returns:	An HTML file upload input field tag
+	:param	array	$data: 필드 속성 데이터
+    	:param	string	$value: 필드 값
+    	:param	mixed	$extra: 배열 또는 리터럴 문자열로 태그에 추가할 추가 속성
+    	:returns:	HTML 파일 업로드 입력 필드 태그
     	:rtype:	string
 
-    	This function is identical in all respects to the :php:func:`form_input()`
-	function above except that it uses the "file" input type, allowing it to
-	be used to upload files.
+		이 함수는 "file" 입력 유형을 사용하여 파일을 업로드하는 데 사용될 수 있다는 점을 제외하고 위의 :php:func:`form_input ()` 함수와 동일합니다.
 
 .. php:function:: form_textarea([$data = ''[, $value = ''[, $extra = '']]])
 
-	:param	array	$data: Field attributes data
-    	:param	string	$value: Field value
-    	:param	mixed	$extra: Extra attributes to be added to the tag either as an array or a literal string
-    	:returns:	An HTML textarea tag
+	:param	array	$data: 필드 속성 데이터
+    	:param	string	$value: 필드 값
+    	:param	mixed	$extra: 배열 또는 리터럴 문자열로 태그에 추가할 추가 속성
+    	:returns:	HTML textarea 태그
     	:rtype:	string
 
-    	This function is identical in all respects to the :php:func:`form_input()`
-	function above except that it generates a "textarea" type.
+		이 함수는 "textarea" 유형을 생성한다는 점을 제외하고 위의 :php:func:`form_input()` 함수와 동일합니다.
 
-	.. note:: Instead of the *maxlength* and *size* attributes in the above example,
-		you will instead specify *rows* and *cols*.
+	.. note:: Instead of the *maxlength* and *size* attributes in the above example, you will instead specify *rows* and *cols*.
 
 .. php:function:: form_dropdown([$name = ''[, $options = [][, $selected = [][, $extra = '']]]])
 
-	:param	string	$name: Field name
-	:param	array	$options: An associative array of options to be listed
-    	:param	array	$selected: List of fields to mark with the *selected* attribute
-	:param	mixed	$extra: Extra attributes to be added to the tag either as an array or a literal string
-    	:returns:	An HTML dropdown select field tag
-    	:rtype:	string
+	:param	string	$name: 필드 이름
+	:param	array	$options: 나열할 옵션의 연관 배열
+	:param	array	$selected: *selected* 속성으로 표시할 필드 목록
+	:param	mixed	$extra: 배열 또는 리터럴 문자열로 태그에 추가할 추가 속성
+	:returns:	HTML 드롭 다운 선택(select) 필드 태그
+	:rtype:	string
 
-    	Lets you create a standard drop-down field. The first parameter will
-    	contain the name of the field, the second parameter will contain an
-    	associative array of options, and the third parameter will contain the
-    	value you wish to be selected. You can also pass an array of multiple
-    	items through the third parameter, and the helper will create a
-    	multiple select for you.
+	표준 드롭 다운 필드를 만들 수 있습니다. 
+	필드 이름을 첫 번째 매개 변수로 연관 옵션 배열을 두 번째 매개 변수로 선택하려는 값은 세 번째 매개 변수로 전달합니다.
+	세 번째 매개 변수를 통해 여러 항목의 배열을 전달할 수 있으며, 헬퍼가 여러(multiple) 항목을 선택(select)합니다.
 
-    	Example::
+	Example::
 
 		$options = [
 			'small'  => 'Small Shirt',
@@ -338,14 +352,16 @@ The following functions are available:
 			</select>
 		*/
 
-	If you would like the opening <select> to contain additional data, like
-	an id attribute or JavaScript, you can pass it as a string in the fourth
-	parameter::
+	<select> 태그의 id 속성 또는 JavaScript와 같은 추가 데이터를 포함하도록 하려면 네 번째 매개 변수에서 문자열로 전달합니다.
+
+	::
 
 		$js = 'id="shirts" onChange="some_function();"';
 		echo form_dropdown('shirts', $options, 'large', $js);
 
-	Or you can pass it as an array::
+	또는 배열로 전달할 수 있습니다.
+	
+	::
 
 		$js = [
 			'id'       => 'shirts',
@@ -353,38 +369,32 @@ The following functions are available:
 		];
 		echo form_dropdown('shirts', $options, 'large', $js);
 
-	If the array passed as ``$options`` is a multidimensional array, then
-	``form_dropdown()`` will produce an <optgroup> with the array key as the
-	label.
+	``$options``\ 로 전달된 배열이 다차원 배열이면 ``form_dropdown()``\ 은 배열 키를 레이블로 하여 <optgroup>을 생성합니다.
 
 .. php:function:: form_multiselect([$name = ''[, $options = [][, $selected = [][, $extra = '']]]])
 
-	:param	string	$name: Field name
-    	:param	array	$options: An associative array of options to be listed
-    	:param	array	$selected: List of fields to mark with the *selected* attribute
-	:param	mixed	$extra: Extra attributes to be added to the tag either as an array or a literal string
-    	:returns:	An HTML dropdown multiselect field tag
-    	:rtype:	string
+	:param	string	$name: 필드 이름
+	:param	array	$options: 나열할 옵션의 연관 배열
+	:param	array	$selected: *selected* 속성으로 표시할 필드 목록
+	:param	mixed	$extra: 배열 또는 리터럴 문자열로 태그에 추가할 추가 속성
+	:returns:	HTML 드롭 다운 다중 선택 필드 태그
+	:rtype:	string
 
-    	Lets you create a standard multiselect field. The first parameter will
-    	contain the name of the field, the second parameter will contain an
-    	associative array of options, and the third parameter will contain the
-    	value or values you wish to be selected.
+	표준 다중 선택 필드를 만들 수 있습니다.
+	필드 이름은 첫 번째 매개 변수에, 연관 옵션 배열은 두 번째 매개 변수에 선택하려는 값은 세 번째 매개 변수로 전달합니다.
 
-    	The parameter usage is identical to using :php:func:`form_dropdown()` above,
-	except of course that the name of the field will need to use POST array
-	syntax, e.g. foo[].
+	매개 변수 사용법은 위의 :php:func:`form_dropdown()`\ 을 사용하는 것과 동일하지만 필드 이름은 ``foo[]``\ 와 같은 POST 배열 구문을 사용해야 합니다.
 
 .. php:function:: form_fieldset([$legend_text = ''[, $attributes = []]])
 
-	:param	string	$legend_text: Text to put in the <legend> tag
-    	:param	array	$attributes: Attributes to be set on the <fieldset> tag
-    	:returns:	An HTML fieldset opening tag
-    	:rtype:	string
+	:param	string	$legend_text: <legend> 태그에 넣을 텍스트
+	:param	array	$attributes: <fieldset> 태그에서 설정할 속성
+	:returns:	HTML 필드 셋 여는 태그
+	:rtype:	string
 
-    	Lets you generate fieldset/legend fields.
+	fieldset/legend 필드를 생성합니다.
 
-    	Example::
+	Example::
 
 		echo form_fieldset('Address Information');
 		echo "<p>fieldset content here</p>\n";
@@ -399,8 +409,9 @@ The following functions are available:
 				</fieldset>
 		*/
 
-	Similar to other functions, you can submit an associative array in the
-	second parameter if you prefer to set additional attributes::
+	다른 기능과 마찬가지로 추가 속성을 설정하려는 경우 두 번째 매개 변수에 연관 배열을 전달합니다.
+	
+	::
 
 		$attributes = [
 			'id'	=> 'address_info',
@@ -422,13 +433,14 @@ The following functions are available:
 
 .. php:function:: form_fieldset_close([$extra = ''])
 
-	:param	string	$extra: Anything to append after the closing tag, *as is*
-	:returns:	An HTML fieldset closing tag
+	:param	string	$extra: 닫는 태그 뒤에 추가할 내용 *있는 그대로*
+	:returns:	HTML 필드 셋 닫기 태그
 	:rtype:	string
 
-	Produces a closing </fieldset> tag. The only advantage to using this
-	function is it permits you to pass data to it which will be added below
-	the tag. For example
+	닫는 </fieldset> 태그를 생성합니다. 
+	이 기능을 사용하는 유일한 장점은 태그 아래에 추가될 데이터를 전달할 수 있다는 것입니다.
+
+	For example
 
 	::
 
@@ -438,23 +450,25 @@ The following functions are available:
 
 .. php:function:: form_checkbox([$data = ''[, $value = ''[, $checked = FALSE[, $extra = '']]]])
 
-	:param	array	$data: Field attributes data
-    	:param	string	$value: Field value
-    	:param	bool	$checked: Whether to mark the checkbox as being *checked*
-	:param	mixed	$extra: Extra attributes to be added to the tag either as an array or a literal string
-    	:returns:	An HTML checkbox input tag
-    	:rtype:	string
+	:param	array	$data: 필드 속성 데이터
+	:param	string	$value: 필드 값
+	:param	bool	$checked: 체크박스(checkbox)의 *checked* 표시 여부
+	:param	mixed	$extra: 배열 또는 리터럴 문자열로 태그에 추가할 추가 속성
+	:returns:	HTML 체크박스 입력 태그
+	:rtype:	string
 
-    	Lets you generate a checkbox field. Simple example::
+	checkbox 필드를 생성합니다.
+	
+	::
 
 		echo form_checkbox('newsletter', 'accept', TRUE);
 		// Would produce:  <input type="checkbox" name="newsletter" value="accept" checked="checked" />
 
-	The third parameter contains a boolean TRUE/FALSE to determine whether
-	the box should be checked or not.
+	세 번째 매개 변수에는 checkbox를 선택해야 하는지 여부를 결정하는 부울 TRUE/FALSE가 포함됩니다.
 
-	Similar to the other form functions in this helper, you can also pass an
-	array of attributes to the function::
+	이 헬퍼의 다른 폼 함수와 마찬가지로 속성 배열을 함수에 전달할 수 있습니다.
+	
+	::
 
 		$data = [
 			'name'    => 'newsletter',
@@ -467,9 +481,9 @@ The following functions are available:
 		echo form_checkbox($data);
 		// Would produce: <input type="checkbox" name="newsletter" id="newsletter" value="accept" checked="checked" style="margin:10px" />
 
-	Also as with other functions, if you would like the tag to contain
-	additional data like JavaScript, you can pass it as a string in the
-	fourth parameter::
+	Also as with other functions, if you would like the tag to contain additional data like JavaScript, you can pass it as a string in the fourth parameter
+	
+	::
 
 		$js = 'onClick="some_function()"';
 		echo form_checkbox('newsletter', 'accept', TRUE, $js);
@@ -481,10 +495,10 @@ The following functions are available:
 
 .. php:function:: form_radio([$data = ''[, $value = ''[, $checked = FALSE[, $extra = '']]]])
 
-	:param	array	$data: Field attributes data
-    	:param	string	$value: Field value
+	:param	array	$data: 필드 속성 데이터
+    	:param	string	$value: 필드 값
     	:param	bool	$checked: Whether to mark the radio button as being *checked*
-	:param	mixed	$extra: Extra attributes to be added to the tag either as an array or a literal string
+	:param	mixed	$extra: 배열 또는 리터럴 문자열로 태그에 추가할 추가 속성
     	:returns:	An HTML radio input tag
     	:rtype:	string
 
@@ -521,7 +535,7 @@ The following functions are available:
 
 	:param	string	$data: Button name
     	:param	string	$value: Button value
-    	:param	mixed	$extra: Extra attributes to be added to the tag either as an array or a literal string
+    	:param	mixed	$extra: 배열 또는 리터럴 문자열로 태그에 추가할 추가 속성
     	:returns:	An HTML input submit tag
     	:rtype:	string
 
@@ -538,7 +552,7 @@ The following functions are available:
 
 	:param	string	$data: Button name
     	:param	string	$value: Button value
-    	:param	mixed	$extra: Extra attributes to be added to the tag either as an array or a literal string
+    	:param	mixed	$extra: 배열 또는 리터럴 문자열로 태그에 추가할 추가 속성
     	:returns:	An HTML input reset button tag
     	:rtype:	string
 
@@ -549,7 +563,7 @@ The following functions are available:
 
 	:param	string	$data: Button name
     	:param	string	$content: Button label
-    	:param	mixed	$extra: Extra attributes to be added to the tag either as an array or a literal string
+    	:param	mixed	$extra: 배열 또는 리터럴 문자열로 태그에 추가할 추가 속성
     	:returns:	An HTML button tag
     	:rtype:	string
 
@@ -595,10 +609,10 @@ The following functions are available:
 
 .. php:function:: set_value($field[, $default = ''[, $html_escape = TRUE]])
 
-	:param	string	$field: Field name
+	:param	string	$field: 필드 이름
     	:param	string	$default: Default value
     	:param  bool	$html_escape: Whether to turn off HTML escaping of the value
-    	:returns:	Field value
+    	:returns:	필드 값
     	:rtype:	string
 
     	Permits you to set the value of an input form or textarea. You must
@@ -616,7 +630,7 @@ The following functions are available:
 
 .. php:function:: set_select($field[, $value = ''[, $default = FALSE]])
 
-	:param	string	$field: Field name
+	:param	string	$field: 필드 이름
     	:param	string	$value: Value to check for
     	:param	string	$default: Whether the value is also a default one
     	:returns:	'selected' attribute or an empty string
@@ -639,7 +653,7 @@ The following functions are available:
 
 .. php:function:: set_checkbox($field[, $value = ''[, $default = FALSE]])
 
-	:param	string	$field: Field name
+	:param	string	$field: 필드 이름
     	:param	string	$value: Value to check for
     	:param	string	$default: Whether the value is also a default one
     	:returns:	'checked' attribute or an empty string
@@ -658,7 +672,7 @@ The following functions are available:
 
 .. php:function:: set_radio($field[, $value = ''[, $default = FALSE]])
 
-	:param	string	$field: Field name
+	:param	string	$field: 필드 이름
     	:param	string	$value: Value to check for
     	:param	string	$default: Whether the value is also a default one
     	:returns:	'checked' attribute or an empty string
