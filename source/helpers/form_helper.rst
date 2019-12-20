@@ -481,14 +481,16 @@ The Form Helper file contains functions that assist in working with forms.
 		echo form_checkbox($data);
 		// Would produce: <input type="checkbox" name="newsletter" id="newsletter" value="accept" checked="checked" style="margin:10px" />
 
-	Also as with other functions, if you would like the tag to contain additional data like JavaScript, you can pass it as a string in the fourth parameter
-	
+	또한 다른 함수와 마찬가지로 태그에 JavaScript와 같은 추가 데이터를 포함 시키려면 네 번째 매개 변수에서 문자열로 전달합니다
+
 	::
 
 		$js = 'onClick="some_function()"';
 		echo form_checkbox('newsletter', 'accept', TRUE, $js);
 
-	Or you can pass it as an array::
+	또는 배열로 전달할 수 있습니다
+
+	::
 
 		$js = ['onClick' => 'some_function();'];
 		echo form_checkbox('newsletter', 'accept', TRUE, $js);
@@ -496,14 +498,13 @@ The Form Helper file contains functions that assist in working with forms.
 .. php:function:: form_radio([$data = ''[, $value = ''[, $checked = FALSE[, $extra = '']]]])
 
 	:param	array	$data: 필드 속성 데이터
-    	:param	string	$value: 필드 값
-    	:param	bool	$checked: Whether to mark the radio button as being *checked*
+	:param	string	$value: 필드 값
+	:param	bool	$checked: Whether to mark the radio button as being *checked*
 	:param	mixed	$extra: 배열 또는 리터럴 문자열로 태그에 추가할 추가 속성
-    	:returns:	An HTML radio input tag
-    	:rtype:	string
+	:returns:	An HTML radio input tag
+	:rtype:	string
 
-    	This function is identical in all respects to the :php:func:`form_checkbox()`
-	function above except that it uses the "radio" input type.
+	This function is identical in all respects to the :php:func:`form_checkbox()` function above except that it uses the "radio" input type.
 
 .. php:function:: form_label([$label_text = ''[, $id = ''[, $attributes = []]]])
 
