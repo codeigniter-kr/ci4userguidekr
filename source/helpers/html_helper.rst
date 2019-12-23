@@ -1,9 +1,8 @@
 ###########
-HTML Helper
+HTML 헬퍼
 ###########
 
-The HTML Helper file contains functions that assist in working with
-HTML.
+HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있습니다.
 
 .. contents::
     :local:
@@ -12,45 +11,47 @@ HTML.
 
     <div class="custom-index container"></div>
 
-Loading this Helper
+헬퍼 로드
 ===================
 
-This helper is loaded using the following code::
+이 헬퍼는 다음 코드를 사용하여 로드됩니다.
+
+::
 
     helper('html');
 
-Available Functions
+사용 가능한 함수
 ===================
 
-The following functions are available:
+사용 가능한 함수는 다음과 같습니다.
 
 .. php:function:: img([$src = ''[, $indexPage = false[, $attributes = '']]])
 
-    :param  mixed  $src:        Image source data
-    :param  bool    $indexPage:  Whether to treat $src as a routed URI string
-    :param  mixed   $attributes: HTML attributes
-    :returns:   HTML image tag
+    :param  mixed  $src:        이미지 소스 데이터
+    :param  bool    $indexPage:  $src를 라우팅된 URI 문자열로 취급할 지 여부
+    :param  mixed   $attributes: HTML 속성
+    :returns:   HTML image 태그
     :rtype: string
 
-    Lets you create HTML <img /> tags. The first parameter contains the
-    image source. Example::
+    HTML <img /> 태그를 만들 수 있습니다. 첫 번째 매개 변수는 이미지 소스를 포함합니다.
+
+    ::
 
         echo img('images/picture.jpg');
         // <img src="http://site.com/images/picture.jpg" />
 
-    There is an optional second parameter that is a true/false value that
-    specifics if the *src* should have the page specified by
-    ``$config['indexPage']`` added to the address it creates.
-    Presumably, this would be if you were using a media controller::
+    *src*\ 에 생성된 주소에 ``$config['indexPage']``\ 로 지정된 페이지가 추가되어야 하는 경우에 해당하는 선택적 두 번째 매개 변수(true/false 값)가 있습니다.
+    미디어 컨트롤러를 사용하는 경우 유용합니다.
+
+    ::
 
         echo img('images/picture.jpg', true);
         // <img src="http://site.com/index.php/images/picture.jpg" alt="" />
 
-    Additionally, an associative array can be passed as the first parameter,
-    for complete control over all attributes and values. If an *alt* attribute
-    is not provided, CodeIgniter will generate an empty string.
+    또한 모든 속성과 값을 완벽하게 제어하기 위한 연관 배열을 첫 번째 매개 변수로 전달할 수 있습니다.
+    *alt* 속성이 제공되지 않으면 CodeIgniter는 빈 문자열을 생성합니다.
 
-    Example::
+    ::
 
         $imageProperties = [
             'src'    => 'images/picture.jpg',
@@ -67,28 +68,28 @@ The following functions are available:
 
 .. php:function:: link_tag([$href = ''[, $rel = 'stylesheet'[, $type = 'text/css'[, $title = ''[, $media = ''[, $indexPage = false]]]]]])
 
-    :param  string  $href:      The source of the link file
-    :param  string  $rel:       Relation type
-    :param  string  $type:      Type of the related document
-    :param  string  $title:     Link title
-    :param  string  $media:     Media type
-    :param  bool    $indexPage: Whether to treat $src as a routed URI string
-    :returns:   HTML link tag
+    :param  string  $href:      링크 파일의 소스
+    :param  string  $rel:       관계 유형
+    :param  string  $type:      관련 문서의 종류
+    :param  string  $title:     링크 제목
+    :param  string  $media:     미디어 타입
+    :param  bool    $indexPage: $src를 라우팅된 URI 문자열로 취급할 지 여부
+    :returns:   HTML link 태그
     :rtype: string
 
-    Lets you create HTML <link /> tags. This is useful for stylesheet links,
-    as well as other links. The parameters are *href*, with optional *rel*,
-    *type*, *title*, *media* and *indexPage*.
+    HTML <link /> 태그를 만들 수 있습니다.    
+    스타일 시트 링크 및 기타 링크에 유용합니다.
 
-    *indexPage* is a boolean value that specifies if the *href* should have
-    the page specified by ``$config['indexPage']`` added to the address it creates.
+    필수 매개 변수는 *href* 이며 선택적 매개 변수는 *rel*, *type*, *title*, *media*, *indexPage* 입니다.
 
-    Example::
+    *indexPage*\ 는 *href*\ 가 생성한 주소에 ``$config['indexPage']``\ 로 지정된 페이지를 추가해야 하는지 여부를 지정하는 부울 값입니다.
+
+    ::
 
         echo link_tag('css/mystyles.css');
         // <link href="http://site.com/css/mystyles.css" rel="stylesheet" type="text/css" />
 
-    Further examples::
+    ::
 
         echo link_tag('favicon.ico', 'shortcut icon', 'image/ico');
         // <link href="http://site.com/favicon.ico" rel="shortcut icon" type="image/ico" />
@@ -96,8 +97,9 @@ The following functions are available:
         echo link_tag('feed', 'alternate', 'application/rss+xml', 'My RSS Feed');
         // <link href="http://site.com/feed" rel="alternate" type="application/rss+xml" title="My RSS Feed" />
 
-    Alternately, an associative array can be passed to the ``link_tag()`` function
-    for complete control over all attributes and values::
+    또한 ``link_tag()`` 함수에 모든 속성과 값을 연관 배열로 전달할 수 있습니다
+    
+    ::
 
         $link = [
             'href'  => 'css/printer.css',
@@ -111,23 +113,24 @@ The following functions are available:
 
 .. php:function:: script_tag([$src = ''[, $indexPage = false]])
 
-    :param  mixed  $src: The source name of a JavaScript file
-    :param  bool    $indexPage: Whether to treat $src as a routed URI string
-    :returns:   HTML script tag
+    :param  mixed  $src: JavaScript 파일의 소스 이름
+    :param  bool    $indexPage: $src를 라우팅된 URI 문자열로 취급할 지 여부
+    :returns:   HTML script 태그
     :rtype: string
 
-    Lets you create HTML <script></script> tags. The parameters is *src*, with optional *indexPage*.
+    HTML <script> </ script> 태그를 만듭니다. 
+    필수 매개 변수는 *src* 이며 선택적 매개 변수는 * indexPage * 입니다.
 
-    *indexPage* is a boolean value that specifies if the *src* should have
-    the page specified by ``$config['indexPage']`` added to the address it creates.
+    *indexPage*\ 는 *src*\ 가 생성한 주소에 ``$config['indexPage']``\ 로 지정된 페이지를 추가해야 하는지 여부를 지정하는 부울 값입니다.
 
-    Example::
+    ::
 
         echo script_tag('js/mystyles.js');
         // <script src="http://site.com/js/mystyles.js" type="text/javascript"></script>
 
-    Alternately, an associative array can be passed to the ``script_tag()`` function
-    for complete control over all attributes and values::
+    또한 ``script_tag()`` 함수에 모든 속성과 값을 연관 배열로 전달할 수 있습니다
+    
+    ::
 
         $script = ['src'  => 'js/printer.js'];
 
@@ -136,13 +139,14 @@ The following functions are available:
 
 .. php:function:: ul($list[, $attributes = ''])
 
-    :param  array   $list: List entries
-    :param  array   $attributes: HTML attributes
-    :returns:   HTML-formatted unordered list
+    :param  array   $list: 목록 항목
+    :param  array   $attributes: HTML 속성
+    :returns:   HTML 형식의 비 순차 목록
     :rtype: string
 
-    Permits you to generate unordered HTML lists from simple or
-    multi-dimensional arrays. Example::
+    단순 또는 다차원 배열에서 정렬되지 않은 HTML 목록을 생성합니다.
+    
+    ::
 
         $list = [
             'red',
@@ -158,7 +162,7 @@ The following functions are available:
 
         echo ul($list, $attributes);
 
-    The above code will produce this:
+    위의 코드는 아래 HTML을 생성합니다.
 
     .. code-block:: html
 
@@ -169,7 +173,9 @@ The following functions are available:
             <li>yellow</li>
         </ul>
 
-    Here is a more complex example, using a multi-dimensional array::
+    다음은 다차원 배열을 사용하는 더 복잡한 예입니다.
+    
+    ::
 
         $attributes = [
             'class' => 'boldlist',
@@ -208,7 +214,7 @@ The following functions are available:
 
         echo ul($list, $attributes);
 
-    The above code will produce this:
+    위의 코드는 아래의 HTML을 생성합니다 :
 
     .. code-block:: html
 
@@ -256,26 +262,26 @@ The following functions are available:
 
 .. php:function:: ol($list, $attributes = '')
 
-    :param  array   $list: List entries
-    :param  array   $attributes: HTML attributes
-    :returns:   HTML-formatted ordered list
+    :param  array   $list: 목록 항목
+    :param  array   $attributes: HTML 속성
+    :returns:   HTML 형식의 정렬 된 목록
     :rtype: string
 
-    Identical to :php:func:`ul()`, only it produces the <ol> tag for
-    ordered lists instead of <ul>.
+    :php:func:`ul()`\ 과 동일하지만 <ul> 대신 <ol> 태그를 사용하여 정렬된 목록을 생성합니다.
 
 .. php:function:: video($src[, $unsupportedMessage = ''[, $attributes = ''[, $tracks = [][, $indexPage = false]]]])
 
-    :param  mixed   $src:                Either a source string or an array of sources. See :php:func:`source()` function
-    :param  string  $unsupportedMessage: The message to display if the media tag is not supported by the browser
-    :param  string  $attributes:         HTML attributes
-    :param  array   $tracks:             Use the track function inside an array. See :php:func:`track()` function
-    :param  bool    $indexPage:
-    :returns:                            HTML-formatted video element
+    :param  mixed   $src:                소스 문자열 또는 source 함수의 배열. :php:func:`source()`\ 함수 참조
+    :param  string  $unsupportedMessage: 미디어 태그를 지원하지 않는 브라우저에 표시되는 메시지
+    :param  string  $attributes:         HTML 속성
+    :param  array   $tracks:             track 함수의 배열. :php:func:`track()`\ 함수 참조
+    :param  bool    $indexPage:          $src를 라우팅된 URI 문자열로 취급할 지 여부
+    :returns:                            HTML 형식의 비디오 요소
     :rtype: string
 
-    Permits you to generate HTML video element from simple or
-    source arrays. Example::
+    단순 또는 소스 배열에서 HTML 비디오 요소를 생성합니다.
+    
+    ::
 
         $tracks =
         [
@@ -306,7 +312,7 @@ The following functions are available:
             $tracks
          );
 
-    The above code will produce this:
+    위의 코드는 아래의 HTML을 생성합니다.
 
     .. code-block:: html
 
@@ -332,56 +338,63 @@ The following functions are available:
 
 .. php:function:: audio($src[, $unsupportedMessage = ''[, $attributes = ''[, $tracks = [][, $indexPage = false]]]])
 
-    :param  mixed   $src:                Either a source string or an array of sources. See :php:func:`source()` function
-    :param  string  $unsupportedMessage: The message to display if the media tag is not supported by the browser
+    :param  mixed   $src:                소스 문자열 또는 source 함수의 배열. :php:func:`source()`\ 함수 참조
+    :param  string  $unsupportedMessage: 미디어 태그를 지원하지 않는 브라우저에 표시되는 메시지
     :param  string  $attributes:
-    :param  array   $tracks:             Use the track function inside an array. See :php:func:`track()` function
-    :param  bool    $indexPage:
-    :returns:                            HTML-formatted audio element
+    :param  array   $tracks:             track 함수의 배열. :php:func:`track()`\ 함수 참조
+    :param  bool    $indexPage:          $src를 라우팅된 URI 문자열로 취급할 지 여부
+    :returns:                            HTML 형식의 오디오 요소
     :rtype: string
 
-    Identical to :php:func:`video()`, only it produces the <audio> tag instead of <video>.
+    :php:func:`video()`\ 와 동일하지만 <video> 대신 <audio> 태그를 생성합니다.
 
 .. php:function:: source($src = ''[, $type = false[, $attributes = '']])
 
-    :param  string  $src:        The path of the media resource
-    :param  bool    $type:       The MIME-type of the resource with optional codecs parameters
-    :param  array   $attributes: HTML attributes
-    :returns:   HTML source tag
+    :param  string  $src:        미디어 리소스의 경로
+    :param  bool    $type:       선택적 코덱 매개 변수가있는 리소스의 MIME 유형
+    :param  array   $attributes: HTML 속성
+    :returns:   HTML source 태그
     :rtype: string
 
-    Lets you create HTML <source /> tags. The first parameter contains the
-    source source. Example::
+    HTML <source /> 태그를 만듭니다.
+
+    첫 번째 매개 변수는 소스를 포함합니다.
+    
+    ::
 
         echo source('movie.mp4', 'video/mp4', 'class="test"');
         // <source src="movie.mp4" type="video/mp4" class="test" />
 
 .. php:function:: embed($src = ''[, $type = false[, $attributes = ''[, $indexPage = false]]])
 
-    :param  string  $src:        The path of the resource to embed
+    :param  string  $src:        embed할 리소스의 경로
     :param  bool    $type:       MIME-type
-    :param  array   $attributes: HTML attributes
-    :param  bool    $indexPage:
-    :returns:   HTML embed tag
+    :param  array   $attributes: HTML 속성
+    :param  bool    $indexPage:  $src를 라우팅된 URI 문자열로 취급할 지 여부
+    :returns:   HTML embed 태그
     :rtype: string
 
-    Lets you create HTML <embed /> tags. The first parameter contains the
-    embed source. Example::
+    HTML <embed /> 태그를 만듭니다.
+    첫 번째 매개 변수에는 소스를 포함합니다.
+    
+    ::
 
         echo embed('movie.mov', 'video/quicktime', 'class="test"');
         // <embed src="movie.mov" type="video/quicktime" class="test"/>
 
 .. php:function:: object($data = ''[, $type = false[, $attributes = '']])
 
-    :param  string  $data:       A resource URL
-    :param  bool    $type:       Content-type of the resource
-    :param  array   $attributes: HTML attributes
-    :param  array   $params:     Use the param function inside an array. See :php:func:`param()` function
+    :param  string  $data:       리소스 URL
+    :param  bool    $type:       리소스의 Content-type
+    :param  array   $attributes: HTML 속성
+    :param  array   $params:     param 함수의 배열. :php:func:`param()`\ 함수 참조
     :returns:   HTML object tag
     :rtype: string
 
-    Lets you create HTML <object /> tags. The first parameter contains the
-    object data. Example::
+    HTML <object /> 태그를 만듭니다. 
+    첫 번째 파라미터는 object 데이터를 포함합니다.
+
+    ::
 
         echo object('movie.swf', 'application/x-shockwave-flash', 'class="test"');
 
@@ -396,7 +409,7 @@ The following functions are available:
             ]
         );
 
-    The above code will produce this:
+    위의 코드는 아래의 HTML을 생성합니다.
 
     .. code-block:: html
 
@@ -409,40 +422,43 @@ The following functions are available:
 
 .. php:function:: param($name = ''[, $type = false[, $attributes = '']])
 
-    :param  string  $name:       The name of the parameter
-    :param  string  $value:      The value of the parameter
-    :param  array   $attributes: HTML attributes
-    :returns:   HTML param tag
+    :param  string  $name:       매개 변수의 이름
+    :param  string  $value:      매개 변수의 값
+    :param  array   $attributes: HTML 속성
+    :returns:   HTML param 태그
     :rtype: string
 
-    Lets you create HTML <param /> tags. The first parameter contains the
-    param source. Example::
+    HTML <param /> 태그를 만듭니다. 첫 번째 매개 변수는 param 소스를 포함합니다.
+    
+    ::
 
         echo param('movie.mov', 'video/quicktime', 'class="test"');
         // <param src="movie.mov" type="video/quicktime" class="test"/>
 
 .. php:function:: track($name = ''[, $type = false[, $attributes = '']])
 
-    :param  string  $name:       The name of the parameter
-    :param  string  $value:      The value of the parameter
-    :param  array   $attributes: HTML attributes
-    :returns:   HTML track tag
+    :param  string  $name:       매개 변수의 이름
+    :param  string  $value:      매개 변수의 값
+    :param  array   $attributes: HTML 속성
+    :returns:   HTML track 태그
     :rtype: string
 
-    Generates a track element to specify timed tracks. The tracks are
-    formatted in WebVTT format. Example::
+    시간이 지정된 트랙을 지정하기 위해 트랙 요소를 생성합니다.
+    트랙은 WebVTT 형식으로 포맷됩니다. 
+    
+    ::
 
         echo track('subtitles_no.vtt', 'subtitles', 'no', 'Norwegian No');
         // <track src="subtitles_no.vtt" kind="subtitles" srclang="no" label="Norwegian No" />
 
 .. php:function:: doctype([$type = 'html5'])
 
-    :param  string  $type: Doctype name
-    :returns:   HTML DocType tag
+    :param  string  $type: Doctype 이름
+    :returns:   HTML DocType 태그
     :rtype: string
 
-    Helps you generate document type declarations, or DTD's. HTML 5
-    is used by default, but many doctypes are available.
+    문서 유형(DocType) 선언 또는 DTD를 생성하는데 도움을 줍니다.
+    HTML 5가 기본적으로 사용되지만 많은 문서 유형을 사용할 수 있습니다.
 
     Example::
 
@@ -452,8 +468,8 @@ The following functions are available:
         echo doctype('html4-trans');
         // <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
-    The following is a list of the pre-defined doctype choices. These are configurable,
-    pulled from `application/Config/DocTypes.php`, or they could be over-ridden in your `.env` configuration.
+    다음은 사전 정의된 doctype 선택 목록입니다.
+    이 정보는 `application/Config/DocTypes.php`\ 에 있으며, `.env` 설정을 통하여 오버라이드될 수 있습니다.
 
     =============================== =================== ==================================================================================================================================================
     Document type                   Option              Result
