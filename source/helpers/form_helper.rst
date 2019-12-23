@@ -24,7 +24,7 @@ The Form Helper file contains functions that assist in working with forms.
 =====================
 
 폼 요소내의 HTML과 따옴표와 같은 문자를 사용해야 할 때가 있습니다.
-안전하게 이를 처리하려면 :doc:`공통 함수 <../ general / common_functions>`\ 의 :php:func:`esc()` 함수를 사용해야 합니다.
+안전하게 이를 처리하려면 :doc:`공통 함수 <../general/common_functions>`\ 의 :php:func:`esc()` 함수를 사용해야 합니다.
 
 다음 예를 살펴보십시오.
 
@@ -134,7 +134,7 @@ The Form Helper file contains functions that assist in working with forms.
 	:returns:	HTML multipart 폼 시작 태그
 	:rtype:	string
 
-	이 함수는 위의 :php:func:`form_open()`과 동일하지만, *multipart* 속성을 추가하여 파일을 업로드할 수 있습니다.
+	이 함수는 위의 :php:func:`form_open()`\ 과 동일하지만, *multipart* 속성을 추가하여 파일을 업로드할 수 있습니다.
 
 .. php:function:: form_hidden($name[, $value = ''])
 
@@ -394,7 +394,7 @@ The Form Helper file contains functions that assist in working with forms.
 
 	fieldset/legend 필드를 생성합니다.
 
-	Example::
+	::
 
 		echo form_fieldset('Address Information');
 		echo "<p>fieldset content here</p>\n";
@@ -439,8 +439,6 @@ The Form Helper file contains functions that assist in working with forms.
 
 	닫는 </fieldset> 태그를 생성합니다. 
 	이 기능을 사용하는 유일한 장점은 태그 아래에 추가될 데이터를 전달할 수 있다는 것입니다.
-
-	For example
 
 	::
 
@@ -504,25 +502,26 @@ The Form Helper file contains functions that assist in working with forms.
 	:returns:	An HTML radio input tag
 	:rtype:	string
 
-	This function is identical in all respects to the :php:func:`form_checkbox()` function above except that it uses the "radio" input type.
+	이 함수는 "radio" 입력 유형을 사용한다는 점을 제외하고 위의 :php:func:`form_checkbox()` 함수와 모든면에서 동일합니다.
 
 .. php:function:: form_label([$label_text = ''[, $id = ''[, $attributes = []]]])
 
-	:param	string	$label_text: Text to put in the <label> tag
-    	:param	string	$id: ID of the form element that we're making a label for
-    	:param	string	$attributes: HTML attributes
-    	:returns:	An HTML field label tag
-    	:rtype:	string
+	:param	string	$label_text: <label> 태그에 넣을 텍스트
+	:param	string	$id: 라벨을 만들 양식 요소의 ID
+	:param	string	$attributes: HTML 속성
+	:returns:	HTML 필드 레이블 태그
+	:rtype:	string
 
-    	Lets you generate a <label>. Simple example::
+	<label>을 생성합니다. 
+	
+	::
 
 		echo form_label('What is your Name', 'username');
 		// Would produce:  <label for="username">What is your Name</label>
 
-	Similar to other functions, you can submit an associative array in the
-	third parameter if you prefer to set additional attributes.
+	다른 함수와 마찬가지로 추가 속성을 설정하려면 세 번째 매개 변수에 연관 배열을 제출합니다.
 
-	Example::
+	::
 
 		$attributes = [
 			'class' => 'mycustomclass',
@@ -535,47 +534,51 @@ The Form Helper file contains functions that assist in working with forms.
 .. php:function:: form_submit([$data = ''[, $value = ''[, $extra = '']]])
 
 	:param	string	$data: Button name
-    	:param	string	$value: Button value
-    	:param	mixed	$extra: 배열 또는 리터럴 문자열로 태그에 추가할 추가 속성
-    	:returns:	An HTML input submit tag
-    	:rtype:	string
+	:param	string	$value: Button value
+	:param	mixed	$extra: 배열 또는 리터럴 문자열로 태그에 추가할 추가 속성
+	:returns:	HTML submit 태그
+	:rtype:	string
 
-    	Lets you generate a standard submit button. Simple example::
+	표준 submit 버튼을 생성합니다.
+	
+	::
 
 		echo form_submit('mysubmit', 'Submit Post!');
 		// Would produce:  <input type="submit" name="mysubmit" value="Submit Post!" />
 
-	Similar to other functions, you can submit an associative array in the
-	first parameter if you prefer to set your own attributes. The third
-	parameter lets you add extra data to your form, like JavaScript.
+	다른 함수와 마찬가지로 고유한 속성은 첫 번째 매개 변수에 연관 배열로 제출합니다.
+	세 번째 매개 변수를 사용하면 JavaScript와 같은 추가 데이터를 양식에 추가할 수 있습니다.
 
 .. php:function:: form_reset([$data = ''[, $value = ''[, $extra = '']]])
 
 	:param	string	$data: Button name
-    	:param	string	$value: Button value
-    	:param	mixed	$extra: 배열 또는 리터럴 문자열로 태그에 추가할 추가 속성
-    	:returns:	An HTML input reset button tag
-    	:rtype:	string
-
-    	Lets you generate a standard reset button. Use is identical to
-    	:func:`form_submit()`.
+	:param	string	$value: 버튼 값
+	:param	mixed	$extra: 배열 또는 리터럴 문자열로 태그에 추가할 추가 속성
+	:returns:	HTML 입력 reset 버튼 태그
+	:rtype:	string
+	
+	표준 reset 버튼을 생성합니다.
+	사용 방법은 :func:`form_submit ()`\ 와 동일합니다.
 
 .. php:function:: form_button([$data = ''[, $content = ''[, $extra = '']]])
 
-	:param	string	$data: Button name
-    	:param	string	$content: Button label
-    	:param	mixed	$extra: 배열 또는 리터럴 문자열로 태그에 추가할 추가 속성
-    	:returns:	An HTML button tag
-    	:rtype:	string
+	:param	string	$data: 버튼 이름
+	:param	string	$content: 버튼 라벨
+	:param	mixed	$extra: 배열 또는 리터럴 문자열로 태그에 추가할 추가 속성
+	:returns:	HTML button 태그
+	:rtype:	string
 
-    	Lets you generate a standard button element. You can minimally pass the
-    	button name and content in the first and second parameter::
+	표준 버튼 엘리먼트를 생성합니다. 
+	첫 번째와 두 번째 매개 변수에 버튼 이름과 내용만 최소한으로 전달할 수 있습니다.
+
+	::
 
 		echo form_button('name','content');
 		// Would produce: <button name="name" type="button">Content</button>
 
-	Or you can pass an associative array containing any data you wish your
-	form to contain::
+	또는 폼에 포함하려는 데이터가 포함된 연관 배열을 전달할 수 있습니다.
+	
+	::
 
 		$data = [
 			'name'    => 'button',
@@ -588,21 +591,23 @@ The Form Helper file contains functions that assist in working with forms.
 		echo form_button($data);
 		// Would produce: <button name="button" id="button" value="true" type="reset">Reset</button>
 
-	If you would like your form to contain some additional data, like
-	JavaScript, you can pass it as a string in the third parameter::
+	폼에 JavaScript와 같은 일부 추가 데이터를 포함 시키려면 세 번째 매개 변수에서 문자열로 전달합니다.
+
+	::
 
 		$js = 'onClick="some_function()"';
 		echo form_button('mybutton', 'Click Me', $js);
 
 .. php:function:: form_close([$extra = ''])
 
-	:param	string	$extra: Anything to append after the closing tag, *as is*
-	:returns:	An HTML form closing tag
+	:param	string	$extra: 닫는 태그 뒤에 추가할 사항
+	:returns:	HTML form 닫는 태그
 	:rtype:	string
 
-	Produces a closing </form> tag. The only advantage to using this
-	function is it permits you to pass data to it which will be added below
-	the tag. For example::
+	닫는 </form> 태그를 생성합니다.
+	이 기능을 사용하는 유일한 장점은 태그 아래에 추가될 데이터를 전달할 수 있다는 것입니다.
+
+	::
 
 		$string = '</div></div>';
 		echo form_close($string);
@@ -611,40 +616,35 @@ The Form Helper file contains functions that assist in working with forms.
 .. php:function:: set_value($field[, $default = ''[, $html_escape = TRUE]])
 
 	:param	string	$field: 필드 이름
-    	:param	string	$default: Default value
-    	:param  bool	$html_escape: Whether to turn off HTML escaping of the value
-    	:returns:	필드 값
-    	:rtype:	string
+	:param	string	$default: 기본 값
+	:param  bool	$html_escape: 값의 HTML 이스케이프 기능 해제 여부
+	:returns:	필드 값
+	:rtype:	string
 
-    	Permits you to set the value of an input form or textarea. You must
-    	supply the field name via the first parameter of the function. The
-    	second (optional) parameter allows you to set a default value for the
-    	form. The third (optional) parameter allows you to turn off HTML escaping
-    	of the value, in case you need to use this function in combination with
-    	i.e. :php:func:`form_input()` and avoid double-escaping.
+	입력 양식 또는 텍스트 영역의 값을 설정할 수 있습니다.
+	함수의 첫 번째 매개 변수를 통해 필드 이름을 제공해야 합니다.
+	두 번째 (옵션) 매개 변수를 사용하면 양식의 기본값을 설정할 수 있습니다.
+	세 번째 (옵션) 매개 변수를 사용하면 이 함수를 :php:func:`form_input()`\ 과 함께 사용해야 하고 이중 이스케이프를 피해야 하는 경우 값의 HTML 이스케이프를 해제할 수 있습니다.
 
-	Example::
+	::
 
 		<input type="text" name="quantity" value="<?php echo set_value('quantity', '0'); ?>" size="50" />
 
-	The above form will show "0" when loaded for the first time.
+	처음 로드할 때 위의 폼에 "0"\ 이 표시됩니다.
 
 .. php:function:: set_select($field[, $value = ''[, $default = FALSE]])
 
 	:param	string	$field: 필드 이름
-    	:param	string	$value: Value to check for
-    	:param	string	$default: Whether the value is also a default one
-    	:returns:	'selected' attribute or an empty string
-    	:rtype:	string
+	:param	string	$value: 확인할 값
+	:param	string	$default: 값이 기본 값인지 여부
+	:returns:	'selected' 속성 또는 빈 문자열
+	:rtype:	string
 
-    	If you use a <select> menu, this function permits you to display the
-    	menu item that was selected.
+	<select> 메뉴를 사용하는 경우이 기능을 사용하면 선택한 메뉴 항목을 표시 할 수 있습니다.
 
-    	The first parameter must contain the name of the select menu, the second
-    	parameter must contain the value of each item, and the third (optional)
-    	parameter lets you set an item as the default (use boolean TRUE/FALSE).
+	첫 번째 매개 변수는 선택 메뉴의 이름을 포함해야하고 두 번째 매개 변수는 각 항목의 값을 포함해야하며 세 번째 (선택적) 매개 변수를 사용하면 항목을 기본값으로 설정할 수 있습니다 (부울 TRUE / FALSE 사용).
 
-    	Example::
+	::
 
 		<select name="myselect">
 			<option value="one" <?php echo  set_select('myselect', 'one', TRUE); ?> >One</option>
@@ -655,16 +655,14 @@ The Form Helper file contains functions that assist in working with forms.
 .. php:function:: set_checkbox($field[, $value = ''[, $default = FALSE]])
 
 	:param	string	$field: 필드 이름
-    	:param	string	$value: Value to check for
-    	:param	string	$default: Whether the value is also a default one
-    	:returns:	'checked' attribute or an empty string
+    	:param	string	$value: 확인할 값
+    	:param	string	$default: 값이 기본 값인지 여부
+    	:returns:	'checked' 속성 or 빈 문자열
     	:rtype:	string
 
-    	Permits you to display a checkbox in the state it was submitted.
+		제출된 상태의 checkbox를 표시합니다.
 
-    	The first parameter must contain the name of the checkbox, the second
-    	parameter must contain its value, and the third (optional) parameter
-    	lets you set an item as the default (use boolean TRUE/FALSE).
+		첫 번째 매개 변수에는 확인란의 이름이 있어야 하고 두 번째 매개 변수에는 값이 있어야 하며 세 번째 (선택적) 매개 변수를 사용하면 항목을 기본값으로 설정할 수 있습니다 (부울 TRUE / FALSE 사용).
 
     	Example::
 
@@ -674,21 +672,18 @@ The Form Helper file contains functions that assist in working with forms.
 .. php:function:: set_radio($field[, $value = ''[, $default = FALSE]])
 
 	:param	string	$field: 필드 이름
-    	:param	string	$value: Value to check for
-    	:param	string	$default: Whether the value is also a default one
-    	:returns:	'checked' attribute or an empty string
+    	:param	string	$value: 확인할 값
+    	:param	string	$default: 값이 기본 값인지 여부
+    	:returns:	'checked' 속성 or 빈 문자열
     	:rtype:	string
 
-    	Permits you to display radio buttons in the state they were submitted.
-    	This function is identical to the :php:func:`set_checkbox()` function above.
+		제출된 상태의 radio 버튼을 표시합니다.
+		이 함수는 위의 :php:func:`set_checkbox()` 함수와 동일합니다.
 
 	Example::
 
 		<input type="radio" name="myradio" value="1" <?php echo  set_radio('myradio', '1', TRUE); ?> />
 		<input type="radio" name="myradio" value="2" <?php echo  set_radio('myradio', '2'); ?> />
 
-	.. note:: If you are using the Form Validation class, you must always specify
-		a rule for your field, even if empty, in order for the ``set_*()``
-		functions to work. This is because if a Form Validation object is
-		defined, the control for ``set_*()`` is handed over to a method of the
-		class instead of the generic helper function.
+	.. note:: 폼 유효성 검사 클래스를 사용하는 경우 ``set_*()`` 함수가 작동하려면 항상 비어있는 경우에도 필드에 대한 규칙을 지정해야합니다.
+		폼 유효성 검사 개체를 정의하면 ``set _*()``\ 에 대한 컨트롤이 일반 헬퍼 함수 대신 클래스의 메서드로 전달되기 때문입니다.
