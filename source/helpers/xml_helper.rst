@@ -1,9 +1,8 @@
 ##########
-XML Helper
+XML 헬퍼
 ##########
 
-The XML Helper file contains functions that assist in working with XML
-data.
+XML 헬퍼에는 XML 데이터 작업을 지원하는 기능이 포함되어 있습니다.
 
 .. contents::
   :local:
@@ -12,37 +11,37 @@ data.
 
   <div class="custom-index container"></div>
 
-Loading this Helper
+헬퍼 로드
 ===================
 
-This helper is loaded using the following code
+이 헬퍼는 다음 코드를 사용하여 로드됩니다.
 
 ::
 
 	helper('xml');
 
-Available Functions
+사용 가능한 함수
 ===================
 
-The following functions are available:
+사용 가능한 함수는 다음과 같습니다.
 
 .. php:function:: xml_convert($str[, $protect_all = FALSE])
 
-	:param string $str: the text string to convert
-	:param bool $protect_all: Whether to protect all content that looks like a potential entity instead of just numbered entities, e.g. &foo;
-	:returns: XML-converted string
+	:param string $str: 변환할 텍스트 문자열
+	:param bool $protect_all: 번호가 매겨진 엔티티 대신 잠재적 엔티티처럼 보이는 모든 콘텐츠를 보호할지 여부(예: &foo).
+	:returns: XML-converted 문자열
 	:rtype:	string
 
-	Takes a string as input and converts the following reserved XML
-	characters to entities:
+	문자열을 입력으로 사용하고 다음 예약된 XML 문자를 엔티티로 변환합니다.
 
-	  - Ampersands: &
-	  - Less than and greater than characters: < >
-	  - Single and double quotes: ' "
-	  - Dashes: -
+	  - 앰퍼샌드: &
+	  - 부등호: < >
+	  - 작은 따옴표와 큰 따옴표: ' "
+	  - 대시: -
 
-	This function ignores ampersands if they are part of existing numbered
-	character entities, e.g. &#123;. Example::
+	이 함수는 기존 번호 문자 엔티티의 일부인 경우 앰퍼샌드를 무시합니다.(예: &#123;)	
+
+	::
 
 		$string = '<p>Here is a paragraph & an entity (&#123;).</p>';
 		$string = xml_convert($string);

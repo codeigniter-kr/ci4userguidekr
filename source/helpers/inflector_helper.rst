@@ -1,9 +1,8 @@
 ################
-Inflector Helper
+Inflector 헬퍼
 ################
 
-The Inflector Helper file contains functions that permit you to change
-**English** words to plural, singular, camel case, etc.
+Inflector 헬퍼에는 **영어** 단어를 복수, 단수, camel 등으로 변경할 수 있는 함수가 포함되어 있습니다.
 
 .. contents::
   :local:
@@ -12,129 +11,144 @@ The Inflector Helper file contains functions that permit you to change
 
   <div class="custom-index container"></div>
 
-Loading this Helper
+헬퍼 로드
 ===================
 
-This helper is loaded using the following code::
+이 헬퍼는 다음 코드를 사용하여 로드됩니다.
+
+::
 
 	helper('inflector');
 
-Available Functions
+사용 가능한 함수
 ===================
 
-The following functions are available:
+사용 가능한 함수는 다음과 같습니다.
 
 .. php:function:: singular($string)
 
-	:param	string	$string: Input string
-	:returns:	A singular word
+	:param	string	$string: 입력 문자열
+	:returns:	단수형 단어
 	:rtype:	string
 
-	Changes a plural word to singular. Example::
+	복수형 단어를 단수형으로 바꿉니다.
+	
+	::
 
 		echo singular('dogs'); // Prints 'dog'
 
 .. php:function:: plural($string)
 
-	:param	string	$string: Input string
-	:returns:	A plural word
+	:param	string	$string: 입력 문자열
+	:returns:	복수형 단어
 	:rtype:	string
 
-	Changes a singular word to plural. Example::
+	단수형 단어를 복수형으로 바꿉니다.
+	
+	::
 
 		echo plural('dog'); // Prints 'dogs'
 
 .. php:function:: camelize($string)
 
-	:param	string	$string: Input string
-	:returns:	Camel case string
+	:param	string	$string: 입력 문자열
+	:returns:	Camel case 문자열
 	:rtype:	string
 
-	Changes a string of words separated by spaces or underscores to camel
-	case. Example::
+	공백이나 밑줄로 구분된 단어 문자열을 Camel case 문자열로 변경합니다.
+	
+	::
 
 		echo camelize('my_dog_spot'); // Prints 'myDogSpot'
 
 .. php:function:: pascalize($string)
 
-	:param	string	$string: Input string
-	:returns:	Pascal case string
+	:param	string	$string: 입력 문자열
+	:returns:	Pascal case 문자열
 	:rtype:	string
 
-	Changes a string of words separated by spaces or underscores to Pascal
-	case, which is camel case with the first letter capitalized. Example::
+	공백 또는 밑줄로 구분된 문자열을 Pascal case 문자열로 변경합니다. 
+	첫 번째 문자가 대문자로 표시되는 Camel case 문자열입니다.
+
+	::
 
 		echo pascalize('my_dog_spot'); // Prints 'MyDogSpot'
 
 .. php:function:: underscore($string)
 
-	:param	string	$string: Input string
-	:returns:	String containing underscores instead of spaces
+	:param	string	$string: 입력 문자열
+	:returns:	공백 대신 밑줄을 포함하는 문자열
 	:rtype:	string
 
-	Takes multiple words separated by spaces and underscores them.
-	Example::
+	여러 단어를 구분하는 공백을 밑줄로 표시합니다.
+	
+	::
 
 		echo underscore('my dog spot'); // Prints 'my_dog_spot'
 
 .. php:function:: humanize($string[, $separator = '_'])
 
-	:param	string	$string: Input string
-	:param	string	$separator: Input separator
-	:returns:	Humanized string
+	:param	string	$string: 입력 문자열
+	:param	string	$separator: 입력 구분자
+	:returns:	Humanized 문자열
 	:rtype:	string
 
-	Takes multiple words separated by underscores and adds spaces between
-	them. Each word is capitalized.
+	여러 단어를 구분하는 밑줄을 공백으로 표시합니다. 각 단어의 첫 글자는 대문자입니다.
 
 	Example::
 
 		echo humanize('my_dog_spot'); // Prints 'My Dog Spot'
 
-	To use dashes instead of underscores::
+	밑줄 대신 대시(-)를 사용할 수 있습니다.
+	
+	::
 
 		echo humanize('my-dog-spot', '-'); // Prints 'My Dog Spot'
 
 .. php:function:: is_pluralizable($word)
 
-	:param	string	$word: Input string
-	:returns:	TRUE if the word is countable or FALSE if not
+	:param	string	$word: 입력 문자열
+	:returns:	단어가 복수형이면 TRUE, 그렇지 않은 경우 FALSE
 	:rtype:	bool
 
-	Checks if the given word has a plural version. Example::
+	주어진 단어가 복수형인지 확인합니다.
+	
+	::
 
 		is_pluralizable('equipment'); // Returns FALSE
 
 .. php:function:: dasherize($string)
 
-	:param	string	$string: Input string
-	:returns:	Dasherized string
+	:param	string	$string: 입력 문자열
+	:returns:	Dasherized 문자열
 	:rtype:	string
 
-	Replaces underscores with dashes in the string. Example::
+	문자열에서 밑줄을 대시로 바꿉니다.
+	
+	::
 
 		dasherize('hello_world'); // Returns 'hello-world'
 
 .. php:function:: ordinal($integer)
 
-	:param	int	$integer: The integer to determine the suffix
-	:returns:	Ordinal suffix
+	:param	int	$integer: 접미사를 결정하는 정수
+	:returns:	서수 접미사
 	:rtype:	string
 
-	Returns the suffix that should be added to a
-	number to denote the position such as
-	1st, 2nd, 3rd, 4th. Example::
+	1st, 2nd, 3rd, 4th등 위치를 나타 내기 위해 숫자에 추가해야 하는 접미사를 반환합니다.
+	
+	Example::
 
 		ordinal(1); // Returns 'st'
 
 .. php:function:: ordinalize($integer)
 
-	:param	int	$integer: The integer to ordinalize
-	:returns:	Ordinalized integer
+	:param	int	$integer: 순서화할 정수
+	:returns:	서수 정수
 	:rtype:	string
 
-	Turns a number into an ordinal string used
-	to denote the position such as 1st, 2nd, 3rd, 4th.
-	Example::
+	숫자를 1st, 2nd, 3rd, 4th등 위치를 나타내는 서수 문자열로 바꿉니다.
+
+	::
 
 		ordinalize(1); // Returns '1st'

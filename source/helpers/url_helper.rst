@@ -1,8 +1,8 @@
 ##########
-URL Helper
+URL 헬퍼
 ##########
 
-The URL Helper file contains functions that assist in working with URLs.
+URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
 
 .. contents::
   :local:
@@ -11,163 +11,169 @@ The URL Helper file contains functions that assist in working with URLs.
 
   <div class="custom-index container"></div>
 
-Loading this Helper
+헬퍼 로드
 ===================
 
-This helper is automatically loaded by the framework on every request.
+이 헬퍼는 프레임워크에 의해 자동으로 로드됩니다.
 
-Available Functions
+사용 가능한 함수
 ===================
 
-The following functions are available:
+사용 가능한 함수는 다음과 같습니다.
 
 .. php:function:: site_url([$uri = ''[, $protocol = NULL[, $altConfig = NULL]]])
 
-	:param	mixed	$uri: URI string or array of URI segments
-	:param	string	$protocol: Protocol, e.g. 'http' or 'https'
-	:param	\\Config\\App	$altConfig: Alternate configuration to use
+	:param	mixed	$uri: URI 문자열 또는 URI 세그먼트 배열
+	:param	string	$protocol: 프로토콜, 'http' or 'https'
+	:param	\\Config\\App	$altConfig: 대체 구성
 	:returns:	Site URL
 	:rtype:	string
 
-	Returns your site URL, as specified in your config file. The index.php
-	file (or whatever you have set as your site **indexPage** in your config
-	file) will be added to the URL, as will any URI segments you pass to the
-	function.
+	구성 파일에 지정된 사이트 URL을 반환합니다.
+	index.php 파일 (또는 설정 파일에서 사이트 **indexPage**\ 로 설정 한 것)이 함수에 전달하는 URI 세그먼트와 마찬가지로 URL에 추가됩니다.
 
-	You are encouraged to use this function any time you need to generate a
-	local URL so that your pages become more portable in the event your URL
-	changes.
+	URL이 변경될 때 페이지의 이식성이 향상되도록 로컬 URL을 생성해야 할 때 이 기능을 사용하는 것이 좋습니다.
 
-	Segments can be optionally passed to the function as a string or an
-	array. Here is a string example::
+	세그먼트는 선택적으로 문자열 또는 배열로 함수에 전달됩니다.
+
+	::
 
 		echo site_url('news/local/123');
 
-	The above example would return something like:
-	*http://example.com/index.php/news/local/123*
+	위의 예는 다음과 같은 것을 반환합니다.
+	
+	::
 
-	Here is an example of segments passed as an array::
+		http://example.com/index.php/news/local/123
+
+	다음은 배열로 전달된 세그먼트의 예입니다.
+	
+	::
 
 		$segments = ['news', 'local', '123'];
 		echo site_url($segments);
 
-        You may find the alternate configuration useful if generating URLs for a
-        different site than yours, which contains different configuration preferences.
-        We use this for unit testing the framework itself.
+	다른 구성 환경 설정을 포함하는 다른 사이트에 대한 URL을 생성하는 경우 대체 구성이 유용합니다.
+	이 함수는 프레임워크 자체 단위 테스트에 사용됩니다.
 
 .. php:function:: base_url([$uri = ''[, $protocol = NULL]])
 
-	:param	mixed	$uri: URI string or array of URI segments
-	:param	string	$protocol: Protocol, e.g. 'http' or 'https'
+	:param	mixed	$uri: URI 문자열 또는 URI 세그먼트 배열
+	:param	string	$protocol: 프로토콜, 'http' or 'https'
 	:returns:	Base URL
 	:rtype:	string
 
-	Returns your site base URL, as specified in your config file. Example::
+	구성 파일에 지정된 사이트 base URL을 반환합니다.
+	
+	::
 
 		echo base_url();
 
-	This function returns the same thing as :php:func:`site_url()`, without
-	the *indexPage* being appended.
+	이 함수는 *indexPage*\ 를 추가하지 않고 :php:func:`site_url()`\ 과 같은 것을 반환합니다.
 
-	Also like :php:func:`site_url()`, you can supply segments as a string or
-	an array. Here is a string example::
+	또한 :php:func:`site_url()`\ 과 같이 세그먼트를 문자열 또는 배열로 제공할 수 있습니다.
+	
+	::
 
 		echo base_url("blog/post/123");
 
-	The above example would return something like:
-	*http://example.com/blog/post/123*
+	위의 예는 다음과 같은 것을 반환합니다.
 
-	This is useful because unlike :php:func:`site_url()`, you can supply a
-	string to a file, such as an image or stylesheet. For example::
+	::
+		http://example.com/blog/post/123
+
+	이것은 :php:func:`site_url()`\ 과 달리 이미지나 스타일 시트와 같은 파일에 문자열을 제공할 때 유용합니다.
+	
+	::
 
 		echo base_url("images/icons/edit.png");
 
-	This would give you something like:
-	*http://example.com/images/icons/edit.png*
+	위의 예는 다음과 같은 것을 반환합니다.
+
+	::
+
+		http://example.com/images/icons/edit.png
 
 .. php:function:: current_url([$returnObject = false])
 
-	:param	boolean	$returnObject: True if you would like a URI instance returned, instead of a string.
-	:returns:	The current URL
+	:param	boolean	$returnObject: 문자열 대신 URI 인스턴스를 반환하려면 True.
+	:returns:	현재 URL
 	:rtype:	string|URI
 
-	Returns the full URL (including segments) of the page being currently
-	viewed.
+	현재 보고있는 페이지의 전체 URL(세그먼트 포함)을 반환합니다.
 
-	.. note:: Calling this function is the same as doing this::
-		base_url(uri_string());
+	.. note:: 이 함수를 호출하는 것은 ``base_url(uri_string());``\ 을 수행하는 것과 같습니다
 
 .. php:function:: previous_url([$returnObject = false])
 
-	:param boolean $returnObject: True if you would like a URI instance returned instead of a string.
-	:returns: The URL the user was previously on
+	:param boolean $returnObject: 문자열 대신 URI 인스턴스를 반환하려면 True.
+	:returns: 사용자가 이전에 사용했던 URL
 	:rtype: string|URI
 
-	Returns the full URL (including segments) of the page the user was previously on.
+	사용자가 이전에 방문한 페이지의 전체 URL (세그먼트 포함)을 반환합니다.
 
-	Due to security issues of blindly trusting the HTTP_REFERER system variable, CodeIgniter will
-	store previously visited pages in the session if it's available. This ensures that we always
-	use a known and trusted source. If the session hasn't been loaded, or is otherwise unavailable,
-	then a sanitized version of HTTP_REFERER will be used.
+	HTTP_REFERER 시스템 변수를 맹목적으로 신뢰하는 보안 문제로 인해 CodeIgniter는 사용 가능한 경우 이전에 방문한 페이지를 세션에 저장합니다.
+	이를 통해 우리는 항상 알려진 신뢰할 수 있는 출처를 사용합니다.
+	세션이 로드되지 않았거나 사용할 수 없는 경우 안전한 HTTP_REFERER 버전이 사용됩니다.
 
 .. php:function:: uri_string()
 
-	:returns:	An URI string
+	:returns:	URI 문자열
 	:rtype:	string
 
-	Returns the path part of your current URL.
-	For example, if your URL was this::
+	현재 URL의 경로 부분을 반환합니다.
+	
+	::
 
-		http://some-site.com/blog/comments/123
+		uri_string('http://some-site.com/blog/comments/123');
 
-	The function would return::
+	함수 실행 결과
+	
+	::
 
 		blog/comments/123
 
 .. php:function:: index_page([$altConfig = NULL])
 
-	:param	\Config\App	$altConfig: Alternate configuration to use
-	:returns:	'index_page' value
+	:param	\Config\App	$altConfig: 사용할 대체 구성
+	:returns:	'index_page' 값
 	:rtype:	mixed
 
-	Returns your site **indexPage**, as specified in your config file.
-	Example::
+	구성 파일에 지정된 사이트 **indexPage**\ 를 반환합니다.
+
+	::
 
 		echo index_page();
 
-        As with :php:func:`site_url()`, you may specify an alternate configuration.
-        You may find the alternate configuration useful if generating URLs for a
-        different site than yours, which contains different configuration preferences.
-        We use this for unit testing the framework itself.
+	:php:func:`site_url()`\ 과 마찬가지로 대체 구성을 지정할 수 있습니다.
+	다른 구성 환경 설정을 포함하는 다른 사이트에 대한 URL을 생성하는 경우 대체 구성이 유용합니다.
+	이 함수는 프레임워크 자체 단위 테스트에 사용됩니다.
 
 .. php:function:: anchor([$uri = ''[, $title = ''[, $attributes = ''[, $altConfig = NULL]]]])
 
-	:param	mixed	$uri: URI string or array of URI segments
-	:param	string	$title: Anchor title
-	:param	mixed	$attributes: HTML attributes
-	:param	\Config\App	$altConfig: Alternate configuration to use
+	:param	mixed	$uri: URI 문자열 또는 URI 세그먼트 배열
+	:param	string	$title: Anchor 제목
+	:param	mixed	$attributes: HTML 속성
+	:param	\Config\App	$altConfig: 사용할 대체 구성
 	:returns:	HTML hyperlink (anchor tag)
 	:rtype:	string
 
-	Creates a standard HTML anchor link based on your local site URL.
+	로컬 사이트 URL을 기반으로 표준 HTML 앵커 링크를 만듭니다.
 
-	The first parameter can contain any segments you wish appended to the
-	URL. As with the :php:func:`site_url()` function above, segments can
-	be a string or an array.
+	첫 번째 매개 변수는 URL에 추가할 세그먼트입니다.
+	위의 :php:func:`site_url()` 함수와 마찬가지로 세그먼트는 문자열 또는 배열일 수 있습니다.
 
-	.. note:: If you are building links that are internal to your application
-		do not include the base URL (http://...). This will be added
-		automatically from the information specified in your config file.
-		Include only the URI segments you wish appended to the URL.
+	.. note:: 애플리케이션 내부에 링크를 작성하는 경우 base URL (http : // ...)을 포함하지 마십시오.
+		base URL은 구성 파일에 지정된 정보에서 자동으로 추가됩니다.
+		URL에 추가하려는 URI 세그먼트만 포함하십시오.
 
-	The second segment is the text you would like the link to say. If you
-	leave it blank, the URL will be used.
+	두 번째 세그먼트는 링크를 말하려는 텍스트입니다.
+	비워두면 URL이 사용됩니다.
 
-	The third parameter can contain a list of attributes you would like
-	added to the link. The attributes can be a simple string or an
-	associative array.
+	세 번째 매개 변수에는 링크에 추가하려는 속성 목록이 포함될 수 있습니다.
+	속성은 간단한 문자열 또는 연관 배열일 수 있습니다.
 
-	Here are some examples::
+	::
 
 		echo anchor('news/local/123', 'My News', 'title="News title"');
 		// Prints: <a href="http://example.com/index.php/news/local/123" title="News title">My News</a>
@@ -178,29 +184,26 @@ The following functions are available:
 		echo anchor('', 'Click here');
 		// Prints: <a href="http://example.com/index.php">Click here</a>
 
-	As above, you may specify an alternate configuration.
-	You may find the alternate configuration useful if generating links for a
-	different site than yours, which contains different configuration preferences.
-	We use this for unit testing the framework itself.
+	:php:func:`site_url()`\ 과 마찬가지로 대체 구성을 지정할 수 있습니다.
+	다른 구성 환경 설정을 포함하는 다른 사이트에 대한 URL을 생성하는 경우 대체 구성이 유용합니다.
+	이 함수는 프레임워크 자체 단위 테스트에 사용됩니다.
 
-	.. note:: Attributes passed into the anchor function are automatically escaped to protected against XSS attacks.
+	.. note:: 앵커 기능으로 전달된 속성은 XSS 공격으로부터 보호하기 위해 자동으로 이스케이프됩니다.
 
 .. php:function:: anchor_popup([$uri = ''[, $title = ''[, $attributes = FALSE[, $altConfig = NULL]]]])
 
-	:param	string	$uri: URI string
-	:param	string	$title: Anchor title
-	:param	mixed	$attributes: HTML attributes
-	:param	\Config\App	$altConfig: Alternate configuration to use
+	:param	string	$uri: URI 문자열
+	:param	string	$title: Anchor 제목
+	:param	mixed	$attributes: HTML 속성
+	:param	\Config\App	$altConfig: 사용할 대체 구성
 	:returns:	Pop-up hyperlink
 	:rtype:	string
 
-	Nearly identical to the :php:func:`anchor()` function except that it
-	opens the URL in a new window. You can specify JavaScript window
-	attributes in the third parameter to control how the window is opened.
-	If the third parameter is not set it will simply open a new window with
-	your own browser settings.
+	:php:func:`anchor()` 함수와 거의 동일합니다. 단, 새 창에서 URL을 엽니다.
+	세 번째 매개 변수에서 JavaScript 창 속성을 지정하여 창을 여는 방법을 제어할 수 있습니다.
+	세 번째 매개 변수가 설정되어 있지 않으면 브라우저 설정으로 새 창을 엽니다.
 
-	Here is an example with attributes::
+	::
 
 		$atts = [
 			'width'       => 800,
@@ -215,121 +218,122 @@ The following functions are available:
 
 		echo anchor_popup('news/local/123', 'Click Me!', $atts);
 
-	.. note:: The above attributes are the function defaults so you only need to
-		set the ones that are different from what you need. If you want the
-		function to use all of its defaults simply pass an empty array in the
-		third parameter::
+	.. note:: 위의 속성은 기능 기본값이므로 필요한 것과 다른 속성만 설정하면 됩니다.
+		함수가 모든 기본값을 사용하도록 하려면 세 번째 매개 변수에 빈 배열을 전달하십시오.
+		
+		::
 
-                    echo anchor_popup('news/local/123', 'Click Me!', []);
+			echo anchor_popup('news/local/123', 'Click Me!', []);
 
-	.. note:: The **window_name** is not really an attribute, but an argument to
-		the JavaScript `window.open() <http://www.w3schools.com/jsref/met_win_open.asp>`_
-		method, which accepts either a window name or a window target.
+	.. note:: **window_name**\ 은 실제로 속성이 아니라 자바 스크립트 `window.open() <http://www.w3schools.com/jsref/met_win_open.asp>`_ 메소드에 대한 인수입니다. 이름 또는 창 타겟.
 
-	.. note:: Any other attribute than the listed above will be parsed as an
-		HTML attribute to the anchor tag.
+	.. note:: 위에 나열된 이외의 속성은 앵커 태그에 HTML 속성으로 구문 분석됩니다.
 
-        As above, you may specify an alternate configuration.
-        You may find the alternate configuration useful if generating links for a
-        different site than yours, which contains different configuration preferences.
-        We use this for unit testing the framework itself.
+	:php:func:`site_url()`\ 과 마찬가지로 대체 구성을 지정할 수 있습니다.
+	다른 구성 환경 설정을 포함하는 다른 사이트에 대한 URL을 생성하는 경우 대체 구성이 유용합니다.
+	이 함수는 프레임워크 자체 단위 테스트에 사용됩니다.
 
-	.. note:: Attributes passed into the anchor_popup function are automatically escaped to protected against XSS attacks.
+	.. note:: anchor_popup 함수에 전달된 속성은 자동으로 이스케이프되어 XSS 공격으로 부터 보호됩니다.
 
 .. php:function:: mailto($email[, $title = ''[, $attributes = '']])
 
-	:param	string	$email: E-mail address
-	:param	string	$title: Anchor title
-	:param	mixed	$attributes: HTML attributes
-	:returns:	A "mail to" hyperlink
+	:param	string	$email: E-mail 주소
+	:param	string	$title: Anchor 제목
+	:param	mixed	$attributes: HTML 속성
+	:returns:	"mail to" hyperlink
 	:rtype:	string
 
-	Creates a standard HTML e-mail link. Usage example::
+	표준 HTML E-mail 링크를 만듭니다.
+	
+	::
 
 		echo mailto('me@my-site.com', 'Click Here to Contact Me');
 
-	As with the :php:func:`anchor()` tab above, you can set attributes using the
-	third parameter::
+	위의 :php:func:`anchor()`\ 탭과 마찬가지로 세 번째 매개 변수를 사용하여 속성을 설정할 수 있습니다.
+	
+	::
 
 		$attributes = ['title' => 'Mail me'];
 		echo mailto('me@my-site.com', 'Contact Me', $attributes);
 
-	.. note:: Attributes passed into the mailto function are automatically escaped to protected against XSS attacks.
+	.. note:: mailto 함수로 전달된 속성은 XSS 공격으로부터 보호하기 위해 자동으로 이스케이프됩니다.
 
 .. php:function:: safe_mailto($email[, $title = ''[, $attributes = '']])
 
-	:param	string	$email: E-mail address
-	:param	string	$title: Anchor title
-	:param	mixed	$attributes: HTML attributes
-	:returns:	A spam-safe "mail to" hyperlink
+	:param	string	$email: E-mail 주소
+	:param	string	$title: Anchor 제목
+	:param	mixed	$attributes: HTML 속성
+	:returns:	spam-safe "mail to" hyperlink
 	:rtype:	string
 
-	Identical to the :php:func:`mailto()` function except it writes an obfuscated
-	version of the *mailto* tag using ordinal numbers written with JavaScript to
-	help prevent the e-mail address from being harvested by spam bots.
+	:php:func:`mailto()` 함수와 동일하지만, 이메일 주소가 스팸봇에 의해 수집되는 것을 방지하기 위해 JavaScript로 작성된 서수를 사용하여 *mailto* 태그의 난독화된 버전을 작성합니다.
 
 .. php:function:: auto_link($str[, $type = 'both'[, $popup = FALSE]])
 
-	:param	string	$str: Input string
+	:param	string	$str: 입력 문자열
 	:param	string	$type: Link type ('email', 'url' or 'both')
-	:param	bool	$popup: Whether to create popup links
-	:returns:	Linkified string
+	:param	bool	$popup: 팝업 링크 생성 여부
+	:returns:	Linkified 문자열
 	:rtype:	string
 
-	Automatically turns URLs and e-mail addresses contained in a string into
-	links. Example::
+	문자열에 포함된 URL 및 전자 메일 주소를 링크로 자동 전환합니다.
+	
+	::
 
 		$string = auto_link($string);
 
-	The second parameter determines whether URLs and e-mails are converted or
-	just one or the other. The default behavior is both if the parameter is not
-	specified. E-mail links are encoded as :php:func:`safe_mailto()` as shown
-	above.
+	두 번째 매개 변수는 URL과 전자 메일 모두 또는 하나만 변환할 지 결정합니다.
+	매개 변수가 지정되지 않은 경우 기본 작동은 둘 다입니다.
+	이메일 링크는 :php:func:`safe_mailto()`\ 로 인코딩됩니다.
 
-	Converts only URLs::
+	URL만 변환::
 
 		$string = auto_link($string, 'url');
 
-	Converts only e-mail addresses::
+	이메일 주소만 변환::
 
 		$string = auto_link($string, 'email');
 
-	The third parameter determines whether links are shown in a new window.
-	The value can be TRUE or FALSE (boolean)::
+	세 번째 파라미터는 링크가 새 창에 표시되는지 여부를 결정한다.
+	값은 TRUE 또는 FALSE(부울).
+
+	::
 
 		$string = auto_link($string, 'both', TRUE);
 
-	.. note:: The only URLs recognized are those that start with "www." or with "://".
+	.. note:: 인식되는 URL은 "www" 또는 "://"로 시작하는 URL입니다.
 
 .. php:function:: url_title($str[, $separator = '-'[, $lowercase = FALSE]])
 
-	:param	string	$str: Input string
-	:param	string	$separator: Word separator
-	:param	bool	$lowercase: Whether to transform the output string to lower-case
-	:returns:	URL-formatted string
+	:param	string	$str: 입력 문자열
+	:param	string	$separator: 단어 구분 기호
+	:param	bool	$lowercase: 출력 문자열을 소문자로 변환할지 여부
+	:returns:	URL-formatted 문자열
 	:rtype:	string
 
-	Takes a string as input and creates a human-friendly URL string. This is
-	useful if, for example, you have a blog in which you'd like to use the
-	title of your entries in the URL. Example::
+	문자열을 입력으로 받아서 사람에게 친숙한 URL 문자열을 만듭니다.
+	URL에 항목 제목을 사용하려는 블로그가 있는 경우 유용합니다.
+	
+	::
 
 		$title     = "What's wrong with CSS?";
 		$url_title = url_title($title);
 		// Produces: Whats-wrong-with-CSS
 
-	The second parameter determines the word delimiter. By default dashes
-	are used. Preferred options are: **-** (dash) or **_** (underscore).
+	두 번째 매개 변수는 단어 분리 문자를 결정합니다.
+	기본적으로 대시가 사용됩니다.
+	기본 옵션은 **-** (대시) 또는 **_** (밑줄)입니다.
 
-	Example::
+	::
 
 		$title     = "What's wrong with CSS?";
 		$url_title = url_title($title, 'underscore');
 		// Produces: Whats_wrong_with_CSS
 
-	The third parameter determines whether or not lowercase characters are
-	forced. By default they are not. Options are boolean TRUE/FALSE.
+	세 번째 파라미터는 소문자 강제 변환 여부를 결정합니다.
+	기본적으로 변환하지 않습니다. 옵션은 부울 TRUE/FALSE.
 
-	Example::
+	::
 
 		$title     = "What's wrong with CSS?";
 		$url_title = url_title($title, 'underscore', TRUE);
@@ -337,13 +341,14 @@ The following functions are available:
 
 .. php:function:: prep_url($str = '')
 
-	:param	string	$str: URL string
-	:returns:	Protocol-prefixed URL string
+	:param	string	$str: URL 문자열
+	:returns:	프로토콜 접두사 URL 문자열
 	:rtype:	string
 
-	This function will add *http://* in the event that a protocol prefix
-	is missing from a URL.
+	이 함수는 프로토콜 접두사가 URL에서 누락된 경우 *http://*\ 를 추가합니다.
 
-	Pass the URL string to the function like this::
+	URL 문자열을 이렇게 함수에 전달합니다.
+	
+	::
 
 		$url = prep_url('example.com');
