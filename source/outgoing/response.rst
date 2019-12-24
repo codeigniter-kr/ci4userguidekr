@@ -62,7 +62,7 @@ CodeIgniter가 헤더와 본문 전송을 담당하므로 클래스를 직접 �
 	$response->setHeader('Location', 'http://example.com')
 	         ->setHeader('WWW-Authenticate', 'Negotiate');
 
-헤더가 존재하고 둘 이상의 값을 가질 수 있는 경우 ``appendHeader()``\ 과 ``prependHeader()`` 메서드를 사용하여 값을 각각 값 목록의 끝 또는 시작에 추가할 수 있습니다.
+헤더가 존재하고 둘 이상의 값을 가질 수 있는 경우 ``appendHeader()``\ 과 ``prependHeader()`` 메소드를 사용하여 값을 각각 값 목록의 끝 또는 시작에 추가할 수 있습니다.
 첫 번째 매개 변수는 헤더의 이름이고 두 번째 매개 변수는 추가하거나 추가할 값입니다.
 
 ::
@@ -70,7 +70,7 @@ CodeIgniter가 헤더와 본문 전송을 담당하므로 클래스를 직접 �
 	$response->setHeader('Cache-Control', 'no-cache')
 	         ->appendHeader('Cache-Control', 'must-revalidate');
 
-헤더 이름을 단일 매개 변수로 사용하는 ``removeHeader()`` 메서드를 사용하여 응답에서 헤더를 제거할 수 있습니다.
+헤더 이름을 단일 매개 변수로 사용하는 ``removeHeader()`` 메소드를 사용하여 응답에서 헤더를 제거할 수 있습니다.
 대소 문자를 구분하지 않습니다.
 
 ::

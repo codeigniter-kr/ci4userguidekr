@@ -119,7 +119,7 @@ CodeIgniter는 전역적으로 정의되어 있으며 언제든지 사용할 수
 	:returns: 타이머 인스턴스
 	:rtype: CodeIgniter\Debug\Timer
 
-	타이머(Timer) 클래스에 빠르게 액세스할 수있는 편리한 메서드입니다. 벤치 마크 지점의 이름을 매개 변수로 전달할 수 있습니다.
+	타이머(Timer) 클래스에 빠르게 액세스할 수있는 편리한 메소드입니다. 벤치 마크 지점의 이름을 매개 변수로 전달할 수 있습니다.
 	이 시점부터 타이밍이 시작되거나 이 이름의 타이머가 이미 실행중인 경우 타이밍이 중지됩니다.
 
 	Example::
@@ -279,10 +279,10 @@ CodeIgniter는 전역적으로 정의되어 있으며 언제든지 사용할 수
 
 .. php:function:: route_to ( $method [, ...$params] )
 
-	:param   string   $method: 명명된 라우트의 별명 또는 일치하는 컨트롤러/메서드의 이름입니다.
+	:param   string   $method: 명명된 라우트의 별명 또는 일치하는 컨트롤러/메소드의 이름입니다.
 	:param   mixed   $params: 경로에서 일치시키기 위해 전달될 하나 이상의 매개 변수
 
-	명명된 경로 별칭 또는 컨트롤러::메서드를 기반으로 사용자를 위한 상대 URI를 생성합니다.
+	명명된 경로 별칭 또는 컨트롤러::메소드를 기반으로 사용자를 위한 상대 URI를 생성합니다.
 	매개 변수가 제공된 경우 적용합니다.
 
 	자세한 내용은 :doc:`/incoming/routing` 페이지를 참조하십시오.
@@ -290,7 +290,7 @@ CodeIgniter는 전역적으로 정의되어 있으며 언제든지 사용할 수
 .. php:function:: service ( $name [, ...$params] )
 
 	:param   string   $name: 로드 할 서비스의 이름
-	:param   mixed    $params: 서비스 메서드에 전달할 하나 이상의 매개 변수
+	:param   mixed    $params: 서비스 메소드에 전달할 하나 이상의 매개 변수
 	:returns: 지정된 서비스 클래스의 인스턴스
 	:rtype: mixed
 
@@ -305,7 +305,7 @@ CodeIgniter는 전역적으로 정의되어 있으며 언제든지 사용할 수
 .. php:function:: single_service ( $name [, ...$params] )
 
 	:param   string   $name: 로드 할 서비스의 이름
-	:param   mixed    $params: 서비스 메서드에 전달할 하나 이상의 매개 변수
+	:param   mixed    $params: 서비스 메소드에 전달할 하나 이상의 매개 변수
 	:returns: An instance of the service class specified.
 	:rtype: mixed
 

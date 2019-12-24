@@ -18,9 +18,9 @@
 
 ::
 
-	example.com/index.php/blog/
+	example.com/index.php/helloworld/
 
-위의 예제에서 CodeIgniter는 Blog.php 라는 컨트롤러를 찾아 로드하려고 시도합니다.
+위의 예제에서 CodeIgniter는 Helloworld.php 라는 컨트롤러를 찾아 로드하려고 시도합니다.
 
 **컨트롤러 이름이 URI의 첫 번째 세그먼트와 일치하면 로드됩니다.**
 
@@ -35,7 +35,7 @@
 
 	use CodeIgniter\Controller;
 
-	class Blog extends Controller
+	class Helloworld extends Controller
         {
 		public function index()
 		{
@@ -45,19 +45,19 @@
 
 이 파일을 **/app/Controllers/** 디렉토리에 저장합니다.
 
-.. important:: 'Blog.php'는 대문자 'B'로 시작되어야 합니다.
+.. important:: 'Helloworld.php'는 대문자 'H'로 시작되어야 합니다.
 
 이제 이와 유사한 URL을 사용하여 사이트를 방문하십시오.
 
 ::
 
-	example.com/index.php/blog
+	example.com/index.php/helloworld
 
 제대로 했다면 결과는::
 
 	Hello World!
 
-.. important:: 클래스 이름은 대문자로 시작해야합니다.
+.. important:: 컨트롤러 클래스 이름은 대문자로 시작해야 하며, 첫번째 문자만 대문자입니다.
 
 올바른 예::
 
@@ -65,36 +65,46 @@
 
 	use CodeIgniter\Controller;
 
-	class Blog extends Controller {
+	class Helloworld extends Controller {
 
 	}
 
-틀린 예::
+틀린 예1::
 
 	<?php namespace App\Controllers;
 
 	use CodeIgniter\Controller;
 
-	class blog extends Controller {
+	class helloworld extends Controller {
 
 	}
 
-여러분이 작성한 컨트롤러가 모든 메서드를 상속받을 수 있도록 상위 컨트롤러 클래스를 확장해야 합니다.
+틀린 예2::
 
-메서드
+	<?php namespace App\Controllers;
+
+	use CodeIgniter\Controller;
+
+	class HelloWorld extends Controller {
+
+	}
+
+여러분이 작성한 컨트롤러가 모든 메소드를 상속받을 수 있도록 상위 컨트롤러 클래스를 확장해야 합니다.
+
+메소드
 =========
 
-위 예제에서 메서드 이름은 ``index()``\ 입니다.
-URI의 **두 번째 세그먼트**\ 가 비어 있으면 "index" 메서드가 항상 기본적으로 로드됩니다.
+위 예제에서 메소드 이름은 ``index()``\ 입니다.
+URI의 **두 번째 세그먼트**\ 가 비어 있으면 "index" 메소드가 항상 기본적으로 로드됩니다.
 "Hello World" 메시지를 표시하는 다른 방법은 다음과 같습니다.
 
 ::
 
-	example.com/index.php/blog/index/
+	example.com/index.php/helloworld/index/
 
-**URI의 두 번째 세그먼트는 컨트롤러에서 호출할 메서드를 결정합니다.**
+**URI의 두 번째 세그먼트는 컨트롤러에서 호출할 메소드를 결정합니다.**
 
-컨트롤러에 새로운 메서드를 추가해 봅시다.
+컨트롤러에 새로운 메소드를 추가해 봅시다.
 
 ::
 
@@ -102,7 +112,7 @@ URI의 **두 번째 세그먼트**\ 가 비어 있으면 "index" 메서드가 �
 
 	use CodeIgniter\Controller;
 
-	class Blog extends Controller
+	class Helloworld extends Controller
         {
 
 		public function index()
@@ -110,28 +120,28 @@ URI의 **두 번째 세그먼트**\ 가 비어 있으면 "index" 메서드가 �
 			echo 'Hello World!';
 		}
 
-		public function comments()
+		public function comment()
 		{
-			echo 'Look at this!';
+			echo 'I am not flat!';
 		}
 	}
 
-이제 다음 URL을 로드하여 comments 메서드를 봅니다.::
+이제 다음 URL을 로드하여 comment 메소드를 봅니다.::
 
-	example.com/index.php/blog/comments/
+	example.com/index.php/helloworld/comment/
 
 새로운 메시지가 표시됩니다.
 
-메서드에 URI 세그먼트 전달
+메소드에 URI 세그먼트 전달
 ====================================
 
-URI에 세 개 이상의 세그먼트가 포함되어 있으면 메서드에 매개 변수(parameters)로 전달됩니다.
+URI에 세 개 이상의 세그먼트가 포함되어 있으면 메소드에 매개 변수(parameters)로 전달됩니다.
 
 예를 들어 이와 같은 URI가 있다고 가정 해 봅시다.::
 
 	example.com/index.php/products/shoes/sandals/123
 
-메서드에 URI 세그먼트 3과 세그먼트 4가 전달됩니다. ("sandals" 와 "123")::
+메소드에 URI 세그먼트 3과 세그먼트 4가 전달됩니다. ("sandals" 와 "123")::
 
 	<?php namespace App\Controllers;
 
@@ -147,28 +157,38 @@ URI에 세 개 이상의 세그먼트가 포함되어 있으면 메서드에 매
 		}
 	}
 
-.. important:: :doc:`URI 라우팅 <routing>` 기능을 사용하는 경우 메서드에 전달 된 세그먼트가 다시 라우팅됩니다.
+.. important:: :doc:`URI 라우팅 <routing>` 기능을 사용하는 경우 메소드에 전달 된 세그먼트가 다시 라우팅됩니다.
 
 기본 컨트롤러 정의
 =============================
 
-사이트 루트 URL만 요청하는 경우와 같이 URI가 없는 경우, 기본 컨트롤러를 로드하도록 CodeIgniter에 지시할 수 있습니다.
+사이트 루트 URL만 요청할 때, Helloworld 컨트롤러를 로드하도록 할 수 있습니다.
+
 기본 컨트롤러를 지정하려면 **app/Config/Routes.php** 파일을 열고 아래 부분을 수정하십시오.
 
 ::
 
-	$routes->setDefaultController('Blog');
+	$routes->setDefaultController('Helloworld');
 
-여기서 'Blog'는 사용하려는 기본 컨트롤러 클래스의 이름입니다.
-URI 세그먼트를 지정하지 않고 기본 index.php 파일을 로드하면 기본적으로 "Hello World" 메시지가 표시됩니다.
+여기서 'Helloworld'는 사용하려는 기본 컨트롤러 클래스의 이름입니다.
+**Routes.php**\ 의 라인 코멘트 "Route Definitions" 섹션 몇 줄 아래 있습니다.
+
+::
+
+	$routes->get('/', 'Home::index');
+
+URI 세그먼트를 지정하지 않고 사이트를 탐색하면 "Hello World"메시지가 표시됩니다.
+
+.. note:: ``$routes->get('/', 'Home::index');``\ 은 "실제" 앱에서 사용하는 최적화된 경로입니다. 시연 목적으로 이 기능을 사용하고 싶지 않습니다. ``$routes->get()``\ 에 대한 설명은 :doc:`URI 라우팅 <routing>`\ 을 살펴보세요.
+
 
 자세한 내용은 :doc:`URI 라우팅 <routing>` 설명서의 "라우트 구성 옵션" 섹션을 참조하십시오.
 
-리매핑 메서드 호출
+리매핑 메소드 호출
 ======================
 
-위에서 언급 한 바와 같이, URI의 두 번째 세그먼트는 일반적으로 컨트롤러에서 호출되는 메서드를 결정합니다.
-``_remap()`` 메서드를 사용하면 CodeIgniter의 이 동작을 재정의 할 수 있습니다.
+위에서 언급 한 바와 같이, URI의 두 번째 세그먼트는 일반적으로 컨트롤러에서 호출되는 메소드를 결정합니다.
+``_remap()`` 메소드를 사용하면 CodeIgniter의 이 동작을 재정의 할 수 있습니다.
 
 ::
 
@@ -177,10 +197,10 @@ URI 세그먼트를 지정하지 않고 기본 index.php 파일을 로드하면 
 		// Some code here...
 	}
 
-.. important:: 컨트롤러에 _remap()\ 이라는 메서드가 포함되어 있으면 URI에 포함 된 내용에 관계없이 **항상** 호출됩니다.
-	URI는 어떤 메서드가 호출되는지 판별하여 사용자 고유의 메서드 라우팅 규칙을 정의할 수 있는 일반적인 동작을 대체합니다.
+.. important:: 컨트롤러에 _remap()\ 이라는 메소드가 포함되어 있으면 URI에 포함 된 내용에 관계없이 **항상** 호출됩니다.
+	URI는 어떤 메소드가 호출되는지 판별하여 사용자 고유의 메소드 라우팅 규칙을 정의할 수 있는 일반적인 동작을 대체합니다.
 
-재정의 된 메서드 호출(일반적으로 URI의 두 번째 세그먼트)은 ``_remap()`` 메서드에 매개 변수로 전달됩니다.
+재정의 된 메소드 호출(일반적으로 URI의 두 번째 세그먼트)은 ``_remap()`` 메소드에 매개 변수로 전달됩니다.
 ::
 
 	public function _remap($method)
@@ -195,8 +215,8 @@ URI 세그먼트를 지정하지 않고 기본 index.php 파일을 로드하면 
 		}
 	}
 
-메서드 이름 뒤의 추가 세그먼트는 ``_remap()``\ 에 전달됩니다.
-이러한 매개 변수는 CodeIgniter의 기본 동작을 에뮬레이트하기 위해 메서드로 전달될 수 있습니다.
+메소드 이름 뒤의 추가 세그먼트는 ``_remap()``\ 에 전달됩니다.
+이러한 매개 변수는 CodeIgniter의 기본 동작을 에뮬레이트하기 위해 메소드로 전달될 수 있습니다.
 
 Example::
 
@@ -210,12 +230,12 @@ Example::
 		throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
 	}
 
-비공개 메서드
+비공개 메소드
 ===============
 
-경우에 따라 외부에 특정 메서드를 숨겨야할 수도 있습니다.
-메서드를 private 또는 protected로 선언하면 URL 요청을 통해 접근할 수 없습니다.
-이와 같은 방법을 사용한 예입니다.
+경우에 따라 외부에 특정 메소드를 숨겨야할 수도 있습니다.
+메소드를 private 또는 protected로 선언하면 URL 요청을 통해 접근할 수 없습니다.
+"Helloworld" 컨트롤러에 대해 이와 같은 방법을 사용한 예입니다.
 
 ::
 
@@ -228,7 +248,7 @@ Example::
 
 ::
 
-	example.com/index.php/blog/utility/
+	example.com/index.php/helloworld/utility/
 
 컨트롤러를 하위 디렉토리로 구성
 ================================================
@@ -275,7 +295,7 @@ CodeIgniter에서는 :doc:`URI 라우팅 <routing>` 기능을 사용하여 URI�
 
 **forceHTTPS**
 
-HTTPS를 통해 메서드에 액세스할 수있는 편리한 메서드를 모든 컨트롤러에서 사용할 수 있습니다.
+HTTPS를 통해 메소드에 액세스할 수있는 편리한 메소드를 모든 컨트롤러에서 사용할 수 있습니다.
 
 ::
 
@@ -300,7 +320,7 @@ HTTPS를 통해 메서드에 액세스할 수있는 편리한 메서드를 모�
 -------
 
 클래스 속성에 헬퍼를 배열로 정의할 수 있습니다.
-컨트롤러가 로드될 때마다 정의된 헬퍼도 자동으로 로드되며, 컨트롤러 내부의 어느 위치에서든 헬퍼에 정의된 메서드를 사용할 수 있습니다.
+컨트롤러가 로드될 때마다 정의된 헬퍼도 자동으로 로드되며, 컨트롤러 내부의 어느 위치에서든 헬퍼에 정의된 메소드를 사용할 수 있습니다.
 
 ::
 
@@ -315,9 +335,9 @@ HTTPS를 통해 메서드에 액세스할 수있는 편리한 메서드를 모�
 데이터 검증
 ======================
 
-컨트롤러는 데이터를 좀 더 간단하게 검증할 수 있는 방법을 제공합니다. 
-이는 매개 변수로 테스트할 규칙을 배열로 전달하고, 검증을 통과하지 못한 항목을 표시할 사용자 정의 오류 메시지를 배열로 받을수 있습니다.
-이 데이타는 컨트롤러 내부의 **$this->request** 인스턴스를 사용하여 가져옵니다.
+데이터 확인을 단순화하기 위해 컨트롤러는 편리한 메소드 ``validate()``\ 를 제공합니다.
+이 메소드는 첫 번째 매개 변수와 선택적 두 번째 매개 변수에 항목이 유효하지 않은 경우 표시할 사용자 정의 오류 메시지 배열의 규칙 배열을 허용합니다.
+내부적으로 이것은 컨트롤러의 **$this->request** 인스턴스를 사용하여 데이터의 유효성을 검사합니다.
 :doc:`유효성 검사 라이브러리 문서 </libraries/validation>`\ 에는 이에 대한 메시지 배열의 형식과 사용 가능한 규칙에 대한 세부 정보가 있습니다.
 
 ::
@@ -353,8 +373,7 @@ HTTPS를 통해 메서드에 액세스할 수있는 편리한 메서드를 모�
         // do something here if successful...
     }
 
-.. note:: 모델에서 유효성 검사를 자동으로 처리할 수 있습니다.
-		유효성 검사를 처리하는 위치는 사용자의 결정에 달려 있으며, 상황에 따라 컨트롤러에서 하는 것보다 단순할 수도 있고 그 반대인 경우도 있습니다.
+.. note:: 모델에서 유효성 검사를 자동으로 처리할 수 있지만 때로는 컨트롤러에서 확인하기가 더 쉽습니다. 선택은 당신에게 달려 있습니다.
 
 이게 다임!
 ============

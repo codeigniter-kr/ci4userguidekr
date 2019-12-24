@@ -119,7 +119,7 @@ CodeIgniter의 모델을 활용하려면 ``CodeIgniter\Model``\ 을 확장하는
 **$primaryKey**
 
 테이블에서 레코드를 고유하게 식별하는 열(column)의 이름입니다.
-반드시 데이터베이스에 지정된 기본(primary) 키와 일치 할 필요는 없으며, ``find()``\ 와 같은 메서드에서 지정된 값과 일치하는 열을 찾을때 사용합니다.
+반드시 데이터베이스에 지정된 기본(primary) 키와 일치 할 필요는 없으며, ``find()``\ 와 같은 메소드에서 지정된 값과 일치하는 열을 찾을때 사용합니다.
 
 .. note:: 모든 기능이 예상대로 작동하려면 모든 모델에 기본 키가 지정되어 있어야 합니다.
 
@@ -131,7 +131,7 @@ CodeIgniter의 모델을 활용하려면 ``CodeIgniter\Model``\ 을 확장하는
 
 **$useSoftDeletes**
 
-``true``\ 이면 delete* 메서드 호출은 실제로 행을 삭제하는 대신 데이터베이스의 ``deleted_at`` 필드를 설정합니다.
+``true``\ 이면 delete* 메소드 호출은 실제로 행을 삭제하는 대신 데이터베이스의 ``deleted_at`` 필드를 설정합니다.
 이를 통해 데이터가 다른 곳에서 참조될 때 데이터를 보존하거나 복원할 수있는 개체의 "휴지통"\ 을 유지하거나 단순히 보안 추적의 일부로 보존할 수 있습니다.
 ``true``\ 인 경우, find* 메소드를 호출하기 전에 withDeleted() 메소드를 호출하지 않으면 find* 메소드는 삭제되지 않은 행만 리턴합니다.
 
@@ -515,7 +515,7 @@ Model 클래스는 ``insert()``, ``update()``, ``save()`` 메소드를 사용하
             );
             $model->setValidationMessages($fieldValidationMessage);
 
-이제 ``insert()``, ``update()``, ``save()`` 메서드를 호출할 때마다 데이터의 유효성이 검사됩니다.
+이제 ``insert()``, ``update()``, ``save()`` 메소드를 호출할 때마다 데이터의 유효성이 검사됩니다.
 실패하면 모델은 **false**\ 를 반환합니다. ``errors()`` 메소드를 사용하여 유효성 검사 오류를 검색할 수 있습니다
 
 ::
@@ -545,6 +545,30 @@ Model 클래스는 ``insert()``, ``update()``, ``save()`` 메소드를 사용하
 	{
 		protected $validationRules = 'users';
 	}
+
+유효성 검사 규칙 검색
+---------------------------
+
+``validationRules`` 속성에 액세스하여 모델의 유효성 검사 규칙을 검색할 수 있습니다.
+
+::
+
+    $rules = $model->validationRules;
+
+옵션을 사용하여 접근자 메서드를 직접 호출하여 해당 규칙의 하위 집합만 검색 할 수도 있습니다.
+
+::
+
+    $rules = $model->getValidationRules($options);
+
+``$options`` 매개 변수는 하나의 요소를 가진 연관 배열이며, 키는 "except" 또는 "only"\ 이며, 값은 해당 필드 이름의 배열입니다.
+
+::
+
+    // get the rules for all but the "username" field
+    $rules = $model->getValidationRules(['except' => ['username']]);
+    // get the rules for only the "city" and "state" fields
+    $rules = $model->getValidationRules(['only' => ['city', 'state']]);
 
 유효성 검사 자리 표시자
 -----------------------
@@ -660,7 +684,7 @@ find*() 메소드의 데이터를 표준 객체 또는 사용자 정의 클래�
 --------------------------------
 
 때로는 많은 양의 데이터를 처리해야 하며, 메모리가 부족해질 위험이 있습니다.
-이를 방지하기 위해 chunk() 메서드를 사용하여 작업을 수행하면 작은 데이터 청크를 얻을 수 있습니다.
+이를 방지하기 위해 chunk() 메소드를 사용하여 작업을 수행하면 작은 데이터 청크를 얻을 수 있습니다.
 첫 번째 매개 변수는 단일 청크에서 검색할 행 수입니다.
 두 번째 매개 변수는 각 데이터 행에 대해 호출되는 클로저(Closure)입니다.
 
@@ -724,13 +748,14 @@ insert* 또는 update* 메소드의 경우 데이터베이스에 삽입되는 �
 ================ =========================================================================================================
 Event            $data contents
 ================ =========================================================================================================
-beforeInsert      **data** = Insert되는 키/값 쌍 객체, 엔터티 클래스가 insert 메서드로 전달되면 먼저 배열로 변환됩니다.
-afterInsert       **data** = Insert될 원래의 키/값 쌍
+beforeInsert      **data** = Insert되는 키/값 쌍 객체, 엔터티 클래스가 insert 메소드로 전달되면 먼저 배열로 변환됩니다.
+afterInsert       **id** = 새 행의 기본 키, 실패 시 0
+                  **data** = Insert될 원래의 키/값 쌍
                   **result** = 쿼리 빌더 insert() 메소드 호출 결과
 beforeUpdate      **id** = Update되는 행의 기본(primary) 키
-                  **data** = Update되는 키/값 쌍 객체, 엔터티 클래스가 Update 메서드로 전달되면 먼저 배열로 변환됩니다.
+                  **data** = Update되는 키/값 쌍 객체, 엔터티 클래스가 Update 메소드로 전달되면 먼저 배열로 변환됩니다.
 afterUpdate       **id** = Update되는 행의 기본(primary) 키
-                  **data** = Update될 원래의 키/값 쌍
+                  **data** = 업데이트되는 키/값 쌍
                   **result** = 쿼리 빌더 update() 메소드 호출 결과
 afterFind         find* 메소드에 따라 다릅니다. 다음을 참조하십시오:
 - find()          **id** = 검색되는 행의 기본 키

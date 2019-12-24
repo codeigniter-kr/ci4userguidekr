@@ -69,7 +69,7 @@ select 쿼리를 실행하고 결과를 반환하며, 테이블에서 모든 레
 **$builder->getCompiledSelect()**
 
 **$builder->get()**\ 처럼 select 쿼리를 컴파일하지만 쿼리를 *실행*\ 하지는 않습니다.
-이 메서드는 SQL 쿼리를 문자열로 반환합니다.
+이 메소드는 SQL 쿼리를 문자열로 반환합니다.
 
 Example::
 
@@ -178,8 +178,8 @@ selectMax()와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 �
 
 ::
 
-	$builder->selectSum('age');
-	$query = $builder->get(); // Produces: SELECT SUM(age) as age FROM mytable
+	$builder->selectCount('age');
+	$query = $builder->get(); // Produces: SELECT COUNT(age) as age FROM mytable
 
 **$builder->from()**
 
@@ -858,10 +858,30 @@ Inserting 데이타
 
 .. note:: 모든 값은 자동으로 이스케이프됩니다.
 
+**$builder->ignore()**
+
+제공한 데이터를 기반으로 인서트 무시 문자열(insert ignore string)을 생성하고 쿼리를 실행합니다.
+따라서 동일한 기본 키를 가진 항목이 이미 있으면 쿼리가 인서트(insert)되지 않습니다.
+선택적으로 **boolean**\ 을 함수에 전달할 수 있습니다.
+
+위 예제의 배열을 사용한 예제입니다.
+
+::
+
+	$data = [
+		'title' => 'My title',
+		'name'  => 'My Name',
+		'date'  => 'My date'
+	];
+
+	$builder->ignore(true)->insert($data);
+	// Produces: INSERT OR IGNORE INTO mytable (title, name, date) VALUES ('My title', 'My name', 'My date')
+
+
 **$builder->getCompiledInsert()**
 
 ``$builder->insert()``\ 와 같이 Insert 쿼리를 컴파일하지만 쿼리를 *실행*\ 하지는 않습니다.
-이 메서드는 SQL 쿼리를 문자열로 반환합니다.
+이 메소드는 SQL 쿼리를 문자열로 반환합니다.
 
 Example::
 
@@ -1216,7 +1236,7 @@ TRUNCATE SQL 문자열을 생성하고 쿼리를 실행합니다.
 Class Reference
 ***************
 
-.. php:class:: \CodeIgniter\Database\BaseBuilder
+.. php:class:: CodeIgniter\\Database\\BaseBuilder
 
 	.. php:method:: resetQuery()
 

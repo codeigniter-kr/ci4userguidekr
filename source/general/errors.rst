@@ -22,7 +22,7 @@ CodeIgniter는 프레임워크에서 제공하는 몇 가지 사용자 정의 �
 
 	throw new \Exception("Some message goes here");
 
-예외를 던질 수 있는 메서드를 호출하는 경우 ``try/catch`` 블록을 사용하여 해당 예외를 포착할 수 있습니다.
+예외를 던질 수 있는 메소드를 호출하는 경우 ``try/catch`` 블록을 사용하여 해당 예외를 포착할 수 있습니다.
 
 ::
 
@@ -133,3 +133,19 @@ DatabaseException
 	throw new \CodeIgniter\Database\Exceptions\DatabaseException();
 
 HTTP 상태 코드는 500이고 종료 코드는 8입니다.
+
+RedirectException
+-----------------
+
+This exception is a special case allowing for overriding of all other response routing and forcing a redirect to a specific route or URL.
+이 예외는 다른 모든 응답 라우팅을 재정의하고 특정 경로 또는 URL로 리디렉션을 강제 적용할 수 있는 특수한 경우입니다.
+
+::
+
+	throw new \CodeIgniter\Router\Exceptions\RedirectException($route);
+
+``$route``\ 는 이름이 지정된 경로, 상대 URI 또는 전체 URL일 수 있습니다. 기본값("302", "임시 리디렉션") 대신 사용할 리디렉션 코드를 제공할 수도 있습니다.
+
+::
+
+	throw new \CodeIgniter\Router\Exceptions\RedirectException($route, 301);

@@ -686,4 +686,4 @@ The Form Helper file contains functions that assist in working with forms.
 		<input type="radio" name="myradio" value="2" <?php echo  set_radio('myradio', '2'); ?> />
 
 	.. note:: 폼 유효성 검사 클래스를 사용하는 경우 ``set_*()`` 함수가 작동하려면 항상 비어있는 경우에도 필드에 대한 규칙을 지정해야합니다.
-		폼 유효성 검사 개체를 정의하면 ``set _*()``\ 에 대한 컨트롤이 일반 헬퍼 함수 대신 클래스의 메서드로 전달되기 때문입니다.
+		폼 유효성 검사 개체를 정의하면 ``set _*()``\ 에 대한 컨트롤이 일반 헬퍼 함수 대신 클래스의 메소드로 전달되기 때문입니다.

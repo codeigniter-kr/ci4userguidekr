@@ -17,7 +17,7 @@ Accessing the Request
 
 	<?php namespace App\Controllers;
 
-	user CodeIgniter\Controller;
+	use CodeIgniter\Controller;
 
 	class UserController extends Controller
 	{
@@ -89,7 +89,7 @@ Accessing the Request
 	// Returns 'GET'
 	$method = $request->getMethod(true);
 
-``isSecure()`` 메서드를 이용하여 HTTPS 연결을 통해 요청이 이루어 졌는지 확인할 수 있습니다.
+``isSecure()`` 메소드를 이용하여 HTTPS 연결을 통해 요청이 이루어 졌는지 확인할 수 있습니다.
 
 ::
 
@@ -185,7 +185,7 @@ POST 변수를 필터링하면 다음과 같습니다
 헤더 검색
 ----------------------------------------------------------------------------
 
-``getHeaders()`` 메서드로 요청과 함께 전송된 모든 헤더에 액세스 할 수 있습니다.
+``getHeaders()`` 메소드로 요청과 함께 전송된 모든 헤더에 액세스 할 수 있습니다.
 이 메소드는 키를 헤더 이름으로 사용하여 모든 헤더의 배열을 ``CodeIgniter\HTTP\Header``\ 로 반환합니다.
 
 ::
@@ -198,7 +198,7 @@ POST 변수를 필터링하면 다음과 같습니다
 		'Accept'        => CodeIgniter\HTTP\Header,
 	]
 
-단일 헤더만 필요한 경우 ``getHeader()`` 메서드를 사용합니다.
+단일 헤더만 필요한 경우 ``getHeader()`` 메소드를 사용합니다.
 지정된 헤더 객체가 존재하는 경우 대소문자를 구분하지 않는 방식으로 가져오고, 그렇지 않으면 ``null``\ 을 반환합니다.
 
 ::

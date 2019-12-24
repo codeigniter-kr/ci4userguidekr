@@ -203,7 +203,7 @@ Class Reference
 		:returns:	CodeIgniter\\Email\\Email instance (method chaining)
 		:rtype:	CodeIgniter\\Email\\Email
 
-		숨은 참조 이메일 주소를 설정합니다. ``setTo()`` 메서드와 마찬가지로 이메일 주소 또는 쉼표로 구분된 이메일 목록, 이메일 배열일 수 있습니다.
+		숨은 참조 이메일 주소를 설정합니다. ``setTo()`` 메소드와 마찬가지로 이메일 주소 또는 쉼표로 구분된 이메일 목록, 이메일 배열일 수 있습니다.
 
 		``$limit``\ 가 설정되면 "batch mode"\ 가 활성화되어 각 배치가 지정된 ``$limit``\ 를 초과하지 않는 이메일을 배치로 보냅니다.
 

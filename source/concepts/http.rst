@@ -88,7 +88,7 @@ PHP는 요청 및 응답 헤더와 상호 작용하는 방법을 제공하지만
 	$request->getMethod();  // GET, POST, PUT, etc
 
 요청 클래스는 백그라운드에서 많은 작업을 수행하므로 여러분은 걱정할 필요가 없습니다.
-``isAJAX()`` 및 ``isSecure()`` 메서드는 여러 가지 다른 메서드를 확인하여 올바른 답을 판별합니다.
+``isAJAX()`` 및 ``isSecure()`` 메소드는 여러 가지 다른 메소드를 확인하여 올바른 답을 판별합니다.
 
 CodeIgniter는 HTTP 응답의 객체 지향 표현 인 :doc:`Response class </outgoing/response>`\ 도 제공합니다.
 이를 통해 클라이언트에 대한 응답을 쉽고 강력하게 구성 할 수 있습니다::

@@ -12,7 +12,7 @@
 
     <?= view_cell('\App\Libraries\Blog::recentPosts') ?>
 
-이 예제에서는 ``App\Libraries\Blog`` 클래스가 로드되고 ``recentPosts()`` 메서드가 실행됩니다.
+이 예제에서는 ``App\Libraries\Blog`` 클래스가 로드되고 ``recentPosts()`` 메소드가 실행됩니다.
 메소드는 HTML을 문자열로 리턴해야합니다.
 메소드는 정적 메소드(static method) 여부에 상관없이 실행됩니다.
 

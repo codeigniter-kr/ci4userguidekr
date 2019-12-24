@@ -5,7 +5,7 @@ HTTP 메시지
 Message 클래스는 메시지 본문, 프로토콜 버전, 헤더 작업 유틸리티 및 컨텐츠 협상(content negotiation) 처리 방법을 포함하여 요청 및 응답에 공통적인 HTTP 메시지 부분에 대한 인터페이스를 제공합니다.
 
 이 클래스는 :doc:`Request Class </incoming/request>`\ 와 :doc:`Response Class </outgoing/response>`\ 의 상위 클래스입니다.
-컨텐츠 교섭 메소드와 같은 일부 메소드는 요청(Request)이나 응답(Response)에만 적용되고, 다른 메서드는 적용되지 않을수 있지만, 헤더 메서드를 함께 유지하기 위해 이 문서에 포함되었습니다.
+컨텐츠 교섭 메소드와 같은 일부 메소드는 요청(Request)이나 응답(Response)에만 적용되고, 다른 메소드는 적용되지 않을수 있지만, 헤더 메소드를 함께 유지하기 위해 이 문서에 포함되었습니다.
 
 콘텐츠 협상(Content Negotiation)이란?
 ========================================
@@ -221,7 +221,7 @@ Class Reference
 		:returns: 가장 일치하는 지원 문자 집합
 		:rtype: string
 
-		이는 ``Accept-Charset`` 헤더 문자열과 일치한다는 점을 제외면 ``negotiateMedia()`` 메서드와 동일하게 사용됩니다.
+		이는 ``Accept-Charset`` 헤더 문자열과 일치한다는 점을 제외면 ``negotiateMedia()`` 메소드와 동일하게 사용됩니다.
 		
 		::
 

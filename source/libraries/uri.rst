@@ -65,7 +65,7 @@ URI 문자열
 	$uri = current_url(true);
 	echo (string)$uri;  // http://example.com
 
-URI 조각을 알고 있고 모든 형식이 올바른지 확인하려면 URI 클래스의 정적 ``createURIString()`` 메서드를 사용하여 문자열을 생성할 수 있습니다
+URI 조각을 알고 있고 모든 형식이 올바른지 확인하려면 URI 클래스의 정적 ``createURIString()`` 메소드를 사용하여 문자열을 생성할 수 있습니다
 
 ::
 
@@ -206,7 +206,7 @@ URI의 호스트 부분은 일반적으로 URL의 도메인 이름입니다.
 
     $uri->setQueryArray(['foo' => 'bar', 'bar' => 'baz']);
 
-``setQuery()``\ 와 ``setQueryArray()`` 메서드는 기존 쿼리 변수를 덮어 씁니다.
+``setQuery()``\ 와 ``setQueryArray()`` 메소드는 기존 쿼리 변수를 덮어 씁니다.
 ``addQuery()`` 메소드를 사용하여 기존 쿼리 변수를 손상시키지 않고 쿼리 변수 컬렉션에 값을 추가할 수 있습니다.
 첫 번째 매개 변수는 변수의 이름이고 두 번째 매개 변수는 값입니다.
 
@@ -229,7 +229,7 @@ URI의 호스트 부분은 일반적으로 URL의 도메인 이름입니다.
     echo $uri->getQuery(['except' => ['bar']]);
 
 이 한 번의 호출 동안 반환된 값만 변경됩니다.
-URI의 쿼리 값을보다 영구적으로 수정해야 하는 경우 ``stripQuery()``\ 와 ``keepQuery()`` 메서드를 사용하여 실제 객체의 쿼리 변수 컬렉션을 변경할 수 있습니다.
+URI의 쿼리 값을보다 영구적으로 수정해야 하는 경우 ``stripQuery()``\ 와 ``keepQuery()`` 메소드를 사용하여 실제 객체의 쿼리 변수 컬렉션을 변경할 수 있습니다.
 
 ::
 

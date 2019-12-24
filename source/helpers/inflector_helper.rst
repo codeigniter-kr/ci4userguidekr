@@ -49,6 +49,19 @@ Inflector 헬퍼에는 **영어** 단어를 복수, 단수, camel 등으로 변�
 
 		echo plural('dog'); // Prints 'dogs'
 
+.. php:function:: counted($count, $string)
+
+	:param	int 	$count:  항목 수
+	:param	string	$string: 입력 문자열
+	:returns:	단수 또는 복수구
+	:rtype:	string
+
+	단어와 그 수를 구문으로 변경합니다.
+	
+	::
+
+		echo counted(3, 'dog'); // Prints '3 dogs'
+
 .. php:function:: camelize($string)
 
 	:param	string	$string: 입력 문자열

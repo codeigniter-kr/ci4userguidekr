@@ -27,7 +27,7 @@ Events 클래스의 ``on()`` 메소드로 이벤트에 액션을 구독할 수 �
 
 	Events::on('pre_system', ['MyClass', 'MyFunction']);
 
-이 예에서 **pre_controller** 이벤트가 실행될 때마다 ``MyClass`` 인스턴스가 생성되고 ``MyFunction`` 메서드가 실행됩니다.
+이 예에서 **pre_controller** 이벤트가 실행될 때마다 ``MyClass`` 인스턴스가 생성되고 ``MyFunction`` 메소드가 실행됩니다.
 두 번째 매개 변수는 PHP가 인식하는 `호출 가능(callable) <http://php.net/manual/en/function.is-callable.php>`_ 의 *모든* 형식일 수 있습니다.
 
 ::
@@ -78,7 +78,7 @@ Events 클래스의 ``on()`` 메소드로 이벤트에 액션을 구독할 수 �
 ==========================
 
 이벤트 라이브러리를 사용하면 자신의 코드로 이벤트를 간단하게 만들 수 있습니다. 
-이 기능을 사용하려면 **Events** 클래스에서 이벤트 이름으로 ``trigger()`` 메서드를 호출하면됩니다.
+이 기능을 사용하려면 **Events** 클래스에서 이벤트 이름으로 ``trigger()`` 메소드를 호출하면됩니다.
 
 ::
 

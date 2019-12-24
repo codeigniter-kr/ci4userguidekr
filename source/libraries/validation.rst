@@ -150,7 +150,7 @@ Try it!
 
 **Validation 클래스에 아직 유효성을 검사하도록 지시하지 않았기 때문에 기본적으로 false(부울 false)를 반환합니다.**
 
-``validate()`` **메서드는 규칙이 실패하지 않고 규칙을 성공적으로 적용한 경우에만 true를 반환합니다.**
+``validate()`` **메소드는 규칙이 실패하지 않고 규칙을 성공적으로 적용한 경우에만 true를 반환합니다.**
 
 설명
 ============
@@ -194,7 +194,7 @@ Try it!
 ================================================
 
 CodeIgniter를 사용하면 주어진 필드에 필요한 만큼의 유효성 검사 규칙을 순서대로 설정할 수 있습니다.
-유효성 검사 규칙을 설정하려면 ``setRule()``, ``setRules()``, ``withRequest()`` 메서드를 사용합니다.
+유효성 검사 규칙을 설정하려면 ``setRule()``, ``setRules()``, ``withRequest()`` 메소드를 사용합니다.
 
 setRule()
 ---------
@@ -500,7 +500,7 @@ Validation 클래스의 좋은 기능은 애플리케이션 전체에 대한 모
 
 ::
 
-    if ($validation->hasError('username')
+    if ($validation->hasError('username'))
     {
         echo $validation->getError('username');
     }
@@ -543,7 +543,7 @@ Validation 클래스의 좋은 기능은 애플리케이션 전체에 대한 모
 실제로 작성할 수 있는 두 가지 유형의 뷰가 있습니다.
 첫 번째는 모든 오류 배열을 가지고 있으며 방금 살펴본 것입니다.
 다른 유형은 더 단순하며 오류 메시지가 포함된 단일 변수 ``$error``\ 만 포함합니다.
-필드를 지정해야 하는 ``showError()`` 메서드와 함께 사용됩니다.
+필드를 지정해야 하는 ``showError()`` 메소드와 함께 사용됩니다.
 
 ::
 
@@ -707,11 +707,14 @@ differs                 Yes         필드가 매개 변수의 필드와 다르�
 exact_length            Yes         필드가 정확히 매개 변수 값이 아닌 경우 실패합니다. 하나 이상의 값은 쉼표로 구분                 exact_length[5] or exact_length[5,8,12]
 greater_than            Yes         필드가 매개 변수 값보다 작거나, 같거나, 숫자가 아닌 경우 실패합니다.                            greater_than[8]
 greater_than_equal_to   Yes         필드가 매개 변수 값보다 작거나, 숫자가 아닌 경우 실패합니다.                                    greater_than_equal_to[5]
+hex                     No          필드에 16진수 문자가 아닌 다른 문자가 포함된 경우 실패합니다.
 if_exist                No          이 규칙이 있으면 유효성 검사는 필드 키가 존재하는 경우 값에 관계없이 가능한 오류만 반환합니다.
 in_list                 Yes         필드가 미리 정해진 목록에 없으면 실패합니다.                                                    in_list[red,blue,green]
 integer                 No          필드에 정수 이외의 것이 포함되어 있으면 실패합니다.
 is_natural              No          필드에 0, 1, 2, 3 등의 자연수 이외의 것이 포함되어 있으면 실패합니다.
 is_natural_no_zero      No          필드에 0, 1, 2, 3 등을 제외하고 자연수 이외의 것이 있으면 실패합니다.
+is_not_unique           Yes         주어진 값이 존재하는지 데이터베이스를 확인합니다. 필드/값 별로 레코드를 무시하여 필터링         is_not_unique[table.field,where_field,where_value]
+                                    할 수 있습니다 (현재 하나의 필터 만 허용).
 is_unique               Yes         이 필드 값이 데이터베이스에 존재하는지 확인합니다. 선택적으로 무시할 열과 값을 설정하면         is_unique[table.field,ignore_field,ignore_value]
                                     레코드 자체를 무시하여 업데이트할 때 유용합니다.
 less_than               Yes         필드가 매개 변수 값보다 크거나 같거나 숫자가 아닌 경우 실패합니다.                              less_than[8]

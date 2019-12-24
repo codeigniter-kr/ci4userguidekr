@@ -43,6 +43,14 @@ Forge 클래스 초기화
 		echo 'Database created!';
 	}
 
+두 번째 매개 변수를 TRUE로 설정하면 IF EXISTS 문을 추가하거나, 데이터베이스를 작성하기 전에 데이터베이스가 존재하는지 점검합니다. (DBMS에 따라 다름)
+
+::
+
+	$forge->createDatabase('my_db', TRUE);
+	// gives CREATE DATABASE IF NOT EXISTS my_db
+	// or will check if a database exists
+
 **$forge->dropDatabase('db_name')**
 
 첫 번째 매개 변수로 지정된 데이터베이스를 삭제합니다.
@@ -378,9 +386,10 @@ Class Reference
 
 		테이블 작성할 때 사용될 고유 키를 세트에 추가합니다. 사용법:  `키 추가`_.
 
-	.. php:method:: createDatabase($db_name)
+	.. php:method:: createDatabase($db_name[, $ifNotExists = FALSE])
 
 		:param	string	$db_name: 생성할 데이터베이스 이름
+		:param	string	$ifNotExists: 'IF NOT EXISTS' 절을 추가하거나 데이터베이스가 존재하는지 확인하려면 TRUE로 설정
 		:returns:	TRUE면 성공, FALSE면 실패
 		:rtype:	bool
 
@@ -405,9 +414,9 @@ Class Reference
 
 		테이블에서 컬럼을 제거합니다.. 사용법:  `테이블의 컬럼 삭제`_.
 
-	.. php:method:: dropDatabase($db_name)
+	.. php:method:: dropDatabase($dbName)
 
-		:param	string	$db_name: 제거할 데이터베이스 이름
+		:param	string	$dbName: 제거할 데이터베이스 이름
 		:returns:	TRUE면 성공, FALSE면 실패
 		:rtype:	bool
 

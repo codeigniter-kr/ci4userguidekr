@@ -129,7 +129,7 @@ Vagrant를 사용한 호스트
 제공되는 코드베이스에는 ``VagrantFile.dist``\ 가 포함되어 있습니다.
 이 파일을 ``VagrantFile``\ 로 복사하여 사용자 시스템(특정 데이터베이스, 캐싱 엔진)에 맞게 조정합니다.
 
-설정
+구성
 -------------------------------------------------------
 
 `VirtualBox <https://www.virtualbox.org/wiki/Downloads>`_ 및 `Vagrant <https://www.vagrantup.com/downloads.html>`_\ 를 설치했다고 가정합니다.

@@ -264,7 +264,7 @@ flashdata 변수는 CodeIgniter 세션 핸들러내에서 관리되는 일반 �
 	$_SESSION['item'] = 'value';
 	$session->markAsFlashdata('item');
 
-또는 ``setFlashdata()`` 메서드를 사용하여
+또는 ``setFlashdata()`` 메소드를 사용하여
 
 ::
 
@@ -280,7 +280,7 @@ flashdata 변수는 CodeIgniter 세션 핸들러내에서 관리되는 일반 �
 
 .. important:: ``get()`` 메소드는 키로 단일 항목을 검색할 때 플래시 데이터 항목을 반환합니다. 그러나 세션에서 모든 사용자 데이터를 가져올 때 플래시 데이터를 반환하지 않습니다.
 
-``getFlashdata()`` 메서드를 사용하면 "flashdata"\ 의 값만 가져올 수 있습니다
+``getFlashdata()`` 메소드를 사용하면 "flashdata"\ 의 값만 가져올 수 있습니다
 
 ::
 
@@ -294,7 +294,7 @@ flashdata 변수는 CodeIgniter 세션 핸들러내에서 관리되는 일반 �
 
 .. note:: ``getFlashdata()`` 메소드는 항목을 찾을 수 없는 경우 NULL을 리턴합니다.
 
-추가 요청을 통해 플래시 데이터 변수를 유지해야 하는 경우 ``keepFlashdata()`` 메서드를 사용하여 이를 수행 할 수 있습니다.
+추가 요청을 통해 플래시 데이터 변수를 유지해야 하는 경우 ``keepFlashdata()`` 메소드를 사용하여 이를 수행 할 수 있습니다.
 단일 항목 또는 플래시 데이터 항목 배열을 전달하여 유지합니다.
 
 ::
@@ -310,7 +310,7 @@ CodeIgniter는 특정 만료 시간을 가지는 세션 데이터 "tempdata"도 
 
 flashdata와 마찬가지로 tempdata 변수는 CodeIgniter 세션 처리기에 의해 내부적으로 관리됩니다.
 
-기존 항목을 "tempdata"로 전환하려면 해당 키와 만료 시간 (초)을 ``mark_as_temp()`` 메서드에 전달하면 됩니다.
+기존 항목을 "tempdata"로 전환하려면 해당 키와 만료 시간 (초)을 ``mark_as_temp()`` 메소드에 전달하면 됩니다.
 
 ::
 
@@ -338,7 +338,7 @@ tempdata를 추가하려면
 	$_SESSION['item'] = 'value';
 	$session->markAsTempdata('item', 300); // Expire in 5 minutes
 
-또는 ``setTempdata()`` 메서드를 사용하여
+또는 ``setTempdata()`` 메소드를 사용하여
 
 ::
 
@@ -364,7 +364,7 @@ Or if you want to be sure that you're reading "tempdata" (and not any other kind
 ``get()`` 메소드는 키로 단일 항목을 검색할 때 tempdata 항목을 반환합니다. 
 그러나 세션에서 모든 사용자 데이터를 가져 오면 tempdata를 반환하지 않습니다.
 
-``getTempdata()`` 메서드를 사용하여 "tempdata"\ 의 값만 가져올수 있습니다
+``getTempdata()`` 메소드를 사용하여 "tempdata"\ 의 값만 가져올수 있습니다
 
 ::
 
@@ -406,7 +406,7 @@ Or if you want to be sure that you're reading "tempdata" (and not any other kind
 
 .. note:: 동일한 요청 중에 수행한 마지막 세션 관련 작업이어야 합니다. 모든 세션 데이터 (플래시 데이터 및 tmpdata 포함)는 영구적으로 삭제되며 세션을 삭제한 후 동일한 요청 중에 기능을 사용할 수 없습니다.
 
-``stop()`` 메서드를 사용하여 이전 session_id와 모든 데이터를 삭제하고, 세션 ID가 포함된 쿠키를 삭제하여 세션을 완전히 종료할 수 있습니다
+``stop()`` 메소드를 사용하여 이전 session_id와 모든 데이터를 삭제하고, 세션 ID가 포함된 쿠키를 삭제하여 세션을 완전히 종료할 수 있습니다
 
 ::
 

@@ -60,14 +60,14 @@ For example, if you have a new ``App\Libraries\RouteCollection`` class that you 
 
 ::
 
-	public static function routes($getShared = false)
+	public static function routes(bool $getShared = false)
 	{
 		if (! $getShared)
 		{
-			return new \App\Libraries\RouteCollection();
+			return static::getSharedInstance('routes');
 		}
 
-		return static::getSharedInstance('routes');
+		return new RouteCollection(static::locator(), config('Modules'));
 	}
 
 핵심 클래스 확장

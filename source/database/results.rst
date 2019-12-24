@@ -116,7 +116,7 @@
 
 **getRowArray()**
 
-위의 ``row()`` 메서드와 동일하지만 배열을 반환합니다. 샘플::
+위의 ``row()`` 메소드와 동일하지만 배열을 반환합니다. 샘플::
 
     $query = $db->query("YOUR QUERY");
 
@@ -254,7 +254,7 @@ Example::
 		echo $row->last_login('Y-m-d');   // access class methods
 	}
 
-``getRow()`` 메서드를 같은 방식으로 사용할 수 있습니다.
+``getRow()`` 메소드를 같은 방식으로 사용할 수 있습니다.
 
 Example::
 
@@ -267,7 +267,7 @@ Example::
 **getFieldCount()**
 
 쿼리에서 반환한 FIELDS(컬럼)의 갯수 입니다.
-쿼리 결과(result) 객체를 사용하여 메서드를 호출해야 합니다.
+쿼리 결과(result) 객체를 사용하여 메소드를 호출해야 합니다.
 
 ::
 
@@ -278,7 +278,7 @@ Example::
 **getFieldNames()**
 
 쿼리에서 반환한 FIELDS(컬럼)의 이름을 가진 배열을 반환합니다.
-쿼리 결과(result) 객체를 사용하여 메서드를 호출해야 합니다.
+쿼리 결과(result) 객체를 사용하여 메소드를 호출해야 합니다.
 
 ::
 
@@ -328,7 +328,7 @@ Example::
 Class Reference
 ***************
 
-.. php:class:: \CodeIgniter\Database\BaseResult
+.. php:class:: CodeIgniter\\Database\\BaseResult
 
 	.. php:method:: getResult([$type = 'object'])
 

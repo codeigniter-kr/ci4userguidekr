@@ -25,19 +25,20 @@ CodeIgniter를 사용하면 리소스 경로(Resource route)와 `ResourceControl
     $routes->resource('photos');
 
     // Equivalent to the following:
-    $routes->get('photos',                 'Photos::index');
     $routes->get('photos/new',             'Photos::new');
-    $routes->get('photos/(:segment)/edit', 'Photos::edit/$1');
-    $routes->get('photos/(:segment)',      'Photos::show/$1');
     $routes->post('photos',                'Photos::create');
-    $routes->delete('photos/(:segment)',   'Photos::delete/$1');
-    $routes->patch('photos/(:segment)',    'Photos::update/$1');
+    $routes->get('photos',                 'Photos::index');
+    $routes->get('photos/(:segment)',      'Photos::show/$1');
+    $routes->get('photos/(:segment)/edit', 'Photos::edit/$1');
     $routes->put('photos/(:segment)',      'Photos::update/$1');
+    $routes->patch('photos/(:segment)',    'Photos::update/$1');
+    $routes->delete('photos/(:segment)',   'Photos::delete/$1');
 
-.. important:: 경로는 지정된 순서대로 일치하므로 get 'photos/poll' 위에 리소스(resource) photos가 있으면 리소스 라인에 대한 작업의 경로가 get 라인보다 우선하게 됩니다. 이 문제를 해결하려면 get 줄을 리소스 위로 이동하여 우선 하도록 하십시오.
+.. important:: 위의 순서는 명확성을 위한 것이며, RouteCollection에서 경로가 생성되는 실제 순서는 적절한 경로 확인을 보장합니다.
 
 두 번째 매개 변수는 생성된 경로를 수정하는데 사용할 수 있는 옵션 배열입니다. 
 이 경로는 더 많은 메소드가 허용되는 API 사용을 목표로하고 있지만 'websafe' 옵션을 전달하여 HTML 폼에서 작동하는 업데이트 및 삭제 메소드를 생성할 수 있습니다.
+
 
 ::
 
@@ -102,16 +103,13 @@ ResourceController
 
 	<?php namespace App\Controllers;
 
-        use CodeIgniter\RESTful\ResourceController;
+    use CodeIgniter\RESTful\ResourceController;
 
 	class Photos extends ResourceController
-        {
-
-                public function __construct()
-                {
-                    $this->modelName = 'App\Models\Photos';
-                }
-
+    {
+        protected $modelName = 'App\Models\Photos';
+		protected $format    = 'json';
+    
 		public function index()
 		{
 			return $this->respond($this->model->findAll());
@@ -129,8 +127,8 @@ ResourceController
 프리젠터(presenter) 경로
 ============================================================
 
-``presenter()`` 메서드를 사용하여 리소스 컨트롤러에 맞는 프리젠테이션 컨트롤러를 빠르게 만들 수 있습니다.
-이렇게하면 리소스에 대한 뷰를 반환하거나 해당 뷰에서 제출된 프로세스 양식을 반환하는 컨트롤러 메서드에 대한 경로가 생성됩니다.
+``presenter()`` 메소드를 사용하여 리소스 컨트롤러에 맞는 프리젠테이션 컨트롤러를 빠르게 만들 수 있습니다.
+이렇게하면 리소스에 대한 뷰를 반환하거나 해당 뷰에서 제출된 프로세스 양식을 반환하는 컨트롤러 메소드에 대한 경로가 생성됩니다.
 
 프레젠테이션은 기존 컨트롤러로 처리할 수 있으므로 필요하지 않습니다.
 사용법은 resosurce 라우팅과 유사합니다.
@@ -140,17 +138,19 @@ ResourceController
     $routes->presenter('photos');
 
     // Equivalent to the following:
-    $routes->get('photos',                 'Photos::index');
-    $routes->post('photos',                'Photos::create');   // alias
-    $routes->get('photos/show/(:segment)',      'Photos::show/$1');
-    $routes->get('photos/new',             'Photos::new');
-    $routes->post('photos/create',                'Photos::create');
-    $routes->get('photos/edit/(:segment)', 'Photos::edit/$1');
-    $routes->post('photos/update/(:segment)',    'Photos::update/$1');
-    $routes->get('photos/remove/(:segment)',   'Photos::remove/$1');
-    $routes->post('photos/delete/(:segment)',      'Photos::update/$1');
-    $routes->get('photos/(:segment)',      'Photos::show/$1');  // alias
- 
+    $routes->get('photos/new',                'Photos::new');
+    $routes->post('photos/create',            'Photos::create');
+    $routes->post('photos',                   'Photos::create');   // alias
+    $routes->get('photos',                    'Photos::index');
+    $routes->get('photos/show/(:segment)',    'Photos::show/$1');
+    $routes->get('photos/(:segment)',         'Photos::show/$1');  // alias
+    $routes->get('photos/edit/(:segment)',    'Photos::edit/$1');
+    $routes->post('photos/update/(:segment)', 'Photos::update/$1');
+    $routes->get('photos/remove/(:segment)',  'Photos::remove/$1');
+    $routes->post('photos/delete/(:segment)', 'Photos::update/$1');
+
+.. important:: 위의 순서는 명확성을 위한 것이며, RouteCollection에서 경로가 생성되는 실제 순서는 적절한 경로 확인을 보장합니다.
+
 리소스와 프리젠터 컨트롤러 대해 'photos'\ 에 대한 경로는 없습니다.
 사례를 들어 구별해야합니다.
 
@@ -219,12 +219,9 @@ ResourcePresenter
     use CodeIgniter\RESTful\ResourcePresenter;
 
 	class Photos extends ResourcePresenter
-        {
+    {
 
-                public function __construct()
-                {
-                    $this->modelName = 'App\Models\Photos';
-                }
+        protected $modelName = 'App\Models\Photos';
 
 		public function index()
 		{
@@ -239,3 +236,25 @@ ResourcePresenter
 ::
 
     $routes->presenter('photos');
+
+리센터(resenter)/컨트롤러 비교
+==================================
+
+이 테이블은 `resource()`\ 와 `presenter()`\ 에 의해 생성된 기본 라우트를 해당 컨트롤러 함수와 비교합니다.
+
+================ ========= ====================== ======================== ====================== ======================
+Operation        Method    Controller Route       Presenter Route          Controller Function    Presenter Function
+================ ========= ====================== ======================== ====================== ======================
+**New**          GET       photos/new             photos/new               ``new()``              ``new()``
+**Create**       POST      photos                 photos                   ``create()``           ``create()``
+Create (alias)   POST                             photos/create                                   ``create()``
+**List**         GET       photos                 photos                   ``index()``            ``index()``
+**Show**         GET       photos/(:segment)      photos/(:segment)        ``show($id = null)``   ``show($id = null)``
+Show (alias)     GET                              photos/show/(:segment)                          ``show($id = null)``
+**Edit**         GET       photos/(:segment)/edit photos/edit/(:segment)   ``edit($id = null)``   ``edit($id = null)``
+**Update**       PUT/PATCH photos/(:segment)                               ``update($id = null)`` 
+Update (websafe) POST      photos/(:segment)      photos/update/(:segment) ``update($id = null)`` ``update($id = null)``
+**Remove**       GET                              photos/remove/(:segment)                        ``remove($id = null)``
+**Delete**       DELETE    photos/(:segment)                               ``delete($id = null)`` 
+Delete (websafe) POST                             photos/delete/(:segment) ``delete($id = null)`` ``delete($id = null)``
+================ ========= ====================== ======================== ====================== ======================

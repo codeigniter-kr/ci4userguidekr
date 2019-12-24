@@ -22,7 +22,7 @@ Google 검색 내용을 가져 오거나 웹 페이지 또는 이미지를 검�
 
 라이브러리는 수동으로 또는 :doc:`서비스 클래스 </concepts/services>`\ 를 통해 로드할 수 있습니다.
 
-서비스 클래스를 통하여 로드하려면 ``curlrequest()`` 메서드를 호출하십시오.
+서비스 클래스를 통하여 로드하려면 ``curlrequest()`` 메소드를 호출하십시오.
 
 ::
 
@@ -176,7 +176,7 @@ API로 작업할 때 특히 유용합니다
 요청(Request) 옵션
 **********************
 
-이 섹션에서는 생성자, ``request()`` 메서드 또는 바로 가기 메서드에 전달할 수 있는 모든 옵션에 대해 설명합니다.
+이 섹션에서는 생성자, ``request()`` 메소드 또는 바로 가기 메소드에 전달할 수 있는 모든 옵션에 대해 설명합니다.
 
 allow_redirects
 ===============
@@ -279,6 +279,8 @@ debug
 
 ``true``\ 로 설정된 ``debug``\ 가 전달되면 스크립트 실행중 발생한 디버깅 내용이 STDOUT으로 에코되도록 합니다.
 이는 CURLOPT_VERBOSE를 전달하고 출력을 에코하여 수행됩니다.
+따라서 ``spark serve``\ 를 통해 내장 서버를 실행하면 콘솔에 출력이 표시됩니다.
+그렇지 않으면 출력이 서버의 오류 로그에 기록됩니다.
 
 ::
 
@@ -361,7 +363,7 @@ json
 
 	$response = $client->request('PUT', '/put', ['json' => ['foo' => 'bar']]);
 
-.. note:: 이 옵션은 ``json_encode()`` 함수 또는 Content-Type 헤더를 사용자 정의할 수 없습니다. 이 기능이 필요한 경우 데이터를 수동으로 인코딩하여 CURLRequest의 ``setBody()`` 메서드를 통해 전달하고 ``setHeader()`` 메서드로 Content-Type 헤더를 설정해야 합니다.
+.. note:: 이 옵션은 ``json_encode()`` 함수 또는 Content-Type 헤더를 사용자 정의할 수 없습니다. 이 기능이 필요한 경우 데이터를 수동으로 인코딩하여 CURLRequest의 ``setBody()`` 메소드를 통해 전달하고 ``setHeader()`` 메소드로 Content-Type 헤더를 설정해야 합니다.
 
 multipart
 =========

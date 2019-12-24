@@ -6,7 +6,7 @@
     :local:
     :depth: 2
 
-``log_message()`` 메서드를 사용하여 로컬 로그 파일에 정보를 기록할 수 있습니다.
+``log_message()`` 메소드를 사용하여 로컬 로그 파일에 정보를 기록할 수 있습니다.
 첫 번째 매개 변수에 오류의 "수준"을 제공해야 하며 메시지 유형(디버그, 오류 등)을 나타냅니다.
 두 번째 매개 변수는 메시지 자체입니다
 
@@ -153,6 +153,6 @@ Each handler is specified with the key being the fully name-spaced class name.
 LoggerAware Trait
 =================
 
-프레임워크에 독립적인 메서드로 라이브러리를 구현하려는 경우 ``setLogger()`` 메서드를 구현하는 ``CodeIgniter\Log\LoggerAwareTrait``\ 를 사용할 수 있습니다.
+프레임워크에 독립적인 메소드로 라이브러리를 구현하려는 경우 ``setLogger()`` 메소드를 구현하는 ``CodeIgniter\Log\LoggerAwareTrait``\ 를 사용할 수 있습니다.
 프레임워크를 위해 다른 환경에서 라이브러리를 사용할 때, PSR3 호환 로거를 찾을 수 있어야 예상한 대로 로깅할 수 있습니다.
 

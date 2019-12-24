@@ -303,4 +303,4 @@ To specify a different locale to be used when replacing parameters, you can pass
 해당 리포지토리를 다운로드하고 ``app``\ 의 ``Language`` 폴더에 복사합니다.
 ``App`` 네임스페이스가 ``app`` 폴더에 매핑되므로 통합된 번역이 자동으로 선택됩니다.
 
-프로젝트 내에서 ``composer install codeigniter4/translations``\ 을 실행하면 번역 폴더가 적절하게 매핑되고 자동 선택되므로 composer를 통한 설치를 권장합니다.
+프로젝트 내에서 ``composer require codeigniter4/translations``\ 을 실행하면 번역 폴더가 적절하게 매핑되고 자동 선택되므로 composer를 통한 설치를 권장합니다.
