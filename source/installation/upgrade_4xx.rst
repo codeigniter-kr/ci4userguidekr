@@ -24,7 +24,6 @@ CodeIgniter4는 프레임워크를 다시 작성하며 이전 버전과 호환�
 
 **Namespaces**
 
-- CI4 is built for PHP7.2+, and everything in the framework is namespaced, except for the helpers.
 - CI4는 PHP7.2+용으로 제작되었으며, 프레임워크의 모든 항목은 헬퍼를 제외하고 네임스페이스(namespace)가 지정됩니다.
 
 **Application Structure**
