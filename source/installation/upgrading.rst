@@ -1,11 +1,10 @@
 #################################
-Upgrading From a Previous Version
+이전 버전에서 업그레이드
 #################################
 
-Please read the upgrade notes corresponding to the version you are
-upgrading from.
+업그레이드하려는 버전에 해당하는 업그레이드 정보를 읽으십시오.
 
 .. toctree::
 	:titlesonly:
 
-	Upgrading from 3.x to 4.x <upgrade_4xx>
+	3.x에서 4.x로 업그레이드 <upgrade_4xx>
