@@ -1,9 +1,9 @@
 ##############################
-전역 함수 및 상수
+전역 함수와 상수
 ##############################
 
-CodeIgniter는 전역적으로 정의되어 있으며 언제든지 사용할 수 있는 몇 가지 함수와 상수를 제공합니다.
-이를 사용하기 위해 추가 라이브러리 나 헬퍼를 로드할 필요가 없습니다.
+CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 수 있는 몇 가지 함수와 상수를 제공합니다.
+이를 사용하기 위해 추가 라이브러리나 헬퍼를 로드할 필요가 없습니다.
 
 .. contents::
     :local:
@@ -43,7 +43,7 @@ CodeIgniter는 전역적으로 정의되어 있으며 언제든지 사용할 수
 
 	데이터베이스 설정, API 키 등과 같이 환경 자체에 특정한 값을 설정하기 위해 .env 파일과 함께 사용하면 특히 유용합니다.
 
-.. php:function:: esc ( $data, $context='html' [, $encoding])
+.. php:function:: esc( $data, $context='html' [, $encoding])
 
 	:param   string|array   $data: 이스케이프할 정보(문자열)
 	:param   string   $context: escaping context. 기본값은 'html'
@@ -132,7 +132,7 @@ CodeIgniter는 전역적으로 정의되어 있으며 언제든지 사용할 수
 		. . .
 		timer('controller_loading');    // Will stop the running timer
 
-.. php:function:: view ($name [, $data [, $options ]])
+.. php:function:: view($name [, $data [, $options ]])
 
 	:param   string   $name: 로드 할 파일 이름
 	:param   array    $data: 뷰 내에서 사용할 수있는 키/값 쌍의 배열
@@ -160,28 +160,28 @@ CodeIgniter는 전역적으로 정의되어 있으며 언제든지 사용할 수
 기타 기능
 =======================
 
-.. php:function:: csrf_token ()
+.. php:function:: csrf_token()
 
 	:returns: 현재 사용중인 CSRF 토큰의 이름
 	:rtype: string
 
 	현재 사용중인 CSRF 토큰의 이름을 반환합니다.
 
-.. php:function:: csrf_header ()
+.. php:function:: csrf_header()
 
 	:returns: 현재 사용중인 CSRF 토큰의 헤더 이름
 	:rtype: string
 
 	현재 사용중인 CSRF 토큰의 헤더 이름입니다.
 
-.. php:function:: csrf_hash ()
+.. php:function:: csrf_hash()
 
 	:returns: CSRF 해시의 현재 값
 	:rtype: string
 
 	현재 사용중인 CSRF 해시 값을 반환합니다.
 
-.. php:function:: csrf_field ()
+.. php:function:: csrf_field()
 
 	:returns: CSRF 정보가 포함된 숨겨진 입력(hidden input) HTML 문자열
 	:rtype: string
@@ -192,7 +192,7 @@ CodeIgniter는 전역적으로 정의되어 있으며 언제든지 사용할 수
 
 		<input type="hidden" name="{csrf_token}" value="{csrf_hash}">
 
-.. php:function:: csrf_meta ()
+.. php:function:: csrf_meta()
 
 	:returns: CSRF 정보가 포함 된 메타 태그용 HTML 문자열
 	:rtype: string
@@ -203,7 +203,7 @@ CodeIgniter는 전역적으로 정의되어 있으며 언제든지 사용할 수
 
 		<meta name="{csrf_header}" content="{csrf_hash}">
 
-.. php:function:: force_https ( $duration = 31536000 [, $request = null [, $response = null]] )
+.. php:function:: force_https( $duration = 31536000 [, $request = null [, $response = null]] )
 
 	:param  int  $duration: 브라우저가 이 리소스에 대한 링크를 HTTPS로 변환해야 하는 시간(초)
 	:param  RequestInterface $request: 요청(request) 개체의 인스턴스
@@ -214,7 +214,7 @@ CodeIgniter는 전역적으로 정의되어 있으며 언제든지 사용할 수
 	그렇지 않은 경우 사용자는 HTTPS를 통해 현재 URI로 다시 리디렉션됩니다.
 	HTTP Strict Transport Security 헤더를 설정하여 최신 브라우저가 HTTP 요청을 $duration에 대한 HTTPS 요청으로 자동 수정하도록 지시합니다.
 
-.. php:function:: is_cli ()
+.. php:function:: is_cli()
 
 	:returns: TRUE(커맨드 라인(command line)에서 스크립트를 실행중인 경우) 또는 FALSE(아닌 경우)
 	:rtype: bool
@@ -277,7 +277,7 @@ CodeIgniter는 전역적으로 정의되어 있으며 언제든지 사용할 수
 		remove_invisible_characters('Java\\0script');
 		// Returns: 'Javascript'
 
-.. php:function:: route_to ( $method [, ...$params] )
+.. php:function:: route_to( $method [, ...$params] )
 
 	:param   string   $method: 명명된 라우트의 별명 또는 일치하는 컨트롤러/메소드의 이름입니다.
 	:param   mixed   $params: 경로에서 일치시키기 위해 전달될 하나 이상의 매개 변수
@@ -287,7 +287,7 @@ CodeIgniter는 전역적으로 정의되어 있으며 언제든지 사용할 수
 
 	자세한 내용은 :doc:`/incoming/routing` 페이지를 참조하십시오.
 
-.. php:function:: service ( $name [, ...$params] )
+.. php:function:: service( $name [, ...$params] )
 
 	:param   string   $name: 로드 할 서비스의 이름
 	:param   mixed    $params: 서비스 메소드에 전달할 하나 이상의 매개 변수
@@ -302,7 +302,7 @@ CodeIgniter는 전역적으로 정의되어 있으며 언제든지 사용할 수
 		$logger = service('logger');
 		$renderer = service('renderer', APPPATH.'views/');
 
-.. php:function:: single_service ( $name [, ...$params] )
+.. php:function:: single_service( $name [, ...$params] )
 
 	:param   string   $name: 로드 할 서비스의 이름
 	:param   mixed    $params: 서비스 메소드에 전달할 하나 이상의 매개 변수
@@ -312,7 +312,7 @@ CodeIgniter는 전역적으로 정의되어 있으며 언제든지 사용할 수
 	이 함수에 대한 모든 호출이 클래스의 새 인스턴스를 반화한다는 점을 제외하고 위에서 설명한 **service()** 함수와 동일합니다. 
 	**service**\ 는 매번 동일한 인스턴스를 리턴합니다.
 
-.. php:function:: stringify_attributes ( $attributes [, $js] )
+.. php:function:: stringify_attributes( $attributes [, $js] )
 
 	:param   mixed    $attributes: 문자열, 키/값 쌍의 배열, 객체
 	:param   boolean  $js: TRUE (값에 따옴표가 필요하지 않은 경우, Javascript-style)
