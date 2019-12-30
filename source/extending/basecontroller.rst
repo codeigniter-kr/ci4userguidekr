@@ -42,20 +42,16 @@ CodeIgniter의 핵심 컨트롤러는 변경해서는 안되지만 기본 클래
 추가 메소드
 ==================
 
-베이스(base) 컨트롤러는 라우팅할 수 없습니다.(시스템 구성이 이를 404 페이지 찾을 수 없음으로 라우팅 함)
-추가된 보안 수단으로, 새로운 **all** 메소드를 생성하는 경우 ``protected`` 또는 ``private``\ 으로 선언해야 하며 ``BaseController``\ 를 확장 생성한 컨트롤러를 통해서만 액세스할 수 있습니다.
+베이스(base) 컨트롤러는 라우팅할 수 없습니다.(시스템 구성이 이를 404 페이지 찾을 수 없음으로 라우팅함)
+추가된 보안 수단으로, 새로운 생성된 **all** 메소드는 ``protected``\ 나 ``private``\ 으로 선언하고 ``BaseController``\ 를 확장하여 생성한 컨트롤러를 통해서만 액세스합니다.
 
 다른 옵션
 =============
 
-You may find that you need more than one base controller. You can create new base controllers as long as any other controllers that you make extend the correct base. 
-For example, if your project has an involved public interface and a simple administrative portal you may want to extend ``BaseController`` to the public controllers and make ``AdminController`` for any administrative controllers.
-
-If you do not want to use the base controller you may bypass it by having your controllers extend the system Controller instead
-
 하나 이상의 기본 컨트롤러가 필요할 수 있습니다. 
-다른 베이스 컨트롤러가 올바른 베이스를 확장하는 한 새 베이스 컨트롤러를 만들 수 있습니다.
-예를 들어, 프로젝트에 관련 공용 인터페이스와 간단한 관리 포털이 있는 경우 ``BaseController``\ 를 공용 컨트롤러로 확장하고 모든 관리 컨트롤러에 대해 ``AdminController``\ 를 만들 수 있습니다.
+다른 베이스 컨트롤러는 올바른 베이스를 확장하여 새 베이스 컨트롤러를 만들 수 있습니다.
+예를 들어, 프로젝트에 공용 인터페이스와 간단한 관리 포털이 있는 경우 ``BaseController``\ 를 공용 컨트롤러로 확장하고 
+모든 관리 컨트롤러에 대해 새로 작성된 ``AdminController``\ 를 확장하여 만들 수 있습니다.
 
 베이스 컨트롤러를 사용하지 않으려면 대신 컨트롤러가 시스템 컨트롤러를 확장하도록 하여 베이스 컨트롤러를 무시할 수 있습니다
 

@@ -116,12 +116,6 @@ false를 전달하여 시뮬레이션을 중지할 수 있습니다
 이벤트 포인트
 =================
 
-The following is a list of available event points within the CodeIgniter core code:
-
-* **pre_system** Called very early during system execution. Only the benchmark and events class have been loaded at this point. No routing or other processes have happened.
-* **post_controller_constructor** Called immediately after your controller is instantiated, but prior to any method calls happening.
-* **post_system** Called after the final rendered page is sent to the browser, at the end of system execution after the finalized data is sent to the browser.
-
 다음은 CodeIgniter 핵심(core) 코드에서 사용 가능한 이벤트 포인트 목록입니다.
 
 * **pre_system** 시스템 실행중에 매우 일찍 호출됩니다. 벤치 마크 및 이벤트 클래스만 로드되고, 라우팅이나 다른 프로세스가 발생하지 않았습니다.
