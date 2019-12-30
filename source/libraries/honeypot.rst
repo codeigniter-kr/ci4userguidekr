@@ -2,7 +2,7 @@
 허니팟 클래스
 =====================
 
-``Application\Config\Filters.php`` 파일의 허니팟 클래스를 활성화하면 봇(Bot)이 CodeIgniter4 애플리케이션에 요청하는 시점을 결정할 수 있습니다.
+``Application\Config\Filters.php`` 파일의 허니팟 클래스를 활성화하면 봇(Bot)이 CodeIgniter4 어플리케이션에 요청하는 시점을 결정할 수 있습니다.
 이것은 모든 폼(form)에 허니팟 폼 필드를 첨부하여 수행되며, 사람에게 숨겨져 있는 이 필드를 봇이 액세스하여 데이터를 입력한 요청에 대해 봇(Bot)에서 온 것으로 가정하고 ``HoneypotException``\ 을 던집니다.
 
 .. contents::

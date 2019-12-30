@@ -2,7 +2,7 @@
 API Response Trait
 ##################
 
-현대 PHP 개발의 대부분은 자바스크립트로 작성된 단일 페이지 애플리케이션(single page application)에 데이터를 제공하거나 독립형 제품으로 API를 구축하는 것입니다.
+현대 PHP 개발의 대부분은 자바스크립트로 작성된 단일 페이지 어플리케이션(single page application)에 데이터를 제공하거나 독립형 제품으로 API를 구축하는 것입니다.
 CodeIgniter는 어떤 응답 유형에 대해 어떤 HTTP 상태 코드를 반환해야 하는지 기억할 필요없이 일반적인 응답 유형을 단순하게 만들기 위해 모든 컨트롤러와 함께 사용할 수 있는 API 응답 특성(trait)을 제공합니다.
 
 .. contents::
@@ -75,7 +75,7 @@ CodeIgniter는 어떤 응답 유형에 대해 어떤 HTTP 상태 코드를 반�
 * $data가 배열이면 클라이언트가 요청한 내용과 컨텐츠 유형을 협상하고 Config\API.php의 ``$supportedResponseFormats`` 속성에 아무것도 지정되지 않은 경우 기본값은 JSON으로 기본 설정됩니다.
 
 사용되는 포맷터를 정의하려면 **Config/Format.php**\ 를 수정하십시오.
-``$supportedResponseFormats``\ 에는 애플리케이션이 자동으로 응답 형식을 지정할 수 있는 MIME 유형 목록이 포함되어 있습니다.
+``$supportedResponseFormats``\ 에는 어플리케이션이 자동으로 응답 형식을 지정할 수 있는 MIME 유형 목록이 포함되어 있습니다.
 XML과 JSON 응답의 형식이 기본적으로 지정되어 있습니다.
 
 ::

@@ -115,7 +115,7 @@ HTTP 캐싱(Caching)
 ======================
 
 HTTP 사양에는 클라이언트(종종 웹 브라우저)가 결과를 캐시하는데 도움이 되는 도구가 내장되어 있습니다.
-올바르게 사용하면 아무것도 변경되지 않았기 때문에 클라이언트가 서버에 전혀 연결할 필요가 없음을 알리기 때문에 애플리케이션의 성능을 크게 향상시킬 수 있습니다.
+올바르게 사용하면 아무것도 변경되지 않았기 때문에 클라이언트가 서버에 전혀 연결할 필요가 없음을 알리기 때문에 어플리케이션의 성능을 크게 향상시킬 수 있습니다.
 
 이는 ``Cache-Control``\ 와 ``ETag`` 헤더를 통해 처리됩니다.
 이 안내서는 모든 캐시 헤더 기능을 완전히 소개하기에 적합한 곳은 아니지만 `Google Developers <https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching>`_\ 와 `Mobify Blog <https://www.mobify.com/blog/beginners-guide-to-http-cache-headers/>`_\ 에서 잘 이해할 수 있습니다.
@@ -160,7 +160,7 @@ CSP 켜기
 --------------
 
 기본적으로 이 기능은 꺼져있습니다. 
-애플리케이션에서 지원을 활성화하려면  **app/Config/App.php**\ 에서 ``CSPEnabled`` 값을 수정하십시오.
+어플리케이션에서 지원을 활성화하려면  **app/Config/App.php**\ 에서 ``CSPEnabled`` 값을 수정하십시오.
 
 ::
 
@@ -179,7 +179,7 @@ CSP 지시문에 추가 항목을 추가하면 아래와 같이 차단 또는 �
 런타임 구성
 ---------------------
 
-애플리케이션이 런타임중에 변경해야 하는 경우 ``$response->CSP``\ 를 통하여 인스턴스에 액세스 할 수 있습니다.
+어플리케이션이 런타임중에 변경해야 하는 경우 ``$response->CSP``\ 를 통하여 인스턴스에 액세스 할 수 있습니다.
 이 클래스에는 설정해야 할 적절한 헤더 값에 매우 명확하게 매핑되는 많은 메소드가 있습니다.
 매개 변수의 다른 조합과 함께 예제가 아래에 표시되어 있지만 모두 지시문 이름 또는 배열을 허용합니다.
 
@@ -408,7 +408,7 @@ Class Reference
 
 		모든것을 클라이언트로 다시 보내도록 응답(Response)에 지시합니다.
 		먼저 헤더를 보낸 다음 응답 본문을 보냅니다.
-		애플리케이션의 기본 응답인 경우 CodeIgniter에서 자동으로 처리하므로 이를 호출할 필요가 없습니다.
+		어플리케이션의 기본 응답인 경우 CodeIgniter에서 자동으로 처리하므로 이를 호출할 필요가 없습니다.
 
 	.. php:method:: setCookie($name = ''[, $value = ''[, $expire = ''[, $domain = ''[, $path = '/'[, $prefix = ''[, $secure = FALSE[, $httponly = FALSE]]]]]]])
 

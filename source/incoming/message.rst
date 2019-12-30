@@ -182,13 +182,13 @@ Class Reference
 
 	.. php:method:: negotiateMedia($supported[, $strictMatch=false])
 
-		:param array $supported: 애플리케이션이 지원하는 미디어 유형의 배열
+		:param array $supported: 어플리케이션이 지원하는 미디어 유형의 배열
 		:param bool $strictMatch: 정확히 일치해야 하는지 여부
 		:returns: 요청한 내용과 가장 일치하는 지원 미디어 유형
 		:rtype: string
 
-		``Accept`` 헤더를 구문 분석 후 애플리케이션의 지원되는 미디어 유형과 가장 일치하는 것을 결정합니다.
-		적절한 미디어 타입을 반환합니다. 첫 번째 매개 변수는 헤더 값과 비교해야 하는 애플리케이션 지원 미디어 유형의 배열입니다.
+		``Accept`` 헤더를 구문 분석 후 어플리케이션의 지원되는 미디어 유형과 가장 일치하는 것을 결정합니다.
+		적절한 미디어 타입을 반환합니다. 첫 번째 매개 변수는 헤더 값과 비교해야 하는 어플리케이션 지원 미디어 유형의 배열입니다.
 		
 		::
 
@@ -217,7 +217,7 @@ Class Reference
 
 	.. php:method:: negotiateCharset($supported)
 
-		:param array $supported: 애플리케이션이 지원하는 문자 집합(character set) 배열
+		:param array $supported: 어플리케이션이 지원하는 문자 집합(character set) 배열
 		:returns: 가장 일치하는 지원 문자 집합
 		:rtype: string
 

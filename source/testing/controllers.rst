@@ -3,7 +3,7 @@
 ###################
 
 컨트롤러를 테스트하는것은 몇 가지 새로운 헬퍼 클래스와 특성(trait)으로 편리합니다. 
-컨트롤러를 테스트는 전체 애플리케이션 부트스트랩 프로세스를 실행하지 않고도 컨트롤러내에서 코드를 실행할 수 있습니다.
+컨트롤러를 테스트는 전체 어플리케이션 부트스트랩 프로세스를 실행하지 않고도 컨트롤러내에서 코드를 실행할 수 있습니다.
 종종 `기능 테스트 도구 <feature.html>`_\ 를 사용하는 것이 더 간단하며 이 기능은 필요할 때 사용할 수 있습니다.
 
 .. note:: 전체 프레임워크가 부트스트랩되지 않았으므로 이 방법으로 컨트롤러를 테스트할 수 없는 경우가 있습니다.
@@ -86,7 +86,7 @@
                      ->controller(\App\Controllers\ForumController::class)
                      ->execute('showCategories');
 
-다른 설정을 제공하지 않으면 애플리케이션의 앱 구성 파일이 사용됩니다.
+다른 설정을 제공하지 않으면 어플리케이션의 앱 구성 파일이 사용됩니다.
 
 **withRequest($request)**
 
@@ -101,7 +101,7 @@
                      ->controller(\App\Controllers\ForumController::class)
                      ->execute('showCategories');
 
-인스턴스를 제공하지 않으면 기본 애플리케이션 값을 가진 새로운 IncomingRequest 인스턴스가 컨트롤러로 전달됩니다.
+인스턴스를 제공하지 않으면 기본 어플리케이션 값을 가진 새로운 IncomingRequest 인스턴스가 컨트롤러로 전달됩니다.
 
 **withResponse($response)**
 
@@ -115,7 +115,7 @@
                      ->controller(\App\Controllers\ForumController::class)
                      ->execute('showCategories');
 
-Response를 제공하지 않으면 기본 애플리케이션 값을 가진 새 Response 인스턴스가 컨트롤러에 전달됩니다.
+Response를 제공하지 않으면 기본 어플리케이션 값을 가진 새 Response 인스턴스가 컨트롤러에 전달됩니다.
 
 **withLogger($logger)**
 
@@ -130,7 +130,7 @@ Response를 제공하지 않으면 기본 애플리케이션 값을 가진 새 R
                      ->controller(\App\Controllers\ForumController::class)
                      ->execute('showCategories');
 
-Logger를 제공하지 않으면 기본 애플리케이션 값을 가진 새 Logger 인스턴스가 컨트롤러에 전달됩니다..
+Logger를 제공하지 않으면 기본 어플리케이션 값을 가진 새 Logger 인스턴스가 컨트롤러에 전달됩니다..
 
 **withURI($uri)**
 

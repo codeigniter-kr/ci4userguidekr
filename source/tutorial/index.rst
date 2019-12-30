@@ -3,7 +3,7 @@ Tutorial
 ########
 
 이 튜토리얼은 CodeIgniter4 프레임워크와 MVC 아키텍처의 기본 원칙을 소개하고,
-기본적인 CodeIgniter 애플리케이션이 단계별로 구성되는 방법을 보여줍니다.
+기본적인 CodeIgniter 어플리케이션이 단계별로 구성되는 방법을 보여줍니다.
 
 
 PHP에 익숙하지 않다면 계속하기 전에 `W3Schools PHP Tutorial <https://www.w3schools.com/php/default.asp>`_\ 을 확인하는 것이 좋습니다.

@@ -85,7 +85,7 @@ However, that directory can be located anywhere that the :doc:`Autoloader </conc
 예제 명령
 ==================
 
-데모 목적으로 애플리케이션 자체에 대한 기본 정보를 보고하는 예제 명령을 살펴 보겠습니다.
+데모 목적으로 어플리케이션 자체에 대한 기본 정보를 보고하는 예제 명령을 살펴 보겠습니다.
 **/app/Commands/AppInfo.php**\ 에 다음 코드를 작성하여 새 파일을 생성하십시오.
 
 ::

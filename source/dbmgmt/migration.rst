@@ -195,7 +195,7 @@ CodeIgniter는 마이그레이션 작업에 도움이되는 커맨드 라인에�
 
 `-all` 옵션을 사용하면 실행되지 않은 마이그레이션을 찾기 위해 모든 네임스페이스를 검색합니다.
 이들은 모두 수집된 다음 생성된 날짜별로 그룹으로 정렬됩니다.
-이는 기본 애플리케이션과 모듈 간의 잠재적 충돌을 최소화할 수 있습니다.
+이는 기본 어플리케이션과 모듈 간의 잠재적 충돌을 최소화할 수 있습니다.
 
 **rollback**
 
@@ -316,7 +316,7 @@ Class Reference
 
 	.. php:method:: setNamespace($namespace)
 
-	  :param  string  $namespace: 애플리케이션 네임스페이스
+	  :param  string  $namespace: 어플리케이션 네임스페이스
 	  :returns:   MigrationRunner instance
 	  :rtype:     CodeIgniter\Database\MigrationRunner
 

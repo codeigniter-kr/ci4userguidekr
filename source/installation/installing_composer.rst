@@ -18,7 +18,7 @@ Composer는 CodeIgniter4를 시스템에 여러 가지 방법으로 설치하여
 =============
 
 `CodeIgniter 4 app starter <https://github.com/codeigniter4/appstarter>`_ 레파지토리는 
-프레임워크의 최신 버전에 대한 composer 의존성과 함께 골격(skeleton) 애플리케이션을 보유하고 있습니다.
+프레임워크의 최신 버전에 대한 composer 의존성과 함께 골격(skeleton) 어플리케이션을 보유하고 있습니다.
 
 이 설치 방법은 새로운 CodeIgniter4 기반 프로젝트를 시작하고자 하는 개발자에게 적합합니다.
 
@@ -84,7 +84,7 @@ Dev Starter
 설치 및 설정(setup)
 -------------------------
 
-`CodeIgniter 4 dev starter <https://github.com/codeigniter4/devstarter>`_  레파지토리에는 골격(skeleton) 애플리케이션과, 
+`CodeIgniter 4 dev starter <https://github.com/codeigniter4/devstarter>`_  레파지토리에는 골격(skeleton) 어플리케이션과, 
 프레임워크의 개발 브랜치(릴리스되지 않음)에 대한 composer 패키기가 설치되어 있습니다.
 
 이 설치 방법은 불안정하지만 최신 릴리스 변경 사항이 적용된 CodeIgniter4를 사용하고 싶은 개발자에게 적합합니다.

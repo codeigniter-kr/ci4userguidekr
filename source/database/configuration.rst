@@ -188,7 +188,7 @@ You only need to enter the values that change from what is in the default group'
 
 						.. note:: 'MySQLi' 드라이버에서만 사용됩니다.
 
-**swapPre**				dbprefix와 교체(swap)되는 기본 테이블 접두사. 수동으로 작성된 쿼리를 실행할 수 있고, 최종 사용자가 여전히 접두사를 사용자 정의할 수 있어야 하는 분산 애플리케이션에 유용합니다.
+**swapPre**				dbprefix와 교체(swap)되는 기본 테이블 접두사. 수동으로 작성된 쿼리를 실행할 수 있고, 최종 사용자가 여전히 접두사를 사용자 정의할 수 있어야 하는 분산 어플리케이션에 유용합니다.
 **schema**				데이터베이스 스키마, 기본적으로 'public', PostgreSQL 및 ODBC 드라이버에서 사용
 **encrypt**				암호화 된 연결을 사용할지 여부.
 
@@ -203,7 +203,7 @@ You only need to enter the values that change from what is in the default group'
 							- 'ssl_verify' - TRUE/FALSE; 서버 인증서를 확인할지 여부 ('MySQLi' 전용)
 
 **compress**			클라이언트 압축 사용 여부 (MySQL 전용).
-**strictOn**			TRUE/FALSE (boolean) - "엄격 모드" 연결을 강제 적용할지 여부, 애플리케이션을 개발하는 동안 엄격한 SQL을 보장하는데 좋습니다.
+**strictOn**			TRUE/FALSE (boolean) - "엄격 모드" 연결을 강제 적용할지 여부, 어플리케이션을 개발하는 동안 엄격한 SQL을 보장하는데 좋습니다.
 **port**				데이터베이스 포트 번호, 이 값을 사용하려면 데이터베이스 구성 배열에 아래 행을 추가해야합니다.
 
 						::
