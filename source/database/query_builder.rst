@@ -1136,9 +1136,9 @@ Updating 데이타
 
 .. note:: updateBatch()\ 는 이 메소드가 작동하지 않습니다.
 
-*******************
-Deleting 데이터 
-*******************
+**********************
+데이터 삭제(Deleting)
+**********************
 
 **$builder->delete()**
 
@@ -1160,7 +1160,7 @@ DELETE SQL 문자열을 생성하고 쿼리를 실행합니다.
 	// DELETE FROM mytable
 	// WHERE id = $id
 
-테이블에서 모든 데이터를 삭제하려면 truncate() 함수 또는 empty_table()을 사용합니다.
+테이블에서 모든 데이터를 삭제하려면 truncate() 함수 또는 emptyTable() 함수를 사용합니다.
 
 **$builder->emptyTable()**
 
