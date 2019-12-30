@@ -66,7 +66,7 @@ Kint 사용
 부팅 파일 (예 : app/Config/Boot/development.php)에 정의되어 있으며, 어떤 환경에 표시되는지를 결정하기 위해 수정될 수 있습니다.
 
 툴바 자체는 :doc:`After Filter </incoming/filters>`\ 로 표시됩니다. 
-**app/Config/Filters.php**\ 의 ``$ globals`` 속성에서 제거하여 실행을 중지할 수 있습니다.
+**app/Config/Filters.php**\ 의 ``$globals`` 속성에서 제거하여 실행을 중지할 수 있습니다.
 
 무엇을 표시할지 선택
 ------------------------
@@ -105,9 +105,6 @@ CodeIgniter와 함께 제공되는 수집기:
 벤치마크 포인트 설정
 ========================
 
-In order for the Profiler to compile and display your benchmark data you must name your mark points using specific syntax.
-
-Please read the information on setting Benchmark points in the :doc:`Benchmark Library </testing/benchmark>` page.
 프로파일러가 벤치마크 데이터를 컴파일하고 표시하려면 특정 구문을 사용하여 마크 포인트의 이름을 지정해야합니다.
 
 :doc:`벤치마크 라이브러리 </testing/benchmark>` 페이지에서 벤치마크 포인트 설정에 대한 정보를 읽으십시오.
