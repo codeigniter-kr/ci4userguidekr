@@ -51,13 +51,13 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 	:returns: escaped data.
 	:rtype: mixed
 
-	XSS 공격을 방지하기 위해 웹 페이지에 포함할 데이터를 이스케이프합니다.
-	Zend Escaper 라이브러리를 사용하여 데이터의 실제 필터링을 처리합니다
+	XSS 공격을 방지하기 위해 웹 페이지에 포함할 데이터를 이스케이프(escape)합니다.
+	데이터 필터링을 처리하기 위해 Laminas Escaper 라이브러리를 사용합니다.
 
 	$data가 문자열(string)이면 단순히 이스케이프하여 반환합니다.
-	$data가 배열이면 키/값 쌍의 각 '값'을 이스케이프 반복 처리합니다.
+	$data가 배열이면 키/값 쌍중 '값'을 반복하여 이스케이프 처리합니다.
 
-	지적 가능한 context 값: html, js, css, url, attr, raw, null
+	지정 가능한 context 값: ``html``, ``js``, ``css``, ``url``, ``attr``, ``raw``, ``null``
 
 .. php:function:: helper( $filename )
 
@@ -134,7 +134,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
 .. php:function:: view($name [, $data [, $options ]])
 
-	:param   string   $name: 로드 할 파일 이름
+	:param   string   $name: 로드할 파일 이름
 	:param   array    $data: 뷰 내에서 사용할 수있는 키/값 쌍의 배열
 	:param   array    $options: 렌더링 클래스로 전달 될 옵션 배열
 	:returns: 뷰의 출력
