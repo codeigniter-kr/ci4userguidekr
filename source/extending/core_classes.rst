@@ -26,6 +26,7 @@ System Class 목록
 * CodeIgniter\\HTTP\\Request
 * CodeIgniter\\HTTP\\Response
 * CodeIgniter\\HTTP\\Message
+* CodeIgniter\\HTTP\\URI
 * CodeIgniter\\Log\\Logger
 * CodeIgniter\\Log\\Handlers\\BaseHandler
 * CodeIgniter\\Log\\Handlers\\FileHandler

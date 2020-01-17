@@ -32,7 +32,7 @@ CLI란 무엇입니까?
 
 ::
 
-	<?php namespace App\Controller;
+	<?php namespace App\Controllers;
 
 	use CodeIgniter\Controller;
 

@@ -528,8 +528,8 @@ PHP를 호출할 수 있으므로 구현하기 매우 간단합니다.
 ==================== ========================== ================================================================================== ================================================================
 Plugin               Arguments                  Description                                                           			   Example
 ==================== ========================== ================================================================================== ================================================================
-currentURL                                      Alias for the current_url helper function.                                         {+ currentURL +}
-previousURL                                     Alias for the previous_url helper function.                           		       {+ previousURL +}
+current_url                                     Alias for the current_url helper function.                                         {+ currentURL +}
+previous_url                                    Alias for the previous_url helper function.                           		       {+ previousURL +}
 siteURL                                         Alias for the site_url helper function.                                            {+ siteURL "login" +}
 mailto               email, title, attributes   Alias for the mailto helper function.                                 		       {+ mailto email=foo@example.com title="Stranger Things" +}
 safe_mailto          email, title, attributes   Alias for the safe_mailto helper function.                            		       {+ safe_mailto email=foo@example.com title="Stranger Things" +}
