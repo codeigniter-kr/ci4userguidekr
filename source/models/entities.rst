@@ -155,7 +155,7 @@ The base Entity class implements some smart ``__get()`` and ``__set()`` methods 
     {
         public function setPassword(string $pass)
         {
-            $this->password = password_hash($pass, PASSWORD_BCRYPT);
+            $this->attributes['password'] = password_hash($pass, PASSWORD_BCRYPT);
 
             return $this;
         }

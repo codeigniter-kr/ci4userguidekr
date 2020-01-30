@@ -31,7 +31,7 @@ easy_install을 이용한 sphinx 설치방법
 ==========================================
 
 1. `easy_install <http://peak.telecommunity.com/DevCenter/EasyInstall#installing-easy-install>`_ 설치
-2. ``easy_install "sphinx==1.4.5"``
+2. ``easy_install "sphinx==1.8.5"``
 3. ``easy_install sphinxcontrib-phpdomain``
 4. PHP, HTML, CSS, and JavaScript 코드 샘플의 구문 강조를 위해 CI Lexer를 설치 (see *cilexer/README*)
 5. ``cd user_guide_src``

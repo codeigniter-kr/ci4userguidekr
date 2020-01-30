@@ -72,18 +72,19 @@ Kint 사용
 ------------------------
 
 CodeIgniter에는 이름에서 알 수 있듯이 툴바에 표시할 데이터를 수집하는 여러 수집기가 제공되며, 툴바를 쉽게 사용자 정의할 수 있습니다.
-표시되는 수집기를 확인하려면, 어플리케이션 구성 파일을 살펴보십시오.
+표시되는 수집기를 확인하려면, 어플리케이션 구성 파일 **app/Config/Toolbar.php**\ 를 살펴보십시오.
 
 ::
 
-	public $toolbarCollectors = [
-		'CodeIgniter\Debug\Toolbar\Collectors\Timers',
-		'CodeIgniter\Debug\Toolbar\Collectors\Database',
-		'CodeIgniter\Debug\Toolbar\Collectors\Logs',
-		'CodeIgniter\Debug\Toolbar\Collectors\Views',
- 		'CodeIgniter\Debug\Toolbar\Collectors\Cache',
-		'CodeIgniter\Debug\Toolbar\Collectors\Files',
-		'CodeIgniter\Debug\Toolbar\Collectors\Routes',
+	public $collectors = [
+		\CodeIgniter\Debug\Toolbar\Collectors\Timers::class,
+		\CodeIgniter\Debug\Toolbar\Collectors\Database::class,
+		\CodeIgniter\Debug\Toolbar\Collectors\Logs::class,
+		\CodeIgniter\Debug\Toolbar\Collectors\Views::class,
+ 		\CodeIgniter\Debug\Toolbar\Collectors\Cache::class,
+		\CodeIgniter\Debug\Toolbar\Collectors\Files::class,
+		\CodeIgniter\Debug\Toolbar\Collectors\Routes::class,
+		\CodeIgniter\Debug\Toolbar\Collectors\Events::class,
 	];
 
 표시하고 싶지 않은 수집기를 주석 처리하십시오.
@@ -101,6 +102,7 @@ CodeIgniter와 함께 제공되는 수집기:
 * **Cache** 캐시 적중, 누락과 실행 시간에 대한 정보를 표시합니다.
 * **Files** 요청 중에 로드된 모든 파일 목록을 표시합니다.
 * **Routes** 시스템에 정의된 현재 경로 및 모든 경로에 대한 정보를 표시합니다.
+* **Events** 요청(request)시 로드된 모든 이벤트 목록을 표시합니다.
 
 벤치마크 포인트 설정
 ========================
