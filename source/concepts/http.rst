@@ -90,6 +90,9 @@ PHP는 요청 및 응답 헤더와 상호 작용하는 방법을 제공하지만
 요청 클래스는 백그라운드에서 많은 작업을 수행하므로 여러분은 걱정할 필요가 없습니다.
 ``isAJAX()`` 및 ``isSecure()`` 메소드는 여러 가지 다른 메소드를 확인하여 올바른 답을 판별합니다.
 
+.. note:: ``isAJAX()`` 메소드는 ``X-Requested-With`` 헤더에 의존하며, 경우에 따라 JavaScript를 통해 XHR 요청을 할 때 기본적으로 전송되지 않을 수 있습니다.(i.e fetch)
+	이 문제를 방지하는 방법에 대해서는 :doc:`AJAX 요청(Requests) </general/ajax>` 섹션을 참조하십시오.
+
 CodeIgniter는 HTTP 응답의 객체 지향 표현 인 :doc:`Response class </outgoing/response>`\ 도 제공합니다.
 이를 통해 클라이언트에 대한 응답을 쉽고 강력하게 구성 할 수 있습니다::
 

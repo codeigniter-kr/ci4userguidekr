@@ -25,13 +25,13 @@ CodeIgniter의 다른 클래스와 마찬가지로 이미지 클래스는 Servic
 
 ::
 
-	$image = Config\Services::image();
+	$image = \Config\Services::image();
 
 사용하려는 이미지 라이브러리의 별명을 서비스 기능으로 전달할 수 있습니다.
 
 ::
 
-    $image = Config\Services::image('imagick');
+    $image = \Config\Services::image('imagick');
 
 사용 가능한 핸들러는 다음과 같습니다:
 
@@ -51,7 +51,7 @@ ImageMagick 라이브러리를 사용하는 경우 **app/Config/Images.php**\ �
 
 ::
 
-	$image = Config\Services::image()
+	$image = \Config\Services::image()
 		->withFile('/path/to/image/mypic.jpg')
 		->fit(100, 100, 'center')
 		->save('/path/to/image/mypic_thumb.jpg');
@@ -64,7 +64,7 @@ ImageMagick 라이브러리를 사용하는 경우 **app/Config/Images.php**\ �
 
 ::
 
-	$image = Config\Services::image()
+	$image = \Config\Services::image()
 		->withFile('/path/to/image/mypic.jpg')
 		->reorient()
 		->rotate(90)
@@ -86,7 +86,7 @@ ImageMagick 라이브러리를 사용하는 경우 **app/Config/Images.php**\ �
 
 ::
 
-	$image = Config\Services::image()
+	$image = \Config\Services::image()
 		->withFile('/path/to/image/mypic.jpg')
 		->save('/path/to/image/my_low_quality_pic.jpg', 10);
 
@@ -113,7 +113,7 @@ ImageMagick 라이브러리를 사용하는 경우 **app/Config/Images.php**\ �
 ::
 
 	try {
-        $image = Config\Services::image()
+        $image = \Config\Services::image()
             ->withFile('/path/to/image/mypic.jpg')
             ->fit(100, 100, 'center')
             ->save('/path/to/image/mypic_thumb.jpg');
@@ -149,7 +149,7 @@ ImageMagick 라이브러리를 사용하는 경우 **app/Config/Images.php**\ �
 
 ::
 
-    $info = Services::image('imagick')
+    $info = \Config\Services::image('imagick')
 		->withFile('/path/to/image/mypic.jpg')
 		->getFile()
 		->getProperties(true);
@@ -157,7 +157,7 @@ ImageMagick 라이브러리를 사용하는 경우 **app/Config/Images.php**\ �
     $xOffset = ($info['width'] / 2) - 25;
     $yOffset = ($info['height'] / 2) - 25;
 
-    Services::image('imagick')
+    \Config\Services::image('imagick')
 		->withFile('/path/to/image/mypic.jpg')
 		->crop(50, 50, $xOffset, $yOffset)
 		->save('path/to/new/image.jpg');
@@ -176,7 +176,7 @@ ImageMagick 라이브러리를 사용하는 경우 **app/Config/Images.php**\ �
 
 ::
 
-	Services::image()
+	\Config\Services::image()
 		->withFile('/path/to/image/mypic.jpg')
 		->convert(IMAGETYPE_PNG)
 		->save('path/to/new/image.png');
@@ -204,7 +204,7 @@ ImageMagick 라이브러리를 사용하는 경우 **app/Config/Images.php**\ �
 
 ::
 
-	Services::image('imagick')
+	\Config\Services::image('imagick')
 		->withFile('/path/to/image/mypic.jpg')
 		->fit(100, 150, 'left')
 		->save('path/to/new/image.jpg');
@@ -226,12 +226,12 @@ ImageMagick 라이브러리를 사용하는 경우 **app/Config/Images.php**\ �
 
 ::
 
-	Services::image('imagick')
+	\Config\Services::image('imagick')
 		->withFile('/path/to/image/mypic.png')
 		->flatten()
 		->save('path/to/new/image.jpg');
 
-	Services::image('imagick')
+	\Config\Services::image('imagick')
 		->withFile('/path/to/image/mypic.png')
 		->flatten(25,25,112)
 		->save('path/to/new/image.jpg');
@@ -249,7 +249,7 @@ ImageMagick 라이브러리를 사용하는 경우 **app/Config/Images.php**\ �
 
 ::
 
-	Services::image('imagick')
+	\Config\Services::image('imagick')
 		->withFile('/path/to/image/mypic.jpg')
 		->flip('horizontal')
 		->save('path/to/new/image.jpg');
@@ -273,7 +273,7 @@ $maintainRatio가 true이면 $masterDim에 의해 지정된 치수는 그대로 
 
 ::
 
-	Services::image('imagick')
+	\Config\Services::image('imagick')
 		->withFile('/path/to/image/mypic.jpg')
 		->resize(200, 100, true, 'height')
 		->save('path/to/new/image.jpg');
@@ -306,7 +306,7 @@ $maintainRatio가 true이면 $masterDim에 의해 지정된 치수는 그대로 
 
 ::
 
-	Services::image('imagick')
+	\Config\Services::image('imagick')
 		->withFile('/path/to/image/mypic.jpg')
 		->text('Copyright 2017 My Photo Co', [
 		    'color'      => '#fff',
