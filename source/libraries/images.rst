@@ -123,10 +123,6 @@ ImageMagick 라이브러리를 사용하는 경우 **app/Config/Images.php**\ �
 		echo $e->getMessage();
 	}
 
-.. note:: 다음과 같이 함수에서 열기/닫기 태그를 전달하여, 오류에 적용할 HTML 형식을 선택적으로 지정할 수 있습니다.
-	::
-
-		$this->image_lib->display_errors('<p>', '</p>');
 
 이미지 자르기
 ---------------
@@ -160,7 +156,7 @@ ImageMagick 라이브러리를 사용하는 경우 **app/Config/Images.php**\ �
     \Config\Services::image('imagick')
 		->withFile('/path/to/image/mypic.jpg')
 		->crop(50, 50, $xOffset, $yOffset)
-		->save('path/to/new/image.jpg');
+		->save('/path/to/new/image.jpg');
 
 이미지 변환
 -----------------
@@ -179,7 +175,7 @@ ImageMagick 라이브러리를 사용하는 경우 **app/Config/Images.php**\ �
 	\Config\Services::image()
 		->withFile('/path/to/image/mypic.jpg')
 		->convert(IMAGETYPE_PNG)
-		->save('path/to/new/image.png');
+		->save('/path/to/new/image.png');
 
 .. note:: ImageMagick은 **$imageType**\ 을 무시하고 확장자로 표시된 형식으로 파일을 저장합니다.
 
@@ -207,7 +203,7 @@ ImageMagick 라이브러리를 사용하는 경우 **app/Config/Images.php**\ �
 	\Config\Services::image('imagick')
 		->withFile('/path/to/image/mypic.jpg')
 		->fit(100, 150, 'left')
-		->save('path/to/new/image.jpg');
+		->save('/path/to/new/image.jpg');
 
 이미지 병합
 -----------------
@@ -229,12 +225,12 @@ ImageMagick 라이브러리를 사용하는 경우 **app/Config/Images.php**\ �
 	\Config\Services::image('imagick')
 		->withFile('/path/to/image/mypic.png')
 		->flatten()
-		->save('path/to/new/image.jpg');
+		->save('/path/to/new/image.jpg');
 
 	\Config\Services::image('imagick')
 		->withFile('/path/to/image/mypic.png')
 		->flatten(25,25,112)
-		->save('path/to/new/image.jpg');
+		->save('/path/to/new/image.jpg');
 
 이미지 뒤집기
 ---------------
@@ -252,7 +248,7 @@ ImageMagick 라이브러리를 사용하는 경우 **app/Config/Images.php**\ �
 	\Config\Services::image('imagick')
 		->withFile('/path/to/image/mypic.jpg')
 		->flip('horizontal')
-		->save('path/to/new/image.jpg');
+		->save('/path/to/new/image.jpg');
 
 이미지 크기 조정
 ---------------------
@@ -276,7 +272,7 @@ $maintainRatio가 true이면 $masterDim에 의해 지정된 치수는 그대로 
 	\Config\Services::image('imagick')
 		->withFile('/path/to/image/mypic.jpg')
 		->resize(200, 100, true, 'height')
-		->save('path/to/new/image.jpg');
+		->save('/path/to/new/image.jpg');
 
 이미지 회전
 ---------------
@@ -316,7 +312,7 @@ $maintainRatio가 true이면 $masterDim에 의해 지정된 치수는 그대로 
 		    'vAlign'     => 'bottom',
 		    'fontSize'   => 20
 		])
-		->save('path/to/new/image.jpg');
+		->save('/path/to/new/image.jpg');
 
 사용 가능한 옵션은 다음과 같습니다:
 
