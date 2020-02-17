@@ -18,6 +18,10 @@ CodeIgniter4 사용자 가이드
 
 	installation/index
 
+***************************
+첫 번째 어플리케이션 만들기
+***************************
+
 .. toctree::
 	:includehidden:
 	:titlesonly:
