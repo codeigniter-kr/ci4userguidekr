@@ -20,7 +20,7 @@
 URL에 index.php를 포함시켜야 동작합니다
 -----------------------------------------
 
-``/mypage/find/apple``\ 과 같은 URL은 작동하지 않지만 유사한 URL``/index.php/mypage/find/apple``\ 은 작동한다면 (Apache의 경우) ``.htaccess`` 
+``/mypage/find/apple``\ 과 같은 URL은 작동하지 않지만 유사한 URL ``/index.php/mypage/find/apple``\ 은 작동한다면 (Apache의 경우) ``.htaccess`` 
 규칙이 제대로 설정되지 않았거나, Apache의 ``httpd.conf``\ 에 ``mod_rewrite`` 확장이 주석 처리되었을 수 있습니다.
 
 기본 페이지만 로드됨
