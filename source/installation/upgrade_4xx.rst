@@ -74,7 +74,7 @@ CodeIgniter4는 프레임워크를 다시 작성하였으며 이전 버전과 �
 **Events**
 
 - 훅(Hook)dms 이벤트로 대체 되었습니다.
-- CI3의 ``$hook['post_controller_constructor']`` 대신 이제 네임스페이스가 ``CodeIgniter\Events\Events;``\ 인 ``Events::on( 'post_controller_constructor', [ 'MyClass', 'MyFunction']);``\ 를 사용합니다. 
+- CI3의 ``$hook['post_controller_constructor']`` 대신 이제 네임스페이스가 ``CodeIgniter\Events\Events;``\ 인 ``Events::on('post_controller_constructor', ['MyClass', 'MyFunction']);``\ 를 사용합니다. 
 - 이벤트는 항상 활성화되어 있으며 전역적으로 사용 가능합니다.
 
 **Extending the framework**

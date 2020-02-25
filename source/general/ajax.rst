@@ -20,13 +20,16 @@ Fetch API
         headers: {
             "Content-Type": "application/json",
             "X-Requested-With": "XMLHttpRequest"
-    }
+        }
+    });
 
 
 jQuery
 ======
 
-예를 들어 jQuery와 같은 라이브러리의 경우 `jQuery 공식 문서 <https://api.jquery.com/jquery.ajax/>`_\ 에 따르면 모든 ``$.ajax()`` 요청의 표준 헤더이기 때문에 이 헤더를 명시적으로 보내지 않아도됩니다. 그러나 위험을 감수하지 않고싶다면 다음과 같이 하십시오.
+`jQuery 공식 문서 <https://api.jquery.com/jquery.ajax/>`_\ 에 따르면 ``X-Requested-With`` 헤더는 모든 ``$.ajax()`` 요청의 표준 헤더이기 때문에 
+이 헤더를 명시적으로 보내지 않아도됩니다. 
+명시적으로 헤더를 보내야 할 경우가 있다면 다음과 같이 하십시오.
 
 ::
 
@@ -39,7 +42,7 @@ jQuery
 VueJS
 =====
 
-VueJS에서 Axios를 사용한다면 다음 코드를 ``created`` 함수에 추가하면됩니다.
+VueJS에서 Axios를 사용한다면 다음 코드를 ``created`` 함수에 추가하면 됩니다.
 
 ::
 

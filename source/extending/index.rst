@@ -11,4 +11,5 @@ CodeIgniter4는 쉽게 확장하거나 구축할 수 있도록 설계되었습�
     common
     events
     basecontroller
+    authentication
     contributing

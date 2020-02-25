@@ -40,7 +40,7 @@ Accessing the Request
 
 ::
 
-	<?php 
+	<?php
 	use CodeIgniter\HTTP\RequestInterface;
 
 	class SomeClass
@@ -74,8 +74,8 @@ Accessing the Request
 		. . .
 	}
 
-.. note:: ``isAJAX()`` 메소드는 ``X-Requested-With`` 헤더에 의존하며, 경우에 따라 JavaScript를 통해 XHR 요청을 할 때 기본적으로 전송되지 않을 수 있습니다.(i.e fetch)
-	이 문제를 방지하는 방법에 대해서는 :doc:`AJAX 요청(Requests) </general/ajax>` 섹션을 참조하십시오.
+.. note:: ``isAJAX()`` 메소드는 ``X-Requested-With`` 헤더에 의존하며, JavaScript를 통한 XHR 요청은 경우에 따라 기본적으로 헤더가 전송되지 않습니다. (예: fetch). 
+	이를 해결하는 방법에 대해서는 :doc:`AJAX 요청(Requests) </general/ajax>`\ 을 참조하십시오.
 
 ``getMethod()`` 메소드를 이용하여 요청중인 HTTP 메소드를 확인할 수 있습니다.
 

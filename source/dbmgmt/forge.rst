@@ -297,12 +297,12 @@ MySQL 또는 CUBIRD를 사용하는 경우 AFTER 및 FIRST 절을 활용하여 �
 
 ::
 
-	// Will place the new column after the `another_field` column:
+	// 새 컬럼을 `another_field` 컬럼뒤에 배치합니다.
 	$fields = [
 		'preferences' => ['type' => 'TEXT', 'after' => 'another_field']
 	];
 
-	// Will place the new column at the start of the table definition:
+	// 테이블의 시작 부분에 컬럼을 배치합니다.
 	$fields = [
 		'preferences' => ['type' => 'TEXT', 'first' => TRUE]
 	];
@@ -312,19 +312,27 @@ MySQL 또는 CUBIRD를 사용하는 경우 AFTER 및 FIRST 절을 활용하여 �
 
 **$forge->dropColumn()**
 
-테이블에서 컬럼을 제거하는 데 사용됩니다.
+테이블에서 단일 컬럼을 제거할 때
 
 ::
 
-	$forge->dropColumn('table_name', 'column_to_drop');
+	$forge->dropColumn('table_name', 'column_to_drop'); // 단일 컬럼 삭제
+
+테이블에서 여러 컬럼을 제거할 때
+
+::
+
+    $forge->dropColumn('table_name', 'column_1,column_2'); // 쉼표로 구분
+    $forge->dropColumn('table_name', ['column_1', 'column_2']); // 배열로 전달
+
 
 테이블의 컬럼 수정
 =============================
 
 **$forge->modifyColumn()**
 
-이 메소드의 사용법은 ``addColumn()``\ 과 동일하지만 새 컬럼을 추가하는 대신 기존 컬럼을 변경한다는 점이 다릅니다.
-이름을 변경하기 위해 필드 정의 배열에 "name" 키를 추가할 수 있습니다.
+이 메소드는 ``addColumn()``\ 과 사용법이 동일하지만 새 컬럼을 추가하는 대신 기존 컬럼을 변경합니다.
+필드 정의(define) 배열에 "name" 키를 추가하면 이름을 변경할 수 있습니다.
 
 ::
 
@@ -408,11 +416,11 @@ Class Reference
 	.. php:method:: dropColumn($table, $column_name)
 
 		:param	string	$table: 테이블 이름
-		:param	array	$column_name: 제거할 컬럼 이름
+		:param	mixed	$column_name: 쉼표로 구분된 컬럼 이름 또는 컬럼 이름 배열
 		:returns:	TRUE면 성공, FALSE면 실패
 		:rtype:	bool
 
-		테이블에서 컬럼을 제거합니다.. 사용법:  `테이블의 컬럼 삭제`_.
+		테이블에서 한 개의 컬럼 또는 여러 컬럼을 제거합니다. 사용법:  `테이블의 컬럼 삭제`_.
 
 	.. php:method:: dropDatabase($dbName)
 

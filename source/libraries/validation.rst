@@ -474,13 +474,15 @@ Validation 클래스의 좋은 기능은 어플리케이션 전체에 대한 모
         ]
     );
 
-필드에 사용자의 이름 또는 일부 규칙에서 허용하는 선택적 매개 변수(예 : max_length)를 각각 메시지에 포함하려면 ``{field}``\ 과 ``{param}`` 태그를 추가합니다.
+검증된 필드의 사용자의 이름 또는 일부 규칙에서 허용하는 선택적 매개 변수의 (예 : max_length) 값을 메시지에 
+포함하고 싶다면 ``{field}``, ``{param}``, ``{value}`` 태그를 필요에 따라 추가합니다.
 
 ::
 
-    'min_length' => '{field} must have at least {param} characters.'
+    'min_length' => ''Supplied value ({value}) for {field} must have at least {param} characters.'
 
-사용자의 이름이 ``Username``\ 이고 규칙이 ``min_length[5]``\ 인 필드에서 오류가 발생하면 "Username must have at least 5 characters."\ 로 표시됩니다.
+사용자의 이름이 ``Username``\ 이고 값이 "Pizza"\, 규칙이 ``min_length[6]``\ 인 필드에서 오류가 발생하면 
+"Supplied value (Pizza) for Username must have at least 6 characters."\ 로 표시됩니다.
 
 .. note:: 마지막 매개 변수를 전달하면, 레이블에 지정된 스타일 오류 메시지는 무시됩니다.
 

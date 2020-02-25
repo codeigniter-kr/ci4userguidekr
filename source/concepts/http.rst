@@ -94,7 +94,9 @@ PHP는 요청 및 응답 헤더와 상호 작용하는 방법을 제공하지만
 	이 문제를 방지하는 방법에 대해서는 :doc:`AJAX 요청(Requests) </general/ajax>` 섹션을 참조하십시오.
 
 CodeIgniter는 HTTP 응답의 객체 지향 표현 인 :doc:`Response class </outgoing/response>`\ 도 제공합니다.
-이를 통해 클라이언트에 대한 응답을 쉽고 강력하게 구성 할 수 있습니다::
+이를 통해 클라이언트에 대한 응답을 쉽고 강력하게 구성 할 수 있습니다.
+
+::
 
   use CodeIgniter\HTTP\Response;
 
