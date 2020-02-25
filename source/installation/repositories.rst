@@ -1,10 +1,9 @@
-CodeIgniter Repositories
+CodeIgniter 리포지토리
 ########################
 
-The CodeIgniter 4 open source project has its own
-`Github organization <https://github.com/codeigniter4>`_.
+CodeIgniter 4 오픈 소스 프로젝트는 `Github <https://github.com/codeigniter4>`_\ 에 있습니다.
 
-There are several development repositories, of interest to potential contributors:
+잠재적 기여자를 위한 몇 가지 개발 리포지토리:
 
 +------------------+--------------+-----------------------------------------------------------------+
 + Repository       + Audience     + Description                                                     +
@@ -18,9 +17,8 @@ There are several development repositories, of interest to potential contributor
 +                  +              +                                                                 +
 +------------------+--------------+-----------------------------------------------------------------+
 
-There are also several deployment repositories, referenced in the installation directions.
-The deployment repositories are built automatically when a new version is released, and they
-are not directly contributed to.
+설치 지침에서 참조되는 몇 가지 배포 리포지토리가 있습니다.
+배포 리포지토리는 새 버전이 릴리스될 때 자동으로 빌드되며 직접 제공되지 않습니다.
 
 +------------------+--------------+-----------------------------------------------------------------+
 + Repository       + Audience     + Description                                                     +
@@ -35,17 +33,14 @@ are not directly contributed to.
 +                  +              +                                                                 +
 +------------------+--------------+-----------------------------------------------------------------+
 
-In all the above, the latest version of a repository can be downloaded
-by selecting the "releases" link in the secondary navbar inside
-the "Code" tab of its Github repository page. The current (in development) version of each can
-be cloned or downloaded by selecting the "Clone or download" dropdown
-button on the right-hand side if the repository homepage.
+위의 모든 항목은 Github 저장소 페이지의 "Code" 탭에 있는 보조 탐색 모음에서 "releases" 링크를 선택하여 저장소의 최신 버전을 다운로드할 수 있습니다. 
+리포지토리 홈페이지인 경우 오른쪽의 "Clone or download" 드롭다운 버튼을 선택하여 현재(개발 중) 버전를 각각 복제하거나 다운로드할 수 있습니다.
 
 Composer Packages
 =================
 
-We also maintain composer-installable packages on `packagist.org <https://packagist.org/search/?query=codeigniter4>`_.
-These correspond to the repositories mentioned above:
+또한 `packagist.org <https://packagist.org/search/?query=codeigniter4>`_\ 에 composer 설치 가능 패키지를 유지 관리합니다.
+이는 위에서 언급한 리포지토리에 해당합니다.
 
 - `codeigniter4/framework <https://packagist.org/packages/codeigniter4/framework>`_
 - `codeigniter4/appstarter <https://packagist.org/packages/codeigniter4/appstarter>`_
@@ -54,14 +49,12 @@ These correspond to the repositories mentioned above:
 - `codeigniter4/CodeIgniter4 <https://packagist.org/packages/codeigniter4/CodeIgniter4>`_
 - `codeigniter4/coding-standard <https://packagist.org/packages/codeigniter4/codeigniter4-standard>`_
 
-See the :doc:`Installation </installation/index>` page for more information.
+자세한 내용은 :doc:`Installation </installation/index>` 페이지를 참조하십시오.
 
 CodeIgniter 4 Projects
 ======================
 
-We maintain a `codeigniter4projects <https://github.com/codeigniter4projects>`_ organization
-on Github as well, with projects that are not part of the framework, 
-but which showcase it or make it easier to work with!
+우리는 프레임워크의 일부는 아니지만 이를 보여 주거나 더 쉽게 사용할 수있는 프로젝트로 Github에 `codeigniter4projects <https://github.com/codeigniter4projects>`_\ 을 운영하고 있습니다!
 
 +------------------+--------------+-----------------------------------------------------------------+
 + Repository       + Audience     + Description                                                     +
@@ -70,4 +63,4 @@ but which showcase it or make it easier to work with!
 +------------------+--------------+-----------------------------------------------------------------+
 +------------------+--------------+-----------------------------------------------------------------+
 
-These are not composer-installable repositories.
+이들은 composer 설치 가능 리포지토리가 아닙니다.
