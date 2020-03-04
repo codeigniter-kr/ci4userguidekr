@@ -13,7 +13,7 @@ Google 검색 내용을 가져 오거나 웹 페이지 또는 이미지를 검�
 가장 널리 사용되는 라이브러리중 하나이기 때문입니다.
 가능한 경우 Guzzle의 구문과 동일하게 유지되므로, 응용 프로그램에서 이 라이브러리를 대신하여 Guzzle로 바꾸어도 거의 변경없이 사용 가능합니다.
 
-.. note:: 이 클래스는 사용하기 위해서는 PHP 버전의 `cURL 라이브러리 <http://php.net/manual/en/book.curl.php>`_\ 를 설치해야합니다. 
+.. note:: 이 클래스는 사용하기 위해서는 PHP 버전의 `cURL 라이브러리 <https://www.php.net/manual/en/book.curl.php>`_\ 를 설치해야합니다. 
 	이 라이브러리는 일반적으로 사용 가능하지만 모든 호스트가 제공하지는 않으므로 문제가 발생한다면 호스트에 문의하여 설치를 확인하십시오.
 
 *******************
@@ -119,16 +119,16 @@ API로 작업할 때 특히 유용합니다
 상대 URI가 ``request()`` 메소드 또는 임의의 단축키 메소드에 제공되면, `RFC 2986, section 2 <http://tools.ietf.org/html/rfc3986#section-5.2>`_\ 에 설명된 규칙에 따라 base_uri와 결합됩니다. 
 다음은 조합에 대한 몇 가지 예입니다.
 
-	===================   ==============   ======================
-	base_uri              URI              Result
-	===================   ==============   ======================
-	http://foo.com        /bar             http://foo.com/bar
-	http://foo.com/foo    /bar             http://foo.com/bar
-	http://foo.com/foo    bar              http://foo.com/bar
-	http://foo.com/foo/   bar              http://foo.com/foo/bar
-	http://foo.com        http://baz.com   http://baz.com
-	http://foo.com/?bar   bar              http://foo.com/bar
-	===================   ==============   ======================
+	===================   ================   ======================
+	base_uri              URI                Result
+	===================   ================   ======================
+	http://foo.com        /bar               `http://foo.com/bar`
+	http://foo.com/foo    /bar               `http://foo.com/bar`
+	http://foo.com/foo    bar                `http://foo.com/bar`
+	http://foo.com/foo/   bar                `http://foo.com/foo/bar`
+	http://foo.com        `http://baz.com`   `http://baz.com`
+	http://foo.com/?bar   bar                `http://foo.com/bar`
+	===================   ================   ======================
 
 응답 사용
 ===============
@@ -215,7 +215,7 @@ allow_redirects
 auth
 ====
 
-`HTTP Basic <http://www.ietf.org/rfc/rfc2069.txt>`_\ 과 `Digest <http://www.ietf.org/rfc/rfc2069.txt>`_ 인증에 대한 인증 정보를 제공합니다.
+`HTTP Basic <https://www.ietf.org/rfc/rfc2069.txt>`_\ 과 `Digest <https://www.ietf.org/rfc/rfc2069.txt>`_ 인증에 대한 인증 정보를 제공합니다.
 다이제스트 인증을 지원하기 위해 스크립트에 추가 작업을 수행해야 할 수도 있습니다.(사용자 이름과 암호를 전달하기만 하면 됩니다.)
 값은 첫 번째 요소가 사용자 이름이고 두 번째 요소는 암호인 배열입니다.
 세 번째 요소는 사용할 인증 유형으로 ``basic`` 또는 ``digest``\ 여야 합니다.
@@ -368,7 +368,7 @@ json
 multipart
 =========
 
-POST 요청을 통해 파일 및 기타 데이터를 보내야 할 경우 `CURLFile 클래스 <http://php.net/manual/en/class.curlfile.php>`_\ 와 함께 ``multipart`` 옵션을 사용합니다.
+POST 요청을 통해 파일 및 기타 데이터를 보내야 할 경우 `CURLFile 클래스 <https://www.php.net/manual/en/class.curlfile.php>`_\ 와 함께 ``multipart`` 옵션을 사용합니다.
 값은 전송할 POST 데이터의 연관 배열이어야 합니다. 
 보다 안전한 사용을 위해 파일 이름 앞에 `@`\ 를 붙여 파일을 업로드하는 기존 방법이 비활성화되었습니다.
 보내려는 모든 파일은 ``CURLFile``\ 의 인스턴스로 전달되어야 합니다.

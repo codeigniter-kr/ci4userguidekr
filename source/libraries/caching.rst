@@ -214,7 +214,7 @@ Memcached 캐싱
 캐시 구성 파일에서 여러 Memcached 서버를 지정할 수 있습니다.
 
 Memcached에 대한 자세한 내용은 다음을 참조하십시오.
-`http://php.net/memcached <http://php.net/memcached>`_.
+`https://www.php.net/memcached <https://www.php.net/memcached>`_.
 
 ================
 WinCache 캐싱
@@ -223,7 +223,7 @@ WinCache 캐싱
 Windows에서는 WinCache 드라이버를 사용할 수 있습니다.
 
 WinCache에 대한 자세한 내용은 다음을 참조하십시오.
-`http://php.net/wincache <http://php.net/wincache>`_.
+`https://www.php.net/wincache <https://www.php.net/wincache>`_.
 
 =============
 Redis 캐싱
@@ -245,7 +245,7 @@ redis 서버에 연결하기 위한 구성 옵션은 app/Config/redis.php 파일
 	$config['database'] = 0;
 
 Redis에 대한 자세한 내용은 다음을 참조하십시오.
-`http://redis.io <http://redis.io>`_.
+`https://redis.io <https://redis.io>`_.
 
 ==============
 Dummy 캐시

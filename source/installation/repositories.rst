@@ -44,9 +44,7 @@ Composer Packages
 
 - `codeigniter4/framework <https://packagist.org/packages/codeigniter4/framework>`_
 - `codeigniter4/appstarter <https://packagist.org/packages/codeigniter4/appstarter>`_
-- `codeigniter4/userguide <https://packagist.org/packages/codeigniter4/userguide>`_
 - `codeigniter4/translations <https://packagist.org/packages/codeigniter4/translations>`_
-- `codeigniter4/CodeIgniter4 <https://packagist.org/packages/codeigniter4/CodeIgniter4>`_
 - `codeigniter4/coding-standard <https://packagist.org/packages/codeigniter4/codeigniter4-standard>`_
 
 자세한 내용은 :doc:`Installation </installation/index>` 페이지를 참조하십시오.

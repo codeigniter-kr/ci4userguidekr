@@ -28,7 +28,7 @@ Events 클래스의 ``on()`` 메소드로 이벤트에 액션을 구독할 수 �
 	Events::on('pre_system', ['MyClass', 'MyFunction']);
 
 이 예에서 **pre_controller** 이벤트가 실행될 때마다 ``MyClass`` 인스턴스가 생성되고 ``MyFunction`` 메소드가 실행됩니다.
-두 번째 매개 변수는 PHP가 인식하는 `호출 가능(callable) <http://php.net/manual/en/function.is-callable.php>`_ 의 *모든* 형식일 수 있습니다.
+두 번째 매개 변수는 PHP가 인식하는 `호출 가능(callable) <https://www.php.net/manual/en/function.is-callable.php>`_ 의 *모든* 형식일 수 있습니다.
 
 ::
 

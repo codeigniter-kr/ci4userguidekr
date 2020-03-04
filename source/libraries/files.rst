@@ -2,7 +2,7 @@
 파일 작업
 ******************
 
-CodeIgniter는 `SplFileInfo <http://php.net/manual/en/class.splfileinfo.php>`_ 클래스를 감싸는 File 클래스를 제공하고 추가적으로 편리한 메소드를 제공합니다.
+CodeIgniter는 `SplFileInfo <https://www.php.net/manual/en/class.splfileinfo.php>`_ 클래스를 감싸는 File 클래스를 제공하고 추가적으로 편리한 메소드를 제공합니다.
 이 클래스는 :doc:`업로드 파일 </libraries/uploaded_files>`\ 과 :doc:`images </libraries/images>`\ 의 기본(base) 클래스입니다.
 
 .. contents::

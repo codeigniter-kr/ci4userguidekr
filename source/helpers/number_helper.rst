@@ -102,6 +102,7 @@ PHP의 국제화 및 현지화 로직이 제공된 로케일 및 옵션에 대�
     :param mixed $num: 서식을 지정할 숫자
     :param string $currency: 통화 유형 : USD, EUR등
     :param string $locale: 서식 지정에 사용할 로케일
+    :param integer $fraction: 소수점 뒤의 소수 자릿수
     :returns: 로케일에 적합한 통화 문자열
     :rtype: string
 
@@ -110,7 +111,7 @@ PHP의 국제화 및 현지화 로직이 제공된 로케일 및 옵션에 대�
     ::
 
         echo number_to_currency(1234.56, 'USD');  // Returns $1,234.56
-        echo number_to_currency(1234.56, 'EUR');  // Returns £1,234.56
+        echo number_to_currency(1234.56, 'EUR');  // Returns €1,234.56
         echo number_to_currency(1234.56, 'GBP');  // Returns £1,234.56
         echo number_to_currency(1234.56, 'YEN');  // Returns YEN1,234.56
 

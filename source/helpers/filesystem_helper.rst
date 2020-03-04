@@ -116,7 +116,7 @@ Filesystem 헬퍼
 
 		write_file('./path/to/file.php', $data, 'r+');
 
-	기본 모드는 'wb'입니다. 모드 옵션에 대해서는 `PHP 사용자 안내서 <http://php.net/manual/en/function.fopen.php>`_\ 를 참조하십시오.
+	기본 모드는 'wb'입니다. 모드 옵션에 대해서는 `PHP 사용자 안내서 <https://www.php.net/manual/en/function.fopen.php>`_\ 를 참조하십시오.
 
 	.. note:: 이 함수가 파일에 데이터를 쓰려면 쓰기 가능하도록 권한을 설정해야합니다. 파일이 존재하지 않으면 파일을 포함하는 디렉토리는 쓰기 가능해야합니다.
 
@@ -235,4 +235,3 @@ Filesystem 헬퍼
 		$non_existent_directory = '/path/to/nowhere';
 		echo set_realpath($non_existent_directory, TRUE);	// Shows an error, as the path cannot be resolved
 		echo set_realpath($non_existent_directory, FALSE);	// Prints '/path/to/nowhere'
-

@@ -67,8 +67,8 @@ Class Reference
 		:noindex:
 
 		:param	mixed	$index: 값 이름
-		:param  int     $filter: 적용할 필터 유형, 필터 목록은 `여기 <http://php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
-		:param  int     $flags: 적용 할 플래그, 플래그 목록은 `여기 <http://php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
+		:param  int     $filter: 적용할 필터 유형, 필터 목록은 `여기 <https://www.php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
+		:param  int     $flags: 적용 할 플래그, 플래그 목록은 `여기 <https://www.php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
 		:returns:	발견되면 $_SERVER 항목 값, 그렇지 않으면 NULL
 		:rtype:	mixed
 

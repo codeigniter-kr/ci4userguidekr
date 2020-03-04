@@ -149,7 +149,7 @@ CodeIgniter의 내장 메소드를 사용하면 간단히 수행 할 수 있습�
 
 	$json = $request->getJSON(true);
 
-두 번째와 세 번째 매개 변수는 PHP 함수 `json_decode <http://php.net/manual/en/function.json-decode.php>`_\ 의 ``depth``, ``options`` 매개 변수와 일치합니다.
+두 번째와 세 번째 매개 변수는 PHP 함수 `json_decode <https://www.php.net/manual/en/function.json-decode.php>`_\ 의 ``depth``, ``options`` 매개 변수와 일치합니다.
 
 **원시(raw) 데이터 검색 (PUT, PATCH, DELETE)**
 
@@ -175,7 +175,7 @@ CodeIgniter의 내장 메소드를 사용하면 간단히 수행 할 수 있습�
 어플리케이션의 보안을 유지하려면 액세스하는 모든 입력을 필터링해야 합니다.
 위에 설명된 메소드들의 마지막 매개 변수로 사용할 필터 유형을 전달할 수 있습니다.
 ``filter_var()``\ 네이티브(native) 함수가 필터링에 사용됩니다.
-`유효한 필터 유형 <http://php.net/manual/en/filter.filters.php>`_ 목록을 보려면 PHP 매뉴얼로 이동하십시오.
+`유효한 필터 유형 <https://www.php.net/manual/en/filter.filters.php>`_ 목록을 보려면 PHP 매뉴얼로 이동하십시오.
 
 POST 변수를 필터링하면 다음과 같습니다
 
@@ -361,8 +361,8 @@ Class Reference
 	.. php:method:: getVar([$index = null[, $filter = null[, $flags = null]]])
 
 		:param  string  $index: 찾을 변수/키의 이름
-		:param  int     $filter: 적용할 필터 유형, 필터 목록은 `여기 <http://php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
-		:param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <http://php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
+		:param  int     $filter: 적용할 필터 유형, 필터 목록은 `여기 <https://www.php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
+		:param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <https://www.php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
 		:returns:   제공된 매개 변수가 없는 경우 ``$_REQUEST``, 있으면 검색된 REQUEST 값 또는 ``null``
 		:rtype: mixed|null
 
@@ -404,8 +404,8 @@ Class Reference
 	.. php:method:: getGet([$index = null[, $filter = null[, $flags = null]]])
 
 		:param  string  $index: 찾을 변수/키의 이름.
-		:param  int  $filter: 적용할 필터 유형, 필터 목록은 `여기 <http://php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
-		:param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <http://php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
+		:param  int  $filter: 적용할 필터 유형, 필터 목록은 `여기 <https://www.php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
+		:param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <https://www.php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
 		:returns:   제공된 매개 변수가 없는 경우 ``$_GET``, 있으면 검색된 GET 값 또는 ``null``
 		:rtype: mixed|null
 
@@ -414,8 +414,8 @@ Class Reference
 	.. php:method:: getPost([$index = null[, $filter = null[, $flags = null]]])
 
 		:param  string  $index: 찾을 변수/키의 이름
-		:param  int  $filter: 적용할 필터 유형, 필터 목록은 `여기 <http://php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
-		:param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <http://php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
+		:param  int  $filter: 적용할 필터 유형, 필터 목록은 `여기 <https://www.php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
+		:param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <https://www.php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
 		:returns:   제공된 매개 변수가 없는 경우 ``$_POST``, 있으면 검색된 POST 값 또는 ``null``
 		:rtype: mixed|null
 
@@ -424,8 +424,8 @@ Class Reference
 	.. php:method:: getPostGet([$index = null[, $filter = null[, $flags = null]]])
 
 		:param  string  $index: 찾을 변수/키의 이름
-		:param  int     $filter: 적용할 필터 유형, 필터 목록은 `여기 <http://php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
-		:param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <http://php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
+		:param  int     $filter: 적용할 필터 유형, 필터 목록은 `여기 <https://www.php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
+		:param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <https://www.php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
 		:returns:   제공된 매개 변수가 없는 경우 ``$_POST``, 있으면 검색된 POST 값 또는 ``null``
 		:rtype: mixed|null
 
@@ -439,8 +439,8 @@ Class Reference
 	.. php:method:: getGetPost([$index = null[, $filter = null[, $flags = null]]])
 
 		:param  string  $index: 찾을 변수/키의 이름
-		:param  int     $filter: 적용할 필터 유형, 필터 목록은 `여기 <http://php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
-		:param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <http://php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
+		:param  int     $filter: 적용할 필터 유형, 필터 목록은 `여기 <https://www.php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
+		:param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <https://www.php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
 		:returns:   제공된 매개 변수가 없는 경우 ``$_POST``, 있으면 검색된 POST 값 또는 ``null``
 		:rtype: mixed|null
 
@@ -455,8 +455,8 @@ Class Reference
 
                 :noindex:
 		:param	mixed	$index: COOKIE명
-		:param  int     $filter: 적용할 필터 유형, 필터 목록은 `여기 <http://php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
-		:param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <http://php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
+		:param  int     $filter: 적용할 필터 유형, 필터 목록은 `여기 <https://www.php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
+		:param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <https://www.php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
 		:returns:	제공된 매개 변수가 없는 경우 ``$_COOKIE``, 있으면 검색된 COOKIE 값 또는 ``null``
 		:rtype:	mixed
 
@@ -478,8 +478,8 @@ Class Reference
 	.. php:method:: getServer([$index = null[, $filter = null[, $flags = null]]])
 
 		:param	mixed	$index: Value name
-		:param  int     $filter: 적용할 필터 유형, 필터 목록은 `여기 <http://php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
-		:param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <http://php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
+		:param  int     $filter: 적용할 필터 유형, 필터 목록은 `여기 <https://www.php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
+		:param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <https://www.php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
 		:returns:	검색된 $_SERVER 값 또는 ``null``
 		:rtype:	mixed
 
@@ -497,7 +497,7 @@ Class Reference
 
 	.. php:method:: getUserAgent([$filter = null])
 
-		:param  int  $filter: 적용할 필터 유형, 필터 목록은 `여기 <http://php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
+		:param  int  $filter: 적용할 필터 유형, 필터 목록은 `여기 <https://www.php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
 		:returns:  SERVER 데이터에서 찾은 사용자 에이전트 문자열 또는 null
 		:rtype: mixed
 

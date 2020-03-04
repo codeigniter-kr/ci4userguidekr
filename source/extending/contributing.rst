@@ -3,7 +3,8 @@ CodeIgniter에 기여
 ###########################
 
 CodeIgniter는 커뮤니티 기반 프로젝트이며 커뮤니티로부터 코드 및 문서의 기여를 받아들입니다. 
-이러한 기여는 GitHub의 `CodeIgniter4 저장소 <https://github.com/codeigniter4/CodeIgniter4>`_\ 의 이슈(Issue)s 또는 `Pull Requests <https://help.github.com/articles/using-pull-requests/>`_ 형태로 이루어집니다.
+이러한 기여는 GitHub의 `CodeIgniter4 저장소 <https://github.com/codeigniter4/CodeIgniter4>`_\ 의 이슈(Issue)s 또는 
+`Pull Requests <https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests/>`_ 형태로 이루어집니다.
 
 이슈(Issue)는 버그를 지적하는 빠른 방법입니다. 
 CodeIgniter에서 버그 또는 설명서 오류를 발견한 경우 몇 가지 사항을 먼저 확인하십시오.

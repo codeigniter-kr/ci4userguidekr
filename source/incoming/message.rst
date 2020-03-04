@@ -68,7 +68,7 @@ Class Reference
 	.. php:method:: getHeader([$name[, $filter = null]])
 
 		:param  string  $name: 값을 검색하려는 헤더의 이름입니다.
-		:param  int  $filter: 적용 할 필터 유형입니다. 필터 목록은 `여기 <http://php.net/manual/en/filter.filters.php>`_\ 에서 찾을 수 있습니다.
+		:param  int  $filter: 적용 할 필터 유형입니다. 필터 목록은 `여기 <https://www.php.net/manual/en/filter.filters.php>`_\ 에서 찾을 수 있습니다.
 		:returns: 헤더의 현재 값. 헤더에 여러 값이 있는 경우 배열로 반환됩니다.
 		:rtype: string|array|null
 
@@ -203,7 +203,7 @@ Class Reference
 		``$supported`` 배열은 배열의 첫 번째에 기본 포맷이, 나머지 포맷은 내림차순으로 나열하여 구성합니다.
 		헤더 값과 지원되는 값이 일치하지 않을 경우, 배열의 첫 번째 요소가 반환됩니다.
 
-		`RFC <http://tools.ietf.org/html/rfc7231#section-5.3>`_\ 에 일치하는 값을 반환하거나, 빈 문자열을 반환하는 옵션이 있습니다.
+		`RFC <https://tools.ietf.org/html/rfc7231#section-5.3>`_\ 에 일치하는 값을 반환하거나, 빈 문자열을 반환하는 옵션이 있습니다.
 		정확히 일치하지 않을 경우 빈 문자열을 반환하려면 두 번째 매개 변수로 ``true``\ 를 전달하십시오.
 		
 		::
@@ -213,7 +213,7 @@ Class Reference
 
 		매칭(matching) 과정은 RFC의 우선 순위와 특이성을 고려합니다.
 		이는 보다 구체적인 헤더 값이 다른 ``q`` 값으로 수정되지 않는 한 더 높은 우선순위를 갖게 된다는 것을 의미합니다.
-		자세한 내용은 `RFC 7231 <http://tools.ietf.org/html/rfc7231#section-5.3.2>`_\ 의 해당 섹션을 참조하십시오.
+		자세한 내용은 `RFC 7231 <https://tools.ietf.org/html/rfc7231#section-5.3.2>`_\ 의 해당 섹션을 참조하십시오.
 
 	.. php:method:: negotiateCharset($supported)
 

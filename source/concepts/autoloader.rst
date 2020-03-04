@@ -10,12 +10,12 @@
 그래서 오토로더가 필요합니다.
 
 CodeIgniter는 구성이 거의없이 사용할 수 있는 매우 유연한 오토로더를 제공합니다.
-CodeIgniter 오토로더는 네임스페이스가 없는 개별 클래스, `PSR4 <http://www.php-fig.org/psr/psr-4/>`_ 
+CodeIgniter 오토로더는 네임스페이스가 없는 개별 클래스, `PSR4 <https://www.php-fig.org/psr/psr-4/>`_ 
 오토로드 디렉토리 구조를 준수하는 네임스페이스 클래스, 공통 디렉토리에서 클래스를 찾으려고 시도합니다.
 성능 향상을 위해 핵심 CodeIgniter 구성요소는 클래스맵에 추가되어 있습니다.
 
 오토로더는 그 자체로도 훌륭하게 작동하지만 필요하다면 `Composer <https://getcomposer.org>`_\ 와 같은 다른 오토로더 또는 사용자 정의 오토로더와 함께 작동 할 수 있습니다.
-그것들은 모두 `spl_autoload_register <http://php.net/manual/en/function.spl-autoload-register.php>`_\ 를 통해 등록 되기 때문에, 순서대로 작동하며 서로의 방식을 방해하지 않습니다.
+그것들은 모두 `spl_autoload_register <https://php.net/manual/en/function.spl-autoload-register.php>`_\ 를 통해 등록 되기 때문에, 순서대로 작동하며 서로의 방식을 방해하지 않습니다.
 
 오토로더는 프레임워크 실행 초기에 ``spl_autoload_register()``\ 에 등록되어 항상 활성화됩니다.
 

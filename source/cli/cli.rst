@@ -12,7 +12,7 @@ CLI란 무엇입니까?
 ======================
 
 커맨드 라인 인터페이스는 컴퓨터와 상호 작용하는 텍스트 기반 방법입니다.
-자세한 내용은 `Wikipedia article <http://en.wikipedia.org/wiki/Command-line_interface>`_\ 을 확인하십시오.
+자세한 내용은 `Wikipedia article <https://en.wikipedia.org/wiki/Command-line_interface>`_\ 을 확인하십시오.
 
 왜? 커맨드 라인을 통해 실행됩니까?
 ========================================

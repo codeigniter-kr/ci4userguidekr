@@ -155,7 +155,7 @@ For example, let's say you want to create a file containing error messages.
 매개 변수 교체
 --------------------
 
-.. note:: 다음 함수들이 모두 작동하기 위해서는 시스템에 `intl <http://php.net/manual/en/book.intl.php>`_ 확장을 로드해야 합니다.
+.. note:: 다음 함수들이 모두 작동하기 위해서는 시스템에 `intl <https://www.php.net/manual/en/book.intl.php>`_ 확장을 로드해야 합니다.
     확장이로드되지 않으면 교체가 시도되지 않습니다.
     `Sitepoint <https://www.sitepoint.com/localization-demystified-understanding-php-intl/>`_\ 에서 자세한 개요를 확인할 수 있습니다.
 
@@ -189,7 +189,7 @@ For example, let's say you want to create a file containing error messages.
     echo lang("Tests.namedApples", ['number_apples' => 3]);
 
 분명히, 당신은 단순히 숫자 교체 이상을 할 수 있습니다.
-기본 라이브러리에 대한 `공식 ICU 문서 <http://icu-project.org/apiref/icu4c/classMessageFormat.html#details>`_\ 에 따르면 다음 유형의 데이터를 대체할 수 있습니다:
+기본 라이브러리에 대한 `공식 ICU 문서 <https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classMessageFormat.html#details>`_\ 에 따르면 다음 유형의 데이터를 대체할 수 있습니다:
 
 * numbers - integer, currency, percent
 * dates - short, medium, long, full

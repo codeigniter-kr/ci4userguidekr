@@ -2,7 +2,7 @@
 암호화 서비스
 ##################
 
-.. important:: 암호 저장에 이 라이브러리나 다른 *encryption* 라이브러리를 사용하지 마십시오! 암호는 *hashed* 이어야 하며, PHP의 `암호 해싱 확장 <http://php.net/password>`_\ 을 통해 암호를 입력해야 합니다
+.. important:: 암호 저장에 이 라이브러리나 다른 *encryption* 라이브러리를 사용하지 마십시오! 암호는 *hashed* 이어야 하며, PHP의 `암호 해싱 확장 <https://www.php.net/password>`_\ 을 통해 암호를 입력해야 합니다
 
 암호화 서비스는 양방향 대칭(비밀 키) 데이터 암호화를 제공합니다.
 이 서비스는 아래 설명된대로 매개 변수에 맞게 암호화 **핸들러**\ 를 인스턴스화 또는 초기화합니다.
@@ -12,7 +12,7 @@
 
 다음 PHP 확장이 현재 지원됩니다 :
 
-- `OpenSSL <http://php.net/openssl>`_
+- `OpenSSL <https://www.php.net/openssl>`_
 
 .. note:: ``MCrypt`` 확장에 대한 지원은 PHP 7.2에서 더 이상 사용되지 않으므로 제거되었습니다.
 
@@ -89,7 +89,7 @@ driver   Preferred handler (OpenSSL)
 
 제공한 *key*\ 는 구성된 키에서 두 개의 개별 키를 파생시키는 데 사용됩니다.
 하나는 암호화 용이고 다른 하나는 인증 용입니다.
-이는 `HMAC 기반 키 파생 함수(HKDF) <http://en.wikipedia.org/wiki/HKDF>`_\ 라는 기술을 통해 수행됩니다.
+이는 `HMAC 기반 키 파생 함수(HKDF) <https://en.wikipedia.org/wiki/HKDF>`_\ 라는 기술을 통해 수행됩니다.
 
 암호화 키 설정
 ===========================
@@ -140,7 +140,7 @@ AES-256의 경우 길이는 256 비트 또는 32 바이트 (문자)입니다.
 OpenSSL 노트
 ------------------
 
-`OpenSSL <http://php.net/openssl>`_ 확장은 오랫동안 PHP의 표준이었습니다.
+`OpenSSL <https://www.php.net/openssl>`_ 확장은 오랫동안 PHP의 표준이었습니다.
 
 CodeIgniter의 OpenSSL 핸들러는 AES-256-CTR 암호를 사용합니다.
 

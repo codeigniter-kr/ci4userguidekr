@@ -163,7 +163,7 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
 	첫 번째 매개 변수는 URL에 추가할 세그먼트입니다.
 	위의 :php:func:`site_url()` 함수와 마찬가지로 세그먼트는 문자열 또는 배열일 수 있습니다.
 
-	.. note:: 어플리케이션 내부에 링크를 작성하는 경우 base URL (http : // ...)을 포함하지 마십시오.
+	.. note:: 어플리케이션 내부에 링크를 작성하는 경우 base URL (`http://...`)을 포함하지 마십시오.
 		base URL은 구성 파일에 지정된 정보에서 자동으로 추가됩니다.
 		URL에 추가하려는 URI 세그먼트만 포함하십시오.
 
@@ -225,7 +225,7 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
 
 			echo anchor_popup('news/local/123', 'Click Me!', []);
 
-	.. note:: **window_name**\ 은 실제로 속성이 아니라 자바 스크립트 `window.open() <http://www.w3schools.com/jsref/met_win_open.asp>`_ 메소드에 대한 인수입니다. 이름 또는 창 타겟.
+	.. note:: **window_name**\ 은 실제로 속성이 아니라 자바 스크립트 `window.open() <https://www.w3schools.com/jsref/met_win_open.asp>`_ 메소드에 대한 인수입니다. 이름 또는 창 타겟.
 
 	.. note:: 위에 나열된 이외의 속성은 앵커 태그에 HTML 속성으로 구문 분석됩니다.
 

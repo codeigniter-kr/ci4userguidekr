@@ -88,7 +88,7 @@ AJAX 사용량이 많은 웹 사이트를 개발하지 않는다면 이 섹션�
 
 세션 데이터는 단순히 특정 세션 ID(cookie)와 연결된 배열입니다.
 
-PHP에서 세션을 사용해 본 적이 있다면 PHP의 `$_SESSION superglobal <http://php.net/manual/en/reserved.variables.session.php>`_\ 에 익숙해야 합니다.(그렇지 않은 경우 해당 링크의 내용을 읽으십시오.)
+PHP에서 세션을 사용해 본 적이 있다면 PHP의 `$_SESSION superglobal <https://www.php.net/manual/en/reserved.variables.session.php>`_\ 에 익숙해야 합니다.(그렇지 않은 경우 해당 링크의 내용을 읽으십시오.)
 
 CodeIgniter는 PHP에서 제공하는 세션 핸들러 메커니즘을 사용하는 것과 동일한 방법으로 세션 데이터에 액세스합니다.
 세션 데이터를 사용하는 것은``$ _SESSION ''배열을 조작 (읽기, 설정 및 설정 해제)하는 것만 큼 간단합니다.
@@ -393,7 +393,7 @@ Or if you want to be sure that you're reading "tempdata" (and not any other kind
 세션 파괴
 ====================
 
-현재 세션을 지우려면 (예 : 로그 아웃 중) PHP의 `session_destroy() <http://php.net/session_destroy>`_ 함수 또는 라이브러리의 ``destroy()`` 메소드를 사용하면됩니다.
+현재 세션을 지우려면 (예 : 로그 아웃 중) PHP의 `session_destroy() <https://www.php.net/session_destroy>`_ 함수 또는 라이브러리의 ``destroy()`` 메소드를 사용하면됩니다.
 둘 다 정확히 같은 방식으로 작동합니다.
 
 ::
@@ -496,7 +496,7 @@ FileHandler 드라이버 (기본)
 
 PHP의 기본 세션 구현과 똑같이 작동고 안전하다고 말할 수 있지만, 이것이 중요한 세부사항의 경우 기본 세션과 동일한 코드가 아니며 몇 가지 제한 사항과 장점이 있습니다.
 
-좀 더 구체적으로 말하면 session.save_path <http://php.net/manual/en/session.configuration.php#ini.session.save-path>_\ 에서 사용되는 PHP의 디렉토리 레벨 및 모드 형식을 지원하지 않습니다. 
+좀 더 구체적으로 말하면 session.save_path <https://www.php.net/manual/en/session.configuration.php#ini.session.save-path>_\ 에서 사용되는 PHP의 디렉토리 레벨 및 모드 형식을 지원하지 않습니다. 
 안전을 위해 대부분의 옵션이 하드 코딩되어 있으며, ``public $sessionSavePath``\ 는 절대 경로만 지원됩니다.
 
 알아야 할 또 다른 중요한 사항은 공개적으로 읽거나 공유 디렉토리를 사용하여 세션 파일을 저장하지 않도록 하는 것입니다.
@@ -637,7 +637,7 @@ MemcachedHandler 드라이버
 
 .. note:: Memcached의 잠금 메커니즘에 직접 접근할 수 없으므로, 이 드라이버의 잠금은 최대 300초 동안 유지되는 별도의 값으로 에뮬레이션됩니다.
 
-'MemcachedHandler' 드라이버는 PHP의 `Memcached <http://php.net/memcached>`_ 확장이 PECL과 일부 Linux를 통해 배포되기 때문에 가용성을 제외하고 모든면에서 'RedisHandler' 드라이버와 매우 유사합니다. 
+'MemcachedHandler' 드라이버는 PHP의 `Memcached <https://www.php.net/memcached>`_ 확장이 PECL과 일부 Linux를 통해 배포되기 때문에 가용성을 제외하고 모든면에서 'RedisHandler' 드라이버와 매우 유사합니다. 
 배포판은 설치하기 쉬운 패키지로 제공됩니다.
 
 그 외에도 Redis에 대한 의도적인 편견이 없다면 Memcached에 대해 언급할 점이 별로 다르지 않습니다. 

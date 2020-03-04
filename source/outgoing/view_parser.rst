@@ -240,7 +240,7 @@ Parser 클래스는 내부적으로 연관 배열을 사용하여 ``render()``\ 
 	{blog_entry}
 		<div>
 			<h2>{title}</h2>
-			<p>{body}{/p}
+			<p>{body}</p>
 		</div>
 	{/blog_entry}
 
@@ -257,7 +257,7 @@ Parser 클래스는 내부적으로 연관 배열을 사용하여 ``render()``\ 
 	{blog_entry}
 		<div>
 			<h2>{title}</h2>
-			<p>{body}{/p}
+			<p>{body}</p>
 		</div>
 	{/blog_entry}
 
@@ -459,7 +459,7 @@ Provided Filters
 +               +                     +                                                              +                                     +
 +---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
 
-"local_number" 필터와 관련된 자세한 내용은 `PHP의 NumberFormatter <http://php.net/manual/en/numberformatter.create.php>`_\ 를 참조하십시오.
+"local_number" 필터와 관련된 자세한 내용은 `PHP의 NumberFormatter <https://www.php.net/manual/en/numberformatter.create.php>`_\ 를 참조하십시오.
 
 사용자 정의 필터
 --------------------

@@ -2,7 +2,7 @@
 오류 처리
 ##############
 
-CodeIgniter는 프레임워크에서 제공하는 몇 가지 사용자 정의 예외뿐만 아니라 `SPL collection <http://php.net/manual/en/spl.exceptions.php>`_\ 과 예외(exception)를 통해 시스템에 오류 보고를 빌드합니다.
+CodeIgniter는 프레임워크에서 제공하는 몇 가지 사용자 정의 예외뿐만 아니라 `SPL collection <https://php.net/manual/en/spl.exceptions.php>`_\ 과 예외(exception)를 통해 시스템에 오류 보고를 빌드합니다.
 어플리케이션이 ``production`` 환경에서 실행되고 있지 않다면, 환경 설정에 따라 오류 또는 예외가 발생하면 자세한 오류 보고서를 표시합니다.
 이 경우 사용자에게 최상의 사용자 환경을 유지하기 위해 보다 일반적인 메시지가 표시됩니다.
 

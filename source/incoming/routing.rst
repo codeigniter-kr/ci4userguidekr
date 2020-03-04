@@ -141,7 +141,7 @@ Examples
 
 	$routes->add('login/(.+)', 'Auth::login/$1');
 
-정규 표현식에 대해 더 배우고 싶은 사람들에게 `regular-expressions.info <http://www.regular-expressions.info/>`_\ 가 좋은 출발점이 될 수 있습니다.
+정규 표현식에 대해 더 배우고 싶은 사람들에게 `regular-expressions.info <https://www.regular-expressions.info/>`_\ 가 좋은 출발점이 될 수 있습니다.
 
 .. important:: Note: 와일드 카드를 정규식과 혼합하여 일치시킬 수도 있습니다.
 

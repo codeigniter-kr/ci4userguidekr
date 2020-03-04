@@ -28,8 +28,8 @@ Intl 확장 기능을 사용하여 시간을 시간대별로 변환하고 다른
     $myTime = new Time('now');
 
 시간대와 로케일을 나타내는 문자열을 각각 두 번째와 세 번째 매개 변수로 전달할 수 있습니다.
-시간대는 PHP의 `DateTimeZone <http://php.net/manual/en/timezones.php>`__ 클래스를 지원합니다.
-로케일은 PHP의 `Locale <http://php.net/manual/en/class.locale.php>`__ 클래스를 지원합니다.
+시간대는 PHP의 `DateTimeZone <https://www.php.net/manual/en/timezones.php>`__ 클래스를 지원합니다.
+로케일은 PHP의 `Locale <https://www.php.net/manual/en/class.locale.php>`__ 클래스를 지원합니다.
 로케일이나 시간대가 제공되지 않으면 어플리케이션의 기본값이 사용됩니다.
 
 ::
@@ -177,8 +177,8 @@ toLocalizedString()
 -------------------
 
 현지화된 DateTime() 형식 메소드 버전입니다. 
-하지만 익숙한 값을 사용하는 대신 `IntlDateFormatter <http://php.net/manual/en/class.intldateformatter.php>`__ 클래스에 허용되는 값을 사용해야 합니다.
-전체 값 목록은 <http://www.icu-project.org/apiref/icu4c/classSimpleDateFormat.html#details>`__\ 에서 찾을 수 있습니다.
+하지만 익숙한 값을 사용하는 대신 `IntlDateFormatter <https://www.php.net/manual/en/class.intldateformatter.php>`__ 클래스에 허용되는 값을 사용해야 합니다.
+전체 값 목록은 <https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details>`__\ 에서 찾을 수 있습니다.
 
 ::
 
@@ -345,7 +345,7 @@ Time 인스턴스가 UTC 시간인 경우 부울 true를 리턴합니다.
 getTimezone()
 -------------
 
-Time 인스턴스의 시간대를 설정하는 새로운 `DateTimeZone <http://php.net/manual/en/class.datetimezone.php>`__ 객체를 반환합니다.
+Time 인스턴스의 시간대를 설정하는 새로운 `DateTimeZone <https://www.php.net/manual/en/class.datetimezone.php>`__ 객체를 반환합니다.
 
 ::
 
@@ -358,7 +358,7 @@ Time 인스턴스의 시간대를 설정하는 새로운 `DateTimeZone <http://p
 getTimezoneName()
 -----------------
 
-Time 인스턴스의 전체 `시간대 문자열 <http://php.net/manual/en/timezones.php>`__\ 을 반환합니다.
+Time 인스턴스의 전체 `시간대 문자열 <https://www.php.net/manual/en/timezones.php>`__\ 을 반환합니다.
 
 ::
 

@@ -335,7 +335,7 @@ withDeleted()는 삭제된 행과 삭제되지 않은 행을 모두 리턴하지
 
     $userModel
         ->whereIn('id', [1,2,3])
-        ->set(['active' => 1]
+        ->set(['active' => 1])
         ->update();
 
 **save()**

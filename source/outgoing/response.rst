@@ -118,7 +118,8 @@ HTTP 사양에는 클라이언트(종종 웹 브라우저)가 결과를 캐시�
 올바르게 사용하면 아무것도 변경되지 않았기 때문에 클라이언트가 서버에 전혀 연결할 필요가 없음을 알리기 때문에 어플리케이션의 성능을 크게 향상시킬 수 있습니다.
 
 이는 ``Cache-Control``\ 와 ``ETag`` 헤더를 통해 처리됩니다.
-이 안내서는 모든 캐시 헤더 기능을 완전히 소개하기에 적합한 곳은 아니지만 `Google Developers <https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching>`_\ 와 `Mobify Blog <https://www.mobify.com/blog/beginners-guide-to-http-cache-headers/>`_\ 에서 잘 이해할 수 있습니다.
+이 안내서는 모든 캐시 헤더 기능을 완전히 소개하기에 적합한 곳은 아니지만 
+`Google Developers <https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching>`_\ 에서 잘 이해할 수 있습니다.
 
 기본적으로 CodeIgniter를 통해 전송 된 모든 응답 오브젝트에는 HTTP 캐싱이 해제되어 있습니다.
 옵션과 정확한 환경은 너무 다양하여 기본 설정을 해제하는것 외에 다른 기본 설정을 만들 수 없습니다.
@@ -151,9 +152,9 @@ XSS 공격에 대한 최선의 보호 방법 중 하나는 사이트에서 콘�
 이 주제는 복잡한 주제이므로 이 가이드에서는 모든 세부 사항을 다루지는 않습니다.
 자세한 내용은 다음 사이트를 방문하십시오:
 
-* `Content Security Policy main site <http://content-security-policy.com/>`_
+* `Content Security Policy main site <https://content-security-policy.com/>`_
 * `W3C Specification <https://www.w3.org/TR/CSP>`_
-* `Introduction at HTML5Rocks <http://www.html5rocks.com/en/tutorials/security/content-security-policy/>`_
+* `Introduction at HTML5Rocks <https://www.html5rocks.com/en/tutorials/security/content-security-policy/>`_
 * `Article at SitePoint <https://www.sitepoint.com/improving-web-security-with-the-content-security-policy/>`_
 
 CSP 켜기
