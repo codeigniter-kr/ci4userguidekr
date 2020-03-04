@@ -42,9 +42,8 @@ CodeIgniter 구성 파일은 필요한 설정이 공용 속성인 단순 클래�
 ::
 
     $config = config('Pager');
-	// 클래스 속성으로 설정에 액세스합니다.
-	$pageSize = $config->perPage;
-
+    // 클래스 속성으로 설정에 액세스합니다.
+    $pageSize = $config->perPage;
 
 네임스페이스가 제공되지 않으면 **/app/Config/**\ 와 정의된 모든 네임스페이스에서 파일을 찾습니다. 
 
@@ -89,14 +88,6 @@ CodeIgniter와 함께 제공되는 모든 구성(config) 파일의 네임스페�
 환경 변수와 CodeIgniter
 =====================================
 
-CodeIgniter makes it simple and painless to set Environment Variables by using a ``dotenv`` file. 
-The term comes from the file name, which starts with a dot before the text ``env``.
-
-CodeIgniter expects **.env** to be at the root of your project alongside the ``system`` and ``app`` directories. 
-There is a template file distributed with CodeIgniter that’s located at the project root named **env** (Notice there’s no dot (**.**) at the start?). 
-It has a large collection of variables your project might use that have been assigned empty, dummy, or default values. 
-You can use this file as a starting place for your application by either renaming the template to **.env**, or by making a copy of it named **.env**.
-
 CodeIgniter를 사용하면 ``dotenv`` 파일을 사용하여 환경 변수를 간단하고 쉽게 설정할 수 있습니다. 
 이 용어는 "env" 앞에 점으로 시작하는 파일 이름에서 유래되었습니다.
 
@@ -105,15 +96,15 @@ CodeIgniter와 함께 배포된 템플릿 파일 **env**\ 가 프로젝트 루�
 비어 있거나 더미 또는 기본값이 할당된 프로젝트에서 사용할 수 있는 많은 변수 모음이 있습니다. 
 이 템플릿 파일의 이름을 **.env**\ 로 변경하거나 **.env**\ 로 복사본을 만들어 어플리케이션의 시작 부분으로 사용할 수 있습니다.
 
-.. important:: 버전 제어 시스템에서 **.env** 파일을 관리하지 않아야 합니다. *git*\ 을 사용하고 있다면 **.gitignore*\ 에 **.env** 파일을 추가합니다. 
+.. important:: 버전 제어 시스템에서 **.env** 파일을 관리하지 않아야 합니다. *git*\ 을 사용하고 있다면 **.gitignore**\ 에 **.env** 파일을 추가합니다. 
     그렇지 않으면 중요한 정보가 공개될 수 있습니다.
 
 설정은 **.env** 파일에 등호(=)로 구분된 이름/값 쌍의 단순한 모음으로 저장됩니다.
 
 ::
 
-	S3_BUCKET = dotenv
-	SECRET_KEY = super_secret_key
+    S3_BUCKET = dotenv
+    SECRET_KEY = super_secret_key
     CI_ENVIRONMENT = development
 
 어플리케이션이 실행되면 **.env** 가 자동으로 로드되고 변수가 환경에 입력됩니다. 
