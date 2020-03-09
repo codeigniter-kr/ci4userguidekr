@@ -60,7 +60,7 @@ NGINX에서 ``location`` 블록을 정의하고 ``try_files`` 지시문을 사�
 .. code-block:: nginx
 
 	location / {
-		try_files $uri $uri/ /index.php/$args;
+		try_files $uri $uri/ /index.php$is_args$args;
 	}
 
 

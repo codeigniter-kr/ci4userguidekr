@@ -66,7 +66,8 @@ CodeIgniter4 웹앱 (webapp)은 일반적으로 웹 서버에서 호스트됩니
 
 아파치의 ``httpd``\ 는 "표준" 플랫폼이며, 사용자 가이드는 이를 가정하고 작성되었습니다.
 
-Apache는 여러 플랫폼과 함께 번들로 제공되지만, [Bitnami](https://bitnami.com/stacks/infrastructure)\ 에서 데이터베이스 엔진 및 PHP와 함께 번들로 다운로드할 수도 있습니다.
+Apache는 여러 플랫폼과 함께 번들로 제공되지만, `Bitnami (https://bitnami.com/stacks/infrastructure)`\ 에서 
+데이터베이스 엔진과 함께 PHP를 번들로 다운로드할 수 있습니다.
 
 .htaccess
 -------------------------------------------------------
@@ -119,6 +120,47 @@ Apache는 여러 플랫폼과 함께 번들로 제공되지만, [Bitnami](https:
 위의 구성을 따른다면 브라우저에서 ``http://myproject.local``\ 로 웹앱에 액세스하게 됩니다.
 
 구성을 변경할 때마다 Apache를 다시 시작해야 합니다.
+
+Nginx를 사용한 호스트
+=================================================
+Nginx는 웹 호스팅에 두 번째로 널리 사용되는 HTTP 서버입니다.
+아래의 구성은 Ubuntu Server에서 PHP 7.3 FPM (unix sockets)을 사용한 예제입니다.
+
+이 구성을 사용하면 "index.php"\ 가 없는 URL을 활성화하고 ".php"\ 로 끝나는 URL에 CodeIgniter의 "404-File Not Found"\ 를 보여줍니다.
+
+
+.. code-block:: nginx
+
+    server {
+        listen 80;
+        listen [::]:80;
+
+        server_name example.com;
+
+        root  /var/www/example.com/public;
+        index index.php index.html index.htm;
+
+        location / {
+            try_files $uri $uri/ /index.php$is_args$args;
+        }
+
+        location ~ \.php$ {
+            include snippets/fastcgi-php.conf;
+
+            # With php-fpm:
+            fastcgi_pass unix:/run/php/php7.3-fpm.sock;
+            # With php-cgi:
+            # fastcgi_pass 127.0.0.1:9000;
+        }
+
+        error_page 404 /index.php;
+
+        # deny access to hidden files such as .htaccess
+        location ~ /\. {
+            deny all;
+        }
+    }
+
 
 Vagrant를 사용한 호스트
 =================================================
