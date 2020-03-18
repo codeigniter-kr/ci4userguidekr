@@ -63,7 +63,7 @@ PHPUnit 구성
 Test 클래스
 ==============
 
-제공된 추가 도구를 이용하려면 테스트가 ``\CIUnitTestCase``\ 를 확장해야 합니다.
+제공된 추가 도구를 이용하려면 테스트가 ``CIUnitTestCase``\ 를 확장해야 합니다.
 모든 테스트는 기본적으로 **tests/app** 디렉토리에 있어야 합니다.
 
 새 라이브러리 **Foo**\ 를 테스트하려면 **tests/app/Libraries/FooTest.php**\ 에 새 파일을 만듭니다.
@@ -72,7 +72,9 @@ Test 클래스
 
     <?php namespace App\Libraries;
 
-    class FooTest extends \CIUnitTestCase
+    use CodeIgniter\Test\CIUnitTestCase;
+
+    class FooTest extends CIUnitTestCase
     {
         public function testFooNotBar()
         {
@@ -86,7 +88,9 @@ Test 클래스
 
     <?php namespace App\Models;
 
-    class OneOfMyModelsTest extends \CIUnitTestCase
+    use CodeIgniter\Test\CIUnitTestCase;
+
+    class FooTest extends CIUnitTestCase
     {
         public function testFooNotBar()
         {

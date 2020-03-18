@@ -193,7 +193,7 @@ Class Reference
 		:param	BaseConfig	$config: 구성 매개 변수
 		:returns:	CodeIgniter\\Encryption\\EncrypterInterface instance
 		:rtype:	CodeIgniter\\Encryption\\EncrypterInterface
-		:throws:	CodeIgniter\\Encryption\\EncryptionException
+		:throws:	CodeIgniter\\Encryption\\Exceptions\\EncryptionException
 
 		다른 설정을 사용하도록 라이브러리를 초기화(구성)합니다.
 
@@ -211,7 +211,7 @@ Class Reference
 		:param		$params: 구성 매개 변수 (key)
 		:returns:	암호화된 데이터, 실패시 FALSE
 		:rtype:	string
-		:throws:	CodeIgniter\\Encryption\\EncryptionException
+		:throws:	CodeIgniter\\Encryption\\Exceptions\\EncryptionException
 
 		입력 데이터를 암호화하고 암호문을 리턴합니다.
 
@@ -230,7 +230,7 @@ Class Reference
 		:param		$params: 구성 매개 변수 (key)
 		:returns:	암호 해독된 데이터, 실패시 FALSE
 		:rtype:	string
-		:throws:	CodeIgniter\\Encryption\\EncryptionException
+		:throws:	CodeIgniter\\Encryption\\Exceptions\\EncryptionException
 
 		입력 데이터를 해독하여 일반 텍스트로 반환합니다.
 

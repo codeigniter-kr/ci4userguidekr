@@ -28,7 +28,7 @@ jQuery
 ======
 
 `jQuery 공식 문서 <https://api.jquery.com/jquery.ajax/>`_\ 에 따르면 ``X-Requested-With`` 헤더는 모든 ``$.ajax()`` 요청의 표준 헤더이기 때문에 
-이 헤더를 명시적으로 보내지 않아도됩니다. 
+이 헤더를 명시적으로 보내지 않아도 됩니다. 
 명시적으로 헤더를 보내야 할 경우가 있다면 다음과 같이 하십시오.
 
 ::
@@ -54,4 +54,4 @@ React
 
 ::
 
-    axios.get("your url", {headers: {'Content-Type': 'application/json'}})
+    axios.get("your url", {headers: {'Content-Type': 'application/json'}});

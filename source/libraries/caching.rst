@@ -211,7 +211,16 @@ Drivers
 Memcached 캐싱
 =================
 
-캐시 구성 파일에서 여러 Memcached 서버를 지정할 수 있습니다.
+캐시 구성 파일에 Memcached 서버를 지정할 수 있습니다. 
+
+::
+
+    public $memcached = [
+        'host'   => '127.0.0.1',
+        'port'   => 11211,
+        'weight' => 1,
+        'raw'    => false,
+    ];
 
 Memcached에 대한 자세한 내용은 다음을 참조하십시오.
 `https://www.php.net/memcached <https://www.php.net/memcached>`_.
@@ -229,20 +238,20 @@ WinCache에 대한 자세한 내용은 다음을 참조하십시오.
 Redis 캐싱
 =============
 
-Redis는 LRU 캐시 모드에서 작동할 수 있는 메모리내 키-값 저장소입니다.
+Redis는 LRU 캐시 모드에서 작동할 수 있는 메모리 key-value 저장소입니다.
 이를 사용하려면 `Redis 서버 및 phpredis PHP 확장 <https://github.com/phpredis/phpredis>`_\ 이 필요합니다.
 
-redis 서버에 연결하기 위한 구성 옵션은 app/Config/redis.php 파일에 저장해야 합니다.
-
-사용 가능한 옵션은
+캐시 구성 파일에 저장된 redis 서버 연결 구성 옵션입니다.
 
 ::
 
-	$config['host'] = '127.0.0.1';
-	$config['password'] = NULL;
-	$config['port'] = 6379;
-	$config['timeout'] = 0;
-	$config['database'] = 0;
+	public $redis = [
+        'host'     => '127.0.0.1',
+        'password' => null,
+        'port'     => 6379,
+        'timeout'  => 0,
+        'database' => 0,
+    ];
 
 Redis에 대한 자세한 내용은 다음을 참조하십시오.
 `https://redis.io <https://redis.io>`_.

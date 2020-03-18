@@ -72,8 +72,7 @@
     }
 
 응답(Response) 인스턴스가 리턴되면 응답이 클라이언트로 전송되고 컨트롤러 실행이 중지됩니다.
-이는 요금에 따른 API 제한을 구현하는데 유용할 수 있다.
-**app/Filters/Throttle.php** 예제를 참조하세요.
+API 요청에 대한 속도 제한을 구현하는데 유용하며, 이에 대한 예는 :doc:`Throttler </libraries/throttler>`\ 를 참조하십시오.
 
 사후(After) 필터
 ====================
@@ -86,9 +85,8 @@
 필터 구성
 *******************
 
-Once you've created your filters, you need to configure when they get run. 
-This is done in ``app/Config/Filters.php``.
-This file contains four properties that allow you to configure exactly when the filters run.
+필터를 만든 후에는 실행시기를 구성해야 하며, 이 작업은 ``app/Config/Filters``\ 에서 이루어집니다.
+이 파일에는 필터가 실행될 때 구성할 수 있는 네 가지 속성이 포함되어 있습니다.
 
 $aliases
 ========

@@ -121,11 +121,19 @@ App Starter 저장소에는 현재 안정 릴리스와 프레임워크의 최신
 
 설정(Setup)
 ----------------
+
 ``app``, ``public``, ``tests` 및 ``writable`` 폴더를 ``vendor/codeigniter4/framework``\ 에서 프로젝트 루트(root)로 복사
 
 ``env``, ``phpunit.xml.dist`` 및 ``spark`` 파일을 ``vendor/codeigniter4/framework``\ 에서 프로젝트 루트로 복사
 
 ``vendor/codeigniter/framework``\ 를 참조하기 위해 ``app/Config/Paths.php``\ 의 $systemDirectory 변수의 경로를 수정하십시오.
+``app/Config/Paths.php`` 파일의 ``$systemDirectory`` 변수를 컴포저의 vendor 경로로 조정합니다.
+
+::
+
+    // app/Config/Paths.php
+    $systemDirectory = ROOTPATH . '/vendor/codeigniter4/framework/system';
+
 
 업그레이드
 ---------------
