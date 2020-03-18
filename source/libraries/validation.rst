@@ -479,7 +479,7 @@ Validation 클래스의 좋은 기능은 어플리케이션 전체에 대한 모
 
 ::
 
-    'min_length' => ''Supplied value ({value}) for {field} must have at least {param} characters.'
+    'min_length' => 'Supplied value ({value}) for {field} must have at least {param} characters.'
 
 사용자의 이름이 ``Username``\ 이고 값이 "Pizza"\, 규칙이 ``min_length[6]``\ 인 필드에서 오류가 발생하면 
 "Supplied value (Pizza) for Username must have at least 6 characters."\ 로 표시됩니다.
