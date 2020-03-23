@@ -1,50 +1,51 @@
 ###################
-Security Guidelines
+보안 지침
 ###################
 
 We take security seriously.
-CodeIgniter incorporates a number of features and techniques to either enforce
-good security practices, or to enable you to do so easily.
+CodeIgniter incorporates a number of features and techniques to either enforce good security practices, or to enable you to do so easily.
 
-We respect the `Open Web Application Security Project (OWASP) <https://owasp.org>`_
-and follow their recommendations as much as possible.
+We respect the `Open Web Application Security Project (OWASP) <https://owasp.org>`_ and follow their recommendations as much as possible.
 
-The following comes from
-`OWASP Top Ten Cheat Sheet <https://www.owasp.org/www-project-top-ten/>`_,
-identifying the top vulnerabilities for web applications.
-For each, we provide a brief description, the OWASP recommendations, and then
-the CodeIgniter provisions to address the problem.
+The following comes from `OWASP Top Ten Cheat Sheet <https://www.owasp.org/www-project-top-ten/>`_, identifying the top vulnerabilities for web applications.
+For each, we provide a brief description, the OWASP recommendations, and then the CodeIgniter provisions to address the problem.
 
-************
-A1 Injection
-************
+우리는 보안을 중요하게 생각합니다.
+CodeIgniter에는 올바른 보안 관행을 적용하거나 사용자가 쉽게 수행할 수 있도록 다양한 기능과 기술이 통합되어 있습니다.
 
-An injection is the inappropriate insertion of partial or complete data via
-the input data from the client to the application. Attack vectors include SQL,
-XML, ORM, code & buffer overflows.
+우리는 `Open Web Application Security Project (OWASP) <https://owasp.org>`_\ 를 존중하며, 가능한 한 그들의 권고를 따릅니다.
 
-OWASP recommendations
+다음은 `OWASP Top Ten Cheat Sheet <https://www.owasp.org/www-project-top-ten/>`_\ 에서 발췌한 것으로 웹 어플리케이션의 주요 취약점입니다.
+각 항목에 대해 간략한 설명, OWASP 권장 사항과 문제를 해결하기 위한 CodeIgniter 규정을 제공합니다.
+
+*******************
+A1 주입(Injection)
+*******************
+
+주입(Injection)은 클라이언트에서 애플리케이션으로 입력 데이터를 통해 부분 또는 전체 데이터를 부적절하게 삽입하는 것입니다. 
+공격 벡터에는 SQL, XML, ORM, code와 버퍼 오버플로우가 포함됩니다.
+
+OWASP 추천 사항
 ---------------------
 
-- Presentation: set correct content type, character set & locale
-- Submission: validate fields and provide feedback
-- Controller: sanitize input; positive input validation using correct character set
-- Model: parameterized queries
+- 프레젠테이션: 올바른 콘텐츠 유형, 문자 집합과 로케일을 설정합니다.
+- 제출: 필드를 확인하고 피드백을 제공합니다.
+- 컨트롤러: 입력을 정리합니다. 올바른 문자 집합을 사용하여 입력 유효성을 검사합니다.
+- 모델: 매개 변수화된 쿼리사용
 
-CodeIgniter provisions
+CodeIgniter 규약
 ----------------------
 
-- `HTTP library <../incoming/incomingrequest.html>`_ provides for input field filtering & content metadata
-- Form validation library
+- `HTTP 라이브러리 <../ incoming / incomingrequest.html>`_\ 는 입력 필드 필터링 및 컨텐츠 메타데이터를 제공합니다.
+- 폼 검증 라이브러리 제공
 
 *********************************************
-A2 Weak authentication and session management
+A2 약한(Weak) 인증과 세션 관리
 *********************************************
 
-Inadequate authentication or improper session management can lead to a user
-getting more privileges than they are entitled to.
+인증이 잘못되거나 세션 관리가 잘못되면 사용자에게 부여된 권한보다 더 많은 권한을 부여될 수 있습니다.
 
-OWASP recommendations
+OWASP 추천 사항
 ---------------------
 
 - Presentation: validate authentication & role; send CSRF token with forms
@@ -53,7 +54,7 @@ OWASP recommendations
 - Model: validate role
 - Tip: consider the use of a request governor
 
-CodeIgniter provisions
+CodeIgniter 규약
 ----------------------
 
 - `Session <../libraries/sessions.html>`_ library
