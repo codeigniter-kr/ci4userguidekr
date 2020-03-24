@@ -128,7 +128,10 @@ Pager에 의해 생성된 URI는 ``https://domain.tld/model?page=[pageNumber]`` 
 
 	$pager = service('pager');
 	$pager->setPath('path/for/my-group', 'my-group'); // Additionally you could define path for every group.
-	$pager->makeLinks($page, $perPage, $total, 'template_name', $segment, 'my-group'); 
+	$pager->makeLinks($page, $perPage, $total, 'template_name', $segment, 'my-group');
+
+페이지네이션 라이브러리는 그룹 이름이 없거나 *default* 그룹이 지정되지 않은 경우 HTTP 쿼리의 *page* 쿼리 매개 변수를 사용합니다. 
+사용자 그룹을 지정할 때는 *page_[groupName]*\ 을 사용합니다.
 
 예상 쿼리만으로 페이지네이션
 =====================================
