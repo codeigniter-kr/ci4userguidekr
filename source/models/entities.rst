@@ -219,12 +219,12 @@ The base Entity class implements some smart ``__get()`` and ``__set()`` methods 
     class User extends Entity
     {
         protected $attributes = [
-            'id' => null;
-            'name' => null;        // Represents a username
-            'email' => null;
-            'password' => null;
-            'created_at' => null;
-            'updated_at' => null;
+            'id' => null,
+            'name' => null,        // Represents a username
+            'email' => null,
+            'password' => null,
+            'created_at' => null,
+            'updated_at' => null,
         ];
     }
 
@@ -245,12 +245,12 @@ The base Entity class implements some smart ``__get()`` and ``__set()`` methods 
     class User extends Entity
     {
         protected $attributes = [
-            'id' => null;
-            'name' => null;        // Represents a username
-            'email' => null;
-            'password' => null;
-            'created_at' => null;
-            'updated_at' => null;
+            'id' => null,
+            'name' => null,        // Represents a username
+            'email' => null,
+            'password' => null,
+            'created_at' => null,
+            'updated_at' => null,
         ];
 
         protected $datamap = [
