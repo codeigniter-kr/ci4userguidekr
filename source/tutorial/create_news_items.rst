@@ -30,7 +30,7 @@ Create a form
 
     </form>
 
-여기에는 아직 익숙하지 않은 것이 하나 있습니다 : ``\Config\Services::validation()->listErrors()`` 함수. 
+여기에는 아직 익숙하지 않은 ``\Config\Services::validation()->listErrors()`` 함수가 하나 있습니다. 
 이 함수는 양식(form)의 유효성 검사와 관련된 오류를 보고하는 데 사용됩니다.
 
 ``News`` 컨트롤러로 돌아갑니다.
@@ -41,7 +41,6 @@ Create a form
 
     public function create()
     {
-        helper('form');
         $model = new NewsModel();
 
         if (! $this->validate([
@@ -52,7 +51,6 @@ Create a form
             echo view('templates/header', ['title' => 'Create a news item']);
             echo view('news/create');
             echo view('templates/footer');
-
         }
         else
         {
@@ -66,17 +64,18 @@ Create a form
     }
 
 위의 코드는 많은 기능을 추가합니다.
-처음 몇 줄은 폼(form) 헬퍼와 NewsModel을 로드합니다.
-그런 다음 Controller가 제공하는 헬퍼 함수를 ​​사용하여 $_POST 필드의 유효성을 검증합니다.
-이를 위해 제목과 텍스트 필드가 필요합니다.
+먼저 ``NewsModel``\ 을 로드합니다.
+그런 다음 컨트롤러가 제공하는 헬퍼 함수를 사용하여 $_POST 필드의 유효성을 검증합니다. 
+이 경우 제목(title)과 텍스트(body) 필드는 필수입니다.
 
 CodeIgniter에는 위에서 설명한 강력한 유효성 검사 라이브러리가 있습니다.
 이 라이브러리에 대한 자세한 내용은 :doc:`여기 <../libraries/validation>`\ 를 참조하십시오.
 
-계속해서 양식 유효성 검사가 성공적으로 실행되었는지 확인하는 조건을 볼 수 있습니다.
-그렇지 않은 경우 양식이 표시됩니다. 제출된 데이터가 모든 규칙을 통과 한 경우 모델이 호출됩니다.
-모델로 뉴스 아이템을 전달하는 것을 처리합니다.
-여기에는 새로운 함수인 url\_title()이 포함되어 있습니다.
+계속해서 폼(form) 유효성 검사가 성공적으로 실행되었는지 확인하는 조건을 볼 수 있습니다.
+그렇지 않은 경우 폼이 표시됩니다. 
+제출된 데이터가 모든 규칙을 통과했을때 모델이 호출됩니다.
+모델로 뉴스 아이템을 전달하여 처리합니다.
+여기에는 새로운 함수인 ``url_title()``\ 이 포함되어 있습니다.
 이 함수 - :doc:`URL helper <../helpers/url_helper>`\ 에서 제공 - 는 전달받은 문자열에서 
 모든 공백을 대시 (-)로 바꾸고 모든 문자가 소문자인지 확인합니다. 
 이 함수는 URI로 사용 가능한 완벽한 slug를 만듭니다.
@@ -85,7 +84,9 @@ CodeIgniter에는 위에서 설명한 강력한 유효성 검사 라이브러리
 그런 다음 성공 메시지를 표시하기 위해 뷰가 로드됩니다.
 **app/Views/news/success.php**\ 로 뷰를 작성하고 성공 메시지를 추가하십시오.
 
-이것은 간단하게 :::
+간단하게
+
+::
 
     News item created successfully. 
 
@@ -125,6 +126,7 @@ CodeIgniter에는 위에서 설명한 강력한 유효성 검사 라이브러리
 CodeIgniter 어플리케이션에 뉴스 항목을 추가하기 전에 **app/Config/Routes.php** 파일에 추가 규칙을 추가해야 합니다.
 파일에 다음 규칙이 포함되어 있는지 확인하십시오. 
 이를 통해 CodeIgniter는 뉴스 항목의 슬러그 대신 'create'를 메소드로 인식합니다.
+여러분은 :doc:`여기 </incoming/routing>`\ 에서 다른 것에 대한 자세한 내용을 읽을 수 있습니다.
 
 ::
 
@@ -155,5 +157,8 @@ CodeIgniter 어플리케이션에 뉴스 항목을 추가하기 전에 **app/Con
 
 당신은 첫 번째 CodeIgniter4 어플리케이션을 방금 완료하셨습니다!
 
-왼쪽에 있는 이미지는 프로젝트의 **app** 폴더를 표시하며, 녹색으로 생성한 모든 파일을 표시합니다.
+아래에 있는 이미지는 프로젝트의 **app** 폴더를 표시하며, 녹색으로 생성한 모든 파일을 표시합니다.
 수정된 두 구성 파일(Database & Routes)은 표시되지 않았습니다.
+
+.. image:: ../images/tutorial9.png
+    :align: left

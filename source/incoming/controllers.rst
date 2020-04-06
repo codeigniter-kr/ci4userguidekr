@@ -207,11 +207,11 @@ URI 세그먼트를 지정하지 않고 사이트를 탐색하면 "Hello World"�
 	{
 		if ($method === 'some_method')
 		{
-			$this->$method();
+			return $this->$method();
 		}
 		else
 		{
-			$this->default_method();
+			return $this->default_method();
 		}
 	}
 

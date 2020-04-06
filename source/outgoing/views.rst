@@ -201,7 +201,7 @@ PHP는 네임스페이스에 클래스가 아닌 파일 로드를 지원하지 �
 
 	echo view('blogview', $data, ['saveData' => true]);
 
-기본적으로 view 함수 호출 사이에 데이터를 저장하도록 하고 싶다면 **app/Config/Views.php**\ 의 ``$saveData``\의 값을 **true**\ 로 설정하십시오.
+**app/Config/Views.php** 의 ``$saveData``\ 를 ``true``\ 로 설정하면 옵션을 별도로 설정하지 않아도 뷰(view) 함수가 데이터를 유지합니다.
 
 루프(Loop) 만들기
 ======================

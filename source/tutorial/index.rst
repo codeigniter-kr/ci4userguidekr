@@ -47,9 +47,9 @@ CodeIgniter 프레임워크의 탐색을 즐기세요.
 
 ::
 
-    ➜ composer create-project codeigniter4/appstarter ci-blog -s rc
+    ➜ composer create-project codeigniter4/appstarter ci-news -s rc
 
-``vendor`` 폴더에 CodeIgniter가 설치되고 어플리케이션 코드가 포함된 ``ci-blog`` 라는 새 폴더가 생성됩니다.
+``vendor`` 폴더에 CodeIgniter가 설치되고 어플리케이션 코드가 포함된 ``ci-news`` 라는 새 폴더가 생성됩니다.
 
 기본적으로 CodeIgniter는 ``production`` 모드에서 시작됩니다.
 이 모드는 라이브 설정이 잘못되었을 때 사이트를 좀 더 안전하게 유지하기 위한 안전 모드입니다.

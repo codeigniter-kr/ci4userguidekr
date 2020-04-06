@@ -6,7 +6,7 @@
 
 이제 이 튜토리얼을 완료 했으므로 문서의 나머지 부분을 확인하십시오.
 CodeIgniter는 포괄적인 문서로 종종 칭찬을 받습니다.
-"소개(Introduction)"및 "일반 주제(General Topics)" 섹션을 자세히 읽으십시오.
+"개요(Overview)" 와 "일반 주제(General Topics)" 섹션을 자세히 읽으십시오.
 필요할 때는 클래스와 도우미(helper) 참조를 읽어야 합니다.
 
 모든 중급 PHP 프로그래머는 며칠 안에 CodeIgniter를 이해할 수 있어야 합니다.

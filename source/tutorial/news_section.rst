@@ -19,14 +19,14 @@
 
 ::
 
-	CREATE TABLE news (
-		id int(11) NOT NULL AUTO_INCREMENT,
-		title varchar(128) NOT NULL,
-		slug varchar(128) NOT NULL,
-		body text NOT NULL,
-		PRIMARY KEY (id),
-		KEY slug (slug)
-	);
+    CREATE TABLE news (
+        id int(11) NOT NULL AUTO_INCREMENT,
+        title varchar(128) NOT NULL,
+        slug varchar(128) NOT NULL,
+        body text NOT NULL,
+        PRIMARY KEY (id),
+        KEY slug (slug)
+    );
 
 관심사항: 웹과 관련하여 슬러그(slug)는 URL을 사용하여 리소스를 식별하고 설명하는데 사용되는 SEO 친화적인 짧은 텍스트입니다.
 
@@ -41,7 +41,10 @@
 데이터베이스에 연결
 -------------------------------------------------------
 
-CodeIgniter를 설치할 때 생성한 로컬 구성 파일 ``.env``\ 를 열어 데이터베이스 속성의 주석을 해제하고 사용하려는 데이터베이스에 맞게 설정하십시오.::
+CodeIgniter를 설치할 때 생성한 로컬 구성 파일 ``.env``\ 를 열어 데이터베이스 속성의 주석을 해제하고 사용하려는 데이터베이스에 맞게 설정하십시오.
+:doc:`여기 <../database/configuration>`\ 에 설명된 대로 데이터베이스를 올바르게 구성했는지 확인합니다.
+
+::
 
     database.default.hostname = localhost
     database.default.database = ci4tutorial
@@ -53,20 +56,22 @@ CodeIgniter를 설치할 때 생성한 로컬 구성 파일 ``.env``\ 를 열어
 -------------------------------------------------------
 
 컨트롤러에서 데이터베이스 작업을 바로 작성하는 대신 쿼리를 모델에 배치하면 나중에 쉽게 재사용 할 수 있습니다.
-모델은 데이터베이스 또는 다른 데이터 저장소에서 정보를 검색, 삽입 및 업데이트하는 장소입니다. 그들은 데이터에 대한 액세스를 제공합니다.
+모델은 데이터베이스 또는 다른 데이터 저장소에서 정보를 검색, 삽입 및 업데이트하는 장소이자, 데이터에 대한 액세스를 제공합니다.
+자세한 내용은 :doc:`여기 </models/model>`\ 를 참조하십시오.
 
 **app/Models/** 디렉터리에 **NewsModel.php**\ 라는 새 파일을 만들고 다음 코드를 추가하십시오.
 :doc:`여기 <../database/configuration>`\ 에 설명 된대로 데이터베이스를 올바르게 구성했는지 확인하십시오.
 
 ::
 
-	<?php namespace App\Models;
-	use CodeIgniter\Model;
+    <?php namespace App\Models;
+    
+    use CodeIgniter\Model;
 
-	class NewsModel extends Model
-	{
-		protected $table = 'news';
-	}
+    class NewsModel extends Model
+    {
+        protected $table = 'news';
+    }
 
 이 코드는 앞서 사용한 컨트롤러 코드와 비슷합니다.
 ``CodeIgniter\Model``\ 을 확장하여 새 모델을 만들고 데이터베이스 라이브러리를 로드합니다.
@@ -80,17 +85,17 @@ Model 클래스를 사용하면 Query Builder로 쉽게 작업 할 수 있으며
 
 ::
 
-	public function getNews($slug = false)
-	{
-		if ($slug === false)
-		{
-			return $this->findAll();
-		}
+    public function getNews($slug = false)
+    {
+        if ($slug === false)
+        {
+            return $this->findAll();
+        }
 
-		return $this->asArray()
-		             ->where(['slug' => $slug])
-		             ->first();
-	}
+        return $this->asArray()
+                ->where(['slug' => $slug])
+                ->first();
+    }
 
 이 코드를 사용하면 두 가지 다른 쿼리를 수행 할 수 있습니다.
 모든 뉴스 레코드를 얻거나, `slug <#>`_\ 를 통해 뉴스 항목을 얻을 수 있습니다.
@@ -106,30 +111,31 @@ Model 클래스를 사용하면 Query Builder로 쉽게 작업 할 수 있으며
 
 쿼리가 작성되었으므로 모델은 뉴스 항목을 사용자에게 표시할 뷰와 연결되어야 합니다.
 이는 앞서 만든 ``Pages`` 컨트롤러에서 할 수 있지만, 명확한 연결을 위해 새로운 ``News`` 컨트롤러를 정의합니다. 
-*app/Controllers/News.php*\ 로 새 컨트롤러를 생성하십시오.
+**app/Controllers/News.php**\ 로 새 컨트롤러를 생성하십시오.
 
 ::
 
-	<?php namespace App\Controllers;
-	use App\Models\NewsModel;
-	use CodeIgniter\Controller;
+    <?php namespace App\Controllers;
 
-	class News extends Controller
-	{
-		public function index()
-		{
-			$model = new NewsModel();
+    use App\Models\NewsModel;
+    use CodeIgniter\Controller;
 
-			$data['news'] = $model->getNews();
-		}
+    class News extends Controller
+    {
+        public function index()
+        {
+            $model = new NewsModel();
 
-		public function view($slug = null)
-		{
-			$model = new NewsModel();
+            $data['news'] = $model->getNews();
+        }
 
-			$data['news'] = $model->getNews($slug);
-		}
-	}
+        public function view($slug = null)
+        {
+            $model = new NewsModel();
+
+            $data['news'] = $model->getNews($slug);
+        }
+    }
 
 코드를 살펴보면 앞서 만든 파일과 비슷한 점이 있을 수 있습니다.
 첫째, 핵심 CodeIgniter 클래스인 ``Controller``\ 를 확장하여 몇 가지 도우미 메소드를 제공하며, 
@@ -140,21 +146,23 @@ Model 클래스를 사용하면 Query Builder로 쉽게 작업 할 수 있으며
 
 이제 데이터는 모델을 통해 컨트롤러에 검색되지만, 아직 아무것도 표시되지 않습니다.
 다음으로 해야할 일은 이 데이터를 뷰에 전달하는 것입니다. 
-``index()`` 메소드를 다음과 같이 수정하십시오.::
+``index()`` 메소드를 다음과 같이 수정하십시오.
 
-	public function index()
-	{
-		$model = new NewsModel();
+::
 
-		$data = [
-			'news'  => $model->getNews(),
-			'title' => 'News archive',
-		];
+    public function index()
+    {
+        $model = new NewsModel();
 
-		echo view('templates/header', $data);
-		echo view('news/overview', $data);
-		echo view('templates/footer');
-	}
+        $data = [
+            'news'  => $model->getNews(),
+            'title' => 'News archive',
+        ];
+
+        echo view('templates/header', $data);
+        echo view('news/overview', $data);
+        echo view('templates/footer', $data);
+    }
 
 위의 코드는 모델로부터 모든 뉴스를 가져와 변수에 할당합니다.
 title의 값은 ``$data['title']`` 요소에 할당되며 모든 데이터는 뷰로 전달됩니다.
@@ -163,28 +171,28 @@ title의 값은 ``$data['title']`` 요소에 할당되며 모든 데이터는 �
 
 ::
 
-	<h2><?= $title ?></h2>
+    <h2><?= esc($title); ?></h2>
 
-	<?php if (! empty($news) && is_array($news)) : ?>
+    <?php if (! empty($news) && is_array($news)) : ?>
 
-		<?php foreach ($news as $news_item): ?>
+        <?php foreach ($news as $news_item): ?>
 
-			<h3><?= $news_item['title'] ?></h3>
+            <h3><?= esc($news_item['title']); ?></h3>
 
-			<div class="main">
-				<?= $news_item['body'] ?>
-			</div>
-			<p><a href="<?= '/news/'.$news_item['slug'] ?>">View article</a></p>
+            <div class="main">
+                <?= esc($news_item['body']); ?>
+            </div>
+            <p><a href="/news/<?= esc($news_item['slug'], 'url'); ?>">View article</a></p>
 
-		<?php endforeach; ?>
+        <?php endforeach; ?>
 
-	<?php else : ?>
+    <?php else : ?>
 
-		<h3>No News</h3>
+        <h3>No News</h3>
 
-		<p>Unable to find any news for you.</p>
+        <p>Unable to find any news for you.</p>
 
-	<?php endif ?>
+    <?php endif ?>
 
 여기서, 각 뉴스 항목은 루프를 이용하여 사용자에게 표시됩니다.
 우리는 템플릿에 HTML과 PHP를 섞어 사용한 것을 볼 수 있습니다.
@@ -198,32 +206,42 @@ title의 값은 ``$data['title']`` 요소에 할당되며 모든 데이터는 �
 
 ::
 
-	public function view($slug = NULL)
-	{
-		$model = new NewsModel();
+    public function view($slug = NULL)
+    {
+        $model = new NewsModel();
 
-		$data['news'] = $model->getNews($slug);
+        $data['news'] = $model->getNews($slug);
 
-		if (empty($data['news']))
-		{
-			throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the news item: '. $slug);
-		}
+        if (empty($data['news']))
+        {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the news item: '. $slug);
+        }
 
-		$data['title'] = $data['news']['title'];
+        $data['title'] = $data['news']['title'];
 
-		echo view('templates/header', $data);
-		echo view('news/view', $data);
-		echo view('templates/footer');
-	}
+        echo view('templates/header', $data);
+        echo view('news/view', $data);
+        echo view('templates/footer', $data);
+    }
 
 매개 변수없이 ``getNews()`` 메소드를 호출하는 대신 ``$slug`` 변수가 전달되므로 특정 뉴스 항목을 반환합니다.
 이제 남은 것은 뷰를 만드는 일입니다. **app/Views/news/view.php** 파일에 다음 코드를 추가하세요.
 
 ::
 
-	<?php
-	echo '<h2>'.$news['title'].'</h2>';
-	echo $news['body'];
+    <h2><?= esc($news['title']); ?></h2>
+    <?= esc($news['body']); ?>
+
+.. note:: We are again using using **esc()** to help prevent XSS attacks.
+    But this time we also passed "url" as a second parameter. 
+    That's because attack patterns are different depending on the context in which the output is used. 
+    You can read more about it :doc:`here </general/common_functions>`.
+
+XSS 공격을 방지하기 위해 **esc()**\ 를 다시 사용하고 있습니다.
+하지만 이번에는 "url"\ 을 두 번째 매개 변수로 전달했습니다.
+이는 출력이 사용되는 상황에 따라 공격 패턴이 다르기 때문입니다.
+자세한 내용은  :doc:`여기 </general/common_functions>`\ 를 참조하십시오.
+
 
 라우팅
 -------------------------------------------------------
@@ -235,9 +253,9 @@ title의 값은 ``$data['title']`` 요소에 할당되며 모든 데이터는 �
 
 ::
 
-	$routes->get('news/(:segment)', 'News::view/$1');
-	$routes->get('news', 'News::index');
-	$routes->get('(:any)', 'Pages::showme/$1');
+    $routes->get('news/(:segment)', 'News::view/$1');
+    $routes->get('news', 'News::index');
+    $routes->get('(:any)', 'Pages::view/$1');
 
 브라우저를 "news" 페이지(예: ``localhost:8080/news``)로 지정하면 뉴스 항목 목록이 표시되며, 각 항목에는 기사 하나만 표시할 수 있는 링크가 제공됩니다.
 
