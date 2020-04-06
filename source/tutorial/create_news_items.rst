@@ -148,10 +148,6 @@ CodeIgniter 어플리케이션에 뉴스 항목을 추가하기 전에 **app/Con
     :height: 415px
     :width: 45%
 
-.. image:: ../images/tutorial9.png
-    :align: left
- 
-
 축하합니다
 -------------------------------------------------------
 
@@ -161,4 +157,4 @@ CodeIgniter 어플리케이션에 뉴스 항목을 추가하기 전에 **app/Con
 수정된 두 구성 파일(Database & Routes)은 표시되지 않았습니다.
 
 .. image:: ../images/tutorial9.png
-    :align: left
+    :align: center
