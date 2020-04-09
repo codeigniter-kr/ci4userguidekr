@@ -149,12 +149,13 @@ Filesystem 헬퍼
 .. php:function:: get_filenames($source_dir[, $include_path = FALSE])
 
 	:param	string	$source_dir: 디렉토리 경로
-	:param	bool	$include_path: 파일 이름의 일부로 경로를 포함할지 여부
+	:param	bool|null	$include_path: 파일 이름의 일부로 경로를 포함할지 여부; 경로가 없을때 ``false``, $source_dir인 경우 ``null``, 전체 경로일때 ``true``
+	:param	bool	$hidden: 숨겨진 파일 포함 여부 (마침표(.)로 시작하는 파일)
 	:returns:	파일 이름의 배열
 	:rtype:	array
 
 	서버 경로를 입력으로 사용하고 여기에 포함된 모든 파일의 이름이 포함된 배열을 반환합니다.
-	두 번째 매개 변수를 TRUE로 설정하여 파일 경로를 파일 이름에 선택적으로 추가할 수 있습니다.
+	상대 경로의 경우 두 번째 매개 변수를 'relative'\ 로 설정하거나, 전체 파일 경로를 비어 있지 않은 다른 값으로 설정하여 파일 이름에 선택적으로 파일 경로를 추가할 수 있습니다.
 
 	Example::
 
