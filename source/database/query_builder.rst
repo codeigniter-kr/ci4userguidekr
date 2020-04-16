@@ -408,7 +408,7 @@ selectMax()와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 �
 
 		$builder->like('title', 'match');
 		$builder->like('body', 'match');
-		// WHERE `title` LIKE '%match%' ESCAPE '!' AND  `body` LIKE '%match% ESCAPE '!'
+		// WHERE `title` LIKE '%match%' ESCAPE '!' AND  `body` LIKE '%match%' ESCAPE '!'
 
 	와일드카드(%)의 위치를 제어하려면 옵션으로 지정된 세 번째 인수를 사용합니다.
 	옵션은 'before', 'after', 'both'(기본값)입니다.

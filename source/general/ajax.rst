@@ -13,7 +13,7 @@ Fetch API 및 기타 JavaScript 라이브러리에서 ``X-Requested-With`` 헤�
 Fetch API
 =========
 
-::
+.. code-block:: javascript
 
     fetch(url, {
         method: "get",
@@ -31,7 +31,7 @@ jQuery
 이 헤더를 명시적으로 보내지 않아도 됩니다. 
 명시적으로 헤더를 보내야 할 경우가 있다면 다음과 같이 하십시오.
 
-::
+.. code-block:: javascript
 
     $.ajax({
         url: "your url",
@@ -44,7 +44,7 @@ VueJS
 
 VueJS에서 Axios를 사용한다면 다음 코드를 ``created`` 함수에 추가하면 됩니다.
 
-::
+.. code-block:: javascript
 
     axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -52,6 +52,6 @@ VueJS에서 Axios를 사용한다면 다음 코드를 ``created`` 함수에 추�
 React
 =====
 
-::
+.. code-block:: javascript
 
     axios.get("your url", {headers: {'Content-Type': 'application/json'}});

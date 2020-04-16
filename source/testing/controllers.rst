@@ -41,8 +41,8 @@
         public function testShowCategories()
         {
             $result = $this->withURI('http://example.com/categories')
-			    ->controller(\App\Controllers\ForumController::class)
-			    ->execute('showCategories');
+                           ->controller(\App\Controllers\ForumController::class)
+                           ->execute('showCategories');
 
             $this->assertTrue($result->isOK());
         }
@@ -83,8 +83,8 @@
     $config->appTimezone = 'America/Chicago';
 
     $results = $this->withConfig($config)
-                     ->controller(\App\Controllers\ForumController::class)
-                     ->execute('showCategories');
+                    ->controller(\App\Controllers\ForumController::class)
+                    ->execute('showCategories');
 
 다른 설정을 제공하지 않으면 어플리케이션의 앱 구성 파일이 사용됩니다.
 
@@ -98,8 +98,8 @@
     $request->setLocale($locale);
 
     $results = $this->withRequest($request)
-                     ->controller(\App\Controllers\ForumController::class)
-                     ->execute('showCategories');
+                    ->controller(\App\Controllers\ForumController::class)
+                    ->execute('showCategories');
 
 인스턴스를 제공하지 않으면 기본 어플리케이션 값을 가진 새로운 IncomingRequest 인스턴스가 컨트롤러로 전달됩니다.
 
@@ -112,8 +112,8 @@
     $response = new CodeIgniter\HTTP\Response(new Config\App());
 
     $results = $this->withResponse($response)
-                     ->controller(\App\Controllers\ForumController::class)
-                     ->execute('showCategories');
+                    ->controller(\App\Controllers\ForumController::class)
+                    ->execute('showCategories');
 
 Response를 제공하지 않으면 기본 어플리케이션 값을 가진 새 Response 인스턴스가 컨트롤러에 전달됩니다.
 
@@ -126,9 +126,9 @@ Response를 제공하지 않으면 기본 어플리케이션 값을 가진 새 R
     $logger = new CodeIgniter\Log\Handlers\FileHandler();
 
     $results = $this->withResponse($response)
-                    -> withLogger($logger)
-                     ->controller(\App\Controllers\ForumController::class)
-                     ->execute('showCategories');
+                    ->withLogger($logger)
+                    ->controller(\App\Controllers\ForumController::class)
+                    ->execute('showCategories');
 
 Logger를 제공하지 않으면 기본 어플리케이션 값을 가진 새 Logger 인스턴스가 컨트롤러에 전달됩니다..
 
@@ -141,8 +141,8 @@ Logger를 제공하지 않으면 기본 어플리케이션 값을 가진 새 Log
 ::
 
     $results = $this->withURI('http://example.com/forums/categories')
-                     ->controller(\App\Controllers\ForumController::class)
-                     ->execute('showCategories');
+                    ->controller(\App\Controllers\ForumController::class)
+                    ->execute('showCategories');
 
 뜻밖의 일을 피하려면 테스트할 때 항상 URI를 제공하는 것이 좋습니다.
 
@@ -157,8 +157,8 @@ Logger를 제공하지 않으면 기본 어플리케이션 값을 가진 새 Log
     $body = json_encode(['foo' => 'bar']);
 
     $results = $this->withBody($body)
-                     ->controller(\App\Controllers\ForumController::class)
-                     ->execute('showCategories');
+                    ->controller(\App\Controllers\ForumController::class)
+                    ->execute('showCategories');
 
 응답(Response) 확인
 =====================
@@ -173,8 +173,8 @@ Logger를 제공하지 않으면 기본 어플리케이션 값을 가진 새 Log
 ::
 
     $results = $this->withBody($body)
-                     ->controller(\App\Controllers\ForumController::class)
-                     ->execute('showCategories');
+                    ->controller(\App\Controllers\ForumController::class)
+                    ->execute('showCategories');
 
     if ($results->isOK())
     {
@@ -188,8 +188,8 @@ Logger를 제공하지 않으면 기본 어플리케이션 값을 가진 새 Log
 ::
 
     $results = $this->withBody($body)
-                     ->controller(\App\Controllers\ForumController::class)
-                     ->execute('showCategories');
+                    ->controller(\App\Controllers\ForumController::class)
+                    ->execute('showCategories');
 
     if ($results->isRedirect())
     {
@@ -203,8 +203,8 @@ Logger를 제공하지 않으면 기본 어플리케이션 값을 가진 새 Log
 ::
 
     $results = $this->withBody($body)
-                     ->controller(\App\Controllers\ForumController::class)
-                     ->execute('showCategories');
+                    ->controller(\App\Controllers\ForumController::class)
+                    ->execute('showCategories');
 
     $request = $results->request();
 
@@ -215,8 +215,8 @@ Logger를 제공하지 않으면 기본 어플리케이션 값을 가진 새 Log
 ::
 
     $results = $this->withBody($body)
-                     ->controller(\App\Controllers\ForumController::class)
-                     ->execute('showCategories');
+                    ->controller(\App\Controllers\ForumController::class)
+                    ->execute('showCategories');
 
     $response = $results->response();
 

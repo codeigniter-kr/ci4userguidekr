@@ -149,7 +149,7 @@ Test 클래스
 
     ob_start();
     $this->response->send();
-    $output = ob_get_clean(); // in case you want to check the adtual body
+    $output = ob_get_clean(); // 실체를 확인하고 싶을 경우
 
     $this->assertHeaderEmitted("Set-Cookie: foo=bar");
 
@@ -165,7 +165,7 @@ Note: 테스트 케이스는 `PHPunit에서 별도의 프로세스로 실행 <ht
 
     ob_start();
     $this->response->send();
-    $output = ob_get_clean(); // in case you want to check the adtual body
+    $output = ob_get_clean(); // 실체를 확인하고 싶을 경우
 
     $this->assertHeaderNotEmitted("Set-Cookie: banana");
 

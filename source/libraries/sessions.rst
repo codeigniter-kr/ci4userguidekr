@@ -310,7 +310,7 @@ CodeIgniter는 특정 만료 시간을 가지는 세션 데이터 "tempdata"도 
 
 flashdata와 마찬가지로 tempdata 변수는 CodeIgniter 세션 처리기에 의해 내부적으로 관리됩니다.
 
-기존 항목을 "tempdata"로 전환하려면 해당 키와 만료 시간 (초)을 ``mark_as_temp()`` 메소드에 전달하면 됩니다.
+기존 항목을 "tempdata"로 전환하려면 해당 키와 만료 시간 (초)을 ``markAsTempdata()`` 메소드에 전달하면 됩니다.
 
 ::
 

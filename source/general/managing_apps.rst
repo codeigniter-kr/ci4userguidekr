@@ -13,7 +13,7 @@
 
 ::
 
-	public $appDirectory = '/path/to/your/application';
+    public $appDirectory = '/path/to/your/application';
 
 ``Paths`` 구성 파일을 찾을 수 있도록 프로젝트 루트에서 두 개의 파일을 수정해야합니다: 
 
@@ -21,16 +21,16 @@
 
 ::
 
-        require 'app/Config/Paths.php';
-        // ^^^ Change this if you move your application folder
+    require 'app/Config/Paths.php';
+    // ^^^ Change this if you move your application folder
 
 
 - ``/public/index.php`` 파일의 16번째 행, webapp의 프론트 컨트롤러입니다.
 
 ::
 
-        $pathsPath = FCPATH . '../app/Config/Paths.php';
-        // ^^^ Change this if you move your application folder
+    $pathsPath = FCPATH . '../app/Config/Paths.php';
+    // ^^^ Change this if you move your application folder
 
 
 하나의 설치된 CodeIgniter로 여러 어플리케이션 실행하기
@@ -43,9 +43,9 @@
 
 ::
 
-	foo/app, public, tests and writable
-        bar/app/, public, tests and writable
-        codeigniter/system and docs
+    foo/app, public, tests and writable
+    bar/app/, public, tests and writable
+    codeigniter/system and docs
 
 여기에는 표준 어플리케이션 디렉토리와 ``public`` 폴더가 있고 이미 설치된 codeigniter 프레임워크를 공유하는 "foo"와 "bar"\ 라는 두개의 어플리케이션이 있습니다.
 

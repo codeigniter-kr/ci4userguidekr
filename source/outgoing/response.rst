@@ -115,7 +115,7 @@ HTTP 캐싱(Caching)
 ======================
 
 HTTP 사양에는 클라이언트(종종 웹 브라우저)가 결과를 캐시하는데 도움이 되는 도구가 내장되어 있습니다.
-올바르게 사용하면 아무것도 변경되지 않았기 때문에 클라이언트가 서버에 전혀 연결할 필요가 없음을 알리기 때문에 어플리케이션의 성능을 크게 향상시킬 수 있습니다.
+올바르게 사용되면 아무것도 변경되지 않았으므로 클라이언트에 서버에 연결할 필요가 없다는 사실을 알리기 때문에 애플리케이션의 성능이 크게 향상될 수 있습니다.
 
 이는 ``Cache-Control``\ 와 ``ETag`` 헤더를 통해 처리됩니다.
 이 안내서는 모든 캐시 헤더 기능을 완전히 소개하기에 적합한 곳은 아니지만 
@@ -129,7 +129,7 @@ HTTP 사양에는 클라이언트(종종 웹 브라우저)가 결과를 캐시�
 
 	$options = [
 		'max-age'  => 300,
-		's-maxage' => 900
+		's-maxage' => 900,
 		'etag'     => 'abcde',
 	];
 	$this->response->setCache($options);
@@ -182,22 +182,23 @@ CSP 지시문에 추가 항목을 추가하면 아래와 같이 차단 또는 �
 
 어플리케이션이 런타임중에 변경해야 하는 경우 ``$response->CSP``\ 를 통하여 인스턴스에 액세스 할 수 있습니다.
 이 클래스에는 설정해야 할 적절한 헤더 값에 매우 명확하게 매핑되는 많은 메소드가 있습니다.
-매개 변수의 다른 조합과 함께 예제가 아래에 표시되어 있지만 모두 지시문 이름 또는 배열을 허용합니다.
+아래 예제는 모두 지시어 이름과 일련의 매개 변수로 표시하지만 이들은 모두 배열을 허용합니다.
+
 
 ::
 
-	// specify the default directive treatment 
+	// 기본 지시문 처리 지정
 	$response->CSP->reportOnly(false); 
         
-	// specify the origin to use if none provided for a directive
+	// 지시문에 대해 제공된 것이 없는 경우 사용할 원점을 지정
 	$response->CSP->setDefaultSrc('cdn.example.com'); 
-	// specify the URL that "report-only" reports get sent to
+	// "report-only" 보고서가 전송될 URL을 지정
 	$response->CSP->setReportURI('http://example.com/csp/reports');
-	// specify that HTTP requests be upgraded to HTTPS
+	// HTTP 요청을 HTTPS로 업그레이드하도록 지정
 	$response->CSP->upgradeInsecureRequests(true);
 
-	// add types or origins to CSP directives
-	// assuming that the default treatment is to block rather than just report
+	// CSP 지시문에 유형 또는 출처 추가
+	// 기본 처리가 보고만 하는 것이 아니라 차단하는 것이라고 가정합니다.
 	$response->CSP->addBaseURI('example.com', true); // report only
 	$response->CSP->addChildSrc('https://youtube.com'); // blocked
 	$response->CSP->addConnectSrc('https://*.facebook.com', false); // blocked
@@ -213,7 +214,7 @@ CSP 지시문에 추가 항목을 추가하면 아래와 같이 차단 또는 �
 	$response->CSP->addStyleSrc('css.example.com');
 	$response->CSP->addSandbox(['allow-forms', 'allow-scripts']);
 
-각 "add" 메소드에 대한 첫 번째 매개 변수는 적절한 문자열 또는 그 배열입니다.
+각 "add" 메소드에 대한 첫 번째 매개 변수는 적절한 문자열 또는 배열입니다.
 
 ``reportOnly`` 메소드를 사용하면 재정의하지 않는 한 후속 소스에 대한 기본 보고 처리를 지정할 수 있습니다.
 예를 들어 youtube.com을 허용하도록 지정한 다음, 허용되지만 보고하는 다른 소스를 여러 개 제공할 수 있습니다.

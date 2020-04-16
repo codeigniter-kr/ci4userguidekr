@@ -77,7 +77,7 @@ CodeIgniter의 CLI 라이브러리를 사용하면 다음을 포함하여 대화
 
 	CLI::write('The rain in Spain falls mainly on the plains.');
 
-첫 번째 매개 변수로 색상 이름을 전달하여 텍스트 색상을 변경할 수 있습니다
+두 번째 매개 변수로 색상 이름을 전달하여 텍스트 색상을 변경할 수 있습니다
 
 ::
 

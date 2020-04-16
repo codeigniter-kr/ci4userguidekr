@@ -171,9 +171,9 @@
 
 ::
 
-	$query->getUnbufferedRow();		    // object
-	$query->getUnbufferedRow('object');	// object
-	$query->getUnbufferedRow('array');	// associative array
+	$query->getUnbufferedRow();         // object
+	$query->getUnbufferedRow('object'); // object
+	$query->getUnbufferedRow('array');  // associative array
 
 *********************
 사용자 정의 결과 객체
@@ -250,7 +250,7 @@ Example::
 
 	if (isset($row))
 	{
-		echo $row->email;   // access attributes
+		echo $row->email;                 // access attributes
 		echo $row->last_login('Y-m-d');   // access class methods
 	}
 

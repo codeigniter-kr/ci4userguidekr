@@ -117,8 +117,8 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
 	::
 
 		$str = [
-			'question' => 'Is your name O\'reilly?',
-			'answer'   => 'No, my name is O\'connor.'
+			'question' => "Is your name O\'reilly?",
+			'answer'   => "No, my name is O\'connor."
 		];
 
 		$str = strip_slashes($str);
@@ -147,14 +147,14 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
 	::
 
 		$string = "Fred, Bill,, Joe, Jimmy";
-		$string = reduce_multiples($string,","); //results in "Fred, Bill, Joe, Jimmy"
+		$string = reduce_multiples($string, ","); //results in "Fred, Bill, Joe, Jimmy"
 
 	세 번째 매개 변수가 TRUE로 설정되면 문자열의 시작과 끝에 있는 문자가 제거됩니다.
 	
 	::
 
 		$string = ",Fred, Bill,, Joe, Jimmy,";
-		$string = reduce_multiples($string, ", ", TRUE); //results in "Fred, Bill, Joe, Jimmy"
+		$string = reduce_multiples($string, ", ", TRUE); // results in "Fred, Bill, Joe, Jimmy"
 
 .. php:function:: quotes_to_entities($str)
 

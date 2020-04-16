@@ -72,6 +72,18 @@ The Form Helper file contains functions that assist in working with forms.
 
 		<form method="post" accept-charset="utf-8" action="http://example.com/index.php/email/send">
 
+	다음과 같이 {locale}\ 을 추가할 수 있습니다
+	
+	::
+
+		echo form_open('{locale}/email/send');
+
+	위의 예에서는 기본 URL과 "email/send" URI 세그먼트가 있는 현재 요청 로케일(locale)을 가리키는 양식(form)을 만듭니다.
+
+	::
+
+		<form method="post" accept-charset="utf-8" action="http://example.com/index.php/en/email/send">
+
 	**Adding Attributes**
 
 		아래와 같이 두 번째 매개 변수에 연관 배열을 전달하여 속성을 추가할 수 있습니다.
@@ -88,22 +100,22 @@ The Form Helper file contains functions that assist in working with forms.
 			echo form_open('email/send', 'class="email" id="myform"');
 
 		위의 예제는 이와 비슷한 형식을 만듭니다.
-		
+
 		::
 
 			<form method="post" accept-charset="utf-8" action="http://example.com/index.php/email/send" class="email" id="myform">
-			
+
 		CSRF 필터가 켜져 있으면 `form_open()` 은 폼의 시작 부분에 CSRF 필드를 생성합니다.
-		csrf_id를 $attribute 배열 중 하나로 전달하여 이 필드의 ID를 지정할 수 있습니다.
+		csrf_id를 $attribute 배열중 하나로 전달하여 이 필드의 ID를 지정할 수 있습니다.
 
 		::
-		
+
 			form_open('/u/sign-up', ['csrf_id' => 'my-id']);
-			
+
 		다음과 같이 표시됩니다.
-		
+
 		::
-		
+
 			<form action="/u/sign-up" method="post" accept-charset="utf-8">
 			<input type="hidden" id="my-id" name="csrf_field" value="964ede6e0ae8a680f7b8eab69136717d" />
 
