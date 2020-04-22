@@ -23,7 +23,7 @@ CodeIgniter를 처음 사용하는 경우 사용자 가이드의 :doc:`Getting S
 production 환경(environment)에서 취해야 할 한 가지 추가 조치는 PHP 오류 보고 및 기타 개발 전용 기능을 비활성화하는 것입니다.
 이것은 CodeIgniter의 :doc:`environments page </general/environments>`\ 에 자세히 설명된 ``ENVIRONMENT`` 상수로 설정할 수 있습니다.
 기본적으로 어플리케이션은 "production" 환경을 사용하여 실행됩니다.
-제공된 디버깅 도구를 사용하려면 환경을 "develop"로 설정해야 합니다.
+제공된 디버깅 도구를 사용하려면 환경을 "development"\ 로 설정해야 합니다.
 
 .. note:: 웹 서버(예: Apache 또는 Nginx)를 사용하여 사이트를 실행할때는 
     프로젝트 내의 ``writable`` 폴더에 대한 사용 권한을 수정하여 웹 서버에서 쓰기 가능하도록 해야 합니다.

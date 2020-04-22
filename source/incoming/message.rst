@@ -69,8 +69,8 @@ Class Reference
 
 		:param  string  $name: 값을 검색하려는 헤더의 이름입니다.
 		:param  int  $filter: 적용 할 필터 유형입니다. 필터 목록은 `여기 <https://www.php.net/manual/en/filter.filters.php>`_\ 에서 찾을 수 있습니다.
-		:returns: 헤더의 현재 값. 헤더에 여러 값이 있는 경우 배열로 반환됩니다.
-		:rtype: string|array|null
+		:returns: 단일 헤더 객체를 반환합니다. 동일한 이름을 가진 여러 헤더가 존재하면 헤더 객체 배열을 반환합니다.
+		:rtype: \CodeIgniter\HTTP\Header|array
 
 		단일 메시지 헤더의 현재 값을 검색할 수 있습니다.
 		``$name``\ 는 대소문자를 구분하지 않는 헤더 이름입니다.
@@ -83,18 +83,27 @@ Class Reference
 			$message->getHeader('Host');
 			$message->getHeader('host');
 
-		헤더에 값이 여러 개 있을 경우 값은 값의 배열로 반환됩니다.
-		``headerLine()`` 메소드를 사용하여 값을 문자열로 검색할 수 있습니다.
+		헤더에 값이 여러 개일 경우 ``getValue()``\ 는 값의 배열로 반환됩니다.
+		``getValueLine()`` 메소드를 사용하여 값을 문자열로 검색할 수 있습니다
 		
 		::
 
 			echo $message->getHeader('Accept-Language');
 
 			// Outputs something like:
+			'Accept-Language: en,en-US'
+
+			echo $message->getHeader('Accept-Language')->getValue();
+
+			// Outputs something like:
 			[
 				'en',
 				'en-US'
 			]
+			echo $message->getHeader('Accept-Language')->getValueLine();
+
+			// Outputs something like:
+			'en,en-US'
 
 		두 번째 매개 변수로 필터값을 전달하여 헤더를 필터링할 수 있습니다.
 		
@@ -102,19 +111,19 @@ Class Reference
 
 			$message->getHeader('Document-URI', FILTER_SANITIZE_URL);
 
-	.. php:method:: headerLine($name)
+	.. php:method:: getHeaderLine($name)
 
 		:param  string $name: 검색 할 헤더의 이름
 		:returns: 헤더 값을 나타내는 문자열
 		:rtype: string
 
 		헤더의 값을 문자열로 반환합니다.
-		이 메소드를 사용하면 헤더에 여러 값이 있을 때 헤더 값의 문자열을 쉽게 얻을 수 있습니다.
-		여러개의 값은 적절하게 연결됩니다.
+		이 메소드를 사용하면 헤더에 여러 개의 값이 있을 때 헤더 값의 문자열을 쉽게 얻을 수 있습니다.
+		여러 개의 값은 적절하게 연결됩니다.
 		
 		::
 
-			echo $message->headerLine('Accept-Language');
+			echo $message->getHeaderLine('Accept-Language');
 
 			// Outputs:
 			en, en-US

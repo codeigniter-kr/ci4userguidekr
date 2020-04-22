@@ -126,7 +126,17 @@ For example, let's say you want to create a file containing error messages.
 
 ::
 
-        'language_key' => 'The actual message to be shown.'
+    'language_key' => 'The actual message to be shown.'
+
+또한 중첩된 정의(define)를 지원합니다.
+
+::
+
+    'language_key' => [
+        'nested' => [
+            'key' => 'The actual message to be shown.'
+        ],
+    ],
 
 .. note:: 지정된 파일의 모든 메시지에 공통 접두사를 사용하여 다른 파일의 비슷한 이름의 항목과 충돌을 피하는 것이 좋습니다.
     예를 들어, 오류 메시지를 작성하는 경우 접두어에 ``error_``\ 를 붙일수 있습니다.
@@ -137,6 +147,11 @@ For example, let's say you want to create a file containing error messages.
         'errorEmailMissing'    => 'You must submit an email address',
         'errorURLMissing'      => 'You must submit a URL',
         'errorUsernameMissing' => 'You must submit a username',
+        'nested'             => [
+            'error' => [
+                'message' => 'A specific error message',
+            ],
+        ],
     ];
 
 기본 사용법
@@ -149,8 +164,14 @@ For example, let's say you want to create a file containing error messages.
 
     echo lang('Errors.errorEmailMissing');
 
-요청된 언어 키가 현재 로케일의 파일에 없으면 문자열이 변경되지 않고 다시 전달됩니다.
-이 예에서 'Errors.errorEmailMissing'이 없으면 이를 반환합니다.
+중첩하여 정의한 경우 다음과 같이합니다.
+
+::
+
+    echo lang('Errors.nested.error.message');
+
+요청된 언어 키가 현재 로케일의 파일에 없으면 문자열이 변경되지 않고 키가 다시 전달됩니다.
+이 예에서 정의된 키가 없으면 'Errors.errorEmailMissing'\ 이나 'Errors.nested.error.message'\ 을 반환합니다.
 
 매개 변수 교체
 --------------------
