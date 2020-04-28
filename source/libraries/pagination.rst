@@ -95,6 +95,33 @@ CodeIgniter의 다른 서비스와 마찬가지로 ``Config\Services``\ 를 통�
     <?= $pager->links('group1') ?>
     <?= $pager->simpleLinks('group2') ?>
 
+페이지 수동 설정
+=====================
+
+반환할 결과 페이지를 지정해야 하는 경우 페이지를 세 번째 인수로 지정할 수 있습니다. 
+표시할 페이지를 제어하기 위해 기본 $_GET 변수와 다른 방법을 사용할 때 유용합니다.
+
+::
+
+     $userModel = new \App\Models\UserModel();
+     $page = 3;
+
+     $users = $userModel->paginate(10, 'group1', $page);
+
+페이지의 URI 세그먼트 지정
+===================================
+
+페이지 쿼리 매개 변수 대신 페이지 번호에 URI 세그먼트를 사용할 수 있습니다. 
+네 번째 인수로 사용할 세그먼트 번호를 지정하십시오.
+생성된 URI는 *https://domain.tld/model?page=[pageNumber]* 대신 *https://domain.tld/model/[pageNumber]*\ 로 표시됩니다.
+
+::
+
+    $users = $userModel->paginate(10, 'group1', null, 3);
+
+.. note:: ``$segment`` 값은 URI 세그먼트 수에 1을 더한 값보다 클 수 없습니다.
+
+
 수동 페이지네이션
 ====================
 

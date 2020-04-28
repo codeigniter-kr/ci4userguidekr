@@ -194,8 +194,8 @@ $useTimestamps 및 $useSoftDeletes와 함께 작동하여 올바른 유형의 �
 **$afterInsert**
 **$beforeUpdate**
 **$afterUpdate**
-**afterFind**
-**afterDelete**
+**$afterFind**
+**$afterDelete**
 
 이 속성들은 콜백 메소드를 지정할 때 사용되며, 콜백은 속성 이름이 뜻하는 시점에 호출됩니다.
 

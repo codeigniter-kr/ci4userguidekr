@@ -32,10 +32,10 @@ CodeIgniter 오토로더는 네임스페이스가 없는 개별 클래스, `PSR4
 이것은 비즈니스 로직 관련 클래스, 엔티티 클래스등에 가장 중요합니다.
 구성 파일의 ``psr4`` 배열을 사용하면 네임스페이스를 해당 클래스가 있는 디렉토리에 매핑 할 수 있습니다.::
 
-	$psr4 = [
-		'App'         => APPPATH,
-		'CodeIgniter' => SYSTEMPATH,
-	];
+    $psr4 = [
+        'App'         => APPPATH,
+        'CodeIgniter' => SYSTEMPATH,
+    ];
 
 각 배열 행의 키는 네임스페이스이며, 슬래시가 필요하지 않습니다.
 배열의 키를 정의할 때 큰따옴표(")를 사용한다면 백 슬래시(\\)를 사용할 때 주의하십시오.
@@ -46,12 +46,12 @@ CodeIgniter 오토로더는 네임스페이스가 없는 개별 클래스, `PSR4
 어플리케이션 디렉토리의 컨트롤러, 라이브러리 또는 모델의 네임스페이스를 지정하지 않을 경우 ``App`` 네임스페이스 아래 위치합니다.
 **/app/Config/Constants.php** 파일의 ``APP_NAMESPACE``\ 를 수정하면 이 네임스페이스를 변경할 수 있습니다.::
 
-	define('APP_NAMESPACE', 'App');
+    define('APP_NAMESPACE', 'App');
 
 이렇게 할 경우 현재 네임스페이스를 참조하는 기존 파일을 모두 수정해야 합니다.
 
 .. important:: 구성(config) 파일의 네임스페이스는 ``App\Config``\ 가 아니라 ``Config``\ 입니다.
-	따라서 어플리케이션 네임스페이스가 변경된 경우에도 코어 시스템 파일은 항상 찾을 수 있습니다.
+    따라서 어플리케이션 네임스페이스가 변경된 경우에도 코어 시스템 파일은 항상 찾을 수 있습니다.
 
 클래스 맵
 ===========
@@ -59,9 +59,9 @@ CodeIgniter 오토로더는 네임스페이스가 없는 개별 클래스, `PSR4
 CodeIgniter의 클래스 맵은  파일 시스템의 충돌을 피하고자 ``is_file()``\ 을 사용하므로 시스템의 성능을 최대로 끌어올릴 수 있습니다.
 클래스 맵을 사용하여 네임스페이스가 없는 타사 라이브러리에 연결할 수 있습니다.::
 
-	$classmap = [
-		'Markdown' => APPPATH .'third_party/markdown.php'
-	];
+    $classmap = [
+        'Markdown' => APPPATH .'third_party/markdown.php'
+    ];
 
 각 행의 키는 찾으려는 클래스의 이름입니다. 값은 위치를 지정하는 경로입니다.
 
@@ -77,7 +77,7 @@ Composer 지원
 ================
 
 Composer 지원은 기본적으로 자동 초기화됩니다.
-기본적으로 ``ROOTPATH``\ 에서 Composer의 오토로드('vendor/autolload.php') 파일을 찾습니다. 
-해당 파일의 위치를 ​​변경해야 한다면 ``Config\Constants.php``\ 에 정의 된 값을 수정할 수 있습니다.
+기본적으로 ``ROOTPATH.'vendor/autolload.php'``\ 에서 Composer의 오토로드 파일을 찾습니다. 
+해당 파일의 위치를 ​​변경해야 한다면 ``Config\Constants.php``\ 에 정의된 값을 수정합니다.
 
 .. note:: CodeIgniter와 Composer에 동일한 네임스페이스가 정의되어 있다면 CodeIgniter의 오토로더에게 우선권이 부여됩니다.

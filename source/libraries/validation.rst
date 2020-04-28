@@ -502,6 +502,33 @@ Validation 클래스의 좋은 기능은 어플리케이션 전체에 대한 모
 
 .. note:: 마지막 매개 변수를 전달하면, 레이블에 지정된 스타일 오류 메시지는 무시됩니다.
 
+메시지 및 유효성 검사 레이블 변환
+=============================================
+
+언어 파일에서 변환된 문자열을 사용하려면 점 구문을 사용하면 됩니다. 
+``app/Language/en/Rules.php``\ 에 번역본이 있는 파일이 있다고 가정해 보겠습니다. 
+이 파일에 정의된 언어 라인을 다음과 같이 간단히 사용할 수 있습니다.
+
+::
+
+    $validation->setRules([
+            'username' => [
+                'label'  => 'Rules.username',
+                'rules'  => 'required|is_unique[users.username]',
+                'errors' => [
+                    'required' => 'Rules.username.required'
+                ]
+            ],
+            'password' => [
+                'label'  => 'Rules.password',
+                'rules'  => 'required|min_length[10]',
+                'errors' => [
+                    'min_length' => 'Rules.password.min_length'
+                ]
+            ]
+        ]
+    );
+
 모든 오류 얻기
 ==================
 

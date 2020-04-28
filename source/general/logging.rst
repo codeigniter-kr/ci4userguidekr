@@ -12,21 +12,25 @@
 
 ::
 
-	if ($some_var == '')
-	{
-		log_message('error', 'Some variable did not contain a value.');
-	}
+    if ($some_var == '')
+    {
+        log_message('error', 'Some variable did not contain a value.');
+    }
 
 `RFC 5424 <https://tools.ietf.org/html/rfc5424>`_ 레벨과 일치하는 8가지 로그 레벨이 있으며 다음과 같습니다.
 
-* **debug** - 자세한 디버그 정보.
-* **info** - 사용자 로그인, SQL 쿼리 로깅 등과 같은 어플리케이션의 흥미로운 이벤트.
-* **notice** - 어플리케이션에서 정상이지만 중요한 이벤트.
-* **warning** - 사용되지 않거나, 잘못된 API 사용과 같이 오류는 아니지만 바람직하지 않은 결과를 초래하는 예외 발생.
-* **error** - 즉각적인 조치가 필요하지 않지만 일반적으로 기록 및 모니터링되어야하는 런타임 오류.
-* **critical** - 어플리케이션 구성 요소를 사용할 수 없거나 예기치 않은 예외와 같은 중요한 조건.
-* **alert** - 전체 웹 사이트가 다운되거나 데이터베이스를 사용할 수 없는 경우등 즉시 조치를 취해야 하는 경우.
-* **emergency** - 시스템 사용 불가.
+=========== ==================================================================
+Level       Description
+=========== ==================================================================
+debug       자세한 디버그 정보
+info        사용자 로그인, SQL 쿼리 로깅 등과 같은 어플리케이션의 흥미로운 이벤트
+notice      어플리케이션에서 정상이지만 중요한 이벤트
+warning     사용되지 않는 API 사용, API 사용 불량 또는 반드시 잘못된 것은 아니지만 다른 바람직하지 않은 오류와 같은 예외 발생
+error       즉각적인 조치가 필요하지 않지만 일반적으로 기록 및 모니터링되어야하는 런타임 오류
+critical    어플리케이션 구성 요소를 사용할 수 없거나 예기치 않은 예외와 같은 중요한 조건
+alert       전체 웹 사이트가 다운되거나 데이터베이스를 사용할 수 없는 경우등 즉시 조치를 취해야 하는 경우
+emergency   시스템 사용 불가
+=========== ==================================================================
 
 로깅 시스템은 시스템 관리자 또는 웹 마스터에게 이러한 이벤트에 대해 경고하는 방법을 제공하지 않으며 정보만 기록합니다.
 보다 중요한 여러 이벤트 수준의 경우 위에서 설명한 오류 처리기가 로깅을 자동으로 수행합니다.
@@ -44,7 +48,7 @@
 
 ::
 
-	public $threshold = 5;
+    public $threshold = 5;
 
 전체 레벨 목록과 해당 ``threshold`` 값은 참조용 구성 파일에 있습니다.
 
@@ -52,8 +56,8 @@
 
 ::
 
-	// Log only debug and info type messages
-	public $threshold = [5, 8];
+    // Log only debug and info type messages
+    public $threshold = [5, 8];
 
 다중 로그 처리기 사용
 ---------------------------
@@ -73,17 +77,17 @@ Each handler is specified with the key being the fully name-spaced class name.
 
 ::
 
-	public $handlers = [
+    public $handlers = [
 
-		//--------------------------------------------------------------------
-		// File Handler
-		//--------------------------------------------------------------------
+        //--------------------------------------------------------------------
+        // File Handler
+        //--------------------------------------------------------------------
 
-		'CodeIgniter\Log\Handlers\FileHandler' => [
+        'CodeIgniter\Log\Handlers\FileHandler' => [
 
-			'handles' => ['critical', 'alert', 'emergency', 'debug', 'error', 'info', 'notice', 'warning'],
-		]
-	];
+            'handles' => ['critical', 'alert', 'emergency', 'debug', 'error', 'info', 'notice', 'warning'],
+        ]
+    ];
 
 컨텍스트를 사용하여 메시지 수정
 ==================================
@@ -96,13 +100,13 @@ Each handler is specified with the key being the fully name-spaced class name.
 
 ::
 
-	// Generates a message like: User 123 logged into the system from 127.0.0.1
-	$info = [
-		'id' => $user->id,
-		'ip_address' => $this->request->ip_address()
-	];
+    // Generates a message like: User 123 logged into the system from 127.0.0.1
+    $info = [
+        'id' => $user->id,
+        'ip_address' => $this->request->ip_address()
+    ];
 
-	log_message('info', 'User {id} logged into the system from {ip_address}', $info);
+    log_message('info', 'User {id} logged into the system from {ip_address}', $info);
 
 예외 또는 오류를 기록할 때 'exception' 키와 값을 예외 또는 오류 자체로 사용할 수 있습니다.
 오류 메시지, 파일 이름 및 줄 번호가 포함 된 개체에서 문자열이 생성됩니다.
@@ -110,14 +114,14 @@ Each handler is specified with the key being the fully name-spaced class name.
 
 ::
 
-	try
-	{
-		... Something throws error here
-	}
-	catch (\Exception $e)
-	{
-		log_message('error', '[ERROR] {exception}', ['exception' => $e]);
-	}
+    try
+    {
+        ... Something throws error here
+    }
+    catch (\Exception $e)
+    {
+        log_message('error', '[ERROR] {exception}', ['exception' => $e]);
+    }
 
 현재 페이지 요청에 따라 자동으로 확장되는 몇 가지 핵심 자리 표시자가 있습니다.
 

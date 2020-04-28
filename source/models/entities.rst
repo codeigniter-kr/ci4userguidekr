@@ -100,7 +100,7 @@ Entity 클래스 작업
     $userModel->save($user);
 
     // Create
-    $user = new App\Entities\User();
+    $user = new \App\Entities\User();
     $user->username = 'foo';
     $user->email    = 'foo@example.com';
     $userModel->save($user);
@@ -122,7 +122,7 @@ Entity 클래스는 키/값 쌍 배열을 클래스에 전달하여 클래스 �
 
     $data = $this->request->getPost();
 
-    $user = new App\Entities\User();
+    $user = new \App\Entities\User();
     $user->fill($data);
     $userModel->save($user);
 
@@ -132,7 +132,7 @@ Entity 클래스는 키/값 쌍 배열을 클래스에 전달하여 클래스 �
 
     $data = $this->request->getPost();
 
-    $user = new App\Entities\User($data);
+    $user = new \App\Entities\User($data);
     $userModel->save($user);
 
 비즈니스 로직 처리
@@ -292,7 +292,7 @@ Time 클래스는 변하지 않고, 지역화된 방식으로 많은 유용한 �
 
 ::
 
-    $user = new App\Entities\User();
+    $user = new \App\Entities\User();
 
     // Converted to Time instance
     $user->created_at = 'April 15, 2017 10:30:00';

@@ -77,6 +77,16 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
 	자세한 내용은 :doc:`Localization </outgoing/localization>` 페이지를 참조하십시오.
 
+.. php:function:: model($name [, $getShared = true [, &$conn = null ]])
+
+    :param string                   $name:
+    :param boolean                  $getShared:
+    :param ConnectionInterface|null $conn:
+    :returns: Model instance
+    :rtype: mixed
+
+	모델 인스턴스를 얻는 간단한 방법
+
 .. php:function:: old( $key[, $default = null, [, $escape = 'html' ]] )
 
 	:param string $key: 확인할 이전 양식 데이터의 이름
@@ -156,9 +166,29 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
 	자세한 내용은 :doc:`뷰 </outgoing/views>` 페이지를 참조하십시오.
 
+.. php:function:: view_cell($library [, $params = null [, $ttl = 0 [, $cacheName = null]]])
+
+    :param string      $library:
+    :param null        $params:
+    :param integer     $ttl:
+    :param string|null $cacheName:
+    :returns: HTML chunks
+    :rtype: string
+
+	뷰 셀은 다른 클래스에서 관리하는 HTML 청크를 삽입하기 위해 뷰 내에서 사용됩니다.
+
+	자세한 내용은 :doc:`뷰 셀 </outgoing/view_cells>` 페이지를 참조하십시오.
 
 기타 기능
 =======================
+
+.. php:function:: app_timezone()
+
+    :returns: 어플리케이션이 날짜를 표시하도록 설정된 시간대
+    :rtype: string
+
+    어플리케이션이 날짜를 표시하도록 설정된 시간대를 반환합니다.
+
 
 .. php:function:: csrf_token()
 
@@ -213,6 +243,18 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 	HTTPS를 통해 액세스 되고 있다면 아무 일도 일어나지 않습니다. 
 	그렇지 않은 경우 사용자는 HTTPS를 통해 현재 URI로 다시 리디렉션됩니다.
 	HTTP Strict Transport Security 헤더를 설정하여 최신 브라우저가 HTTP 요청을 $duration에 대한 HTTPS 요청으로 자동 수정하도록 지시합니다.
+
+.. php:function:: function_usable( $function_name )
+
+    :param string $function_name: 함수 확인
+    :returns: 함수가 존재하여 호출해도 안전한 경우 TRUE, 그렇지 않으면 FALSE
+    :rtype: bool
+
+.. php:function:: is_really_writable ( $file )
+
+    :param string $file: 확인할 파일명
+    :returns: 파일에 쓸 수 있으면 TRUE, 그렇지 않으면 FALSE
+    :rtype: bool
 
 .. php:function:: is_cli()
 
@@ -311,6 +353,14 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
 	이 함수에 대한 모든 호출이 클래스의 새 인스턴스를 반화한다는 점을 제외하고 위에서 설명한 **service()** 함수와 동일합니다. 
 	**service**\ 는 매번 동일한 인스턴스를 리턴합니다.
+
+.. php:function:: slash_item ( $item )
+
+    :param string $item: Config item명
+    :returns: Config 항목(Item)이 없는 경우 NULL
+    :rtype:  string|null
+
+	슬래시가 추가된 구성(Config) 파일 항목을 가져옵니다. (값이 있는 경우)
 
 .. php:function:: stringify_attributes( $attributes [, $js] )
 

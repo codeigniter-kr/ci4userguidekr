@@ -77,30 +77,30 @@ Examples
 
 다음은 기본적인 몇 가지 라우팅 예입니다.
 
-::
-
-	$routes->add('journals', 'App\Blogs');
-
 첫 번째 세그먼트에 "journals"\ 라는 단어가 포함된 URL은 "App\Blogs" 클래스의 기본 메소드인 ``index()``\ 로 매핑됩니다.
 
 ::
 
-	$routes->add('blog/joe', 'Blogs::users/34');
+	$routes->add('journals', 'App\Blogs');
 
 "blog/joe" 세그먼트가 포함된 URL은 "\Blogs" 클래스의 "users" 메소드로 매핑됩니다. ID는 "34"로 설정됩니다.
 
 ::
 
-	$routes->add('product/(:any)', 'Catalog::productLookup');
+	$routes->add('blog/joe', 'Blogs::users/34');
 
 첫 번째 세그먼트가 "product"\ 이고 두 번째 세그먼트가 있는 URL은 "\Catalog" 클래스의 "productLookup" 메소드로 매핑됩니다.
 
 ::
 
-	$routes->add('product/(:num)', 'Catalog::productLookupByID/$1';
+	$routes->add('product/(:any)', 'Catalog::productLookup');
 
 첫 번째 세그먼트가 "product"\ 이고 두 번째로 숫자가 있는 URL은 "\Catalog" 클래스의 "productLookupByID" 메소드로 매핑되고, 
 두 번째 세그먼트의 숫자를 메소드 변수에 전달합니다.
+
+::
+
+	$routes->add('product/(:num)', 'Catalog::productLookupByID/$1';
 
 .. important:: ``add()`` 메소드는 편리하지만 아래 설명된 HTTP 동사 기반 경로(route)를 사용하십시오. 더 안전하며, 경로와 일치하는 항목을 찾을때 
 	요청(request) 방법을 이용해 검색해야 할 경로가 적어지므로 성능이 약간 향상됩니다.

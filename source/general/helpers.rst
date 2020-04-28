@@ -27,7 +27,7 @@ CodeIgniter는 기본적으로 헬퍼 파일을 로드(load)하지 않으므로 
 
 ::
 
-	helper('name');
+    helper('name');
 
 여기서 **name**\ 은 .php 파일 확장자 부분이 없는 "헬퍼"\ 의 파일 이름입니다.
 
@@ -35,13 +35,13 @@ CodeIgniter는 기본적으로 헬퍼 파일을 로드(load)하지 않으므로 
 
 ::
 
-	helper('cookie');
+    helper('cookie');
 
 한 번에 둘 이상의 헬퍼를 로드해야 하는 경우 파일 이름 배열을 전달하면 모든 파일이 로드됩니다.
 
 ::
 
-	helper(['cookie', 'date']);
+    helper(['cookie', 'date']);
 
 헬퍼를 사용하기 위해 컨트롤러 메소드(또는 좋지는 않지만 뷰 파일 내에서도)의 어느 위치에서도 로드할 수 있습니다.
 모든 함수에서 자동으로 사용 가능하도록 헬퍼를 컨트롤러 생성자(_construct)에서 로드하거나, 필요한 특정 함수에서도 헬퍼를 로드할 수 있습니다.
@@ -65,10 +65,10 @@ Autoloader 구성 파일의 PSR-4 섹션에 네임스페이스를 설정하면 *
 
 ::
 
-	helper('Modules\Blog\blog');
+    helper('Modules\Blog\blog');
 
 .. note:: 이러한 방식으로 로드된 파일내의 함수는 실제로 네임스페이스가 아닙니다.
-		네임스페이스는 단순히 파일을 찾기 위한 방법으로 사용됩니다.
+        네임스페이스는 단순히 파일을 찾기 위한 방법으로 사용됩니다.
 
 헬퍼 사용하기
 ==============
@@ -79,7 +79,7 @@ Autoloader 구성 파일의 PSR-4 섹션에 네임스페이스를 설정하면 *
 
 ::
 
-	<?php echo anchor('blog/comments', 'Click Here');?>
+    <?php echo anchor('blog/comments', 'Click Here');?>
 
 여기서 "Click Here"\ 는 링크의 이름이고 "blog/comments"\ 은 링크하려는 컨트롤러/메소드의 URI입니다.
 
@@ -96,28 +96,28 @@ Autoloader 구성 파일의 PSR-4 섹션에 네임스페이스를 설정하면 *
 
 ::
 
-	// any_in_array() is not in the Array Helper, so it defines a new function
-	function any_in_array($needle, $haystack)
-	{
-		$needle = is_array($needle) ? $needle : [$needle];
+    // any_in_array() is not in the Array Helper, so it defines a new function
+    function any_in_array($needle, $haystack)
+    {
+        $needle = is_array($needle) ? $needle : [$needle];
 
-		foreach ($needle as $item)
-		{
-			if (in_array($item, $haystack))
-			{
-				return TRUE;
-			}
-	        }
+        foreach ($needle as $item)
+        {
+            if (in_array($item, $haystack))
+            {
+                return TRUE;
+            }
+		}
 
-		return FALSE;
-	}
+        return FALSE;
+    }
 
-	// random_element() is included in Array Helper, so it overrides the native function
-	function random_element($array)
-	{
-		shuffle($array);
-		return array_pop($array);
-	}
+    // random_element() is included in Array Helper, so it overrides the native function
+    function random_element($array)
+    {
+        shuffle($array);
+        return array_pop($array);
+    }
 
 
 **helper()** 메소드는 **app/Config/Autoload.php**\ 에 정의된 모든 PSR-4 네임스페이스를 검색하여 동일한 이름과 일치하는 모든 헬퍼를 로드합니다.
@@ -131,4 +131,4 @@ Autoloader 구성 파일의 PSR-4 섹션에 네임스페이스를 설정하면 *
 Now What?
 =========
 
-목차에는 사용 가능한 모든 헬퍼 파일 목록이 있습니다. 그들이 하는 일을 보려면 각각을 찾아보십시오.
+목차에는 사용 가능한 모든 :doc:`헬퍼 </helpers/index>`\ 의 목록이 있습니다. 그들이 하는 일을 보려면 각각을 찾아보십시오.

@@ -39,13 +39,23 @@
 이미 설치된 CodeIgniter 프레임워크를 공유하여 여러 다른 어플리케이션을 사용하려면 어플리케이션 디렉토리 내부에 있는 모든 디렉토리를 자체(또는 서브) 디렉토리에 두십시오.
 
 예를 들어 "foo"와 "bar"\ 라는 두 개의 어플리케이션을 만들고 싶다고 가정해 봅시다.
-다음과 같이 어플리케이션 프로젝트 디렉토리를 구성 할 수 있습니다.
+다음과 같이 어플리케이션 프로젝트 디렉토리를 구성할 수 있습니다.
 
-::
+.. code-block:: text
 
-    foo/app, public, tests and writable
-    bar/app/, public, tests and writable
-    codeigniter/system and docs
+    /foo
+        /app
+        /public
+        /tests
+        /writable
+    /bar
+        /app
+        /public
+        /tests
+        /writable
+    /codeigniter
+        /system
+        /docs
 
 여기에는 표준 어플리케이션 디렉토리와 ``public`` 폴더가 있고 이미 설치된 codeigniter 프레임워크를 공유하는 "foo"와 "bar"\ 라는 두개의 어플리케이션이 있습니다.
 

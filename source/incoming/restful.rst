@@ -68,10 +68,10 @@ CodeIgniter를 사용하면 리소스 경로(Resource route)와 `ResourceControl
 
 ::
 
-	$routes->resource('photos', ['placeholder' => '(:id)']);
+	$routes->resource('photos', ['placeholder' => '(:num)']);
 
 	// Generates routes like:
-	$routes->get('photos/(:id)', 'Photos::show/$1');
+	$routes->get('photos/(:num)', 'Photos::show/$1');
 
 생성 경로 제한
 ---------------------
@@ -181,10 +181,10 @@ ResourceController
 
 ::
 
-	$routes->presenter('photos', ['placeholder' => '(:id)']);
+	$routes->presenter('photos', ['placeholder' => '(:num)']);
 
 	// Generates routes like:
-	$routes->get('photos/(:id)', 'Photos::show/$1');
+	$routes->get('photos/(:num)', 'Photos::show/$1');
 
 경로(Route) 제한
 --------------------------

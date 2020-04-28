@@ -172,6 +172,6 @@ App Starter 저장소에는 현재 안정 릴리스와 프레임워크의 최신
 
 ::
 
-    composer require codeigniter4/translations @rc
+    composer require codeigniter4/translations
 
 업데이트된 내용은 ``composer update``\ 를 실행할 때마다 프레임워크와 함께 업데이트됩니다.

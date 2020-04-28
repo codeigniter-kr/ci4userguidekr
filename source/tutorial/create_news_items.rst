@@ -56,7 +56,7 @@ Create a form
         {
             $model->save([
                 'title' => $this->request->getVar('title'),
-                'slug'  => url_title($this->request->getVar('title')),
+                'slug'  => url_title($this->request->getVar('title'), '-', TRUE),
                 'body'  => $this->request->getVar('body'),
             ]);
             echo view('news/success');

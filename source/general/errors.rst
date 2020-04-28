@@ -20,44 +20,44 @@ CodeIgniter는 프레임워크에서 제공하는 몇 가지 사용자 정의 �
 
 ::
 
-	throw new \Exception("Some message goes here");
+    throw new \Exception("Some message goes here");
 
 예외를 던질 수 있는 메소드를 호출하는 경우 ``try/catch`` 블록을 사용하여 해당 예외를 포착할 수 있습니다.
 
 ::
 
-	try {
-		$user = $userModel->find($id);
-	}
-	catch (\Exception $e)
-	{
-		die($e->getMessage());
-	}
+    try {
+        $user = $userModel->find($id);
+    }
+    catch (\Exception $e)
+    {
+        die($e->getMessage());
+    }
 
 ``$userModel``\ 에서 예외가 발생하면 예외가 포착되고 catch 블록 내의 코드가 실행됩니다.
 이 예제에서 스크립트는 실행을 중단하고 ``UserModel``\ 이 정의한 오류 메시지를 반영합니다.
 
-이 예에서는 모든 유형(Exception)의 예외를 포착합니다.
-UnknownFileException과 같은 특정 유형의 예외만 감시하려는 경우 catch 매개 변수에서 예외를 지정할 수 있습니다.
+이 예는 모든 유형(Exception)의 예외를 포착(catch)합니다.
+``UnknownFileException``\ 과 같은 특정 유형의 예외만 감시하려는 경우 catch 매개 변수에서 예외를 지정할 수 있습니다.
 발생된 예외의 하위 클래스가 아닌 다른 예외는 오류 처리기로 전달됩니다.
 
 ::
 
-	catch (\CodeIgniter\UnknownFileException $e)
-	{
-		// do something here...
-	}
+    catch (\CodeIgniter\UnknownFileException $e)
+    {
+        // do something here...
+    }
 
 이는 오류를 직접 처리하거나 스크립트가 끝나기 전에 필요한 뭔가를 정리하는데 유용할 수 있습니다.
 
 ::
 
-	catch (\CodeIgniter\UnknownFileException $e)
-	{
-		// do something here...
+    catch (\CodeIgniter\UnknownFileException $e)
+    {
+        // do something here...
 
-		throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
-	}
+        throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
+    }
 
 구성
 =============
@@ -105,10 +105,10 @@ PageNotFoundException
 
 ::
 
-	if (! $page = $pageModel->find($id))
-	{
-		throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-	}
+    if (! $page = $pageModel->find($id))
+    {
+        throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+    }
 
 404 페이지의 기본 메시지 대신 표시될 예외로 메시지를 전달할 수 있습니다.
 
@@ -119,7 +119,7 @@ ConfigException
 
 ::
 
-	throw new \CodeIgniter\Exceptions\ConfigException();
+    throw new \CodeIgniter\Exceptions\ConfigException();
 
 HTTP 상태 코드는 500이고 종료 코드는 3입니다.
 
@@ -130,7 +130,7 @@ DatabaseException
 
 ::
 
-	throw new \CodeIgniter\Database\Exceptions\DatabaseException();
+    throw new \CodeIgniter\Database\Exceptions\DatabaseException();
 
 HTTP 상태 코드는 500이고 종료 코드는 8입니다.
 
@@ -142,10 +142,10 @@ This exception is a special case allowing for overriding of all other response r
 
 ::
 
-	throw new \CodeIgniter\Router\Exceptions\RedirectException($route);
+    throw new \CodeIgniter\Router\Exceptions\RedirectException($route);
 
 ``$route``\ 는 이름이 지정된 경로, 상대 URI 또는 전체 URL일 수 있습니다. 기본값("302", "임시 리디렉션") 대신 사용할 리디렉션 코드를 제공할 수도 있습니다.
 
 ::
 
-	throw new \CodeIgniter\Router\Exceptions\RedirectException($route, 301);
+    throw new \CodeIgniter\Router\Exceptions\RedirectException($route, 301);
