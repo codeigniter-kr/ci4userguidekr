@@ -18,7 +18,8 @@ Create a form
 
     <?= \Config\Services::validation()->listErrors(); ?>
 
-    <form action="/news/create">
+    <form action="/news/create" method="post">
+        <?= csrf_field() ?>
 
         <label for="title">Title</label>
         <input type="input" name="title" /><br />
@@ -30,8 +31,9 @@ Create a form
 
     </form>
 
-여기에는 아직 익숙하지 않은 ``\Config\Services::validation()->listErrors()`` 함수가 하나 있습니다. 
-이 함수는 양식(form)의 유효성 검사와 관련된 오류를 보고하는 데 사용됩니다.
+여기에 생소해 보이는 두 가지가 있을 것입니다.
+``\Config\Services::validation()->listErrors()`` 함수는 양식 검증과 관련된 오류를 보고하는 데 사용됩니다. 
+``csrf_field()`` 함수는 CSRF 토큰으로 숨겨진 입력을 생성하여 일부 일반적인 공격으로부터 보호합니다.
 
 ``News`` 컨트롤러로 돌아갑니다.
 여기서 우리는 두 가지 작업, 양식이 제출되었는지와 제출된 데이터가 검증 규칙을 통과했는지 여부를 확인할 겁니다
@@ -157,4 +159,4 @@ CodeIgniter 어플리케이션에 뉴스 항목을 추가하기 전에 **app/Con
 수정된 두 구성 파일(Database & Routes)은 표시되지 않았습니다.
 
 .. image:: ../images/tutorial9.png
-    :align: center
+    :align: left

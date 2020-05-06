@@ -14,7 +14,6 @@ HTML 양식으로 작업 할 때는 ``GET`` 또는 ``POST`` HTTP 동사만 사�
 
     <form action="" method="post">
         <input type="hidden" name="_method" value="PUT" />
-
     </form>
 
 이 폼은 PUT 요청으로 변환되며 라우팅 및 IncomingRequest 클래스에서 실제 PUT 요청으로 처리합니다.

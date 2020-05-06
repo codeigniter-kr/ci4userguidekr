@@ -21,7 +21,7 @@ CodeIgniter 모델 사용
 ::
 
     // 새 클래스를 수동으로 생성
-    $userModel = new App\Models\UserModel();
+    $userModel = new \App\Models\UserModel();
 
     // 모델 헬퍼 함수로 새 클래스 생성
     $userModel = model('App\Models\UserModel', false);
@@ -55,14 +55,14 @@ CodeIgniter의 모델을 활용하려면 ``CodeIgniter\Model``\ 을 확장하는
 
 ::
 
-	<?php namespace App\Models;
+    <?php namespace App\Models;
 
-	use CodeIgniter\Model;
+    use CodeIgniter\Model;
 
-	class UserModel extends Model
-	{
+    class UserModel extends Model
+    {
 
-	}
+    }
 
 이렇게 작성된 클래스는 데이터베이스 연결, 쿼리 빌더 등 여러 가지 편리한 추가 메소드를 제공합니다.
 
@@ -79,10 +79,10 @@ CodeIgniter의 모델을 활용하려면 ``CodeIgniter\Model``\ 을 확장하는
 
     use CodeIgniter\Model;
 
-	class UserModel extends Model
-	{
-		protected $DBGroup = 'group_name';
-	}
+    class UserModel extends Model
+    {
+        protected $DBGroup = 'group_name';
+    }
 
 "group_name"을 데이터베이스 구성 파일에 정의된 데이터베이스 그룹 이름으로 바꾸십시오.
 
@@ -94,29 +94,29 @@ CodeIgniter의 모델을 활용하려면 ``CodeIgniter\Model``\ 을 확장하는
 
 ::
 
-	<?php namespace App\Models;
+    <?php namespace App\Models;
 
-	use CodeIgniter\Model;
+    use CodeIgniter\Model;
 
-	class UserModel extends Model
-	{
-		protected $table      = 'users';
-		protected $primaryKey = 'id';
+    class UserModel extends Model
+    {
+        protected $table      = 'users';
+        protected $primaryKey = 'id';
 
-		protected $returnType = 'array';
-		protected $useSoftDeletes = true;
+        protected $returnType = 'array';
+        protected $useSoftDeletes = true;
 
-		protected $allowedFields = ['name', 'email'];
+        protected $allowedFields = ['name', 'email'];
 
-		protected $useTimestamps = false;
-		protected $createdField  = 'created_at';
-		protected $updatedField  = 'updated_at';
-		protected $deletedField  = 'deleted_at';
+        protected $useTimestamps = false;
+        protected $createdField  = 'created_at';
+        protected $updatedField  = 'updated_at';
+        protected $deletedField  = 'deleted_at';
 
-		protected $validationRules    = [];
-		protected $validationMessages = [];
-		protected $skipValidation     = false;
-	}
+        protected $validationRules    = [];
+        protected $validationMessages = [];
+        protected $skipValidation     = false;
+    }
 
 **$table**
 
@@ -213,7 +213,7 @@ find(), insert(), update(), delete() 등을 포함하여 테이블에서 기본 
 
 ::
 
-	$user = $userModel->find($user_id);
+    $user = $userModel->find($user_id);
 
 값은 ``$returnType``\ 에 지정된 형식으로 반환됩니다.
 
@@ -221,7 +221,7 @@ find(), insert(), update(), delete() 등을 포함하여 테이블에서 기본 
 
 ::
 
-	$users = $userModel->find([1,2,3]);
+    $users = $userModel->find([1,2,3]);
 
 매개 변수를 전달하지 않으면, ``findAll()``\ 처럼 작동하여 모델의 테이블에 있는 모든 행을 리턴합니다.
 
@@ -231,7 +231,7 @@ find(), insert(), update(), delete() 등을 포함하여 테이블에서 기본 
  
  ::
 
- 	$user = $userModel->findColumn($column_name);
+     $user = $userModel->findColumn($column_name);
 
  ``$column_name``\ 은 단일 열의 이름이어야 합니다. 그렇지 않으면 ``DataException``\ 이 발생합니다.
 
@@ -239,20 +239,20 @@ find(), insert(), update(), delete() 등을 포함하여 테이블에서 기본 
 
 모든 결과를 반환::
 
-	$users = $userModel->findAll();
+    $users = $userModel->findAll();
 
 이 메소드를 호출하기 전에 필요에 따라 쿼리 빌더의 메소드를 추가하여 수정할 수 있습니다.
 
 ::
 
-	$users = $userModel->where('active', 1)
-	                   ->findAll();
+    $users = $userModel->where('active', 1)
+                       ->findAll();
 
 limit 및 offset 값을 각각 첫 번째와 두 번째 매개 변수로 전달할 수 있습니다.
 
 ::
 
-	$users = $userModel->findAll($limit, $offset);
+    $users = $userModel->findAll($limit, $offset);
 
 **first()**
 
@@ -261,8 +261,8 @@ limit 및 offset 값을 각각 첫 번째와 두 번째 매개 변수로 전달�
 
 ::
 
-	$user = $userModel->where('deleted', 0)
-	                  ->first();
+    $user = $userModel->where('deleted', 0)
+                      ->first();
 
 **withDeleted()**
 
@@ -271,12 +271,12 @@ limit 및 offset 값을 각각 첫 번째와 두 번째 매개 변수로 전달�
 
 ::
 
-	// Only gets non-deleted rows (deleted = 0)
-	$activeUsers = $userModel->findAll();
+    // Only gets non-deleted rows (deleted = 0)
+    $activeUsers = $userModel->findAll();
 
-	// Gets all rows
-	$allUsers = $userModel->withDeleted()
-	                      ->findAll();
+    // Gets all rows
+    $allUsers = $userModel->withDeleted()
+                          ->findAll();
 
 **onlyDeleted()**
 
@@ -284,8 +284,8 @@ withDeleted()는 삭제된 행과 삭제되지 않은 행을 모두 리턴하지
 
 ::
 
-	$deletedUsers = $userModel->onlyDeleted()
-	                          ->findAll();
+    $deletedUsers = $userModel->onlyDeleted()
+                              ->findAll();
 
 데이터 저장
 ---------------
@@ -297,12 +297,12 @@ withDeleted()는 삭제된 행과 삭제되지 않은 행을 모두 리턴하지
 
 ::
 
-	$data = [
-		'username' => 'darth',
-		'email'    => 'd.vader@theempire.com'
-	];
+    $data = [
+        'username' => 'darth',
+        'email'    => 'd.vader@theempire.com'
+    ];
 
-	$userModel->insert($data);
+    $userModel->insert($data);
 
 **update()**
 
@@ -312,22 +312,22 @@ withDeleted()는 삭제된 행과 삭제되지 않은 행을 모두 리턴하지
 
 ::
 
-	$data = [
-		'username' => 'darth',
-		'email'    => 'd.vader@theempire.com'
-	];
+    $data = [
+        'username' => 'darth',
+        'email'    => 'd.vader@theempire.com'
+    ];
 
-	$userModel->update($id, $data);
+    $userModel->update($id, $data);
 
 기본(primary) 키 배열을 첫 번째 매개 변수로 전달하여 한 번의 호출로 여러 레코드를 업데이트할 수 있습니다.
 
 ::
 
     $data = [
-		'active' => 1
-	];
+        'active' => 1
+    ];
 
-	$userModel->update([1, 2, 3], $data);
+    $userModel->update([1, 2, 3], $data);
 
 유효성 검사, 이벤트 등의 추가 이점을 갖는 쿼리 빌더의 업데이트 명령을 수행하려면, 매개 변수를 비운채 사용하십시오.
 
@@ -344,24 +344,24 @@ withDeleted()는 삭제된 행과 삭제되지 않은 행을 모두 리턴하지
 
 ::
 
-	// Defined as a model property
-	$primaryKey = 'id';
+    // Defined as a model property
+    $primaryKey = 'id';
 
-	// Does an insert()
-	$data = [
-		'username' => 'darth',
-		'email'    => 'd.vader@theempire.com'
-	];
+    // Does an insert()
+    $data = [
+        'username' => 'darth',
+        'email'    => 'd.vader@theempire.com'
+    ];
 
-	$userModel->save($data);
+    $userModel->save($data);
 
-	// Performs an update, since the primary key, 'id', is found.
-	$data = [
-		'id'       => 3,
-		'username' => 'darth',
-		'email'    => 'd.vader@theempire.com'
-	];
-	$userModel->save($data);
+    // Performs an update, since the primary key, 'id', is found.
+    $data = [
+        'id'       => 3,
+        'username' => 'darth',
+        'email'    => 'd.vader@theempire.com'
+    ];
+    $userModel->save($data);
 
 save 메소드는 단순하지 않은 오브젝트를 인식하고 공용 및 보호된 값을 배열로 가져 와서 적절한 insert 또는 update 메소드로 전달하여 사용자 정의 클래스 결과 오브젝트에 대한 작업을 훨씬 간단하게 만들수 있습니다. 
 이를 통해 매우 깨끗한 방식으로 Entity 클래스를 사용할 수 있습니다.
@@ -372,59 +372,59 @@ save 메소드는 단순하지 않은 오브젝트를 인식하고 공용 및 �
 
 ::
 
-	namespace App\Entities;
+    namespace App\Entities;
 
-	class Job
-	{
-		protected $id;
-		protected $name;
-		protected $description;
+    class Job
+    {
+        protected $id;
+        protected $name;
+        protected $description;
 
-		public function __get($key)
-		{
-			if (property_exists($this, $key))
-			{
-				return $this->$key;
-			}
-		}
+        public function __get($key)
+        {
+            if (property_exists($this, $key))
+            {
+                return $this->$key;
+            }
+        }
 
-		public function __set($key, $value)
-		{
-			if (property_exists($this, $key))
-			{
-				$this->$key = $value;
-			}
-		}
-	}
+        public function __set($key, $value)
+        {
+            if (property_exists($this, $key))
+            {
+                $this->$key = $value;
+            }
+        }
+    }
 
 이 작업을 수행하는 간단한 모델은 다음과 같습니다.
 
 ::
 
-	use CodeIgniter\Model;
+    use CodeIgniter\Model;
 
-	class JobModel extends Model
-	{
-		protected $table = 'jobs';
-		protected $returnType = '\App\Entities\Job';
-		protected $allowedFields = [
-			'name', 'description'
-		];
-	}
+    class JobModel extends Model
+    {
+        protected $table = 'jobs';
+        protected $returnType = '\App\Entities\Job';
+        protected $allowedFields = [
+            'name', 'description'
+        ];
+    }
 
 다음 모델은 ``jobs`` 테이블의 데이터로 작동하며 모든 결과를 ``App\Entities\Job`` 인스턴스로 반환합니다.
 해당 레코드를 데이터베이스에 유지해야 하는 경우 사용자 정의 메소드를 작성하거나 모델의 ``save()`` 메소드를 사용하여 클래스를 검사하고 public과 private 특성을 가져 와서 데이터베이스에 저장해야 합니다.
 
 ::
 
-	// Retrieve a Job instance
-	$job = $model->find(15);
+    // Retrieve a Job instance
+    $job = $model->find(15);
 
-	// Make some changes
-	$job->name = "Foobar";
+    // Make some changes
+    $job->name = "Foobar";
 
-	// Save the changes
-	$model->save($job);
+    // Save the changes
+    $model->save($job);
 
 .. note:: 엔터티를 많이 사용하는 경우를 위해 CodeIgniter는 엔터티 개발을 보다 간단하게 해주는 몇 가지 편리한 기능을 제공하는 내장된 Entity 클래스를 제공합니다.
 
@@ -437,7 +437,7 @@ save 메소드는 단순하지 않은 오브젝트를 인식하고 공용 및 �
 
 ::
 
-	$userModel->delete(12);
+    $userModel->delete(12);
 
 모델의 $useSoftDeletes 값이 ``true``\ 인 경우 ``deleted_at``\ 를 현재 날짜 및 시간으로 설정하여 행을 업데이트합니다.
 두 번째 매개 변수를 true로 설정하여 영구적으로 삭제할 수 있습니다.
@@ -460,7 +460,7 @@ save 메소드는 단순하지 않은 오브젝트를 인식하고 공용 및 �
 
 ::
 
-	$userModel->purgeDeleted();
+    $userModel->purgeDeleted();
 
 데이터 검증
 ---------------
@@ -473,32 +473,32 @@ Model 클래스는 ``insert()``, ``update()``, ``save()`` 메소드를 사용하
 
 ::
 
-	class UserModel extends Model
-	{
-		protected $validationRules    = [
-			'username'     => 'required|alpha_numeric_space|min_length[3]',
-			'email'        => 'required|valid_email|is_unique[users.email]',
-			'password'     => 'required|min_length[8]',
-			'pass_confirm' => 'required_with[password]|matches[password]'
-		];
+    class UserModel extends Model
+    {
+        protected $validationRules    = [
+            'username'     => 'required|alpha_numeric_space|min_length[3]',
+            'email'        => 'required|valid_email|is_unique[users.email]',
+            'password'     => 'required|min_length[8]',
+            'pass_confirm' => 'required_with[password]|matches[password]'
+        ];
 
-		protected $validationMessages = [
-			'email'        => [
-				'is_unique' => 'Sorry. That email has already been taken. Please choose another.'
-			]
-		];
-	}
+        protected $validationMessages = [
+            'email'        => [
+                'is_unique' => 'Sorry. That email has already been taken. Please choose another.'
+            ]
+        ];
+    }
 
 기능별로 유효성 검사 메시지를 필드로 설정하는 다른 방법은,
 
 .. php:function:: setValidationMessage($field, $fieldMessages)
 
-	:param	string	$field
-	:param	array	$fieldMessages
+    :param    string    $field
+    :param    array    $fieldMessages
 
-	이 함수는 오류 메시지를 설정합니다.
+    이 함수는 오류 메시지를 설정합니다.
 
-	::
+    ::
 
             $fieldName = 'name';
             $fieldValidationMessage = array(
@@ -508,11 +508,11 @@ Model 클래스는 ``insert()``, ``update()``, ``save()`` 메소드를 사용하
 
 .. php:function:: setValidationMessages($fieldMessages)
 
-	:param	array	$fieldMessages
+    :param    array    $fieldMessages
 
-	이 함수는 필드 메시지를 설정합니다.
+    이 함수는 필드 메시지를 설정합니다.
 
-	::
+    ::
 
             $fieldValidationMessage = array(
                     'name' => array(
@@ -527,31 +527,31 @@ Model 클래스는 ``insert()``, ``update()``, ``save()`` 메소드를 사용하
 
 ::
 
-	if ($model->save($data) === false)
-	{
-		return view('updateUser', ['errors' => $model->errors()];
-	}
+    if ($model->save($data) === false)
+    {
+        return view('updateUser', ['errors' => $model->errors()];
+    }
 
 위와 같이 하면 필드 이름과 관련 오류가 있는 배열을 반환하는데, 양식(form) 맨 위에 모든 오류를 표시하거나 개별적으로 표시하는 데 사용할 수 있습니다.
 
 ::
 
-	<?php if (! empty($errors)) : ?>
-		<div class="alert alert-danger">
-		<?php foreach ($errors as $field => $error) : ?>
-			<p><?= $error ?></p>
-		<?php endforeach ?>
-		</div>
-	<?php endif ?>
+    <?php if (! empty($errors)) : ?>
+        <div class="alert alert-danger">
+        <?php foreach ($errors as $field => $error) : ?>
+            <p><?= $error ?></p>
+        <?php endforeach ?>
+        </div>
+    <?php endif ?>
 
 유효성 검사 구성 파일 내에서 규칙 및 오류 메시지를 구성하려는 경우 이를 수행하고 ``$validationRules``\ 를 만든 유효성 검사 규칙 그룹의 이름으로 설정하면 됩니다.
 
 ::
 
-	class UserModel extends Model
-	{
-		protected $validationRules = 'users';
-	}
+    class UserModel extends Model
+    {
+        protected $validationRules = 'users';
+    }
 
 유효성 검사 규칙 검색
 ---------------------------
@@ -622,16 +622,16 @@ POST 데이터가 다음과 같다고 가정합니다.
 
 ::
 
-	protected $allowedFields = ['name', 'email', 'address'];
+    protected $allowedFields = ['name', 'email', 'address'];
 
 테스트, 마이그레이션 또는 시드 중 보호된 요소를 변경하기를 원할 때가 있습니다.
 이럴 때 보호 기능을 켜거나 끌 수 있습니다
 
 ::
 
-	$model->protect(false)
-	      ->insert($data)
-	      ->protect(true);
+    $model->protect(false)
+          ->insert($data)
+          ->protect(true);
 
 쿼리 빌더 사용
 --------------------------
@@ -640,7 +640,7 @@ POST 데이터가 다음과 같다고 가정합니다.
 
 ::
 
-	$builder = $userModel->builder();
+    $builder = $userModel->builder();
 
 빌더는 모델의 $table로 설정되어 있습니다.
 
@@ -648,15 +648,15 @@ POST 데이터가 다음과 같다고 가정합니다.
 
 ::
 
-	$users = $userModel->where('status', 'active')
-			   ->orderBy('last_login', 'asc')
-			   ->findAll();
+    $users = $userModel->where('status', 'active')
+               ->orderBy('last_login', 'asc')
+               ->findAll();
 
 .. note:: 모델의 데이터베이스 연결에 완벽하게 액세스할 수도 있습니다.
 
-		::
+        ::
 
-			$user_name = $userModel->escape($name);
+            $user_name = $userModel->escape($name);
 
 런타임 리턴 유형 변경
 ----------------------------
@@ -673,7 +673,7 @@ find*() 메소드의 데이터를 연관 배열로 리턴합니다.
 
 ::
 
-	$users = $userModel->asArray()->where('status', 'active')->findAll();
+    $users = $userModel->asArray()->where('status', 'active')->findAll();
 
 **asObject()**
 
@@ -681,11 +681,11 @@ find*() 메소드의 데이터를 표준 객체 또는 사용자 정의 클래�
 
 ::
 
-	// Return as standard objects
-	$users = $userModel->asObject()->where('status', 'active')->findAll();
+    // Return as standard objects
+    $users = $userModel->asObject()->where('status', 'active')->findAll();
 
-	// Return as custom class instances
-	$users = $userModel->asObject('User')->where('status', 'active')->findAll();
+    // Return as custom class instances
+    $users = $userModel->asObject('User')->where('status', 'active')->findAll();
 
 많은 양의 데이터 처리
 --------------------------------
@@ -699,11 +699,11 @@ find*() 메소드의 데이터를 표준 객체 또는 사용자 정의 클래�
 
 ::
 
-	$userModel->chunk(100, function ($data)
-	{
-		// do something.
-		// $data is a single row of data.
-	});
+    $userModel->chunk(100, function ($data)
+    {
+        // do something.
+        // $data is a single row of data.
+    });
 
 모델 이벤트
 ================
@@ -724,15 +724,15 @@ insert* 또는 update* 메소드의 경우 데이터베이스에 삽입되는 �
 
 ::
 
-	protected function hashPassword(array $data)
-	{
-		if (! isset($data['data']['password']) return $data;
+    protected function hashPassword(array $data)
+    {
+        if (! isset($data['data']['password']) return $data;
 
-		$data['data']['password_hash'] = password_hash($data['data']['password'], PASSWORD_DEFAULT);
-		unset($data['data']['password'];
+        $data['data']['password_hash'] = password_hash($data['data']['password'], PASSWORD_DEFAULT);
+        unset($data['data']['password'];
 
-		return $data;
-	}
+        return $data;
+    }
 
 콜백 지정
 --------------
@@ -743,8 +743,8 @@ insert* 또는 update* 메소드의 경우 데이터베이스에 삽입되는 �
 
 ::
 
-	protected $beforeInsert = ['hashPassword'];
-	protected $beforeUpdate = ['hashPassword'];
+    protected $beforeInsert = ['hashPassword'];
+    protected $beforeUpdate = ['hashPassword'];
 
 이벤트 매개 변수
 ---------------------
@@ -792,14 +792,14 @@ DB연결을 통해 CodeIgniter의 모델이 제공하는 기능을 무시하고 
 
     <?php namespace App\Models;
 
-	use CodeIgniter\Database\ConnectionInterface;
+    use CodeIgniter\Database\ConnectionInterface;
 
-	class UserModel
-	{
-		protected $db;
+    class UserModel
+    {
+        protected $db;
 
-		public function __construct(ConnectionInterface &$db)
-		{
-			$this->db =& $db;
-		}
-	}
+        public function __construct(ConnectionInterface &$db)
+        {
+            $this->db =& $db;
+        }
+    }

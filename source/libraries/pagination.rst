@@ -18,8 +18,8 @@ CodeIgniter의 다른 서비스와 마찬가지로 ``Config\Services``\ 를 통�
 데이터베이스 결과 페이지네이션
 ********************************
 
-대부분의 경우 데이터베이스에서 검색한 결과를 페이지 매기기 위해 Pager 라이브러리를 사용하게 됩니다.
-:doc:`모델 </models/model>` 클래스를 사용할 때 내장 된 ``paginate()`` 메소드를 사용하여 현재 배치 결과를 자동으로 검색하고 Pager 라이브러리를 컨트롤러에서 사용할 수 있도록 설정합니다.
+대부분의 경우 데이터베이스에서 검색한 결과를 페이지 지정을 위해 Pager 라이브러리를 사용하게 됩니다.
+:doc:`모델 </models/model>` 클래스를 사용할 때 내장된 ``paginate()`` 메소드를 사용하여 현재 배치 결과를 자동으로 검색하고 Pager 라이브러리를 컨트롤러에서 사용할 수 있도록 설정합니다.
 ``page=X`` 쿼리 변수를 통해 현재 URL에서 표시해야 하는 현재 페이지를 읽습니다.
 
 어플리케이션에서 페이지네이션된 사용자 목록을 제공하기 위한 컨트롤러의 메소드는 다음과 같습니다.
@@ -48,7 +48,7 @@ CodeIgniter의 다른 서비스와 마찬가지로 ``Config\Services``\ 를 통�
 먼저 UserModel의 새 인스턴스를 만듭니다. 
 그런 다음 뷰로 전송할 데이터를 채웁니다.
 첫 번째 요소는 데이터베이스 **users**\ 의 결과이며 올바른 페이지를 검색하여 페이지 당 10명의 사용자를 리턴합니다.
-뷰로 보내야하는 두 번째 항목은 Pager 인스턴스 자체입니다.
+뷰로 보내야하는 두 번째 항목은 Pager 인스턴스입니다.
 편의상 Model은 사용된 인스턴스를 유지하고 이를 공용 클래스 변수 **$pager**\ 에 저장합니다.
 그래서 우리는 Pager 인스턴스를 뷰의 $pager 변수에 할당합니다.
 
@@ -58,7 +58,12 @@ CodeIgniter의 다른 서비스와 마찬가지로 ``Config\Services``\ 를 통�
 
     <?= $pager->links() ?>
 
-이것이 전부입니다. Pager 클래스는 첫 페이지와 마지막 페이지 링크와 현재 페이지의 양쪽에 두 페이지 이상의 페이지에 대한 다음 및 이전 링크를 렌더링합니다.
+이것으로 페이지 지정은 끝났습니다. 
+Pager 클래스는 첫 페이지와 마지막 페이지 링크와 현재 페이지의 양쪽에 두 페이지 이상의 페이지에 대한 다음 및 이전 링크를 렌더링합니다.
+
+Next(다음) 및 Previous(이전)의 라이브러리 패턴이 기존의 페이징 결과 방식에서 사용되는 것과 다르다는 점에 유의해야 합니다.
+
+Next(다음) 및 Previous(이전)는 다음 또는 이전 페이지가 아닌 페이지 지정 구조에 표시될 링크 그룹에 연결됩니다.
 
 더 간단한 출력을 선호하는 경우 세부 정보 페이지 링크 대신 "Older"와 "Newer" 링크만 사용하는 ``simpleLinks()`` 메소드를 사용할 수 있습니다
 
@@ -252,13 +257,13 @@ Pager에 의해 생성된 URI는 ``https://domain.tld/model?page=[pageNumber]`` 
         <ul class="pagination">
         <?php if ($pager->hasPrevious()) : ?>
             <li>
-                <a href="<?= $pager->getFirst() ?>" aria-label="First">
-                    <span aria-hidden="true">First</span>
+                <a href="<?= $pager->getFirst() ?>" aria-label="<?= lang('Pager.first') ?>">
+                    <span aria-hidden="true"><?= lang('Pager.first') ?></span>
                 </a>
             </li>
             <li>
-                <a href="<?= $pager->getPrevious() ?>" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
+                <a href="<?= $pager->getPrevious() ?>" aria-label="<?= lang('Pager.previous') ?>">
+                    <span aria-hidden="true"><?= lang('Pager.previous') ?></span>
                 </a>
             </li>
         <?php endif ?>
@@ -273,13 +278,13 @@ Pager에 의해 생성된 URI는 ``https://domain.tld/model?page=[pageNumber]`` 
 
         <?php if ($pager->hasNext()) : ?>
             <li>
-                <a href="<?= $pager->getNext() ?>" aria-label="Previous">
-                    <span aria-hidden="true">&raquo;</span>
+                <a href="<?= $pager->getNext() ?>" aria-label="<?= lang('Pager.next') ?>">
+                    <span aria-hidden="true"><?= lang('Pager.next') ?></span>
                 </a>
             </li>
             <li>
-                <a href="<?= $pager->getLast() ?>" aria-label="Last">
-                    <span aria-hidden="true">Last</span>
+                <a href="<?= $pager->getLast() ?>" aria-label="<?= lang('Pager.last') ?>">
+                    <span aria-hidden="true"><?= lang('Pager.last') ?></span>
                 </a>
             </li>
         <?php endif ?>
@@ -321,3 +326,60 @@ Pager에 의해 생성된 URI는 ``https://domain.tld/model?page=[pageNumber]`` 
 		'uri'    => 'http://example.com/foo?page=2',
 		'title'  => 1
 	];
+
+표준 페이지 지정 구조에 대해 제시된 코드에서 ``getPrevious()``\ 와 ``getNext()`` 메소드는 각각 이전과 다음 페이지 부여 그룹에 대한 연결을 얻기 위해 사용됩니다.
+
+현재 페이지를 기준으로 이전 페이지와 다음 페이지로 연결되는 페이지별 구조를 사용하려면 ``GetPrevious()``\ 와 ``GetNext()`` 메소드를 ``GetPrevious()``\ 와 ``GetNextPage()``\ 로 바꾸고 "HasPrevious()와 "HasNext()"로 바꾸면 됩니다.
+
+다음 예제를 참조합니다.
+
+::
+
+    <nav aria-label="<?= lang('Pager.pageNavigation') ?>">
+        <ul class="pagination">
+            <?php if ($pager->hasPreviousPage()) : ?>
+                <li>
+                    <a href="<?= $pager->getFirst() ?>" aria-label="<?= lang('Pager.first') ?>">
+                        <span aria-hidden="true"><?= lang('Pager.first') ?></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?= $pager->getPreviousPage() ?>" aria-label="<?= lang('Pager.previous') ?>">
+                        <span aria-hidden="true"><?= lang('Pager.previous') ?></span>
+                    </a>
+                </li>
+            <?php endif ?>
+
+            <?php foreach ($pager->links() as $link) : ?>
+                <li <?= $link['active'] ? 'class="active"' : '' ?>>
+                    <a href="<?= $link['uri'] ?>">
+                        <?= $link['title'] ?>
+                    </a>
+                </li>
+            <?php endforeach ?>
+
+            <?php if ($pager->hasNextPage()) : ?>
+                <li>
+                    <a href="<?= $pager->getNextPage() ?>" aria-label="<?= lang('Pager.next') ?>">
+                        <span aria-hidden="true"><?= lang('Pager.next') ?></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?= $pager->getLast() ?>" aria-label="<?= lang('Pager.last') ?>">
+                        <span aria-hidden="true"><?= lang('Pager.last') ?></span>
+                    </a>
+                </li>
+            <?php endif ?>
+        </ul>
+    </nav>
+
+**hasPreviousPage()** & **hasNextPage()**
+
+이 메소드는 현재 표시되고 있는 현재 페이지 전후에 페이지에 대한 링크가 있는 경우 부울 true를 리턴합니다.
+
+차이점은 ``hasPreviousPage()``, ``hasNextPage()``\ 는 현재 페이지를 기준으로 하고 있고 ``hasPrevious()``, ``hasNext()``\ 는 ``setSurroundCount``\ 에서 통과된 값을 기준으로 하여 현 페이지 전후로 표시할 링크 세트를 기반으로 한다는 것입니다.
+
+**getPreviousPage()** & **getNextPage()**
+
+이 메소드는 번호가 지정된 링크의 양쪽에 있는 결과의 이전 페이지 또는 다음 페이지에 대한 URL을 반환하는 ``GetPrevious()``, ``GetNext()``\ 와 달리 현재 표시된 페이지와 관련하여 이전 페이지와 다음 페이지의 URL을 반환합니다. 
+자세한 설명은 이전 단락을 참조하세요.

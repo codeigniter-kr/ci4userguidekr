@@ -1,8 +1,8 @@
 ############################
-유효성 검사(Validation)
+    검증(Validation)
 ############################
 
-CodeIgniter는 작성하는 코드의 양을 최소화하는데 도움이되는 포괄적인 데이터 유효성 검사 클래스를 제공합니다.
+CodeIgniter는 작성하는 코드의 양을 최소화하는데 도움이되는 포괄적인 데이터 검증 클래스를 제공합니다.
 
 .. contents::
     :local:
@@ -11,7 +11,7 @@ CodeIgniter는 작성하는 코드의 양을 최소화하는데 도움이되는 
 개요
 ************************************************
 
-CodeIgniter의 데이터 유효성 검사 접근 방식을 설명하기 전에 이상적인 시나리오를 설명하겠습니다.
+CodeIgniter의 데이터 검증 접근 방식을 설명하기 전에 이상적인 시나리오를 설명하겠습니다.
 
 #. 폼(form)이 표시됩니다.
 #. 작성하여 제출합니다.
@@ -31,14 +31,14 @@ CodeIgniter의 데이터 유효성 검사 접근 방식을 설명하기 전에 �
 #. 데이터베이스에 추가할 데이터를 준비하십시오.
 
 위의 프로세스는 매우 복잡한 것은 없지만 일반적으로 상당한 양의 코드가 필요하며, 오류 메시지를 표시하기 위해 다양한 제어 구조가 HTML 형식으로 배치됩니다. 
-폼 유효성 검사는 작성하기는 쉽지만 구현하기가 매우 지저분하고 지루합니다.
+폼 검증은 작성하기는 쉽지만 구현하기가 매우 지저분하고 지루합니다.
 
 폼 검증 튜토리얼
 **************************
 
-다음은 CodeIgniter의 폼 유효성 검사를 구현하기 위한 "실습" 자습서입니다.
+다음은 CodeIgniter의 폼 검증을 구현하기 위한 "실습" 자습서입니다.
 
-양식 유효성 검사를 구현하려면 다음 세 가지가 필요합니다.
+양식 검증을 구현하려면 다음 세 가지가 필요합니다.
 
 #. 폼이 포함된 :doc:`뷰 </outgoing/views>` 파일.
 #. 제출(submit) 성공시 표시될 "성공" 메시지가 포함된 뷰 파일.
@@ -54,11 +54,11 @@ CodeIgniter의 데이터 유효성 검사 접근 방식을 설명하기 전에 �
 
 ::
 
-	<html>
-	<head>
-	    <title>My Form</title>
-	</head>
-	<body>
+    <html>
+    <head>
+        <title>My Form</title>
+    </head>
+    <body>
 
         <?= $validation->listErrors() ?>
 
@@ -80,8 +80,8 @@ CodeIgniter의 데이터 유효성 검사 접근 방식을 설명하기 전에 �
 
         </form>
 
-	</body>
-	</html>
+    </body>
+    </html>
 
 성공 페이지
 ==================
@@ -92,18 +92,18 @@ CodeIgniter의 데이터 유효성 검사 접근 방식을 설명하기 전에 �
 
 ::
 
-	<html>
-	<head>
-	    <title>My Form</title>
-	</head>
-	<body>
+    <html>
+    <head>
+        <title>My Form</title>
+    </head>
+    <body>
 
         <h3>Your form was successfully submitted!</h3>
 
         <p><?= anchor('form', 'Try it again!') ?></p>
 
-	</body>
-	</html>
+    </body>
+    </html>
 
 컨트롤러
 ===============
@@ -113,28 +113,28 @@ CodeIgniter의 데이터 유효성 검사 접근 방식을 설명하기 전에 �
 
 ::
 
-	<?php namespace App\Controllers;
+    <?php namespace App\Controllers;
 
-	use CodeIgniter\Controller;
+    use CodeIgniter\Controller;
 
-	class Form extends Controller
-	{
-		public function index()
-		{
-			helper(['form', 'url']);
+    class Form extends Controller
+    {
+        public function index()
+        {
+            helper(['form', 'url']);
 
-			if (! $this->validate([]))
-			{
-				echo view('Signup', [
-					'validation' => $this->validator
-				]);
-			}
-			else
-			{
-				echo view('Success');
-			}
-		}
-	}
+            if (! $this->validate([]))
+            {
+                echo view('Signup', [
+                    'validation' => $this->validator
+                ]);
+            }
+            else
+            {
+                echo view('Success');
+            }
+        }
+    }
 
 Try it!
 ===============
@@ -143,14 +143,13 @@ Try it!
 
 ::
 
-	example.com/index.php/form/
+    example.com/index.php/form/
 
 폼을 제출하면 폼이 새로 고침됩니다.
-아직 유효성 검사 규칙을 설정하지 않았기 때문입니다.
+아직 검증 규칙을 설정하지 않았기 때문입니다.
 
-**Validation 클래스에 아직 유효성을 검사하도록 지시하지 않았기 때문에 기본적으로 false(부울 false)를 반환합니다.**
-
-``validate()`` **메소드는 규칙이 실패하지 않고 규칙을 성공적으로 적용한 경우에만 true를 반환합니다.**
+.. note:: **Validation 클래스**\ 에 아직 유효성을 검사하도록 지시하지 않았기 때문에 **기본적으로 false(bool false)를 반환**\ 합니다.
+    ``validate()`` 메소드는 규칙이 실패하지 않고 규칙을 성공적으로 적용한 경우에만 true를 반환합니다.
 
 설명
 ============
@@ -169,13 +168,13 @@ Try it!
 
     <?= $validation->listErrors() ?>
 
-    이 함수는 유효성 검사에서 보낸 모든 오류 메시지를 반환합니다.
+    이 함수는 검증에서 보낸 모든 오류 메시지를 반환합니다.
     메시지가 없으면 빈 문자열을 반환합니다.
 
 컨트롤러(Form.php))에는 ``index()`` 메소드가 있습니다.
 이 메소드는 컨트롤러가 제공하는 유효성 검증 메소드를 사용하고 뷰 파일에서 사용하는 폼 헬퍼 및 URL 헬퍼를 로드합니다.
-유효성 검사 루틴도 실행합니다.
-유효성 검사 성공 여부에 따라 폼 또는 성공 페이지를 표시합니다.
+검증 루틴도 실행합니다.
+검증 성공 여부에 따라 폼 또는 성공 페이지를 표시합니다.
 
 라이브러리 로드
 ====================
@@ -190,11 +189,11 @@ Try it!
 
 .. note:: :doc:`컨트롤러 </incoming/controllers>`\ 와 :doc:`모델 </models/model>` 모두 검증을 보다 쉽게 수행할 수 있는 메소드를 제공하므로 이 메소드를 사용할 필요가 없습니다.
 
-유효성 검사 규칙 설정
+검증 규칙 설정
 ================================================
 
-CodeIgniter를 사용하면 주어진 필드에 필요한 만큼의 유효성 검사 규칙을 순서대로 설정할 수 있습니다.
-유효성 검사 규칙을 설정하려면 ``setRule()``, ``setRules()``, ``withRequest()`` 메소드를 사용합니다.
+CodeIgniter를 사용하면 주어진 필드에 필요한 만큼의 검증 규칙을 순서대로 설정할 수 있습니다.
+검증 규칙을 설정하려면 ``setRule()``, ``setRules()``, ``withRequest()`` 메소드를 사용합니다.
 
 setRule()
 ---------
@@ -233,7 +232,7 @@ setRules()
 withRequest()
 -------------
 
-유효성 검사 라이브러리는 HTTP 요청에서 입력된 데이터를 유효성 검사 할 때 가장 일반적으로 사용됩니다.
+검증 라이브러리는 HTTP 요청에서 입력된 데이터를 검증할 때 가장 일반적으로 사용됩니다.
 Request 객체의 인스턴스를 전달하면, 모든 입력 데이터를 가져 와서 유효성을 검사할 데이터로 설정합니다.
 
 ::
@@ -308,21 +307,21 @@ Request 객체의 인스턴스를 전달하면, 모든 입력 데이터를 가�
 
     $validation->check($value, 'required');
 
-구성 파일에 유효성 검사 규칙 저장
+구성 파일에 검증 규칙 저장
 ==================================
 
-Validation 클래스의 좋은 기능은 어플리케이션 전체에 대한 모든 유효성 검사 규칙을 구성 파일에 저장할 수 있다는 것입니다.
+Validation 클래스의 좋은 기능은 어플리케이션 전체에 대한 모든 검증 규칙을 구성 파일에 저장할 수 있다는 것입니다.
 규칙을 "그룹"\ 으로 구성합니다.
-유효성 검사를 실행할 때마다 다른 그룹을 지정할 수 있습니다.
+검증를 실행할 때마다 다른 그룹을 지정할 수 있습니다.
 
 .. _validation-array:
 
 규칙을 저장하는 방법
 ---------------------------
 
-유효성 검사 규칙을 저장하려면 ``Config\Validation`` 클래스에 그룹 이름으로 새로운 공용 속성을 만들면 됩니다.
-이 요소는 유효성 검사 규칙이있는 배열을 보유합니다. 
-다음은 유효성 검사 배열에 대한 프로토 타입입니다.
+검증 규칙을 저장하려면 ``Config\Validation`` 클래스에 그룹 이름으로 새로운 공용 속성을 만들면 됩니다.
+이 요소는 검증 규칙이 있는 배열을 보유합니다. 
+다음은 검증 배열에 대한 프로토 타입입니다.
 
 ::
 
@@ -380,13 +379,12 @@ Validation 클래스의 좋은 기능은 어플리케이션 전체에 대한 모
                     'required' => 'You must choose a {field}.'
                 ]
             ],
-            'email'    => 'required|valid_email'
-        ];
-
-        public $signup_errors = [
-            'email' => [
-                'valid_email' => 'Please check the Email field. It does not appear to be valid.'
-            ]
+            'email'    => [
+                'rules'  => 'required|valid_email',
+                'errors' => [
+                    'valid_email' => 'Please check the Email field. It does not appear to be valid.'
+                ]
+            ],
         ];
     }
 
@@ -405,20 +403,57 @@ Validation 클래스의 좋은 기능은 어플리케이션 전체에 대한 모
 
 **Set Rule Group**
 
-유효성 검증 규칙 구성 그룹을 유효성 검사 서비스에 설정합니다.
+유효성 검증 규칙 구성 그룹을 검증 서비스에 설정합니다.
 
 ::
 
     $validation->setRuleGroup('signup');
 
-여러개의 유효성 검사 실행
+검증 자리 표시자(Placeholders)
+=======================================================
+
+검증 클래스는 전달되는 데이터를 기반으로 규칙의 일부를 교체하는 간단한 방법을 제공합니다. 
+이것은 상당히 모호하게 들리지만 ``is_unique`` 검증 규칙에 특히 유용할 수 있습니다. 
+자리 표시자는 단순히 중괄호로 묶인 $data로 전달된 필드(또는 배열 키)의 이름입니다. 
+일치하는 수신 필드의 **값(value)**\ 으로 대체됩니다.
+예를 들면 다음과 같습니다.
+
+::
+
+    $validation->setRules([
+        'email' => 'required|valid_email|is_unique[users.email,id,{id}]'
+    ]);
+
+이 규칙 집합에서는 자리 표시자 값과 일치하는 ID가 있는 행을 제외하고 전자 메일 주소가 데이터베이스에서 고유해야 한다고 명시되어 있습니다. 
+POST 데이터에 다음이 있다고 가정합니다.
+
+::
+
+    $_POST = [
+        'id' => 4,
+        'email' => 'foo@example.com'
+    ];
+
+그러면 ``{id}`` 자리 표시자가 숫자 **4**\ 로 대체되고 이 수정된 규칙이 적용됩니다.
+
+::
+
+    $validation->setRules([
+        'email' => 'required|valid_email|is_unique[users.email,id,4]'
+    ]);
+
+따라서 고유한 이메일인지 확인할 때 ``id=4``\ 인 데이터베이스의 행을 무시하게 됩니다.
+
+또한 전달된 동적 키가 양식 데이터와 충돌하지 않도록 주의한다면 런타임에 더 많은 동적 규칙을 만드는 데 사용할 수 있습니다.
+
+여러개의 검증 실행
 =======================================================
 
 .. note:: ``run()`` 메소드는 오류 상태를 재설정하지 않습니다. 
     이전 검사가 실패하면 ``run()``\ 은 항상 false를 반환하고 ``getErrors()``\ 는 
     명시적으로 재설정될 때까지 이전의 모든 오류를 반환합니다.
 
-서로 다른 데이터 세트 또는 서로 다른 규칙을 사용하여 여러 유효성 검사를 실행하고 싶다면 각 검증 실행전에 ``$validation->reset()``\ 을 호출하여 이전 실행에서 오류를 제거해야 합니다.
+서로 다른 데이터 세트 또는 서로 다른 규칙을 사용하여 여러개의 검증을 실행하고 싶다면 각 검증을 실행전에 ``$validation->reset()``\ 을 호출하여 이전 실행에서 발생한 오류를 제거해야 합니다.
 ``reset()``\은 이전에 설정한 데이터, 검증 규칙, 사용자 정의 오류를 모두 무효화시키므로 재 검사를 위해서는 ``setRules()``, ``setRuleGroup()`` 등을 반복해야 합니다.
 
 ::
@@ -435,7 +470,7 @@ Validation 클래스의 좋은 기능은 어플리케이션 전체에 대한 모
 오류에 대한 작업
 *************************
 
-유효성 검사 라이브러리는 오류 메시지를 설정하고, 사용자 지정 오류 메시지를 제공하며 표시할 하나 이상의 오류를 검색하는 데 도움이 되는 몇 가지 방법을 제공합니다.
+검증 라이브러리는 오류 메시지를 설정하고, 사용자 지정 오류 메시지를 제공하며 표시할 하나 이상의 오류를 검색하는 데 도움이 되는 몇 가지 방법을 제공합니다.
 
 기본적으로 오류 메시지는 ``system/Language/en/Validation.php``\ 의 언어 문자열에서 파생되며, 각 규칙에는 항목이 있습니다.
 
@@ -502,7 +537,7 @@ Validation 클래스의 좋은 기능은 어플리케이션 전체에 대한 모
 
 .. note:: 마지막 매개 변수를 전달하면, 레이블에 지정된 스타일 오류 메시지는 무시됩니다.
 
-메시지 및 유효성 검사 레이블 변환
+메시지 및 검증 레이블 변환
 =============================================
 
 언어 파일에서 변환된 문자열을 사용하려면 점 구문을 사용하면 됩니다. 
@@ -618,7 +653,7 @@ Validation 클래스의 좋은 기능은 어플리케이션 전체에 대한 모
 구성
 =============
 
-뷰를 만든 후에는 유효성 검사 라이브러리에 해당 뷰를 알려야 합니다.
+뷰를 만든 후에는 검증 라이브러리에 해당 뷰를 알려야 합니다.
 ``Config/Validation.php``\ 에는 사용자 정의 뷰를 나열하고 참조 할 수 있는 짧은 별명(alias)을 제공하는 ``$templates``\ 속성이 있습니다.
 위의 예제 파일을 추가하면 다음과 같습니다.
 
@@ -656,10 +691,10 @@ Validation 클래스의 좋은 기능은 어플리케이션 전체에 대한 모
 ::
 
     public $ruleSets = [
-		\CodeIgniter\Validation\Rules::class,
-		\CodeIgniter\Validation\FileRules::class,
-		\CodeIgniter\Validation\CreditCardRules::class,
-	];
+        \CodeIgniter\Validation\Rules::class,
+        \CodeIgniter\Validation\FileRules::class,
+        \CodeIgniter\Validation\CreditCardRules::class,
+    ];
 
 정규화된 클래스 이름을 가진 간단한 문자열 또는 위와 같은 ``::class`` 접미사를 사용하여 추가할 수 있습니다.
 여기서 가장 큰 장점은 고급 IDE에서 몇 가지 추가 탐색 기능을 제공한다는 것입니다.
@@ -705,7 +740,7 @@ Validation 클래스의 좋은 기능은 어플리케이션 전체에 대한 모
 =====================
 
 분석법이 매개 변수와 함께 작동해야 하는 경우 함수에는 최소 세 개의 매개 변수가 필요합니다.
-유효성 검증 할 문자열, 매개 변수 문자열, 폼에서 제출한 모든 데이터가 있는 배열.
+유효성 검증할 문자열, 매개 변수 문자열, 폼에서 제출한 모든 데이터가 있는 배열.
 $data 배열은 결과를 기반으로 제출된 다른 필드의 값을 확인해야 하는 ``require_with``\ 와 같은 규칙에 특히 유용합니다.
 
 ::
@@ -756,9 +791,16 @@ $data 배열은 결과를 기반으로 제출된 다른 필드의 값을 확인�
 .. note:: 규칙은 문자열입니다. 매개 변수 사이에 공백은 없어야합니다 (특히 "is_unique"규칙).
     "ignore_value"\ 전후에는 공백이 있을 수 없습니다.
 
-- "is_unique[supplier.name,uuid, $uuid]"   (X)
-- "is_unique[supplier.name,uuid,$uuid ]"   (X)
-- "is_unique[supplier.name,uuid,$uuid]"    (O)
+::
+
+    // is_unique[table.field,ignore_field,ignore_value]
+
+    $validation->setRules([
+        'name' => "is_unique[supplier.name,uuid, $uuid]",  // is not ok
+        'name' => "is_unique[supplier.name,uuid,$uuid ]",  // is not ok
+        'name' => "is_unique[supplier.name,uuid,$uuid]",   // is ok
+        'name' => "is_unique[supplier.name,uuid,{uuid}]",  // is ok - 검증 자리 표시자(Placeholders) 확인
+    ]);
 
 ======================= =========== =============================================================================================== ===================================================
 Rule                    Parameter   Description                                                                                     Example
@@ -779,7 +821,8 @@ exact_length            Yes         필드가 정확히 매개 변수 값이 아
 greater_than            Yes         필드가 매개 변수 값보다 작거나, 같거나, 숫자가 아닌 경우 실패합니다.                            greater_than[8]
 greater_than_equal_to   Yes         필드가 매개 변수 값보다 작거나, 숫자가 아닌 경우 실패합니다.                                    greater_than_equal_to[5]
 hex                     No          필드에 16진수 문자가 아닌 다른 문자가 포함된 경우 실패합니다.
-if_exist                No          이 규칙이 있으면 유효성 검사는 필드 키가 존재하는 경우 값에 관계없이 가능한 오류만 반환합니다.
+if_exist                No          이 규칙이 있으면 검증 라이브러리는 필드 키가 존재하는 경우 값에
+                                    관계없이 가능한 오류만 반환합니다.
 in_list                 Yes         필드가 미리 정해진 목록에 없으면 실패합니다.                                                    in_list[red,blue,green]
 integer                 No          필드에 정수 이외의 것이 포함되어 있으면 실패합니다.
 is_natural              No          필드에 0, 1, 2, 3 등의 자연수 이외의 것이 포함되어 있으면 실패합니다.
@@ -822,7 +865,7 @@ valid_cc_number         Yes         신용 카드 번호가 지정된 공급자�
 파일 업로드 규칙
 ======================
 
-업로드된 파일이 비즈니스 요구 사항을 충족하는지 확인하는데 유효성 검사 규칙을 사용하면 필요한 기본 검사를 수행할 수 있습니다.
+업로드된 파일이 비즈니스 요구 사항을 충족하는지 확인하는데 검증 규칙을 사용하면 필요한 기본 검사를 수행할 수 있습니다.
 파일 업로드는 HTML 필드에 존재하지 않고 전역 변수 $_FILES에 저장되므로, 입력 필드의 이름을 두 번 사용해야 합니다.
 다른 규칙에서와 마찬가지로 필드 이름을 지정하지만, 파일 업로드 관련 규칙의 첫 번째 매개 변수로 다시 한 번 지정합니다.
 
@@ -849,6 +892,6 @@ ext_in                  Yes         파일 확장자가 매개 변수에 나열�
 is_image                Yes         파일이 MIME 유형에 따라 이미지라고 판단할 수 없으면 실패합니다.                                 is_image[field_name]
 ======================= =========== =============================================================================================== ========================================
 
-파일 유효성 검사 규칙은 단일/다중 파일 업로드 모두에 적용됩니다.
+파일 검증 규칙은 단일/다중 파일 업로드 모두에 적용됩니다.
 
 .. note:: 하나 이상의 매개 변수가 필요한 경우(필드 데이터를 전달하기 위해) 최대 2개의 매개 변수를 허용하는 기본 PHP 함수를 사용할 수 있습니다.

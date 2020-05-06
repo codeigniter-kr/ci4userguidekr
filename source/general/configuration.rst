@@ -28,14 +28,14 @@ CodeIgniter 구성 파일은 필요한 설정이 공용 속성인 단순 클래�
 
 - ``config()`` 함수를 사용합니다.
 
-	// config() 함수를 사용하여 새 객체 생성
-	$config = config('Pager', false);
-
 	// config() 함수로 공유 인스턴스 가져 오기
 	$config = config( 'Pager' );
 
 	// 네임스페이스가 있는 config 클래스에 액세스합니다.
 	$config = config( 'Config\\Pager' );
+
+	// config() 함수를 사용하여 새 객체 생성
+	$config = config('Pager', false);
 
 모든 구성(config) 개체 속성은 공용(public)이므로 다른 속성과 마찬가지로 설정에 액세스할 수 있습니다.
 

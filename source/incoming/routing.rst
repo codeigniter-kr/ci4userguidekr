@@ -11,7 +11,7 @@ URI의 세그먼트는 일반적으로 이 패턴을 따릅니다.
 
 ::
 
-    example.com/class/function/id/
+    example.com/class/method/id/
 
 그러나 경우에 따라 URL에 해당하는 클래스 대신 다른 클래스/메소드를 호출할 수 있도록 이 관계를 다시 맵핑해야 할 경우가 있습니다.
 
@@ -40,10 +40,10 @@ URI의 세그먼트는 일반적으로 이 패턴을 따릅니다.
 
 ::
 
-	// Calls the $Users->list()
-	Users::list
-	// Calls $Users->list(1, 23)
-	Users::list/1/23
+    // Calls the $Users->list()
+    Users::list
+    // Calls $Users->list(1, 23)
+    Users::list/1/23
 
 자리 표시자(Placeholder)
 ===========================
@@ -63,12 +63,16 @@ URI의 세그먼트는 일반적으로 이 패턴을 따릅니다.
 
 경로에서 사용할 수있는 자리 표시자는 다음과 같습니다.
 
-* **(:any)** 해당 시점부터 URI 끝까지의 모든 문자와 일치하며, 여기에는 여러 URI 세그먼트가 포함될 수 있습니다.
-* **(:segment)** 결과를 단일 세그먼트로 제한하는 슬래시(/)를 제외한 모든 문자와 일치합니다.
-* **(:num)** 모든 정수와 일치합니다.
-* **(:alpha)** 모든 알파벳 문자와 일치합니다
-* **(:alphanum)** 영문자, 정수 문자열, 둘의 조합과 일치합니다.
-* **(:hash)** **:segment**\ 와 같습니다. 그러나 hashded id를 사용합니다. (:doc:`모델 </models/model>` 문서 참조).
+============ ===========================================================================================================
+Placeholders Description
+============ ===========================================================================================================
+(:any)       해당 시점부터 URI 끝까지의 모든 문자와 일치하며, 여기에는 여러 URI 세그먼트가 포함될 수 있습니다.
+(:segment)   결과를 단일 세그먼트로 제한하는 슬래시(/)를 제외한 모든 문자와 일치합니다.
+(:num)       모든 정수와 일치합니다.
+(:alpha)     모든 알파벳 문자와 일치합니다
+(:alphanum)  영문자, 정수 문자열, 둘의 조합과 일치합니다.
+(:hash)      **(:segment)**\ 와 같습니다. 그러나 hashded id를 사용합니다. (:doc:`모델 </models/model>` 문서 참조).
+============ ===========================================================================================================
 
 .. note:: **{locale}** :doc:`현지화(localization) </outgoing/localization>`\ 에 사용하도록 예약되어 있으므로 자리 표시자 또는 경로의 다른 부분으로 사용할 수 없습니다.
 
@@ -81,29 +85,29 @@ Examples
 
 ::
 
-	$routes->add('journals', 'App\Blogs');
+    $routes->add('journals', 'App\Blogs');
 
 "blog/joe" 세그먼트가 포함된 URL은 "\Blogs" 클래스의 "users" 메소드로 매핑됩니다. ID는 "34"로 설정됩니다.
 
 ::
 
-	$routes->add('blog/joe', 'Blogs::users/34');
+    $routes->add('blog/joe', 'Blogs::users/34');
 
 첫 번째 세그먼트가 "product"\ 이고 두 번째 세그먼트가 있는 URL은 "\Catalog" 클래스의 "productLookup" 메소드로 매핑됩니다.
 
 ::
 
-	$routes->add('product/(:any)', 'Catalog::productLookup');
+    $routes->add('product/(:any)', 'Catalog::productLookup');
 
 첫 번째 세그먼트가 "product"\ 이고 두 번째로 숫자가 있는 URL은 "\Catalog" 클래스의 "productLookupByID" 메소드로 매핑되고, 
 두 번째 세그먼트의 숫자를 메소드 변수에 전달합니다.
 
 ::
 
-	$routes->add('product/(:num)', 'Catalog::productLookupByID/$1';
+    $routes->add('product/(:num)', 'Catalog::productLookupByID/$1';
 
 .. important:: ``add()`` 메소드는 편리하지만 아래 설명된 HTTP 동사 기반 경로(route)를 사용하십시오. 더 안전하며, 경로와 일치하는 항목을 찾을때 
-	요청(request) 방법을 이용해 검색해야 할 경로가 적어지므로 성능이 약간 향상됩니다.
+    요청(request) 방법을 이용해 검색해야 할 경로가 적어지므로 성능이 약간 향상됩니다.
 
 맞춤(custom) 자리 표시자
 ==========================
@@ -117,8 +121,8 @@ Examples
 
 ::
 
-	$routes->addPlaceholder('uuid', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
-	$routes->add('users/(:uuid)', 'Users::show/$1');
+    $routes->addPlaceholder('uuid', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
+    $routes->add('users/(:uuid)', 'Users::show/$1');
 
 정규식
 ===================
@@ -129,7 +133,7 @@ Examples
 .. important:: Note: 역 참조를 사용하는 경우 이중 백 슬래시 구문 대신 달러($) 구문을 사용해야합니다.
     일반적인 RegEx 경로는 다음과 같습니다::
 
-	$routes->add('products/([a-z]+)/(\d+)', 'Products::show/$1/id_$2');
+    $routes->add('products/([a-z]+)/(\d+)', 'Products::show/$1/id_$2');
 
 위의 예에서, ``products/shirts/123``\ 과 유사한 URI는 대신 ``Products`` 컨트롤러 클래스의 ``show`` 메소드를 호출하고 세그먼트가 첫 번째 및 두 번째 세그먼트가 인수로 전달됩니다.
 
@@ -139,7 +143,7 @@ Examples
 
 ::
 
-	$routes->add('login/(.+)', 'Auth::login/$1');
+    $routes->add('login/(.+)', 'Auth::login/$1');
 
 정규 표현식에 대해 더 배우고 싶은 사람들에게 `regular-expressions.info <https://www.regular-expressions.info/>`_\ 가 좋은 출발점이 될 수 있습니다.
 
@@ -168,11 +172,11 @@ Examples
 
 ::
 
-	$routes = [];
-	$routes['product/(:num)']      = 'Catalog::productLookupById';
-	$routes['product/(:alphanum)'] = 'Catalog::productLookupByName';
+    $routes = [];
+    $routes['product/(:num)']      = 'Catalog::productLookupById';
+    $routes['product/(:alphanum)'] = 'Catalog::productLookupByName';
 
-	$collection->map($routes);
+    $collection->map($routes);
 
 라우트 리디렉션
 ==================
@@ -204,34 +208,34 @@ Examples
 
 ::
 
-	$routes->group('admin', function($routes)
-	{
-		$routes->add('users', 'Admin\Users::index');
-		$routes->add('blog', 'Admin\Blog::index');
-	});
+    $routes->group('admin', function($routes)
+    {
+        $routes->add('users', 'Admin\Users::index');
+        $routes->add('blog', 'Admin\Blog::index');
+    });
 
 이것은 'users'\ 와 'blog' URI를 접두사 "admin"\ 을 사용하여 ``/admin/users`` 및 ``/admin/blog``\ 로 만들어 줍니다.
 필요한 경우 더 나은 구성(organization)을 위해 그룹내에 그룹을 중첩할 수 있습니다.
 
 ::
 
-	$routes->group('admin', function($routes)
-	{
-		$routes->group('users', function($routes)
-		{
-			$routes->add('list', 'Admin\Users::list');
-		});
+    $routes->group('admin', function($routes)
+    {
+        $routes->group('users', function($routes)
+        {
+            $routes->add('list', 'Admin\Users::list');
+        });
 
-	});
+    });
 
 위 예는 ``admin/users/list``\ URL을 처리합니다.
 
 콜백 전에 `namespace <#assigning-namespace>`_\ 처럼 그룹에 옵션을 할당해야 하는 경우::
 
-	$routes->group('api', ['namespace' => 'App\API\v1'], function($routes)
-	{
-		$routes->resource('users');
-	});
+    $routes->group('api', ['namespace' => 'App\API\v1'], function($routes)
+    {
+        $routes->resource('users');
+    });
 
 위 예는 ``/api/users`` URI를 사용하여 ``App\API\v1\Users`` 컨트롤러에 대한 리소스 경로(route)를 처리합니다.
 
@@ -257,9 +261,9 @@ Examples
 
 ::
 
-	$routes->environment('development', function($routes) {
-		$routes->add('builder', 'Tools\Builder::index');
-	});
+    $routes->environment('development', function($routes) {
+        $routes->add('builder', 'Tools\Builder::index');
+    });
 
 리버스(Reverse) 라우팅
 ========================
@@ -273,12 +277,12 @@ Examples
 
 ::
 
-	// The route is defined as:
-	$routes->add('users/(:id)/gallery(:any)', 'App\Controllers\Galleries::showUserGallery/$1/$2');
+    // The route is defined as:
+    $routes->add('users/(:id)/gallery(:any)', 'App\Controllers\Galleries::showUserGallery/$1/$2');
 
-	// Generate the relative URL to link to user ID 15, gallery 12
-	// Generates: /users/15/gallery/12
-	<a href="<?= route_to('App\Controllers\Galleries::showUserGallery', 15, 12) ?>">View Gallery</a>
+    // Generate the relative URL to link to user ID 15, gallery 12
+    // Generates: /users/15/gallery/12
+    <a href="<?= route_to('App\Controllers\Galleries::showUserGallery', 15, 12) ?>">View Gallery</a>
 
 명명된 경로 사용
 ==================
@@ -308,16 +312,16 @@ RESTFUL 어플리케이션을 빌드할 때 특히 유용합니다.
 
 ::
 
-	$routes->get('products', 'Product::feature');
-	$routes->post('products', 'Product::feature');
-	$routes->put('products/(:num)', 'Product::feature');
-	$routes->delete('products/(:num)', 'Product::feature');
+    $routes->get('products', 'Product::feature');
+    $routes->post('products', 'Product::feature');
+    $routes->put('products/(:num)', 'Product::feature');
+    $routes->delete('products/(:num)', 'Product::feature');
 
 ``match`` 메소드에 배열로 일치해야 하는 여러 동사에 경로를 제공할 수 있습니다.
 
 ::
 
-	$routes->match(['get', 'put'], 'products', 'Product::feature');
+    $routes->match(['get', 'put'], 'products', 'Product::feature');
 
 커맨드 라인(command-line) 전용 라우트
 ===============================================
@@ -327,7 +331,7 @@ CLI에서 HTTP 동사 기반 라우트 메소드(get, post, put 등)로 작성�
 
 ::
 
-	$routes->cli('migrate', 'App\Database::migrate');
+    $routes->cli('migrate', 'App\Database::migrate');
 
 전역 옵션
 ==============
@@ -337,18 +341,18 @@ CLI에서 HTTP 동사 기반 라우트 메소드(get, post, put 등)로 작성�
 
 ::
 
-	$routes->add('from', 'to', $options);
-	$routes->get('from', 'to', $options);
-	$routes->post('from', 'to', $options);
-	$routes->put('from', 'to', $options);
-	$routes->head('from', 'to', $options);
-	$routes->options('from', 'to', $options);
-	$routes->delete('from', 'to', $options);
-	$routes->patch('from', 'to', $options);
-	$routes->match(['get', 'put'], 'from', 'to', $options);
-	$routes->resource('photos', $options);
-	$routes->map($array, $options);
-	$routes->group('name', $options, function());
+    $routes->add('from', 'to', $options);
+    $routes->get('from', 'to', $options);
+    $routes->post('from', 'to', $options);
+    $routes->put('from', 'to', $options);
+    $routes->head('from', 'to', $options);
+    $routes->options('from', 'to', $options);
+    $routes->delete('from', 'to', $options);
+    $routes->patch('from', 'to', $options);
+    $routes->match(['get', 'put'], 'from', 'to', $options);
+    $routes->resource('photos', $options);
+    $routes->map($array, $options);
+    $routes->group('name', $options, function());
 
 필터 적용
 ----------------
@@ -377,8 +381,8 @@ CLI에서 HTTP 동사 기반 라우트 메소드(get, post, put 등)로 작성�
 
 ::
 
-	// Routes to \Admin\Users::index()
-	$routes->add('admin/users', 'Users::index', ['namespace' => 'Admin']);
+    // Routes to \Admin\Users::index()
+    $routes->add('admin/users', 'Users::index', ['namespace' => 'Admin']);
 
 새로운 네임스페이스는 get, post 등과 같이 단일 경로를 만드는 메소드에 대해서만 적용됩니다.
 다중 경로를 만드는 모든 메소드의 경우 새로운 네임스페이스를 해당 함수에 의해 생성된 모든 경로 또는 ``group()``\ 일 경우 클로저에 생성된 모든 경로에 연결됩니다.
@@ -390,7 +394,7 @@ CLI에서 HTTP 동사 기반 라우트 메소드(get, post, put 등)로 작성�
 
 ::
 
-	$collection->get('from', 'to', ['hostname' => 'accounts.example.com']);
+    $collection->get('from', 'to', ['hostname' => 'accounts.example.com']);
 
 이 예는 도메인이 "accounts.example.com".과 정확히 일치하는 경우에만 작동하도록 허용합니다.
 기본 사이트인 "example.com" 에서는 작동하지 않습니다.
@@ -403,19 +407,19 @@ CLI에서 HTTP 동사 기반 라우트 메소드(get, post, put 등)로 작성�
 
 ::
 
-	// Limit to media.example.com
-	$routes->add('from', 'to', ['subdomain' => 'media']);
+    // Limit to media.example.com
+    $routes->add('from', 'to', ['subdomain' => 'media']);
 
 값을 별표(*)로 설정하여 하위 도메인으로 제한할 수 있습니다.
 하위 도메인이 없는 URL에서 보는 경우 일치하지 않습니다
 
 ::
 
-	// Limit to any sub-domain
-	$routes->add('from', 'to', ['subdomain' => '*']);
+    // Limit to any sub-domain
+    $routes->add('from', 'to', ['subdomain' => '*']);
 
 .. important:: 시스템이 완벽하지 않으므로 프로덕션(production) 환경에서 사용하기 전에 특정 도메인에 대해 테스트해야 합니다.
-	대부분의 도메인에서 제대로 작동하지만, 일부 도메인, 특히 도메인 자체에 마침표가 있는 경우(접미사 또는 www를 구분하는 데 사용되지 않음)에는 잘못 탐지할 수 있습니다.
+    대부분의 도메인에서 제대로 작동하지만, 일부 도메인, 특히 도메인 자체에 마침표가 있는 경우(접미사 또는 www를 구분하는 데 사용되지 않음)에는 잘못 탐지할 수 있습니다.
 
 일치하는 매개 변수(Parameter) 상쇄(offset)
 --------------------------------------------
@@ -427,10 +431,10 @@ CLI에서 HTTP 동사 기반 라우트 메소드(get, post, put 등)로 작성�
 
 ::
 
-	$routes->get('users/(:num)', 'users/show/$1', ['offset' => 1]);
+    $routes->get('users/(:num)', 'users/show/$1', ['offset' => 1]);
 
-	// Creates:
-	$routes['users/(:num)'] = 'users/show/$2';
+    // Creates:
+    $routes['users/(:num)'] = 'users/show/$2';
 
 경로(Route) 구성 옵션
 ============================
@@ -458,13 +462,13 @@ RoutesCollection 클래스는 모든 경로에 영향을 주는 몇 가지 옵�
 
 ::
 
-	$routes->setDefaultNamespace('App');
+    $routes->setDefaultNamespace('App');
 
-	// Controller is \App\Users
-	$routes->add('users', 'Users::index');
+    // Controller is \App\Users
+    $routes->add('users', 'Users::index');
 
-	// Controller is \App\Admin\Users
-	$routes->add('users', 'Admin\Users::index');
+    // Controller is \App\Admin\Users
+    $routes->add('users', 'Admin\Users::index');
 
 기본 컨트롤러
 ------------------
@@ -474,8 +478,8 @@ RoutesCollection 클래스는 모든 경로에 영향을 주는 몇 가지 옵�
 
 ::
 
-	// example.com routes to app/Controllers/Welcome.php
-	$routes->setDefaultController('Welcome');
+    // example.com routes to app/Controllers/Welcome.php
+    $routes->setDefaultController('Welcome');
 
 일치하는 경로를 찾지 못한 경우에도 기본 컨트롤러가 사용되며, URI는 컨트롤러 디렉토리를 가리킵니다.
 예를 들어 사용자가 ``example.com/admin``\ 을 방문하면 ``/app/Controllers/admin/Home.php`` 컨트롤러가 사용됩니다.
@@ -486,11 +490,11 @@ RoutesCollection 클래스는 모든 경로에 영향을 주는 몇 가지 옵�
 이 메소드는 기본 컨트롤러 설정과 유사하게 작동하며, URI와 일치하는 컨트롤러를 발견되었으나, 메소드에 대한 세그먼트가 없을 때 사용됩니다.
 기본값은 ``index``\ 입니다.
 
+사용자가 "example.com/products"\ 를 방문하였을때 products 컨트롤러가 존재한다면, ``Products::listAll()`` 메소드가 실행됩니다.
+
 ::
 
-	$routes->setDefaultMethod('listAll');
-
-사용자가 "example.com/products"\ 를 방문하였을때 products 컨트롤러가 존재한다면, ``Products::listAll()`` 메소드가 실행됩니다.
+    $routes->setDefaultMethod('listAll');
 
 URI 대시(-) 변환
 --------------------
@@ -501,7 +505,7 @@ URI에 대시를 사용하고자 할 때 이 옵션 사용은 필수입니다.
 
 ::
 
-	$routes->setTranslateURIDashes(true);
+    $routes->setTranslateURIDashes(true);
 
 정의된 경로만 사용
 -----------------------
@@ -511,7 +515,7 @@ URI와 일치하는 정의된 경로가 없으면 시스템은 위에서 설명�
 
 ::
 
-	$routes->setAutoRoute(false);
+    $routes->setAutoRoute(false);
 
 404 재정의
 --------------

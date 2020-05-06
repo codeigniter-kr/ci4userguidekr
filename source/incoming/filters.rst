@@ -125,12 +125,12 @@ $globals
 
 ::
 
-	public $globals = [
-		'before' => [
-			'csrf'
-		],
-		'after'  => []
-	];
+    public $globals = [
+        'before' => [
+            'csrf'
+        ],
+        'after'  => []
+    ];
 
 모든 요청에 필터를 적용하고 싶을 때도 있지만, 몇 개만 남겨두어야 할 경우도 있습니다.
 한 가지 일반적인 예는 CSRF 보호 필터에 몇 개의 URI를 제외하여 제3자 웹 사이트의 요청이 하나 또는 두 개의 특정 URI를 도달할 수 있도록 하고 나머지 URI는 보호해야 하는 경우입니다.
@@ -138,12 +138,12 @@ $globals
 
 ::
 
-	public $globals = [
-		'before' => [
-			'csrf' => ['except' => 'api/*']
-		],
-		'after'  => []
-	];
+    public $globals = [
+        'before' => [
+            'csrf' => ['except' => 'api/*']
+        ],
+        'after'  => []
+    ];
 
 필터 설정에서 URI를 사용할 수 있는 모든 장소, 정규 표현식을 사용하거나 이 예에서와 같이 와일드 카드 별표(*)를 사용하여 그 이후의 모든 문자를 일치시킬 수 있습니다.
 다음 예는 ``api/``\ 로 시작하는 URL은 CSRF 보호에서 제외되지만 양식(Form)은 모두 보호됩니다.
@@ -151,12 +151,12 @@ $globals
 
 ::
 
-	public $globals = [
-		'before' => [
-			'csrf' => ['except' => ['foo/*', 'bar/*']]
-		],
-		'after'  => []
-	];
+    public $globals = [
+        'before' => [
+            'csrf' => ['except' => ['foo/*', 'bar/*']]
+        ],
+        'after'  => []
+    ];
 
 $methods
 ========

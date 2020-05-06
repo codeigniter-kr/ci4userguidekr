@@ -233,9 +233,12 @@ CodeIgniter는 라우팅 규칙을 위에서 아래로 읽고 요청과 첫 번�
 여기서 ``$routes`` 배열의 두 번째 규칙은 와일드카드 문자열 ``(:any)``\ 를 사용한 요청과 일치하며, 매개변수를 ``Pages`` 클래스의 ``view()`` 메소드에 전달합니다.
 
 이제 ``localhost:8080/home``\ 을 확인합시다. pages 컨트롤러의 ``view()`` 메소드로 올바르게 라우팅되었나요?
-Awesome!
+멋지지 않나요?!?!
 
 다음과 같은지 보세요.:
 
 .. image:: ../images/tutorial1.png
     :align: center
+
+.. note:: 경로를 수동으로 지정할 때는 Routes.php 파일에서 ``$routes->setAutoRoute(false);``\ 를 설정하여 자동 라우팅을 비활성화하는 것이 좋습니다.
+    이렇게 하면 정의한 경로만 액세스할 수 있습니다.

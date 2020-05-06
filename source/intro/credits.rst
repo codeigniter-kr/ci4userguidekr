@@ -8,4 +8,4 @@ EllisLab, ExpressionEngine Development Team 과 Reactor Team 이라는 커뮤니
 
 2014년 CodeIgniter는 `브리티시 컬럼비아 공과 대학 (British Columbia Institute of Technology) <https://www.bcit.ca/>`_\ 에 의해 인수된 후 공식적으로 커뮤니티 유지 프로젝트로 발표되었습니다.
 
-최근 개발은 CodeIgniter Council의 엄선된 기고자들에 의해 주도되고 있습니다.
+2019년, CodeIgniter Foundation은 프레임워크의 미래를 보장하기 위해 다른 조직과 분리된 영구적인 관리 그룹을 제공하기 위해 설립되었습니다.

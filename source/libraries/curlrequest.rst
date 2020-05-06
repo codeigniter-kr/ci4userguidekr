@@ -34,7 +34,7 @@ cURL이 요청을 처리하는 방법을 수정하기 위해 기본 옵션 배�
 ::
 
 	$options = [
-		'base_uri' => 'http://example.com/api/v1/',
+		'baseURI' => 'http://example.com/api/v1/',
 		'timeout'  => 3
 	];
 	$client = \Config\Services::curlrequest($options);
@@ -100,14 +100,14 @@ HTTP 메소드, url 및 옵션 배열을 매개 변수로 사용합니다.
 Base URI
 --------
 
-클래스를 인스턴스화하는 동안 ``base_uri``\ 을 옵션 중 하나로 설정할 수 있습니다.
+클래스를 인스턴스화하는 동안 ``baseURI``\ 을 옵션 중 하나로 설정할 수 있습니다.
 이를 통해 기본 URI를 설정한 다음 상대 URL을 사용하여 해당 클라이언트와의 모든 요청을 할 수 있습니다.
 API로 작업할 때 특히 유용합니다
 
 ::
 
 	$client = \Config\Services::curlrequest([
-		'base_uri' => 'https://example.com/api/v1/'
+		'baseURI' => 'https://example.com/api/v1/'
 	]);
 
 	// GET http:example.com/api/v1/photos
@@ -116,11 +116,11 @@ API로 작업할 때 특히 유용합니다
 	// GET http:example.com/api/v1/photos/13
 	$client->delete('photos/13');
 
-상대 URI가 ``request()`` 메소드 또는 임의의 단축키 메소드에 제공되면, `RFC 2986, section 2 <http://tools.ietf.org/html/rfc3986#section-5.2>`_\ 에 설명된 규칙에 따라 base_uri와 결합됩니다. 
+상대 URI가 ``request()`` 메소드 또는 임의의 단축키 메소드에 제공되면, `RFC 2986, section 2 <http://tools.ietf.org/html/rfc3986#section-5.2>`_\ 에 설명된 규칙에 따라 baseURI와 결합됩니다. 
 다음은 조합에 대한 몇 가지 예입니다.
 
 	===================   ================   ======================
-	base_uri              URI                Result
+	baseURI               URI                Result
 	===================   ================   ======================
 	http://foo.com        /bar               `http://foo.com/bar`
 	http://foo.com/foo    /bar               `http://foo.com/bar`

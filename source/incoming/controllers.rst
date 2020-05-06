@@ -18,7 +18,7 @@
 
 ::
 
-	example.com/index.php/helloworld/
+    example.com/index.php/helloworld/
 
 위의 예제에서 CodeIgniter는 Helloworld.php 라는 컨트롤러를 찾아 로드하려고 시도합니다.
 
@@ -31,17 +31,17 @@
 
 ::
 
-	<?php namespace App\Controllers;
+    <?php namespace App\Controllers;
 
-	use CodeIgniter\Controller;
+    use CodeIgniter\Controller;
 
-	class Helloworld extends Controller
+    class Helloworld extends Controller
         {
-		public function index()
-		{
-			echo 'Hello World!';
-		}
-	}
+        public function index()
+        {
+            echo 'Hello World!';
+        }
+    }
 
 이 파일을 **/app/Controllers/** 디렉토리에 저장합니다.
 
@@ -51,45 +51,57 @@
 
 ::
 
-	example.com/index.php/helloworld
+    example.com/index.php/helloworld
 
 제대로 했다면 결과는::
 
-	Hello World!
+    Hello World!
 
 .. important:: 컨트롤러 클래스 이름은 대문자로 시작해야 하며, 첫번째 문자만 대문자입니다.
 
 올바른 예::
 
-	<?php namespace App\Controllers;
+    <?php namespace App\Controllers;
 
-	use CodeIgniter\Controller;
+    use CodeIgniter\Controller;
 
-	class Helloworld extends Controller {
+    class Helloworld extends Controller {
 
-	}
+    }
 
 틀린 예1::
 
-	<?php namespace App\Controllers;
+    <?php namespace App\Controllers;
 
-	use CodeIgniter\Controller;
+    use CodeIgniter\Controller;
 
-	class helloworld extends Controller {
+    class helloworld extends Controller {
 
-	}
+    }
 
 틀린 예2::
 
-	<?php namespace App\Controllers;
+    <?php namespace App\Controllers;
 
-	use CodeIgniter\Controller;
+    use CodeIgniter\Controller;
 
-	class HelloWorld extends Controller {
+    class HelloWorld extends Controller {
 
-	}
+    }
 
 여러분이 작성한 컨트롤러가 모든 메소드를 상속받을 수 있도록 상위 컨트롤러 클래스를 확장해야 합니다.
+
+.. note:: 시스템은 정의된 경로와 일치하는 항목을 찾을 수 없는 경우 APPATH/Controller의 폴더/파일과 각 세그먼트를 일치시켜 컨트롤러와 URI를 일치시키려고 시도합니다. 
+    따라서 폴더/파일은 대문자로 시작하고 나머지는 소문자여야 합니다.
+    다른 명명 규칙을 원한다면 :doc:`URI Routing <routing>`\ 을 사용하여 수동으로 정의해야 합니다.
+
+    다음은 `PSR-4: Autoloader`\ 에 기반으로 한 예입니다. 
+
+    ::
+
+        \<NamespaceName>(\<SubNamespaceNames>)*\<ClassName>
+
+        $routes->get('helloworld', 'App\Controllers\HelloWorld::index');
 
 메소드
 =========
@@ -100,7 +112,7 @@ URI의 **두 번째 세그먼트**\ 가 비어 있으면 "index" 메소드가 �
 
 ::
 
-	example.com/index.php/helloworld/index/
+    example.com/index.php/helloworld/index/
 
 **URI의 두 번째 세그먼트는 컨트롤러에서 호출할 메소드를 결정합니다.**
 
@@ -108,27 +120,27 @@ URI의 **두 번째 세그먼트**\ 가 비어 있으면 "index" 메소드가 �
 
 ::
 
-	<?php namespace App\Controllers;
+    <?php namespace App\Controllers;
 
-	use CodeIgniter\Controller;
+    use CodeIgniter\Controller;
 
-	class Helloworld extends Controller
+    class Helloworld extends Controller
+    {
+        public function index()
         {
+            echo 'Hello World!';
+        }
 
-		public function index()
-		{
-			echo 'Hello World!';
-		}
+        public function comment()
+        {
+            echo 'I am not flat!';
+        }
+    }
 
-		public function comment()
-		{
-			echo 'I am not flat!';
-		}
-	}
 
 이제 다음 URL을 로드하여 comment 메소드를 봅니다.::
 
-	example.com/index.php/helloworld/comment/
+    example.com/index.php/helloworld/comment/
 
 새로운 메시지가 표시됩니다.
 
@@ -139,23 +151,22 @@ URI에 세 개 이상의 세그먼트가 포함되어 있으면 메소드에 매
 
 예를 들어 이와 같은 URI가 있다고 가정 해 봅시다.::
 
-	example.com/index.php/products/shoes/sandals/123
+    example.com/index.php/products/shoes/sandals/123
 
 메소드에 URI 세그먼트 3과 세그먼트 4가 전달됩니다. ("sandals" 와 "123")::
 
-	<?php namespace App\Controllers;
+    <?php namespace App\Controllers;
 
-	use CodeIgniter\Controller;
+    use CodeIgniter\Controller;
 
-	class Products extends Controller
+    class Products extends Controller
+    {
+        public function shoes($sandals, $id)
         {
-
-		public function shoes($sandals, $id)
-		{
-			echo $sandals;
-			echo $id;
-		}
-	}
+            echo $sandals;
+            echo $id;
+        }
+    }
 
 .. important:: :doc:`URI 라우팅 <routing>` 기능을 사용하는 경우 메소드에 전달 된 세그먼트가 다시 라우팅됩니다.
 
@@ -168,14 +179,14 @@ URI에 세 개 이상의 세그먼트가 포함되어 있으면 메소드에 매
 
 ::
 
-	$routes->setDefaultController('Helloworld');
+    $routes->setDefaultController('Helloworld');
 
 여기서 'Helloworld'는 사용하려는 기본 컨트롤러 클래스의 이름입니다.
 **Routes.php**\ 의 라인 코멘트 "Route Definitions" 섹션 몇 줄 아래 있습니다.
 
 ::
 
-	$routes->get('/', 'Home::index');
+    $routes->get('/', 'Home::index');
 
 URI 세그먼트를 지정하지 않고 사이트를 탐색하면 "Hello World"메시지가 표시됩니다.
 
@@ -192,43 +203,43 @@ URI 세그먼트를 지정하지 않고 사이트를 탐색하면 "Hello World"�
 
 ::
 
-	public function _remap()
-	{
-		// Some code here...
-	}
+    public function _remap()
+    {
+        // Some code here...
+    }
 
 .. important:: 컨트롤러에 _remap()\ 이라는 메소드가 포함되어 있으면 URI에 포함 된 내용에 관계없이 **항상** 호출됩니다.
-	URI는 어떤 메소드가 호출되는지 판별하여 사용자 고유의 메소드 라우팅 규칙을 정의할 수 있는 일반적인 동작을 대체합니다.
+    URI는 어떤 메소드가 호출되는지 판별하여 사용자 고유의 메소드 라우팅 규칙을 정의할 수 있는 일반적인 동작을 대체합니다.
 
 재정의 된 메소드 호출(일반적으로 URI의 두 번째 세그먼트)은 ``_remap()`` 메소드에 매개 변수로 전달됩니다.
 ::
 
-	public function _remap($method)
-	{
-		if ($method === 'some_method')
-		{
-			return $this->$method();
-		}
-		else
-		{
-			return $this->default_method();
-		}
-	}
+    public function _remap($method)
+    {
+        if ($method === 'some_method')
+        {
+            return $this->$method();
+        }
+        else
+        {
+            return $this->default_method();
+        }
+    }
 
 메소드 이름 뒤의 추가 세그먼트는 ``_remap()``\ 에 전달됩니다.
 이러한 매개 변수는 CodeIgniter의 기본 동작을 에뮬레이트하기 위해 메소드로 전달될 수 있습니다.
 
 Example::
 
-	public function _remap($method, ...$params)
-	{
-		$method = 'process_'.$method;
-		if (method_exists($this, $method))
-		{
-			return $this->$method(...$params);
-		}
-		throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-	}
+    public function _remap($method, ...$params)
+    {
+        $method = 'process_'.$method;
+        if (method_exists($this, $method))
+        {
+            return $this->$method(...$params);
+        }
+        throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+    }
 
 비공개 메소드
 ===============
@@ -239,16 +250,16 @@ Example::
 
 ::
 
-	protected function utility()
-	{
-		// some code
-	}
+    protected function utility()
+    {
+        // some code
+    }
 
 아래와 같이 URL을 통해 액세스하려고 하면 동작하지 않습니다.
 
 ::
 
-	example.com/index.php/helloworld/utility/
+    example.com/index.php/helloworld/utility/
 
 컨트롤러를 하위 디렉토리로 구성
 ================================================
@@ -258,17 +269,17 @@ CodeIgniter를 사용하면 컨트롤러를 하위(sub) 디렉터리에 계층�
 메인 *app/Controllers/* 아래에 하위 디렉토리를 만들고 그 안에 컨트롤러 클래스를 배치하십시오.
 
 .. note:: 이 기능을 사용할 때 URI의 첫 번째 세그먼트는 폴더를 지정해야 합니다.
-	예를 들어 다음과 같은 컨트롤러가 있다고 가정해 봅시다.
-	
-	::
+    예를 들어 다음과 같은 컨트롤러가 있다고 가정해 봅시다.
+    
+    ::
 
-		app/Controllers/products/Shoes.php
+        app/Controllers/Products/Shoes.php
 
-	위의 컨트롤러를 호출하기 위한 URI는 다음과 같습니다.
-	
-	::
+    위의 컨트롤러를 호출하기 위한 URI는 다음과 같습니다.
+    
+    ::
 
-		example.com/index.php/products/shoes/show/123
+        example.com/index.php/products/shoes/show/123
 
 각 하위 디렉토리에는 URL에 하위 디렉토리만 호출하는 경우를 위하여 기본 컨트롤러가 지정할 수 있습니다.
 *app/Config/Routes.php* 파일의 'default_controller'\ 에 이를 위한 컨트롤러를 지정하십시오.
@@ -299,20 +310,20 @@ HTTPS를 통해 메소드에 액세스할 수있는 편리한 메소드를 모�
 
 ::
 
-	if (! $this->request->isSecure())
-	{
-		$this->forceHTTPS();
-	}
+    if (! $this->request->isSecure())
+    {
+        $this->forceHTTPS();
+    }
 
 기본적으로, HTTP Strict Transport Security 헤더를 지원하는 최신 브라우저는 이 호출을 통하여 HTTPS가 아닌 호출을 1년 동안 HTTPS 호출로 변환하도록 강제합니다.
 지속 시간(초)은 매개 변수를 전달하여 수정할 수 있습니다.
 
 ::
 
-	if (! $this->request->isSecure())
-	{
-		$this->forceHTTPS(31536000);    // one year
-	}
+    if (! $this->request->isSecure())
+    {
+        $this->forceHTTPS(31536000);    // one year
+    }
 
 .. note:: 숫자 대신 YEAR, MONTH등 :doc:`시간 기반 상수 </general/common_functions>`\ 를 사용할 수도 있습니다.
 
@@ -324,13 +335,13 @@ HTTPS를 통해 메소드에 액세스할 수있는 편리한 메소드를 모�
 
 ::
 
-	namespace App\Controllers;
+    namespace App\Controllers;
         use CodeIgniter\Controller;
 
-	class MyController extends Controller
-	{
-		protected $helpers = ['url', 'form'];
-	}
+    class MyController extends Controller
+    {
+        protected $helpers = ['url', 'form'];
+    }
 
 데이터 검증
 ======================

@@ -188,7 +188,7 @@ For example, let's say you want to create a file containing error messages.
     // The language file, Tests.php:
     return [
         "apples"      => "I have {0, number} apples.",
-        "men"         => "I have {1, number} men out-performed the remaining {0, number}",
+        "men"         => "The top {1, number} men out-performed the remaining {0, number}",
         "namedApples" => "I have {number_apples, number, integer} apples.",
     ];
 

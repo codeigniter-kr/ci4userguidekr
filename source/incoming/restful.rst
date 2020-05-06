@@ -55,10 +55,10 @@ CodeIgniter를 사용하면 리소스 경로(Resource route)와 `ResourceControl
 
 ::
 
-	$routes->resource('photos', ['controller' =>'App\Gallery']);
+    $routes->resource('photos', ['controller' =>'App\Gallery']);
 
-	// Would create routes like:
-	$routes->get('photos', 'App\Gallery::index');
+    // Would create routes like:
+    $routes->get('photos', 'App\Gallery::index');
 
 사용된 자리 표시자(Placeholder) 변경
 ----------------------------------------
@@ -68,10 +68,10 @@ CodeIgniter를 사용하면 리소스 경로(Resource route)와 `ResourceControl
 
 ::
 
-	$routes->resource('photos', ['placeholder' => '(:num)']);
+    $routes->resource('photos', ['placeholder' => '(:num)']);
 
-	// Generates routes like:
-	$routes->get('photos/(:num)', 'Photos::show/$1');
+    // Generates routes like:
+    $routes->get('photos/(:num)', 'Photos::show/$1');
 
 생성 경로 제한
 ---------------------
@@ -82,13 +82,13 @@ CodeIgniter를 사용하면 리소스 경로(Resource route)와 `ResourceControl
 
 ::
 
-	$routes->resource('photos', ['only' => ['index', 'show']]);
+    $routes->resource('photos', ['only' => ['index', 'show']]);
 
 ``except`` 옵션을 사용하여 사용하지 않는 경로를 제거할 수도 있습니다. 이 옵션은 ``only`` 이후에 실행됩니다
 
 ::
 
-	$routes->resource('photos', ['except' => 'new,edit']);
+    $routes->resource('photos', ['except' => 'new,edit']);
 
 유효한 메소드: index, show, create, update, new, edit, delete.
 
@@ -101,22 +101,22 @@ ResourceController
 
 ::
 
-	<?php namespace App\Controllers;
+    <?php namespace App\Controllers;
 
     use CodeIgniter\RESTful\ResourceController;
 
-	class Photos extends ResourceController
+    class Photos extends ResourceController
     {
         protected $modelName = 'App\Models\Photos';
-		protected $format    = 'json';
+        protected $format    = 'json';
     
-		public function index()
-		{
-			return $this->respond($this->model->findAll());
-		}
+        public function index()
+        {
+            return $this->respond($this->model->findAll());
+        }
 
-                // ...
-	}
+        // ...
+    }
 
 이것에 대한 라우팅은
 
@@ -169,10 +169,10 @@ ResourceController
 
 ::
 
-	$routes->presenter('photos', ['controller' =>'App\Gallery']);
+    $routes->presenter('photos', ['controller' =>'App\Gallery']);
 
-	// Would create routes like:
-	$routes->get('photos', 'App\Gallery::index');
+    // Would create routes like:
+    $routes->get('photos', 'App\Gallery::index');
 
 사용된 자리 표시자 변경
 ---------------------------
@@ -181,10 +181,10 @@ ResourceController
 
 ::
 
-	$routes->presenter('photos', ['placeholder' => '(:num)']);
+    $routes->presenter('photos', ['placeholder' => '(:num)']);
 
-	// Generates routes like:
-	$routes->get('photos/(:num)', 'Photos::show/$1');
+    // Generates routes like:
+    $routes->get('photos/(:num)', 'Photos::show/$1');
 
 경로(Route) 제한
 --------------------------
@@ -194,14 +194,14 @@ ResourceController
 
 ::
 
-	$routes->presenter('photos', ['only' => ['index', 'show']]);
+    $routes->presenter('photos', ['only' => ['index', 'show']]);
 
 ``except`` 옵션을 사용하여 사용하지 않는 경로를 제거할 수 있습니다.
 이 옵션은 ``only`` 이 후에 실행됩니다.
 
 ::
 
-	$routes->presenter('photos', ['except' => 'new,edit']);
+    $routes->presenter('photos', ['except' => 'new,edit']);
 
 유효한 메소드: index, show, new, create, edit, update, remove and delete.
 
@@ -214,22 +214,22 @@ ResourcePresenter
 
 ::
 
-	<?php namespace App\Controllers;
+    <?php namespace App\Controllers;
 
     use CodeIgniter\RESTful\ResourcePresenter;
 
-	class Photos extends ResourcePresenter
+    class Photos extends ResourcePresenter
     {
 
         protected $modelName = 'App\Models\Photos';
 
-		public function index()
-		{
-			return view('templates/list',$this->model->findAll());
-		}
+        public function index()
+        {
+            return view('templates/list',$this->model->findAll());
+        }
 
-                // ...
-	}
+        // ...
+    }
 
 이것에 대한 경로는
 
