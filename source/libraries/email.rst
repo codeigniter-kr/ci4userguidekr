@@ -248,6 +248,7 @@ Class Reference
 		메시지를 설정하지 않으면 CodeIgniter는 HTML 이메일에서 메시지를 추출하고 태그를 제거합니다.
 
 	.. php:method:: setHeader($header, $value)
+		:noindex:
 
 		:param	string	$header: Header 이름
 		:param	string	$value: Header 값

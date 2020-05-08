@@ -478,6 +478,7 @@ Class Reference
         .. note::  :doc:`Cookie Helper <../helpers/cookie_helper>` 함수 :php:func:`get_cookie()`\ 와 달리 이 메소드는 ``$config['cookie_prefix']``\ 의 값이 앞에 추가되지 않습니다.
 
     .. php:method:: getServer([$index = null[, $filter = null[, $flags = null]]])
+		:noindex:
 
         :param  mixed   $index: Value name
         :param  int     $filter: 적용할 필터 유형, 필터 목록은 `여기 <https://www.php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.

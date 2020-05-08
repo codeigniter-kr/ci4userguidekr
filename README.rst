@@ -26,8 +26,12 @@ Sphinx는 Python 3.5 이상이 필요하며 OS X 또는 Linux를 사용 중이�
 	python3 --version
 	Python 3.6.9
 
+	# For Windows using the Python Launcher
+	py -3 --version
+	Python 3.8.1
+
 3.5 이상이 아니라면 `Python.org <https://www.python.org/downloads/>`_\ 에서 최신 3.x 버전을 설치하십시오.
-Linux 사용자는 운영 체제에 내장된 패키지 관리자를 사용하여 업데이트해야 합니다.
+Linux 사용자는 운영체제에 내장된 패키지 관리자를 사용하여 업데이트해야 합니다.
 
 pip
 ---
@@ -51,13 +55,17 @@ pip는 Python과 동일한 명명 규칙을 따릅니다.
 	pip3 --version
 	pip 9.0.1 from /usr/lib/python3/dist-packages (python 3.6)
 
+	# For Windows using the Python Launcher
+	py -3 -m pip --version
+	pip 20.0.2 from C:\Users\<username>\AppData\Local\Programs\Python\Python38\lib\site-packages\pip (python 3.8)
+
 Linux
 ^^^^^
 
 `Linux 패키지 관리자를 사용하여 pip/setuptools/wheel 설치 <https://packaging.python.org/guides/installing-using-linux-tools/>`_
 
-Other
-^^^^^
+Others
+^^^^^^
 
 `Python.org <https://www.python.org/downloads/>`_\ 에서 다운로드한 Python 3.5 이상을 사용중인 경우 pip가 이미 설치되어 있습니다.
 
@@ -73,6 +81,9 @@ Other
 	pip install -r user_guide_src/requirements.txt
 
 	pip3 install -r user_guide_src/requirements.txt
+
+	# For Windows using the Python Launcher
+	py -3 -m pip install -r user_guide_src/requirements.txt
 
 이제 모든것을 정리하고 문서를 생성합니다.
 

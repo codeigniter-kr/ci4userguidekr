@@ -7,7 +7,7 @@ SQL을 직접 편집할 수 있지만 다른 개발자에게 실행해야 한다
 
 데이터베이스 테이블 **migration**\ 은 이미 실행된 마이그레이션을 추적합니다.
 마이그레이션이 제대로 수행되었는지 확인하고 ``$migration->latest()``\ 를 호출하면 데이터베이스를 최근 상태로 전환합니다. 
-``$migration->setNamespace(null)->progess()``\ 를 사용하면 모든 네임스페이스에서 마이그레이션을 적용할 수 있습니다.
+``$migration->setNamespace(null)->latest()``\ 를 사용하면 모든 네임스페이스에서 마이그레이션을 적용합니다.
 
 .. contents::
   :local:

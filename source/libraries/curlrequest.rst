@@ -89,13 +89,13 @@ HTTP 메소드, url 및 옵션 배열을 매개 변수로 사용합니다.
 
 ::
 
-* $client->get('http://example.com');
-* $client->delete('http://example.com');
-* $client->head('http://example.com');
-* $client->options('http://example.com');
-* $client->patch('http://example.com');
-* $client->put('http://example.com');
-* $client->post('http://example.com');
+    $client->get('http://example.com');
+    $client->delete('http://example.com');
+    $client->head('http://example.com');
+    $client->options('http://example.com');
+    $client->patch('http://example.com');
+    $client->put('http://example.com');
+    $client->post('http://example.com');
 
 Base URI
 --------

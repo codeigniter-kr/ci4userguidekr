@@ -489,6 +489,45 @@ Model 클래스는 ``insert()``, ``update()``, ``save()`` 메소드를 사용하
         ];
     }
 
+기능별로 유효성 검사 규칙을 필드로 설정하는 다른 방법
+
+.. php:function:: setValidationRule($field, $fieldRules)
+
+    :param  string  $field:
+    :param  array   $fieldRules:
+
+    이 함수는 필드 유효성 검사 규칙을 설정합니다.
+
+    사용예
+    
+    ::
+
+        $fieldName = 'username';
+        $fieldRules = 'required|alpha_numeric_space|min_length[3]';
+        
+        $model->setValidationRule($fieldName, $fieldRules);
+
+.. php:function:: setValidationRules($validationRules)
+
+    :param  array   $validationRules:
+
+    이 함수는 유효성 검사 규칙을 설정합니다.
+
+    사용예
+    
+    ::
+
+        $validationRules = [
+            'username' => 'required|alpha_numeric_space|min_length[3]',
+            'email' => [
+                'rules'  => 'required|valid_email|is_unique[users.email]',
+                'errors' => [
+                    'required' => 'We really need your email.',
+                ],
+            ],
+        ];
+        $model->setValidationRules($validationRules);
+
 기능별로 유효성 검사 메시지를 필드로 설정하는 다른 방법은,
 
 .. php:function:: setValidationMessage($field, $fieldMessages)

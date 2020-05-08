@@ -79,6 +79,7 @@ Class Reference
     :rtype:    bool
 
 .. php:method::  get($key)
+    :noindex:
 
     :param    string    $key: 캐시 아이템 이름
     :returns:    항목 값 또는 찾지 못한 경우 NULL
@@ -110,6 +111,7 @@ Class Reference
 .. note:: ``$raw`` 매개 변수는 Memcache의 ``increment()``\ 와 ``decrement()`` 사용시만 사용됩니다.
 
 .. php:method::  delete($key)
+    :noindex:
 
     :param    string    $key: 캐시된 항목의 이름
     :returns:    지원되는 경우 TRUE, 지원하지 않는 경우 FALSE
@@ -123,6 +125,7 @@ Class Reference
         $cache->delete('cache_item_id');
 
 .. php:method::  increment($key[, $offset = 1])
+    :noindex:
 
     :param    string    $key: Cache ID
     :param    int    $offset: 추가할 단계/값
@@ -140,6 +143,7 @@ Class Reference
         $cache->increment('iterator', 3); // 'iterator' is now 6
 
 .. php:method::  decrement($key[, $offset = 1])
+    :noindex:
 
     :param    string    $key: Cache ID
     :param    int    $offset: 줄일 단계/값

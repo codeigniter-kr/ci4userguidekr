@@ -298,6 +298,12 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 		// Set a flash message
 		return redirect()->back()->with('foo', 'message');
 
+		// Copies all cookies from global response instance
+		return redirect()->back()->withCookies();
+
+		// Copies all headers from the global response instance
+		return redirect()->back()->withHeaders();
+
 	URI를 함수에 전달할 때, 상대/전체 URI가 아닌 역방향 경로 요청(reverse-route request)을 전달하면 redirect()->route()를 사용하는 것과 동일하게 처리됩니다.
 	
 	::
