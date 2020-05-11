@@ -194,6 +194,12 @@ title의 값은 ``$data['title']`` 요소에 할당되며 모든 데이터는 �
 
     <?php endif ?>
 
+
+.. note:: XSS 공격을 방지하기 위해 다시 **esc()**\ 를 사용하고 있습니다.
+    하지만 이번에는 "url"\ 을 두 번째 매개 변수로 전달했습니다. 
+    출력이 사용되는 상황에 따라 공격 패턴이 다르기 때문입니다.
+    자세한 내용은 :doc:`여기 </general/common_functions>`\ 를 참조하십시오.
+
 여기서, 각 뉴스 항목은 루프를 이용하여 사용자에게 표시됩니다.
 우리는 템플릿에 HTML과 PHP를 섞어 사용한 것을 볼 수 있습니다.
 템플릿 언어를 사용하고 싶다면 CodeIgniter의 :doc:`View Parser </outgoing/view_parser>` 
@@ -232,16 +238,10 @@ title의 값은 ``$data['title']`` 요소에 할당되며 모든 데이터는 �
     <h2><?= esc($news['title']); ?></h2>
     <?= esc($news['body']); ?>
 
-.. note:: We are again using using **esc()** to help prevent XSS attacks.
-    But this time we also passed "url" as a second parameter. 
-    That's because attack patterns are different depending on the context in which the output is used. 
-    You can read more about it :doc:`here </general/common_functions>`.
-
-XSS 공격을 방지하기 위해 **esc()**\ 를 다시 사용하고 있습니다.
-하지만 이번에는 "url"\ 을 두 번째 매개 변수로 전달했습니다.
-이는 출력이 사용되는 상황에 따라 공격 패턴이 다르기 때문입니다.
-자세한 내용은  :doc:`여기 </general/common_functions>`\ 를 참조하십시오.
-
+.. note:: XSS 공격을 방지하기 위해 다시 **esc()**\ 를 사용하고 있습니다.
+    하지만 이번에는 "url"\ 을 두 번째 매개 변수로 전달했습니다. 
+    출력이 사용되는 상황에 따라 공격 패턴이 다르기 때문입니다.
+    자세한 내용은 :doc:`여기 </general/common_functions>`\ 를 참조하십시오.
 
 라우팅
 -------------------------------------------------------
