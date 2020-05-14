@@ -77,7 +77,7 @@ Composer 지원
 ================
 
 Composer 지원은 기본적으로 자동 초기화됩니다.
-기본적으로 ``ROOTPATH.'vendor/autolload.php'``\ 에서 Composer의 오토로드 파일을 찾습니다. 
+기본적으로 ``ROOTPATH.'vendor/autoload.php'``\ 에서 Composer의 오토로드 파일을 찾습니다. 
 해당 파일의 위치를 ​​변경해야 한다면 ``Config\Constants.php``\ 에 정의된 값을 수정합니다.
 
 .. note:: CodeIgniter와 Composer에 동일한 네임스페이스가 정의되어 있다면 CodeIgniter의 오토로더에게 우선권이 부여됩니다.

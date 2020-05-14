@@ -99,7 +99,7 @@ URL은 체계가 복잡해짐에 따라 변경될 수 있지만 지금은 이것
 -------------------------------------------------------
 
 앞서 우리는 ``view()`` 메소드를 컨트롤러에 추가했다. 이 메소드는 ``$Page``\ 라는 하나의 파라미터를 허용합니다.
-정적(static) 페이지 본문은 **app/Views/page/** 디렉터리에 위치합니다.
+정적(static) 페이지 본문은 **app/Views/pages/** 디렉터리에 위치합니다.
 
 그 디렉터리에 **home.php**\ 과  **about.php**\ 이라는 이름의 파일을 두 개를 만드십시오.
 그 파일들 안에, 텍스트 − 당신이 원하는 어떤것 −\ 를 입력하고 저장합니다.
@@ -163,15 +163,6 @@ CodeIgniter는 이를 위해 보완하는 자체 명령을 가지고 있습니�
 
 브라우저 몇 개의 URL을 입력하여 위에서 만든 `Pages` 컨트롤러가 어떻게 동작하는지 확인하십시오.
 
-- ``localhost:8080/pages``\ 는 `Pages` 컨트롤러 내의  `index` 메소드의 결과인 CodeIgniter "welcome" 페이지를 표시합니다. 
-  `index`\ 는 컨트롤러의 기본(default) 메소드입니다.
-- ``localhost:8080/pages/index``\ 는 "index" 메소드를 명시적으로 요청하므로 CodeIgniter 환영 페이지가 표시됩니다. 
-- ``localhost:8080/pages/showme``\ 는 `showme()` 메소드의 "page" 매개 변수 기본 값인 "home"을 사용하여 위의 페이지를 보여줄 겁니다.
-- ``localhost:8080/pages/showme/home``\ 는 명시적으로 "home"을 요청하므로, 위와 동일한 결과를 보여줄 겁니다.
-- ``localhost:8080/pages/showme/about`` will show the "about" page that you made above,  because we explicitly asked for it
-- ``localhost:8080/pages/showme/about``\ 는 "about" 페이지를 보여줍니다.
-- ``localhost:8080/pages/showme/shop``\  `app/Views/pages/shop.php`\ 이 없기 때문에 "404 - File Not Found" 오류 페이지가 표시됩니다.
-
 .. table::
     :widths: 20 80
 
@@ -185,7 +176,7 @@ CodeIgniter는 이를 위해 보완하는 자체 명령을 가지고 있습니�
     | localhost:8080/pages/index      | "index" 메소드에서 명시적으로 요청했기 때문에 CodeIgniter       |
     |                                 | "welcome"\ 페이지 표시                                          |
     +---------------------------------+-----------------------------------------------------------------+
-    | localhost:8080/pages/view       | 위에서 만든 "홈" 페이지.                                        |
+    | localhost:8080/pages/view       | 위에서 만든 "home" 페이지.                                      |
     |                                 | ``view()`` 메소드의 "page" 매개 변수로 지정                     |
     +---------------------------------+-----------------------------------------------------------------+
     | localhost:8080/pages/view/home  | 명시적으로 요청했기 때문에 위에 만든 "home" 페이지를 표시       |
@@ -207,7 +198,7 @@ CodeIgniter는 이를 위해 보완하는 자체 명령을 가지고 있습니�
 
     http://example.com/[controller-class]/[controller-method]/[arguments]
 
-그걸 해봅시다. 
+해볼까요? 
 라우팅 파일 **app/Config/Routes.php**\ 를 열고 "Route Definitions" 섹션을 찾으세요.
 
 주석 처리되지 않은 유일한 줄은
