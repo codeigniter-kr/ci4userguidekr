@@ -137,7 +137,7 @@ CodeIgniter 어플리케이션에 뉴스 항목을 추가하기 전에 **app/Con
     $routes->get('news', 'News::index');
     $routes->get('(:any)', 'Pages::view/$1');
 
-이제 웹 브라우저의 URL에 ``http://localhost/news/create``\ 를 입력하십시오.
+이제 웹 브라우저의 URL에 ``http://localhost:8080/news/create``\ 를 입력하십시오.
 몇 가지 뉴스를 추가하고 페이지를 확인해 보세요.
 
 .. image:: ../images/tutorial3.png

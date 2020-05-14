@@ -28,6 +28,8 @@ CodeIgniter 구성 파일은 필요한 설정이 공용 속성인 단순 클래�
 
 - ``config()`` 함수를 사용합니다.
 
+::
+
 	// config() 함수로 공유 인스턴스 가져 오기
 	$config = config( 'Pager' );
 
