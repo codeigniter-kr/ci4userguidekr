@@ -104,7 +104,7 @@ Examples
 
 ::
 
-    $routes->add('product/(:num)', 'Catalog::productLookupByID/$1';
+    $routes->add('product/(:num)', 'Catalog::productLookupByID/$1');
 
 .. important:: ``add()`` 메소드는 편리하지만 아래 설명된 HTTP 동사 기반 경로(route)를 사용하십시오. 더 안전하며, 경로와 일치하는 항목을 찾을때 
     요청(request) 방법을 이용해 검색해야 할 경로가 적어지므로 성능이 약간 향상됩니다.

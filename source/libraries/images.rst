@@ -88,9 +88,19 @@ ImageMagick 라이브러리를 사용하는 경우 **app/Config/Images.php**\ �
 
 	$image = \Config\Services::image()
 		->withFile('/path/to/image/mypic.jpg')
+		// processing methods
 		->save('/path/to/image/my_low_quality_pic.jpg', 10);
 
 .. note:: 품질이 높을수록 파일 크기가 커집니다. https://www.php.net/manual/en/function.imagejpeg.php 참조
+
+이미지 리소스를 포함하지 않고 이미지 품질을 변경하면 원본과 같은 사본이 생성됩니다.
+
+::
+
+	$image = \Config\Services::image()
+		->withFile('/path/to/image/mypic.jpg')
+		->withResource()
+		->save('/path/to/image/my_low_quality_pic.jpg', 10);
 
 처리 메소드
 ==================
