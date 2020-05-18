@@ -178,7 +178,7 @@ toLocalizedString()
 
 현지화된 DateTime() 형식 메소드 버전입니다. 
 하지만 익숙한 값을 사용하는 대신 `IntlDateFormatter <https://www.php.net/manual/en/class.intldateformatter.php>`__ 클래스에 허용되는 값을 사용해야 합니다.
-전체 값 목록은 <https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details>`__\ 에서 찾을 수 있습니다.
+전체 값은 `목록 <https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details>`__\ 에서 찾을 수 있습니다.
 
 ::
 
