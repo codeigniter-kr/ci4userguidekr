@@ -10,6 +10,7 @@ CodeIgniter에는 어플리케이션을 철저히 테스트하고 디버깅할 �
 
     시작하기 <overview>
     데이터베이스 <database>
+    데이터 생성 <fabricator>
     컨트롤러 테스트 <controllers>
     HTTP 테스트 <feature>
     벤치마크 <benchmark>
