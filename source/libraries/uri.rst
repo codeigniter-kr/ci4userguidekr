@@ -277,6 +277,7 @@ URI 클래스는 세그먼트 값이 무엇인지 판별하는 간단한 방법�
 기본값은 빈 문자열입니다.
 
 ::
+
 	// URI = http://example.com/users/15/profile
 
 	// will print 'profile'
