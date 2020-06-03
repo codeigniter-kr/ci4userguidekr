@@ -268,22 +268,39 @@ URI 클래스는 세그먼트 값이 무엇인지 판별하는 간단한 방법�
 	// URI = http://example.com/users/15/profile
 
 	// Prints '15'
-	if ($request->uri->getSegment(1) == 'users')
+	if ($uri->getSegment(1) == 'users')
 	{
-		echo $request->uri->getSegment(2);
+		echo $uri->getSegment(2);
 	}
+
+``getSegment()`` 메소드의 두 번째 매개 변수를 사용하여 특정 세그먼트에 대해 다른 기본값을 설정할 수 있습니다. 
+기본값은 빈 문자열입니다.
+
+::
+	// URI = http://example.com/users/15/profile
+
+	// will print 'profile'
+	echo $uri->getSegment(3, 'foo');
+	// will print 'bar'
+	echo $uri->getSegment(4, 'bar');
+	// will throw an exception
+	echo $uri->getSegment(5, 'baz');
+	// will print 'baz'
+	echo $uri->setSilent()->getSegment(5, 'baz');
+	// will print '' (empty string)
+	echo $uri->setSilent()->getSegment(5);
 
 총 세그먼트 수를 얻을 수 있습니다.
 
 ::
 
-	$total = $request->uri->getTotalSegments(); // 3
+	$total = $uri->getTotalSegments(); // 3
 
 마지막으로 모든 세그먼트의 배열을 검색할 수 있습니다.
 
 ::
 
-	$segments = $request->uri->getSegments();
+	$segments = $uri->getSegments();
 
 	// $segments =
 	[
