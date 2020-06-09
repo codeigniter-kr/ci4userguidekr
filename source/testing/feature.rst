@@ -13,8 +13,8 @@ HTTP 기능 테스트
 테스트 클래스
 =================
 
-기능 테스트를 위해서는 모든 테스트 클래스가 ``CodeIgniter\Test\FeatureTestCase`` 클래스를 확장해야 합니다.
-이렇게 하면 `CIDatabaseTestCase <database.html>`_\ 로 확장되므로 작업을 수행하기 전에 항상 ``parent::setUp()`` 와 ``parent::tearDown()``\ 이 호출되는지 확인해야 합니다.
+테스트를 수행하기 위한 모든 테스트 클래스는 ``CodeIgniter\Test\FeatureTestCase`` 클래스를 확장(extend)하거나 ``CodeIgniter\Test\FeatureTestTrait``\ 을 사용해야 합니다.
+이렇게 만들어진 테스트는 `CIDatabaseTestCase <database.html>`_\ 를 확장(extend)하므로 ``parent::setUp()``\ 와 ``parent::tearDown()``\ 을 호출되도록 해야 합니다.
 
 ::
 
@@ -163,6 +163,15 @@ HTTP 기능 테스트
 ::
 
     $this->assertRedirect();
+
+**getRedirectUrl()**
+
+RedirectResponse에 설정된 URL을 반환합니다. 실패하면 null을 반환합니다.
+
+::
+
+    $url = $result->getRedirectUrl();
+    $this->assertEquals(site_url('foo/bar'), $url);
 
 **assertStatus(int $code)**
 
