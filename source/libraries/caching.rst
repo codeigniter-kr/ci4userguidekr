@@ -46,7 +46,7 @@ Services 클래스를 통해 캐시 엔진 인스턴스를 직접 가져올 수 
 **$handler**
 
 엔진을 시작할 때 기본 핸들러로 사용해야 하는 핸들러의 이름입니다.
-사용 가능한 이름은: ``dummy``, ``file``, ``memcached``, ``redis``, ``wincache``.
+사용 가능한 이름은: ``dummy``, ``file``, ``memcached``, ``redis``, ``predis``, ``wincache``.
 
 **$backupHandler**
 
@@ -59,15 +59,15 @@ Services 클래스를 통해 캐시 엔진 인스턴스를 직접 가져올 수 
 
 **$path**
 
-``file`` 핸들러의 캐시 파일을 저장할 위치를 지정할 때 사용됩니다.
+``file`` 핸들러의 캐시 파일을 저장할 위치를 지정할 때 사용.
 
 **$memcached**
 
-"Memcache(d)" 핸들러의 서버 설정에 사용됩니다.
+"Memcache(d)" 핸들러의 서버 설정에 사용.
 
 **$redis**
 
-``Redis`` 핸들러를 사용할 때 사용하려는 Redis 서버의 설정입니다.
+``Redis``\ 와 ``Predis`` 핸들러로 사용하고자 하는 Redis 서버 설정.
 
 ***************
 Class Reference
@@ -261,8 +261,21 @@ Redis에 대한 자세한 내용은 다음을 참조하십시오.
 `https://redis.io <https://redis.io>`_.
 
 ==============
+Predis 캐싱
+==============
+
+Predis는 Redis 키-값 저장소를 위한 유연하고 기능이 완전한 PHP 클라이언트 라이브러리입니다.
+이를 사용하려면 프로젝트 루트 내의 명령줄에서 다음을 수행합니다.
+
+::
+
+    composer require predis/predis
+
+Redis에 대한 자세한 내용은 `https://github.com/nrk/predis <https://github.com/nrk/predis>`_\ 을 참조하시기 바랍니다.
+
+==============
 Dummy 캐시
 ==============
 
-이것은 항상 '누락'\ 되는 캐싱 백엔드입니다. 
+이것은 항상 'miss'\ 되는 캐싱 백엔드입니다. 
 데이터를 저장하지 않지만 캐시를 지원하지 않는 환경에서 캐싱 코드를 유지할 수 있습니다.

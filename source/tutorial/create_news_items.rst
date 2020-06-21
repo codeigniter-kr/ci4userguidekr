@@ -45,30 +45,32 @@ Create a form
     {
         $model = new NewsModel();
 
-        if (! $this->validate([
-            'title' => 'required|min_length[3]|max_length[255]',
-            'body'  => 'required'
-        ]))
+        if ($this->request->getMethod() === 'post' && $this->validate([
+                'title' => 'required|min_length[3]|max_length[255]',
+                'body'  => 'required'
+            ]))
+        {
+            $model->save([
+                'title' => $this->request->getPost('title'),
+                'slug'  => url_title($this->request->getPost('title'), '-', TRUE),
+                'body'  => $this->request->getPost('body'),
+            ]);
+
+            echo view('news/success');
+            
+        }
+        else
         {
             echo view('templates/header', ['title' => 'Create a news item']);
             echo view('news/create');
             echo view('templates/footer');
         }
-        else
-        {
-            $model->save([
-                'title' => $this->request->getVar('title'),
-                'slug'  => url_title($this->request->getVar('title'), '-', TRUE),
-                'body'  => $this->request->getVar('body'),
-            ]);
-            echo view('news/success');
-        }
     }
 
 위의 코드는 많은 기능을 추가합니다.
 먼저 ``NewsModel``\ 을 로드합니다.
-그런 다음 컨트롤러가 제공하는 헬퍼 함수를 사용하여 $_POST 필드의 유효성을 검증합니다. 
-이 경우 제목(title)과 텍스트(body) 필드는 필수입니다.
+그리고 ``POST`` 요청을 처리하는지 확인한 다음 컨트롤러 제공 헬퍼 기능을 사용하여 유효성을 검증합니다
+위의 경우 제목(title)과 텍스트(body) 필드는 필수입니다.
 
 CodeIgniter에는 위에서 설명한 강력한 유효성 검사 라이브러리가 있습니다.
 이 라이브러리에 대한 자세한 내용은 :doc:`여기 <../libraries/validation>`\ 를 참조하십시오.

@@ -94,6 +94,10 @@ HTTP 기능 테스트
 요청이 이루어질때 $_SESSION 변수 내에 존재해야 하는 키/값 쌍의 배열이 사용됩니다.
 인증 등을 테스트할 때 편리합니다.
 
+단일 테스트 중에 사용할 사용자 정의 세션 값을 ``withSession()``메소드를 사용하여 설정할 수 있습니다. 
+$_SESSION 변수에 존재해야 하는 값을 키/값 쌍의 배열을 사용하거나  ``null``\ 을 전달하여 현재 ``$ _SESSION``\ 을 사용할 수 있습니다.
+인증 등을 테스트할 때 편리합니다.
+
 ::
 
     $values = [
@@ -102,6 +106,12 @@ HTTP 기능 테스트
 
     $result = $this->withSession($values)
         ->get('admin');
+
+    // Or...
+    
+    $_SESSION['logged_in'] = 123;
+    
+    $result = $this->withSession()->get('admin');
 
 이벤트 우회
 ----------------

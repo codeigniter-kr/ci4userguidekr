@@ -95,18 +95,18 @@ Example::
 	$name = 'mytext.txt';
 	return $response->download($name, $data);
 
-서버에서 기존 파일을 다운로드하려면 다음을 수행해야합니다.
+서버에서 기존 파일을 다운로드하려면 두 번째 매개 변수에 명시적으로 ``null``\ 을 전달해야 합니다.
 
 ::
 
 	// Contents of photo.jpg will be automatically read
-	return $response->download('/path/to/photo.jpg', NULL);
+	return $response->download('/path/to/photo.jpg', null);
 
 ``setFileName()`` 메소드를 사용하면 클라이언트 브라우저로 전송될 때 파일 이름을 변경할 수 있습니다.
 
 ::
 	
-	return $response->download('awkwardEncryptedFileName.fakeExt')->setFileName('expenses.csv');
+	return $response->download('awkwardEncryptedFileName.fakeExt', null)->setFileName('expenses.csv');
 
 .. note:: 다운로드가 클라이언트로 전송되려면 반드시 응답 객체를 반환해야합니다.
 	이를 통해 클라이언트로 전송되기 전에 모든 **이후(after)** 필터를 통해 응답을 전달할 수 있습니다.

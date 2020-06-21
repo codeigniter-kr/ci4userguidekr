@@ -121,8 +121,8 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
     :returns: URI 문자열
     :rtype:   string
 
-    현재 URL의 경로 부분을 반환합니다.
-    
+    **baseUrl**\ 을 기준으로 경로 부분을 반환합니다.
+        
     ::
 
         uri_string('http://some-site.com/blog/comments/123');
@@ -338,6 +338,17 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
         $title     = 'What's wrong with CSS?';
         $url_title = url_title($title, 'underscore', TRUE);
         // Produces: whats_wrong_with_css
+
+php:function:: mb_url_title($str[, $separator = '-'[, $lowercase = FALSE]])
+
+    :param  string  $str: 입력 문자열
+    :param  string  $separator: 단어 구분 기호 (일반적으로 '-' or '_')
+    :param  bool    $lowercase: 출력 문자열을 소문자로 변환할지 여부를 지정
+    :returns: URL-formatted 문자열
+    :rtype: string
+
+    이 함수는 :php:func:`url_title()`\ 과 동일하게 작동하지만 모든 강조된 문자를 자동으로 변환합니다.
+
 
 .. php:function:: prep_url($str = '')
 

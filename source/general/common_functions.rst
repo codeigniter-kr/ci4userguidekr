@@ -304,8 +304,8 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 		// Copies all headers from the global response instance
 		return redirect()->back()->withHeaders();
 
-	URI를 함수에 전달할 때, 상대/전체 URI가 아닌 역방향 경로 요청(reverse-route request)을 전달하면 redirect()->route()를 사용하는 것과 동일하게 처리됩니다.
-	
+	URI를 함수에 전달하면 상대/전체 URI가 아닌 리버스 라우팅 요청으로 처리되며 ``redirect()->route()``\ 를 사용하는 것과 동일하게 취급합니다.
+
 	::
 
 		// Go to a named/reverse-routed URI
@@ -330,7 +330,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 	:param   string   $method: 명명된 라우트의 별명 또는 일치하는 컨트롤러/메소드의 이름입니다.
 	:param   mixed   $params: 경로에서 일치시키기 위해 전달될 하나 이상의 매개 변수
 
-	명명된 경로 별칭 또는 컨트롤러::메소드를 기반으로 사용자를 위한 상대 URI를 생성합니다.
+	명명된 라우트 별칭 또는 controller::method 조합에 따라 도메인 이름(**baseUrl**이 아님)과 관련된 URI를 생성합니다. 
 	매개 변수가 제공된 경우 적용합니다.
 
 	자세한 내용은 :doc:`/incoming/routing` 페이지를 참조하십시오.

@@ -6,6 +6,18 @@
 ``Fabricator`` 클래스는 fzaninotto의 `Faker <https://github.com/fzaninotto/Faker//>`_\ 를 사용하여 모델을 임의의 데이터 생성기로 변환합니다.
 시드 또는 테스트 케이스에서 조작자를 사용하여 단위 테스트를 위한 테스트 데이터를 준비할 수 있습니다.
 
+지원되는 모델
+================
+
+``Fabricator``\ 는 프레임워크의 핵심 모델인 ``CodeIgniter\Model``\ 를 확장하는 모든 모델을 지원합니다.
+사용자 정의 모델은 ``CodeIgniter\Test\Interfaces\FabricatorModel``\ 을 구현하여 사용할 수 있습니다.
+
+::
+
+	class MyModel implements CodeIgniter\Test\Interfaces\FabricatorModel
+
+.. note:: 메소드외에도 인터페이스는 대상 모델에 필요한 몇 가지 속성을 간략히 설명합니다. 자세한 내용은 인터페이스 코드를 참조하시기 바랍니다.
+
 패브리케이터(Fabricator) 로딩
 ==============================
 
@@ -225,3 +237,21 @@ Faker는 다양한 로케일을 지원합니다.
     )
 
 두 번째 매개 변수를 제공하지 않으면 전달된 값이 기본적으로 유지됩니다.
+
+Test 헬퍼
+===========
+
+테스트에 일회용 가짜 객체(fake object)만 필요한 경우를 위해 테스트 헬퍼는 ``fake($model, $overrides)``\ 함수를 제공합니다.
+
+::
+
+	helper('test');
+	$user = fake('App\Models\UserModel', ['name' => 'Gerry']);
+
+위는 다음과 동일합니다.
+
+::
+
+    $fabricator = new Fabricator('App\Models\UserModel');
+    $fabricator->setOverrides(['name' => 'Gerry']);
+    $user = $fabricator->create();

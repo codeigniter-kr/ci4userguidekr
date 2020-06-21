@@ -883,8 +883,10 @@ valid_cc_number         Yes         신용 카드 번호가 지정된 공급자�
 Rule                    Parameter   Description                                                                                     Example
 ======================= =========== =============================================================================================== ========================================
 uploaded                Yes         매개 변수 이름이 업로드된 파일 이름과 일치하지 않으면 실패합니다.                               uploaded[field_name]
-max_size                Yes         매개 변수에 이름이 업로드 된 파일이 두 번째 매개 변수 (KB)보다 큰 경우 실패합니다.              max_size[field_name,2048]
-max_dims                Yes         업로드 된 이미지의 최대 너비와 높이가 값을 초과하면 실패합니다. 첫 번째 매개 변수는             max_dims[field_name,300,150]
+max_size                Yes         업로드된 파일이 max_size[field_name, 2048] 두 번째 매개 변수에 지정된 킬로바이트(KB) 보다       max_size[field_name,2048]
+                                    크거나 php.ini 구성 파일에 ``upload_max_filesize``\ 로 선언된 최대 허용 크기보다 큰 경우 
+                                    실패합니다.
+max_dims                Yes         업로드된 이미지의 최대 너비와 높이가 값을 초과하면 실패합니다.  첫 번째 매개 변수는             max_dims[field_name,300,150]
                                     필드 이름입니다. 두 번째는 너비이고 세 번째는 높이입니다.
                                     파일을 이미지로 결정할 수없는 경우에도 실패합니다.
 mime_in                 Yes         파일의 MIME 유형이 매개 변수에 나열된 유형이 아닌 경우 실패합니다.                              mime_in[field_name,image/png,image/jpg]
