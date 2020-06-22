@@ -281,7 +281,9 @@ CodeIgniter와 함께 배포된 템플릿 파일 **env**\ 가 프로젝트 루�
         }
     }
 
-위 예에서 `MySalesConfig`\ 가 인스턴스화될 때 선언된 두 가지 속성은, `RegionalSalesModel`\ 을 "registrar"\ 로 처리함으로써 `$target` 속성의 값이 오버라이드됩니다. 샘플 결과 값::
+위 예에서 `MySalesConfig`\ 가 인스턴스화될 때 선언된 두 가지 속성은, `RegionalSalesModel`\ 을 "registrar"\ 로 처리함으로써 `$target` 속성의 값이 오버라이드됩니다. 샘플 결과 값
+
+::
 
     $target   = 45;
     $campaign = "Winter Wonderland";
