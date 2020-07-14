@@ -255,3 +255,58 @@ Test 헬퍼
     $fabricator = new Fabricator('App\Models\UserModel');
     $fabricator->setOverrides(['name' => 'Gerry']);
     $user = $fabricator->create();
+
+테이블 카운트
+================
+
+가짜(fake) 데이터는 다른 가짜 데이터에 의존하는 경우가 많습니다. 
+``Fabricator``\ 는 각 테이블에 대해 사용자가 만든 가짜 항목의 수를 정적으로 계산합니다. 
+예를 들어 보겠습니다.
+
+프로젝트에는 사용자와 그룹이 있습니다.
+테스트 사례에서는 크기가 다른 그룹을 사용하여 다양한 시나리오를 만들려고 하므로 ``Fabricator``\ 를 사용하여 여러 그룹을 만듭니다.
+가짜 사용자를 만들지만 존재하지 않는 그룹 ID를 할당하지 않습니다.
+모델의 fake 메소드는 다음과 같습니다.
+
+::
+
+    class UserModel
+    {
+        protected $table = 'users';
+
+        public function fake(Generator &$faker)
+        {
+        	return [
+                'first'    => $faker->firstName,
+                'email'    => $faker->email,
+                'group_id' => rand(1, Fabricator::getCount('users')),
+        	];
+        }
+    }
+
+
+이제 ``$user = fake(UserModel::class);``\ 로 새 사용자를 생성하면 유효한 그룹의 속하게 됩니다.
+
+``Fabricator``\ 는 내부적으로 카운트를 처리하지만 이러한 정적 메소드에 액세스하여 카운트 사용을 지원할 수도 있습니다.
+
+**getCount(string $table): int**
+
+특정 테이블의 현재 값을 반환합니다. (기본값 : 0)
+
+**setCount(string $table, int $count): int**
+
+최종 카운트에 포함시킬 Fabricator를 사용하지 않고 ,일부 테스트 항목을 생성하는 경우처럼 특정 테이블의 값을 수동으로 설정합니다.
+
+**upCount(string $table): int**
+
+특정 테이블의 값을 하나씩 증가시키고 새 값을 반환합니다. (``Fabricator::create()``\ 와 함께 내부적으로 사용됩니다.)
+
+**downCount(string $table): int**
+
+특정 테이블의 값을 1씩 줄이고 새 값을 반환합니다.
+가짜 항목을 삭제하지만 변경 내용을 추적하고자 하는 경우 사용합니다.
+
+**resetCounts()**
+
+모든 카운트를 재설정합니다. 테스트 케이스를 전환할 때 이를 호출하는 것이 좋습니다.
+(``CIDatabaseTestCase::$refresh=true`` 로 설정하면 자동으로 수행)

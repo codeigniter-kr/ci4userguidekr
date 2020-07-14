@@ -106,6 +106,58 @@ Test 클래스
 
 데이터베이스 결과를 테스트할 때는 `CIDatabaseTestClass <database.html>`_ 클래스를 사용해야 합니다.
 
+Staging
+-------
+
+대부분의 테스트는 올바르게 실행하기 위해 약간의 준비가 필요합니다. 
+PHPUnit의 ``TestCase``\ 는 준비 및 정리를 돕는 4가지 방법을 제공합니다
+
+::
+
+	public static function setUpBeforeClass(): void
+	public static function tearDownAfterClass(): void
+	public function setUp(): void
+	public function tearDown(): void
+
+정적 메소드는 전체 테스트 케이스 전후에 실행되는 반면 로컬 메소드는 각 테스트 사이에 실행됩니다.
+이러한 특수 기능을 구현하는 경우 확장된 테스트 케이스가 스테이징을 방해하지 않도록 상위 기능도 함께 실행해야 합니다.
+
+::
+
+	public function setUp(): void
+	{
+		parent::setUp();
+		helper('text');
+	}
+
+이러한 메소드 외에도 ``CIUnitTestCase``\ 에는 설정 및 해체 중에 실행할 매개 변수가 없는 메소드에 대한 편리한 속성이 함께 제공됩니다.
+
+::
+
+	protected $setUpMethods = [
+		'mockEmail',
+		'mockSession',
+	];
+	
+	protected $tearDownMethods = [];
+
+기본적으로 침입(intrusive) 서비스를 흉내내어 처리할 수 있지만, 클래스가 이를 무시하거나 자체적으로 제공 할 수 있습니다.
+
+::
+
+	class OneOfMyModelsTest extends CIUnitTestCase
+	{
+		protected $tearDownMethods = [
+			'purgeRows',
+		];
+		
+		protected function purgeRows()
+		{
+			$this->model->purgeDeleted()
+		}
+    }
+
+
 추가 어설션(Assertion)
 --------------------------
 

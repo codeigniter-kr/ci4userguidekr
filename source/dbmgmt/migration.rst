@@ -31,7 +31,6 @@ SQL을 직접 편집할 수 있지만 다른 개발자에게 실행해야 한다
 * 2012-10-31-100538_alter_blog_track_views.php
 * 2012_10_31_100539_alter_blog_add_translations.php
 
-
 *************************
 마이그레이션 만들기
 *************************
@@ -43,7 +42,10 @@ SQL을 직접 편집할 수 있지만 다른 개발자에게 실행해야 한다
 
 	<?php namespace App\Database\Migrations;
 
-	class AddBlog extends \CodeIgniter\Database\Migration {
+	use CodeIgniter\Database\Migration;
+
+	class AddBlog extends Migration
+	{
 
 		public function up()
 		{
@@ -51,8 +53,8 @@ SQL을 직접 편집할 수 있지만 다른 개발자에게 실행해야 한다
 				'blog_id'          => [
 					'type'           => 'INT',
 					'constraint'     => 5,
-					'unsigned'       => TRUE,
-					'auto_increment' => TRUE
+					'unsigned'       => true,
+					'auto_increment' => true,
 				],
 				'blog_title'       => [
 					'type'           => 'VARCHAR',
@@ -60,10 +62,10 @@ SQL을 직접 편집할 수 있지만 다른 개발자에게 실행해야 한다
 				],
 				'blog_description' => [
 					'type'           => 'TEXT',
-					'null'           => TRUE,
+					'null'           => true,
 				],
 			]);
-			$this->forge->addKey('blog_id', TRUE);
+			$this->forge->addKey('blog_id', true);
 			$this->forge->createTable('blog');
 		}
 
@@ -85,14 +87,14 @@ SQL을 직접 편집할 수 있지만 다른 개발자에게 실행해야 한다
 
 ::
 
-    public function up()
-    {
-        $this->db->disableForeignKeyChecks();
+	public function up()
+	{
+		$this->db->disableForeignKeyChecks()
 
-        // Migration rules would go here...
+		// Migration rules would go here..
 
-        $this->db->enableForeignKeyChecks();
-    }
+		$this->db->enableForeignKeyChecks();
+	}
 
 데이터베이스 그룹
 =======================
@@ -106,16 +108,18 @@ SQL을 직접 편집할 수 있지만 다른 개발자에게 실행해야 한다
 
 ::
 
-    <?php namespace App\Database\Migrations;
+	<?php namespace App\Database\Migrations;
 
-    class AddBlog extends \CodeIgniter\Database\Migration
-    {
-        protected $DBGroup = 'alternate_db_group';
+	use CodeIgniter\Database\Migration;
 
-        public function up() { . . . }
+	class AddBlog extends Migration
+	{
+		protected $DBGroup = 'alternate_db_group';
 
-        public function down() { . . . }
-    }
+		public function up() { . . . }
+
+		public function down() { . . . }
+	}
 
 네임스페이스
 ================
@@ -131,7 +135,7 @@ Database/Migrations에서 찾은 모든 마이그레이션이 포함됩니다.
 
 	$psr4 = [
 		'App'       => APPPATH,
-		'MyCompany' => ROOTPATH.'MyCompany'
+		'MyCompany' => ROOTPATH . 'MyCompany',
 	];
 
 **APPPATH/Database/Migrations** 와 ** ROOTPATH/MyCompany/Database/Migrations**\ 에 있는 모든 마이그레이션을 찾습니다.
@@ -145,7 +149,7 @@ Database/Migrations에서 찾은 모든 마이그레이션이 포함됩니다.
 
 ::
 
-    <?php namespace App\Controllers;
+	<?php namespace App\Controllers;
 
 	class Migrate extends \CodeIgniter\Controller
 	{
@@ -156,11 +160,11 @@ Database/Migrations에서 찾은 모든 마이그레이션이 포함됩니다.
 
 			try
 			{
-			  $migrate->latest();
+				$migrate->latest();
 			}
-			catch (\Exception $e)
+			catch (\Throwable $e)
 			{
-			  // Do something with the error here...
+				// Do something with the error here...
 			}
 		}
 
@@ -183,9 +187,9 @@ CodeIgniter는 마이그레이션 작업에 도움이되는 커맨드 라인에�
 
 다음 옵션과 함께 (migrate)를 사용할 수 있습니다:
 
-- (-g) 데이터베이스 그룹을 선택, 그렇지 않으면 기본 데이터베이스 그룹이 사용됩니다.
-- (-n) 네임스페이스 선택, 그렇지 않으면 App 네임스페이스가 사용됩니다.
-- (-all) 모든 네임스페이스를 최신 마이그레이션으로 마이그레이션합니다.
+- ``-g`` - 데이터베이스 그룹을 선택, 그렇지 않으면 기본 데이터베이스 그룹이 사용됩니다.
+- ``-n`` - 네임스페이스 선택, 그렇지 않으면 App 네임스페이스가 사용됩니다.
+- ``-all`` - 모든 네임스페이스를 최신 마이그레이션으로 마이그레이션합니다.
 
 다음 예제는 테스트 데이터베이스 그룹에서 새로운 마이그레이션으로 블로그 네임스페이스를 마이그레이션합니다.
 
@@ -207,9 +211,9 @@ CodeIgniter는 마이그레이션 작업에 도움이되는 커맨드 라인에�
 
 다음 옵션과 함께 (rollback)을 사용할 수 있습니다:
 
-- (-g) 데이터베이스 그룹 선택, 선택하지 않은 경우 기본(default) 데이터베이스 그룹을 사용합니다.
-- (-b) 배치(batch) 버전 선택: 버전이 음수면 현재 버전을 기준으로 이전 버전 배치를 선택합니다.
-- (-f) 바이패스 확인 질문을 강요, 프로덕션 환경에서만 질문합니다.
+- ``-g`` - 데이터베이스 그룹 선택, 선택하지 않은 경우 기본(default) 데이터베이스 그룹을 사용합니다.
+- ``-b`` - 배치(batch) 버전 선택: 버전이 음수면 현재 버전을 기준으로 이전 버전 배치를 선택합니다.
+- ``-f`` -  바이패스 확인 질문을 강요, 프로덕션 환경에서만 질문합니다.
 
 **refresh**
 
@@ -221,10 +225,10 @@ CodeIgniter는 마이그레이션 작업에 도움이되는 커맨드 라인에�
 
 다음 옵션으로 (refresh)을 사용할 수 있습니다:
 
-- (-g) 데이터베이스 그룹 선택, 선택하지 않은 경우 기본(default) 데이터베이스 그룹을 사용합니다.
-- (-n) 네임스페이스 선택, 선택하지 않은 경우 App 네임스페이스가 사용됩니다.
-- (-all) 모든 네임스페이스 새로 고침
-- (-f) 바이패스 확인 질문을 강요, 프로덕션 환경에서만 질문합니다.
+- ``-g`` - 데이터베이스 그룹 선택, 선택하지 않은 경우 기본(default) 데이터베이스 그룹을 사용합니다.
+- ``-n`` - 네임스페이스 선택, 선택하지 않은 경우 App 네임스페이스가 사용됩니다.
+- ``-all`` - 모든 네임스페이스 새로 고침
+- ``-f`` - 바이패스 확인 질문을 강요, 프로덕션 환경에서만 질문합니다.
 
 **status**
 
@@ -238,7 +242,7 @@ CodeIgniter는 마이그레이션 작업에 도움이되는 커맨드 라인에�
 
 다음 옵션과 함께 (status)를 사용할 수 있습니다:
 
-- (-g) 데이터베이스 그룹을 선택, 그렇지 않으면 기본 데이터베이스 그룹 사용
+- ``-g`` - 데이터베이스 그룹을 선택, 그렇지 않으면 기본 데이터베이스 그룹 사용
 
 **create**
 
@@ -246,12 +250,14 @@ CodeIgniter는 마이그레이션 작업에 도움이되는 커맨드 라인에�
 현재 타임 스탬프를 자동으로 추가합니다.
 클래스 이름은 파스칼 케이스 버전의 파일 이름입니다.
 
+::
+
   > php spark migrate:create [filename]
 
 
 다음 옵션으로 (create) 사용할 수 있습니다:
 
-- (-n) 네임스페이스 선택, 그렇지 않으면 App 네임스페이스가 사용됩니다.
+- ``-n`` - 네임스페이스 선택, 그렇지 않으면 App 네임스페이스가 사용됩니다.
 
 ****************************
 마이그레이션 환경 설정
@@ -262,7 +268,7 @@ CodeIgniter는 마이그레이션 작업에 도움이되는 커맨드 라인에�
 ========================== ====================== ========================== =============================================================
 Preference                 Default                Options                    Description
 ========================== ====================== ========================== =============================================================
-**enabled**                TRUE                   TRUE / FALSE               마이그레이션을 활성화 또는 비활성화
+**enabled**                true                   true / false               마이그레이션을 활성화 또는 비활성화
 **table**                  migrations             None                       스키마 버전 번호를 저장하기 위한 테이블 이름
 **timestampFormat**        Y-m-d-His\_                                       마이그레이션을 만들 때 타임 스탬프에 사용할 형
 ========================== ====================== ========================== =============================================================
@@ -283,7 +289,7 @@ Class Reference
 	.. php:method:: latest($group)
 
 		:param	mixed	$group: 데이터베이스 그룹 이름, null이 사용되는 경우 기본 데이터베이스 그룹
-		:returns:	TRUE면 성공, FALSE면 실패
+		:returns:	``true``\ 면 성공, ``flase``\ 면 실패
 		:rtype:	bool
 
 		네임스페이스 (또는 모든 네임스페이스)에 대한 마이그레이션을 찾고 아직 실행되지 않은 마이그레이션을 결정하고, 버전(혼합된 네임스페이스) 순서대로 실행합니다.
@@ -292,7 +298,7 @@ Class Reference
 
 		:param	mixed	$batch: 이전 배치로 마이그레이션; 1+는 배치를 지정하고, 0은 모두 되돌리기, 음수는 상대 배치를 나타냅니다 (예 : -3은 "세 개의 배치를 의미합니다").
 		:param	mixed	$group: 데이터베이스 그룹 이름, null이 사용되는 경우 기본 데이터베이스 그룹
-		:returns:	TRUE면 성공, FALSE면 실패 or no migrations are found
+		:returns:	``true``\ 면 성공, ``flase``\ 면 실패 또는 이전 마이그레이션이 없음
 		:rtype:	bool
 
 		회기(Regress)를 사용하여 변경 사항을 배치별 이전 상태로 롤백할 수 있습니다.
@@ -307,7 +313,7 @@ Class Reference
 		:param	mixed	$path:  유효한 마이그레이션 파일의 경로
 		:param	mixed	$namespace: 제공된 마이그레이션의 네임스페이스
 		:param	mixed	$group: 데이터베이스 그룹 이름, null이 사용되는 경우 기본 데이터베이스 그룹
-		:returns:	TRUE면 성공, FALSE면 실패
+		:returns:	``true``\ 면 성공, ``flase``\ 면 실패
 		:rtype:	bool
 
 		순서나 배치에 관계없이 단일 파일이 마이그레이션됩니다. 

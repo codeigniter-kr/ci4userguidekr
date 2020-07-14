@@ -38,6 +38,9 @@ CodeIgniter에는 데이터베이스 연결 값(username, password, database nam
 
 클래스 속성의 이름은 연결 이름이며, 연결 중에 그룹 이름을 지정할 수 있습니다.
 
+.. note:: SQLite3 데이터베이스의 기본 위치는 ``writable`` 폴더입니다.
+	위치를 변경하려면 새로운 위치의 전체 경로를 설정해야 합니다.
+
 일부 데이터베이스 드라이버(예 : PDO, PostgreSQL, Oracle, ODBC)는 전체 DSN 문자열을 제공해야 합니다.
 이 경우 드라이버의 기본 PHP 확장을 사용하는 것처럼 'DSN'구성 설정을 사용해야 합니다.
 

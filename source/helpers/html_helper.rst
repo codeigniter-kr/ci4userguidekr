@@ -66,7 +66,7 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
         img($imageProperties);
         // <img src="http://site.com/index.php/images/picture.jpg" alt="Me, demonstrating how to eat 4 slices of pizza at one time" class="post_images" width="200" height="200" title="That was quite a night" rel="lightbox" />
 
-.. php:function:: link_tag([$href = ''[, $rel = 'stylesheet'[, $type = 'text/css'[, $title = ''[, $media = ''[, $indexPage = false]]]]]])
+.. php:function:: link_tag([$href = ''[, $rel = 'stylesheet'[, $type = 'text/css'[, $title = ''[, $media = ''[, $indexPage = false[, $hreflang = '']]]]]]])
 
     :param  string  $href:      링크 파일의 소스
     :param  string  $rel:       관계 유형
@@ -74,6 +74,7 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
     :param  string  $title:     링크 제목
     :param  string  $media:     미디어 타입
     :param  bool    $indexPage: $src를 라우팅된 URI 문자열로 취급할 지 여부
+    :param  string  $hreflang:  Hreflang 타입
     :returns:   HTML link 태그
     :rtype: string
 
