@@ -37,14 +37,14 @@
 
     class MyFilter implements FilterInterface
     {
-        public function before(RequestInterface $request)
+        public function before(RequestInterface $request, $arguments = null)
         {
             // Do something here
         }
 
         //--------------------------------------------------------------------
 
-        public function after(RequestInterface $request, ResponseInterface $response)
+        public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
         {
             // Do something here
         }
@@ -61,7 +61,7 @@
 
 ::
 
-    public function before(RequestInterface $request)
+    public function before(RequestInterface $request, $arguments = null)
     {
         $auth = service('auth');
 
@@ -190,6 +190,18 @@ $filters
         'foo' => ['before' => ['admin/*'], 'after' => ['users/*']],
         'bar' => ['before' => ['api/*', 'admin/*']]
     ];
+
+필터 인수(arguments)
+=======================
+
+라우터에 필터를 구성할 때 필터에 필요한 추가 인수를 전달할 수 있습니다.
+
+::
+
+    $routes->add('users/delete/(:segment)', 'AdminController::index', ['filter' => 'admin-auth:dual,noreturn']);
+
+In this example, the array ``['dual', 'noreturn']`` will be passed in ``$arguments`` to the filter's ``before()`` and ``after()`` implementation methods.
+이 예에서 ``['dual', 'noreturn']`` 배열은 필터의 ``before()``\ 와 ``after()`` 메소드에 ``$arguments``로 전달됩니다.
 
 ****************
 제공되는 필터

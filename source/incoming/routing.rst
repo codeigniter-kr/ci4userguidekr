@@ -365,7 +365,7 @@ CLI에서 HTTP 동사 기반 라우트 메소드(get, post, put 등)로 작성�
     $routes->add('admin',' AdminController::index', ['filter' => 'admin-auth']);
 
 필터 값은 ``app/Config/Filters.php``\ 에 정의된 별칭 중 하나와 일치해야 합니다.
-필터의 ``before()`` 및 ``after()`` 메소드에 전달할 매개 변수를 제공할 수도 있습니다.
+필터의 ``before()`` 및 ``after()`` 메소드에 전달할 인수를 제공할 수도 있습니다.
 
 ::
 

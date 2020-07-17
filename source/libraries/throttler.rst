@@ -67,10 +67,11 @@ Code
              * to implement rate limiting for your application.
              *
              * @param RequestInterface|\CodeIgniter\HTTP\IncomingRequest $request
+             * @param array|null                                         $arguments
              *
              * @return mixed
              */
-            public function before(RequestInterface $request)
+            public function before(RequestInterface $request, $arguments = null)
             {
                     $throttler = Services::throttler();
 
@@ -90,10 +91,11 @@ Code
              *
              * @param RequestInterface|\CodeIgniter\HTTP\IncomingRequest $request
              * @param ResponseInterface|\CodeIgniter\HTTP\Response       $response
+             * @param array|null                                         $arguments
              *
              * @return mixed
              */
-            public function after(RequestInterface $request, ResponseInterface $response)
+            public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
             {
             }
     }
