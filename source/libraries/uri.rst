@@ -241,6 +241,9 @@ URI의 쿼리 값을보다 영구적으로 수정해야 하는 경우 ``stripQue
     // Leaves just the 'foo' variable
     $uri->keepQuery('foo');
 
+.. note:: 기본적으로 ``setQuery()``\ 와 ``setQueryArray()`` 메소드는 ``parse_str()`` 함수를 사용하여 데이터를 준비합니다. 
+	키 이름에 점을 포함할 수 있는 보다 자유로운 규칙을 사용하려면 특수 메소드 ``useRawQueryString()``\ 를 미리 호출해야 합니다.
+
 조각(Fragment)
 -------------------
 

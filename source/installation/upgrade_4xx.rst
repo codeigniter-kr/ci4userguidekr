@@ -30,7 +30,7 @@ CodeIgniter4는 프레임워크를 다시 작성하였으며 이전 버전과 �
 
 - ``application`` 폴더의 이름이 ``app``\ 으로 바뀌고, 프레임워크에는 ``system`` 폴더가 있으며 이전과 동일하게 해석됩니다.
 - 이제 프레임워크는 앱의 문서 루트로 사용되는 ``public`` 폴더를 제공합니다.
-- 캐시 데이터, 로그 및 세션 데이터를 보관할 수있는 ``writable`` 폴더도 있습니다
+- 캐시 데이터, 로그 및 세션 데이터를 보관할 수있는 ``writable`` 폴더도 있습니다.
 - ``app`` 폴더는 CI3의 ``application``\ 폴더와 매우 유사하지만, 이름이 일부 변경되고, 하위 폴더의 일부가 ``writable`` 폴더로 이동되었습니다.
 - 프레임워크 구성 요소를 확장하는 메커니즘이 다르기 때문에 더 이상 중첩된 ``application/core`` 폴더는 없습니다 (아래 참조).
 
@@ -73,7 +73,7 @@ CodeIgniter4는 프레임워크를 다시 작성하였으며 이전 버전과 �
 
 **Events**
 
-- 훅(Hook)dms 이벤트로 대체 되었습니다.
+- 훅(Hook)은 이벤트로 대체 되었습니다.
 - CI3의 ``$hook['post_controller_constructor']`` 대신 이제 네임스페이스가 ``CodeIgniter\Events\Events;``\ 인 ``Events::on('post_controller_constructor', ['MyClass', 'MyFunction']);``\ 를 사용합니다. 
 - 이벤트는 항상 활성화되어 있으며 전역적으로 사용 가능합니다.
 

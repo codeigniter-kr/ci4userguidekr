@@ -106,6 +106,36 @@ Examples
 
     $routes->add('product/(:num)', 'Catalog::productLookupByID/$1');
 
+하나의 ``(:any)``\ 가 있는 경우 URL의 여러 세그먼트와 일치합니다.
+
+이에 대한 예로
+
+::
+
+	$routes->add('product/(:any)', 'Catalog::productLookup/$1');
+
+위의 경로는 product/123, product/123/456, product/123/456/789 등과 일치합니다.
+컨트롤러를 구현할 때는 최대 매개 변수를 고려해야 합니다.
+
+::
+
+    public function productLookup($seg1 = false, $seg2 = false, $seg3 = false) {
+        echo $seg1; // Will be 123 in all examples
+        echo $seg2; // false in first, 456 in second and third example
+        echo $seg3; // false in first and second, 789 in third
+    }
+
+여러 세그먼트를 일치시키는 것이 의도된 동작이 아니라면 경로를 정의할 때 ``(:segment)``\ 를 사용합니다.
+
+위의 URL 예제를 사용합니다.
+
+::
+
+	$routes->add('product/(:segment)', 'Catalog::productLookup/$1');
+
+위의 경로는 product/123만 일치하고 다른 예(product/123/456, product/123/456/789 등)는 404 오류가 발생합니다.
+
+
 .. important:: ``add()`` 메소드는 편리하지만 아래 설명된 HTTP 동사 기반 경로(route)를 사용하십시오. 더 안전하며, 경로와 일치하는 항목을 찾을때 
     요청(request) 방법을 이용해 검색해야 할 경로가 적어지므로 성능이 약간 향상됩니다.
 

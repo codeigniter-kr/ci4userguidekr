@@ -20,12 +20,12 @@ CodeIgniter는 재사용 가능한 코드를 작성하는데 도움이 되는 �
 
 어플리케이션 간에 재사용할 수 있는 간단한 블로그 모듈을 예로 들어보겠습니다.
 Acme라는 회사 이름으로 폴더를 만들어 모든 모듈을 그 안에 저장합니다.
-우리는 프로젝트 루트의 **application** 디렉토리와 같은 위치에 이 모듈을 놓도록 하겠습니다.
+우리는 프로젝트 루트의 **app** 디렉토리와 같은 위치에 이 모듈을 놓도록 하겠습니다.
 
 ::
 
     /acme        // New modules directory
-    /application
+    /app
     /public
     /system
     /tests

@@ -7,4 +7,5 @@
 .. toctree::
 	:titlesonly:
 
+	4.0.x에서 4.0.4로 업그레이드 <upgrade_404>
 	3.x에서 4.x로 업그레이드 <upgrade_4xx>

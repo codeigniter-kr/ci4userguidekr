@@ -72,7 +72,7 @@ driver   Preferred handler (OpenSSL)
 ======== ===============================================
 
 자신의 구성 객체를 ``Services`` 호출에 전달하여 구성 파일의 설정을 바꿀 수 있습니다.
-``$config`` 변수는 `Config\\Encryption` 클래스의 인스턴스이거나 `CodeIgniter\\Config\\BaseConfig`\ 를 확장하는 객체여야 합니다.
+``$config`` 변수는 ``Config\Encryption`` 클래스의 인스턴스이거나 ``CodeIgniter\Config\BaseConfig``\ 를 확장하는 객체여야 합니다.
 
 ::
 
@@ -105,9 +105,9 @@ AES-256의 경우 길이는 256 비트 또는 32 바이트 (문자)입니다.
 	// $key will be assigned a 32-byte (256-bit) random key
 	public $key = Encryption::createKey(32);
 
-키는 *application/Config/Encryption.php*\ 에 저장되거나, 직접 저장 메커니즘을 설계하고 암호화/암호 해독시 동적으로 키를 전달할 수 있습니다.
+키는 ``app/Config/Encryption.php``\ 에 저장되거나, 직접 저장 메커니즘을 설계하고 암호화/암호 해독시 동적으로 키를 전달할 수 있습니다.
 
-*application/Config/Encryption.php*\ 에 키를 저장하려면 파일을 열고 다음을 설정하십시오.
+``app/Config/Encryption.php``\ 에 키를 저장하려면 파일을 열고 다음을 설정하십시오.
 
 ::
 
@@ -127,19 +127,37 @@ AES-256의 경우 길이는 256 비트 또는 32 바이트 (문자)입니다.
 	// so that it is still passed as binary to the library:
 	$key = hex2bin('your-hex-encoded-key');
 
-	// In the Encryption config class you can use a special 'hex2bin:'
-	// prefix so that the value is still passed as binary to the library:
-	public $key = 'hex2bin:your-hex-encoded-key';
-
-	// You can also use the same prefix in your .env file
-	encryption.key = hex2bin:your-hex-encoded-key
-
 암호화 결과에 동일한 기술이 유용할 수 있습니다.
 
 ::
 
 	// Encrypt some text & make the results text
 	$encoded = base64_encode($encrypter->encrypt($plaintext));
+
+Using Prefixes in Storing Keys
+------------------------------
+
+암호화 키를 저장할 때 두 가지 특수 접두사 ``hex2bin:``\ 와 ``base64:``\ 를 활용할 수 있습니다.
+접두사가 키 값 바로 앞에 있으면 ``Encryption``\ 는 지능적으로 키를 구문 분석하여 이에 해당하는 바이너리 문자열을 라이브러리에 전달합니다.
+
+::
+
+	// 암호화할 때 다음과 같이 사용할 수 있습니다.
+	public $key = 'hex2bin:<your-hex-encoded-key>'
+
+	// 또는
+	public $key = 'base64:<your-base64-encoded-key>'
+
+``.env" 파일에서도 이 접두사를 사용할 수 있습니다!
+
+::
+
+	// hex2bin 사용
+	encryption.key = hex2bin:<your-hex-encoded-key>
+
+	// 또는
+	encryption.key = base64:<your-base64-encoded-key>
+
 
 암호화 처리기 노트
 ========================
@@ -172,13 +190,13 @@ CodeIgniter의 OpenSSL 핸들러는 AES-256-CTR 암호를 사용합니다.
 
 ::
 
-    // create an Encrypter instance
-    $encryption = new \Encryption\Encryption();
+    // create an Encryption instance
+    $encryption = new CodeIgniter\Encryption\Encryption();
 
     // reconfigure an instance with different settings
     $encrypter = $encryption->initialize($config);
 
-``$config``\ 는 `Config\\Encryption` 클래스의 인스턴스 또는 `CodeIgniter\\Config\\BaseConfig`\ 를 확장하는 객체의 인스턴스여야 합니다.
+``$config``\ 는 ``Config\Encryption`` 클래스의 인스턴스 또는 ``CodeIgniter\Config\BaseConfig``\ 를 확장하는 객체의 인스턴스여야 합니다.
 
 ***************
 Class Reference
@@ -186,16 +204,16 @@ Class Reference
 
 .. php:class:: CodeIgniter\\Encryption\\Encryption
 
-	.. php:staticmethod:: createKey($length)
+	.. php:staticmethod:: createKey([$length = 32])
 
 		:param	int	$length: 출력 길이
 		:returns:	지정된 길이의 의사 난수 암호화 키, 실패시 FALSE
 		:rtype:	string
 
-		운영 체제 소스(i.e. /dev/urandom)에서 임의의 데이터를 가져와서 암호화 키를 작성합니다.
+		운영 체제 소스(*i.e.* ``/dev/urandom``)에서 임의의 데이터를 가져와서 암호화 키를 작성합니다.
 
 
-	.. php:method:: initialize($config)
+	.. php:method:: initialize([BaseConfig $config = null])
 
 		:param	BaseConfig	$config: 구성 매개 변수
 		:returns:	CodeIgniter\\Encryption\\EncrypterInterface instance
@@ -212,7 +230,7 @@ Class Reference
 
 .. php:interface:: CodeIgniter\\Encryption\\EncrypterInterface
 
-	.. php:method:: encrypt($data, $params = null)
+	.. php:method:: encrypt($data[, $params = null])
 
 		:param	string	$data: 암호화할 데이터
 		:param		$params: 구성 매개 변수 (key)
@@ -231,7 +249,7 @@ Class Reference
 			$ciphertext = $encrypter->encrypt('My secret message', ['key' => 'New secret key']);
 			$ciphertext = $encrypter->encrypt('My secret message', 'New secret key');
 
-	.. php:method:: decrypt($data, $params = null)
+	.. php:method:: decrypt($data[, $params = null])
 
 		:param	string	$data: 해독할 데이터
 		:param		$params: 구성 매개 변수 (key)

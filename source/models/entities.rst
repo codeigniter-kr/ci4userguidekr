@@ -353,7 +353,7 @@ Array/Json 캐스팅은 직렬화된 배열 또는 JSON을 저장하는 필드�
 
     class User extends Entity
     {
-        protected $casts => [
+        protected $casts = [
             'options' => 'array',
 		    'options_object' => 'json',
 		    'options_array' => 'json-array'
