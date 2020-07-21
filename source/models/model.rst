@@ -815,7 +815,9 @@ afterFind         find* 메소드에 따라 다릅니다. 다음을 참조하십
                   **limit** = 찾을 행 수
                   **offset** = 검색하는 동안 건너뛸 행 수
 - first()         **data** = 검색 중에 발견 된 결과의 행. 발견되지 않은 경우는 null
-beforeDelete      **id** = 삭제되는 행의 기본 키
+beforeFind        **afterFind**\ 와 동일하지만 **$data** 대신 호출 **$method**\ 명(name)입니다.
+beforeDelete      delete* 메소드에 따라 다릅니다. 다음을 참조하십시오:
+- delete()        **id** = 삭제되는 행의 기본 키
                   **purge** = 소프트 삭제(soft-delete) 행을 강제로 삭제할지 여부(boolean)
 afterDelete       **id** = 삭제되는 행의 기본 키
                   **purge** = 소프트 삭제(soft-delete) 행을 강제로 삭제할지 여부(boolean)
@@ -823,6 +825,27 @@ afterDelete       **id** = 삭제되는 행의 기본 키
                   **data** = 사용안함
 ================ =========================================================================================================
 
+Modifying Find* Data
+--------------------
+
+``beforeFind``\ 와 ``afterFind`` 메소드는 모델의 정상적인 응답을 대체하기 위해 수정된 데이터 셑을 반환할 수 있습니다.
+``afterFind``\ 의 경우 반환 배열에서 ``data``\ 에 대한 변경 내용은 호출 컨텍스트로 자동 전달됩니다.
+``beforeFind``\ 가 검색 워크플로우를 가로 채기전 또 다른 부울 값 ``returnData``\ 도 반환합니다.
+
+::
+
+    protected $beforeFind = ['checkCache'];
+    ...
+	protected function checkCache(array $data)
+	{
+		// 요청한 항목이 캐시에 있는지 확인
+		if (isset($data['id']) && $item = $this->getCachedItem($data['id']]))
+		{
+			$data['data']       = $item;
+			$data['returnData'] = true;
+
+			return $data;
+	...
 
 사용자 정의 모델 만들기
 =======================
