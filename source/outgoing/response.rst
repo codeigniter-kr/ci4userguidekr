@@ -536,7 +536,7 @@ Class Reference
 
     .. php:method:: getCookies()
 
-        :rtype array
+        :rtype: array
 
         응답(Response) 인스턴스 내에 현재 설정된 모든 쿠키를 반환합니다.
         이 쿠키는 현재 요청 중에만 설정하도록 특별히 지정한 쿠키입니다.

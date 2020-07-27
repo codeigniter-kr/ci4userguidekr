@@ -30,7 +30,7 @@ URI의 세그먼트는 일반적으로 이 패턴을 따릅니다.
 자신만의 라우팅 규칙 설정
 ==============================
 
-라우팅 규칙(rule)은 **app/config/Routes.php** 파일에 정의되어 있습니다.
+라우팅 규칙(rule)은 **app/Config/Routes.php** 파일에 정의되어 있습니다.
 여기에서 고유한 라우팅 기준을 지정할 수 있는 RouteCollection 클래스의 인스턴스가 생성됩니다.
 자리 표시자(placeholder) 또는 정규식(Regular Expressions)을 사용하여 경로를 지정할 수 있습니다.
 

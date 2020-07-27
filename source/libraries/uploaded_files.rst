@@ -194,7 +194,7 @@ UploadedFile 인스턴스를 검색한 후에는 파일에 대한 정보를 안�
 
 	if (! $file->isValid())
 	{
-		throw new RuntimeException($file->getErrorString().'('.$file->getError().')');
+		throw new \RuntimeException($file->getErrorString().'('.$file->getError().')');
 	}
 
 이 예제에서 볼 수 있듯이 파일에 업로드 오류가 있는 경우 ``getError()``\ 와 ``getErrorString()`` 메소드를 사용하여 오류 코드(정수)와 오류 메시지를 검색할 수 있습니다.

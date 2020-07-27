@@ -108,7 +108,7 @@ Class Reference
 
 .. php:class:: CodeIgniter\\View\\View
 
-	.. php:method:: render($view[, $options[, $saveData=false]]])
+	.. php:method:: render($view[, $options[, $saveData=false]])
                 :noindex:
 
 		:param  string  $view: 뷰 소스의 파일 이름
@@ -123,7 +123,7 @@ Class Reference
 
 			echo $view->render('myview');
 
-	.. php:method:: renderString($view[, $options[, $saveData=false]]])
+	.. php:method:: renderString($view[, $options[, $saveData=false]])
                 :noindex:
 
 		:param  string  $view: 렌더링 할 뷰의 내용 (예 : 데이터베이스에서 검색된 내용)

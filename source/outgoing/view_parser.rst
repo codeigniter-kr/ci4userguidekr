@@ -708,7 +708,7 @@ Class Reference
 
 .. php:class:: CodeIgniter\\View\\Parser
 
-	.. php:method:: render($view[, $options[, $saveData=false]]])
+	.. php:method:: render($view[, $options[, $saveData=false]])
 
 		:param  string  $view: 뷰 소스의 파일 이름
 		:param  array   $options: 옵션 배열, 키/값 쌍
@@ -731,7 +731,7 @@ Class Reference
 
 		모든 조건부 대체가 먼저 수행된 다음 각 데이터 쌍에 대해 나머지 대체가 수행됩니다.
 
-	.. php:method:: renderString($template[, $options[, $saveData=false]]])
+	.. php:method:: renderString($template[, $options[, $saveData=false]])
 
 		:param  string  $template: 뷰 소스 문자열
 		:param  array   $options: 옵션 배열, 키/값 쌍
