@@ -12,8 +12,8 @@ CodeIgniter4는 다양한 방법으로 설치할 수 있습니다.: 수동 설�
 .. toctree::
     :titlesonly:
 
-    installing_manual
     installing_composer
+    installing_manual
     installing_git
     running
     upgrading

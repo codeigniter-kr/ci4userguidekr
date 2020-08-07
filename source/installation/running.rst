@@ -48,16 +48,18 @@ CodeIgniter4는 PHP의 내장 웹 서버를 활용하여 CodeIgniter 라우팅�
 
 - 앱 실행시 ``--host`` 옵션을 사용하여 localhost가 아닌 다른 도메인을 지정할 수 있습니다.::
 
-    php spark serve --host=example.dev
+    php spark serve --host example.dev
 
 - 기본적으로 서버는 포트 8080에서 실행되지만 둘 이상의 사이트가 실행 중이거나 이미 해당 포트를 사용하는 다른 어플리케이션이 있을 수 있습니다. 
-  ``--port`` 옵션을 사용하여 바꿀 수 있습니다.::
+  ``--port`` 옵션을 사용하여 바꿀 수 있습니다.
+  
+  ::
 
-    php spark serve --port=8081
+    php spark serve --port 8081
 
 - 사용할 PHP의 특정 버전을 ``--php`` 옵션과 함께 PHP 실행 파일의 경로를 지정할 수 있습니다
 
-    php spark serve --php=/usr/bin/php7.6.5.4
+    php spark serve --php /usr/bin/php7.6.5.4
 
 Apache를 사용한 호스팅
 =================================================
