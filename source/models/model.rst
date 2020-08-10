@@ -803,9 +803,9 @@ beforeInsert      **data** = Insert되는 키/값 쌍 객체, 엔터티 클래�
 afterInsert       **id** = 새 행의 기본 키, 실패 시 0
                   **data** = Insert될 원래의 키/값 쌍
                   **result** = 쿼리 빌더 insert() 메소드 호출 결과
-beforeUpdate      **id** = Update되는 행의 기본(primary) 키
+beforeUpdate      **id** = Update할 행의 기본(primary) 키 배열
                   **data** = Update되는 키/값 쌍 객체, 엔터티 클래스가 Update 메소드로 전달되면 먼저 배열로 변환됩니다.
-afterUpdate       **id** = Update되는 행의 기본(primary) 키
+afterUpdate       **id** = Update할 행의 기본(primary) 키 배열
                   **data** = 업데이트되는 키/값 쌍
                   **result** = 쿼리 빌더 update() 메소드 호출 결과
 afterFind         find* 메소드에 따라 다릅니다. 다음을 참조하십시오:
