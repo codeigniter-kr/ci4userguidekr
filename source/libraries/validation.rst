@@ -836,6 +836,7 @@ less_than_equal_to      Yes         필드가 매개 변수 값보다 크거나 
 matches                 Yes         값은 매개 변수의 필드 값과 일치해야합니다.                                                      matches[field]
 max_length              Yes         필드가 매개 변수 값보다 길면 실패합니다.                                                        max_length[8]
 min_length              Yes         필드가 매개 변수 값보다 짧은 경우 실패합니다.                                                   min_length[3]
+not_in_list             Yes         필드가 정해진 목록 내에 있으면 실패합니다.                                                      not_in_list[red,blue,green]
 numeric                 No          필드에 숫자 이외의 문자가 포함되어 있으면 실패합니다.
 regex_match             Yes         필드가 정규식과 일치하지 않으면 실패합니다.                                                     regex_match[/regex/]
 permit_empty            No          필드가 빈 배열, 빈 문자열, null, false를 받을 수 있도록 합니다.
@@ -884,7 +885,7 @@ Rule                    Parameter   Description                                 
 ======================= =========== =============================================================================================== ========================================
 uploaded                Yes         매개 변수 이름이 업로드된 파일 이름과 일치하지 않으면 실패합니다.                               uploaded[field_name]
 max_size                Yes         업로드된 파일이 max_size[field_name, 2048] 두 번째 매개 변수에 지정된 킬로바이트(KB) 보다       max_size[field_name,2048]
-                                    크거나 php.ini 구성 파일에 ``upload_max_filesize``\ 로 선언된 최대 허용 크기보다 큰 경우 
+                                    크거나 php.ini 구성 파일에 ``upload_max_filesize``\ 로 선언된 최대 허용 크기보다 큰 경우
                                     실패합니다.
 max_dims                Yes         업로드된 이미지의 최대 너비와 높이가 값을 초과하면 실패합니다.  첫 번째 매개 변수는             max_dims[field_name,300,150]
                                     필드 이름입니다. 두 번째는 너비이고 세 번째는 높이입니다.

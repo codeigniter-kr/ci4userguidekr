@@ -316,7 +316,7 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
     
     ::
 
-        $title     = 'What's wrong with CSS?';
+        $title     = "What's wrong with CSS?";
         $url_title = url_title($title);
         // Produces: Whats-wrong-with-CSS
 
@@ -326,7 +326,7 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
 
     ::
 
-        $title     = 'What's wrong with CSS?';
+        $title     = "What's wrong with CSS?";
         $url_title = url_title($title, 'underscore');
         // Produces: Whats_wrong_with_CSS
 
@@ -335,7 +335,7 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
 
     ::
 
-        $title     = 'What's wrong with CSS?';
+        $title     = "What's wrong with CSS?";
         $url_title = url_title($title, 'underscore', TRUE);
         // Produces: whats_wrong_with_css
 
