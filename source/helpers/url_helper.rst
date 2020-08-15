@@ -393,3 +393,28 @@ php:function:: mb_url_title($str[, $separator = '-'[, $lowercase = FALSE]])
     위의 예는 ``http://example.com/page/home``\ 과 같이 반환합니다.
 
     뷰에 링크를 넣은 후 경로를 변경할 때 유용합니다.
+
+
+.. php:function:: url_is($path)
+
+    :param string $path: 현재 URI 경로인지 확인할 경로
+    :rtype: boolean
+
+    현재 URL의 경로를 지정된 경로와 비교하여 일치하는지 확인합니다.
+    
+    ::
+
+        if (url_is('admin')) { ... }
+
+    위의 예는 ``http://example.com/admin``\ 과 일치합니다. 
+    "*" 와일드카드를 사용하여 URL의 다른 문자와 일치시킬 수 있습니다.
+    ::
+
+        if (url_is('admin*')) { ... }
+
+    이는 다음 중 하나와 일치합니다.
+
+    - /admin
+    - /admin/
+    - /admin/users
+    - /admin/users/schools/classmates/...
