@@ -103,6 +103,8 @@ CodeIgniter의 모델을 활용하려면 ``CodeIgniter\Model``\ 을 확장하는
         protected $table      = 'users';
         protected $primaryKey = 'id';
 
+        protected $useAutoIncrement = true;
+
         protected $returnType = 'array';
         protected $useSoftDeletes = true;
 
@@ -129,6 +131,14 @@ CodeIgniter의 모델을 활용하려면 ``CodeIgniter\Model``\ 을 확장하는
 반드시 데이터베이스에 지정된 기본(primary) 키와 일치 할 필요는 없으며, ``find()``\ 와 같은 메소드에서 지정된 값과 일치하는 열을 찾을때 사용합니다.
 
 .. note:: 모든 기능이 예상대로 작동하려면 모든 모델에 기본 키가 지정되어 있어야 합니다.
+
+**$useAutoIncrement**
+
+테이블이 자동 증가(auto-increment) 기능을 사용할지 여부를 ``$primaryKey``\ 에 지정합니다.
+``false``로 설정하면 테이블의 모든 레코드에 대해 기본 키 값을 제공해야 합니다.
+이 기능은 1:1 관계를 구현하거나 모델에 UUID를 사용하려는 경우에 유용합니다.
+
+.. note:: 만약 ``$AutoIncrement``\ 를 ``false``\ 로 설정했다면, 반드시 데이터베이스의 기본 키를 ``unique``\ 로 설정해야 모델의 모든 기능이 이전과 동일하게 작동합니다.
 
 **$returnType**
 
