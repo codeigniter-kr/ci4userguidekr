@@ -200,8 +200,7 @@ $filters
 
     $routes->add('users/delete/(:segment)', 'AdminController::index', ['filter' => 'admin-auth:dual,noreturn']);
 
-In this example, the array ``['dual', 'noreturn']`` will be passed in ``$arguments`` to the filter's ``before()`` and ``after()`` implementation methods.
-이 예에서 ``['dual', 'noreturn']`` 배열은 필터의 ``before()``\ 와 ``after()`` 메소드에 ``$arguments``로 전달됩니다.
+이 예에서 ``['dual', 'noreturn']`` 배열은 필터의 ``before()``\ 와 ``after()`` 메소드에 ``$arguments``\ 로 전달됩니다.
 
 ****************
 제공되는 필터

@@ -330,7 +330,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 	:param   string   $method: 명명된 라우트의 별명 또는 일치하는 컨트롤러/메소드의 이름입니다.
 	:param   mixed   $params: 경로에서 일치시키기 위해 전달될 하나 이상의 매개 변수
 
-	명명된 라우트 별칭 또는 controller::method 조합에 따라 도메인 이름(**baseUrl**이 아님)과 관련된 URI를 생성합니다. 
+	명명된 라우트 별칭 또는 ``controller::method`` 조합에 따라 도메인 이름(**baseUrl**\ 이 아님)과 관련된 URI를 생성합니다.
 	매개 변수가 제공된 경우 적용합니다.
 
 	자세한 내용은 :doc:`/incoming/routing` 페이지를 참조하십시오.

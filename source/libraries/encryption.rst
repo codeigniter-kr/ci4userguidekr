@@ -148,7 +148,7 @@ Using Prefixes in Storing Keys
 	// 또는
 	public $key = 'base64:<your-base64-encoded-key>'
 
-``.env" 파일에서도 이 접두사를 사용할 수 있습니다!
+``.env`` 파일에서도 이 접두사를 사용할 수 있습니다!
 
 ::
 
