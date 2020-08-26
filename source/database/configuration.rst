@@ -54,6 +54,23 @@ CodeIgniter에는 데이터베이스 연결 값(username, password, database nam
 
 .. note:: 필요한 드라이버에 대해 DSN 문자열을 지정하지 않으면 CodeIgniter는 제공된 나머지 설정으로 DSN 문자열을 빌드하려고 시도합니다.
 
+데이터 원본 이름을 범용(URL like) 방식으로 설정할 수도 있습니다. 
+이 경우 DSN에 프로토타입이 있어야 합니다.
+
+::
+	
+      $default['DSN'] = 'DBDriver://username:password@hostname:port/database';
+
+범용 버전 DSN 문자열로 연결할 때 기본 구성 값을 재정의하려면 구성 변수를 쿼리 문자열로 추가합니다.
+
+::
+
+	// MySQLi
+	$default['DSN'] = 'MySQLi://username:password@hostname:3306/database?charset=utf8&DBCollat=utf8_general_ci';
+	// Postgre
+	$default['DSN'] = 'Postgre://username:password@hostname:5432/database?charset=utf8&connect_timeout=5&sslmode=1';
+
+
 .. note:: DSN 문자열을 제공하고 나머지 구성 필드에 있는 유효한 설정(예 : 데이터베이스 문자 세트)이 누락된 경우 CodeIgniter가 추가합니다.
 
 메인 연결이 어떤 이유로 연결될 수 없는 상황에 대해 ``failover``\ 를 설정하여 장애 조치를 지정할 수 있습니다.

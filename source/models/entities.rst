@@ -135,6 +135,16 @@ Entity 클래스는 키/값 쌍 배열을 클래스에 전달하여 클래스 �
     $user = new \App\Entities\User($data);
     $userModel->save($user);
 
+대량 액세스 속성
+-------------------------
+
+The Entity class has two methods to extract all available properties into an array: ``toArray()`` and ``toRawArray()``.
+Using the raw version will bypass magic "getter" methods and casts. Both methods can take a boolean first parameter to specify whether returned values should be filtered by those that have changed, and a boolean final parameter to make the method recursive, in case of nested Entities.
+
+Entity 클래스는 ``toArray()``\ 와 ``toRawArray()`` 메소드를 통하여 사용 가능한 모든 속성을 배열로 추출할 수 있습니다.
+원시(raw) 버전을 사용하면 매직 "getter" 메소드와 캐스트(cast)를 우회할 수 있습니다. 
+두 메소드 모두 첫 번째 매개 변수를 사용하여 반환된 값을 변경된 값으로 필터링할지 여부를 지정하고, 최종 매개 변수를 사용하여 중첩된 엔티티 요소를 재귀적으로 만들수 있습니다.
+
 비즈니스 로직 처리
 =======================
 

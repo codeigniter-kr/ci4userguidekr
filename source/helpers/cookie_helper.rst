@@ -35,6 +35,7 @@
 	:param	string	$prefix: 쿠키 이름 접두사
 	:param	bool	$secure: HTTPS를 통해서만 쿠키를 보낼지 여부
 	:param	bool	$httpOnly: JavaScript에서 쿠키를 숨길 지 여부
+	:param	string	$sameSite: SameSite 쿠키 매개 변수의 값. null이면 `config/App.php` 값을 사용합니다.
 	:rtype:	void
 
 	브라우저 쿠키를 설정하기 위한 보다 친근한 구문을 제공합니다.

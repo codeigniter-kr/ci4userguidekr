@@ -412,7 +412,7 @@ Class Reference
 		먼저 헤더를 보낸 다음 응답 본문을 보냅니다.
 		어플리케이션의 기본 응답인 경우 CodeIgniter에서 자동으로 처리하므로 이를 호출할 필요가 없습니다.
 
-	.. php:method:: setCookie($name = ''[, $value = ''[, $expire = ''[, $domain = ''[, $path = '/'[, $prefix = ''[, $secure = FALSE[, $httponly = FALSE]]]]]]])
+	.. php:method:: setCookie($name = ''[, $value = ''[, $expire = ''[, $domain = ''[, $path = '/'[, $prefix = ''[, $secure = FALSE[, $httponly = FALSE[, $samesite = null]]]]]]]])
 
 		:param	mixed	$name: 쿠키명 또는 매개 변수 배열
 		:param	string	$value: 쿠키값
@@ -422,6 +422,8 @@ Class Reference
 		:param	string	$prefix: 쿠키명 prefix
 		:param	bool	$secure: HTTPS를 통해서만 쿠키를 전송할지 여부
 		:param	bool	$httponly: HTTP 요청에 대해서만 쿠키에 액세스 할 수 있는지 여부 (no JavaScript)
+		:param	string	$samesite: SameSite 쿠키 매개 변수의 값. ``''``\ 로 설정하면 쿠키에 SameSite 속성이 설정되지 않습니다. ``null``\ 로 설정하면 ``config/App.php`` 값이 사용됩니다.
+
 		:rtype:	void
 
 		지정한 값이 포함된 쿠키를 설정합니다.
@@ -441,7 +443,8 @@ Class Reference
 				'path'   => '/',
 				'prefix' => 'myprefix_',
 				'secure' => TRUE,
-                                'httponly' => FALSE
+				'httponly' => FALSE,
+				'samesite' => 'Lax'
 			];
 
 			$response->setCookie($cookie);
@@ -463,13 +466,18 @@ Class Reference
 
 		보안 쿠키를 만들고 싶다면 ``secure``\ 의 값을 부울(boolean) TRUE로 설정합십시오.
 
+		SameSite 값은 도메인과 하위 도메인 간에 쿠키가 공유되는 방식을 제어합니다.
+		허용되는 값은 'None', 'Lax', 'Strict' 또는 빈 문자열 ``''``\ 입니다.
+		빈 문자열(``''``)로 설정하면 클라이언트로 보낸 쿠키에 SameSite 속성이 설정되지 않습니다.
+		``null``\ 로 설정하면 ``config/App.php``\ 의 값이 사용됩니다.
+
 		**개별 매개 변수**
 
 		개별 매개 변수를 사용하여 쿠키를 설정할 수 있습니다.
 		
 		::
 
-			$response->setCookie($name, $value, $expire, $domain, $path, $prefix, $secure, $httponly);
+			$response->setCookie($name, $value, $expire, $domain, $path, $prefix, $secure, $httponly, $samesite);
 
 	.. php:method:: deleteCookie($name = ''[, $domain = ''[, $path = '/'[, $prefix = '']]])
 

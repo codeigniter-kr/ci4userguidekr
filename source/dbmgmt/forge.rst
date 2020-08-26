@@ -251,7 +251,15 @@ DROP TABLE 문을 실행하고 옵션으로 IF EXISTS 절을 추가합니다.
 	$forge->dropTable('table_name');
 
 	// Produces: DROP TABLE IF EXISTS table_name
-	$forge->dropTable('table_name',TRUE);
+	$forge->dropTable('table_name', true);
+
+세 번째 매개 변수를 설정하여 "CASCADE" 옵션을 추가할 수 있습니다. 
+이 옵션이 true로 설정되면 일부 드라이버에서 외부 키가 있는 테이블을 제거할 수 있습니다.
+
+::
+
+	// Produces: DROP TABLE table_name CASCADE
+	$forge->dropTable('table_name', false, true);
 
 외래 키 삭제
 ======================
