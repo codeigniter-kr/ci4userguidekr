@@ -536,8 +536,7 @@ DatabaseHandler 드라이버
 
 그러나 몇 가지 조건을 충족해야합니다.
 
-   - 영구 연결을 사용할 수 없습니다.
-   - *cacheOn* 설정이 활성화된 연결을 사용할 수 없습니다.
+   - 영구 연결(persistent connection)을 사용할 수 없습니다.
 
 'DatabaseHandler' 세션 드라이버를 사용하려면 세션 테이블을 만든 다음 이를 ``$sessionSavePath``\ 의 값으로 설정해야 합니다.
 예를 들어 테이블 이름으로 'ci_sessions'을 사용하려면 다음과 같이합니다.

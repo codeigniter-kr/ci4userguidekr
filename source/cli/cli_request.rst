@@ -15,7 +15,7 @@ CLIRequest 클래스
 
 ::
 
-    // command line: php index.php users 21 profile -foo bar
+    // command line: php index.php users 21 profile --foo bar
     echo $request->getSegments();  // ['users', '21', 'profile']
 
 **getPath()**
@@ -24,7 +24,7 @@ CLIRequest 클래스
 
 ::
 
-    // command line: php index.php users 21 profile -foo bar
+    // command line: php index.php users 21 profile --foo bar
     echo $request->getPath();  // users/21/profile
 
 **getOptions()**
@@ -33,7 +33,7 @@ CLIRequest 클래스
 
 ::
 
-    // command line: php index.php users 21 profile -foo bar
+    // command line: php index.php users 21 profile --foo bar
     echo $request->getOptions();  // ['foo' => 'bar']
 
 **getOption($which)**
@@ -42,7 +42,7 @@ CLIRequest 클래스
 
 ::
 
-    // command line: php index.php users 21 profile -foo bar
+    // command line: php index.php users 21 profile --foo bar
     echo $request->getOption('foo');  // bar
     echo $request->getOption('notthere'); // NULL
 
@@ -52,5 +52,13 @@ CLIRequest 클래스
 
 ::
 
-    // command line: php index.php users 21 profile -foo bar
-    echo $request->getOptionPath();  // -foo bar
+    // command line: php index.php users 21 profile --foo bar
+    echo $request->getOptionString();  // -foo bar
+
+첫 번째 인수에 ``true``\ 를 전달하면 두 개의 대시(--)를 사용하여 긴 옵션을 작성합니다.
+
+::
+
+    // php index.php user 21 --foo bar -f
+    echo $request->getOptionString(); // -foo bar -f
+    echo $request->getOptionString(true); // --foo bar -f

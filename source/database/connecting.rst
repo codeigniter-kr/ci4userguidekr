@@ -83,8 +83,6 @@ Note: "group_one"\ 과 "group_two"\ 라는 단어를 연결중인 특정 그룹 
 		'DBPrefix' => '',
 		'pConnect' => false,
 		'DBDebug'  => (ENVIRONMENT !== 'production'),
-		'cacheOn'  => false,
-		'cacheDir' => '',
 		'charset'  => 'utf8',
 		'DBCollat' => 'utf8_general_ci',
 		'swapPre'  => '',

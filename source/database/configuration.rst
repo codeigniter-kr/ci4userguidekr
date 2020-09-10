@@ -25,8 +25,6 @@ CodeIgniter에는 데이터베이스 연결 값(username, password, database nam
 		'DBPrefix' => '',
 		'pConnect' => TRUE,
 		'DBDebug'  => TRUE,
-		'cacheOn'  => FALSE,
-		'cacheDir' => '',
 		'charset'  => 'utf8',
 		'DBCollat' => 'utf8_general_ci',
 		'swapPre'  => '',
@@ -87,8 +85,6 @@ CodeIgniter에는 데이터베이스 연결 값(username, password, database nam
 				'DBPrefix' => '',
 				'pConnect' => TRUE,
 				'DBDebug'  => TRUE,
-				'cacheOn'  => FALSE,
-				'cacheDir' => '',
 				'charset'  => 'utf8',
 				'DBCollat' => 'utf8_general_ci',
 				'swapPre'  => '',
@@ -105,8 +101,6 @@ CodeIgniter에는 데이터베이스 연결 값(username, password, database nam
 				'DBPrefix' => '',
 				'pConnect' => TRUE,
 				'DBDebug'  => TRUE,
-				'cacheOn'  => FALSE,
-				'cacheDir' => '',
 				'charset'  => 'utf8',
 				'DBCollat' => 'utf8_general_ci',
 				'swapPre'  => '',
@@ -134,8 +128,6 @@ CodeIgniter에는 데이터베이스 연결 값(username, password, database nam
 		'DBPrefix' => '',
 		'pConnect' => TRUE,
 		'DBDebug'  => TRUE,
-		'cacheOn'  => FALSE,
-		'cacheDir' => '',
 		'charset'  => 'utf8',
 		'DBCollat' => 'utf8_general_ci',
 		'swapPre'  => '',
@@ -201,8 +193,6 @@ You only need to enter the values that change from what is in the default group'
 **DBPrefix**			:doc:`쿼리 빌더 <query_builder>` 쿼리를 실행할 때 테이블 이름에 추가될 선택적 테이블 접두사, 이를 통해 설치된 여러개의 CodeIgniter가 하나의 데이터베이스를 공유할 수 있습니다.
 **pConnect**			TRUE/FALSE (boolean) - 지속적 연결 사용 여부
 **DBDebug**				TRUE/FALSE (boolean) - 데이터베이스 오류를 표시해야 하는지 여부
-**cacheOn**				TRUE/FALSE (boolean) - 데이터베이스 쿼리 캐싱 사용 여부
-**cacheDir**			데이터베이스 쿼리 캐시 디렉토리 서버의 절대 경로(absolute server path)
 **charset**				데이터베이스와 통신하는 데 사용되는 문자 세트(character set)
 **DBCollat**			데이터베이스와의 통신에 사용되는 문자 조합(character collation)
 

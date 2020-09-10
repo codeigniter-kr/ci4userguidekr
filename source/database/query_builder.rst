@@ -117,12 +117,12 @@ db->where() 함수를 사용하는 대신 첫 번째 매개 변수에 "where"\ �
 
 .. note:: 테이블에서 모든 (\*)를 선택하는 경우 이 기능을 사용할 필요가 없습니다. 생략하면 CodeIgniter는 모든 필드를 선택하고 'SELECT \*'를 자동으로 추가합니다.
 
-``$builder->select()``\ 는 두 번째 매개 변수를 옵션으로 허용하며, 이를 FALSE로 설정하면 CodeIgniter는 필드 또는 테이블 이름을 보호하지 않습니다.
+``$builder->select()``\ 는 두 번째 매개 변수를 옵션으로 허용하며, 이를 ``false``\ 로 설정하면 CodeIgniter는 필드 또는 테이블 이름을 보호하지 않습니다.
 필드의 자동 이스케이프가 필드를 손상시킬 수 있는 복합 선택문이 필요한 경우에 유용합니다.
 
 ::
 
-	$builder->select('(SELECT SUM(payments.amount) FROM payments WHERE payments.invoice_id=4) AS amount_paid', FALSE);
+	$builder->select('(SELECT SUM(payments.amount) FROM payments WHERE payments.invoice_id=4) AS amount_paid', false);
 	$query = $builder->get();
 
 **$builder->selectMax()**
@@ -277,11 +277,11 @@ selectMax()와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 �
 		$where = "name='Joe' AND status='boss' OR status='active'";
 		$builder->where($where);
 
-	``$builder->where()``\ 는 세 번째 매개 변수를 옵션으로 허용하며, FALSE로 설정하면 CodeIgniter는 필드 또는 테이블 이름을 보호하지 않습니다.
+	``$builder->where()``\ 는 세 번째 매개 변수를 옵션으로 허용하며, ``false``\ 로 설정하면 CodeIgniter는 필드 또는 테이블 이름을 보호하지 않습니다.
 
 	::
 
-		$builder->where('MATCH (field) AGAINST ("value")', NULL, FALSE);
+		$builder->where('MATCH (field) AGAINST ("value")', null, false);
 
 #. **서브 쿼리:**
 
@@ -494,12 +494,12 @@ selectMax()와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 �
 	$builder->having(['title =' => 'My Title', 'id <' => $id]);
 	// Produces: HAVING title = 'My Title', id < 45
 
-CodeIgniter는 기본적으로 쿼리를 이스케이프하여 데이터베이스에 전송합니다. 이스케이프되는 것을 방지하고 싶다면 옵션으로 지정된 세 번째 인수를 FALSE로 설정하십시오.
+CodeIgniter는 기본적으로 쿼리를 이스케이프하여 데이터베이스에 전송합니다. 이스케이프되는 것을 방지하고 싶다면 옵션으로 지정된 세 번째 인수를 ``false``\ 로 설정하십시오.
 
 ::
 
 	$builder->having('user_id',  45);  // Produces: HAVING `user_id` = 45 in some databases such as MySQL
-	$builder->having('user_id',  45, FALSE);  // Produces: HAVING user_id = 45
+	$builder->having('user_id',  45, false);  // Produces: HAVING user_id = 45
 
 **$builder->orHaving()**
 
@@ -732,7 +732,7 @@ ORDER BY 절을 설정합니다.
 	echo $builder->countAllResults(); // Produces an integer, like 17
 
 그러나 이 메소드는 ``select()``에 전달했을 수 있는 모든 필드 값을 재설정합니다.
-유지하고 싶다면 첫 번째 매개 변수로 ``FALSE``\ 를 전달합니다.
+유지하고 싶다면 첫 번째 매개 변수로 ``false``\ 를 전달합니다.
 
 ::
 
@@ -747,7 +747,7 @@ ORDER BY 절을 설정합니다.
 	echo $builder->countAll();  // Produces an integer, like 25
 
 countAllResult 메소드와 마찬가지로 이 메소드도 ``select()``\ 에 전달되었을 수 있는 모든 필드 값을 재설정합니다.
-유지하고 싶다면 첫 번째 매개 변수로 ``FALSE``\ 를 전달합니다.
+유지하고 싶다면 첫 번째 매개 변수로 ``false``\ 를 전달합니다.
 
 **************
 쿼리 그룹화
@@ -795,23 +795,23 @@ countAllResult 메소드와 마찬가지로 이 메소드도 ``select()``\ 에 �
 
 쿼리의 WHERE절에 닫는 괄호를 추가하여 현재 그룹을 종료합니다.
 
-**$builder->groupHavingStart()**
+**$builder->havingGroupStart()**
 
 쿼리의 HAVING절에 여는 괄호를 추가하여 새 그룹을 시작합니다.
 
-**$builder->orGroupHavingStart()**
+**$builder->orHavingGroupStart()**
 
 쿼리의 HAVING절에 'OR' 접두사와 함께 여는 괄호를 추가하여 새 그룹을 시작합니다.
 
-**$builder->notGroupHavingStart()**
+**$builder->notHavingGroupStart()**
 
 쿼리의 HAVING절에 'NOT' 접두사와 함께 여는 괄호를 추가하여 새 그룹을 시작합니다.
 
-**$builder->orNotGroupHavingStart()**
+**$builder->orNotHavingGroupStart()**
 
 쿼리의 HAVING절에 'OR NOT' 접두사와 함께 여는 괄호를 추가하여 새 그룹을 시작합니다.
 
-**$builder->groupHavingEnd()**
+**$builder->havingGroupEnd()**
 
 쿼리의 HAVING절에 닫는 괄호를 추가하여 현재 그룹을 종료합니다.
 
@@ -830,7 +830,7 @@ Inserting 데이타
 	$data = [
 		'title' => 'My title',
 		'name'  => 'My Name',
-		'date'  => 'My date'
+		'date'  => 'My date',
 	];
 
 	$builder->insert($data);
@@ -842,13 +842,12 @@ Inserting 데이타
 
 ::
 
-	/*
-	class Myclass {
+	class Myclass 
+	{
 		public $title   = 'My Title';
 		public $content = 'My Content';
 		public $date    = 'My Date';
 	}
-	*/
 
 	$object = new Myclass;
 	$builder->insert($object);
@@ -871,7 +870,7 @@ Inserting 데이타
 	$data = [
 		'title' => 'My title',
 		'name'  => 'My Name',
-		'date'  => 'My date'
+		'date'  => 'My date',
 	];
 
 	$builder->ignore(true)->insert($data);
@@ -888,7 +887,7 @@ Example::
 	$data = [
 		'title' => 'My title',
 		'name'  => 'My Name',
-		'date'  => 'My date'
+		'date'  => 'My date',
 	];
 
 	$sql = $builder->set($data)->getCompiledInsert('mytable');
@@ -900,7 +899,7 @@ Example::
 
 ::
 
-	echo $builder->set('title', 'My Title')->getCompiledInsert('mytable', FALSE);
+	echo $builder->set('title', 'My Title')->getCompiledInsert('mytable', false);
 
 	// Produces string: INSERT INTO mytable (`title`) VALUES ('My Title')
 
@@ -925,12 +924,12 @@ Example::
 		[
 			'title' => 'My title',
 			'name'  => 'My Name',
-			'date'  => 'My date'
+			'date'  => 'My date',
 		],
 		[
 			'title' => 'Another title',
 			'name'  => 'Another Name',
-			'date'  => 'Another date'
+			'date'  => 'Another date',
 		]
 	];
 
@@ -955,7 +954,7 @@ Updating 데이타
 	$data = [
 		'title' => 'My title',
 		'name'  => 'My Name',
-		'date'  => 'My date'
+		'date'  => 'My date',
 	];
 
 	$builder->replace($data);
@@ -986,12 +985,12 @@ Updating 데이타
 	$builder->set('status', $status);
 	$builder->insert();
 
-**set()**\ 은 옵션으로 세 번째 매개 변수 (``$escape``)도 허용하며 이 값을 FALSE로 설정하면 데이터가 이스케이프되지 않습니다.
+**set()**\ 은 옵션으로 세 번째 매개 변수 (``$escape``)도 허용하며 이 값을 ``false``\ 로 설정하면 데이터가 이스케이프되지 않습니다.
 차이점을 설명하기 위해 다음 예제는 이스케이프 매개 변수를 사용하거나 사용하지 않고 ``set()``\ 을 사용합니다.
 
 ::
 
-	$builder->set('field', 'field+1', FALSE);
+	$builder->set('field', 'field+1', false);
 	$builder->where('id', 2);
 	$builder->update(); // gives UPDATE mytable SET field = field+1 WHERE `id` = 2
 
@@ -1006,7 +1005,7 @@ Updating 데이타
 	$array = [
 		'name'   => $name,
 		'title'  => $title,
-		'status' => $status
+		'status' => $status,
 	];
 
 	$builder->set($array);
@@ -1016,13 +1015,12 @@ Updating 데이타
 
 ::
 
-	/*
-	class Myclass {
+	class Myclass 
+	{
 		public $title   = 'My Title';
 		public $content = 'My Content';
 		public $date    = 'My Date';
 	}
-	*/
 
 	$object = new Myclass;
 	$builder->set($object);
@@ -1039,7 +1037,7 @@ Updating 데이타
 	$data = [
 		'title' => $title,
 		'name'  => $name,
-		'date'  => $date
+		'date'  => $date,
 	];
 
 	$builder->where('id', $id);
@@ -1054,13 +1052,12 @@ Updating 데이타
 
 ::
 
-	/*
-	class Myclass {
+	class Myclass 
+	{
 		public $title   = 'My Title';
 		public $content = 'My Content';
 		public $date    = 'My Date';
 	}
-	*/
 
 	$object = new Myclass;
 	$builder->where('id', $id);
@@ -1100,13 +1097,13 @@ Updating 데이타
 	   [
 	      'title' => 'My title' ,
 	      'name'  => 'My Name 2' ,
-	      'date'  => 'My date 2'
+	      'date'  => 'My date 2',
 	   ],
 	   [
 	      'title' => 'Another title' ,
 	      'name'  => 'Another Name 2' ,
-	      'date'  => 'Another date 2'
-	   ]
+	      'date'  => 'Another date 2',
+	   ],
 	];
 
 	$builder->updateBatch($data, 'title');
@@ -1217,7 +1214,7 @@ TRUNCATE SQL 문자열을 생성하고 쿼리를 실행합니다.
 
 ::
 
-    // Note that the second parameter of the get_compiled_select method is FALSE
+    // Note that the second parameter of the get_compiled_select method is false
     $sql = $builder->select(['field1','field2'])
                    ->where('field3',5)
                    ->getCompiledSelect(false);
@@ -1240,539 +1237,539 @@ Class Reference
 
 	.. php:method:: resetQuery()
 
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		쿼리 빌더 상태를 재설정합니다.
 		특정 조건에서 쿼리를 작성 취소하려는 경우에 유용합니다.
 
-	.. php:method:: countAllResults([$reset = TRUE])
+	.. php:method:: countAllResults([$reset = true])
 
-		:param	bool	$reset: SELECT 재설정 여부
+		:param bool $reset: SELECT 재설정 여부
 		:returns:	쿼리 결과의 행의 갯수
 		:rtype:	int
 
 		쿼리 빌더를 통하여 반환한 모든 레코드를 수를 계산하는 플랫폼별 쿼리 문자열을 생성 실행합니다.
 
-	.. php:method:: countAll([$reset = TRUE])
+	.. php:method:: countAll([$reset = true])
 
-		:param	bool	$reset: SELECT 재설정 여부
+		:param bool $reset: SELECT 재설정 여부
 		:returns:	쿼리 결과의 행의 갯수
 		:rtype:	int
 
 		쿼리 빌더를 통하여 반환한 모든 레코드를 수를 계산하는 플랫폼별 쿼리 문자열을 생성 실행합니다.
 
-	.. php:method:: get([$limit = NULL[, $offset = NULL[, $reset = TRUE]]]])
+	.. php:method:: get([$limit = null[, $offset = null[, $reset = true]]]])
 
-		:param	int	$limit: LIMIT 절
-		:param	int	$offset: OFFSET 절
-		:param 	bool $reset: 쿼리 빌더 값 재설정 여부
-		:returns:	\CodeIgniter\Database\ResultInterface instance (method chaining)
-		:rtype:	\CodeIgniter\Database\ResultInterface
+		:param int $limit: LIMIT 절
+		:param int $offset: OFFSET 절
+		:param bool $reset: 쿼리 빌더 값 재설정 여부
+		:returns:	``\CodeIgniter\Database\ResultInterface`` instance (method chaining)
+		:rtype:	``\CodeIgniter\Database\ResultInterface``
 
 		호출된 쿼리 빌더 메소드를 기반으로 SELECT 문을 컴파일하고 실행합니다.
 
-	.. php:method:: getWhere([$where = NULL[, $limit = NULL[, $offset = NULL[, $reset = TRUE]]]]])
+	.. php:method:: getWhere([$where = null[, $limit = null[, $offset = null[, $reset = true]]]]])
 
-		:param	string	$where: WHERE 절
-		:param	int	$limit: LIMIT 절
-		:param	int	$offset: OFFSET 절
+		:param string $where: WHERE 절
+		:param int $limit: LIMIT 절
+		:param int $offset: OFFSET 절
 		:param 	bool $reset: 쿼리 빌더 값 재설정 여부
-		:returns:	\CodeIgniter\Database\ResultInterface instance (method chaining)
-		:rtype:	\CodeIgniter\Database\ResultInterface
+		:returns:	``\CodeIgniter\Database\ResultInterface`` instance (method chaining)
+		:rtype:	``\CodeIgniter\Database\ResultInterface``
 
 		``get()``\ 과 동일하지만 WHERE를 직접 추가할 수 있습니다.
 
-	.. php:method:: select([$select = '*'[, $escape = NULL]])
+	.. php:method:: select([$select = '*'[, $escape = null]])
 
-		:param	string	$select: 쿼리의 SELECT 부분
-		:param	bool	$escape: 값과 식별자를 이스케이프할지 여부
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param string $select: 쿼리의 SELECT 부분
+		:param bool $escape: 값과 식별자를 이스케이프할지 여부
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		쿼리에 SELECT절을 추가합니다.
 
 	.. php:method:: selectAvg([$select = ''[, $alias = '']])
 
-		:param	string	$select: 평균을 계산하는 필드
-		:param	string	$alias: 결과 값 이름의 별명
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param string $select: 평균을 계산하는 필드
+		:param string $alias: 결과 값 이름의 별명
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		쿼리에 SELECT AVG(field)절을 추가합니다.
 
 	.. php:method:: selectMax([$select = ''[, $alias = '']])
 
-		:param	string	$select: 최대 값을 계산하는 필드
-		:param	string	$alias: 결과 값 이름의 별명
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param string $select: 최대 값을 계산하는 필드
+		:param string $alias: 결과 값 이름의 별명
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		쿼리에 SELECT MAX(field)절을 추가합니다.
 
 	.. php:method:: selectMin([$select = ''[, $alias = '']])
 
-		:param	string	$select: 최소 값을 계산하는 필드
-		:param	string	$alias: 결과 값 이름의 별명
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param string $select: 최소 값을 계산하는 필드
+		:param string $alias: 결과 값 이름의 별명
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		쿼리에 SELECT MIN(field)절을 추가합니다.
 
 	.. php:method:: selectSum([$select = ''[, $alias = '']])
 
-		:param	string	$select: 합계를 계산하는 필드
-		:param	string	$alias: 결과 값 이름의 별명
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param string $select: 합계를 계산하는 필드
+		:param string $alias: 결과 값 이름의 별명
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		쿼리에 SELECT SUM(field)절을 추가합니다.
 
 	.. php:method:: selectCount([$select = ''[, $alias = '']])
 
-		:param	string	$select: 카운트할 필드
-		:param	string	$alias: 결과 값 이름의 별명
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param string $select: 카운트할 필드
+		:param string $alias: 결과 값 이름의 별명
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		쿼리에 SELECT COUNT(field)절을 추가합니다.
 
-	.. php:method:: distinct([$val = TRUE])
+	.. php:method:: distinct([$val = true])
 
-		:param	bool	$val: "distinct" 플래그 설정 여부
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param bool $val: "distinct" 플래그 설정 여부
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		쿼리 빌더가 DISTINCT 절을 쿼리의 SELECT 부분에 추가하도록 지시하는 플래그를 설정합니다.
 
-	.. php:method:: from($from[, $overwrite = FALSE])
+	.. php:method:: from($from[, $overwrite = false])
 
-                :param	mixed	$from: 테이블 명; string 또는 array
-                :param	bool	$overwrite: 기존 설정된 첫 번째 테이블 제거 여부
-                :returns:	BaseBuilder instance (method chaining)
-                :rtype:	BaseBuilder
+		:param mixed $from: 테이블 명; string 또는 array
+		:param bool $overwrite: 기존 설정된 첫 번째 테이블 제거 여부
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		쿼리의 FROM 절을 지정합니다.
 
-	.. php:method:: join($table, $cond[, $type = ''[, $escape = NULL]])
+	.. php:method:: join($table, $cond[, $type = ''[, $escape = null]])
 
-		:param	string	$table: 결합(Join)할 테이블 이름
-		:param	string	$cond: JOIN ON 조건
-		:param	string	$type: JOIN type
-		:param	bool	$escape: 값과 식별자를 이스케이프할지 여부
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param string $table: 결합(Join)할 테이블 이름
+		:param string $cond: JOIN ON 조건
+		:param string $type: JOIN type
+		:param bool $escape: 값과 식별자를 이스케이프할지 여부
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		쿼리에 JOIN절을 추가합니다.
 
-	.. php:method:: where($key[, $value = NULL[, $escape = NULL]])
+	.. php:method:: where($key[, $value = null[, $escape = null]])
 
-		:param	mixed	$key: 비교할 필드 이름 또는 연관 배열
-		:param	mixed	$value: 단일 키인 경우 이 값과 비교
-		:param	bool	$escape: 값과 식별자를 이스케이프할지 여부
-		:returns:	BaseBuilder instance
+		:param mixed $key: 비교할 필드 이름 또는 연관 배열
+		:param mixed $value: 단일 키인 경우 이 값과 비교
+		:param bool $escape: 값과 식별자를 이스케이프할지 여부
+		:returns: ``BaseBuilder`` instance
 		:rtype:	object
 
 		쿼리의 WHERE 부분을 생성합니다. 여러번 호출할 경우 'AND'로 연결합니다.
 
-	.. php:method:: orWhere($key[, $value = NULL[, $escape = NULL]])
+	.. php:method:: orWhere($key[, $value = null[, $escape = null]])
 
-		:param	mixed	$key: 비교할 필드 이름 또는 연관 배열
-		:param	mixed	$value: 단일 키인 경우 이 값과 비교
-		:param	bool	$escape: 값과 식별자를 이스케이프할지 여부
-		:returns:	BaseBuilder instance
+		:param mixed $key: 비교할 필드 이름 또는 연관 배열
+		:param mixed $value: 단일 키인 경우 이 값과 비교
+		:param bool $escape: 값과 식별자를 이스케이프할지 여부
+		:returns: ``BaseBuilder`` instance
 		:rtype:	object
 
 		쿼리의 WHERE 부분을 생성합니다. 여러번 호출할 경우 'OR'로 연결합니다.
 
-	.. php:method:: orWhereIn([$key = NULL[, $values = NULL[, $escape = NULL]]])
+	.. php:method:: orWhereIn([$key = null[, $values = null[, $escape = null]]])
 
-		:param	string	        $key: 검색할 필드
-		:param	array|Closure   $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
-		:param	bool	        $escape: 값과 식별자를 이스케이프할지 여부
-		:returns:	BaseBuilder instance
+		:param string	        $key: 검색할 필드
+		:param array|Closure   $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
+		:param bool	        $escape: 값과 식별자를 이스케이프할지 여부
+		:returns: ``BaseBuilder`` instance
 		:rtype:	object
 
 		SQL 쿼리의 WHERE field IN('item', 'item') 부분을 생성합니다. 'OR'로 연결합니다.
 
-	.. php:method:: orWhereNotIn([$key = NULL[, $values = NULL[, $escape = NULL]]])
+	.. php:method:: orWhereNotIn([$key = null[, $values = null[, $escape = null]]])
 
-		:param	string	        $key: 검색할 필드
-		:param	array|Closure   $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
-		:param	bool	        $escape: 값과 식별자를 이스케이프할지 여부
-		:returns:	BaseBuilder instance
+		:param string	        $key: 검색할 필드
+		:param array|Closure   $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
+		:param bool	        $escape: 값과 식별자를 이스케이프할지 여부
+		:returns: ``BaseBuilder`` instance
 		:rtype:	object
 
 		SQL 쿼리의 WHERE field NOT IN('item', 'item') 부분을 생성합니다. 'OR'로 연결합니다.
 
-	.. php:method:: whereIn([$key = NULL[, $values = NULL[, $escape = NULL]]])
+	.. php:method:: whereIn([$key = null[, $values = null[, $escape = null]]])
 
-		:param	string	        $key: 검사 할 필드 이름
-		:param	array|Closure   $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
-		:param	bool            $escape: 값과 식별자를 이스케이프할지 여부
-		:returns:	BaseBuilder instance
+		:param string	        $key: 검사 할 필드 이름
+		:param array|Closure   $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
+		:param bool            $escape: 값과 식별자를 이스케이프할지 여부
+		:returns: ``BaseBuilder`` instance
 		:rtype:	object
 
 		SQL 쿼리의 WHERE field IN('item', 'item') 부분을 생성합니다. 'AND'로 연결합니다.
 
-	.. php:method:: whereNotIn([$key = NULL[, $values = NULL[, $escape = NULL]]])
+	.. php:method:: whereNotIn([$key = null[, $values = null[, $escape = null]]])
 
-		:param	string	        $key: 검사 할 필드 이름
-		:param	array|Closure   $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
-		:param	bool	        $escape: 값과 식별자를 이스케이프할지 여부
-		:returns:	BaseBuilder instance
+		:param string	        $key: 검사 할 필드 이름
+		:param array|Closure   $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
+		:param bool	        $escape: 값과 식별자를 이스케이프할지 여부
+		:returns: ``BaseBuilder`` instance
 		:rtype:	object
 
 		SQL 쿼리의 WHERE field NOT IN('item', 'item') 부분을 생성합니다. 'AND'로 연결합니다.
 
 	.. php:method:: groupStart()
 
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		AND를 사용하여 그룹 표현식을 시작합니다.
 
 	.. php:method:: orGroupStart()
 
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		OR을 사용하여 그룹 표현식을 시작합니다.
 
 	.. php:method:: notGroupStart()
 
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		AND NOT을 사용하여 그룹 표현식을 시작합니다.
 
 	.. php:method:: orNotGroupStart()
 
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		OR NOT을 사용하여 그룹 표현식을 시작합니다.
 
 	.. php:method:: groupEnd()
 
-		:returns:	BaseBuilder instance
+		:returns: ``BaseBuilder`` instance (method chaining)
 		:rtype:	object
 
 		그룹 표현식을 종료합니다.
 
-	.. php:method:: like($field[, $match = ''[, $side = 'both'[, $escape = NULL[, $insensitiveSearch = FALSE]]]])
+	.. php:method:: like($field[, $match = ''[, $side = 'both'[, $escape = null[, $insensitiveSearch = false]]]])
 
-		:param	string	$field: Field name
-		:param	string	$match: 일치할 텍스트 부분
-		:param	string	$side: 와일드 카드(%)를 넣을 위치
-		:param	bool	$escape: 값과 식별자를 이스케이프할지 여부
-		:param	bool    $insensitiveSearch: 대소문자를 구분하지 않고 검색할지 여부
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param string $field: Field name
+		:param string $match: 일치할 텍스트 부분
+		:param string $side: 와일드 카드(%)를 넣을 위치
+		:param bool $escape: 값과 식별자를 이스케이프할지 여부
+		:param bool    $insensitiveSearch: 대소문자를 구분하지 않고 검색할지 여부
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		여러번 호출할 경우 AND를 사용하여 LIKE 절을 쿼리에 추가합니다.
 
-	.. php:method:: orLike($field[, $match = ''[, $side = 'both'[, $escape = NULL[, $insensitiveSearch = FALSE]]]])
+	.. php:method:: orLike($field[, $match = ''[, $side = 'both'[, $escape = null[, $insensitiveSearch = false]]]])
 
-		:param	string	$field: 필드명
-		:param	string	$match: 일치할 텍스트 부분
-		:param	string	$side: 와일드 카드(%)를 넣을 위치
-		:param	bool	$escape: 값과 식별자를 이스케이프할지 여부
-		:param	bool    $insensitiveSearch: 대소문자를 구분하지 않고 검색할지 여부
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param string $field: 필드명
+		:param string $match: 일치할 텍스트 부분
+		:param string $side: 와일드 카드(%)를 넣을 위치
+		:param bool $escape: 값과 식별자를 이스케이프할지 여부
+		:param bool    $insensitiveSearch: 대소문자를 구분하지 않고 검색할지 여부
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		여러번 호출할 경우 OR을 사용하여 LIKE 절을 쿼리에 추가합니다.
 
-	.. php:method:: notLike($field[, $match = ''[, $side = 'both'[, $escape = NULL[, $insensitiveSearch = FALSE]]]])
+	.. php:method:: notLike($field[, $match = ''[, $side = 'both'[, $escape = null[, $insensitiveSearch = false]]]])
 
-		:param	string	$field: 필드명
-		:param	string	$match: 일치할 텍스트 부분
-		:param	string	$side: 와일드 카드(%)를 넣을 위치
-		:param	bool	$escape: 값과 식별자를 이스케이프할지 여부
-		:param	bool    $insensitiveSearch: 대소문자를 구분하지 않고 검색할지 여부
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param string $field: 필드명
+		:param string $match: 일치할 텍스트 부분
+		:param string $side: 와일드 카드(%)를 넣을 위치
+		:param bool $escape: 값과 식별자를 이스케이프할지 여부
+		:param bool    $insensitiveSearch: 대소문자를 구분하지 않고 검색할지 여부
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		여러번 호출할 경우 AND를 사용하여 NOT LIKE 절을 쿼리에 추가합니다.
 
-	.. php:method:: orNotLike($field[, $match = ''[, $side = 'both'[, $escape = NULL[, $insensitiveSearch = FALSE]]]])
+	.. php:method:: orNotLike($field[, $match = ''[, $side = 'both'[, $escape = null[, $insensitiveSearch = false]]]])
 
-		:param	string	$field: 필드명
-		:param	string	$match: 일치할 텍스트 부분
-		:param	string	$side: 와일드 카드(%)를 넣을 위치
-		:param	bool	$escape: 값과 식별자를 이스케이프할지 여부
-		:param	bool    $insensitiveSearch: 대소문자를 구분하지 않고 검색할지 여부
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param string $field: 필드명
+		:param string $match: 일치할 텍스트 부분
+		:param string $side: 와일드 카드(%)를 넣을 위치
+		:param bool $escape: 값과 식별자를 이스케이프할지 여부
+		:param bool    $insensitiveSearch: 대소문자를 구분하지 않고 검색할지 여부
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		여러번 호출할 경우 OR을 사용하여 NOT LIKE 절을 쿼리에 추가합니다.
 
-	.. php:method:: having($key[, $value = NULL[, $escape = NULL]])
+	.. php:method:: having($key[, $value = null[, $escape = null]])
 
-		:param	mixed	$key: 필드/값 쌍의 식별자(문자열) 또는 연관 배열
-		:param	string	$value: Value sought if $key is an identifier
-		:param	string	$escape: 값과 식별자를 이스케이프할지 여부
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param mixed $key: 필드/값 쌍의 식별자(문자열) 또는 연관 배열
+		:param string $value: Value sought if $key is an identifier
+		:param string $escape: 값과 식별자를 이스케이프할지 여부
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		여러번 호출할 경우 AND를 사용하여 HAVING 절을 쿼리에 추가합니다.
 
-	.. php:method:: orHaving($key[, $value = NULL[, $escape = NULL]])
+	.. php:method:: orHaving($key[, $value = null[, $escape = null]])
 
-		:param	mixed	$key: 필드/값 쌍의 식별자(문자열) 또는 연관 배열
-		:param	string	$value: Value sought if $key is an identifier
-		:param	string	$escape: 값과 식별자를 이스케이프할지 여부
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param mixed $key: 필드/값 쌍의 식별자(문자열) 또는 연관 배열
+		:param string $value: Value sought if $key is an identifier
+		:param string $escape: 값과 식별자를 이스케이프할지 여부
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		여러번 호출할 경우 OR을 사용하여 HAVING 절을 쿼리에 추가합니다.
 
-	.. php:method:: orHavingIn([$key = NULL[, $values = NULL[, $escape = NULL]]])
+	.. php:method:: orHavingIn([$key = null[, $values = null[, $escape = null]]])
 
-		:param	string	        $key: 검색할 필드
-		:param	array|Closure   $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
-		:param	bool	        $escape: 값과 식별자를 이스케이프할지 여부
-		:returns:	BaseBuilder instance
+		:param string	        $key: 검색할 필드
+		:param array|Closure   $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
+		:param bool	        $escape: 값과 식별자를 이스케이프할지 여부
+		:returns: ``BaseBuilder`` instance
 		:rtype:	object
 
 		SQL 쿼리에 HAVING field IN('item', 'item') 절을 추가합니다. OR로 분리.
 
-	.. php:method:: orHavingNotIn([$key = NULL[, $values = NULL[, $escape = NULL]]])
+	.. php:method:: orHavingNotIn([$key = null[, $values = null[, $escape = null]]])
 
-		:param	string	        $key: 검색할 필드
-		:param	array|Closure   $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
-		:param	bool	        $escape: 값과 식별자를 이스케이프할지 여부
-		:returns:	BaseBuilder instance
+		:param string	        $key: 검색할 필드
+		:param array|Closure   $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
+		:param bool	        $escape: 값과 식별자를 이스케이프할지 여부
+		:returns: ``BaseBuilder`` instance
 		:rtype:	object
 
 		SQL 쿼리에 HAVING field NOT IN('item', 'item') 절을 추가합니다. OR로 분리.
 
-	.. php:method:: havingIn([$key = NULL[, $values = NULL[, $escape = NULL]]])
+	.. php:method:: havingIn([$key = null[, $values = null[, $escape = null]]])
 
-		:param	string	        $key: 검사 할 필드 이름
-		:param	array|Closure   $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
-		:param	bool            $escape: 값과 식별자를 이스케이프할지 여부
-		:returns:	BaseBuilder instance
+		:param string	        $key: 검사 할 필드 이름
+		:param array|Closure   $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
+		:param bool            $escape: 값과 식별자를 이스케이프할지 여부
+		:returns: ``BaseBuilder`` instance
 		:rtype:	object
 
 		SQL 쿼리에 HAVING field IN('item', 'item') 절을 추가합니다. AND로 분리.
 
-	.. php:method:: havingNotIn([$key = NULL[, $values = NULL[, $escape = NULL]]])
+	.. php:method:: havingNotIn([$key = null[, $values = null[, $escape = null]]])
 
-		:param	string	        $key: 검사 할 필드 이름
-		:param	array|Closure   $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
-		:param	bool	        $escape: 값과 식별자를 이스케이프할지 여부
-		:param	bool            $insensitiveSearch: 대소문자를 구분하지 않고 검색할지 여부
-		:returns:	BaseBuilder instance
+		:param string	        $key: 검사 할 필드 이름
+		:param array|Closure   $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
+		:param bool	        $escape: 값과 식별자를 이스케이프할지 여부
+		:param bool            $insensitiveSearch: 대소문자를 구분하지 않고 검색할지 여부
+		:returns: ``BaseBuilder`` instance
 		:rtype:	object
 
 		SQL 쿼리에 HAVING field NOT IN('item', 'item') 절을 추가합니다. AND로 분리.
 
-	.. php:method:: havingLike($field[, $match = ''[, $side = 'both'[, $escape = NULL[, $insensitiveSearch = FALSE]]]])
+	.. php:method:: havingLike($field[, $match = ''[, $side = 'both'[, $escape = null[, $insensitiveSearch = false]]]])
 
-		:param	string	$field: 필드명
-		:param	string	$match: 일치할 텍스트 부분
-		:param	string	$side: 와일드 카드(%)를 넣을 위치
-		:param	bool	$escape: 값과 식별자를 이스케이프할지 여부
-		:param	bool    $insensitiveSearch: 대소문자를 구분하지 않고 검색할지 여부
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param string $field: 필드명
+		:param string $match: 일치할 텍스트 부분
+		:param string $side: 와일드 카드(%)를 넣을 위치
+		:param bool $escape: 값과 식별자를 이스케이프할지 여부
+		:param bool    $insensitiveSearch: 대소문자를 구분하지 않고 검색할지 여부
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		여러번 호출할 경우 AND를 사용하여 HAVING 부분에 LIKE 절을 쿼리에 추가합니다.
 
-	.. php:method:: orHavingLike($field[, $match = ''[, $side = 'both'[, $escape = NULL[, $insensitiveSearch = FALSE]]]])
+	.. php:method:: orHavingLike($field[, $match = ''[, $side = 'both'[, $escape = null[, $insensitiveSearch = false]]]])
 
-		:param	string	$field: 필드명
-		:param	string	$match: 일치할 텍스트 부분
-		:param	string	$side: 와일드 카드(%)를 넣을 위치
-		:param	bool	$escape: 값과 식별자를 이스케이프할지 여부
-		:param	bool    $insensitiveSearch: 대소문자를 구분하지 않고 검색할지 여부
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param string $field: 필드명
+		:param string $match: 일치할 텍스트 부분
+		:param string $side: 와일드 카드(%)를 넣을 위치
+		:param bool $escape: 값과 식별자를 이스케이프할지 여부
+		:param bool    $insensitiveSearch: 대소문자를 구분하지 않고 검색할지 여부
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		여러번 호출할 경우 OR을 사용하여 HAVING 부분에 LIKE 절을 쿼리에 추가합니다.
 
-	.. php:method:: notHavingLike($field[, $match = ''[, $side = 'both'[, $escape = NULL[, $insensitiveSearch = FALSE]]]])
+	.. php:method:: notHavingLike($field[, $match = ''[, $side = 'both'[, $escape = null[, $insensitiveSearch = false]]]])
 
-		:param	string	$field: 필드명
-		:param	string	$match: 일치할 텍스트 부분
-		:param	string	$side: 와일드 카드(%)를 넣을 위치
-		:param	bool	$escape: 값과 식별자를 이스케이프할지 여부
-		:param	bool    $insensitiveSearch: 대소문자를 구분하지 않고 검색할지 여부
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param string $field: 필드명
+		:param string $match: 일치할 텍스트 부분
+		:param string $side: 와일드 카드(%)를 넣을 위치
+		:param bool $escape: 값과 식별자를 이스케이프할지 여부
+		:param bool    $insensitiveSearch: 대소문자를 구분하지 않고 검색할지 여부
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		여러번 호출할 경우 AND를 사용하여 HAVING 부분에 NOT LIKE 절을 쿼리에 추가합니다.
 
-	.. php:method:: orNotHavingLike($field[, $match = ''[, $side = 'both'[, $escape = NULL[, $insensitiveSearch = FALSE]]]])
+	.. php:method:: orNotHavingLike($field[, $match = ''[, $side = 'both'[, $escape = null[, $insensitiveSearch = false]]]])
 
-		:param	string	$field: 필드명
-		:param	string	$match: 일치할 텍스트 부분
-		:param	string	$side: 와일드 카드(%)를 넣을 위치
-		:param	bool	$escape: 값과 식별자를 이스케이프할지 여부
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param string $field: 필드명
+		:param string $match: 일치할 텍스트 부분
+		:param string $side: 와일드 카드(%)를 넣을 위치
+		:param bool $escape: 값과 식별자를 이스케이프할지 여부
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		여러번 호출할 경우 OR을 사용하여 HAVING 부분에 NOT LIKE 절을 쿼리에 추가합니다.
 
 	.. php:method:: havingGroupStart()
 
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		AND를 사용하여 HAVING 절에 대한 그룹 표현식을 시작합니다.
 
 	.. php:method:: orHavingGroupStart()
 
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		OR을 사용하여 HAVING 절에 대한 그룹 표현식을 시작합니다.
 
 	.. php:method:: notHavingGroupStart()
 
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		AND NOT을 사용하여 HAVING 절에 대한 그룹 표현식을 시작합니다.
 
 	.. php:method:: orNotHavingGroupStart()
 
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		OR NOT을 사용하여 HAVING 절에 대한 그룹 표현식을 시작합니다.
 
 	.. php:method:: havingGroupEnd()
 
-		:returns:	BaseBuilder instance
+		:returns: ``BaseBuilder`` instance
 		:rtype:	object
 
 		HAVING 절에 대한 그룹 표현식을 종료합니다.
 
-	.. php:method:: groupBy($by[, $escape = NULL])
+	.. php:method:: groupBy($by[, $escape = null])
 
-		:param	mixed	$by: Field(s) to group by; string or array
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param mixed $by: Field(s) to group by; string or array
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		쿼리에 GROUP BY절을 추가합니다.
 
-	.. php:method:: orderBy($orderby[, $direction = ''[, $escape = NULL]])
+	.. php:method:: orderBy($orderby[, $direction = ''[, $escape = null]])
 
-		:param	string	$orderby: 정렬할 필드
-		:param	string	$direction: The order requested - ASC, DESC or random
-		:param	bool	$escape: 값과 식별자를 이스케이프할지 여부
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param string $orderby: 정렬할 필드
+		:param string $direction: The order requested - ASC, DESC or random
+		:param bool $escape: 값과 식별자를 이스케이프할지 여부
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		쿼리에 ORDER BY절을 추가합니다.
 
 	.. php:method:: limit($value[, $offset = 0])
 
-		:param	int	$value: 결과를 제한할 행 수
-		:param	int	$offset: 건너 뛸 행 수
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param int $value: 결과를 제한할 행 수
+		:param int $offset: 건너 뛸 행 수
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		쿼리에 LIMIT and OFFSET절을 추가합니다.
 
 	.. php:method:: offset($offset)
 
-		:param	int	$offset: 건너 뛸 행 수
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param int $offset: 건너 뛸 행 수
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		쿼리에 OFFSET절을 추가합니다.
 
-	.. php:method:: set($key[, $value = ''[, $escape = NULL]])
+	.. php:method:: set($key[, $value = ''[, $escape = null]])
 
-		:param	mixed	$key: 필드 이름 또는 필드/값 쌍 배열
-		:param	string	$value: $key가 단일 필드인 경우 필드 값
-		:param	bool	$escape: 값과 식별자를 이스케이프할지 여부
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param mixed $key: 필드 이름 또는 필드/값 쌍 배열
+		:param string $value: $key가 단일 필드인 경우 필드 값
+		:param bool $escape: 값과 식별자를 이스케이프할지 여부
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		``insert()``, ``update()``, ``replace()``\ 에 전달할 필드/값 쌍을 추가합니다.
 
-	.. php:method:: insert([$set = NULL[, $escape = NULL]])
+	.. php:method:: insert([$set = null[, $escape = null]])
 
-		:param	array	$set: 필드/값 쌍 배열
-		:param	bool	$escape: 값과 식별자를 이스케이프할지 여부
-		:returns:	TRUE on success, FALSE on failure
+		:param array $set: 필드/값 쌍 배열
+		:param bool $escape: 값과 식별자를 이스케이프할지 여부
+		:returns:	true on success, false on failure
 		:rtype:	bool
 
 		INSERT 문을 컴파일하고 실행합니다.
 
-	.. php:method:: insertBatch([$set = NULL[, $escape = NULL[, $batch_size = 100]]])
+	.. php:method:: insertBatch([$set = null[, $escape = null[, $batch_size = 100]]])
 
-		:param	array	$set: Insert할 데이터
-		:param	bool	$escape: 값과 식별자를 이스케이프할지 여부
-		:param	int	$batch_size: 한 번에 Insert할 행의 수
-		:returns:	Insert된 행의 수, 실패시 FALSE
+		:param array $set: Insert할 데이터
+		:param bool $escape: 값과 식별자를 이스케이프할지 여부
+		:param int $batch_size: 한 번에 Insert할 행의 수
+		:returns:	Insert된 행의 수, 실패시 false
 		:rtype:	mixed
 
 		배치 ``INSERT``\ 문을 컴파일하고 실행합니다.
 
 		.. note:: ``$batch_size`` 이상의 행이 제공되면, 각각 ``$batch_size`` 행을 Insert하려고 하는 여러 INSERT 쿼리가 실행됩니다.
 
-	.. php:method:: setInsertBatch($key[, $value = ''[, $escape = NULL]])
+	.. php:method:: setInsertBatch($key[, $value = ''[, $escape = null]])
 
-		:param	mixed	$key: 필드 이름 또는 필드/값 쌍 배열
-		:param	string	$value: $key가 단일 필드인 경우 필드 값
-		:param	bool	$escape: 값과 식별자를 이스케이프할지 여부
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param mixed $key: 필드 이름 또는 필드/값 쌍 배열
+		:param string $value: $key가 단일 필드인 경우 필드 값
+		:param bool $escape: 값과 식별자를 이스케이프할지 여부
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		``insertBatch()``\ 를 통해 테이블에 Insert할 필드/값 쌍을 추가합니다.
 
-	.. php:method:: update([$set = NULL[, $where = NULL[, $limit = NULL]]])
+	.. php:method:: update([$set = null[, $where = null[, $limit = null]]])
 
-		:param	array	$set: 필드/값 쌍의 연관 배열
-		:param	string	$where: WHERE 절
-		:param	int	$limit: LIMIT 절
-		:returns:	TRUE on success, FALSE on failure
+		:param array $set: 필드/값 쌍의 연관 배열
+		:param string $where: WHERE 절
+		:param int $limit: LIMIT 절
+		:returns:	true on success, false on failure
 		:rtype:	bool
 
 		UPDATE 문을 컴파일하고 실행합니다.
 
-	.. php:method:: updateBatch([$set = NULL[, $value = NULL[, $batch_size = 100]]])
+	.. php:method:: updateBatch([$set = null[, $value = null[, $batch_size = 100]]])
 
-		:param	array	$set: 필드 이름 또는 필드/값 쌍의 연관 배열
-		:param	string	$value: $set가 단일 필드인 경우 필드 값
-		:param	int	$batch_size: 단일 쿼리에 그룹화할 조건 수입니다.
-		:returns:	업데이트된 행 수 또는 실패 시 FALSE입니다.
+		:param array $set: 필드 이름 또는 필드/값 쌍의 연관 배열
+		:param string $value: $set가 단일 필드인 경우 필드 값
+		:param int $batch_size: 단일 쿼리에 그룹화할 조건 수입니다.
+		:returns:	업데이트된 행 수 또는 실패 시 ``false``\ 입니다.
 		:rtype:	mixed
 
 		배치 ``UPDATE``\ 문을 컴파일하고 실행합니다.
 
 		.. note:: ``$batch_size`` 이상의 필드/값 쌍이 제공되면 각각 ``$batch_size`` 필드/값 쌍을 Update하는 여러 쿼리가 실행됩니다.
 
-	.. php:method:: setUpdateBatch($key[, $value = ''[, $escape = NULL]])
+	.. php:method:: setUpdateBatch($key[, $value = ''[, $escape = null]])
 
-		:param	mixed	$key: 필드 이름 또는 필드/값 쌍 배열
-		:param	string	$value: $key가 단일 필드인 경우 필드 값
-		:param	bool	$escape: 값과 식별자를 이스케이프할지 여부
-		:returns:	BaseBuilder instance (method chaining)
-		:rtype:	BaseBuilder
+		:param mixed $key: 필드 이름 또는 필드/값 쌍 배열
+		:param string $value: $key가 단일 필드인 경우 필드 값
+		:param bool $escape: 값과 식별자를 이스케이프할지 여부
+		:returns: ``BaseBuilder`` instance (method chaining)
+		:rtype:	``BaseBuilder``
 
 		``updateBatch()``\ 를 통해 테이블에서 업데이트할 필드/값 쌍을 추가합니다.
 
-	.. php:method:: replace([$set = NULL])
+	.. php:method:: replace([$set = null])
 
-		:param	array	$set: 필드/값 쌍의 연관 배열
-		:returns:	TRUE on success, FALSE on failure
+		:param array $set: 필드/값 쌍의 연관 배열
+		:returns:	true on success, false on failure
 		:rtype:	bool
 
 		REPLACE 문을 컴파일하고 실행합니다.
 
-	.. php:method:: delete([$where = ''[, $limit = NULL[, $reset_data = TRUE]]])
+	.. php:method:: delete([$where = ''[, $limit = null[, $reset_data = true]]])
 
-		:param	string	$where: WHERE 절
-		:param	int	$limit: LIMIT 절
-		:param	bool	$reset_data: 쿼리 "write" 절을 재설정하려면 TRUE
-		:returns:	BaseBuilder instance (method chaining) or FALSE on failure
+		:param string $where: WHERE 절
+		:param int $limit: LIMIT 절
+		:param bool $reset_data: 쿼리 "write" 절을 재설정하려면 true
+		:returns: ``BaseBuilder`` instance (method chaining) or false on failure
 		:rtype:	mixed
 
 		DELETE 쿼리를 컴파일하고 실행합니다.
@@ -1795,7 +1792,7 @@ Class Reference
 
 	.. php:method:: truncate()
 
-		:returns:	TRUE on success, FALSE on failure
+		:returns:	true on success, false on failure
 		:rtype:	bool
 
 		테이블에서 TRUNCATE 문을 실행합니다.
@@ -1804,38 +1801,38 @@ Class Reference
 
 	.. php:method:: emptyTable()
 
-		:returns:	TRUE on success, FALSE on failure
+		:returns:	true on success, false on failure
 		:rtype:	bool
 
 		DELETE 문을 통해 테이블에서 모든 레코드를 삭제합니다.
 
-	.. php:method:: getCompiledSelect([$reset = TRUE])
+	.. php:method:: getCompiledSelect([$reset = true])
 
-		:param	bool	$reset: 현재 QB 값을 재설정할지 여부
+		:param bool $reset: 현재 QB 값을 재설정할지 여부
 		:returns:	컴파일된 SQL 문의 문자열
 		:rtype:	string
 
 		SELECT 문을 컴파일하여 문자열로 반환합니다.
 
-	.. php:method:: getCompiledInsert([$reset = TRUE])
+	.. php:method:: getCompiledInsert([$reset = true])
 
-		:param	bool	$reset: 현재 QB 값을 재설정할지 여부
+		:param bool $reset: 현재 QB 값을 재설정할지 여부
 		:returns:	컴파일된 SQL 문의 문자열
 		:rtype:	string
 
 		INSERT 문을 컴파일하여 문자열로 리턴합니다.
 
-	.. php:method:: getCompiledUpdate([$reset = TRUE])
+	.. php:method:: getCompiledUpdate([$reset = true])
 
-		:param	bool	$reset: 현재 QB 값을 재설정할지 여부
+		:param bool $reset: 현재 QB 값을 재설정할지 여부
 		:returns:	컴파일된 SQL 문의 문자열
 		:rtype:	string
 
 		UPDATE 문을 컴파일하여 문자열로 리턴합니다.
 
-	.. php:method:: getCompiledDelete([$reset = TRUE])
+	.. php:method:: getCompiledDelete([$reset = true])
 
-		:param	bool	$reset: 현재 QB 값을 재설정할지 여부
+		:param bool $reset: 현재 QB 값을 재설정할지 여부
 		:returns:	컴파일된 SQL 문의 문자열
 		:rtype:	string
 

@@ -45,11 +45,11 @@ Argument:
 
 Options:
 ========
-* ``-command``: spark에서 실행할 명령 이름. 기본값은 ``command:name``.
-* ``-group``: 명령의 그룹/네임스페이스입니다. 기본(basic) 명령의 경우 ``CodeIgniter``, 생성기(generator) 명령의 경우``Generators``\ 가 기본값입니다.
-* ``-type``: 명령 타입, ``basic`` 또는 ``generator``. 기본값은 ``basic``.
+* ``--command``: spark에서 실행할 명령 이름. 기본값은 ``command:name``.
+* ``--group``: 명령의 그룹/네임스페이스입니다. 기본(basic) 명령의 경우 ``CodeIgniter``, 생성기(generator) 명령의 경우``Generators``\ 가 기본값입니다.
+* ``--type``: 명령 타입, ``basic`` 또는 ``generator``. 기본값은 ``basic``.
 * ``-n``: 루트(root) 네임스페이스 설정. 기본값은 상수 ``APP_NAMESPACE``\ 의 값.
-* ``-force``: 기존 파일을 덮어 쓰려면 이 플래그를 설정합니다.
+* ``--force``: 기존 파일을 덮어 쓰려면 이 플래그를 설정합니다.
 
 make:controller
 ---------------
@@ -68,10 +68,10 @@ Argument:
 
 Options:
 ========
-* ``-bare``: ``BaseController`` 대신 ``CodeIgniter\Controller``\ 을 확장(extend)합니다.
-* ``-restful``: RESTful resource를 확장. ``controller`` 또는 ``presenter`` 선택. 기본값은 ``controller``.
+* ``--bare``: ``BaseController`` 대신 ``CodeIgniter\Controller``\ 을 확장(extend)합니다.
+* ``--restful``: RESTful resource를 확장. ``controller`` 또는 ``presenter`` 선택. 기본값은 ``controller``.
 * ``-n``: 루트(root) 네임스페이스 설정. 기본값은 상수 ``APP_NAMESPACE``\ 의 값.
-* ``-force``: 기존 파일을 덮어 쓰려면 이 플래그를 설정합니다.
+* ``--force``: 기존 파일을 덮어 쓰려면 이 플래그를 설정합니다.
 
 make:entity
 -----------
@@ -91,7 +91,7 @@ Argument:
 Options:
 ========
 * ``-n``: 루트(root) 네임스페이스 설정. 기본값은 상수 ``APP_NAMESPACE``\ 의 값.
-* ``-force``: 기존 파일을 덮어 쓰려면 이 플래그를 설정합니다.
+* ``--force``: 기존 파일을 덮어 쓰려면 이 플래그를 설정합니다.
 
 make:filter
 -----------
@@ -111,7 +111,7 @@ Argument:
 Options:
 ========
 * ``-n``: 루트(root) 네임스페이스 설정. 기본값은 상수 ``APP_NAMESPACE``\ 의 값.
-* ``-force``: 기존 파일을 덮어 쓰려면 이 플래그를 설정합니다.
+* ``--force``: 기존 파일을 덮어 쓰려면 이 플래그를 설정합니다.
 
 make:model
 ----------
@@ -130,11 +130,11 @@ Argument:
 
 Options:
 ========
-* ``-dbgroup``: 사용할 데이터베이스 그룹. 기본값은 ``default``.
-* ``-entity``: 엔티티 클래스를 리턴 유형으로 사용하려면 이 플래그를 설정합니다.
-* ``-table``: 사용할 테이블명. 기본값은 클래스명의 복수형.
+* ``--dbgroup``: 사용할 데이터베이스 그룹. 기본값은 ``default``.
+* ``--entity``: 엔티티 클래스를 리턴 유형으로 사용하려면 이 플래그를 설정합니다.
+* ``--table``: 사용할 테이블명. 기본값은 클래스명의 복수형.
 * ``-n``: 루트(root) 네임스페이스 설정. 기본값은 상수 ``APP_NAMESPACE``\ 의 값.
-* ``-force``: 기존 파일을 덮어 쓰려면 이 플래그를 설정합니다.
+* ``--force``: 기존 파일을 덮어 쓰려면 이 플래그를 설정합니다.
 
 make:seeder
 -----------
@@ -154,7 +154,7 @@ Argument:
 Options:
 ========
 * ``-n``: 루트(root) 네임스페이스 설정. 기본값은 상수 ``APP_NAMESPACE``\ 의 값.
-* ``-force``: 기존 파일을 덮어 쓰려면 이 플래그를 설정합니다.
+* ``--force``: 기존 파일을 덮어 쓰려면 이 플래그를 설정합니다.
 
 migrate:create
 --------------
@@ -174,7 +174,7 @@ Argument:
 Options:
 ========
 * ``-n``: 루트(root) 네임스페이스 설정. 기본값은 상수 ``APP_NAMESPACE``\ 의 값.
-* ``-force``: 기존 파일을 덮어 쓰려면 이 플래그를 설정합니다.
+* ``--force``: 기존 파일을 덮어 쓰려면 이 플래그를 설정합니다.
 
 session:migration
 -----------------
@@ -192,7 +192,7 @@ Options:
 * ``-g``: 데이터베이스 그룹 설정
 * ``-t``: 테이블명 설정. 기본값은 ``ci_sessions``.
 * ``-n``: 루트(root) 네임스페이스 설정. 기본값은 상수 ``APP_NAMESPACE``\ 의 값.
-* ``-force``: 기존 파일을 덮어 쓰려면 이 플래그를 설정합니다.
+* ``--force``: 기존 파일을 덮어 쓰려면 이 플래그를 설정합니다.
 
 .. note:: ``php spark help session:migration``\ 을 실행하면 ``name`` 인수가 나열지만, 클래스명은 ``-t`` 옵션으로 전달된 테이블명에서 파생되므로 사용되지 않습니다.
 
@@ -207,6 +207,9 @@ Options:
 .. warning:: ``-n`` 옵션을 설정할 때 제공된 네임스페이스가 ``Config\Autoload``\ 의 ``$psr4`` 배열에 정의되거나 
     composer autoload 파일에 정의된 유효한 네임스페이스인지 확인하십시오.
     그렇지 않으면 ``RuntimeException``\ 이 발생합니다.
+
+.. warning:: 마이그레이션 파일을 만들기 위해 ``migrate:create``\ 는 이후 릴리스에서 제거되어 더 이상 사용되지 않습니다.
+	대신 ``make:migration``\ 을 사용하십시오.
 
 ****************************************
 스캐폴딩 코드 세트
@@ -228,11 +231,11 @@ CodeIgniter4는 컨트롤러, 모델, 엔티티, 마이그레이션 및 시더 �
 
 다음 클래스를 생성합니다.
 
-(1) ``App\Controllers\User``
-(2) ``App\Models\User``
-(3) ``App\Entities\User``
-(4) ``App\Database\Migrations\User``
-(5) ``App\Database\Seeds\User``
+(1) ``App\Controllers\User``;
+(2) ``App\Models\User``;
+(3) ``App\Entities\User``;
+(4) ``App\Database\Migrations\<some date here>_User``;
+(5) ``App\Database\Seeds\User``.
 
 ****************
 GeneratorCommand
@@ -341,9 +344,9 @@ GeneratorCommand
 	그렇지 않으면 PHP 치명적인 오류가 발생합니다.
 
 .. note:: ``GeneratorCommand`` 에는 기본 인수 ``['name' => 'Class name']``\ 가 있습니다.
-	``$options`` 속성 name에 설명을 재정의할 수 있습니다. ex> ``['name' => 'Module class name']``.
+	``$arguments`` 속성 name에 설명을 재정의할 수 있습니다. ex> ``['name' => 'Module class name']``.
 
-.. note:: ``GeneratorCommand`` \는 ``-n``\ 과 ``-force``\ 라는 기본 옵션을 가지고 있습니다.
+.. note:: ``GeneratorCommand`` \는 ``-n``\ 과 ``--force``\ 라는 기본 옵션을 가지고 있습니다.
 	하위 클래스는 코드 생성을 구현하는 데 중요하므로 이 두 속성을 재정의할 수 없습니다.
 
 .. note:: 생성기의 기본 그룹은 ``GeneratorCommand``\ 이므로 기본적으로 ``Generators`` 네임스페이스 아래에 등록됩니다.
