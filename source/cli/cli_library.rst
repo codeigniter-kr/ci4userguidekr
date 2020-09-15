@@ -188,11 +188,11 @@ Windows는 현재 창 크기를 결정하는 방법을 제공하지 않으므로
 	// to determine the width of the left column
 	$maxlen = max(array_map('strlen', $titles));
 
-	for ($i=0; $i <= count($titles); $i++)
+	for ($i=0; $i < count($titles); $i++)
 	{
 		CLI::write(
 			// Display the title on the left of the row
-			$title[$i].'   '.
+			$titles[$i].'   '.
 			// Wrap the descriptions in a right-hand column
 			// with its left side 3 characters wider than
 			// the longest item on the left.
@@ -204,7 +204,7 @@ Windows는 현재 창 크기를 결정하는 방법을 제공하지 않으므로
 
 .. code-block:: none
 
-    task1a     Lorem Ipsum is simply dummy
+    task1a   Lorem Ipsum is simply dummy
                text of the printing and typesetting
                industry.
     task1abc   Lorem Ipsum has been the industry's
