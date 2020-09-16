@@ -178,14 +178,18 @@ Vagrant를 사용한 호스트
 
 `VirtualBox <https://www.virtualbox.org/wiki/Downloads>`_ 및 `Vagrant <https://www.vagrantup.com/downloads.html>`_\ 를 설치했다고 가정합니다.
 
-Vagrant 구성 파일(config file)은 시스템에 `ubuntu/bionic64 Vagrant box <https://app.vagrantup.com/ubuntu/boxes/bionic64>`_ 설정이 있다고 가정함::
+Vagrant 구성 파일(config file)은 시스템에 `ubuntu/bionic64 Vagrant box <https://app.vagrantup.com/ubuntu/boxes/bionic64>`_ 설정이 있다고 가정함
+
+::
 
     vagrant box add ubuntu/bionic64
 
 테스트
 -------------------------------------------------------
 
-설정이 완료되면 다음 명령을 사용하여 VM 내부에서 웹앱을 시작할 수 있습니다.::
+설정이 완료되면 다음 명령을 사용하여 VM 내부에서 웹앱을 시작할 수 있습니다.
+
+::
 
     vagrant up
 
