@@ -57,7 +57,7 @@ CodeIgniter에는 데이터베이스 연결 값(username, password, database nam
 
 ::
 	
-      $default['DSN'] = 'DBDriver://username:password@hostname:port/database';
+    $default['DSN'] = 'DBDriver://username:password@hostname:port/database';
 
 범용 버전 DSN 문자열로 연결할 때 기본 구성 값을 재정의하려면 구성 변수를 쿼리 문자열로 추가합니다.
 

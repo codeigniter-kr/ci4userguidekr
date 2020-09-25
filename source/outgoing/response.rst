@@ -121,9 +121,9 @@ HTTP 사양에는 클라이언트(종종 웹 브라우저)가 결과를 캐시�
 이 안내서는 모든 캐시 헤더 기능을 완전히 소개하기에 적합한 곳은 아니지만 
 `Google Developers <https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching>`_\ 에서 잘 이해할 수 있습니다.
 
-기본적으로 CodeIgniter를 통해 전송 된 모든 응답 오브젝트에는 HTTP 캐싱이 해제되어 있습니다.
-옵션과 정확한 환경은 너무 다양하여 기본 설정을 해제하는것 외에 다른 기본 설정을 만들 수 없습니다.
-그러나``setCache()`` 메소드를 통해 캐시 값을 필요한 값으로 간단하게 설정할 수 있습니다.
+기본적으로 CodeIgniter를 통해 전송된 모든 응답 오브젝트에는 HTTP 캐싱이 해제되어 있습니다.
+옵션과 정확한 환경은 너무 다양하여 기본 설정을 해제하는것을 제외한 다른 기본 설정을 만들 수 없습니다.
+그러나 ``setCache()`` 메소드를 이용하면 필요한 캐쉬 값을 설정할 수 있습니다.
 
 ::
 

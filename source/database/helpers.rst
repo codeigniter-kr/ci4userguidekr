@@ -31,12 +31,25 @@
 
 특정 테이블 행의 수를 확인할 수 있습니다.
 첫 번째 매개 변수에 테이블 이름을 제출하십시오.
-이것은 쿼리 빌더의 일부입니다.
-Example::
+``Query Builder``\ 의 일부입니다.
+
+::
 
 	echo $db->table('my_table')->countAll();
 
 	// Produces an integer, like 25
+
+**$db->countAllResults()**
+
+특정 결과의 행 수를 확인할 수 있습니다.
+첫 번째 매개 변수에 테이블 이름을 제출합니다.
+``Query Builder``\ 의 일부입니다.
+
+::
+
+	echo $db->table('my_table')->countAllResults();
+
+	// Produces an integer, like 5
 
 **$db->getPlatform()**
 

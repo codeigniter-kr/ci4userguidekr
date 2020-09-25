@@ -818,15 +818,13 @@ beforeUpdate      **id** = Update할 행의 기본(primary) 키 배열
 afterUpdate       **id** = Update할 행의 기본(primary) 키 배열
                   **data** = 업데이트되는 키/값 쌍
                   **result** = 쿼리 빌더 update() 메소드 호출 결과
-afterFind         find* 메소드에 따라 다릅니다. 다음을 참조하십시오:
+beforeFind        호출 **method** 이름, **singleton** 요청 여부와 추가 필드
+- first()         추가 필드 없음
 - find()          **id** = 검색되는 행의 기본 키
-                  **data** = 결과 데이터 행. 결과가 없으면 null입니다.
-- findAll()       **data** = 결과 데이터 행. 결과가없는 경우 null
-                  **limit** = 찾을 행 수
+- findAll()       **limit** = 찾을 행 수
                   **offset** = 검색하는 동안 건너뛸 행 수
-- first()         **data** = 검색 중에 발견 된 결과의 행. 발견되지 않은 경우는 null
-beforeFind        **afterFind**\ 와 동일하지만 **$data** 대신 호출 **$method**\ 명(name)입니다.
-beforeDelete      delete* 메소드에 따라 다릅니다. 다음을 참조하십시오:
+afterFind         **beforeFind**\ 와 동일하지만 데이터의 결과 행을 포함하거나 결과가 없으면 null 입니다.
+beforeDelete      delete* 메소드에 따라 다릅니다. 다음을 참조하십시오.
 - delete()        **id** = 삭제되는 행의 기본 키
                   **purge** = 소프트 삭제(soft-delete) 행을 강제로 삭제할지 여부(boolean)
 afterDelete       **id** = 삭제되는 행의 기본 키
