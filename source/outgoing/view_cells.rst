@@ -30,7 +30,7 @@
     // Passing Parameter String
     <?= view_cell('\App\Libraries\Blog::recentPosts', 'category=codeigniter, limit=5') ?>
 
-    public function recentPosts(array $params=[])
+    public function recentPosts(array $params = [])
     {
         $posts = $this->blogModel->where('category', $params['category'])
                                  ->orderBy('published_on', 'desc')
@@ -47,7 +47,7 @@
 
     <?= view_cell('\App\Libraries\Blog::recentPosts', 'category=codeigniter, limit=5') ?>
 
-    public function recentPosts(int $limit, string $category)
+    public function recentPosts(string $category, int $limit)
     {
         $posts = $this->blogModel->where('category', $category)
                                  ->orderBy('published_on', 'desc')

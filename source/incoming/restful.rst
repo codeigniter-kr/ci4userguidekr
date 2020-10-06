@@ -147,7 +147,7 @@ ResourceController
     $routes->get('photos/edit/(:segment)',    'Photos::edit/$1');
     $routes->post('photos/update/(:segment)', 'Photos::update/$1');
     $routes->get('photos/remove/(:segment)',  'Photos::remove/$1');
-    $routes->post('photos/delete/(:segment)', 'Photos::update/$1');
+    $routes->post('photos/delete/(:segment)', 'Photos::delete/$1');
 
 .. important:: 위의 순서는 명확성을 위한 것이며, RouteCollection에서 경로가 생성되는 실제 순서는 적절한 경로 확인을 보장합니다.
 

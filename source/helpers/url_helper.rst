@@ -116,22 +116,32 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
     이를 통해 우리는 항상 알려진 신뢰할 수 있는 출처를 사용합니다.
     세션이 로드되지 않았거나 사용할 수 없는 경우 안전한 HTTP_REFERER 버전이 사용됩니다.
 
-.. php:function:: uri_string()
+.. php:function:: uri_string([$relative = false])
 
+    :param	boolean	$relative: baseURL에 대한 상대적인 문자열를 원한다면 `true`
     :returns: URI 문자열
     :rtype:   string
 
-    **baseUrl**\ 을 기준으로 경로 부분을 반환합니다.
+    현재 URL의 경로 부분을 반환합니다.
         
     ::
 
-        uri_string('http://some-site.com/blog/comments/123');
+        http://some-site.com/blog/comments/123
 
     함수 실행 결과
     
     ::
 
-        blog/comments/123
+        /blog/comments/123
+
+    또는 상대 파라미터(선택 사항)를 사용
+    
+    ::
+    
+        app.baseURL = http://some-site.com/subfolder/
+
+        uri_string(); // "/subfolder/blog/comments/123"
+        uri_string(true); // "blog/comments/123"
 
 .. php:function:: index_page([$altConfig = NULL])
 

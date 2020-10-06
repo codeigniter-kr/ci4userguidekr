@@ -1235,6 +1235,14 @@ Class Reference
 
 .. php:class:: CodeIgniter\\Database\\BaseBuilder
 
+	.. php:method:: db()
+
+		:returns: 사용중인 데이터베이스 연결
+		:rtype:	``ConnectionInterface``
+
+		연결된 데이터베이스 객체를  ``$db``\ 로 반환합니다.
+		``insertID()``\ 나 ``errors()``\ 와 같이 쿼리빌더(Query Builder)에서 직접 사용할 수 없는 ``ConnectionInterface`` 메소드를 액세스할 때 유용합니다.
+
 	.. php:method:: resetQuery()
 
 		:returns: ``BaseBuilder`` instance (method chaining)

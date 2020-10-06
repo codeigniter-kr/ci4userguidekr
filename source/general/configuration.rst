@@ -237,20 +237,20 @@ CodeIgniter와 함께 배포된 템플릿 파일 **env**\ 가 프로젝트 루�
 등록자(Registrars)
 =====================
 
-구성 파일은 추가 구성 특성을 제공 할 수있는 다른 클래스인 "registrars"를 얼마든지 지정할 수 있습니다.
-후보 등록자(registrars)들의 이름을 나열하고 구성 파일에 ``registrars`` 특성을 추가하면됩니다.
+구성 파일은 다른 클래스 추가 구성 속성을 제공할 수 있는 "등록자(registrars)"를 원하는만큼 지정할 수 있습니다.
+"등록자(registrars)"를 지정하려면 ``$registrators``\ 의 속성을 구성 파일에 추가하고, 후보 등록자(registrars)의 이름을 배열로 추가하면 됩니다.
 
 ::
 
-    protected $registrars = [
+    public static $registrars = [
         SupportingPackageRegistrar::class
     ];
 
 
-"등록자" 역할을 하려면 식별된 클래스에는 구성 클래스와 동일한 이름의 정적 함수가 있어야 하며 속성 설정의 연관 배열을 리턴해야 합니다.
+이렇게 식별된 클래스가 "등록자(registrars)"로 작동하려면 구성 클래스와 이름이 같은 정적 함수를 가지고 있어야 하며 속성 연관 배열을 반환해야 합니다.
 
 구성 개체가 인스턴스화되면 ``$registrars``\ 에 지정된 클래스를 순환합니다.
-구성 클래스와 일치하는 메소드 이름을 포함된 각 클래스에 대해 해당 메소드를 호출하고, 네임스페이스 변수에 대해 설명한 것과 동일한 방식으로 리턴된 속성을 통합합니다.
+각 클래스에 대한 구성 클래스에 대해 명명된 메서드를 호출하고 반환된 속성을 통합합니다.
 
 구성 클래스 설정 예
 
@@ -262,14 +262,16 @@ CodeIgniter와 함께 배포된 템플릿 파일 **env**\ 가 프로젝트 루�
 
     class MySalesConfig extends BaseConfig
     {
-        public $target        = 100;
-        public $campaign      = "Winter Wonderland";
-        protected $registrars = [
+        public $target            = 100;
+        public $campaign          = "Winter Wonderland";
+        public static $registrars = [
             '\App\Models\RegionalSales';
         ];
     }
 
-... RegionalSales 모델 파일::
+... RegionalSales 모델 클래스가 다음과 같을때
+
+::
 
     <?php namespace App\Models;
 
@@ -281,9 +283,13 @@ CodeIgniter와 함께 배포된 템플릿 파일 **env**\ 가 프로젝트 루�
         }
     }
 
-위 예에서 `MySalesConfig`\ 가 인스턴스화될 때 선언된 두 가지 속성은, `RegionalSalesModel`\ 을 "registrar"\ 로 처리함으로써 `$target` 속성의 값이 오버라이드됩니다. 샘플 결과 값
+위의 예에서 ``MySalesConfig``\ 가 인스턴스화되면 선언된 두 개의 속성중 ``$target`` 속성의 값은 ``RegionalSales``\ 를 "등록자(registrar)"로 처리하여 재정의됩니다.
+재정의된 속성의 결과는 다음과 같습니다.
 
 ::
 
     $target   = 45;
     $campaign = "Winter Wonderland";
+
+``$registrars`` 속성으로 정의된 명시적 등록자 외에도 :doc:`모듈 </general/modules>`\ 에서 검색이 활성화 된 경우 **Config/Registrars.php** 파일을 사용하여 모든 네임스페이스에 등록자를 정의할 수 있습니다.
+이러한 파일은 확장하려는 각 구성 클래스에 대해 명명된 메서드를 사용하여 위에서 설명한 클래스와 동일하게 작동합니다.

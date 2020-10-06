@@ -15,8 +15,9 @@ CodeIgniter를 처음 사용하는 경우 사용자 가이드의 :doc:`Getting S
 =================================================
 
 #. 텍스트 편집기로 **app/Config/App.php** 파일을 열고 기본(base) URL을 설정하십시오.
-   좀 더 유연하게 작성하고 싶다면 ``.env`` 파일의 **app.baseURL="http://example.com"** 
+   좀 더 유연하게 작성하고 싶다면 ``.env`` 파일의 **app.baseURL="http://example.com/"** 
    항목에 설정해도 됩니다.
+   (항상 기본 URL에 슬래시를 추가합니다!)
 #. 데이터베이스를 사용하려면 **app/Config/Database.php** 파일에  데이터베이스 정보를 설정하십시오.
    ``.env`` 파일에 설정해도 됩니다.
 

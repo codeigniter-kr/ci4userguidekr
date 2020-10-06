@@ -64,3 +64,12 @@ Array 헬퍼
 
         // Returns: 23
         $baz = dot_array_search('foo.*.baz', $data);
+
+..  php:function:: array_deep_search($key, array $array)
+
+    :param  mixed  $key: 대상 키(key)
+    :param  array  $array: 검색할 배열
+    :returns: 배열에서 찾은 값 또는 null
+    :rtype: mixed
+
+    불확실한 깊이의 배열에 키 값이 있는 요소의 값을 반환합니다.
