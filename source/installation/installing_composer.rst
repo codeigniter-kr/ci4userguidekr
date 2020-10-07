@@ -29,19 +29,19 @@ Composer는 CodeIgniter4를 시스템에 여러 가지 방법으로 설치하여
 
 ::
 
-    composer create-project codeigniter4/appstarter project-root -s rc
+    composer create-project codeigniter4/appstarter project-root
 
 위와 같이하면 "project-root" 폴더가 생성됩니다.
 
 "project-root"\ 를 생략하면 "appstarter" 폴더가 생성되며, 이 폴더의 이름은 바꿀 수 있습니다.
 
-phpunit이 필요 없다면 "---no-dev" 옵션을 추가하십시오.
+phpunit과 관련된 composer 종속성이 필요 하지 않다면 위 명령에 "---no-dev" 옵션을 추가합니다.
 
-"---no-dev" 옵션을 추가될 경우 composer는 프레임워크에 필요한 세 가지 의존성 패키지만 설치합니다.
+"---no-dev" 옵션을 추가될 경우 composer는 프레임워크에 필요한 세 가지 신뢰할 수 있는 의존성 패키지만 설치합니다.
 
 기본 프로젝트 폴더를 "appstarter"로 지정 하는 설치 ::
 
-    composer create-project codeigniter4/appstarter -s rc --no-dev
+    composer create-project codeigniter4/appstarter --no-dev
 
 설치 후에는 "업그레이드" 섹션의 단계를 따르십시오.
 
