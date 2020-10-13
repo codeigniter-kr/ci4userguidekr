@@ -67,7 +67,7 @@ phpunit과 관련된 composer 종속성이 필요 하지 않다면 위 명령에
     rm -rf vendor/codeigniter4/framework && composer update codeigniter4/framework --prefer-source
 
 
-프로젝트를 만들 때 "--dev" 옵션을 사용했다면 ``composer update --no-dev``\ 를 입력합니다.
+프로젝트를 만들 때 "--no-dev" 옵션을 사용했다면 ``composer update --no-dev``\ 를 입력합니다.
 
 업그레이드 지침에서 ``app/Config`` 폴더에 영향을 주는 변경 사항이 있는지 확인하십시오.
 
