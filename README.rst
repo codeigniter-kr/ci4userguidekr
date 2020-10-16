@@ -36,11 +36,6 @@ Linux 사용자는 운영체제에 내장된 패키지 관리자를 사용하여
 pip
 ---
 
-Now that you have Python 3.x up and running, we will be installing `pip <https://pip.pypa.io/en/stable/>`_ (The Python Package Installer).
-
-You can check if you have pip installed with ``pip`` or ``pip3``.
-As you can see pip follow the same naming convention as Python.
-Please take note that it should say ``python 3.x`` at the very end.
 이제 Python 3.x가 설치되어 실행 중이므로 `pip <https://pip.pypa.io/en/stable/>`_ (Python Package Installer)\ 를 설치합니다.
 
 ``pip`` 또는 ``pip3`` 으로 pip가 설치되어 있는지 확인할 수 있습니다.
