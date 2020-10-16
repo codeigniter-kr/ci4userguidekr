@@ -35,9 +35,6 @@
 		]
 	];
 
-Select URIs can be whitelisted from CSRF protection (for example API endpoints expecting externally POSTed content). 
-You can add these URIs by adding them as exceptions in the filter
-
 URI를 화이트리스트에 추가하여 CSRF 보호를 제외할 수 있습니다. (예 : 외부 POST 컨텐츠를 예상하는 API 엔드 포인트)
 사전 필터에 예외로 URI를 추가하여 제외시킵니다.
 
