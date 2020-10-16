@@ -6,9 +6,19 @@
   "contributorsPerLine": 7,
   "contributorsSortAlphabetically": false,
   "skipCi": true,
-  "contributors": [],
+  "contributors": [
+    {
+      "login": "hoksi",
+      "name": "Daeseung Han",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/4138634?v=4",
+      "profile": "https://github.com/hoksi",
+      "contributions": [
+        "doc"
+      ]
+    }
+  ],
   "projectName": "ci4userguidekr",
-  "projectOwner": "ci4userguidekr",
+  "projectOwner": "hoksi",
   "repoType": "github",
   "repoHost": "https://github.com"
 }
