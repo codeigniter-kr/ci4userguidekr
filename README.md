@@ -98,7 +98,7 @@ CodeIgniter를 문서화하기 위해 Sphinx를 사용하기 위한 일반적인
 <table>
   <tr>
     <td align="center"><a href="https://github.com/hoksi"><img src="https://avatars3.githubusercontent.com/u/4138634?v=4" width="100px;" alt=""/><br /><sub><b>Daeseung Han</b></sub></a><br /><a href="https://github.com/codeigniter-kr/ci4userguidekr/commits?author=hoksi" title="Documentation">📖</a> <a href="#translation-hoksi" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://z9n.net"><img src="https://avatars1.githubusercontent.com/u/5427199?v=4" width="100px;" alt=""/><br /><sub><b>Terrorboy</b></sub></a><br /><a href="https://github.com/codeigniter-kr/ci4userguidekr/commits?author=Terrorboy" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://z9n.net"><img src="https://avatars1.githubusercontent.com/u/5427199?v=4" width="100px;" alt=""/><br /><sub><b>Terrorboy</b></sub></a><br /><a href="https://github.com/codeigniter-kr/ci4userguidekr/pulls?q=is%3Apr+reviewed-by%3ATerrorboy" title="Reviewed Pull Requests">👀</a></td>
   </tr>
 </table>
 
