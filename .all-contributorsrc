@@ -13,7 +13,8 @@
       "avatar_url": "https://avatars3.githubusercontent.com/u/4138634?v=4",
       "profile": "https://github.com/hoksi",
       "contributions": [
-        "doc"
+        "doc",
+        "translation"
       ]
     },
     {
@@ -27,7 +28,7 @@
     }
   ],
   "projectName": "ci4userguidekr",
-  "projectOwner": "hoksi",
+  "projectOwner": "codeigniter-kr",
   "repoType": "github",
   "repoHost": "https://github.com"
 }
