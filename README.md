@@ -1,4 +1,4 @@
-# CodeIgniter 한국어 사용자 가이드
+# CodeIgniter4 한국어 사용자 가이드
 ## 설치지침
 CodeIgniter 사용자 가이드는 Sphinx를 사용하여 문서를 관리하고 다양한 형식으로 출력합니다.
 소스 파일은 [ReStructured Text](https://en.wikipedia.org/wiki/ReStructuredText) 포맷으로 작성되었습니다.
