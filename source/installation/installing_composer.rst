@@ -145,7 +145,7 @@ App Starter 저장소에는 현재 안정 릴리스와 프레임워크의 최신
 ::
 
     // app/Config/Paths.php
-    $systemDirectory = ROOTPATH . '/vendor/codeigniter4/framework/system';
+    public $systemDirectory = __DIR__ . '/../../vendor/codeigniter4/framework/system';
 
 
 업그레이드
