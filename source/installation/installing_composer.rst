@@ -128,7 +128,7 @@ App Starter 저장소에는 현재 안정 릴리스와 프레임워크의 최신
 
 ::
 
-    composer require codeigniter4/framework --prefer-sourc
+    composer require codeigniter4/framework --prefer-source
 
 앞서 설명한 두 가지 composer 설치 방법과 마찬가지로, phpunit 관련 패키지가 필요 없다면 "---no-dev" 옵션을 추가하십시오.
 
