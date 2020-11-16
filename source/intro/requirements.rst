@@ -14,6 +14,7 @@
   - MySQL (5.1+) via the *MySQLi* driver
   - PostgreSQL via the *Postgre* driver
   - SQLite3 via the *SQLite3* driver
+  - MSSQL via the *Sqlsrv* driver (version 2005 and above only)
 
 CodeIgniter4용으로 일부 드라이버가 변환/재작성되지 않았습니다.
 아래는 아직 완결되지 않은 항목입니다.
@@ -21,7 +22,7 @@ CodeIgniter4용으로 일부 드라이버가 변환/재작성되지 않았습니
   - MySQL (5.1+) via the *pdo* driver
   - Oracle via the *oci8* and *pdo* drivers
   - PostgreSQL via the *pdo* driver
-  - MS SQL via the *mssql*, *sqlsrv* (version 2005 and above only) and *pdo* drivers
+  - MSSQL via the *pdo* drivers
   - SQLite via the *sqlite* (version 2) and *pdo* drivers
   - CUBRID via the *cubrid* and *pdo* drivers
   - Interbase/Firebird via the *ibase* and *pdo* drivers

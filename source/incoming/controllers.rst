@@ -27,16 +27,25 @@
 해봅시다 - Hello World!
 ==========================
 
-간단한 컨트롤러를 만들어 실제로 볼 수 있도록 하겠습니다. 에디터를 사용하여 Blog.php 라는 파일을 만들고 다음 코드를 넣습니다.
+이제 간단한 컨트롤러를 만들어 실제 작동하는 모습을 보도록 하겠습니다. 
+
+텍스트 편집기를 사용하여 Hellowworld.php라는 파일을 만들고 다음 코드를 입력합니다.
+Helloworld 컨트롤러가 BaseController를 확장하고 있음을 알 수 있습니다.
+BaseController 기능이 필요하지 않은 경우 CodeIgniter\\Controller를 확장할 수도 있습니다.
+
+BaseController는 모든 컨트롤러에 필요한 구성 요소를 로드하고 기능을 수행할 수 있는 편리한 위치를 제공합니다.
+새 컨트롤러에서 이 클래스를 확장할 수 있습니다.
+
+보안상의 이유로 새로운 유틸리티 메소드를 protected 또는 private로 선언해야 합니다.
 
 ::
 
-    <?php namespace App\Controllers;
+    <?php
 
-    use CodeIgniter\Controller;
+    namespace App\Controllers;
 
-    class Helloworld extends Controller
-        {
+    class Helloworld extends BaseController
+    {
         public function index()
         {
             echo 'Hello World!';
@@ -59,33 +68,42 @@
 
 .. important:: 컨트롤러 클래스 이름은 대문자로 시작해야 하며, 첫번째 문자만 대문자입니다.
 
-올바른 예::
+올바른 예
 
-    <?php namespace App\Controllers;
+::
 
-    use CodeIgniter\Controller;
+    <?php
 
-    class Helloworld extends Controller {
+    namespace App\Controllers;
 
-    }
-
-틀린 예1::
-
-    <?php namespace App\Controllers;
-
-    use CodeIgniter\Controller;
-
-    class helloworld extends Controller {
+    class Helloworld extends BaseController
+    {
 
     }
 
-틀린 예2::
+틀린 예1
 
-    <?php namespace App\Controllers;
+::
 
-    use CodeIgniter\Controller;
+    <?php
 
-    class HelloWorld extends Controller {
+    namespace App\Controllers;
+
+    class helloworld extends BaseController
+    {
+
+    }
+
+틀린 예2
+
+::
+
+    <?php
+
+    namespace App\Controllers;
+
+    class HelloWorld extends BaseController
+    {
 
     }
 
@@ -120,11 +138,11 @@ URI의 **두 번째 세그먼트**\ 가 비어 있으면 "index" 메소드가 �
 
 ::
 
-    <?php namespace App\Controllers;
+    <?php
 
-    use CodeIgniter\Controller;
+    namespace App\Controllers;
 
-    class Helloworld extends Controller
+    class Helloworld extends BaseController
     {
         public function index()
         {
@@ -155,11 +173,11 @@ URI에 세 개 이상의 세그먼트가 포함되어 있으면 메소드에 매
 
 메소드에 URI 세그먼트 3과 세그먼트 4가 전달됩니다. ("sandals" 와 "123")::
 
-    <?php namespace App\Controllers;
+    <?php
 
-    use CodeIgniter\Controller;
+    namespace App\Controllers;
 
-    class Products extends Controller
+    class Products extends BaseController
     {
         public function shoes($sandals, $id)
         {
@@ -336,9 +354,8 @@ HTTPS를 통해 메소드에 액세스할 수있는 편리한 메소드를 모�
 ::
 
     namespace App\Controllers;
-        use CodeIgniter\Controller;
 
-    class MyController extends Controller
+    class MyController extends BaseController
     {
         protected $helpers = ['url', 'form'];
     }

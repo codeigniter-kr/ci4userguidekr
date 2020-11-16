@@ -279,7 +279,7 @@ Test 헬퍼
         	return [
                 'first'    => $faker->firstName,
                 'email'    => $faker->email,
-                'group_id' => rand(1, Fabricator::getCount('users')),
+                'group_id' => rand(1, Fabricator::getCount('groups')),
         	];
         }
     }
