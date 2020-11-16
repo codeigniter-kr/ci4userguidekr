@@ -113,6 +113,19 @@ $_SESSION 변수에 존재해야 하는 값을 키/값 쌍의 배열을 사용�
     
     $result = $this->withSession()->get('admin');
 
+헤더 설정
+---------------
+
+``withHeaders()`` 메소드를 사용하여 헤더 값을 설정할 수 있으며, 호출할 때 헤더로 전달될 키/값 쌍의 배열이 필요합니다.
+
+::
+
+    $headers = [
+        'CONTENT_TYPE' => 'application/json'
+    ];
+
+    $result = $this->withHeaders($headers)->post('users');
+
 이벤트 우회
 ----------------
 
@@ -125,6 +138,30 @@ $_SESSION 변수에 존재해야 하는 값을 키/값 쌍의 배열을 사용�
     $result = $this->skipEvents()
         ->post('users', $userInfo);
 
+request 형식 설정
+-----------------------
+
+``withBodyFormat()``\ 메소드를 사용하여 요청 본문의 형식을 설정할 수 있습니다. 
+현재 이 기능은 `json` 또는 `xml`\ 을 지원하며, 설정시 ``call(), post(), get() ...``\ 로 전달되는 매개 변수를 가져 와서 주어진 형식으로 요청 본문에 할당합니다. 
+이에 따라 요청에 대한 `Content-Type` 헤더도 설정됩니다.
+이 기능은 컨트롤러가 예상하는 형식으로 요청을 설정할 수 있도록 JSON 또는 XML API를 테스트할 때 유용합니다.
+
+::
+
+    //기능 테스트에 다음이 포함된 경우:
+    $result = $this->withBodyFormat('json')
+        ->post('users', $userInfo);
+
+    //컨트롤러는 다음과 같이 전달된 매개 변수를 가져올 수 있습니다.
+    $userInfo = $this->request->getJson();
+
+본문 설정
+----------------
+
+``withBody()``\ 메소드로 요청의 본문을 설정할 수 있습니다. 
+이를 통해 원하는 형식으로 본문를 형식화할  수 있습니다. 
+테스트할 XML이 복잡한 경우 이 옵션을 사용하는 것이 좋습니다. 
+이렇게 해도 Content-Type 헤더는 설정되지 않으므로, 필요한 경우 ``withHeaders()``\ 메소드를 사용하여 설정합니다.
 
 응답 테스트
 ====================

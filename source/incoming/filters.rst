@@ -7,7 +7,7 @@
     :depth: 2
 
 컨트롤러 필터를 사용하면 컨트롤러 실행 전후에 작업을 수행할 수 있습니다.
-:doc:`이벤트 </extending/events>`\ 와 달리 어플리케이션에서 필터를 적용할 URI를 쉽게 선택할 수 있습니다.
+:doc:`이벤트 </extending/events>`\ 와 달리 필터를 적용할 특정 URI를 선택할 수 있습니다.
 수신(Incoming) 필터는 요청을 수정하는 반면 사후(after)필터는 응답에 대해 작동하고 데이터를 수정할 수 있기 때문에 많은 유연성과 성능을 제공합니다.
 필터로 수행할 수있는 일반적인 예는 다음과 같습니다:
 
@@ -29,7 +29,9 @@
 
 ::
 
-    <?php namespace App\Filters;
+    <?php 
+    
+    namespace App\Filters;
 
     use CodeIgniter\HTTP\RequestInterface;
     use CodeIgniter\HTTP\ResponseInterface;
@@ -42,8 +44,6 @@
             // Do something here
         }
 
-        //--------------------------------------------------------------------
-
         public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
         {
             // Do something here
@@ -55,8 +55,12 @@
 
 모든 필터는 ``$request`` 오브젝트를 반환할 수 있으며, 컨트롤러가 실행될 때 변경 사항을 적용할 수 있도록 현재 요청(Request)을 대체합니다.
 
-가끔 사전 필터가 실행되기 전에 컨트롤러의 작업을 중지할 필요가 있습니다.
-요청 오브젝트가 아닌 것을 전달하면 이것을 수행 할 수 있습니다.
+컨트롤러가 실행되기 전에 필터가 실행되기 때문에 먼저 컨트롤러의 작업을 중지하거나, 특정 필터 이후의 필터 실행을 중지할 필요가 있습니다.
+**비어 있지 않은** 결과를 반환하면 쉽게 이 작업을 수행할 수 있습니다.
+이전 필터가 빈 결과를 반환하면 컨트롤러 작업 또는 이후 필터가 계속 실행됩니다.
+``Request`` 인스턴스의 경우는 비어 있지 않은 결과 규칙의 예외입니다.
+before 필터에서 반환하면 실행이 중지되지 않고 현재 ``$request`` 개체만 교체됩니다.
+
 아래 예는 리디렉션을 수행합니다.
 
 ::
@@ -71,7 +75,7 @@
         }
     }
 
-응답(Response) 인스턴스가 리턴되면 응답이 클라이언트로 전송되고 컨트롤러 실행이 중지됩니다.
+``응답(Response)`` 인스턴스가 리턴되면 응답이 클라이언트로 전송되고 컨트롤러 실행이 중지됩니다.
 API 요청에 대한 속도 제한을 구현하는데 유용하며, 이에 대한 예는 :doc:`Throttler </libraries/throttler>`\ 를 참조하십시오.
 
 사후(After) 필터
@@ -96,7 +100,7 @@ $aliases
 ::
 
     public $aliases = [
-        'csrf' => \CodeIgniter\Filters\CSRF::class
+        'csrf' => \CodeIgniter\Filters\CSRF::class,
     ];
 
 별명은 필수이며 이후 전체 클래스 이름을 사용하려고 하면 시스템에서 오류가 발생합니다.
@@ -110,7 +114,7 @@ $aliases
     public $aliases = [
         'apiPrep' => [
             \App\Filters\Negotiate::class,
-            \App\Filters\ApiAuth::class
+            \App\Filters\ApiAuth::class,
         ]
     ];
 
@@ -127,7 +131,7 @@ $globals
 
     public $globals = [
         'before' => [
-            'csrf'
+            'csrf',
         ],
         'after'  => []
     ];
@@ -140,9 +144,9 @@ $globals
 
     public $globals = [
         'before' => [
-            'csrf' => ['except' => 'api/*']
+            'csrf' => ['except' => 'api/*'],
         ],
-        'after'  => []
+        'after'  => [],
     ];
 
 필터 설정에서 URI를 사용할 수 있는 모든 장소, 정규 표현식을 사용하거나 이 예에서와 같이 와일드 카드 별표(*)를 사용하여 그 이후의 모든 문자를 일치시킬 수 있습니다.
@@ -153,9 +157,9 @@ $globals
 
     public $globals = [
         'before' => [
-            'csrf' => ['except' => ['foo/*', 'bar/*']]
+            'csrf' => ['except' => ['foo/*', 'bar/*']],
         ],
-        'after'  => []
+        'after'  => [],
     ];
 
 $methods
@@ -170,7 +174,7 @@ POST, GET, PUT등과 같은 특정 HTTP 메소드의 모든 요청에 필터를 
 
     public $methods = [
         'post' => ['foo', 'bar'],
-        'get'  => ['baz']
+        'get'  => ['baz'],
     ]
 
 표준 HTTP 메소드 외에도 'cli'\ 와 'ajax' 두 가지 특수한 경우도 지원하며, 'cli'는 커맨드 라인에서 실행 된 모든 요청에 적용되고 'ajax'는 모든 AJAX 요청에 적용됩니다.
@@ -188,7 +192,7 @@ $filters
 
     public filters = [
         'foo' => ['before' => ['admin/*'], 'after' => ['users/*']],
-        'bar' => ['before' => ['api/*', 'admin/*']]
+        'bar' => ['before' => ['api/*', 'admin/*']],
     ];
 
 필터 인수(arguments)

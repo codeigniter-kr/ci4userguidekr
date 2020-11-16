@@ -697,6 +697,11 @@ POST 데이터가 다음과 같다고 가정합니다.
     $builder = $userModel->builder();
 
 빌더는 모델의 $table로 설정되어 있습니다.
+다른 테이블에 액세스해야 하는 경우 매개 변수로 전달할 수 있지만 공유 인스턴스는 반환되지 않습니다.
+
+::
+
+	$groupBuilder = $userModel->builder('groups');
 
 동일한 체인 호출에서 쿼리 빌더 메소드와 Model의 CRUD 메소드를 함께 사용할 수 있습니다.
 

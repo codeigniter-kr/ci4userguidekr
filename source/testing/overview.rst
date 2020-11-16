@@ -334,7 +334,23 @@ Protected/Private 속성에 액세스
 
 서비스 클래스에서 모든 모의(mock) 클래스를 제거하여 원래 상태로 되돌립니다.
 
+모의(Moking) Factory 인스턴스
+==============================
 
+서비스와 마찬가지로 테스트 중에 ``Factory``\ 와 함께 사용될 미리 구성된 클래스 인스턴스를 제공해야 할 수도 있습니다.
+**Services**\ 와 같은 ``injectMock()`` 과 ``reset()`` 정적 메소드를 사용하지만 구성 요소 이름에 대해 선행 매개 변수를 추가로 사용합니다.
+
+::
+
+    protected function setUp()
+    {
+    	parent::setUp();
+
+		$model = new MockUserModel();
+		Factories::injectMock('models', 'App\Models\UserModel', $model);
+	}
+		
+.. note:: 모든 구성 요소 팩토리는 각 테스트 사이에 기본적으로 재설정됩니다. 인스턴스를 유지해야하는 경우 테스트 케이스의 ``$setUpMethods``\ 를 수정합니다.
 
 스트림(Stream) 필터
 =========================

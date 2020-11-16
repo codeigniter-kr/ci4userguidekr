@@ -128,14 +128,14 @@ App Starter 저장소에는 현재 안정 릴리스와 프레임워크의 최신
 
 ::
 
-    composer require codeigniter4/framework --prefer-source
+    composer require codeigniter4/framework --prefer-sourc
 
 앞서 설명한 두 가지 composer 설치 방법과 마찬가지로, phpunit 관련 패키지가 필요 없다면 "---no-dev" 옵션을 추가하십시오.
 
 설정(Setup)
 ----------------
 
-``app``, ``public``, ``tests` 및 ``writable`` 폴더를 ``vendor/codeigniter4/framework``\ 에서 프로젝트 루트(root)로 복사
+``app``, ``public``, ``writable`` 폴더를 ``vendor/codeigniter4/framework``\ 에서 프로젝트 루트(root)로 복사
 
 ``env``, ``phpunit.xml.dist`` 및 ``spark`` 파일을 ``vendor/codeigniter4/framework``\ 에서 프로젝트 루트로 복사
 
@@ -145,7 +145,7 @@ App Starter 저장소에는 현재 안정 릴리스와 프레임워크의 최신
 ::
 
     // app/Config/Paths.php
-    public $systemDirectory = __DIR__ . '/../../vendor/codeigniter4/framework/system';
+    $systemDirectory = ROOTPATH . '/vendor/codeigniter4/framework/system';
 
 
 업그레이드

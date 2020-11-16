@@ -11,5 +11,6 @@ CodeIgniter4 개요
 	mvc
 	autoloader
 	services
+	factories
 	http
 	security

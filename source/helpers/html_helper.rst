@@ -27,9 +27,9 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
 
 .. php:function:: img([$src = ''[, $indexPage = false[, $attributes = '']]])
 
-    :param  mixed  $src:        이미지 소스 데이터
+    :param  string|array  $src:  이미지 소스 URI 또는 속성 및 값의 배열
     :param  bool    $indexPage:  $src를 라우팅된 URI 문자열로 취급할 지 여부
-    :param  mixed   $attributes: HTML 속성
+    :param  mixed   $attributes: 추가 HTML 속성
     :returns:   HTML image 태그
     :rtype: string
 
@@ -65,6 +65,29 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
 
         img($imageProperties);
         // <img src="http://site.com/index.php/images/picture.jpg" alt="Me, demonstrating how to eat 4 slices of pizza at one time" class="post_images" width="200" height="200" title="That was quite a night" rel="lightbox" />
+
+.. php:function:: img_data([$src = ''[, $indexPage = false[, $attributes = '']]])
+
+    :param string $path: 이미지 파일의 경로
+    :param string|null $mime: 사용할 MIME 유형 또는 null
+    :returns: base64로 인코딩된 이진 이미지 문자열
+    :rtype: string
+
+    "data:" 프로토콜을 사용하여 이미지에서 src-ready 문자열을 생성합니다.
+
+    ::
+
+        $src = img_data('public/images/picture.jpg'); // data:image/jpg;base64,R0lGODl...
+        echo img($src);
+
+    두 번째 매개 변수 MIME 유형을 지정할 수 있습니다. 지정하지 않으면 MIME 구성을 사용하여 추측합니다.
+
+    ::
+
+        $src = img_data('path/img_without_extension', 'image/png'); // data:image/png;base64,HT5A822...
+
+    $path가 존재해야하며 ``data:`` 프로토콜에서 지원하는 읽을 수 있는 이미지 형식이어야 합니다.
+    이 기능은 매우 큰 파일에는 권장되지 않지만 웹 액세스가 (예: **public/**) 불가능한 앱에서 이미지를 편리하게 제공할 수 있습니다.
 
 .. php:function:: link_tag([$href = ''[, $rel = 'stylesheet'[, $type = 'text/css'[, $title = ''[, $media = ''[, $indexPage = false[, $hreflang = '']]]]]]])
 

@@ -6,7 +6,7 @@
 개발하는 동안 개발할 수 있는 샘플 데이터로 데이터베이스를 채워야 하는 경우 개발 중에 특히 유용하지만 이에 국한되지는 않습니다.
 시드에는 마이그레이션에 포함하지 않으려는 정적 데이터(국가 또는 지리 부호화 테이블, 이벤트 또는 설정 정보 등과 같은)가 포함될 수 있습니다.
 
-데이터베이스 시드는 **run()** 메소드를 가지고 있는 **CodeIgniter\Database\Seeder**\ 를 확장한 간단한 클래스입니다.
+데이터베이스 시드는 **run()** 메소드를 가지고 있는 ``CodeIgniter\Database\Seeder``\ 를 확장한 간단한 클래스입니다.
 **run()** 내에서 클래스는 필요한 모든 형식의 데이터를 만들수 있습니다.
 ``$this->db``\ 와 ``$this->forge``\ 를 통해 데이터베이스 연결 및 forge에 액세스할 수 있습니다.
 시드 파일은 **app/Database/Seeds** 디렉토리에 저장해야합니다. 
@@ -14,9 +14,13 @@
 
 ::
 
-	<?php namespace App\Database\Seeds;
+	<?php
 
-	class SimpleSeeder extends \CodeIgniter\Database\Seeder
+	namespace App\Database\Seeds;
+
+	use CodeIgniter\Database\Seeder;
+
+	class SimpleSeeder extends Seeder
 	{
 		public function run()
 		{
@@ -26,9 +30,7 @@
 			];
 
 			// Simple Queries
-			$this->db->query("INSERT INTO users (username, email) VALUES(:username:, :email:)",
-				$data
-			);
+			$this->db->query("INSERT INTO users (username, email) VALUES(:username:, :email:)", $data);
 
 			// Using Query Builder
 			$this->db->table('users')->insert($data);
@@ -43,9 +45,13 @@
 
 ::
 
-	<?php namespace App\Database\Seeds;
+	<?php
 
-	class TestSeeder extends \CodeIgniter\Database\Seeder
+	namespace App\Database\Seeds;
+
+	use CodeIgniter\Database\Seeder;
+
+	class TestSeeder extends Seeder
 	{
 		public function run()
 		{
@@ -64,6 +70,41 @@
 	{
 		$this->call('UserSeeder');
 		$this->call('My\Database\Seeds\CountrySeeder');
+	}
+
+Faker 사용
+===========
+
+시드 데이터 생성을 자동화하려면 `Faker 라이브러리 <https://github.com/fzaninotto/faker>`_\ 를 사용할 수 있습니다.
+
+Faker를 프로젝트에 설치합니다.
+
+::
+
+	> composer require --dev fzaninotto/faker
+
+설치가 완료되면 ``Seeder`` 클래스에서 ``Faker\Generator`` 인스턴스를 사용할 수 있고, 모든 자식 시더에서 액세스할 수 있습니다.
+``Faker\Generator`` 인스턴스에 액세스하려면 정적 메소드인 ``faker()``\ 를 사용합니다.
+
+::
+
+	<?php
+
+	namespace App\Database\Seeds;
+
+	use CodeIgniter\Database\Seeder;
+
+	class UserSeeder extends Seeder
+	{
+		public function run()
+		{
+			$model = model('UserModel');
+
+			$model->insert([
+				'email'      => static::faker()->email,
+				'ip_address' => static::faker()->ipv4,
+			]);
+		}
 	}
 
 시더 사용
@@ -85,3 +126,23 @@
 
 	> php spark db:seed TestSeeder
 
+시드(seed) 파일 생성
+---------------------
+
+명령줄(Command line)에서 시드 파일을 쉽게 생성할 수 있습니다.
+
+::
+
+	// 이 명령은 UserSeeder 시드 파일을 생성합니다.
+	// app/Database/Seeds/ 디렉토리에 있습니다.
+	> php spark make:seeder UserSeeder
+
+``-n`` 옵션을 제공하여 시드 파일이 저장될 **root** 네임스페이스를 지정할 수 있습니다.
+
+::
+
+	> php spark make:seeder MySeeder -n Acme\Blog
+
+``Acme\Blog``\ 가 ``app/Blog`` 디렉토리에 매핑되면 이 명령은 시드 파일을 ``app/Blog/Database/Seeds/``\ 에 저장합니다.
+
+``--force`` 옵션을 지정하면 대상에 있는 기존 파일을 덮어 씁니다.
