@@ -403,6 +403,15 @@ timeout
 
 	$response->request('GET', 'http://example.com', ['timeout' => 5]);
 
+user_agent
+==========
+
+요청에 대한 사용자 에이전트를 지정할 수 있습니다.
+
+::
+
+	$response->request('GET', 'http://example.com', ['user_agent' => 'CodeIgniter Framework v4']);
+
 verify
 ======
 
