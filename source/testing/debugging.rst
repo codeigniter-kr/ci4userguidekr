@@ -76,16 +76,16 @@ CodeIgniter에는 이름에서 알 수 있듯이 툴바에 표시할 데이터�
 
 ::
 
-	public $collectors = [
-		\CodeIgniter\Debug\Toolbar\Collectors\Timers::class,
-		\CodeIgniter\Debug\Toolbar\Collectors\Database::class,
-		\CodeIgniter\Debug\Toolbar\Collectors\Logs::class,
-		\CodeIgniter\Debug\Toolbar\Collectors\Views::class,
- 		\CodeIgniter\Debug\Toolbar\Collectors\Cache::class,
-		\CodeIgniter\Debug\Toolbar\Collectors\Files::class,
-		\CodeIgniter\Debug\Toolbar\Collectors\Routes::class,
-		\CodeIgniter\Debug\Toolbar\Collectors\Events::class,
-	];
+    public $collectors = [
+        \CodeIgniter\Debug\Toolbar\Collectors\Timers::class,
+        \CodeIgniter\Debug\Toolbar\Collectors\Database::class,
+        \CodeIgniter\Debug\Toolbar\Collectors\Logs::class,
+        \CodeIgniter\Debug\Toolbar\Collectors\Views::class,
+         \CodeIgniter\Debug\Toolbar\Collectors\Cache::class,
+        \CodeIgniter\Debug\Toolbar\Collectors\Files::class,
+        \CodeIgniter\Debug\Toolbar\Collectors\Routes::class,
+        \CodeIgniter\Debug\Toolbar\Collectors\Events::class,
+    ];
 
 표시하고 싶지 않은 수집기를 주석 처리하십시오.
 정규화된 클래스 이름을 제공하여 사용자 정의 수집기를 추가하십시오.
@@ -120,20 +120,20 @@ CodeIgniter와 함께 제공되는 수집기:
 
 ::
 
-	<?php namespace MyNamespace;
+    <?php namespace MyNamespace;
 
-	use CodeIgniter\Debug\Toolbar\Collectors\BaseCollector;
+    use CodeIgniter\Debug\Toolbar\Collectors\BaseCollector;
 
-	class MyCollector extends BaseCollector
-	{
-		protected $hasTimeline   = false;
+    class MyCollector extends BaseCollector
+    {
+        protected $hasTimeline   = false;
 
-		protected $hasTabContent = false;
+        protected $hasTabContent = false;
 
-		protected $hasVarData    = false;
+        protected $hasVarData    = false;
 
-		protected $title         = '';
-	}
+        protected $title         = '';
+    }
 
 **$hasTimeline** 툴바의 타임 라인에 정보를 표시하려는 수집기에 대해 ``true``\ 로 설정합니다.
 이값이 true라면, 표시할 데이터를 포맷하고 반환하기 위해 ``formatTimelineData()`` 메소드를 구현해야 합니다.
@@ -177,12 +177,12 @@ HTML 문자열을 반환해야 합니다.
 
 ::
 
-	$data[] = [
-		'name'      => '',     // Name displayed on the left of the timeline
-		'component' => '',     // Name of the Component listed in the middle of timeline
-		'start'     => 0.00,   // start time, like microtime(true)
-		'duration'  => 0.00    // duration, like mircrotime(true) - microtime(true)
-	];
+    $data[] = [
+        'name'      => '',     // Name displayed on the left of the timeline
+        'component' => '',     // Name of the Component listed in the middle of timeline
+        'start'     => 0.00,   // start time, like microtime(true)
+        'duration'  => 0.00    // duration, like mircrotime(true) - microtime(true)
+    ];
 
 Vars 제공
 --------------
@@ -197,13 +197,13 @@ Vars 탭에 데이터를 추가하려면 다음을 수행합니다.
 
 ::
 
-	$data = [
-		'section 1' => [
-		    'foo' => 'bar',
-		    'bar' => 'baz'
-		],
-		'section 2' => [
-		    'foo' => 'bar',
-		    'bar' => 'baz'
-		]
-	 ];
+    $data = [
+        'section 1' => [
+            'foo' => 'bar',
+            'bar' => 'baz'
+        ],
+        'section 2' => [
+            'foo' => 'bar',
+            'bar' => 'baz'
+        ]
+     ];

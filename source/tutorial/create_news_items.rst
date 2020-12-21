@@ -28,7 +28,6 @@ Create a form
         <textarea name="body"></textarea><br />
 
         <input type="submit" name="submit" value="Create news item" />
-
     </form>
 
 여기에 생소해 보이는 두 가지가 있을 것입니다.
@@ -47,7 +46,7 @@ Create a form
 
         if ($this->request->getMethod() === 'post' && $this->validate([
                 'title' => 'required|min_length[3]|max_length[255]',
-                'body'  => 'required'
+                'body'  => 'required',
             ]))
         {
             $model->save([

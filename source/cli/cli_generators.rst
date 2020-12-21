@@ -6,8 +6,8 @@ CodeIgniter4에는 컨트롤러, 모델, 엔티티 등을 쉽게 생성 할 수�
 하나의 명령으로 전체 파일 세트를 스캐폴딩할 수도 있습니다.
 
 .. contents::
-	:local:
-	:depth: 2
+    :local:
+    :depth: 2
 
 ************
 소개
@@ -18,7 +18,7 @@ CodeIgniter4에는 컨트롤러, 모델, 엔티티 등을 쉽게 생성 할 수�
 
 ::
 
-	> php spark help <generator_command>
+    > php spark help <generator_command>
 
 여기서 ``<generator_command>``\ 는 확인할 명령으로 대체됩니다.
 
@@ -37,7 +37,7 @@ Usage:
 ======
 .. code-block:: none
 
-	make:command <name> [options]
+    make:command <name> [options]
 
 Argument:
 =========
@@ -60,7 +60,7 @@ Usage:
 ======
 .. code-block:: none
 
-	make:controller <name> [options]
+    make:controller <name> [options]
 
 Argument:
 =========
@@ -82,7 +82,7 @@ Usage:
 ======
 .. code-block:: none
 
-	make:entity <name> [options]
+    make:entity <name> [options]
 
 Argument:
 =========
@@ -102,7 +102,7 @@ Usage:
 ======
 .. code-block:: none
 
-	make:filter <name> [options]
+    make:filter <name> [options]
 
 Argument:
 =========
@@ -122,7 +122,7 @@ Usage:
 ======
 .. code-block:: none
 
-	make:model <name> [options]
+    make:model <name> [options]
 
 Argument:
 =========
@@ -145,7 +145,7 @@ Usage:
 ======
 .. code-block:: none
 
-	make:seeder <name> [options]
+    make:seeder <name> [options]
 
 Argument:
 =========
@@ -165,7 +165,7 @@ Usage:
 ======
 .. code-block:: none
 
-	migrate:create <name> [options]
+    migrate:create <name> [options]
 
 Argument:
 =========
@@ -185,7 +185,7 @@ Usage:
 ======
 .. code-block:: none
 
-	session:migration [options]
+    session:migration [options]
 
 Options:
 ========
@@ -209,7 +209,7 @@ Options:
     그렇지 않으면 ``RuntimeException``\ 이 발생합니다.
 
 .. warning:: 마이그레이션 파일을 만들기 위해 ``migrate:create``\ 는 이후 릴리스에서 제거되어 더 이상 사용되지 않습니다.
-	대신 ``make:migration``\ 을 사용하십시오.
+    대신 ``make:migration``\ 을 사용하십시오.
 
 ****************************************
 스캐폴딩 코드 세트
@@ -227,7 +227,7 @@ CodeIgniter4는 컨트롤러, 모델, 엔티티, 마이그레이션 및 시더 �
 
 ::
 
-	php spark make:scaffold user
+    php spark make:scaffold user
 
 다음 클래스를 생성합니다.
 
@@ -247,108 +247,108 @@ GeneratorCommand
 
 .. php:class:: CodeIgniter\\CLI\\GeneratorCommand
 
-	.. php:method:: getClassName()
+    .. php:method:: getClassName()
 
-		:rtype: string
+        :rtype: string
 
-		입력에서 클래스 이름을 가져옵니다.
-		이름이 필요한 경우 프롬프트를 제공하여 재정의할 수 있습니다.
+        입력에서 클래스 이름을 가져옵니다.
+        이름이 필요한 경우 프롬프트를 제공하여 재정의할 수 있습니다.
 
-	.. php:method:: sanitizeClassName(string $class)
+    .. php:method:: sanitizeClassName(string $class)
 
-		:param string $class: 클래스명
-		:rtype: string
+        :param string $class: 클래스명
+        :rtype: string
 
-		입력을 트리밍하고 구분 기호를 정규화하며 모든 경로가 파스칼 케이스인지 확인합니다.
+        입력을 트리밍하고 구분 기호를 정규화하며 모든 경로가 파스칼 케이스인지 확인합니다.
 
-	.. php:method:: qualifyClassName(string $class)
+    .. php:method:: qualifyClassName(string $class)
 
-		:param string $class: 클래스명
-		:rtype: string
+        :param string $class: 클래스명
+        :rtype: string
 
-		클래스 이름을 구문 분석하고 이미 정규화된 클래스인지 확인합니다.
+        클래스 이름을 구문 분석하고 이미 정규화된 클래스인지 확인합니다.
 
-	.. php:method:: getRootNamespace()
+    .. php:method:: getRootNamespace()
 
-		:rtype: string
+        :rtype: string
 
-		입력에서 루트 네임스페이스를 가져옵니다. 기본값은 상수 ``APP_NAMESPACE``\ 의 값.
+        입력에서 루트 네임스페이스를 가져옵니다. 기본값은 상수 ``APP_NAMESPACE``\ 의 값.
 
-	.. php:method:: getNamespacedClass(string $rootNamespace, string $class)
+    .. php:method:: getNamespacedClass(string $rootNamespace, string $class)
 
-		:param string $rootNamespace: 클래스의 루트 네임스페이스
-		:param string $class: 클래스명
-		:returns: 정규화된 클래스 이름
-		:rtype: string
+        :param string $rootNamespace: 클래스의 루트 네임스페이스
+        :param string $class: 클래스명
+        :returns: 정규화된 클래스 이름
+        :rtype: string
 
-		정규화된 클래스 이름을 가져옵니다. 
-		이 기능은 구현해야 합니다.
+        정규화된 클래스 이름을 가져옵니다. 
+        이 기능은 구현해야 합니다.
 
-	.. php:method:: buildPath(string $class)
+    .. php:method:: buildPath(string $class)
 
-		:param string $class: 정규화된 클래스 이름
-		:returns: 클래스가 저장될 절대 경로
-		:rtype: string
-		:throws: RuntimeException
+        :param string $class: 정규화된 클래스 이름
+        :returns: 클래스가 저장될 절대 경로
+        :rtype: string
+        :throws: RuntimeException
 
-		클래스 이름에서 파일 경로를 빌드합니다.
+        클래스 이름에서 파일 경로를 빌드합니다.
 
-	.. php:method:: modifyBasename(string $filename)
+    .. php:method:: modifyBasename(string $filename)
 
-		:param string $filename: 파일 경로의 기본(base) 이름
-		:returns: 파일의 수정된 기본 이름(basename)입니다.
-		:rtype: string
+        :param string $filename: 파일 경로의 기본(base) 이름
+        :returns: 파일의 수정된 기본 이름(basename)입니다.
+        :rtype: string
 
-		하위 생성자가 저장하기 전에 파일의 기본 이름을 변경할 수 있는 마지막 기회를 제공합니다.
-		이 기능은 기본 이름에 날짜 구성 요소가 있는 마이그레이션 파일에 유용합니다.
+        하위 생성자가 저장하기 전에 파일의 기본 이름을 변경할 수 있는 마지막 기회를 제공합니다.
+        이 기능은 기본 이름에 날짜 구성 요소가 있는 마이그레이션 파일에 유용합니다.
 
-	.. php:method:: buildClassContents(string $class)
+    .. php:method:: buildClassContents(string $class)
 
-		:param string $class: 정규화된 클래스 이름
-		:rtype: string
+        :param string $class: 정규화된 클래스 이름
+        :rtype: string
 
-		템플릿에 필요한 모든 교체를 수행하여 생성되는 클래스에 대한 내용을 빌드합니다.
+        템플릿에 필요한 모든 교체를 수행하여 생성되는 클래스에 대한 내용을 빌드합니다.
 
-	.. php:method:: getTemplate()
+    .. php:method:: getTemplate()
 
-		:rtype: string
+        :rtype: string
 
-		생성 중인 클래스의 템플릿을 가져옵니다. 
-		이 기능은 구현해야 합니다.
+        생성 중인 클래스의 템플릿을 가져옵니다. 
+        이 기능은 구현해야 합니다.
 
-	.. php:method:: getNamespace(string $class)
+    .. php:method:: getNamespace(string $class)
 
-		:param string $class: 정규화된 클래스 이름
-		:rtype: string
+        :param string $class: 정규화된 클래스 이름
+        :rtype: string
 
-		정규화된 클래스 이름에서 네임스페이스 부분을 검색합니다.
+        정규화된 클래스 이름에서 네임스페이스 부분을 검색합니다.
 
-	.. php:method:: setReplacements(string $template, string $class)
+    .. php:method:: setReplacements(string $template, string $class)
 
-		:param string $template: 사용할 템플릿 문자열
-		:param string $class: 정규화된 클래스 이름
-		:returns: 모든 주석이 교체된 템플릿 문자열
-		:rtype: string
+        :param string $template: 사용할 템플릿 문자열
+        :param string $class: 정규화된 클래스 이름
+        :returns: 모든 주석이 교체된 템플릿 문자열
+        :rtype: string
 
-		필요한 모든 교체를 수행합니다.
+        필요한 모든 교체를 수행합니다.
 
-	.. php:method:: sortImports(string $template)
+    .. php:method:: sortImports(string $template)
 
-		:param string $template: 템플릿 파일
-		:returns: 정렬된 가져온 모든 템플릿 파일
-		:rtype: string
+        :param string $template: 템플릿 파일
+        :returns: 정렬된 가져온 모든 템플릿 파일
+        :rtype: string
 
-		Alphabetically sorts the imports for a given template.
+        Alphabetically sorts the imports for a given template.
 
 .. warning:: 자식 생성기는 ``GeneratorCommand``\ 의 ``getNamespacedClass`` 와 ``getTemplate`` 두 가지 추상 메서드를 구현해야 합니다.
-	그렇지 않으면 PHP 치명적인 오류가 발생합니다.
+    그렇지 않으면 PHP 치명적인 오류가 발생합니다.
 
 .. note:: ``GeneratorCommand`` 에는 기본 인수 ``['name' => 'Class name']``\ 가 있습니다.
-	``$arguments`` 속성 name에 설명을 재정의할 수 있습니다. ex> ``['name' => 'Module class name']``.
+    ``$arguments`` 속성 name에 설명을 재정의할 수 있습니다. ex> ``['name' => 'Module class name']``.
 
 .. note:: ``GeneratorCommand`` \는 ``-n``\ 과 ``--force``\ 라는 기본 옵션을 가지고 있습니다.
-	하위 클래스는 코드 생성을 구현하는 데 중요하므로 이 두 속성을 재정의할 수 없습니다.
+    하위 클래스는 코드 생성을 구현하는 데 중요하므로 이 두 속성을 재정의할 수 없습니다.
 
 .. note:: 생성기의 기본 그룹은 ``GeneratorCommand``\ 이므로 기본적으로 ``Generators`` 네임스페이스 아래에 등록됩니다.
-	자신의 생성기를 다른 네임스페이스에 등록하려면 자식 생성기의 ``$group`` 속성을 제공하십시오.
-	ex> ``protected $group = 'CodeIgniter';``
+    자신의 생성기를 다른 네임스페이스에 등록하려면 자식 생성기의 ``$group`` 속성을 제공하십시오.
+    ex> ``protected $group = 'CodeIgniter';``

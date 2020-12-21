@@ -5,8 +5,8 @@
 업그레이드하려는 버전에 해당하는 업그레이드 정보를 읽으십시오.
 
 .. toctree::
-	:titlesonly:
+    :titlesonly:
 
-	4.0.4에서 4.0.5로 업그레이드 <upgrade_405>
-	4.0.x에서 4.0.4로 업그레이드 <upgrade_404>
-	3.x에서 4.x로 업그레이드 <upgrade_4xx>
+    4.0.4에서 4.0.5로 업그레이드 <upgrade_405>
+    4.0.x에서 4.0.4로 업그레이드 <upgrade_404>
+    3.x에서 4.x로 업그레이드 <upgrade_4xx>

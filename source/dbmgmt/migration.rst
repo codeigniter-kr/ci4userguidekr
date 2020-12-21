@@ -306,8 +306,8 @@ Class Reference
 
 		::
 
-			$migration->batch(5);
-			$migration->batch(-1);
+			$migration->regress(5);
+			$migration->regress(-1);
 
 	.. php:method:: force($path, $namespace, $group)
 

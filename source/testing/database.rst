@@ -100,13 +100,13 @@ true인 경우 모든 마이그레이션이 버전 0으로 롤백됩니다.
 
 기본적으로 CodeIgniter는 **tests/_support/Database/Seeds**에서 테스트 중 실행해야 하는 시드를 찾습니다.
 ``$basePath`` 속성을 지정하여 이 디렉터를 변경할 수 있습니다. 
-여기에는 **seeds** 디렉토리가 아니라 하위 디렉토리를 보유한 단일 디렉토리의 경로가 포함되어야 합니다.
+여기에는 **Seeds** 디렉토리가 아니라 하위 디렉토리를 보유한 단일 디렉토리의 경로가 포함되어야 합니다.
 
 **$namespace**
 
 기본적으로 CodeIgniter는 **tests/_support/DatabaseTestMigrations/Database/Migrations**\ 에서 테스트 중에 실행해야 할 마이그레이션을 찾습니다.
 ``$namespace`` 속성에 새 네임스페이스를 지정하여 이 위치를 변경할 수 있습니다.
-이 속성 **Database/Migrations** 경로가 아니라 기본 네임스페이스가 포함되어야 합니다.
+이 속성은 **Database\\Migrations** 하위 네임스페이스가 포함되지 않은 기본 네임스페이스만 포함되어야 합니다.
 
 헬퍼 메소드
 ==============

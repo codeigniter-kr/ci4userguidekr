@@ -13,3 +13,9 @@ Response 쿠키와 CSRF 쿠키에 대한 설정은 "config/App.php"\ 에서 할 
 자세한 내용은 `MDN Web Docs <https://developer.mozilla.org/pl/docs/Web/HTTP/Headers/Set-Cookie/SameSite>`_\ 를 참고하세요.
 SameSite 대한 설명은 `RFC 6265 <https://tools.ietf.org/html/rfc6265>`_\ 과 
 `RFC 6265bis revision <https://datatracker.ietf.org/doc/draft-ietf-httpbis-rfc6265bis/?include_text=1>`_\ 를 참고하세요.
+
+**Message::getHeader(s)**
+
+HTTP 계층은 `PSR-7 규정 준수 <https://www.php-fig.org/psr/psr-7/>`_\ 로 이동하고 있습니다.
+이를 위해 ``Message::getHeader()``\ 와 ``Message::getHeaders()``\ 는 더 이상 사용되지 않으며 각각 ``Message::header()``\ 와 ``Message::headers()``\ 로 대체되어야 합니다.
+이는 ``Message``\ 를 확장하는 모든 클래스(``Request``, ``Response``\ 와 그 하위 클래스)와 관련이 있습니다.

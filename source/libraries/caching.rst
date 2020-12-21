@@ -50,7 +50,7 @@ Services 클래스를 통해 캐시 엔진 인스턴스를 직접 가져올 수 
 
 **$backupHandler**
 
-첫 번째 선택 $hanlder를 사용할 수 없는 경우 다음으로 로드할 캐시 핸들러입니다.
+첫 번째 선택 $handler를 사용할 수 없는 경우 다음으로 로드할 캐시 핸들러입니다.
 다른 핸들러는 더 복잡한 다중 서버 설정에 맞지 않을 수 있으므로, 일반적으로 항상 사용 가능한 **file** 핸들러를 지정합니다.
 
 **$prefix**
@@ -99,7 +99,7 @@ Class Reference
     :param    int    $ttl: 유효시간, 초 (기본값 60)
     :param    bool    $raw: 원시(raw) 값을 저장할지 여부
     :returns:    지원되는 경우 TRUE, 지원하지 않는 경우 FALSE
-    :rtype:    string
+    :rtype:    bool
 
     항목을 캐시 저장소에 저장합니다.
     저장에 실패하면 FALSE를 리턴합니다.

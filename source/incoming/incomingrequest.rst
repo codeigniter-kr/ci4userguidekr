@@ -193,7 +193,7 @@ POST 변수를 필터링하면 다음과 같습니다
 
 ::
 
-    var_dump($request->getHeaders());
+    var_dump($request->headers());
 
     [
         'Host'          => CodeIgniter\HTTP\Header,
@@ -201,15 +201,15 @@ POST 변수를 필터링하면 다음과 같습니다
         'Accept'        => CodeIgniter\HTTP\Header,
     ]
 
-단일 헤더만 필요한 경우 ``getHeader()`` 메소드를 사용합니다.
+단일 헤더만 필요한 경우 ``header()`` 메소드를 사용합니다.
 지정된 헤더 객체가 존재하는 경우 대소문자를 구분하지 않는 방식으로 가져오고, 그렇지 않으면 ``null``\ 을 반환합니다.
 
 ::
 
     // these are all equivalent
-    $host = $request->getHeader('host');
-    $host = $request->getHeader('Host');
-    $host = $request->getHeader('HOST');
+    $host = $request->header('host');
+    $host = $request->header('Host');
+    $host = $request->header('HOST');
 
 ``hasHeader()``\ 를 사용하여 헤더가 있는지 확인할 수 있습니다.
 
@@ -332,8 +332,8 @@ Class Reference
 * :meth:`CodeIgniter\\HTTP\\Message::setBody`
 * :meth:`CodeIgniter\\HTTP\\Message::appendBody`
 * :meth:`CodeIgniter\\HTTP\\Message::populateHeaders`
-* :meth:`CodeIgniter\\HTTP\\Message::getHeaders`
-* :meth:`CodeIgniter\\HTTP\\Message::getHeader`
+* :meth:`CodeIgniter\\HTTP\\Message::headers`
+* :meth:`CodeIgniter\\HTTP\\Message::header`
 * :meth:`CodeIgniter\\HTTP\\Message::hasHeader`
 * :meth:`CodeIgniter\\HTTP\\Message::getHeaderLine`
 * :meth:`CodeIgniter\\HTTP\\Message::setHeader`

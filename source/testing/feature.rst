@@ -48,10 +48,10 @@ HTTP 기능 테스트
 ::
 
     // Get a simple page
-    $result = $this->call('get', site_url());
+    $result = $this->call('get', '/');
 
     // Submit a form
-    $result = $this->call('post', site_url('contact'), [
+    $result = $this->call('post', 'contact'), [
         'name' => 'Fred Flintstone',
         'email' => 'flintyfred@example.com'
     ]);
@@ -190,7 +190,7 @@ request 형식 설정
 
 ::
 
-    $this->assertOK();
+    $result->assertOK();
 
 **isRedirect()**
 
@@ -209,7 +209,7 @@ request 형식 설정
 
 ::
 
-    $this->assertRedirect();
+    $result->assertRedirect();
 
 **getRedirectUrl()**
 
@@ -226,7 +226,7 @@ RedirectResponse에 설정된 URL을 반환합니다. 실패하면 null을 반�
 
 ::
 
-    $this->assertStatus(403);
+    $result->assertStatus(403);
 
 
 세션 어설션
@@ -238,7 +238,7 @@ RedirectResponse에 설정된 URL을 반환합니다. 실패하면 null을 반�
 
 ::
 
-    $this->assertSessionHas('logged_in', 123);
+    $result->assertSessionHas('logged_in', 123);
 
 **assertSessionMissing(string $key)**
 
@@ -246,7 +246,7 @@ RedirectResponse에 설정된 URL을 반환합니다. 실패하면 null을 반�
 
 ::
 
-    $this->assertSessionMissin('logged_in');
+    $result->assertSessionMissin('logged_in');
 
 
 헤더 어설션
@@ -259,7 +259,7 @@ RedirectResponse에 설정된 URL을 반환합니다. 실패하면 null을 반�
 
 ::
 
-    $this->assertHeader('Content-Type', 'text/html');
+    $result->assertHeader('Content-Type', 'text/html');
 
 **assertHeaderMissing(string $key)**
 
@@ -267,7 +267,7 @@ RedirectResponse에 설정된 URL을 반환합니다. 실패하면 null을 반�
 
 ::
 
-    $this->assertHeader('Accepts');
+    $result->assertHeader('Accepts');
 
 
 
@@ -282,7 +282,7 @@ RedirectResponse에 설정된 URL을 반환합니다. 실패하면 null을 반�
 
 ::
 
-    $this->assertCookie('foo', 'bar');
+    $result->assertCookie('foo', 'bar');
 
 **assertCookieMissing(string $key)**
 
@@ -290,7 +290,7 @@ RedirectResponse에 설정된 URL을 반환합니다. 실패하면 null을 반�
 
 ::
 
-    $this->assertCookieMissing('ci_session');
+    $result->assertCookieMissing('ci_session');
 
 **assertCookieExpired(string $key, string $prefix = '')**
 
@@ -299,7 +299,7 @@ RedirectResponse에 설정된 URL을 반환합니다. 실패하면 null을 반�
 
 ::
 
-    $this->assertCookieExpired('foo');
+    $result->assertCookieExpired('foo');
 
 
 DOM 어설트
@@ -314,13 +314,13 @@ DOM 어설트
 ::
 
     // Check that "Hello World" is on the page
-    $this->assertSee('Hello World');
+    $result->assertSee('Hello World');
     // Check that "Hello World" is within an h1 tag
-    $this->assertSee('Hello World', 'h1');
+    $result->assertSee('Hello World', 'h1');
     // Check that "Hello World" is within an element with the "notice" class
-    $this->assertSee('Hello World', '.notice');
+    $result->assertSee('Hello World', '.notice');
     // Check that "Hello World" is within an element with id of "title"
-    $this->assertSee('Hellow World', '#title');
+    $result->assertSee('Hellow World', '#title');
 
 
 **assertDontSee(string $search = null, string $element = null)**
@@ -418,7 +418,7 @@ JSON 응답내에서 $fragment가 발견되었음을 확인합니다.
     // Is true
     $this->assertJSONFragment(['config' => ['key-a']);
 
-.. note:: phpUnit의 `assertArraySubset() <https://phpunit.readthedocs.io/en/7.2/assertions.html#assertarraysubset>`_ 메소드를 사용하여 비교를 수행합니다.
+.. note:: PHPUnit의 `assertArraySubset() <https://phpunit.readthedocs.io/en/7.2/assertions.html#assertarraysubset>`_ 메소드를 사용하여 비교를 수행합니다.
 
 **assertJSONExact($test)**
 

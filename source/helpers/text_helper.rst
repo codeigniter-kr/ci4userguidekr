@@ -356,18 +356,13 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
 	:returns:	생략된 문자열
 	:rtype:	string
 
-	This function will strip tags from a string, split it at a defined maximum length, and insert an ellipsis.
-
-	The first parameter is the string to ellipsize, the second is the number of characters in the final string. 
-	The third parameter is where in the string the ellipsis should appear from 0 - 1, left to right.
 	이 함수는 문자열에서 태그를 제거하고 정의된 최대 길이로 분할한 후 줄임표를 삽입합니다.
 	
 	첫 번째 매개 변수는 생략할 문자열이고 두 번째 매개 변수는 최종 문자열의 문자 수입니다.
-	세 번째 매개 변수는 문자열에서 줄임표가 왼쪽에서 오른쪽으로 0-1 사이에 나타나는 위치입니다.
-	예를 들어 값이 1이면 문자열 오른쪽에 줄임표가 , .5면 가운데에, 0이면 왼쪽에 있습니다.
+	세 번째 매개 변수는 문자열에서 줄임표가 나타나는 위치이며 값이 1이면 문자열 오른쪽에, .5면 가운데에, 0이면 왼쪽에 줄임표가 나타납니다.
 
 	네 번째 파라미터(선택 사항)는 생략 부호입니다. 
-	기본적으로 ``&hellip;``\ 이 삽입됩니다.
+	기본값으로 ``&hellip;``\ 이 삽입됩니다.
 
 	::
 

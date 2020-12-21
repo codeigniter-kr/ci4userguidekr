@@ -32,17 +32,17 @@ CLI란 무엇입니까?
 
 ::
 
-	<?php namespace App\Controllers;
+    <?php namespace App\Controllers;
 
-	use CodeIgniter\Controller;
+    use CodeIgniter\Controller;
 
-	class Tools extends Controller {
-
-		public function message($to = 'World')
-		{
-			echo "Hello {$to}!".PHP_EOL;
-		}
-	}
+    class Tools extends Controller
+    {
+        public function message($to = 'World')
+        {
+            echo "Hello {$to}!".PHP_EOL;
+        }
+    }
 
 그런 다음 파일을 **app/Controllers/** 디렉토리에 저장합니다.
 
@@ -50,27 +50,27 @@ CLI란 무엇입니까?
 
 ::
 
-	example.com/index.php/tools/message/to
+    example.com/index.php/tools/message/to
 
 대신, Mac/Linux에서 터미널을 열거나 Windows에서 실행>"cmd"로 이동하여 CodeIgniter 프로젝트의 웹 루트로 이동합니다.
 
 .. code-block:: bash
 
-	$ cd /path/to/project/public
-	$ php index.php tools message
+    $ cd /path/to/project/public
+    $ php index.php tools message
 
 제대로했다면 *Hello World!*\ 가 인쇄됩니다.
 
 .. code-block:: bash
 
-	$ php index.php tools message "John Smith"
+    $ php index.php tools message "John Smith"
 
 여기서는 URL 매개 변수가 작동하는 것과 동일한 방식으로 인수를 전달합니다.
 "John Smith"가 인수로 전달되고 출력은
 
 ::
 
-	Hello John Smith!
+    Hello John Smith!
 
 이것이 기본입니다!
 ======================

@@ -66,14 +66,14 @@ Class Reference
         각 메시지는 대문자와 밑줄 형식에서 첫 글자가 대문자인 단어(ucword)와 대시 형식으로 변환됩니다.
         앞의 ``HTTP_``\ 는 문자열에서 제거됩니다. 따라서 ``HTTP_ACCEPT_LANGUAGE``\ 는 ``Accept-Language``\ 가 됩니다.
 
-    .. php:method:: getHeaders()
+    .. php:method:: headers()
 
         :returns: 찾은 모든 헤더의 배열입니다.
         :rtype: array
 
         이전에 설정되거나 찾은 모든 헤더의 배열을 반환합니다.
 
-    .. php:method:: getHeader([$name[, $filter = null]])
+    .. php:method:: header([$name[, $filter = null]])
 
         :param  string  $name: 값을 검색하려는 헤더의 이름입니다.
         :param  int  $filter: 적용 할 필터 유형입니다. 필터 목록은 `여기 <https://www.php.net/manual/en/filter.filters.php>`_\ 에서 찾을 수 있습니다.
@@ -87,28 +87,28 @@ Class Reference
         ::
 
             // These are all the same:
-            $message->getHeader('HOST');
-            $message->getHeader('Host');
-            $message->getHeader('host');
+            $message->header('HOST');
+            $message->header('Host');
+            $message->header('host');
 
         헤더에 값이 여러 개일 경우 ``getValue()``\ 는 값의 배열로 반환됩니다.
         ``getValueLine()`` 메소드를 사용하여 값을 문자열로 검색할 수 있습니다
         
         ::
 
-            echo $message->getHeader('Accept-Language');
+            echo $message->header('Accept-Language');
 
             // Outputs something like:
             'Accept-Language: en,en-US'
 
-            echo $message->getHeader('Accept-Language')->getValue();
+            echo $message->header('Accept-Language')->getValue();
 
             // Outputs something like:
             [
                 'en',
                 'en-US'
             ]
-            echo $message->getHeader('Accept-Language')->getValueLine();
+            echo $message->header('Accept-Language')->getValueLine();
 
             // Outputs something like:
             'en,en-US'
@@ -117,7 +117,7 @@ Class Reference
         
         ::
 
-            $message->getHeader('Document-URI', FILTER_SANITIZE_URL);
+            $message->header('Document-URI', FILTER_SANITIZE_URL);
 
     .. php:method:: getHeaderLine($name)
 

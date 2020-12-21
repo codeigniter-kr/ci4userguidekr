@@ -14,11 +14,11 @@ CodeIgniter는 프레임워크와 어플리케이션을 최대한 간단하게 �
 시스템 설정
 ***************
 
-phpUnit 설치
+PHPUnit 설치
 ==================
 
-CodeIgniter는 `phpUnit <https://phpunit.de/>`__\ 을 모든 테스트의 기준으로 사용합니다.
-시스템에서 phpUnit을 사용하기 위해 설치하는 두 가지 방법이 있습니다.
+CodeIgniter는 `PHPUnit <https://phpunit.de/>`__\ 을 모든 테스트의 기준으로 사용합니다.
+시스템에서 PHPUnit을 사용하기 위해 설치하는 두 가지 방법이 있습니다.
 
 Composer
 --------
@@ -42,7 +42,7 @@ Composer
 Phar
 ----
 
-다른 방법은 `phpUnit <https://phpunit.de/getting-started/phpunit-7.html>`__ 사이트에서 .phar 파일을 다운로드하는 것입니다.
+다른 방법은 `PHPUnit <https://phpunit.de/getting-started/phpunit-7.html>`__ 사이트에서 .phar 파일을 다운로드하는 것입니다.
 이것은 프로젝트 루트 내에 배치해야 하는 독립형 파일입니다.
 
 
@@ -114,47 +114,47 @@ PHPUnit의 ``TestCase``\ 는 준비 및 정리를 돕는 4가지 방법을 제�
 
 ::
 
-	public static function setUpBeforeClass(): void
-	public static function tearDownAfterClass(): void
-	public function setUp(): void
-	public function tearDown(): void
+    public static function setUpBeforeClass(): void
+    public static function tearDownAfterClass(): void
+    public function setUp(): void
+    public function tearDown(): void
 
 정적 메소드는 전체 테스트 케이스 전후에 실행되는 반면 로컬 메소드는 각 테스트 사이에 실행됩니다.
 이러한 특수 기능을 구현하는 경우 확장된 테스트 케이스가 스테이징을 방해하지 않도록 상위 기능도 함께 실행해야 합니다.
 
 ::
 
-	public function setUp(): void
-	{
-		parent::setUp();
-		helper('text');
-	}
+    public function setUp(): void
+    {
+        parent::setUp();
+        helper('text');
+    }
 
 이러한 메소드 외에도 ``CIUnitTestCase``\ 에는 설정 및 해체 중에 실행할 매개 변수가 없는 메소드에 대한 편리한 속성이 함께 제공됩니다.
 
 ::
 
-	protected $setUpMethods = [
-		'mockEmail',
-		'mockSession',
-	];
-	
-	protected $tearDownMethods = [];
+    protected $setUpMethods = [
+        'mockEmail',
+        'mockSession',
+    ];
+    
+    protected $tearDownMethods = [];
 
 기본적으로 침입(intrusive) 서비스를 흉내내어 처리할 수 있지만, 클래스가 이를 무시하거나 자체적으로 제공 할 수 있습니다.
 
 ::
 
-	class OneOfMyModelsTest extends CIUnitTestCase
-	{
-		protected $tearDownMethods = [
-			'purgeRows',
-		];
-		
-		protected function purgeRows()
-		{
-			$this->model->purgeDeleted()
-		}
+    class OneOfMyModelsTest extends CIUnitTestCase
+    {
+        protected $tearDownMethods = [
+            'purgeRows',
+        ];
+        
+        protected function purgeRows()
+        {
+            $this->model->purgeDeleted()
+        }
     }
 
 
@@ -266,10 +266,10 @@ Protected/Private 속성에 액세스
     $obj = new Foo();
 
     // Get the invoker for the 'privateMethod' method.
-	$method = $this->getPrivateMethodInvoker($obj, 'privateMethod');
+    $method = $this->getPrivateMethodInvoker($obj, 'privateMethod');
 
     // Test the results
-	$this->assertEquals('bar', $method('param1', 'param2'));
+    $this->assertEquals('bar', $method('param1', 'param2'));
 
 **getPrivateProperty($instance, $property)**
 
@@ -344,12 +344,12 @@ Protected/Private 속성에 액세스
 
     protected function setUp()
     {
-    	parent::setUp();
+        parent::setUp();
 
-		$model = new MockUserModel();
-		Factories::injectMock('models', 'App\Models\UserModel', $model);
-	}
-		
+        $model = new MockUserModel();
+        Factories::injectMock('models', 'App\Models\UserModel', $model);
+    }
+        
 .. note:: 모든 구성 요소 팩토리는 각 테스트 사이에 기본적으로 재설정됩니다. 인스턴스를 유지해야하는 경우 테스트 케이스의 ``$setUpMethods``\ 를 수정합니다.
 
 스트림(Stream) 필터
