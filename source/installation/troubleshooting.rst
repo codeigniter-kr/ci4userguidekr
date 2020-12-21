@@ -34,11 +34,11 @@ URL에 입력 한 내용에 관계없이 기본 페이지만 로드되는 경우
 
 이전 ::
 
-	public $indexPage = 'index.php';
+    public $indexPage = 'index.php';
 
 이후 ::
 
-	public $indexPage = 'index.php?';
+    public $indexPage = 'index.php?';
 
 이 자습서는 모든 곳에서 404 오류를 제공합니다. :(
 ---------------------------------------------------

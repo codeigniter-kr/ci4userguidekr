@@ -22,14 +22,14 @@ CodeIgniter의 CLI 라이브러리를 사용하면 다음을 포함하여 대화
 
 ::
 
-	<?php namespace App\Controllers;
+    <?php namespace App\Controllers;
 
-	use CodeIgniter\CLI\CLI;
+    use CodeIgniter\CLI\CLI;
 
-	class MyController extends \CodeIgniter\Controller
-	{
-		. . .
-	}
+    class MyController extends \CodeIgniter\Controller
+    {
+        . . .
+    }
 
 파일이 처음 로드될 때 클래스가 자동으로 초기화됩니다.
 
@@ -44,25 +44,25 @@ CodeIgniter의 CLI 라이브러리를 사용하면 다음을 포함하여 대화
 
 ::
 
-	$color = CLI::prompt('What is your favorite color?');
+    $color = CLI::prompt('What is your favorite color?');
 
 두 번째 매개 변수에서 기본값을 전달하여 사용자가 Enter 키를 누르는 경우 사용할 기본 답변을 제공할 수 있습니다
 
 ::
 
-	$color = CLI::prompt('What is your favorite color?', 'blue');
+    $color = CLI::prompt('What is your favorite color?', 'blue');
 
 허용 된 답변의 배열을 두 번째 매개 변수로 전달하여 허용되는 답변을 제한할 수 있습니다.
 
 ::
 
-	$overwrite = CLI::prompt('File exists. Overwrite?', ['y','n']);
+    $overwrite = CLI::prompt('File exists. Overwrite?', ['y','n']);
 
 마지막으로, 검증 규칙을 세 번째 매개 변수로 답변 입력에 전달할 수 있습니다.
 
 ::
 
-	$email = CLI::prompt('What is your email?', null, 'required|valid_email');
+    $email = CLI::prompt('What is your email?', null, 'required|valid_email');
 
 피드백 제공
 ==================
@@ -75,20 +75,20 @@ CodeIgniter의 CLI 라이브러리를 사용하면 다음을 포함하여 대화
 
 ::
 
-	CLI::write('The rain in Spain falls mainly on the plains.');
+    CLI::write('The rain in Spain falls mainly on the plains.');
 
 두 번째 매개 변수로 색상 이름을 전달하여 텍스트 색상을 변경할 수 있습니다
 
 ::
 
-	CLI::write('File created.', 'green');
+    CLI::write('File created.', 'green');
 
 상태별로 메시지를 구분하거나 다른 색상을 사용하여 '헤더'를 만드는 데 사용할 수 있습니다.
 색 이름을 세 번째 매개 변수로 전달하여 배경색을 설정할 수도 있습니다
 
 ::
 
-	CLI::write('File overwritten.', 'light_red', 'dark_gray');
+    CLI::write('File overwritten.', 'light_red', 'dark_gray');
 
 다음과 같은 전경색을 사용할 수 있습니다:
 
@@ -143,7 +143,7 @@ CodeIgniter의 CLI 라이브러리를 사용하면 다음을 포함하여 대화
 
 ::
 
-	CLI::write("fileA \t". CLI::color('/path/to/file', 'white'), 'yellow');
+    CLI::write("fileA \t". CLI::color('/path/to/file', 'white'), 'yellow');
 
 이 예제는 창에 ``fileS``\ 가 노란색으로 표시되고 탭이 오고 흰색 텍스트로 ``/path/to/file``\ 이 표시됩니다.
 
@@ -156,7 +156,7 @@ CodeIgniter의 CLI 라이브러리를 사용하면 다음을 포함하여 대화
 
 ::
 
-	CLI::error('Cannot write to file: '. $file);
+    CLI::error('Cannot write to file: '. $file);
 
 **wrap()**
 
@@ -165,8 +165,8 @@ CodeIgniter의 CLI 라이브러리를 사용하면 다음을 포함하여 대화
 
 ::
 
-	CLI::color("task1\t", 'yellow');
-	CLI::wrap("Some long description goes here that might be longer than the current window.");
+    CLI::color("task1\t", 'yellow');
+    CLI::wrap("Some long description goes here that might be longer than the current window.");
 
 기본적으로 문자열은 터미널 너비로 줄 바꿈됩니다.
 Windows는 현재 창 크기를 결정하는 방법을 제공하지 않으므로 기본값은 80 자입니다.
@@ -175,8 +175,8 @@ Windows는 현재 창 크기를 결정하는 방법을 제공하지 않으므로
 
 ::
 
-	// Wrap the text at max 20 characters wide
-	CLI::wrap($description, 20);
+    // Wrap the text at max 20 characters wide
+    CLI::wrap($description, 20);
 
 제목, 파일 또는 작업의 왼쪽에 열이 있고 오른쪽에 설명이 있는 텍스트 열이 필요하다는 것을 알 수 있습니다.
 기본적으로 이것은 창의 왼쪽 가장자리로 다시 줄 바꿈되어 열에 정렬할 수 없습니다.
@@ -184,21 +184,21 @@ Windows는 현재 창 크기를 결정하는 방법을 제공하지 않으므로
 
 ::
 
-	// Determine the maximum length of all titles
-	// to determine the width of the left column
-	$maxlen = max(array_map('strlen', $titles));
+    // Determine the maximum length of all titles
+    // to determine the width of the left column
+    $maxlen = max(array_map('strlen', $titles));
 
-	for ($i=0; $i < count($titles); $i++)
-	{
-		CLI::write(
-			// Display the title on the left of the row
-			$titles[$i].'   '.
-			// Wrap the descriptions in a right-hand column
-			// with its left side 3 characters wider than
-			// the longest item on the left.
-			CLI::wrap($descriptions[$i], 40, $maxlen+3)
-		);
-	}
+    for ($i=0; $i < count($titles); $i++)
+    {
+        CLI::write(
+            // Display the title on the left of the row
+            $titles[$i].'   '.
+            // Wrap the descriptions in a right-hand column
+            // with its left side 3 characters wider than
+            // the longest item on the left.
+            CLI::wrap($descriptions[$i], 40, $maxlen+3)
+        );
+    }
 
 이런 식으로 만들어집니다:
 
@@ -217,7 +217,7 @@ Windows는 현재 창 크기를 결정하는 방법을 제공하지 않으므로
 
 ::
 
-	CLI::newLine();
+    CLI::newLine();
 
 **clearScreen()**
 
@@ -227,7 +227,7 @@ Windows 10 bash 통합은 이것을 변경해야 합니다
 
 ::
 
-	CLI::clearScreen();
+    CLI::clearScreen();
 
 **showProgress()**
 
@@ -235,7 +235,7 @@ Windows 10 bash 통합은 이것을 변경해야 합니다
 
 .. code-block:: none
 
-	[####......] 40% Complete
+    [####......] 40% Complete
 
 이 블록은 매우 멋진 효과를 위해 애니메이션 처리됩니다.
 
@@ -245,38 +245,38 @@ Windows 10 bash 통합은 이것을 변경해야 합니다
 
 ::
 
-	$totalSteps = count($tasks);
-	$currStep   = 1;
+    $totalSteps = count($tasks);
+    $currStep   = 1;
 
-	foreach ($tasks as $task)
-	{
-		CLI::showProgress($currStep++, $totalSteps);
-		$task->run();
-	}
+    foreach ($tasks as $task)
+    {
+        CLI::showProgress($currStep++, $totalSteps);
+        $task->run();
+    }
 
-	// Done, so erase it...
-	CLI::showProgress(false);
+    // Done, so erase it...
+    CLI::showProgress(false);
 
 **table()**
 
 ::
 
-	$thead = ['ID', 'Title', 'Updated At', 'Active'];
-	$tbody = [
-		[7, 'A great item title', '2017-11-15 10:35:02', 1],
-		[8, 'Another great item title', '2017-11-16 13:46:54', 0]
-	];
+    $thead = ['ID', 'Title', 'Updated At', 'Active'];
+    $tbody = [
+        [7, 'A great item title', '2017-11-15 10:35:02', 1],
+        [8, 'Another great item title', '2017-11-16 13:46:54', 0]
+    ];
 
-	CLI::table($tbody, $thead);
+    CLI::table($tbody, $thead);
 
 .. code-block:: none
 
-	+----+--------------------------+---------------------+--------+
-	| ID | Title                    | Updated At          | Active |
-	+----+--------------------------+---------------------+--------+
-	| 7  | A great item title       | 2017-11-16 10:35:02 | 1      |
-	| 8  | Another great item title | 2017-11-16 13:46:54 | 0      |
-	+----+--------------------------+---------------------+--------+
+    +----+--------------------------+---------------------+--------+
+    | ID | Title                    | Updated At          | Active |
+    +----+--------------------------+---------------------+--------+
+    | 7  | A great item title       | 2017-11-16 10:35:02 | 1      |
+    | 8  | Another great item title | 2017-11-16 13:46:54 | 0      |
+    +----+--------------------------+---------------------+--------+
 
 **wait()**
 

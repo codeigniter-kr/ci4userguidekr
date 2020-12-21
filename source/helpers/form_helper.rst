@@ -254,7 +254,7 @@ The Form Helper file contains functions that assist in working with forms.
 		/*
 			Would produce:
 
-			<input type="text" name="username" value="johndoe" id="username" maxlength="100" size="50" style="width:50%"  />
+			<input type="text" name="username" value="johndoe" id="username" maxlength="100" size="50" style="width:50%" />
 		*/
 
 	JavaScript와 같은 일부 데이터를 폼에 추가하려면 문자열로 세 번째 매개 변수에 전달합니다.

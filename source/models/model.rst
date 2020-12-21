@@ -170,7 +170,7 @@ CodeIgniter의 모델을 활용하려면 ``CodeIgniter\Model``\ 을 확장하는
 **$createdField**
 
 데이터 레코드 작성 타임스탬프를 유지하기 위해 사용하는 데이터베이스 필드를 지정합니다.
-업데이트가 되지않도록 하려면 비워 두십시오 (useTimestamps가 true여도)
+업데이트가 되지않도록 하려면 비워 두십시오. (``$useTimestamps``\ 가 true여도)
 
 **$updatedField**
 

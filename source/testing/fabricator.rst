@@ -14,7 +14,7 @@
 
 ::
 
-	class MyModel implements CodeIgniter\Test\Interfaces\FabricatorModel
+    class MyModel implements CodeIgniter\Test\Interfaces\FabricatorModel
 
 .. note:: 메소드외에도 인터페이스는 대상 모델에 필요한 몇 가지 속성을 간략히 설명합니다. 자세한 내용은 인터페이스 코드를 참조하시기 바랍니다.
 
@@ -68,13 +68,13 @@ Faker는 포맷터에서 요청하여 데이터를 생성합니다. 포맷터가
     {
         public function fake(Generator &$faker)
         {
-        	return [
-        	    'first'  => $faker->firstName,
-        	    'email'  => $faker->email,
-        	    'phone'  => $faker->phoneNumber,
-        	    'avatar' => Faker\Provider\Image::imageUrl(800, 400),
-        	    'login'  => config('Auth')->allowRemembering ? date('Y-m-d') : null,
-        	];
+            return [
+                'first'  => $faker->firstName,
+                'email'  => $faker->email,
+                'phone'  => $faker->phoneNumber,
+                'avatar' => Faker\Provider\Image::imageUrl(800, 400),
+                'login'  => config('Auth')->allowRemembering ? date('Y-m-d') : null,
+            ];
         }
 
 이 예의 처음 세 값(first, email, phone)은 이전 포맷터와 같습니다. 
@@ -245,8 +245,8 @@ Test 헬퍼
 
 ::
 
-	helper('test');
-	$user = fake('App\Models\UserModel', ['name' => 'Gerry']);
+    helper('test');
+    $user = fake('App\Models\UserModel', ['name' => 'Gerry']);
 
 위는 다음과 동일합니다.
 
@@ -276,11 +276,11 @@ Test 헬퍼
 
         public function fake(Generator &$faker)
         {
-        	return [
+            return [
                 'first'    => $faker->firstName,
                 'email'    => $faker->email,
                 'group_id' => rand(1, Fabricator::getCount('groups')),
-        	];
+            ];
         }
     }
 

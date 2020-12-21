@@ -245,20 +245,6 @@ Examples
     });
 
 이것은 'users'\ 와 'blog' URI를 접두사 "admin"\ 을 사용하여 ``/admin/users`` 및 ``/admin/blog``\ 로 만들어 줍니다.
-필요한 경우 더 나은 구성(organization)을 위해 그룹내에 그룹을 중첩할 수 있습니다.
-
-::
-
-    $routes->group('admin', function($routes)
-    {
-        $routes->group('users', function($routes)
-        {
-            $routes->add('list', 'Admin\Users::list');
-        });
-
-    });
-
-위 예는 ``admin/users/list``\ URL을 처리합니다.
 
 콜백 전에 `namespace <#assigning-namespace>`_\ 처럼 그룹에 옵션을 할당해야 하는 경우::
 
@@ -280,6 +266,30 @@ Examples
     });
 
 필터 값은 ``app/Config/Filters.php``\ 에 정의된 별칭(aliase)중 하나와 일치해야 합니다.
+
+필요한 경우 그룹 내에 그룹을 중첩하여 보다 세밀한 구성을 할 수 있습니다.
+
+::
+
+    $routes->group('admin', function($routes)
+    {
+        $routes->group('users', function($routes)
+        {
+            $routes->add('list', 'Admin\Users::list');
+        });
+
+    });
+
+This would handle the URL at ``admin/users/list``. Note that options passed to the outer ``group()`` (for example ``namespace`` and ``filter``) are not merged with the inner ``group()`` options.
+
+At some point, you may want to group routes for the purpose of applying filters or other route config options like namespace, subdomain, etc. 
+Without necessarily needing to add a prefix to the group, you can pass an empty string in place of the prefix and the routes in the group will be routed as though the group never existed but with the given route config options
+
+위 예는 URL을 ``admin/users/list`` 로 처리할 것입니다. 
+외부 ``group()``\ 에 전달된 옵션(예: ``namespace``\ 와 ``filter``)은 내부 ``group()`` 옵션과 병합되지 않습니다.
+
+필터 또는 네임스페이스, 하위 도메인 등과 같은 다른 경로 구성 옵션을 적용하기 위해 경로를 그룹화할 수 있습니다. 
+그룹에 접두사를 추가할 필요 없이 접두사 대신 빈 문자열을 전달할 수 있으며, 그룹의 경로는 그룹이 존재하지 않았지만 주어진 경로 구성 옵션을 사용하여 라우팅됩니다.
 
 환경 제한(Restrictions)
 ===========================

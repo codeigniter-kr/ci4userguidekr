@@ -210,6 +210,6 @@ $filters
 제공되는 필터
 ****************
 
-CodeIgniter4에 3개의 필터가 번들로 제공됩니다: ``Honeypot``, ``Security``, ``DebugToolbar``
+CodeIgniter4에 3개의 필터가 번들로 제공됩니다: ``Honeypot``, ``CSRF``, ``DebugToolbar``
 
 .. note:: 필터는 구성 파일에 정의되어 선언된 순서대로 실행되지만, ``DebugToolbar``\ 는 다른 필터에서 일어나는 모든 일을 등록해야 하므로 선언된 순서와 상관없이 항상 마지막에 실행됩니다.

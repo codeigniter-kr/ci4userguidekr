@@ -25,14 +25,14 @@ Timer 클래스는 항상 활성화되어 있으며, 프레임워크가 호출�
 
 ::
 
-	$benchmark = \Config\Services::timer();
-	$benchmark->start('render view');
+    $benchmark = \Config\Services::timer();
+    $benchmark->start('render view');
 
 ``stop()`` 메소드는 중지하려는 타이머의 이름을 유일한 매개 변수로 사용합니다.
 
 ::
 
-	$benchmark->stop('render view');
+    $benchmark->stop('render view');
 
 The name is not case-sensitive, but otherwise must match the name you gave it when you started the timer.
 
@@ -42,11 +42,11 @@ The name is not case-sensitive, but otherwise must match the name you gave it wh
 
 ::
 
-	// Start the timer
-	timer('render view');
-	// Stop a running timer,
-	// if one of this name has been started
-	timer('render view');
+    // Start the timer
+    timer('render view');
+    // Stop a running timer,
+    // if one of this name has been started
+    timer('render view');
 
 벤치마킹 포인트 보기
 =============================
@@ -57,23 +57,23 @@ The name is not case-sensitive, but otherwise must match the name you gave it wh
 
 ::
 
-	$timers = $benchmark->getTimers();
+    $timers = $benchmark->getTimers();
 
-	// Timers =
-	[
-		'render view'  => [
-			'start'    => 1234567890,
-			'end'      => 1345678920,
-			'duration' => 15.4315      // number of seconds
-		]
-	]
+    // Timers =
+    [
+        'render view'  => [
+            'start'    => 1234567890,
+            'end'      => 1345678920,
+            'duration' => 15.4315      // number of seconds
+        ]
+    ]
 
 유일한 매개 변수로 표시할 소수 자릿수를 전달하여 계산된 지속 시간의 정밀도를 변경할 수 있습니다.
 기본값은 소수점 4자리입니다
 
 ::
 
-	$timers = $benchmark->getTimers(6);
+    $timers = $benchmark->getTimers(6);
 
 타이머는 자동으로 :doc:`디버그 툴바 </testing/debugging>`\ 에 표시됩니다.
 
@@ -84,8 +84,8 @@ The name is not case-sensitive, but otherwise must match the name you gave it wh
 
 ::
 
-	echo timer()->getElapsedTime('render view');
-	// Displays: 0.0234
+    echo timer()->getElapsedTime('render view');
+    // Displays: 0.0234
 
 ==================
 Iterator 사용
@@ -106,21 +106,21 @@ Creating Tasks To Run
 
 ::
 
-	$iterator = new \CodeIgniter\Benchmark\Iterator();
+    $iterator = new \CodeIgniter\Benchmark\Iterator();
 
-	// Add a new task
-	$iterator->add('single_concat', function()
-		{
-			$str = 'Some basic'.'little'.'string concatenation test.';
-		}
-	);
+    // Add a new task
+    $iterator->add('single_concat', function()
+        {
+            $str = 'Some basic'.'little'.'string concatenation test.';
+        }
+    );
 
-	// Add another task
-	$iterator->add('double', function($a='little')
-		{
-			$str = "Some basic {$little} string test.";
-		}
-	);
+    // Add another task
+    $iterator->add('double', function($a='little')
+        {
+            $str = "Some basic {$little} string test.";
+        }
+    );
 
 작업 실행
 =================
@@ -131,13 +131,13 @@ Creating Tasks To Run
 
 ::
 
-	// Run the tests 3000 times.
-	$iterator->run(3000);
+    // Run the tests 3000 times.
+    $iterator->run(3000);
 
 실행되면 테스트 결과가 포함된 HTML 테이블이 반환됩니다.
 결과를 표시하지 않으려면 두 번째 매개 변수에 false를 전달하면됩니다.
 
 ::
 
-	// Don't display the results.
-	$iterator->run(1000, false);
+    // Don't display the results.
+    $iterator->run(1000, false);
