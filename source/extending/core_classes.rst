@@ -48,13 +48,15 @@ For example, if you have a new ``App\Libraries\RouteCollection`` class that you 
 
 ::
 
-    <?php namespace App\Libraries;
+    <?php 
+    
+    namespace App\Libraries;
 
     use CodeIgniter\Router\RouteCollectionInterface;
 
     class RouteCollection implements RouteCollectionInterface
     {
-
+        // ...
     }
 
 그런 다음 ``routes`` 서비스에서 클래스를 로드 하도록 수정합니다.
@@ -84,29 +86,33 @@ For example, if you have a new ``App\Libraries\RouteCollection`` class that you 
 
 ::
 
-    <?php namespace App\Libraries;
+    <?php 
+    
+    namespace App\Libraries;
 
     use CodeIgniter\Router\RouteCollection;
 
     class RouteCollection extends RouteCollection
     {
-
+        // ...
     }
 
 클래스에서 생성자를 사용해야 하는 경우 부모 생성자를 호출해야 합니다.
 
 ::
 
-    <?php namespace App\Libraries;
+    <?php 
+    
+    namespace App\Libraries;
 
     use CodeIgniter\Router\RouteCollection as BaseRouteCollection;
 
     class RouteCollection extends BaseRouteCollection
     {
-         public function __construct()
-         {
-             parent::__construct();
-         }
-     }
+        public function __construct()
+        {
+            parent::__construct();
+        }
+    }
 
-**Tip:**  부모 클래스의 메소드와 동일한 이름을 가진 클래스의 모든 메소드가 기본 메소드 대신 사용됩니다( "메소드 재정의(method overriding)"라고 함). 이를 통해 CodeIgniter 코어를 실질적으로 변경할 수 있습니다.
+**Tip:**  부모 클래스의 메소드와 동일한 이름을 가진 클래스의 모든 메소드가 기본 메소드 대신 사용됩니다("메소드 재정의(method overriding)"\ 라고 함). 이를 통해 CodeIgniter 코어를 실질적으로 변경할 수 있습니다.

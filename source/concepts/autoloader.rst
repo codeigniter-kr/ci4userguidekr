@@ -60,7 +60,7 @@ CodeIgniter의 클래스 맵은  파일 시스템의 충돌을 피하고자 ``is
 클래스 맵을 사용하여 네임스페이스가 없는 타사 라이브러리에 연결할 수 있습니다.::
 
     $classmap = [
-        'Markdown' => APPPATH .'third_party/markdown.php'
+        'Markdown' => APPPATH . 'third_party/markdown.php'
     ];
 
 각 행의 키는 찾으려는 클래스의 이름입니다. 값은 위치를 지정하는 경로입니다.
@@ -77,7 +77,7 @@ Composer 지원
 ================
 
 Composer 지원은 기본적으로 자동 초기화됩니다.
-기본적으로 ``ROOTPATH.'vendor/autoload.php'``\ 에서 Composer의 오토로드 파일을 찾습니다. 
+기본적으로 ``ROOTPATH . 'vendor/autoload.php'``\ 에서 Composer의 오토로드 파일을 찾습니다. 
 해당 파일의 위치를 ​​변경해야 한다면 ``Config\Constants.php``\ 에 정의된 값을 수정합니다.
 
 .. note:: CodeIgniter와 Composer에 동일한 네임스페이스가 정의되어 있다면 CodeIgniter의 오토로더에게 우선권이 부여됩니다.

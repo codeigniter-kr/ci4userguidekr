@@ -70,7 +70,9 @@ Test 클래스
 
 ::
 
-    <?php namespace App\Libraries;
+    <?php
+
+    namespace App\Libraries;
 
     use CodeIgniter\Test\CIUnitTestCase;
 
@@ -78,7 +80,7 @@ Test 클래스
     {
         public function testFooNotBar()
         {
-            . . .
+            // ...
         }
     }
 
@@ -86,15 +88,17 @@ Test 클래스
 
 ::
 
-    <?php namespace App\Models;
+    <?php
+
+    namespace App\Models;
 
     use CodeIgniter\Test\CIUnitTestCase;
 
-    class FooTest extends CIUnitTestCase
+    class OneOfMyModelsTest extends CIUnitTestCase
     {
         public function testFooNotBar()
         {
-            . . .
+            // ...
         }
     }
 

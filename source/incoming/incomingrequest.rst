@@ -15,7 +15,9 @@ Accessing the Request
 
 ::
 
-    <?php namespace App\Controllers;
+    <?php 
+    
+    namespace App\Controllers;
 
     use CodeIgniter\Controller;
 
@@ -41,6 +43,7 @@ Accessing the Request
 ::
 
     <?php
+    
     use CodeIgniter\HTTP\RequestInterface;
 
     class SomeClass
@@ -65,13 +68,13 @@ Accessing the Request
     // Check for AJAX request.
     if ($request->isAJAX())
     {
-        . . .
+        // ...
     }
 
     // Check for CLI Request
     if ($request->isCLI())
     {
-        . . .
+        // ...
     }
 
 .. note:: ``isAJAX()`` 메소드는 ``X-Requested-With`` 헤더에 의존하며, JavaScript를 통한 XHR 요청은 경우에 따라 기본적으로 헤더가 전송되지 않습니다. (예: fetch). 
@@ -85,12 +88,12 @@ Accessing the Request
     $method = $request->getMethod();
 
 이 메소드는 기본적으로 소문자(예 : 'get', 'post', 등)로 값을 반환합니다.
-매개 변수로 ``true``\ 를 전달하여 대문자로 값을 얻을 수 있습니다
+``str_to_upper()``\ 함수를 이용하여 대문자로 변환할 수 있습니다.
 
 ::
 
     // Returns 'GET'
-    $method = $request->getMethod(true);
+    $method = str_to_upper($request->getMethod());
 
 ``isSecure()`` 메소드를 이용하여 HTTPS 연결을 통해 요청이 이루어 졌는지 확인할 수 있습니다.
 

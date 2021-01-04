@@ -18,7 +18,9 @@ HTTP 기능 테스트
 
 ::
 
-    <?php namespace App;
+    <?php 
+    
+    namespace App;
 
     use CodeIgniter\Test\FeatureTestCase;
 
@@ -416,9 +418,7 @@ JSON 응답내에서 $fragment가 발견되었음을 확인합니다.
     ]
 
     // Is true
-    $this->assertJSONFragment(['config' => ['key-a']);
-
-.. note:: PHPUnit의 `assertArraySubset() <https://phpunit.readthedocs.io/en/7.2/assertions.html#assertarraysubset>`_ 메소드를 사용하여 비교를 수행합니다.
+    $result->assertJSONFragment(['config' => ['key-a']]);
 
 **assertJSONExact($test)**
 

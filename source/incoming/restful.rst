@@ -101,7 +101,9 @@ ResourceController
 
 ::
 
-    <?php namespace App\Controllers;
+    <?php 
+    
+    namespace App\Controllers;
 
     use CodeIgniter\RESTful\ResourceController;
 
@@ -214,7 +216,9 @@ ResourcePresenter
 
 ::
 
-    <?php namespace App\Controllers;
+    <?php 
+    
+    namespace App\Controllers;
 
     use CodeIgniter\RESTful\ResourcePresenter;
 
@@ -225,7 +229,7 @@ ResourcePresenter
 
         public function index()
         {
-            return view('templates/list',$this->model->findAll());
+            return view('templates/list', $this->model->findAll());
         }
 
         // ...

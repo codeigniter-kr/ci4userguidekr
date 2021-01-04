@@ -50,7 +50,9 @@ MVC 프레임워크에서는 컨트롤러가 교통경찰 역할을 하므로 �
 
 ::
 
-	<?php namespace App\Controllers;
+	<?php 
+	
+	namespace App\Controllers;
 
 	class Blog extends \CodeIgniter\Controller
 	{
@@ -78,7 +80,9 @@ CodeIgniter는 컨트롤러에서 ``view()``\를 여러 호출하여도 똑똑�
 
 ::
 
-	<?php namespace App\Controllers;
+	<?php 
+	
+	namespace App\Controllers;
 
 	class Page extends \CodeIgniter\Controller
 	{
@@ -158,7 +162,9 @@ PHP는 네임스페이스에 클래스가 아닌 파일 로드를 지원하지 �
 
 ::
 
-	<?php namespace App\Controllers;
+	<?php 
+	
+	namespace App\Controllers;
 
 	class Blog extends \CodeIgniter\Controller
 	{
@@ -214,7 +220,9 @@ PHP는 네임스페이스에 클래스가 아닌 파일 로드를 지원하지 �
 
 ::
 
-	<?php namespace App\Controllers;
+	<?php 
+	
+	namespace App\Controllers;
 
 	class Blog extends \CodeIgniter\Controller
 	{

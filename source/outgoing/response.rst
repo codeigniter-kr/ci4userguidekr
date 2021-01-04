@@ -307,7 +307,7 @@ Class Reference
 
 			$response->setStatusCode(230, "Tardis initiated");
 
-	.. php:method:: getReason()
+	.. php:method:: getReasonPhrase()
 
 		:returns: 이유 문구.
 		:rtype: string
@@ -316,7 +316,7 @@ Class Reference
 		
 		::
 
-			echo $response->getReason();
+			echo $response->getReasonPhrase();
 
 	.. php:method:: setDate($date)
 

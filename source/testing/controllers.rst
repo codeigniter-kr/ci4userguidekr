@@ -15,7 +15,9 @@
 
 ::
 
-    <?php namespace CodeIgniter;
+    <?php 
+    
+    namespace CodeIgniter;
 
     use CodeIgniter\Test\ControllerTester;
 
@@ -30,7 +32,9 @@
 
 ::
 
-    <?php namespace CodeIgniter;
+    <?php 
+    
+    namespace CodeIgniter;
 
     use CodeIgniter\Test\ControllerTester;
 

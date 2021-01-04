@@ -201,8 +201,8 @@ Options:
     이 명령은 ``App\Controllers\Admin`` 네임 스페이스를 사용하여 ``Controllers/Admin`` 하위 폴더에 ``Login`` 컨트롤러를 생성합니다.
 
 .. note:: 모듈 작업을 하고 있습니까? 
-    코드 생성 시 루트 네임스페이스는 기본값인 상수 ``APP_NAMESPACE``\ 의 값으로 설정됩니다.
-    다른 위치의 모듈 네임스페이스에 생성된 코드가 있어야 한다면 명령에서 ``-n`` 옵션을 설정해야 합니다. ex> ``php spark make:model blog -n Acme\Blog``
+    코드 생성시 루트 네임스페이스는 기본값인 상수 ``APP_NAMESPACE``\ 의 값으로 설정됩니다.
+    다른 위치의 모듈 네임스페이스에 생성된 코드가 있어야 한다면 ``-n`` 옵션을 사용하여 설정해야 합니다. ex> ``php spark make:model blog -n Acme\Blog``
 
 .. warning:: ``-n`` 옵션을 설정할 때 제공된 네임스페이스가 ``Config\Autoload``\ 의 ``$psr4`` 배열에 정의되거나 
     composer autoload 파일에 정의된 유효한 네임스페이스인지 확인하십시오.

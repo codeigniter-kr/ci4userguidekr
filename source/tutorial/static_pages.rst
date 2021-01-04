@@ -32,7 +32,9 @@ URL은 체계가 복잡해짐에 따라 변경될 수 있지만 지금은 이것
 
 ::
 
-    <?php namespace App\Controllers;
+    <?php 
+    
+    namespace App\Controllers;
 
     use CodeIgniter\Controller;
 
@@ -45,8 +47,10 @@ URL은 체계가 복잡해짐에 따라 변경될 수 있지만 지금은 이것
 
         public function view($page = 'home')
         {
+            // ...
         }
     }
+
 
 우리는 ``$Page``\ 라는 하나의 인수(argument)를 허용하는 ``view()`` 메소드가 있는 ``Pages`` 클래스를 작성했습니다.
 그리고 기본 컨트롤러인 **app/Controllers/Home.php**\ 와 동일한 ``index()`` 메소드(method)를 가지고 있습니다. 
@@ -72,7 +76,7 @@ URL은 체계가 복잡해짐에 따라 변경될 수 있지만 지금은 이것
     </head>
     <body>
 
-        <h1><?= esc($title); ?></h1>
+        <h1><?= esc($title) ?></h1>
 
 헤더에는 머리글과 함께 기본 보기를 로드하기 전에 표시할 기본 HTML 코드가 포함되어 있습니다.
 그리고 우리가 나중에 컨트롤러에서 정의할 ``$title`` 변수를 출력합니다.
@@ -81,7 +85,7 @@ URL은 체계가 복잡해짐에 따라 변경될 수 있지만 지금은 이것
 
 ::
 
-        <em>&copy; 2020</em>
+        <em>&copy; 2021</em>
     </body>
     </html>
 

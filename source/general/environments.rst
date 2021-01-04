@@ -39,16 +39,16 @@ nginx에서는 ``fastcgi_params``\ 를 통해 환경 변수를 전달해야 `$_S
 
 .. code-block:: nginx
 
-	server {
-	    server_name localhost;
-	    include     conf/defaults.conf;
-	    root        /var/www;
+    server {
+        server_name localhost;
+        include     conf/defaults.conf;
+        root        /var/www;
 
-	    location    ~* \.php$ {
-	        fastcgi_param CI_ENVIRONMENT "production";
-	        include conf/fastcgi-php.conf;
-	    }
-	}
+        location    ~* \.php$ {
+            fastcgi_param CI_ENVIRONMENT "production";
+            include conf/fastcgi-php.conf;
+        }
+    }
 
 nginx 및 기타 서버에서 이 대체 방법을 사용할 수 있으며, 이를 사용하지 않고 서버의 IP 주소를 기반으로 상수를 설정할 수 있습니다.
 

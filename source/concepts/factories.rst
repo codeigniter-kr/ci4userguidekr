@@ -23,25 +23,25 @@
 
 ::
 
-	use CodeIgniter\Config\Factories;
+    use CodeIgniter\Config\Factories;
 
-	$users = Factories::models('UserModel');
+    $users = Factories::models('UserModel');
 
 또는 특정 클래스를 요청할 수도 있습니다.
 
 ::
 
-	$widgets = Factories::models('Some\Namespace\Models\WidgetModel');
+    $widgets = Factories::models('Some\Namespace\Models\WidgetModel');
 
 다음 코드의 어느 위치에서나 동일한 클래스를 요청할 때 ``Factories``\ 는 이전과 같은 인스턴스를 다시 가져옵니다.
 
 ::
 
-	class SomeOtherClass
-	{
-		$widgets = Factories::models('WidgetModel');
-		...
-	}
+    class SomeOtherClass
+    {
+        $widgets = Factories::models('WidgetModel');
+        // ...
+    }
 
 팩토리 파라메터
 ==================
@@ -54,8 +54,8 @@
 
 ::
 
-	$conn  = db_connect('AuthDatabase');
-	$users = Factories::models('UserModel', [], $conn);
+    $conn  = db_connect('AuthDatabase');
+    $users = Factories::models('UserModel', [], $conn);
 
 이제 ``UserModel``\ 이 ``Factories``\ 에서 로드될 때마다 대체 데이터베이스 연결을 사용하는 클래스 인스턴스를 반환하게 됩니다.
 
@@ -93,17 +93,19 @@ preferApp  boolean        App 네임스페이스의 기본 이름이 동일한 �
 
 ::
 
-	<?php namespace Config;
+    <?php 
+    
+    namespace Config;
 
-	use CodeIgniter\Config\Factory as BaseFactory;
-	use CodeIgniter\Filters\FilterInterface;
+    use CodeIgniter\Config\Factory as BaseFactory;
+    use CodeIgniter\Filters\FilterInterface;
 
-	class Factories extends BaseFactory
-	{
-		public $filters = [
-			'instanceOf' => FilterInterface::class,
-		];
-	}
+    class Factories extends BaseFactory
+    {
+        public $filters = [
+            'instanceOf' => FilterInterface::class,
+        ];
+    }
 
 이렇게 하면 네임스페이스에 관련 없는 "Filters" 경로가 있는 타사 모듈과 충돌을 방지할 수 있습니다.
 
@@ -115,10 +117,10 @@ setOptions 메소드
 
 ::
 
-	Factories::setOptions('filters', [
-		'instanceOf' => FilterInterface::class,
-		'prefersApp' => false,
-	]);
+    Factories::setOptions('filters', [
+        'instanceOf' => FilterInterface::class,
+        'prefersApp' => false,
+    ]);
 
 파라메터 옵션
 -----------------
@@ -131,5 +133,5 @@ setOptions 메소드
 매직 정적 호출에 두 번째 매개 변수를 추가하면 해당 호출에 대하여 새 인스턴스를 반환할지 아니면 공유 인스턴스를 반환할지 제어할 수 있습니다.
 ::
 
-	$users = Factories::models('UserModel', ['getShared' => true]); // Default; 항상 동일한 인스턴스
-	$other = Factories::models('UserModel', ['getShared' => false]); // 항상 새 인스턴스를 만듭니다.
+    $users = Factories::models('UserModel', ['getShared' => true]); // Default; 항상 동일한 인스턴스
+    $other = Factories::models('UserModel', ['getShared' => false]); // 항상 새 인스턴스를 만듭니다.

@@ -32,7 +32,9 @@ CLI란 무엇입니까?
 
 ::
 
-    <?php namespace App\Controllers;
+    <?php 
+    
+    namespace App\Controllers;
 
     use CodeIgniter\Controller;
 
@@ -40,7 +42,7 @@ CLI란 무엇입니까?
     {
         public function message($to = 'World')
         {
-            echo "Hello {$to}!".PHP_EOL;
+            echo "Hello {$to}!" . PHP_EOL;
         }
     }
 

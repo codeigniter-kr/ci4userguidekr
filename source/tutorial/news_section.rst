@@ -64,7 +64,9 @@ CodeIgniter를 설치할 때 생성한 로컬 구성 파일 ``.env``\ 를 열어
 
 ::
 
-    <?php namespace App\Models;
+    <?php 
+    
+    namespace App\Models;
     
     use CodeIgniter\Model;
 
@@ -115,7 +117,9 @@ Model 클래스를 사용하면 Query Builder로 쉽게 작업 할 수 있으며
 
 ::
 
-    <?php namespace App\Controllers;
+    <?php 
+    
+    namespace App\Controllers;
 
     use App\Models\NewsModel;
     use CodeIgniter\Controller;
@@ -171,18 +175,18 @@ title의 값은 ``$data['title']`` 요소에 할당되며 모든 데이터는 �
 
 ::
 
-    <h2><?= esc($title); ?></h2>
+    <h2><?= esc($title) ?></h2>
 
     <?php if (! empty($news) && is_array($news)) : ?>
 
         <?php foreach ($news as $news_item): ?>
 
-            <h3><?= esc($news_item['title']); ?></h3>
+            <h3><?= esc($news_item['title']) ?></h3>
 
             <div class="main">
-                <?= esc($news_item['body']); ?>
+                <?= esc($news_item['body']) ?>
             </div>
-            <p><a href="/news/<?= esc($news_item['slug'], 'url'); ?>">View article</a></p>
+            <p><a href="/news/<?= esc($news_item['slug'], 'url') ?>">View article</a></p>
 
         <?php endforeach; ?>
 
@@ -235,8 +239,8 @@ title의 값은 ``$data['title']`` 요소에 할당되며 모든 데이터는 �
 
 ::
 
-    <h2><?= esc($news['title']); ?></h2>
-    <p><?= esc($news['body']); ?></p>
+    <h2><?= esc($news['title']) ?></h2>
+    <p><?= esc($news['body']) ?></p>
 
 .. note:: XSS 공격을 방지하기 위해 다시 **esc()**\ 를 사용하고 있습니다.
     하지만 이번에는 "url"\ 을 두 번째 매개 변수로 전달했습니다. 

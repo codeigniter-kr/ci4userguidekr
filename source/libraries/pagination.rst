@@ -26,7 +26,9 @@ CodeIgniter의 다른 서비스와 마찬가지로 ``Config\Services``\ 를 통�
 
 ::
 
-    <?php namespace App\Controllers;
+    <?php 
+    
+    namespace App\Controllers;
 
     use CodeIgniter\Controller;
 
@@ -38,7 +40,7 @@ CodeIgniter의 다른 서비스와 마찬가지로 ``Config\Services``\ 를 통�
 
             $data = [
                 'users' => $model->paginate(10),
-                'pager' => $model->pager
+                'pager' => $model->pager,
             ];
 
             echo view('users/index', $data);

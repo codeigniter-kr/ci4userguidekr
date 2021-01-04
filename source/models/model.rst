@@ -55,13 +55,15 @@ CodeIgniter의 모델을 활용하려면 ``CodeIgniter\Model``\ 을 확장하는
 
 ::
 
-    <?php namespace App\Models;
+    <?php 
+    
+    namespace App\Models;
 
     use CodeIgniter\Model;
 
     class UserModel extends Model
     {
-
+        // ...
     }
 
 이렇게 작성된 클래스는 데이터베이스 연결, 쿼리 빌더 등 여러 가지 편리한 추가 메소드를 제공합니다.
@@ -75,7 +77,9 @@ CodeIgniter의 모델을 활용하려면 ``CodeIgniter\Model``\ 을 확장하는
 
 ::
 
-    <?php namespace App\Models;
+    <?php 
+    
+    namespace App\Models;
 
     use CodeIgniter\Model;
 
@@ -868,7 +872,9 @@ DB연결을 통해 CodeIgniter의 모델이 제공하는 기능을 무시하고 
 
 ::
 
-    <?php namespace App\Models;
+    <?php 
+    
+    namespace App\Models;
 
     use CodeIgniter\Database\ConnectionInterface;
 
@@ -878,6 +884,6 @@ DB연결을 통해 CodeIgniter의 모델이 제공하는 기능을 무시하고 
 
         public function __construct(ConnectionInterface &$db)
         {
-            $this->db =& $db;
+            $this->db = &$db;
         }
     }

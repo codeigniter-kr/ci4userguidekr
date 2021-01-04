@@ -24,58 +24,58 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
     :rtype: mixed
 
     $key가 제공되지 않으면 캐시 엔진 인스턴스를 반환합니다.
-	$key가 제공되면 현재 캐시에 저장된 $key의 값을 반환하거나 값이 없으면 null을 반환합니다.
+    $key가 제공되면 현재 캐시에 저장된 $key의 값을 반환하거나 값이 없으면 null을 반환합니다.
 
     Examples::
 
-     	$foo = cache('foo');
-    	$cache = cache();
+        $foo = cache('foo');
+        $cache = cache();
 
 .. php:function:: env ( $key[, $default=null])
 
-	:param string $key: 검색 할 환경 변수의 이름
-	:param mixed  $default: 값을 찾지 못하면 반환할 기본값
-	:returns: 환경 변수, 기본값 또는 null
-	:rtype: mixed
+    :param string $key: 검색 할 환경 변수의 이름
+    :param mixed  $default: 값을 찾지 못하면 반환할 기본값
+    :returns: 환경 변수, 기본값 또는 null
+    :rtype: mixed
 
-	이전에 환경으로 설정된 값을 검색하거나 기본값을 찾을 수 없는 경우, 기본값을 반환하는 데 사용합니다.
-	부울(bool) 값을 문자열 표현 대신 실제 부울로 형식화합니다.
+    이전에 환경으로 설정된 값을 검색하거나 기본값을 찾을 수 없는 경우, 기본값을 반환하는 데 사용합니다.
+    부울(bool) 값을 문자열 표현 대신 실제 부울로 형식화합니다.
 
-	데이터베이스 설정, API 키 등과 같이 환경 자체에 특정한 값을 설정하기 위해 .env 파일과 함께 사용하면 특히 유용합니다.
+    데이터베이스 설정, API 키 등과 같이 환경 자체에 특정한 값을 설정하기 위해 .env 파일과 함께 사용하면 특히 유용합니다.
 
 .. php:function:: esc( $data, $context='html' [, $encoding])
 
-	:param   string|array   $data: 이스케이프할 정보(문자열)
-	:param   string   $context: escaping context. 기본값은 'html'
-	:param   string   $encoding: 문자열의 문자 인코딩.
-	:returns: escaped data.
-	:rtype: mixed
+    :param   string|array   $data: 이스케이프할 정보(문자열)
+    :param   string   $context: escaping context. 기본값은 'html'
+    :param   string   $encoding: 문자열의 문자 인코딩.
+    :returns: escaped data.
+    :rtype: mixed
 
-	XSS 공격을 방지하기 위해 웹 페이지에 포함할 데이터를 이스케이프(escape)합니다.
-	데이터 필터링을 처리하기 위해 Laminas Escaper 라이브러리를 사용합니다.
+    XSS 공격을 방지하기 위해 웹 페이지에 포함할 데이터를 이스케이프(escape)합니다.
+    데이터 필터링을 처리하기 위해 Laminas Escaper 라이브러리를 사용합니다.
 
-	$data가 문자열(string)이면 단순히 이스케이프하여 반환합니다.
-	$data가 배열이면 키/값 쌍중 '값'을 반복하여 이스케이프 처리합니다.
+    $data가 문자열(string)이면 단순히 이스케이프하여 반환합니다.
+    $data가 배열이면 키/값 쌍중 '값'을 반복하여 이스케이프 처리합니다.
 
-	지정 가능한 context 값: ``html``, ``js``, ``css``, ``url``, ``attr``, ``raw``, ``null``
+    지정 가능한 context 값: ``html``, ``js``, ``css``, ``url``, ``attr``, ``raw``, ``null``
 
 .. php:function:: helper( $filename )
 
-	:param   string|array  $filename: 로드할 헬퍼 파일의 이름 또는 이름의 배열.
+    :param   string|array  $filename: 로드할 헬퍼 파일의 이름 또는 이름의 배열.
 
-	헬퍼 파일을 로드합니다.
+    헬퍼 파일을 로드합니다.
 
-	자세한 내용은 :doc:`helpers` 페이지를 참조하십시오.
+    자세한 내용은 :doc:`helpers` 페이지를 참조하십시오.
 
 .. php:function:: lang($line[, $args[, $locale ]])
 
-	:param string $line: 검색 할 텍스트
-	:param array  $args: 자리표시자(placeholders)를 대체 할 데이터 배열
-	:param string $locale: 기본 로케일(locale) 대신 사용할 다른 로케일
+    :param string $line: 검색 할 텍스트
+    :param array  $args: 자리표시자(placeholders)를 대체 할 데이터 배열
+    :param string $locale: 기본 로케일(locale) 대신 사용할 다른 로케일
 
-	문자열을 기반으로 로케일 특정 파일을 검색합니다.
+    문자열을 기반으로 로케일 특정 파일을 검색합니다.
 
-	자세한 내용은 :doc:`Localization </outgoing/localization>` 페이지를 참조하십시오.
+    자세한 내용은 :doc:`Localization </outgoing/localization>` 페이지를 참조하십시오.
 
 .. php:function:: model($name [, $getShared = true [, &$conn = null ]])
 
@@ -85,86 +85,86 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
     :returns: Model instance
     :rtype: mixed
 
-	모델 인스턴스를 얻는 간단한 방법
+    모델 인스턴스를 얻는 간단한 방법
 
 .. php:function:: old( $key[, $default = null, [, $escape = 'html' ]] )
 
-	:param string $key: 확인할 이전 양식 데이터의 이름
-	:param mixed  $default: $key가 존재하지 않으면 반환 할 기본값
-	:param mixed  $escape: `이스케이프 <#esc>`_ 컨텍스트 또는 false
-	:returns: 정의된 키의 값 또는 기본값
-	:rtype: mixed
+    :param string $key: 확인할 이전 양식 데이터의 이름
+    :param mixed  $default: $key가 존재하지 않으면 반환 할 기본값
+    :param mixed  $escape: `이스케이프 <#esc>`_ 컨텍스트 또는 false
+    :returns: 정의된 키의 값 또는 기본값
+    :rtype: mixed
 
-	제출된 양식(form)의 "이전 입력 데이터"에 액세스하는 간단한 방법을 제공합니다.
+    제출된 양식(form)의 "이전 입력 데이터"에 액세스하는 간단한 방법을 제공합니다.
 
-	Example::
+    Example::
 
-		// in controller, checking form submittal
-		if (! $model->save($user))
-		{
-			// 'withInput' is what specifies "old data"
-			// should be saved.
-			return redirect()->back()->withInput();
-		}
+        // in controller, checking form submittal
+        if (! $model->save($user))
+        {
+            // 'withInput' is what specifies "old data"
+            // should be saved.
+            return redirect()->back()->withInput();
+        }
 
-		// In the view
-		<input type="email" name="email" value="<?= old('email') ?>">
-		// Or with arrays
-		<input type="email" name="user[email]" value="<?= old('user.email') ?>">
+        // In the view
+        <input type="email" name="email" value="<?= old('email') ?>">
+        // Or with arrays
+        <input type="email" name="user[email]" value="<?= old('user.email') ?>">
 
 .. note:: :doc:`폼(form) 헬퍼 </helpers/form_helper>`\ 를 사용하는 경우 이 기능이 내장되어 있습니다. 폼 헬퍼를 사용하지 않는 경우에만 이 기능을 사용하십시오.
 
 .. php:function:: session( [$key] )
 
-	:param string $key: 확인할 세션 항목의 이름
-	:returns: $key가 없는 경우 Session 객체의 인스턴스, 세션에서 찾은 $key 값 또는 null
-	:rtype: mixed
+    :param string $key: 확인할 세션 항목의 이름
+    :returns: $key가 없는 경우 Session 객체의 인스턴스, 세션에서 찾은 $key 값 또는 null
+    :rtype: mixed
 
-	세션 클래스에 액세스하고 저장된 값을 검색하는 편리한 방법을 제공합니다.
-	자세한 내용은 :doc:`세션 </libraries/sessions>` 페이지를 참조하십시오.
+    세션 클래스에 액세스하고 저장된 값을 검색하는 편리한 방법을 제공합니다.
+    자세한 내용은 :doc:`세션 </libraries/sessions>` 페이지를 참조하십시오.
 
 .. php:function:: timer( [$name] )
 
-	:param string $name: 벤치 마크 포인트의 이름.
-	:returns: 타이머 인스턴스
-	:rtype: CodeIgniter\Debug\Timer
+    :param string $name: 벤치 마크 포인트의 이름.
+    :returns: 타이머 인스턴스
+    :rtype: CodeIgniter\Debug\Timer
 
-	타이머(Timer) 클래스에 빠르게 액세스할 수있는 편리한 메소드입니다. 벤치 마크 지점의 이름을 매개 변수로 전달할 수 있습니다.
-	이 시점부터 타이밍이 시작되거나 이 이름의 타이머가 이미 실행중인 경우 타이밍이 중지됩니다.
+    타이머(Timer) 클래스에 빠르게 액세스할 수있는 편리한 메소드입니다. 벤치 마크 지점의 이름을 매개 변수로 전달할 수 있습니다.
+    이 시점부터 타이밍이 시작되거나 이 이름의 타이머가 이미 실행중인 경우 타이밍이 중지됩니다.
 
-	Example::
+    Example::
 
-		// Get an instance
-		$timer = timer();
+        // Get an instance
+        $timer = timer();
 
-		// Set timer start and stop points
-		timer('controller_loading');    // Will start the timer
-		. . .
-		timer('controller_loading');    // Will stop the running timer
+        // Set timer start and stop points
+        timer('controller_loading');    // Will start the timer
+        . . .
+        timer('controller_loading');    // Will stop the running timer
 
 .. php:function:: view($name [, $data [, $options ]])
 
-	:param   string   $name: 로드할 파일 이름
-	:param   array    $data: 뷰 내에서 사용할 수있는 키/값 쌍의 배열
-	:param   array    $options: 렌더링 클래스로 전달 될 옵션 배열
-	:returns: 뷰의 출력
-	:rtype: string
+    :param   string   $name: 로드할 파일 이름
+    :param   array    $data: 뷰 내에서 사용할 수있는 키/값 쌍의 배열
+    :param   array    $options: 렌더링 클래스로 전달 될 옵션 배열
+    :returns: 뷰의 출력
+    :rtype: string
 
-	RendererInterface 호환 클래스에게 지정된 뷰를 렌더링하도록 지시합니다.
-	컨트롤러, 라이브러리 및 라우팅 클로저에서 뷰를 사용할 수있는 편리한 방법을 제공합니다.
+    RendererInterface 호환 클래스에게 지정된 뷰를 렌더링하도록 지시합니다.
+    컨트롤러, 라이브러리 및 라우팅 클로저에서 뷰를 사용할 수있는 편리한 방법을 제공합니다.
 
-	현재는 `$options` 배열 내에 `saveData` 옵션 하나만 사용할 수 있으며, 동일한 요청에 대해 `view()`\ 를 여러번 호출해도 데이터가 지속되도록 지정합니다.
-	기본적으로 해당 단일 뷰 파일을 표시하면 해당 뷰의 데이터는 지워집니다.
+    현재는 `$options` 배열 내에 `saveData` 옵션 하나만 사용할 수 있으며, 동일한 요청에 대해 `view()`\ 를 여러번 호출해도 데이터가 지속되도록 지정합니다.
+    기본적으로 해당 단일 뷰 파일을 표시하면 해당 뷰의 데이터는 지워집니다.
 
-	$option 배열은 주로 Twig 같은 타사(third-party) 라이브러리와 통합을 용이하게 하기 위해 제공됩니다.
+    $option 배열은 주로 Twig 같은 타사(third-party) 라이브러리와 통합을 용이하게 하기 위해 제공됩니다.
 
-	Example::
+    Example::
 
-		$data = ['user' => $user];
+        $data = ['user' => $user];
 
-		echo view('user_profile', $data);
+        echo view('user_profile', $data);
 
-	자세한 내용은 :doc:`뷰 </outgoing/views>` 페이지를 참조하십시오.
+    자세한 내용은 :doc:`뷰 </outgoing/views>` 페이지를 참조하십시오.
 
 .. php:function:: view_cell($library [, $params = null [, $ttl = 0 [, $cacheName = null]]])
 
@@ -175,9 +175,9 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
     :returns: HTML chunks
     :rtype: string
 
-	뷰 셀은 다른 클래스에서 관리하는 HTML 청크를 삽입하기 위해 뷰 내에서 사용됩니다.
+    뷰 셀은 다른 클래스에서 관리하는 HTML 청크를 삽입하기 위해 뷰 내에서 사용됩니다.
 
-	자세한 내용은 :doc:`뷰 셀 </outgoing/view_cells>` 페이지를 참조하십시오.
+    자세한 내용은 :doc:`뷰 셀 </outgoing/view_cells>` 페이지를 참조하십시오.
 
 기타 기능
 =======================
@@ -192,57 +192,57 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
 .. php:function:: csrf_token()
 
-	:returns: 현재 사용중인 CSRF 토큰의 이름
-	:rtype: string
+    :returns: 현재 사용중인 CSRF 토큰의 이름
+    :rtype: string
 
-	현재 사용중인 CSRF 토큰의 이름을 반환합니다.
+    현재 사용중인 CSRF 토큰의 이름을 반환합니다.
 
 .. php:function:: csrf_header()
 
-	:returns: 현재 사용중인 CSRF 토큰의 헤더 이름
-	:rtype: string
+    :returns: 현재 사용중인 CSRF 토큰의 헤더 이름
+    :rtype: string
 
-	현재 사용중인 CSRF 토큰의 헤더 이름입니다.
+    현재 사용중인 CSRF 토큰의 헤더 이름입니다.
 
 .. php:function:: csrf_hash()
 
-	:returns: CSRF 해시의 현재 값
-	:rtype: string
+    :returns: CSRF 해시의 현재 값
+    :rtype: string
 
-	현재 사용중인 CSRF 해시 값을 반환합니다.
+    현재 사용중인 CSRF 해시 값을 반환합니다.
 
 .. php:function:: csrf_field()
 
-	:returns: CSRF 정보가 포함된 숨겨진 입력(hidden input) HTML 문자열
-	:rtype: string
+    :returns: CSRF 정보가 포함된 숨겨진 입력(hidden input) HTML 문자열
+    :rtype: string
 
-	CSRF 정보가 포함된 숨겨진 입력(hidden input) HTML 문자열을 반환합니다.
-	
-	::
+    CSRF 정보가 포함된 숨겨진 입력(hidden input) HTML 문자열을 반환합니다.
+    
+    ::
 
-		<input type="hidden" name="{csrf_token}" value="{csrf_hash}">
+        <input type="hidden" name="{csrf_token}" value="{csrf_hash}">
 
 .. php:function:: csrf_meta()
 
-	:returns: CSRF 정보가 포함 된 메타 태그용 HTML 문자열
-	:rtype: string
+    :returns: CSRF 정보가 포함 된 메타 태그용 HTML 문자열
+    :rtype: string
 
-	CSRF 정보가 포함된 메타 태그를 반환합니다.
-	
-	::
+    CSRF 정보가 포함된 메타 태그를 반환합니다.
+    
+    ::
 
-		<meta name="{csrf_header}" content="{csrf_hash}">
+        <meta name="{csrf_header}" content="{csrf_hash}">
 
 .. php:function:: force_https( $duration = 31536000 [, $request = null [, $response = null]] )
 
-	:param  int  $duration: 브라우저가 이 리소스에 대한 링크를 HTTPS로 변환해야 하는 시간(초)
-	:param  RequestInterface $request: 요청(request) 개체의 인스턴스
-	:param  ResponseInterface $response: 응답(response) 개체의 인스턴스
+    :param  int  $duration: 브라우저가 이 리소스에 대한 링크를 HTTPS로 변환해야 하는 시간(초)
+    :param  RequestInterface $request: 요청(request) 개체의 인스턴스
+    :param  ResponseInterface $response: 응답(response) 개체의 인스턴스
 
-	페이지가 현재 HTTPS를 통해 액세스되고 있는지 확인합니다.
-	HTTPS를 통해 액세스 되고 있다면 아무 일도 일어나지 않습니다. 
-	그렇지 않은 경우 사용자는 HTTPS를 통해 현재 URI로 다시 리디렉션됩니다.
-	HTTP Strict Transport Security 헤더를 설정하여 최신 브라우저가 HTTP 요청을 $duration에 대한 HTTPS 요청으로 자동 수정하도록 지시합니다.
+    페이지가 현재 HTTPS를 통해 액세스되고 있는지 확인합니다.
+    HTTPS를 통해 액세스 되고 있다면 아무 일도 일어나지 않습니다. 
+    그렇지 않은 경우 사용자는 HTTPS를 통해 현재 URI로 다시 리디렉션됩니다.
+    HTTP Strict Transport Security 헤더를 설정하여 최신 브라우저가 HTTP 요청을 $duration에 대한 HTTPS 요청으로 자동 수정하도록 지시합니다.
 
 .. php:function:: function_usable( $function_name )
 
@@ -258,107 +258,107 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
 .. php:function:: is_cli()
 
-	:returns: TRUE(커맨드 라인(command line)에서 스크립트를 실행중인 경우) 또는 FALSE(아닌 경우)
-	:rtype: bool
+    :returns: TRUE(커맨드 라인(command line)에서 스크립트를 실행중인 경우) 또는 FALSE(아닌 경우)
+    :rtype: bool
 
 .. php:function:: log_message ($level, $message [, $context])
 
-	:param   string   $level: 심각도 수준
-	:param   string   $message: 기록 될 메시지
-	:param   array    $context: $message로 바꿔야할 태그와 값의 연관 배열
-	:returns: TRUE(성공적으로 기록 된 경우) 또는 FALSE(기록하는 데 문제가있는 경우)
-	:rtype: bool
+    :param   string   $level: 심각도 수준
+    :param   string   $message: 기록 될 메시지
+    :param   array    $context: $message로 바꿔야할 태그와 값의 연관 배열
+    :returns: TRUE(성공적으로 기록 된 경우) 또는 FALSE(기록하는 데 문제가있는 경우)
+    :rtype: bool
 
-	**app/Config/Logger.php**\ 에 정의된 로그 처리기를 사용하여 메시지를 기록합니다..
+    **app/Config/Logger.php**\ 에 정의된 로그 처리기를 사용하여 메시지를 기록합니다..
 
-	레벨은 다음 값 중 하나일 수 있습니다: **emergency**, **alert**, **critical**, **error**, **warning**, **notice**, **info**, **debug**
+    레벨은 다음 값 중 하나일 수 있습니다: **emergency**, **alert**, **critical**, **error**, **warning**, **notice**, **info**, **debug**
 
-	컨텍스트는 메시지 문자열에서 값을 대체하는데 사용될 수 있습니다. 자세한 내용은 :doc:`로깅 정보 <logging>` 페이지를 참조하십시오.
+    컨텍스트는 메시지 문자열에서 값을 대체하는데 사용될 수 있습니다. 자세한 내용은 :doc:`로깅 정보 <logging>` 페이지를 참조하십시오.
 
 .. php:function:: redirect( string $uri )
 
-	:param  string  $uri: 사용자를 리디렉션 할 URI
+    :param  string  $uri: 사용자를 리디렉션 할 URI
 
-	쉽게 리디렉션을 만들수 있는 RedirectResponse 인스턴스를 반환합니다.
-	
-	::
+    쉽게 리디렉션을 만들수 있는 RedirectResponse 인스턴스를 반환합니다.
+    
+    ::
 
-		// Go back to the previous page
-		return redirect()->back();
+        // Go back to the previous page
+        return redirect()->back();
 
-		// Go to specific UI
-		return redirect()->to('/admin');
+        // Go to specific UI
+        return redirect()->to('/admin');
 
-		// Go to a named/reverse-routed URI
-		return redirect()->route('named_route');
+        // Go to a named/reverse-routed URI
+        return redirect()->route('named_route');
 
-		// Keep the old input values upon redirect so they can be used by the `old()` function
-		return redirect()->back()->withInput();
+        // Keep the old input values upon redirect so they can be used by the `old()` function
+        return redirect()->back()->withInput();
 
-		// Set a flash message
-		return redirect()->back()->with('foo', 'message');
+        // Set a flash message
+        return redirect()->back()->with('foo', 'message');
 
-		// Copies all cookies from global response instance
-		return redirect()->back()->withCookies();
+        // Copies all cookies from global response instance
+        return redirect()->back()->withCookies();
 
-		// Copies all headers from the global response instance
-		return redirect()->back()->withHeaders();
+        // Copies all headers from the global response instance
+        return redirect()->back()->withHeaders();
 
-	URI를 함수에 전달하면 상대/전체 URI가 아닌 리버스 라우팅 요청으로 처리되며 ``redirect()->route()``\ 를 사용하는 것과 동일하게 취급합니다.
+    URI를 함수에 전달하면 상대/전체 URI가 아닌 리버스 라우팅 요청으로 처리되며 ``redirect()->route()``\ 를 사용하는 것과 동일하게 취급합니다.
 
-	::
+    ::
 
-		// Go to a named/reverse-routed URI
-		return redirect('named_route');
+        // Go to a named/reverse-routed URI
+        return redirect('named_route');
 
 .. php:function:: remove_invisible_characters($str[, $urlEncoded = TRUE])
 
-	:param	string	$str: 입력 문자열
-	:param	bool	$urlEncoded: URL 인코딩 문자도 제거할지 여부
-	:returns: 안전한 문자열
-	:rtype:	string
+    :param    string    $str: 입력 문자열
+    :param    bool    $urlEncoded: URL 인코딩 문자도 제거할지 여부
+    :returns: 안전한 문자열
+    :rtype:    string
 
-	이 함수는 "Java\\0script"와 같은 문자열에서 NULL 문자를 제거 합니다.
+    이 함수는 "Java\\0script"와 같은 문자열에서 NULL 문자를 제거 합니다.
 
-	Example::
+    Example::
 
-		remove_invisible_characters('Java\\0script');
-		// Returns: 'Javascript'
+        remove_invisible_characters('Java\\0script');
+        // Returns: 'Javascript'
 
 .. php:function:: route_to( $method [, ...$params] )
 
-	:param   string   $method: 명명된 라우트의 별명 또는 일치하는 컨트롤러/메소드의 이름입니다.
-	:param   mixed   $params: 경로에서 일치시키기 위해 전달될 하나 이상의 매개 변수
+    :param   string   $method: 명명된 라우트의 별명 또는 일치하는 컨트롤러/메소드의 이름입니다.
+    :param   mixed   $params: 경로에서 일치시키기 위해 전달될 하나 이상의 매개 변수
 
-	명명된 라우트 별칭 또는 ``controller::method`` 조합에 따라 도메인 이름(**baseUrl**\ 이 아님)과 관련된 URI를 생성합니다.
-	매개 변수가 제공된 경우 적용합니다.
+    명명된 라우트 별칭 또는 ``controller::method`` 조합에 따라 도메인 이름(**baseUrl**\ 이 아님)과 관련된 URI를 생성합니다.
+    매개 변수가 제공된 경우 적용합니다.
 
-	자세한 내용은 :doc:`/incoming/routing` 페이지를 참조하십시오.
+    자세한 내용은 :doc:`/incoming/routing` 페이지를 참조하십시오.
 
 .. php:function:: service( $name [, ...$params] )
 
-	:param   string   $name: 로드 할 서비스의 이름
-	:param   mixed    $params: 서비스 메소드에 전달할 하나 이상의 매개 변수
-	:returns: 지정된 서비스 클래스의 인스턴스
-	:rtype: mixed
+    :param   string   $name: 로드 할 서비스의 이름
+    :param   mixed    $params: 서비스 메소드에 전달할 하나 이상의 매개 변수
+    :returns: 지정된 서비스 클래스의 인스턴스
+    :rtype: mixed
 
-	시스템에 정의 된 모든 :doc:`서비스 <../concepts/services>`\ 에 쉽게 액세스 할 수 있습니다.
-	서비스 클래스의 공유 인스턴스가 반환되므로, 여러번 호출하더라도 인스턴스는 하나만 생성됩니다.
+    시스템에 정의 된 모든 :doc:`서비스 <../concepts/services>`\ 에 쉽게 액세스 할 수 있습니다.
+    서비스 클래스의 공유 인스턴스가 반환되므로, 여러번 호출하더라도 인스턴스는 하나만 생성됩니다.
 
-	Example::
+    Example::
 
-		$logger = service('logger');
-		$renderer = service('renderer', APPPATH.'views/');
+        $logger = service('logger');
+        $renderer = service('renderer', APPPATH.'views/');
 
 .. php:function:: single_service( $name [, ...$params] )
 
-	:param   string   $name: 로드 할 서비스의 이름
-	:param   mixed    $params: 서비스 메소드에 전달할 하나 이상의 매개 변수
-	:returns: An instance of the service class specified.
-	:rtype: mixed
+    :param   string   $name: 로드 할 서비스의 이름
+    :param   mixed    $params: 서비스 메소드에 전달할 하나 이상의 매개 변수
+    :returns: An instance of the service class specified.
+    :rtype: mixed
 
-	이 함수에 대한 모든 호출이 클래스의 새 인스턴스를 반화한다는 점을 제외하고 위에서 설명한 **service()** 함수와 동일합니다. 
-	**service**\ 는 매번 동일한 인스턴스를 리턴합니다.
+    이 함수에 대한 모든 호출이 클래스의 새 인스턴스를 반화한다는 점을 제외하고 위에서 설명한 **service()** 함수와 동일합니다. 
+    **service**\ 는 매번 동일한 인스턴스를 리턴합니다.
 
 .. php:function:: slash_item ( $item )
 
@@ -366,16 +366,16 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
     :returns: Config 항목(Item)이 없는 경우 NULL
     :rtype:  string|null
 
-	슬래시가 추가된 구성(Config) 파일 항목을 가져옵니다. (값이 있는 경우)
+    슬래시가 추가된 구성(Config) 파일 항목을 가져옵니다. (값이 있는 경우)
 
 .. php:function:: stringify_attributes( $attributes [, $js] )
 
-	:param   mixed    $attributes: 문자열, 키/값 쌍의 배열, 객체
-	:param   boolean  $js: TRUE (값에 따옴표가 필요하지 않은 경우, Javascript-style)
-	:returns: 쉼표로 구분된 속성의 키/값 쌍을 포함하는 문자열
-	:rtype: string
+    :param   mixed    $attributes: 문자열, 키/값 쌍의 배열, 객체
+    :param   boolean  $js: TRUE (값에 따옴표가 필요하지 않은 경우, Javascript-style)
+    :returns: 쉼표로 구분된 속성의 키/값 쌍을 포함하는 문자열
+    :rtype: string
 
-	문자열, 배열 또는 속성 개체를 문자열로 변환하는 데 사용되는 도우미 함수입니다.
+    문자열, 배열 또는 속성 개체를 문자열로 변환하는 데 사용되는 도우미 함수입니다.
 
 ================
 전역 상수
@@ -388,55 +388,55 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
 .. php:const:: APPPATH
 
-	**app** 디렉토리 경로
+    **app** 디렉토리 경로
 
 .. php:const:: ROOTPATH
 
-	프로젝트 루트 디렉토리의 경로. 바로 위 ``APPPATH``
+    프로젝트 루트 디렉토리의 경로. 바로 위 ``APPPATH``
 
 .. php:const:: SYSTEMPATH
 
-	**system** 디렉토리 경로
+    **system** 디렉토리 경로
 
 .. php:const:: FCPATH
 
-	프론트 컨트롤러의 디렉토리 경로
+    프론트 컨트롤러의 디렉토리 경로
 
 .. php:const:: WRITEPATH
 
-	**writable** 디렉토리 경로
+    **writable** 디렉토리 경로
 
 시간 상수
 ==============
 
 .. php:const:: SECOND
 
-	1 초
+    1 초
 
 .. php:const:: MINUTE
 
-	60 초
+    60 초
 
 .. php:const:: HOUR
 
-	3600 초
+    3600 초
 
 .. php:const:: DAY
 
-	86400 초
+    86400 초
 
 .. php:const:: WEEK
 
-	604800 초
+    604800 초
 
 .. php:const:: MONTH
 
-	2592000 초
+    2592000 초
 
 .. php:const:: YEAR
 
-	31536000 초
+    31536000 초
 
 .. php:const:: DECADE
 
-	315360000 초
+    315360000 초

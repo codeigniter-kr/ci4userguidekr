@@ -124,11 +124,12 @@ Filesystem 헬퍼
 
 	.. note:: 이 기능은 파일에 쓰는 동안 파일에 대한 잠금(exclusive lock)을 획득합니다.
 
-.. php:function:: delete_files($path[, $del_dir = FALSE[, $htdocs = FALSE]])
+.. php:function:: delete_files($path[, $delDir = FALSE[, $htdocs = FALSE[, $hidden = FALSE]]]])
 
 	:param	string	$path: 디렉토리 경로
-	:param	bool	$del_dir: 디렉토리를 삭제할지 여부
+	:param	bool	$delDir: 디렉토리 삭제 여부
 	:param	bool	$htdocs: .htaccess 및 색인 페이지 파일 삭제를 건너 뛸지 여부
+	:param  bool    $hidden: 숨김 파일 삭제 여부 (마침표(.)로 시작하는 파일)
 	:returns:	성공시 TRUE, 오류 발생시 FALSE
 	:rtype:	bool
 

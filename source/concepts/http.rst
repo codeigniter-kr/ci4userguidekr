@@ -26,10 +26,10 @@ HTTP는 해당 교환 규칙을 설명하는 데 사용되는 용어이며 하�
 
 요청은 다음과 같습니다::
 
-	GET / HTTP/1.1
-	Host codeigniter.com
-	Accept: text/html
-	User-Agent: Chrome/46.0.2490.80
+    GET / HTTP/1.1
+    Host codeigniter.com
+    Accept: text/html
+    User-Agent: Chrome/46.0.2490.80
 
 이 메시지는 클라이언트가 요청하는 내용을 알기 위해 필요한 모든 정보를 표시합니다.
 요청 방법(GET, POST, DELETE, etc)과 지원하는 HTTP 버전을 알려줍니다.
@@ -43,14 +43,14 @@ Wikipedia에는 `모든 헤더 필드 <https://en.wikipedia.org/wiki/List_of_HTT
 서버가 요청을 받으면 어플리케이션에서 해당 정보를 가져 와서 결과물 일부를 생성합니다.
 서버는 클라이언트에 대한 응답 결과물을 번들로 묶어 이와 같은 단순한 문자 메시지로 표현됩니다.::
 
-	HTTP/1.1 200 OK
-	Server: nginx/1.8.0
-	Date: Thu, 05 Nov 2015 05:33:22 GMT
-	Content-Type: text/html; charset=UTF-8
+    HTTP/1.1 200 OK
+    Server: nginx/1.8.0
+    Date: Thu, 05 Nov 2015 05:33:22 GMT
+    Content-Type: text/html; charset=UTF-8
 
-	<html>
-		. . .
-	</html>
+    <html>
+        . . .
+    </html>
 
 응답은 클라이언트에게 사용중인 HTTP 사양의 버전과 상태 코드(200)를 알려줍니다.
 상태 코드는 클라이언트에게 매우 특정한 의미를 갖도록 표준화 된 여러 코드중 하나입니다
@@ -64,38 +64,38 @@ PHP는 요청 및 응답 헤더와 상호 작용하는 방법을 제공하지만
 
 ::
 
-	use CodeIgniter\HTTP\IncomingRequest;
+    use CodeIgniter\HTTP\IncomingRequest;
 
-	$request = service('request');
+    $request = service('request');
 
-	// the URI being requested (i.e. /about)
-	$request->uri->getPath();
+    // the URI being requested (i.e. /about)
+    $request->uri->getPath();
 
-	// Retrieve $_GET and $_POST variables
-	$request->getGet('foo');
-	$request->getPost('foo');
+    // Retrieve $_GET and $_POST variables
+    $request->getGet('foo');
+    $request->getPost('foo');
 
-	// Retrieve from $_REQUEST which should include
-	// both $_GET and $_POST contents
-	$request->getVar('foo');
+    // Retrieve from $_REQUEST which should include
+    // both $_GET and $_POST contents
+    $request->getVar('foo');
 
-	// Retrieve JSON from AJAX calls
-	$request->getJSON();
+    // Retrieve JSON from AJAX calls
+    $request->getJSON();
 
-	// Retrieve server variables
-	$request->getServer('Host');
+    // Retrieve server variables
+    $request->getServer('Host');
 
-	// Retrieve an HTTP Request header, with case-insensitive names
-	$request->getHeader('host');
-	$request->getHeader('Content-Type');
+    // Retrieve an HTTP Request header, with case-insensitive names
+    $request->getHeader('host');
+    $request->getHeader('Content-Type');
 
-	$request->getMethod();  // GET, POST, PUT, etc
+    $request->getMethod();  // GET, POST, PUT, etc
 
 요청 클래스는 여러분을 위해 백그라운드에서 많은 작업을 수행합니다.
 ``isAJAX()`` 및 ``isSecure()`` 메소드는 여러 가지 다른 방법으로 이를 확인하여 올바른 답을 결정합니다.
 
 .. note:: ``isAJAX()`` 메소드는 ``X-Requested-With`` 헤더에 의존하며, 경우에 따라 JavaScript를 통해 XHR 요청을 할 때 기본적으로 전송되지 않을 수 있습니다.(i.e fetch)
-	이 문제를 방지하는 방법에 대해서는 :doc:`AJAX 요청(Requests) </general/ajax>` 섹션을 참조하십시오.
+    이 문제를 방지하는 방법에 대해서는 :doc:`AJAX 요청(Requests) </general/ajax>` 섹션을 참조하십시오.
 
 CodeIgniter는 HTTP 응답의 객체 지향 표현인 :doc:`Response class </outgoing/response>`\ 도 제공하며, 이를 통해 클라이언트에 대한 응답을 쉽고 강력하게 구성할 수 있습니다.
 
