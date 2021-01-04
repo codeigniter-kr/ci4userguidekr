@@ -326,7 +326,7 @@ $maintainRatio가 true이면 $masterDim에 의해 지정된 치수는 그대로 
 
 사용 가능한 옵션은 다음과 같습니다:
 
-- color         텍스트 색상 (16 진수), i.e. #ff0000
+- color         텍스트 색상 (16 진수), 예 : #ff0000
 - opacity		텍스트의 불투명도를 나타내는 0과 1 사이의 숫자
 - withShadow	그림자를 표시할지 여부(bool)
 - shadowColor   그림자의 색 (16 진수)

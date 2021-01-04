@@ -13,7 +13,9 @@ CodeIgniter가 테스트를 위해 제공하는 내장 데이터베이스 도구
 
 ::
 
-    <?php namespace App\Database;
+    <?php 
+    
+    namespace App\Database;
 
     use CodeIgniter\Test\CIDatabaseTestCase;
 
@@ -27,7 +29,9 @@ CodeIgniter가 테스트를 위해 제공하는 내장 데이터베이스 도구
 
 ::
 
-    <?php namespace App\Database;
+    <?php 
+    
+    namespace App\Database;
 
     use CodeIgniter\Test\CIDatabaseTestCase;
 
@@ -74,11 +78,13 @@ Test 데이터베이스 설정
 
 ::
 
-    <?php namespace App\Database;
+    <?php 
+    
+    namespace App\Database;
 
     use CodeIgniter\Test\CIDatabaseTestCase;
 
-    class MyTests extends\CIDatabaseTestCase
+    class MyTests extends CIDatabaseTestCase
     {
         protected $refresh  = true;
         protected $seed     = 'TestSeeder';

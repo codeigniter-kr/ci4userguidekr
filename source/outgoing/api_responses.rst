@@ -17,7 +17,9 @@ CodeIgniter는 어떤 응답 유형에 대해 어떤 HTTP 상태 코드를 반�
 
 ::
 
-    <?php namespace App\Controllers;
+    <?php 
+    
+    namespace App\Controllers;
 
     use CodeIgniter\API\ResponseTrait;
 

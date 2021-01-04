@@ -172,7 +172,7 @@ App Starter 저장소에는 현재 안정 릴리스와 프레임워크의 최신
 
 설정 후 프로젝트의 폴더:
 
-- app, public, tests, writable (`--prefer-source` 옵션 사용 시)
+- app, public, writable (`--prefer-source` 옵션 사용 시)
 - vendor/codeigniter4/framework/system
 
 

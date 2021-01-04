@@ -93,7 +93,9 @@ Config/App에서 두 개의 추가 설정을 설정하여 컨텐츠 협상이 �
 
 ::
 
-    <?php namespace App\Controllers;
+    <?php 
+    
+    namespace App\Controllers;
 
     class UserController extends \CodeIgniter\Controller
     {
@@ -147,9 +149,9 @@ For example, let's say you want to create a file containing error messages.
         'errorEmailMissing'    => 'You must submit an email address',
         'errorURLMissing'      => 'You must submit a URL',
         'errorUsernameMissing' => 'You must submit a username',
-        'nested'             => [
+        'nested'               => [
             'error' => [
-                'message' => 'A specific error message',
+                'message'      => 'A specific error message',
             ],
         ],
     ];
@@ -215,7 +217,7 @@ For example, let's say you want to create a file containing error messages.
 * numbers - integer, currency, percent
 * dates - short, medium, long, full
 * time - short, medium, long, full
-* spellout - spells out numbers (i.e. 34 becomes thirty-four)
+* spellout - spells out numbers (예 : 34 becomes thirty-four)
 * ordinal
 * duration
 

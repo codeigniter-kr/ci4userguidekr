@@ -17,24 +17,24 @@ app
 
 .. code-block:: none
 
-	/app
-		/Config         구성 파일 저장
-		/Controllers    프로그램 흐름을 결정하는 컨트롤러
-		/Database       데이터베이스 마이그레이션 및 시드(seed) 파일 저장
-		/Filters        컨트롤러 전후에 실행할 수 있는 필터 클래스 저장
-		/Helpers        독립형 함수 모음(Helper) 저장
-		/Language       다국어 지원을 위한 언어 파일 저장
-		/Libraries      카테고리에 포함되지 않는 유용한 클래스 모음
-		/Models         데이터베이스와 함께 작동하는 모델 저장
-		/ThirdParty     어플리케이션에서 사용할 수 있는 타사 라이브러리
-		/Views          클라이언트에 표시되는 HTML로 구성된 뷰
+    /app
+        /Config         구성 파일 저장
+        /Controllers    프로그램 흐름을 결정하는 컨트롤러
+        /Database       데이터베이스 마이그레이션 및 시드(seed) 파일 저장
+        /Filters        컨트롤러 전후에 실행할 수 있는 필터 클래스 저장
+        /Helpers        독립형 함수 모음(Helper) 저장
+        /Language       다국어 지원을 위한 언어 파일 저장
+        /Libraries      카테고리에 포함되지 않는 유용한 클래스 모음
+        /Models         데이터베이스와 함께 작동하는 모델 저장
+        /ThirdParty     어플리케이션에서 사용할 수 있는 타사 라이브러리
+        /Views          클라이언트에 표시되는 HTML로 구성된 뷰
 
 ``app`` 디렉터리는 이미 네임스페이스이므로 어플리케이션의 요구에 맞게 이 디렉터리의 구조를 자유롭게 수정할 수 있습니다.
 예를 들면, 여러분은 레파지토리 패턴과 엔티티 모델을 사용하여 데이터 작업을 시작하기로 결정할 수 있습니다.
 이 경우 ``Models`` 디렉터리의 이름을 ``Repositories``\ 로 변경하고 새로운 ``Entities`` 디렉터리를 추가할 수 있다.
 
 .. note:: 만약 여러분이 ``Controllers`` 디렉터리의 이름을 바꾸면 컨트롤러 자동 라우팅이 동작 하지 않으므로 
-	모든 라우팅 설정을 ``app/Config/Routes.php`` 파일에 정의해야 합니다.
+    모든 라우팅 설정을 ``app/Config/Routes.php`` 파일에 정의해야 합니다.
 
 이 디렉터리의 모든 파일은 ``App`` 네임스페이스 아래에 있지만 **app/Config/Constants.php**\ 에서 자유롭게 변경할 수 있습니다.
 

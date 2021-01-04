@@ -107,7 +107,9 @@ CLI 명령에 나열되고 명령 도움말 기능을 추가하려면 다음 특
 
 ::
 
-    <?php namespace App\Commands;
+    <?php 
+    
+    namespace App\Commands;
 
     use CodeIgniter\CLI\BaseCommand;
     use CodeIgniter\CLI\CLI;
@@ -120,7 +122,7 @@ CLI 명령에 나열되고 명령 도움말 기능을 추가하려면 다음 특
 
         public function run(array $params)
         {
-
+            // ...
         }
     }
 

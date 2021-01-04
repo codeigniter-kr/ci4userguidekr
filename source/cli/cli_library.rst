@@ -22,13 +22,15 @@ CodeIgniter의 CLI 라이브러리를 사용하면 다음을 포함하여 대화
 
 ::
 
-    <?php namespace App\Controllers;
+    <?php 
+    
+    namespace App\Controllers;
 
     use CodeIgniter\CLI\CLI;
 
     class MyController extends \CodeIgniter\Controller
     {
-        . . .
+        // ...
     }
 
 파일이 처음 로드될 때 클래스가 자동으로 초기화됩니다.

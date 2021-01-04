@@ -79,7 +79,7 @@ Autoloader 구성 파일의 PSR-4 섹션에 네임스페이스를 설정하면 *
 
 ::
 
-    <?php echo anchor('blog/comments', 'Click Here');?>
+    <?= anchor('blog/comments', 'Click Here');?>
 
 여기서 "Click Here"\ 는 링크의 이름이고 "blog/comments"\ 은 링크하려는 컨트롤러/메소드의 URI입니다.
 
@@ -105,11 +105,11 @@ Autoloader 구성 파일의 PSR-4 섹션에 네임스페이스를 설정하면 *
         {
             if (in_array($item, $haystack))
             {
-                return TRUE;
+                return true;
             }
-		}
+        }
 
-        return FALSE;
+        return false;
     }
 
     // random_element() is included in Array Helper, so it overrides the native function

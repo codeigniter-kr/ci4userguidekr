@@ -14,7 +14,7 @@
   - MySQL (5.1+) via the *MySQLi* driver
   - PostgreSQL via the *Postgre* driver
   - SQLite3 via the *SQLite3* driver
-  - MSSQL via the *Sqlsrv* driver (version 2005 and above only)
+  - MSSQL via the *SQLSRV* driver (version 2005 and above only)
 
 CodeIgniter4용으로 일부 드라이버가 변환/재작성되지 않았습니다.
 아래는 아직 완결되지 않은 항목입니다.

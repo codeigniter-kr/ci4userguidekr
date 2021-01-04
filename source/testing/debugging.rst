@@ -120,19 +120,21 @@ CodeIgniter와 함께 제공되는 수집기:
 
 ::
 
-    <?php namespace MyNamespace;
+    <?php 
+    
+    namespace MyNamespace;
 
     use CodeIgniter\Debug\Toolbar\Collectors\BaseCollector;
 
     class MyCollector extends BaseCollector
     {
-        protected $hasTimeline   = false;
+        protected $hasTimeline = false;
 
         protected $hasTabContent = false;
 
-        protected $hasVarData    = false;
+        protected $hasVarData = false;
 
-        protected $title         = '';
+        protected $title = '';
     }
 
 **$hasTimeline** 툴바의 타임 라인에 정보를 표시하려는 수집기에 대해 ``true``\ 로 설정합니다.

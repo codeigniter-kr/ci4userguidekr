@@ -7,12 +7,14 @@ CodeIgniter의 핵심 컨트롤러는 변경해서는 안되지만 기본 클래
 
 ::
 
-	<?php namespace App\Controllers;
+	<?php 
+	
+	namespace App\Controllers;
 	
 	use CodeIgniter\Controller;
 	
 	class Home extends BaseController {
-	
+		// ...
 	}
 
 사전로드 구성 요소

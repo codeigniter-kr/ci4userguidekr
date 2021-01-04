@@ -40,7 +40,9 @@ SQL을 직접 편집할 수 있지만 다른 개발자에게 실행해야 한다
 
 ::
 
-	<?php namespace App\Database\Migrations;
+	<?php 
+	
+	namespace App\Database\Migrations;
 
 	use CodeIgniter\Database\Migration;
 
@@ -57,12 +59,12 @@ SQL을 직접 편집할 수 있지만 다른 개발자에게 실행해야 한다
 					'auto_increment' => true,
 				],
 				'blog_title'       => [
-					'type'           => 'VARCHAR',
-					'constraint'     => '100',
+					'type'       => 'VARCHAR',
+					'constraint' => '100',
 				],
 				'blog_description' => [
-					'type'           => 'TEXT',
-					'null'           => true,
+					'type' => 'TEXT',
+					'null' => true,
 				],
 			]);
 			$this->forge->addKey('blog_id', true);
@@ -108,7 +110,9 @@ SQL을 직접 편집할 수 있지만 다른 개발자에게 실행해야 한다
 
 ::
 
-	<?php namespace App\Database\Migrations;
+	<?php 
+	
+	namespace App\Database\Migrations;
 
 	use CodeIgniter\Database\Migration;
 
@@ -116,9 +120,13 @@ SQL을 직접 편집할 수 있지만 다른 개발자에게 실행해야 한다
 	{
 		protected $DBGroup = 'alternate_db_group';
 
-		public function up() { . . . }
+		public function up() {
+			// ...
+		}
 
-		public function down() { . . . }
+		public function down() {
+			// ...
+		}
 	}
 
 네임스페이스
@@ -149,7 +157,9 @@ Database/Migrations에서 찾은 모든 마이그레이션이 포함됩니다.
 
 ::
 
-	<?php namespace App\Controllers;
+	<?php 
+	
+	namespace App\Controllers;
 
 	class Migrate extends \CodeIgniter\Controller
 	{

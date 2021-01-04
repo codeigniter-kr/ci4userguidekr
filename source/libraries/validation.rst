@@ -113,7 +113,9 @@ CodeIgniter의 데이터 검증 접근 방식을 설명하기 전에 이상적�
 
 ::
 
-    <?php namespace App\Controllers;
+    <?php 
+    
+    namespace App\Controllers;
 
     use CodeIgniter\Controller;
 
@@ -126,7 +128,7 @@ CodeIgniter의 데이터 검증 접근 방식을 설명하기 전에 이상적�
             if (! $this->validate([]))
             {
                 echo view('Signup', [
-                    'validation' => $this->validator
+                    'validation' => $this->validator,
                 ]);
             }
             else

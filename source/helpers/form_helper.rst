@@ -32,14 +32,14 @@ The Form Helper file contains functions that assist in working with forms.
 
 	$string = 'Here is a string containing "quoted" text.';
 
-	<input type="text" name="myfield" value="<?= $string; ?>" />
+	<input type="text" name="myfield" value="<?= $string ?>" />
 
 위의 문자열에는 따옴표 세트가 포함되어 있으므로 폼이 중단됩니다.
 :php:func:`esc ()` 함수는 HTML 특수 문자를 변환하여 안전하게 폼을 사용할 수 있도록 합니다.
 
 ::
 
-	<input type="text" name="myfield" value="<?= esc($string); ?>" />
+	<input type="text" name="myfield" value="<?= esc($string) ?>" />
 
 .. note:: 이 페이지에 나열된 폼 헬퍼 함수를 사용하고 값을 연관 배열로 전달하면 폼의 값이 자동으로 이스케이프되므로 :php:func:`esc()` 함수를 호출할 필요가 없습니다.
 	문자열로 전달할 양식 요소를 직접 만드는 경우에만 사용하십시오.
@@ -640,7 +640,7 @@ The Form Helper file contains functions that assist in working with forms.
 
 	::
 
-		<input type="text" name="quantity" value="<?php echo set_value('quantity', '0'); ?>" size="50" />
+		<input type="text" name="quantity" value="<?= set_value('quantity', '0'); ?>" size="50" />
 
 	처음 로드할 때 위의 폼에 "0"\ 이 표시됩니다.
 
@@ -659,9 +659,9 @@ The Form Helper file contains functions that assist in working with forms.
 	::
 
 		<select name="myselect">
-			<option value="one" <?php echo  set_select('myselect', 'one', TRUE); ?> >One</option>
-			<option value="two" <?php echo  set_select('myselect', 'two'); ?> >Two</option>
-			<option value="three" <?php echo  set_select('myselect', 'three'); ?> >Three</option>
+			<option value="one" <?= set_select('myselect', 'one', TRUE); ?> >One</option>
+			<option value="two" <?= set_select('myselect', 'two'); ?> >Two</option>
+			<option value="three" <?= set_select('myselect', 'three'); ?> >Three</option>
 		</select>
 
 .. php:function:: set_checkbox($field[, $value = ''[, $default = FALSE]])
@@ -678,8 +678,8 @@ The Form Helper file contains functions that assist in working with forms.
 
     	Example::
 
-		<input type="checkbox" name="mycheck" value="1" <?php echo set_checkbox('mycheck', '1'); ?> />
-		<input type="checkbox" name="mycheck" value="2" <?php echo set_checkbox('mycheck', '2'); ?> />
+		<input type="checkbox" name="mycheck" value="1" <?= set_checkbox('mycheck', '1'); ?> />
+		<input type="checkbox" name="mycheck" value="2" <?= set_checkbox('mycheck', '2'); ?> />
 
 .. php:function:: set_radio($field[, $value = ''[, $default = FALSE]])
 
@@ -694,8 +694,8 @@ The Form Helper file contains functions that assist in working with forms.
 
 	Example::
 
-		<input type="radio" name="myradio" value="1" <?php echo  set_radio('myradio', '1', TRUE); ?> />
-		<input type="radio" name="myradio" value="2" <?php echo  set_radio('myradio', '2'); ?> />
+		<input type="radio" name="myradio" value="1" <?= set_radio('myradio', '1', TRUE); ?> />
+		<input type="radio" name="myradio" value="2" <?= set_radio('myradio', '2'); ?> />
 
 	.. note:: 폼 유효성 검사 클래스를 사용하는 경우 ``set_*()`` 함수가 작동하려면 항상 비어있는 경우에도 필드에 대한 규칙을 지정해야합니다.
 		폼 유효성 검사 개체를 정의하면 ``set _*()``\ 에 대한 컨트롤이 일반 헬퍼 함수 대신 클래스의 메소드로 전달되기 때문입니다.

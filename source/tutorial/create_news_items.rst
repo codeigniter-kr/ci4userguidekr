@@ -16,7 +16,7 @@ Create a form
 
     <h2><?= esc($title); ?></h2>
 
-    <?= \Config\Services::validation()->listErrors(); ?>
+    <?= \Config\Services::validation()->listErrors() ?>
 
     <form action="/news/create" method="post">
         <?= csrf_field() ?>
@@ -105,7 +105,10 @@ CodeIgniter에는 위에서 설명한 강력한 유효성 검사 라이브러리
 
 ::
 
-    <?php namespace App\Models;
+    <?php 
+    
+    namespace App\Models;
+    
     use CodeIgniter\Model;
 
     class NewsModel extends Model

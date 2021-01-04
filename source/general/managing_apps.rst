@@ -9,7 +9,7 @@
 ================================================
 
 어플리케이션 디렉토리의 이름을 바꾸거나 프로젝트 루트를 서버의 다른 위치로 옮기려면 **app/Config/Paths.php** 
-파일의 ``$appDirectory`` 변수에 *전체 서버 경로*\ 를 설정하십시오.(38번째 행)
+파일의 ``$appDirectory`` 변수에 *전체 서버 경로*\ 를 설정하십시오.(45번째 행)
 
 ::
 
@@ -17,11 +17,11 @@
 
 ``Paths`` 구성 파일을 찾을 수 있도록 프로젝트 루트에서 두 개의 파일을 수정해야합니다: 
 
-- ``/spark`` 파일의 36번째 행, 커맨드 라인(command line) 앱 실행에 사용됩니다.
+- ``/spark`` 파일의 44번째 행, 커맨드 라인(command line) 앱 실행에 사용됩니다.
 
 ::
 
-    require 'app/Config/Paths.php';
+    require realpath('app/Config/Paths.php') ?: 'app/Config/Paths.php';
     // ^^^ Change this if you move your application folder
 
 
@@ -29,7 +29,7 @@
 
 ::
 
-    $pathsPath = FCPATH . '../app/Config/Paths.php';
+    require realpath(FCPATH . '../app/Config/Paths.php') ?: FCPATH . '../app/Config/Paths.php';
     // ^^^ Change this if you move your application folder
 
 

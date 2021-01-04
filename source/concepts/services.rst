@@ -17,7 +17,7 @@ CodeIgniter 내의 모든 핵심(core) 클래스는 "서비스(Service)"로 제�
 
 ::
 
-	$timer = new \CodeIgniter\Debug\Timer();
+    $timer = new \CodeIgniter\Debug\Timer();
 
 다른 타이머 클래스를 사용하기로 결정할 때까지 이는 매우 잘 작동합니다.
 이 타이머 클래스는 기본 타이머가 제공하지 않는 고급 보고(Report) 기능이 있을 수 있으며, 
@@ -33,7 +33,7 @@ CodeIgniter 내의 모든 핵심(core) 클래스는 "서비스(Service)"로 제�
 
 ::
 
-	$timer = \Config\Services::timer();
+    $timer = \Config\Services::timer();
 
 사용된 구현을 변경해야 할 경우 서비스 구성 파일을 수정할 수 있으며, 변경 작업 없이 어플리케이션 전체에서 자동으로 반영됩니다.
 이제 새로운 기능을 활용하기만 하면됩니다. 
@@ -57,19 +57,19 @@ CodeIgniter 내의 모든 핵심(core) 클래스는 "서비스(Service)"로 제�
 
 ::
 
-	$logger = service('logger');
+    $logger = service('logger');
 
 서비스 생성시 추가 매개 변수를 전달이 필요하면 서비스 이름 다음 두 번째 매개변수로 전달합니다.
 
 ::
 
-	$renderer = service('renderer', APPPATH.'views/');
+    $renderer = service('renderer', APPPATH.'views/');
 
 ``single_service()`` 함수는 ``service()`` 함수와 똑같이 작동하지만, 호출할 때마다 새로운 클래스 인스턴스를 반환합니다.
 
 ::
 
-	$logger = single_service('logger');
+    $logger = single_service('logger');
 
 서비스 정의
 ===========
@@ -83,19 +83,19 @@ CodeIgniter의 거의 모든 클래스는 해당 클래스가 준수하는 인�
 
 ::
 
-	class MyRouter implements \CodeIgniter\Router\RouteCollectionInterface
-	{
-		// Implement required methods here.
-	}
+    class MyRouter implements \CodeIgniter\Router\RouteCollectionInterface
+    {
+        // Implement required methods here.
+    }
 
 그리고 **/app/Config/Services.php**\ 를 수정하여 ``CodeIgniter\Router\RouterCollection`` 대신  ``MyRouter``\ 의 새 인스턴스를 생성합니다.
 
 ::
 
-	public static function routes()
-	{
-		return new \App\Router\MyRouter();
-	}
+    public static function routes()
+    {
+        return new \App\Router\MyRouter();
+    }
 
 매개 변수 허용
 --------------
@@ -109,16 +109,16 @@ CodeIgniter의 거의 모든 클래스는 해당 클래스가 준수하는 인�
 
 ::
 
-	public static function renderer($viewPath=APPPATH.'views/')
-	{
-		return new \CodeIgniter\View\View($viewPath);
-	}
+    public static function renderer($viewPath=APPPATH.'views/')
+    {
+        return new \CodeIgniter\View\View($viewPath);
+    }
 
 생성자 메소드에서 기본 경로를 설정하지만, 사용하고자 하는 경로로 쉽게 변경할 수 있습니다.
 
 ::
 
-	$renderer = \Config\Services::renderer('/shared/views');
+    $renderer = \Config\Services::renderer('/shared/views');
 
 
 공유 클래스
@@ -161,9 +161,13 @@ php 파일은 정의 된 네임스페이스 내에 있습니다.
 루트 디렉토리에 Blog라는 새로운 디렉토리를 만들었다고 상상하십시오.
 여기에는 컨트롤러, 모델 등이 포함된 **블로그 모듈**\ 이 있으며 일부 클래스를 서비스로 제공하려고 합니다.
 첫 번째 단계는 ``Blog\Config\Services.php``\ 라는 새 파일을 만드는 것입니다.
-파일의 골격은::
+파일의 골격은 다음과 같습니다.
 
-    <?php namespace Blog\Config;
+::
+
+    <?php 
+    
+    namespace Blog\Config;
 
     use CodeIgniter\Config\BaseService;
 
@@ -171,7 +175,7 @@ php 파일은 정의 된 네임스페이스 내에 있습니다.
     {
         public static function postManager()
         {
-            ...
+            // ...
         }
     }
 

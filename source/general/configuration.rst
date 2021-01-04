@@ -24,20 +24,20 @@ CodeIgniter 구성 파일은 필요한 설정이 공용 속성인 단순 클래�
 ::
 
     // 수동으로 새 구성 개체를 만듭니다.
-	$config = new \Config\Pager();
+    $config = new \Config\Pager();
 
 - ``config()`` 함수를 사용합니다.
 
 ::
 
-	// config() 함수로 공유 인스턴스 가져 오기
-	$config = config( 'Pager' );
+    // config() 함수로 공유 인스턴스 가져 오기
+    $config = config( 'Pager' );
 
-	// 네임스페이스가 있는 config 클래스에 액세스합니다.
-	$config = config( 'Config\\Pager' );
+    // 네임스페이스가 있는 config 클래스에 액세스합니다.
+    $config = config( 'Config\\Pager' );
 
-	// config() 함수를 사용하여 새 객체 생성
-	$config = config('Pager', false);
+    // config() 함수를 사용하여 새 객체 생성
+    $config = config('Pager', false);
 
 모든 구성(config) 개체 속성은 공용(public)이므로 다른 속성과 마찬가지로 설정에 액세스할 수 있습니다.
 
@@ -66,14 +66,16 @@ CodeIgniter와 함께 제공되는 모든 구성(config) 파일의 네임스페�
 
 ::
 
-    <?php namespace Config;
+    <?php 
+    
+    namespace Config;
 
     use CodeIgniter\Config\BaseConfig;
 
     class CustomClass extends BaseConfig
     {
-    	public $siteName  = 'My Great Site';
-    	public $siteEmail = 'webmaster@example.com';
+        public $siteName  = 'My Great Site';
+        public $siteEmail = 'webmaster@example.com';
 
     }
 
@@ -115,9 +117,9 @@ CodeIgniter와 함께 배포된 템플릿 파일 **env**\ 가 프로젝트 루�
 
 ::
 
-	$s3_bucket = getenv('S3_BUCKET');
-	$s3_bucket = $_ENV['S3_BUCKET'];
-	$s3_bucket = $_SERVER['S3_BUCKET'];
+    $s3_bucket = getenv('S3_BUCKET');
+    $s3_bucket = $_ENV['S3_BUCKET'];
+    $s3_bucket = $_SERVER['S3_BUCKET'];
 
 .. important:: **.env** 파일의 설정이 환경 변수에 추가됩니다. 이것은 그 부작용으로, ``var_dump($_ENV)`` 또는 ``phpinfo()``\ 를 통해 **중요한 보안 관련 데이터가 공개적으로 노출된다는 것**\ 을 의미합니다.
 
@@ -128,9 +130,9 @@ CodeIgniter와 함께 배포된 템플릿 파일 **env**\ 가 프로젝트 루�
 
 ::
 
-	BASE_DIR="/var/webroot/project-root"
-	CACHE_DIR="${BASE_DIR}/cache"
-	TMP_DIR="${BASE_DIR}/tmp"
+    BASE_DIR="/var/webroot/project-root"
+    CACHE_DIR="${BASE_DIR}/cache"
+    TMP_DIR="${BASE_DIR}/tmp"
 
 네임스페이스 변수
 ====================
