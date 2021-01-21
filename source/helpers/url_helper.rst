@@ -7,10 +7,6 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
 .. contents::
   :local:
 
-.. raw:: html
-
-  <div class='custom-index container'></div>
-
 헬퍼 로드
 ===================
 
@@ -360,13 +356,14 @@ php:function:: mb_url_title($str[, $separator = '-'[, $lowercase = FALSE]])
     이 함수는 :php:func:`url_title()`\ 과 동일하게 작동하지만 모든 강조된 문자를 자동으로 변환합니다.
 
 
-.. php:function:: prep_url($str = '')
+.. php:function:: prep_url([$str = ''[, $secure = false]])
 
-    :param    string    $str: URL 문자열
+    :param    string   $str: URL 문자열
+    :param    boolean  $secure: TRUE for https://
     :returns: 프로토콜 접두사 URL 문자열
     :rtype:   string
 
-    이 함수는 프로토콜 접두사가 URL에서 누락된 경우 *http://*\ 를 추가합니다.
+    이 함수는 프로토콜 접두사가 URL에서 누락된 경우 *http://* 또는 *https://*\ 를 추가합니다.
 
     URL 문자열을 이렇게 함수에 전달합니다.
     

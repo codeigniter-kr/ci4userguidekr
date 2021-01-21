@@ -199,7 +199,7 @@ You only need to enter the values that change from what is in the default group'
 						.. note:: 'MySQLi' 드라이버에서만 사용됩니다.
 
 **swapPre**				dbprefix와 교체(swap)되는 기본 테이블 접두사. 수동으로 작성된 쿼리를 실행할 수 있고, 최종 사용자가 여전히 접두사를 사용자 정의할 수 있어야 하는 분산 어플리케이션에 유용합니다.
-**schema**				데이터베이스 스키마, 기본적으로 'public', PostgreSQL 및 ODBC 드라이버에서 사용
+**schema**				데이터베이스 스키마, 기본값은 드라이버에 따라 다릅니다. PostgreSQL 및 SQLSRV 드라이버에서 사용합니다.
 **encrypt**				암호화 된 연결을 사용할지 여부.
 
 						- 'sqlsrv'\ 과 'pdo/sqlsrv' 드라이버는 TRUE/FALSE

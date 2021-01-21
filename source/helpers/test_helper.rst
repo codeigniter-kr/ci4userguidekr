@@ -18,7 +18,7 @@ Test 헬퍼
 
 ::
 
-	helper('test');
+    helper('test');
 
 사용 가능한 함수
 ===================
@@ -27,18 +27,18 @@ Test 헬퍼
 
 .. php:function:: fake($model, array $overrides = null)
 
-	:param	Model|object|string	$model: Fabricator와 함께 사용할 모델의 인스턴스(instance) 또는 이름
-	:param	array|null $overrides: Fabricator::setOverrides()에 전달할 데이터 재정의
-	:returns:	Fabricator가 DB에 작성하여 추가한 임의의 항목
-	:rtype:	object|array
+    :param	Model|object|string	$model: Fabricator와 함께 사용할 모델의 인스턴스(instance) 또는 이름
+    :param	array|null $overrides: Fabricator::setOverrides()에 전달할 데이터 재정의
+    :returns:	Fabricator가 DB에 작성하여 추가한 임의의 항목
+    :rtype:	object|array
 
-	``CodeIgniter\Test\Fabricator``\ 를 사용하여 만들어진 임의의 항목을 데이터베이스에 추가합니다.
+    ``CodeIgniter\Test\Fabricator``\ 를 사용하여 만들어진 임의의 항목을 데이터베이스에 추가합니다.
 
-	Usage example::
+    Usage example::
 
-		public function testUserAccess()
-		{
-			$user = fake('App\Models\UserModel');
-			
-			$this->assertTrue($this->userHasAccess($user));
-		}
+        public function testUserAccess()
+        {
+            $user = fake('App\Models\UserModel');
+            
+            $this->assertTrue($this->userHasAccess($user));
+        }

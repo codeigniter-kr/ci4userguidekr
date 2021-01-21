@@ -26,10 +26,6 @@
 .. contents::
   :local:
 
-.. raw:: html
-
-  <div class="custom-index container"></div>
-
 .. _usage:
 
 ****************************

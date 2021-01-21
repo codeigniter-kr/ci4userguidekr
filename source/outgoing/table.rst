@@ -7,10 +7,6 @@ HTML Table 클래스
 .. contents::
   :local:
 
-.. raw:: html
-
-  <div class="custom-index container"></div>
-
 *********************
 Table 클래스 사용
 *********************

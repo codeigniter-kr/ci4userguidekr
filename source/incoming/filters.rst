@@ -71,7 +71,7 @@ before 필터에서 반환하면 실행이 중지되지 않고 현재 ``$request
 
         if (! $auth->isLoggedIn())
         {
-            return redirect('login');
+            return redirect()->to(site_url('login'));
         }
     }
 

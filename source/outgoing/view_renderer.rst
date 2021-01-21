@@ -103,6 +103,8 @@ PHP 코드에서 배열을 적절하게 처리하는 것은 사용자의 책임�
 -   ``cache_name`` - 캐시된 뷰 결과를 저장/검색하는데 사용되는 ID; 기본적으로 viewpath; renderString()은 무시
 -   ``saveData`` - 후속 호출에 대해 뷰 데이터 매개 변수를 유지해야 하는 경우 true
 
+.. note:: 인터페이스에 의해 정의된 ``saveData``\ 는 부울(boolean)이어야 하지만 클래스(아래의 ``View``\ 와 같은)를 구현하면, 이 값이 ``null`` 값으로 확장될 수 있습니다.
+
 Class Reference
 ***************
 
@@ -111,9 +113,9 @@ Class Reference
 	.. php:method:: render($view[, $options[, $saveData=false]])
                 :noindex:
 
-		:param  string  $view: 뷰 소스의 파일 이름
-		:param  array   $options: 옵션 배열, 키/값 쌍
-		:param  boolean $saveData: true 인 경우 다른 호출에 사용할 데이터를 저장, false인 경우 뷰를 렌더링 한 후 데이터를 정리
+		:param  string       $view: 뷰 소스의 파일 이름
+		:param  array        $options: 옵션 배열, 키/값 쌍
+		:param  boolean|null $saveData: true 인 경우 다른 호출에 사용할 데이터를 저장, false인 경우 뷰를 렌더링 한 후 데이터를 정리
 		:returns: 선택된 뷰의 렌더링 된 텍스트
 		:rtype: string
 
@@ -126,9 +128,9 @@ Class Reference
 	.. php:method:: renderString($view[, $options[, $saveData=false]])
                 :noindex:
 
-		:param  string  $view: 렌더링 할 뷰의 내용 (예 : 데이터베이스에서 검색된 내용)
-		:param  array   $options: 옵션 배열, 키/값 쌍
-		:param  boolean $saveData: true 인 경우 다른 호출에 사용할 데이터를 저장, false인 경우 뷰를 렌더링 한 후 데이터를 정리
+		:param  string       $view: 렌더링 할 뷰의 내용 (예 : 데이터베이스에서 검색된 내용)
+		:param  array        $options: 옵션 배열, 키/값 쌍
+		:param  boolean|null $saveData: true 인 경우 다른 호출에 사용할 데이터를 저장, false인 경우 뷰를 렌더링 한 후 데이터를 정리
 		:returns: 선택된 뷰의 렌더링 된 텍스트
 		:rtype: string
 
