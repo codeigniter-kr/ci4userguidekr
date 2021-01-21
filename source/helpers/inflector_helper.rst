@@ -18,7 +18,7 @@ Inflector 헬퍼에는 **영어** 단어를 복수, 단수, camel 등으로 변�
 
 ::
 
-	helper('inflector');
+    helper('inflector');
 
 사용 가능한 함수
 ===================
@@ -27,141 +27,141 @@ Inflector 헬퍼에는 **영어** 단어를 복수, 단수, camel 등으로 변�
 
 .. php:function:: singular($string)
 
-	:param	string	$string: 입력 문자열
-	:returns:	단수형 단어
-	:rtype:	string
+    :param	string	$string: 입력 문자열
+    :returns:	단수형 단어
+    :rtype:	string
 
-	복수형 단어를 단수형으로 바꿉니다.
-	
-	::
+    복수형 단어를 단수형으로 바꿉니다.
+    
+    ::
 
-		echo singular('dogs'); // Prints 'dog'
+        echo singular('dogs'); // Prints 'dog'
 
 .. php:function:: plural($string)
 
-	:param	string	$string: 입력 문자열
-	:returns:	복수형 단어
-	:rtype:	string
+    :param	string	$string: 입력 문자열
+    :returns:	복수형 단어
+    :rtype:	string
 
-	단수형 단어를 복수형으로 바꿉니다.
-	
-	::
+    단수형 단어를 복수형으로 바꿉니다.
+    
+    ::
 
-		echo plural('dog'); // Prints 'dogs'
+        echo plural('dog'); // Prints 'dogs'
 
 .. php:function:: counted($count, $string)
 
-	:param	int 	$count:  항목 수
-	:param	string	$string: 입력 문자열
-	:returns:	단수 또는 복수구
-	:rtype:	string
+    :param	int 	$count:  항목 수
+    :param	string	$string: 입력 문자열
+    :returns:	단수 또는 복수구
+    :rtype:	string
 
-	단어와 그 수를 구문으로 변경합니다.
-	
-	::
+    단어와 그 수를 구문으로 변경합니다.
+    
+    ::
 
-		echo counted(3, 'dog'); // Prints '3 dogs'
+        echo counted(3, 'dog'); // Prints '3 dogs'
 
 .. php:function:: camelize($string)
 
-	:param	string	$string: 입력 문자열
-	:returns:	Camel case 문자열
-	:rtype:	string
+    :param	string	$string: 입력 문자열
+    :returns:	Camel case 문자열
+    :rtype:	string
 
-	공백이나 밑줄로 구분된 단어 문자열을 Camel case 문자열로 변경합니다.
-	
-	::
+    공백이나 밑줄로 구분된 단어 문자열을 Camel case 문자열로 변경합니다.
+    
+    ::
 
-		echo camelize('my_dog_spot'); // Prints 'myDogSpot'
+        echo camelize('my_dog_spot'); // Prints 'myDogSpot'
 
 .. php:function:: pascalize($string)
 
-	:param	string	$string: 입력 문자열
-	:returns:	Pascal case 문자열
-	:rtype:	string
+    :param	string	$string: 입력 문자열
+    :returns:	Pascal case 문자열
+    :rtype:	string
 
-	공백 또는 밑줄로 구분된 문자열을 Pascal case 문자열로 변경합니다. 
-	첫 번째 문자가 대문자로 표시되는 Camel case 문자열입니다.
+    공백 또는 밑줄로 구분된 문자열을 Pascal case 문자열로 변경합니다. 
+    첫 번째 문자가 대문자로 표시되는 Camel case 문자열입니다.
 
-	::
+    ::
 
-		echo pascalize('my_dog_spot'); // Prints 'MyDogSpot'
+        echo pascalize('my_dog_spot'); // Prints 'MyDogSpot'
 
 .. php:function:: underscore($string)
 
-	:param	string	$string: 입력 문자열
-	:returns:	공백 대신 밑줄을 포함하는 문자열
-	:rtype:	string
+    :param	string	$string: 입력 문자열
+    :returns:	공백 대신 밑줄을 포함하는 문자열
+    :rtype:	string
 
-	여러 단어를 구분하는 공백을 밑줄로 표시합니다.
-	
-	::
+    여러 단어를 구분하는 공백을 밑줄로 표시합니다.
+    
+    ::
 
-		echo underscore('my dog spot'); // Prints 'my_dog_spot'
+        echo underscore('my dog spot'); // Prints 'my_dog_spot'
 
 .. php:function:: humanize($string[, $separator = '_'])
 
-	:param	string	$string: 입력 문자열
-	:param	string	$separator: 입력 구분자
-	:returns:	Humanized 문자열
-	:rtype:	string
+    :param	string	$string: 입력 문자열
+    :param	string	$separator: 입력 구분자
+    :returns:	Humanized 문자열
+    :rtype:	string
 
-	여러 단어를 구분하는 밑줄을 공백으로 표시합니다. 각 단어의 첫 글자는 대문자입니다.
+    여러 단어를 구분하는 밑줄을 공백으로 표시합니다. 각 단어의 첫 글자는 대문자입니다.
 
-	Example::
+    Example::
 
-		echo humanize('my_dog_spot'); // Prints 'My Dog Spot'
+        echo humanize('my_dog_spot'); // Prints 'My Dog Spot'
 
-	밑줄 대신 대시(-)를 사용할 수 있습니다.
-	
-	::
+    밑줄 대신 대시(-)를 사용할 수 있습니다.
+    
+    ::
 
-		echo humanize('my-dog-spot', '-'); // Prints 'My Dog Spot'
+        echo humanize('my-dog-spot', '-'); // Prints 'My Dog Spot'
 
 .. php:function:: is_pluralizable($word)
 
-	:param	string	$word: 입력 문자열
-	:returns:	단어가 복수형이면 TRUE, 그렇지 않은 경우 FALSE
-	:rtype:	bool
+    :param	string	$word: 입력 문자열
+    :returns:	단어가 복수형이면 TRUE, 그렇지 않은 경우 FALSE
+    :rtype:	bool
 
-	주어진 단어가 복수형인지 확인합니다.
-	
-	::
+    주어진 단어가 복수형인지 확인합니다.
+    
+    ::
 
-		is_pluralizable('equipment'); // Returns FALSE
+        is_pluralizable('equipment'); // Returns FALSE
 
 .. php:function:: dasherize($string)
 
-	:param	string	$string: 입력 문자열
-	:returns:	Dasherized 문자열
-	:rtype:	string
+    :param	string	$string: 입력 문자열
+    :returns:	Dasherized 문자열
+    :rtype:	string
 
-	문자열에서 밑줄을 대시로 바꿉니다.
-	
-	::
+    문자열에서 밑줄을 대시로 바꿉니다.
+    
+    ::
 
-		dasherize('hello_world'); // Returns 'hello-world'
+        dasherize('hello_world'); // Returns 'hello-world'
 
 .. php:function:: ordinal($integer)
 
-	:param	int	$integer: 접미사를 결정하는 정수
-	:returns:	서수 접미사
-	:rtype:	string
+    :param	int	$integer: 접미사를 결정하는 정수
+    :returns:	서수 접미사
+    :rtype:	string
 
-	1st, 2nd, 3rd, 4th등 위치를 나타 내기 위해 숫자에 추가해야 하는 접미사를 반환합니다.
-	
-	Example::
+    1st, 2nd, 3rd, 4th등 위치를 나타 내기 위해 숫자에 추가해야 하는 접미사를 반환합니다.
+    
+    Example::
 
-		ordinal(1); // Returns 'st'
+        ordinal(1); // Returns 'st'
 
 .. php:function:: ordinalize($integer)
 
-	:param	int	$integer: 순서화할 정수
-	:returns:	서수 정수
-	:rtype:	string
+    :param	int	$integer: 순서화할 정수
+    :returns:	서수 정수
+    :rtype:	string
 
-	숫자를 1st, 2nd, 3rd, 4th등 위치를 나타내는 서수 문자열로 바꿉니다.
+    숫자를 1st, 2nd, 3rd, 4th등 위치를 나타내는 서수 문자열로 바꿉니다.
 
-	::
+    ::
 
-		ordinalize(1); // Returns '1st'
+        ordinalize(1); // Returns '1st'

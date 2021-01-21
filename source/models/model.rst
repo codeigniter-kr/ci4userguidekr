@@ -705,7 +705,7 @@ POST 데이터가 다음과 같다고 가정합니다.
 
 ::
 
-	$groupBuilder = $userModel->builder('groups');
+    $groupBuilder = $userModel->builder('groups');
 
 동일한 체인 호출에서 쿼리 빌더 메소드와 Model의 CRUD 메소드를 함께 사용할 수 있습니다.
 
@@ -809,6 +809,19 @@ insert* 또는 update* 메소드의 경우 데이터베이스에 삽입되는 �
     protected $beforeInsert = ['hashPassword'];
     protected $beforeUpdate = ['hashPassword'];
 
+또한 각 모델은 $allowCallbacks 속성을 설정하여 클래스 전체에 콜백을 허용(기본값)하거나 거부할 수 있습니다.
+
+::
+
+    protected $allowCallbacks = false;
+
+``allowCallbacks()`` 메서드를 호출하는 단일 모델에 대해 이 설정을 일시적으로 변경할 수도 있습니다.
+
+::
+
+    $model->allowCallbacks(false)->find(1); // No callbacks triggered
+    $model->find(1);                        // Callbacks subject to original property value
+
 이벤트 매개 변수
 ---------------------
 
@@ -852,17 +865,17 @@ Modifying Find* Data
 ::
 
     protected $beforeFind = ['checkCache'];
-    ...
-	protected function checkCache(array $data)
-	{
-		// 요청한 항목이 캐시에 있는지 확인
-		if (isset($data['id']) && $item = $this->getCachedItem($data['id']]))
-		{
-			$data['data']       = $item;
-			$data['returnData'] = true;
+    // ...
+    protected function checkCache(array $data)
+    {
+        // 요청한 항목이 캐시에 있는지 확인
+        if (isset($data['id']) && $item = $this->getCachedItem($data['id']]))
+        {
+            $data['data']       = $item;
+            $data['returnData'] = true;
 
-			return $data;
-	...
+            return $data;
+    // ...
 
 사용자 정의 모델 만들기
 =======================

@@ -19,10 +19,6 @@ CodeIgniter의 강력한 이메일(email) 클래스는 다음 기능을 지원�
     :local:
     :depth: 2
 
-.. raw:: html
-
-  <div class="custom-index container"></div>
-
 ***********************
 이메일 라이브러리 사용
 ***********************

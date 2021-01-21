@@ -10,10 +10,6 @@ CodeIgniter에는 목차의 마지막 섹션에서 볼 수 있는 몇 가지 세
     :local:
     :depth: 2
 
-.. raw:: html
-
-  <div class="custom-index container"></div>
-
 세션 클래스 사용
 *******************
 

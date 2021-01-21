@@ -7,8 +7,7 @@
 ``app`` 폴더안에서 앱을 개발하고, ``public`` 폴더는 웹 루트(root)가 됩니다. 
 ``system`` 폴더안에 있는 내용은 변경하지 마십시오!
 
-**Note**: 이 방법은 `CodeIgniter 3 <https://www.codeigniter.com/user_guide/installation/index.html>`_\ 의 
-          설치 방법과 비슷한 설치 방법입니다. 
+.. note:: 이 방법은 `CodeIgniter 3 <https://www.codeigniter.com/user_guide/installation/index.html>`_\ 의 설치 방법과 비슷한 설치 방법입니다. 
 
 설치 방법
 =============

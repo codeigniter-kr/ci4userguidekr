@@ -35,11 +35,13 @@ Composer는 CodeIgniter4를 시스템에 여러 가지 방법으로 설치하여
 
 "project-root"\ 를 생략하면 "appstarter" 폴더가 생성되며, 이 폴더의 이름은 바꿀 수 있습니다.
 
-phpunit과 관련된 composer 종속성이 필요 하지 않다면 위 명령에 "---no-dev" 옵션을 추가합니다.
+phpunit과 관련된 composer 종속성이 필요하지 않다면 위 명령에 ``---no-dev`` 옵션을 추가합니다.
 
-"---no-dev" 옵션을 추가될 경우 composer는 프레임워크에 필요한 세 가지 신뢰할 수 있는 의존성 패키지만 설치합니다.
+``---no-dev`` 옵션이 추가된 경우 composer는 프레임워크에 필요한 세 가지 신뢰할 수 있는 의존성 패키지만 설치합니다.
 
-기본 프로젝트 폴더를 "appstarter"로 지정 하는 설치 ::
+기본 프로젝트 폴더를 "appstarter"로 지정 하는 설치 
+
+::
 
     composer create-project codeigniter4/appstarter --no-dev
 
@@ -54,20 +56,20 @@ phpunit과 관련된 composer 종속성이 필요 하지 않다면 위 명령에
 
     composer update 
 
-시스템에 속하지 않는 디렉토리(app, public 등)를 최신 프레임워크 소스 구조와 비교하려면 `--prefer-source` 옵션으로 업데이트합니다.
+시스템에 속하지 않는 디렉토리(app, public 등)를 최신 프레임워크 소스 구조와 비교하려면 ``--prefer-source`` 옵션으로 업데이트합니다.
 
 ::
 
     composer update codeigniter4/framework --prefer-source
 
-`--prefer-source` 옵션으로 최신 프레임워크 소스 구조를 가져올때 자동 업데이트가 되지 않으면 이전 코드를 다음과 같이 제거할 수 있습니다.
+``--prefer-source`` 옵션으로 최신 프레임워크 소스 구조를 가져올때 자동 업데이트가 되지 않으면 이전 코드를 다음과 같이 제거할 수 있습니다.
 
 ::
 
     rm -rf vendor/codeigniter4/framework && composer update codeigniter4/framework --prefer-source
 
 
-프로젝트를 만들 때 "--no-dev" 옵션을 사용했다면 ``composer update --no-dev``\ 를 입력합니다.
+프로젝트를 만들 때 ``--no-dev`` 옵션을 사용했다면 ``composer update --no-dev``\ 를 입력합니다.
 
 업그레이드 지침에서 ``app/Config`` 폴더에 영향을 주는 변경 사항이 있는지 확인하십시오.
 
@@ -89,7 +91,7 @@ phpunit과 관련된 composer 종속성이 필요 하지 않다면 위 명령에
 
 - app, public, tests, writable 
 - vendor/codeigniter4/framework/system
-- vendor/codeigniter4/framework/app & public (`--prefer-source` 옵션 사용 시 업데이트 후 확인이 필요합니다.)
+- vendor/codeigniter4/framework/app & public (``--prefer-source`` 옵션 사용 시 업데이트 후 확인이 필요합니다.)
 
 Latest Dev
 =================
@@ -130,7 +132,7 @@ App Starter 저장소에는 현재 안정 릴리스와 프레임워크의 최신
 
     composer require codeigniter4/framework --prefer-sourc
 
-앞서 설명한 두 가지 composer 설치 방법과 마찬가지로, phpunit 관련 패키지가 필요 없다면 "---no-dev" 옵션을 추가하십시오.
+앞서 설명한 두 가지 composer 설치 방법과 마찬가지로, phpunit 관련 패키지가 필요 없다면 ``composer require`` 명령에 ``---no-dev`` 옵션을 추가하십시오.
 
 설정(Setup)
 ----------------
@@ -172,7 +174,7 @@ App Starter 저장소에는 현재 안정 릴리스와 프레임워크의 최신
 
 설정 후 프로젝트의 폴더:
 
-- app, public, writable (`--prefer-source` 옵션 사용 시)
+- app, public, writable (``--prefer-source`` 옵션 사용 시)
 - vendor/codeigniter4/framework/system
 
 
