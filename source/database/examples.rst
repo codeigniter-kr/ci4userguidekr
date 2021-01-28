@@ -12,7 +12,7 @@
 
 ::
 
-	$db = \Config\Database::connect();
+    $db = \Config\Database::connect();
 
 로드된 클래스는 아래 설명된 대로 사용할 수 있습니다.
 
@@ -23,17 +23,17 @@
 
 ::
 
-	$query = $db->query('SELECT name, title, email FROM my_table');
-	$results = $query->getResult();
+    $query = $db->query('SELECT name, title, email FROM my_table');
+    $results = $query->getResult();
 
-	foreach ($results as $row)
-	{
-		echo $row->title;
-		echo $row->name;
-		echo $row->email;
-	}
+    foreach ($results as $row)
+    {
+        echo $row->title;
+        echo $row->name;
+        echo $row->email;
+    }
 
-	echo 'Total Results: ' . count($results);
+    echo 'Total Results: ' . count($results);
 
 위의 getResult() 함수는 **객체(object)**\ 의 배열을 반환합니다.
 샘플: $row->title
@@ -43,15 +43,15 @@
 
 ::
 
-	$query   = $db->query('SELECT name, title, email FROM my_table');
-	$results = $query->getResultArray();
+    $query   = $db->query('SELECT name, title, email FROM my_table');
+    $results = $query->getResultArray();
 
-	foreach ($results as $row)
-	{
-		echo $row['title'];
-		echo $row['name'];
-		echo $row['email'];
-	}
+    foreach ($results as $row)
+    {
+        echo $row['title'];
+        echo $row['name'];
+        echo $row['email'];
+    }
 
 위의 getResultArray() 함수는 표준 배열 인덱스의 배열을 반환합니다.
 샘플: $row['title']
@@ -61,9 +61,9 @@
 
 ::
 
-	$query = $db->query('SELECT name FROM my_table LIMIT 1');
-	$row   = $query->getRow();
-	echo $row->name;
+    $query = $db->query('SELECT name FROM my_table LIMIT 1');
+    $row   = $query->getRow();
+    echo $row->name;
 
 getRow() 함수는 **객체(object)**\ 를 반환합니다.
 샘플: $row->name
@@ -73,9 +73,9 @@ getRow() 함수는 **객체(object)**\ 를 반환합니다.
 
 ::
 
-	$query = $db->query('SELECT name FROM my_table LIMIT 1');
-	$row   = $query->getRowArray();
-	echo $row['name'];
+    $query = $db->query('SELECT name FROM my_table LIMIT 1');
+    $row   = $query->getRowArray();
+    echo $row['name'];
 
 
 getRowArray() 함수는 **배열**\ 을 반환합니다.
@@ -86,9 +86,9 @@ getRowArray() 함수는 **배열**\ 을 반환합니다.
 
 ::
 
-	$sql = "INSERT INTO mytable (title, name) VALUES (".$db->escape($title).", ".$db->escape($name).")";
-	$db->query($sql);
-	echo $db->affectedRows();
+    $sql = "INSERT INTO mytable (title, name) VALUES (".$db->escape($title).", ".$db->escape($name).")";
+    $db->query($sql);
+    echo $db->affectedRows();
 
 쿼리 빌더
 ===================
@@ -97,12 +97,12 @@ getRowArray() 함수는 **배열**\ 을 반환합니다.
 
 ::
 
-	$query = $db->table('table_name')->get();
+    $query = $db->table('table_name')->get();
 
-	foreach ($query->getResult() as $row)
-	{
-		echo $row->title;
-	}
+    foreach ($query->getResult() as $row)
+    {
+        echo $row->title;
+    }
 
 get() 함수는 제공된 테이블에서 모든 결과를 검색합니다.
 :doc:`쿼리 빌더 <query_builder>` 클래스에는 데이터 작업을 위한 완전한 기능이 포함되어 있습니다.
@@ -112,11 +112,11 @@ get() 함수는 제공된 테이블에서 모든 결과를 검색합니다.
 
 ::
 
-	$data = [
-		'title' => $title,
-		'name'  => $name,
-		'date'  => $date
-	];
+    $data = [
+        'title' => $title,
+        'name'  => $name,
+        'date'  => $date
+    ];
 
-	$db->table('mytable')->insert($data);  // Produces: INSERT INTO mytable (title, name, date) VALUES ('{$title}', '{$name}', '{$date}')
+    $db->table('mytable')->insert($data);  // Produces: INSERT INTO mytable (title, name, date) VALUES ('{$title}', '{$name}', '{$date}')
 

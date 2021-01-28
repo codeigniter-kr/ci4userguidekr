@@ -17,7 +17,7 @@
 
 ::
 
-	$db->query('YOUR QUERY HERE');
+    $db->query('YOUR QUERY HERE');
 
 query() 함수는 "읽기" 유형의 쿼리가 실행될 때 데이터베이스 결과 **object**\ 를 반환합니다.
 이 쿼리는 :doc:`결과를 보여줍니다 <results>`.
@@ -26,7 +26,7 @@ query() 함수는 "읽기" 유형의 쿼리가 실행될 때 데이터베이스 
 
 ::
 
-	$query = $db->query('YOUR QUERY HERE');
+    $query = $db->query('YOUR QUERY HERE');
 
 단순화된 쿼리
 ==================
@@ -41,17 +41,17 @@ query() 함수는 "읽기" 유형의 쿼리가 실행될 때 데이터베이스 
 
 ::
 
-	if ($db->simpleQuery('YOUR QUERY'))
-	{
-		echo "Success!";
-	}
-	else
-	{
-		echo "Query failed!";
-	}
+    if ($db->simpleQuery('YOUR QUERY'))
+    {
+        echo "Success!";
+    }
+    else
+    {
+        echo "Query failed!";
+    }
 
 .. note:: PostgreSQL의 ``pg_exec()`` 함수는 쓰기 유형 쿼리에서도 성공시 항상 리소스를 반환합니다.
-	부울(boolean) 값을 찾고 있다면 주의하십시오.
+    부울(boolean) 값을 찾고 있다면 주의하십시오.
 
 ***************************************
 데이터베이스 접두사(prefix) 수동 작업
@@ -61,20 +61,20 @@ query() 함수는 "읽기" 유형의 쿼리가 실행될 때 데이터베이스 
 
 ::
 
-	$db->prefixTable('tablename'); // outputs prefix_tablename
+    $db->prefixTable('tablename'); // outputs prefix_tablename
 
 새로운 연결을 만들지 않고 프로그래밍 방식으로 접두사를 변경하려면 다음 메소드를 사용할 수 있습니다
 
 ::
 
-	$db->setPrefix('newprefix');
-	$db->prefixTable('tablename'); // outputs newprefix_tablename
+    $db->setPrefix('newprefix');
+    $db->prefixTable('tablename'); // outputs newprefix_tablename
 
 다음 메소드로 언제든지 현재 사용중인 접두사를 얻을 수 있습니다
 
 ::
-	
-	$DBPrefix = $db->getPrefix();
+    
+    $DBPrefix = $db->getPrefix();
 
 **********************
 식별자 보호
@@ -84,7 +84,7 @@ query() 함수는 "읽기" 유형의 쿼리가 실행될 때 데이터베이스 
 
 ::
 
-	$db->protectIdentifiers('table_name');
+    $db->protectIdentifiers('table_name');
 
 .. important:: 쿼리 빌더는 피드를 제공하는 필드와 테이블명을 올바르게 인용하기 위해 최선을 다하지만, 임의의 사용자 입력과 함께 작동하도록 설계되지 않았으므로 손상된 사용자 데이터는 공급하지 마십시오.
 
@@ -93,7 +93,7 @@ query() 함수는 "읽기" 유형의 쿼리가 실행될 때 데이터베이스 
 
 ::
 
-	$db->protectIdentifiers('table_name', TRUE);
+    $db->protectIdentifiers('table_name', TRUE);
 
 ****************
 이스케이프 쿼리
@@ -107,7 +107,7 @@ CodeIgniter에는 이를 수행하는 데 도움이 되는 세 가지 방법이 
 
    ::
 
-	$sql = "INSERT INTO table (title) VALUES(".$db->escape($title).")";
+    $sql = "INSERT INTO table (title) VALUES(".$db->escape($title).")";
 
 #. **$db->escapeString()** 함수는 유형에 관계없이 전달된 데이터를 이스케이프합니다. 
    대부분 이 기능보다는 위의 기능을 사용합니다. 
@@ -115,7 +115,7 @@ CodeIgniter에는 이를 수행하는 데 도움이 되는 세 가지 방법이 
 
    ::
 
-	$sql = "INSERT INTO table (title) VALUES('".$db->escapeString($title)."')";
+    $sql = "INSERT INTO table (title) VALUES('".$db->escapeString($title)."')";
 
 #. **$db->escapeLikeString()** 함수는 문자열에서 LIKE 와일드 카드('%', '\ _')도 올바르게 이스케이프합니다. 
    LIKE 조건에서 문자열을 사용하는 경우 이 메소드를 사용해야 합니다.
@@ -138,8 +138,8 @@ CodeIgniter에는 이를 수행하는 데 도움이 되는 세 가지 방법이 
 
 ::
 
-	$sql = "SELECT * FROM some_table WHERE id = ? AND status = ? AND author = ?";
-	$db->query($sql, [3, 'live', 'Rick']);
+    $sql = "SELECT * FROM some_table WHERE id = ? AND status = ? AND author = ?";
+    $db->query($sql, [3, 'live', 'Rick']);
 
 쿼리의 물음표는 쿼리 함수의 두 번째 매개 변수 배열의 값으로 자동 대체됩니다.
 
@@ -147,12 +147,12 @@ CodeIgniter에는 이를 수행하는 데 도움이 되는 세 가지 방법이 
 
 ::
 
-	$sql = "SELECT * FROM some_table WHERE id IN ? AND status = ? AND author = ?";
-	$db->query($sql, [[3, 6], 'live', 'Rick']);
+    $sql = "SELECT * FROM some_table WHERE id IN ? AND status = ? AND author = ?";
+    $db->query($sql, [[3, 6], 'live', 'Rick']);
 
 결과 쿼리는::
 
-	SELECT * FROM some_table WHERE id IN (3,6) AND status = 'live' AND author = 'Rick'
+    SELECT * FROM some_table WHERE id IN (3,6) AND status = 'live' AND author = 'Rick'
 
 바인드 사용의 두 번째 이점은 값이 자동으로 이스케이프되어 안전한 쿼리를 생성한다는 것입니다.
 데이터를 수동으로 이스케이프할 필요는 없습니다. 
@@ -185,10 +185,10 @@ CodeIgniter에는 이를 수행하는 데 도움이 되는 세 가지 방법이 
 
 ::
 
-	if ( ! $db->simpleQuery('SELECT `example_field` FROM `example_table`'))
-	{
-		$error = $db->error(); // Has keys 'code' and 'message'
-	}
+    if ( ! $db->simpleQuery('SELECT `example_field` FROM `example_table`'))
+    {
+        $error = $db->error(); // Has keys 'code' and 'message'
+    }
 
 ************************
 준비된(Prepared) 쿼리
@@ -216,11 +216,11 @@ Codeigniter의 쿼리 빌더 및 데이터베이스 연결은 이미 데이터 �
     $pQuery = $db->prepare(function($db)
     {
         return $db->table('user')
-                   ->insert([
+                  ->insert([
                         'name'    => 'x',
                         'email'   => 'y',
                         'country' => 'US'
-                   ]);
+                  ]);
     });
 
 쿼리 작성기를 사용하지 않는 경우 값 자리 표시자에 물음표를 사용하여 수동으로 쿼리 개체를 만들 수 있습니다.
@@ -263,11 +263,11 @@ Codeigniter의 쿼리 빌더 및 데이터베이스 연결은 이미 데이터 �
     $pQuery = $db->prepare(function($db)
     {
         return $db->table('user')
-                   ->insert([
+                  ->insert([
                         'name'    => 'x',
                         'email'   => 'y',
                         'country' => 'US'
-                   ]);
+                  ]);
     });
 
     // Collect the Data
@@ -319,8 +319,8 @@ PHP는 데이터베이스로 모든 열린 명령문을 닫는 작업을 꽤 잘
 
 ::
 
-	$query = $db->getLastQuery();
-	echo (string)$query;
+    $query = $db->getLastQuery();
+    echo (string)$query;
 
 쿼리 클래스
 ===============
@@ -335,13 +335,13 @@ PHP는 데이터베이스로 모든 열린 명령문을 닫는 작업을 꽤 잘
 
 ::
 
-	$sql = $query->getQuery();
+    $sql = $query->getQuery();
 
 Query 객체를 문자열로 캐스팅하여 동일한 값을 얻을수 있습니다.
 
 ::
 
-	$sql = (string)$query;
+    $sql = (string)$query;
 
 **getOriginalQuery()**
 
@@ -350,7 +350,7 @@ Query 객체를 문자열로 캐스팅하여 동일한 값을 얻을수 있습�
 
 ::
 
-	$sql = $query->getOriginalQuery();
+    $sql = $query->getOriginalQuery();
 
 **hasError()**
 
@@ -358,11 +358,11 @@ Query 객체를 문자열로 캐스팅하여 동일한 값을 얻을수 있습�
 
 ::
 
-	if ($query->hasError())
-	{
-		echo 'Code: '. $query->getErrorCode();
-		echo 'Error: '. $query->getErrorMessage();
-	}
+    if ($query->hasError())
+    {
+        echo 'Code: '. $query->getErrorCode();
+        echo 'Error: '. $query->getErrorMessage();
+    }
 
 **isWriteType()**
 
@@ -370,10 +370,10 @@ Query 객체를 문자열로 캐스팅하여 동일한 값을 얻을수 있습�
 
 ::
 
-	if ($query->isWriteType())
-	{
-		... do something
-	}
+    if ($query->isWriteType())
+    {
+        ... do something
+    }
 
 **swapPrefix()**
 
@@ -382,7 +382,7 @@ Query 객체를 문자열로 캐스팅하여 동일한 값을 얻을수 있습�
 
 ::
 
-	$sql = $query->swapPrefix('ci3_', 'ci4_');
+    $sql = $query->swapPrefix('ci3_', 'ci4_');
 
 **getStartTime()**
 
@@ -390,7 +390,7 @@ Query 객체를 문자열로 캐스팅하여 동일한 값을 얻을수 있습�
 
 ::
 
-	$microtime = $query->getStartTime();
+    $microtime = $query->getStartTime();
 
 **getDuration()**
 
@@ -398,4 +398,4 @@ Query 객체를 문자열로 캐스팅하여 동일한 값을 얻을수 있습�
 
 ::
 
-	$microtime = $query->getDuration();
+    $microtime = $query->getDuration();
