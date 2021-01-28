@@ -27,11 +27,11 @@ CodeIgniter는 널리 사용되는 데이터베이스 클래스 ADODB에서 사�
 
 ::
 
-	$this->db->transStart();
-	$this->db->query('AN SQL QUERY...');
-	$this->db->query('ANOTHER QUERY...');
-	$this->db->query('AND YET ANOTHER QUERY...');
-	$this->db->transComplete();
+    $this->db->transStart();
+    $this->db->query('AN SQL QUERY...');
+    $this->db->query('ANOTHER QUERY...');
+    $this->db->query('AND YET ANOTHER QUERY...');
+    $this->db->transComplete();
 
 start/complete 함수사이에 원하는 쿼리를 실행할 수 있으며 주어진 쿼리의 성공 또는 실패에 따라 모두 커밋되거나 롤백됩니다.
 
@@ -46,7 +46,7 @@ CodeIgniter는 기본적으로 모든 트랜잭션을 엄격 모드로 실행합
 
 ::
 
-	$this->db->transStrict(false);
+    $this->db->transStrict(false);
 
 오류 관리
 ===============
@@ -56,15 +56,15 @@ Config/Database.php 파일에서 오류보고를 활성화 한 경우 커밋이 
 
 ::
 
-	$this->db->transStart();
-	$this->db->query('AN SQL QUERY...');
-	$this->db->query('ANOTHER QUERY...');
-	$this->db->transComplete();
+    $this->db->transStart();
+    $this->db->query('AN SQL QUERY...');
+    $this->db->query('ANOTHER QUERY...');
+    $this->db->transComplete();
 
-	if ($this->db->transStatus() === FALSE)
-	{
-		// generate an error... or use the log_message() function to log your error
-	}
+    if ($this->db->transStatus() === FALSE)
+    {
+        // generate an error... or use the log_message() function to log your error
+    }
 
 트랜잭션 비활성화
 ======================
@@ -73,11 +73,11 @@ Config/Database.php 파일에서 오류보고를 활성화 한 경우 커밋이 
 
 ::
 
-	$this->db->transOff();
+    $this->db->transOff();
 
-	$this->db->transStart();
-	$this->db->query('AN SQL QUERY...');
-	$this->db->transComplete();
+    $this->db->transStart();
+    $this->db->query('AN SQL QUERY...');
+    $this->db->transComplete();
 
 트랜잭션이 비활성화되면 트랜잭션없이 쿼리를 실행할 때와 마찬가지로 쿼리가 자동 커밋됩니다.
 
@@ -89,9 +89,9 @@ Config/Database.php 파일에서 오류보고를 활성화 한 경우 커밋이 
 
 ::
 
-	$this->db->transStart(true); // Query will be rolled back
-	$this->db->query('AN SQL QUERY...');
-	$this->db->transComplete();
+    $this->db->transStart(true); // Query will be rolled back
+    $this->db->query('AN SQL QUERY...');
+    $this->db->transComplete();
 
 수동으로 트랜잭션 실행
 =============================
@@ -100,19 +100,19 @@ Config/Database.php 파일에서 오류보고를 활성화 한 경우 커밋이 
 
 ::
 
-	$this->db->transBegin();
+    $this->db->transBegin();
 
-	$this->db->query('AN SQL QUERY...');
-	$this->db->query('ANOTHER QUERY...');
-	$this->db->query('AND YET ANOTHER QUERY...');
+    $this->db->query('AN SQL QUERY...');
+    $this->db->query('ANOTHER QUERY...');
+    $this->db->query('AND YET ANOTHER QUERY...');
 
-	if ($this->db->transStatus() === FALSE)
-	{
-		$this->db->transRollback();
-	}
-	else
-	{
-		$this->db->transCommit();
-	}
+    if ($this->db->transStatus() === FALSE)
+    {
+        $this->db->transRollback();
+    }
+    else
+    {
+        $this->db->transCommit();
+    }
 
-.. note:: 수동 트랜잭션을 실행할 때는 **$this->db->transStart()가 아니라** ``$this->db->transBegin()``\ 을 사용해야합니다.
+.. note:: 수동 트랜잭션을 실행할 때는 ``$this->db->transStart()``\ 가 아니라 ``$this->db->transBegin()``\ 을 사용해야합니다.

@@ -3,77 +3,77 @@ CodeIgniter4 사용자 가이드
 ##########################
 
 .. toctree::
-	:includehidden:
-        :titlesonly:
+    :includehidden:
+    :titlesonly:
 
-        intro/index
+    intro/index
 
 ***************
 시작하기
 ***************
 
 .. toctree::
-	:maxdepth: 2
-	:titlesonly:
+    :maxdepth: 2
+    :titlesonly:
 
-	installation/index
+    installation/index
 
 ***************************
 첫 번째 어플리케이션 만들기
 ***************************
 
 .. toctree::
-	:includehidden:
-	:titlesonly:
+    :includehidden:
+    :titlesonly:
 
-    	tutorial/index
+    tutorial/index
 
 *************************
 개요 및 일반 주제
 *************************
 
 .. toctree::
-	:titlesonly:
+    :titlesonly:
 
-	concepts/index
+    concepts/index
 
 .. toctree::
-	:titlesonly:
+    :titlesonly:
 
-	general/index
+    general/index
 
 ****************
 요청 처리
 ****************
 
 .. toctree::
-	:titlesonly:
+    :titlesonly:
 
-	incoming/index
+    incoming/index
 
 .. toctree::
-	:titlesonly:
+    :titlesonly:
 
-	outgoing/index
+    outgoing/index
 
 ******************
 데이터베이스 처리
 ******************
 
 .. toctree::
-	:titlesonly:
+    :titlesonly:
 
-	database/index
-
-.. toctree::
-	:titlesonly:
-
-	models/index
+    database/index
 
 .. toctree::
-	:titlesonly:
+    :titlesonly:
 
-	dbmgmt/index
+    models/index
+
+.. toctree::
+    :titlesonly:
+
+    dbmgmt/index
 
 
 *******************
@@ -81,36 +81,36 @@ CodeIgniter4 사용자 가이드
 *******************
 
 .. toctree::
-	:titlesonly:
+    :titlesonly:
 
-	libraries/index
+    libraries/index
 
 .. toctree::
-	:titlesonly:
+    :titlesonly:
 
-	helpers/index
+    helpers/index
 
 ***************
 고급 주제
 ***************
 
 .. toctree::
-	:titlesonly:
+    :titlesonly:
 
-	testing/index
-
-.. toctree::
-	:titlesonly:
-
-	cli/index
+    testing/index
 
 .. toctree::
-	:titlesonly:
+    :titlesonly:
 
-	extending/index
+    cli/index
 
 .. toctree::
-        :hidden:
+    :titlesonly:
 
-        license
-        changelogs/index
+    extending/index
+
+.. toctree::
+    :hidden:
+
+    license
+    changelogs/index

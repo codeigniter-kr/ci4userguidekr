@@ -10,15 +10,15 @@
 데이터베이스 삽입을 수행할 때 삽입 ID 번호입니다.
 
 .. note:: PDO의 PostgreSQL 드라이버 또는 Interbase 드라이버를 사용하는 경우 이 함수에 ``$name`` 매개 변수가 필요합니다. 
-	이 매개 변수는 삽입(Insert) ID를 확인하기 위한 적절한 시퀀스(sequence)를 지정합니다.
+    이 매개 변수는 삽입(Insert) ID를 확인하기 위한 적절한 시퀀스(sequence)를 지정합니다.
 
 **$db->affectedRows()**
 
 "쓰기" 유형 쿼리를 수행할 때 영향을 받는 행의 갯수를 표시합니다. (insert, update, etc.).
 
 .. note:: MySQL의 "DELETE FROM TABLE"\ 은 영향을 받는 행을 0 개로 반환합니다. 
-	데이터베이스 클래스에는 영향을받는 올바른 행 수를 반환할 수있는 작은 핵(hack)이 있습니다. 
-	기본적으로 이 핵은 활성화되어 있지만 데이터베이스 드라이버 파일에서 비활성화할 수 있습니다.
+    데이터베이스 클래스에는 영향을받는 올바른 행 수를 반환할 수있는 작은 핵(hack)이 있습니다. 
+    기본적으로 이 핵은 활성화되어 있지만 데이터베이스 드라이버 파일에서 비활성화할 수 있습니다.
 
 **$db->getLastQuery()**
 
@@ -35,9 +35,9 @@
 
 ::
 
-	echo $db->table('my_table')->countAll();
+    echo $db->table('my_table')->countAll();
 
-	// Produces an integer, like 25
+    // Produces an integer, like 25
 
 **$db->countAllResults()**
 
@@ -47,9 +47,9 @@
 
 ::
 
-	echo $db->table('my_table')->countAllResults();
+    echo $db->table('my_table')->countAllResults();
 
-	// Produces an integer, like 5
+    // Produces an integer, like 5
 
 **$db->getPlatform()**
 
@@ -57,7 +57,7 @@
 
 ::
 
-	echo $db->getPlatform();
+    echo $db->getPlatform();
 
 **$db->getVersion()**
 
@@ -65,4 +65,4 @@
 
 ::
 
-	echo $db->getVersion();
+    echo $db->getVersion();

@@ -6,7 +6,7 @@
 
 ::
 
-	$db = \Config\Database::connect();
+    $db = \Config\Database::connect();
 
 위 함수의 첫 번째 매개 변수에 정보가 **없으면** 데이터베이스 기본 그룹에 연결됩니다.
 대부분의 사람들에게 이것은 선호되는 사용 방법입니다.
@@ -34,7 +34,7 @@
 
 ::
 
-	$db = \Config\Database::connect('group_name');
+    $db = \Config\Database::connect('group_name');
 
 여기서 ``group_name``\ 은 구성 파일의 연결 그룹 이름입니다.
 
@@ -46,7 +46,7 @@
 
 ::
 
-	$db = \Config\Database::connect('group_name', false);
+    $db = \Config\Database::connect('group_name', false);
 
 다중 데이터베이스 연결
 ================================
@@ -55,15 +55,15 @@
 
 ::
 
-	$db1 = \Config\Database::connect('group_one');
-	$db  = \Config\Database::connect('group_two');
+    $db1 = \Config\Database::connect('group_one');
+    $db  = \Config\Database::connect('group_two');
 
 Note: "group_one"\ 과 "group_two"\ 라는 단어를 연결중인 특정 그룹 이름으로 변경하십시오.
 
 .. note:: 동일한 연결에서 다른 데이터베이스만 사용해야 할때는 별도의 데이터베이스 구성을 만들 필요가 없습니다.
-	다음과 같이하면 필요할 때 다른 데이터베이스로 전환할 수 있습니다::
+    다음과 같이하면 필요할 때 다른 데이터베이스로 전환할 수 있습니다::
 
-	$db->setDatabase($database2_name);
+    $db->setDatabase($database2_name);
 
 사용자 설정으로 연결
 ===============================
@@ -74,24 +74,24 @@ Note: "group_one"\ 과 "group_two"\ 라는 단어를 연결중인 특정 그룹 
 ::
 
     $custom = [
-		'DSN'      => '',
-		'hostname' => 'localhost',
-		'username' => '',
-		'password' => '',
-		'database' => '',
-		'DBDriver' => 'MySQLi',
-		'DBPrefix' => '',
-		'pConnect' => false,
-		'DBDebug'  => (ENVIRONMENT !== 'production'),
-		'charset'  => 'utf8',
-		'DBCollat' => 'utf8_general_ci',
-		'swapPre'  => '',
-		'encrypt'  => false,
-		'compress' => false,
-		'strictOn' => false,
-		'failover' => [],
-		'port'     => 3306,
-	];
+        'DSN'      => '',
+        'hostname' => 'localhost',
+        'username' => '',
+        'password' => '',
+        'database' => '',
+        'DBDriver' => 'MySQLi',
+        'DBPrefix' => '',
+        'pConnect' => false,
+        'DBDebug'  => (ENVIRONMENT !== 'production'),
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
+        'swapPre'  => '',
+        'encrypt'  => false,
+        'compress' => false,
+        'strictOn' => false,
+        'failover' => [],
+        'port'     => 3306,
+    ];
     $db = \Config\Database::connect($custom);
 
 
@@ -106,7 +106,7 @@ PHP로 오랜 시간이 걸리는 무거운 작업(예 : 이미지 처리)으로
 
 ::
 
-	$db->reconnect();
+    $db->reconnect();
 
 수동 연결 종료
 ===============================
@@ -115,4 +115,4 @@ CodeIgniter는 데이터베이스 연결을 지능적으로 처리하지만 연�
 
 ::
 
-	$db->close();
+    $db->close();
