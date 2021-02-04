@@ -275,9 +275,9 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
     컨텍스트는 메시지 문자열에서 값을 대체하는데 사용될 수 있습니다. 자세한 내용은 :doc:`로깅 정보 <logging>` 페이지를 참조하십시오.
 
-.. php:function:: redirect( string $uri )
+.. php:function:: redirect( string $route )
 
-    :param  string  $uri: 사용자를 리디렉션 할 URI
+    :param  string  $route: 사용자를 리디렉션할 역방향 경로(reverse-route) 또는 명명된 경로입니다.
 
     쉽게 리디렉션을 만들수 있는 RedirectResponse 인스턴스를 반환합니다.
     
@@ -304,7 +304,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
         // Copies all headers from the global response instance
         return redirect()->back()->withHeaders();
 
-    URI를 함수에 전달하면 상대/전체 URI가 아닌 리버스 라우팅 요청으로 처리되며 ``redirect()->route()``\ 를 사용하는 것과 동일하게 취급합니다.
+    함수에 인수를 전달할 때 상대/전체 URI(relative/full URI)가 아닌 네임드/리버스 경로(named/reverse-routed)로 처리되며 ``redirect()->route()``\ 를 사용하는 것과 동일하게 처리됩니다.
 
     ::
 

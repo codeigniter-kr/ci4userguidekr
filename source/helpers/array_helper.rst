@@ -80,7 +80,7 @@ Array 헬퍼
     :param  array  $array:       정렬할 배열 (참조로 전달).
     :param  array  $sortColumns: 정렬할 배열 키와 PHP 정렬 플래그로 구성된 연관배열.
     :returns: 정렬 성공 여부.
-    :rtype: boolean
+    :rtype: bool
 
     이 메서드는 계층적 방식으로 하나 이상의 키 값을 기준으로 다차원 배열의 요소를 정렬합니다.
     아래 예시는 모델의 ``find()`` 함수에서 반환될 수 있는 다음 배열을 가져옵니다.
@@ -122,12 +122,10 @@ Array 헬퍼
     
     ::
 
-        array_sort_by_multiple_keys($players,
-            [
-                'team.order' => SORT_ASC,
-                'position'   => SORT_ASC,
-            ]
-        );
+        array_sort_by_multiple_keys($players, [
+            'team.order' => SORT_ASC,
+            'position'   => SORT_ASC,
+        ]);
 
     ``$players`` 배열은 이제 각 플레이어의 'team' 하위 배열의 'order' 값에 따라 정렬됩니다.
     여러 플레이어의 'order' 값이 같을 경우, 'position'\ 에 따라 정렬됩니다.
@@ -168,3 +166,56 @@ Array 헬퍼
     같은 방식으로 메서드는 객체 배열도 처리할 수 있습니다.
     위의 예에서 각 'player'\ 는 배열로 표현되지만, 'team'\ 은 객체일 가능성이 더 높습니다.
     메소드는 각 중첩 수준에서 요소의 유형을 탐지하고 그에 따라 처리합니다.
+
+.. php:function:: array_flatten_with_dots(iterable $array[, string $id = '']): array
+
+    :param iterable $array: 평면화할 다차원 배열
+    :param string $id: 외부 키 앞에 추가할 선택적 ID입니다. 키를 병합하기 위해 내부적으로 사용됩니다.
+    :rtype: array
+    :returns: 평면화된 배열
+
+    이 함수는 점(.)을 키의 구분 기호로 사용하여 다차원 배열을 단일 키-값 배열로 평면화합니다.
+
+    ::
+
+        $arrayToFlatten = [
+            'personal' => [
+                'first_name' => 'john',
+                'last_name'  => 'smith',
+                'age'        => '26',
+                'address'    => 'US',
+            ],
+            'other_details' => 'marines officer',
+        ];
+
+        $flattened = array_flatten_with_dots($arrayToFlatten);
+
+    검사 결과 ``$flatened``\ 는 다음과 같습니다.
+    
+    ::
+
+        [
+            'personal.first_name' => 'john',
+            'personal.last_name'  => 'smith',
+            'personal.age'        => '26',
+            'personal.address'    => 'US',
+            'other_details'       => 'marines officer',
+        ];
+
+    사용자는 스스로 ``$id`` 매개 변수를 사용할 수 있지만 반드시 사용할 필요는 없습니다.
+    함수는 이 매개변수를 내부적으로 사용하여 평탄화된 키를 추적합니다. 
+    사용자가 초기 ``$id``\ 를 제공할 경우 모든 키에 추가됩니다.
+
+    ::
+
+        // using the same data from above
+        $flattened = array_flatten_with_dots($arrayToFlatten, 'foo_');
+
+        // $flattened is now:
+        [
+            'foo_personal.first_name' => 'john',
+            'foo_personal.last_name'  => 'smith',
+            'foo_personal.age'        => '26',
+            'foo_personal.address'    => 'US',
+            'foo_other_details'       => 'marines officer',
+        ];

@@ -60,11 +60,17 @@ CodeIgniter의 CLI 라이브러리를 사용하면 다음을 포함하여 대화
 
     $overwrite = CLI::prompt('File exists. Overwrite?', ['y','n']);
 
-마지막으로, 검증 규칙을 세 번째 매개 변수로 답변 입력에 전달할 수 있습니다.
+마지막으로, :ref:`검증 규칙 <validation>`\ 을 세 번째 매개 변수로 답변 입력에 전달할 수 있습니다.
 
 ::
 
     $email = CLI::prompt('What is your email?', null, 'required|valid_email');
+
+검증 규칙은 어레이 구문으로도 작성할 수 있습니다.
+
+::
+
+    $email = CLI::prompt('What is your email?', null, ['required', 'valid_email']);
 
 피드백 제공
 ==================
