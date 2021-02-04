@@ -154,6 +154,43 @@ CodeIgniter의 내장 메소드를 사용하면 간단히 수행 할 수 있습�
 
 두 번째와 세 번째 매개 변수는 PHP 함수 `json_decode <https://www.php.net/manual/en/function.json-decode.php>`_\ 의 ``depth``, ``options`` 매개 변수와 일치합니다.
 
+수신 요청에 ``CONTENT_TYPE`` 헤더가 "application/json"\ 으로 설정된 경우 ``getVar()``\ 를 사용하여 JSON 스트림을 가져올 수 있습니다.
+이런식으로 ``getVar()``\ 를 사용하면 항상 객체(oject)가 반환됩니다.
+
+**JSON에서 특정 데이터 가져 오기**
+
+원하는 데이터에 대해 변수 이름을 ``getVar()``\ 에 전달하면 JSON 스트림에서 특정 데이터를 얻을 수 있으며, ``dot`` 표기법을 사용하여 JSON을 탐색하여 루트 레벨이 아닌 데이터를 가져올 수 있습니다.
+
+::
+
+    //With a request body of:
+    {
+        "foo": "bar",
+        "fizz": {
+            "buzz": "baz"
+        }
+    }
+    $data = $request->getVar('foo');
+    //$data = "bar"
+
+    $data = $request->getVar('fizz.buzz');
+    //$data = "baz"
+
+
+결과가 객체 대신 연관 배열이 되도록 하려면 ``getJsonVar()``\ 를 대신 사용하고 두 번째 매개 변수에 true를 전달합니다.
+이 기능은 수신 요청에 올바른 ``CONTENT_TYPE`` 헤더가 있는지 확인할 수 없는 경우에도 사용할 수 있습니다.
+
+::
+
+    //With the same request as above
+    $data = $request->getJsonVar('fizz');
+    //$data->buzz = "baz"
+
+    $data = $request->getJsonVar('fizz', true);
+    //$data = ["buzz" => "baz"]
+
+.. note:: ``dot`` 표기법에 대한 자세한 내용은 ``Array`` 헬퍼의 ``dot_array_search()`` 설명서를 참조하십시오.
+
 **원시(raw) 데이터 검색 (PUT, PATCH, DELETE)**
 
 마지막으로 ``getRawInput()``\ 을 사용하여 ``php://input``\ 의 내용을 원시(raw) 스트림으로 가져올 수 있습니다

@@ -2,7 +2,7 @@
 서버 요구 사항
 ###################
 
-`PHP <https://www.php.net/>`_ 버전 7.2 이상이 필요하며, `*intl* 확장(Extension) <https://www.php.net/manual/en/intl.requirements.php>`_\ 과 `*mbstring* 확장 <https://www.php.net/manual/en/mbstring.requirements.php>`_\ 이 설치되어 있어야 합니다.
+`PHP <https://www.php.net/>`_ 버전 7.3 이상이 필요하며, `*intl* 확장(Extension) <https://www.php.net/manual/en/intl.requirements.php>`_\ 과 `*mbstring* 확장 <https://www.php.net/manual/en/mbstring.requirements.php>`_\ 이 설치되어 있어야 합니다.
 
 서버에 다음 PHP 확장 기능을 사용하도록 설정해야 합니다: ``php-json``, ``php-mysqlnd``, ``php-xml``
 

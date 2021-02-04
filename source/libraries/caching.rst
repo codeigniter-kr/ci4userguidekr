@@ -73,33 +73,47 @@ Services 클래스를 통해 캐시 엔진 인스턴스를 직접 가져올 수 
 Class Reference
 ***************
 
-.. php:method::  isSupported()
+.. php:method:: isSupported()
 
-    :returns:    지원되는 경우 TRUE, 지원하지 않는 경우 FALSE
-    :rtype:    bool
+    :returns: 지원되는 경우 ``true``, 지원하지 않는 경우 ``false``
+    :rtype: bool
 
-.. php:method::  get($key)
+.. php:method::  get($key): mixed
     :noindex:
 
-    :param    string    $key: 캐시 아이템 이름
-    :returns:    항목 값 또는 찾지 못한 경우 NULL
-    :rtype:    mixed
+    :param string $key: 캐시 아이템 이름
+    :returns: 항목 값 또는 찾지 못한 경우 ``null``
+    :rtype: mixed
 
     이 메소드는 캐시 저장소에서 항목을 가져 오려고 시도합니다.
     항목이 존재하지 않으면 NULL을 리턴합니다.
 
-    Example::
+    Example
+    
+    ::
 
         $foo = $cache->get('my_cached_item');
 
-.. php:method::  save($key, $data[, $ttl = 60[, $raw = FALSE]])
+.. php:method:: remember(string $key, int $ttl, Closure $callback)
 
-    :param    string    $key: 캐시 아이템 이름
-    :param    mixed    $data: 저장할 데이터
-    :param    int    $ttl: 유효시간, 초 (기본값 60)
-    :param    bool    $raw: 원시(raw) 값을 저장할지 여부
-    :returns:    지원되는 경우 TRUE, 지원하지 않는 경우 FALSE
-    :rtype:    bool
+    :param string $key: 캐시 아이템 이름
+    :param int $ttl: 유효시간, 초
+    :param Closure $callback: 캐시 항목이 null을 반환할 때 호출할 콜백
+    :returns: 캐시 항목의 값
+    :rtype: mixed
+    
+    캐시에서 항목을 가져옵니다.
+    ``null``\ 이 반환된 경우 콜백을 호출하고 결과를 저장합니다.
+    어느 쪽이든 값을 반환합니다.
+
+.. php:method:: save($key, $data[, $ttl = 60[, $raw = FALSE]])
+
+    :param string $key: 캐시 아이템 이름
+    :param mixed $data: 저장할 데이터
+    :param int $ttl: 유효시간, 초 (기본값 60)
+    :param bool $raw: 원시(raw) 값을 저장할지 여부
+    :returns: 성공하면 ``true``, 실패하면 ``false``
+    :rtype: bool
 
     항목을 캐시 저장소에 저장합니다.
     저장에 실패하면 FALSE를 리턴합니다.
@@ -110,60 +124,56 @@ Class Reference
 
 .. note:: ``$raw`` 매개 변수는 Memcache의 ``increment()``\ 와 ``decrement()`` 사용시만 사용됩니다.
 
-.. php:method::  delete($key)
+.. php:method:: delete($key): bool
     :noindex:
 
-    :param    string    $key: 캐시된 항목의 이름
-    :returns:    지원되는 경우 TRUE, 지원하지 않는 경우 FALSE
-    :rtype:    bool
+    :param string $key: 캐시된 항목의 이름
+    :returns: 성공하면 ``true``, 실패하면 ``false``
+    :rtype: bool
 
-    캐시 저장소에서 특정 항목을 삭제합니다.항
-    목 삭제에 실패하면 FALSE를 리턴합니다.
+    캐시 저장소에서 특정 항목을 삭제합니다.
+    항목 삭제에 실패하면 FALSE를 리턴합니다.
 
     Example::
 
         $cache->delete('cache_item_id');
 
-.. php:method::  increment($key[, $offset = 1])
+.. php:method:: increment($key[, $offset = 1]): mixed
     :noindex:
 
-    :param    string    $key: Cache ID
-    :param    int    $offset: 추가할 단계/값
-    :returns:    성공시 새로운 값, 실패시 false
-       :rtype:    mixed
+    :param string $key: Cache ID
+    :param int $offset: 추가할 단계/값
+    :returns: 성공시 새로운 값, 실패시 ``false``
+    :rtype: mixed
 
     저장된 값의 증분을 수행합니다.
 
     Example::
 
         // 'iterator' has a value of 2
-
         $cache->increment('iterator'); // 'iterator' is now 3
-
         $cache->increment('iterator', 3); // 'iterator' is now 6
 
-.. php:method::  decrement($key[, $offset = 1])
+.. php:method:: decrement($key[, $offset = 1]): mixed
     :noindex:
 
-    :param    string    $key: Cache ID
-    :param    int    $offset: 줄일 단계/값
-    :returns:    성공시 새로운 값, 실패시 false
-    :rtype:    mixed
+    :param string $key: Cache ID
+    :param int $offset: 줄일 단계/값
+    :returns: 성공시 새로운 값, 실패시 ``false``
+    :rtype: mixed
 
     저장된 값의 감소를 수행합니다.
 
     Example::
 
         // 'iterator' has a value of 6
-
         $cache->decrement('iterator'); // 'iterator' is now 5
-
         $cache->decrement('iterator', 2); // 'iterator' is now 3
 
-.. php:method::  clean()
+.. php:method:: clean()
 
-    :returns:    지원되는 경우 TRUE, 지원하지 않는 경우 FALSE
-    :rtype:    bool
+    :returns: 성공하면 ``true``, 실패하면 ``false``
+    :rtype: bool
 
     전체 캐시를 '삭제' 합니다. 
     캐시 파일 삭제에 실패하면 FALSE를 리턴합니다.
@@ -172,10 +182,10 @@ Class Reference
 
             $cache->clean();
 
-.. php:method::  ⠀getCacheInfo()
+.. php:method:: getCacheInfo()
 
-    :returns:    전체 캐시 데이터베이스에 대한 정보
-    :rtype:    mixed
+    :returns: 전체 캐시 데이터베이스에 대한 정보
+    :rtype: mixed
 
     전체 캐시에 대한 정보를 리턴합니다.
 
@@ -185,11 +195,11 @@ Class Reference
 
 .. note:: 리턴된 정보 및 데이터 구조는 사용중인 어댑터에 따라 다릅니다.
 
-.. php:method::  getMetadata($key)
+.. php:method:: getMetadata($key)
 
-    :param    string    $key: 캐시 아이템 이름
-    :returns:    캐시된 항목의 메타 데이터
-    :rtype:    mixed
+    :param string $key: 캐시 아이템 이름
+    :returns: 캐시된 항목의 메타 데이터
+    :rtype: mixed
 
     캐시의 특정 항목에 대한 자세한 정보를 리턴합니다.
 

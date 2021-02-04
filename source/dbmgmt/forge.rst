@@ -63,6 +63,32 @@ Forge 클래스 초기화
 		echo 'Database deleted!';
 	}
 
+명령줄에서 데이터베이스 만들기
+======================================
+
+CodeIgniter는 ``db:create`` 명령을 사용하여 터미널에서 직접 데이터베이스 만들기를 지원합니다.
+이 명령은 데이터베이스가 아직 존재하지 않는 것으로 가정합니다.
+데이터베이스가 존재한다면 CodeIgniter는 오류를 출력합니다.
+
+다음 명령어와 데이터베이스 이름(예: ``foo``)을 입력합니다.
+
+::
+
+	php spark db:create foo
+
+모든 것이 잘 되었다면, 여러분에게 ``Database "foo" successfully created.`` 메시지가 표시됩니다.
+
+테스트(testing) 환경이거나 SQLite3 드라이버를 사용하는 경우 ``--ext`` 옵션을 사용하여 데이터베이스가 생성될 파일의 확장자를 전달할 수 있습니다.
+유효한 값은 ``db`` 또는 ``sqlite``\ 이며 기본값은 ``db``\ 입니다.
+이 항목 앞에 마침표(.)가 붙으면 안 된다는 점을 기억하십시오.
+
+::
+
+	php spark db:create foo --ext sqlite
+	// will create the db file in WRITEPATH/foo.sqlite
+
+.. note:: 특수 SQLite3 데이터베이스 이름 ``:memory:``\ 를 사용하는 경우 인메모리(in-memory) 데이터베이스를 사용하므로 데이터베이스 파일은 생성되지 않습니다.
+
 ****************************
 테이블 생성 및 삭제
 ****************************

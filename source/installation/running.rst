@@ -83,7 +83,7 @@ Apache는 여러 플랫폼과 함께 번들로 제공되지만, `Bitnami (https:
 
 기본 문서 루트(default document root)의 <Directory> 요소중 "AllowOverride" 기능을 사용하도록 설정했는지 확인하십시오.::
 
-    <Directory "/opt/lamp7.2/apache2/htdocs">
+    <Directory "/opt/lamp/apache2/htdocs">
         Options Indexes FollowSymLinks
         AllowOverride All
         Require all granted
@@ -108,7 +108,7 @@ Apache는 여러 플랫폼과 함께 번들로 제공되지만, `Bitnami (https:
 가상 호스팅 구성 내에 웹 앱의 <VirtualHost> 요소 추가. eg. ``apache2/conf/extra/httpd-vhost.conf``::
 
     <VirtualHost *:80>
-        DocumentRoot "/opt/lamp7.2/apache2/htdocs/myproject/public"
+        DocumentRoot "/opt/lamp/apache2/htdocs/myproject/public"
         ServerName myproject.local
         ErrorLog "logs/myproject-error_log"
         CustomLog "logs/myproject-access_log" common

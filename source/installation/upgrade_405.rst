@@ -56,3 +56,8 @@ HTTP 계층의 추가적인 지원 중단(deprecate) 항목:
 * ``download(string $filename = '', $data = '', bool $setMime = false);``
 
 이 인터페이스를 쉽게 사용하도록 하기 위해 이러한 메소드들은 프레임워크의 ``Response``\ 에서 ``ResponseTrait``\ 으로 이동되었으며, ``DownloadResponse``\ 는 ``Response``\ 를 직접 확장하여 최대의 호환성을 보장합니다.
+
+**Config\Services**
+
+타사 서비스(모듈을 통해 활성화된 경우)가 핵심 서비스보다 우선하도록 서비스 검색이 업데이트되었습니다.
+**app/Config/Services.php**\ 를 업데이트하여 클래스가 ``CodeIigniter\Config\BaseService``\ 를 확장하여 타사 서비스를 제대로 검색할 수 있도록 합니다.
