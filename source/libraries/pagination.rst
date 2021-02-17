@@ -389,3 +389,21 @@ Pager에 의해 생성된 URI는 ``https://domain.tld/model?page=[pageNumber]`` 
 
 이 메소드는 번호가 지정된 링크의 양쪽에 있는 결과의 이전 페이지 또는 다음 페이지에 대한 URL을 반환하는 ``GetPrevious()``, ``GetNext()``\ 와 달리 현재 표시된 페이지와 관련하여 이전 페이지와 다음 페이지의 URL을 반환합니다. 
 자세한 설명은 이전 단락을 참조하세요.
+
+URL 대신 페이지 번호를 원하는 경우 다음 메소드를 사용할 수 있습니다.
+
+**getPreviousPageNumber()** & **getNextPageNumber()**
+
+이 메소드는 현재 표시되는 페이지와 관련하여 이전 또는 다음 페이지의 페이지 번호를 반환합니다.
+
+**getFirstPageNumber()** & **getLastPageNumber()**
+
+이 메소드는 결과 집합의 첫 번째 페이지와 마지막 페이지로 페이지 번호를 반환합니다.
+
+**getCurrentPageNumber()**
+
+이 메서드는 현재 페이지의 페이지 번호를 반환합니다.
+
+**getPageCount()**
+
+이 메서드는 총 페이지 수를 반환합니다.

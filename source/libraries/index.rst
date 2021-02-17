@@ -6,6 +6,7 @@
 	:titlesonly:
 
 	caching
+	cookies
 	curlrequest
 	email
 	encryption

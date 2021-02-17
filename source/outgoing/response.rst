@@ -25,28 +25,28 @@ CodeIgniter가 헤더와 본문 전송을 담당하므로 클래스를 직접 �
 
 ::
 
-	$this->response->setStatusCode(404)
-	               ->setBody($body);
+    $this->response->setStatusCode(404)
+                   ->setBody($body);
 
 이유(reason) 문구('OK', 'Created', 'Moved Permanently')가 자동으로 추가되지만 ``setStatusCode()`` 메소드의 두 번째 매개 변수로 사용자 정의 이유(reason)를 추가할 수 있습니다.
 
 ::
 
-	$this->response->setStatusCode(404, 'Nope. Not here.');
+    $this->response->setStatusCode(404, 'Nope. Not here.');
 
 배열을 ``setJSON``\ 과 ``setXML`` 메소드를 사용하여 JSON 또는 XML로 형식화하고 컨텐츠 유형 헤더를 적절한 MIME으로 설정할 수 있습니다.
 일반적으로 변환할 데이터 배열을 보냅니다.
 
 ::
 
-	$data = [
-		'success' => true,
-		'id' => 123
-	];
+    $data = [
+        'success' => true,
+        'id' => 123
+    ];
 
-	return $this->response->setJSON($data);
-		or
-	return $this->response->setXML($data);
+    return $this->response->setJSON($data);
+    // or
+    return $this->response->setXML($data);
 
 헤더 설정
 ---------------
@@ -59,23 +59,23 @@ CodeIgniter가 헤더와 본문 전송을 담당하므로 클래스를 직접 �
 
 ::
 
-	$response->setHeader('Location', 'http://example.com')
-	         ->setHeader('WWW-Authenticate', 'Negotiate');
+    $response->setHeader('Location', 'http://example.com')
+             ->setHeader('WWW-Authenticate', 'Negotiate');
 
 헤더가 존재하고 둘 이상의 값을 가질 수 있는 경우 ``appendHeader()``\ 과 ``prependHeader()`` 메소드를 사용하여 값을 각각 값 목록의 끝 또는 시작에 추가할 수 있습니다.
 첫 번째 매개 변수는 헤더의 이름이고 두 번째 매개 변수는 추가하거나 추가할 값입니다.
 
 ::
 
-	$response->setHeader('Cache-Control', 'no-cache')
-	         ->appendHeader('Cache-Control', 'must-revalidate');
+    $response->setHeader('Cache-Control', 'no-cache')
+             ->appendHeader('Cache-Control', 'must-revalidate');
 
 헤더 이름을 단일 매개 변수로 사용하는 ``removeHeader()`` 메소드를 사용하여 응답에서 헤더를 제거할 수 있습니다.
 대소 문자를 구분하지 않습니다.
 
 ::
 
-	$response->removeHeader('Location');
+    $response->removeHeader('Location');
 
 강제 파일 다운로드
 ===================
@@ -91,25 +91,25 @@ CodeIgniter가 헤더와 본문 전송을 담당하므로 클래스를 직접 �
 
 Example::
 
-	$data = 'Here is some text!';
-	$name = 'mytext.txt';
-	return $response->download($name, $data);
+    $data = 'Here is some text!';
+    $name = 'mytext.txt';
+    return $response->download($name, $data);
 
 서버에서 기존 파일을 다운로드하려면 두 번째 매개 변수에 명시적으로 ``null``\ 을 전달해야 합니다.
 
 ::
 
-	// Contents of photo.jpg will be automatically read
-	return $response->download('/path/to/photo.jpg', null);
+    // Contents of photo.jpg will be automatically read
+    return $response->download('/path/to/photo.jpg', null);
 
 ``setFileName()`` 메소드를 사용하면 클라이언트 브라우저로 전송될 때 파일 이름을 변경할 수 있습니다.
 
 ::
-	
-	return $response->download('awkwardEncryptedFileName.fakeExt', null)->setFileName('expenses.csv');
+    
+    return $response->download('awkwardEncryptedFileName.fakeExt', null)->setFileName('expenses.csv');
 
 .. note:: 다운로드가 클라이언트로 전송되려면 반드시 응답 객체를 반환해야합니다.
-	이를 통해 클라이언트로 전송되기 전에 모든 **이후(after)** 필터를 통해 응답을 전달할 수 있습니다.
+    이를 통해 클라이언트로 전송되기 전에 모든 **이후(after)** 필터를 통해 응답을 전달할 수 있습니다.
 
 HTTP 캐싱(Caching)
 ======================
@@ -127,12 +127,12 @@ HTTP 사양에는 클라이언트(종종 웹 브라우저)가 결과를 캐시�
 
 ::
 
-	$options = [
-		'max-age'  => 300,
-		's-maxage' => 900,
-		'etag'     => 'abcde',
-	];
-	$this->response->setCache($options);
+    $options = [
+        'max-age'  => 300,
+        's-maxage' => 900,
+        'etag'     => 'abcde',
+    ];
+    $this->response->setCache($options);
 
 ``$options`` 배열은 몇 가지 예외를 제외하고 ``Cache-Control`` 헤더에 지정된 키/값 쌍의 배열을 취합니다.
 특정 상황에 필요한대로 모든 옵션을 자유롭게 설정할 수 있습니다.
@@ -165,7 +165,7 @@ CSP 켜기
 
 ::
 
-	public $CSPEnabled = true;
+    public $CSPEnabled = true;
 
 활성화되면 응답 객체에 ``CodeIgniter\HTTP\ContentSecurityPolicy`` 인스턴스가 포함됩니다.
 **app/Config/ContentSecurityPolicy.php**\ 에 설정된 값이 해당 인스턴스에 적용되며 런타임동안 변경이 필요하지 않으면 올바른 형식의 헤더가 전송되고 모든 작업이 완료됩니다.
@@ -187,32 +187,32 @@ CSP 지시문에 추가 항목을 추가하면 아래와 같이 차단 또는 �
 
 ::
 
-	// 기본 지시문 처리 지정
-	$response->CSP->reportOnly(false); 
+    // 기본 지시문 처리 지정
+    $response->CSP->reportOnly(false); 
         
-	// 지시문에 대해 제공된 것이 없는 경우 사용할 원점을 지정
-	$response->CSP->setDefaultSrc('cdn.example.com'); 
-	// "report-only" 보고서가 전송될 URL을 지정
-	$response->CSP->setReportURI('http://example.com/csp/reports');
-	// HTTP 요청을 HTTPS로 업그레이드하도록 지정
-	$response->CSP->upgradeInsecureRequests(true);
+    // 지시문에 대해 제공된 것이 없는 경우 사용할 원점을 지정
+    $response->CSP->setDefaultSrc('cdn.example.com'); 
+    // "report-only" 보고서가 전송될 URL을 지정
+    $response->CSP->setReportURI('http://example.com/csp/reports');
+    // HTTP 요청을 HTTPS로 업그레이드하도록 지정
+    $response->CSP->upgradeInsecureRequests(true);
 
-	// CSP 지시문에 유형 또는 출처 추가
-	// 기본 처리가 보고만 하는 것이 아니라 차단하는 것이라고 가정합니다.
-	$response->CSP->addBaseURI('example.com', true); // report only
-	$response->CSP->addChildSrc('https://youtube.com'); // blocked
-	$response->CSP->addConnectSrc('https://*.facebook.com', false); // blocked
-	$response->CSP->addFontSrc('fonts.example.com');
-	$response->CSP->addFormAction('self');
-	$response->CSP->addFrameAncestor('none', true); // report this one
-	$response->CSP->addImageSrc('cdn.example.com');
-	$response->CSP->addMediaSrc('cdn.example.com');
-	$response->CSP->addManifestSrc('cdn.example.com');
-	$response->CSP->addObjectSrc('cdn.example.com', false); // reject from here
-	$response->CSP->addPluginType('application/pdf', false); // reject this media type
-	$response->CSP->addScriptSrc('scripts.example.com', true); // allow but report requests from here
-	$response->CSP->addStyleSrc('css.example.com');
-	$response->CSP->addSandbox(['allow-forms', 'allow-scripts']);
+    // CSP 지시문에 유형 또는 출처 추가
+    // 기본 처리가 보고만 하는 것이 아니라 차단하는 것이라고 가정합니다.
+    $response->CSP->addBaseURI('example.com', true); // report only
+    $response->CSP->addChildSrc('https://youtube.com'); // blocked
+    $response->CSP->addConnectSrc('https://*.facebook.com', false); // blocked
+    $response->CSP->addFontSrc('fonts.example.com');
+    $response->CSP->addFormAction('self');
+    $response->CSP->addFrameAncestor('none', true); // report this one
+    $response->CSP->addImageSrc('cdn.example.com');
+    $response->CSP->addMediaSrc('cdn.example.com');
+    $response->CSP->addManifestSrc('cdn.example.com');
+    $response->CSP->addObjectSrc('cdn.example.com', false); // reject from here
+    $response->CSP->addPluginType('application/pdf', false); // reject this media type
+    $response->CSP->addScriptSrc('scripts.example.com', true); // allow but report requests from here
+    $response->CSP->addStyleSrc('css.example.com');
+    $response->CSP->addSandbox(['allow-forms', 'allow-scripts']);
 
 각 "add" 메소드에 대한 첫 번째 매개 변수는 적절한 문자열 또는 배열입니다.
 
@@ -234,20 +234,20 @@ CSP 지시문에 추가 항목을 추가하면 아래와 같이 차단 또는 �
 
 ::
 
-	// Original
-	<script {csp-script-nonce}>
-	    console.log("Script won't run as it doesn't contain a nonce attribute");
-	</script>
+    // Original
+    <script {csp-script-nonce}>
+        console.log("Script won't run as it doesn't contain a nonce attribute");
+    </script>
 
-	// Becomes
-	<script nonce="Eskdikejidojdk978Ad8jf">
-	    console.log("Script won't run as it doesn't contain a nonce attribute");
-	</script>
+    // Becomes
+    <script nonce="Eskdikejidojdk978Ad8jf">
+        console.log("Script won't run as it doesn't contain a nonce attribute");
+    </script>
 
-	// OR
-	<style {csp-style-nonce}>
-		. . .
-	</style>
+    // OR
+    <style {csp-style-nonce}>
+        . . .
+    </style>
 
 ***************
 Class Reference
@@ -276,275 +276,275 @@ Class Reference
 
 .. php:class:: CodeIgniter\\HTTP\\Response
 
-	.. php:method:: getStatusCode()
+    .. php:method:: getStatusCode()
 
-		:returns: HTTP 상태 코드
-		:rtype: int
+        :returns: HTTP 상태 코드
+        :rtype: int
 
-		응답(Response)의 현재 상태 코드를 반환합니다. 상태 코드가 설정되지 않은 경우 ``BadMethodCallException``\ 이 발생합니다.
-		
-		::
+        응답(Response)의 현재 상태 코드를 반환합니다. 상태 코드가 설정되지 않은 경우 ``BadMethodCallException``\ 이 발생합니다.
+        
+        ::
 
-			echo $response->getStatusCode();
+            echo $response->getStatusCode();
 
-	.. php:method:: setStatusCode($code[, $reason=''])
+    .. php:method:: setStatusCode($code[, $reason=''])
 
-		:param int $code: HTTP 상태 코드
-		:param string $reason: 이유 문구
-		:returns: Response 인스턴스
-		:rtype: CodeIgniter\\HTTP\\Response
+        :param int $code: HTTP 상태 코드
+        :param string $reason: 이유 문구
+        :returns: Response 인스턴스
+        :rtype: CodeIgniter\HTTP\Response
 
-		응답과 함께 보내야하는 HTTP 상태 코드를 설정합니다.
+        응답과 함께 보내야하는 HTTP 상태 코드를 설정합니다.
 
-		::
+        ::
 
-		    $response->setStatusCode(404);
+            $response->setStatusCode(404);
 
-		이유 문구는 공식 목록에 따라 자동으로 생성됩니다.
-		사용자 정의 상태 코드에 대한 고유한 설정이 필요한 경우 이유 문구를 두 번째 매개 변수로 전달할 수 있습니다.
-		
-		::
+        이유 문구는 공식 목록에 따라 자동으로 생성됩니다.
+        사용자 정의 상태 코드에 대한 고유한 설정이 필요한 경우 이유 문구를 두 번째 매개 변수로 전달할 수 있습니다.
+        
+        ::
 
-			$response->setStatusCode(230, "Tardis initiated");
+            $response->setStatusCode(230, "Tardis initiated");
 
-	.. php:method:: getReasonPhrase()
+    .. php:method:: getReasonPhrase()
 
-		:returns: 이유 문구.
-		:rtype: string
+        :returns: 이유 문구.
+        :rtype: string
 
-		응답의 현재 상태 코드에 대한 문구를 반환합니다. 상태가 설정되지 않은 경우 빈 문자열을 반환합니다.
-		
-		::
+        응답의 현재 상태 코드에 대한 문구를 반환합니다. 상태가 설정되지 않은 경우 빈 문자열을 반환합니다.
+        
+        ::
 
-			echo $response->getReasonPhrase();
+            echo $response->getReasonPhrase();
 
-	.. php:method:: setDate($date)
+    .. php:method:: setDate($date)
 
-		:param DateTime $date: 응답에 설정할 DateTime 인스턴스
-		:returns: response 인스턴스.
-		:rtype: CodeIgniter\HTTP\Response
+        :param DateTime $date: 응답에 설정할 DateTime 인스턴스
+        :returns: response 인스턴스.
+        :rtype: CodeIgniter\HTTP\Response
 
-		응답에 사용될 날짜를 설정합니다. The ``$date``\ 는 ``DateTime``\ 의 인스턴스여야 합니다  
-		
-		::
+        응답에 사용될 날짜를 설정합니다. The ``$date``\ 는 ``DateTime``\ 의 인스턴스여야 합니다  
+        
+        ::
 
-			$date = DateTime::createFromFormat('j-M-Y', '15-Feb-2016');
-			$response->setDate($date);
+            $date = DateTime::createFromFormat('j-M-Y', '15-Feb-2016');
+            $response->setDate($date);
 
-	.. php:method:: setContentType($mime[, $charset='UTF-8'])
+    .. php:method:: setContentType($mime[, $charset='UTF-8'])
 
-		:param string $mime: 응답의 컨텐츠 유형
-		:param string $charset: 응답이 사용하는 문자 세트
-		:returns: response 인스턴스.
-		:rtype: CodeIgniter\HTTP\Response
+        :param string $mime: 응답의 컨텐츠 유형
+        :param string $charset: 응답이 사용하는 문자 세트
+        :returns: response 인스턴스.
+        :rtype: CodeIgniter\HTTP\Response
 
-		응답의 내용 유형을 설정합니다.
-		
-		::
+        응답의 내용 유형을 설정합니다.
+        
+        ::
 
-			$response->setContentType('text/plain');
-			$response->setContentType('text/html');
-			$response->setContentType('application/json');
+            $response->setContentType('text/plain');
+            $response->setContentType('text/html');
+            $response->setContentType('application/json');
 
-		이 메소드는 문자 집합은 기본적으로 ``UTF-8``\ 로 설정합니다.
-		이를 변경해야 하는 경우 문자 세트를 두 번째 매개 변수로 전달할 수 있습니다.
-		
-		::
+        이 메소드는 문자 집합은 기본적으로 ``UTF-8``\ 로 설정합니다.
+        이를 변경해야 하는 경우 문자 세트를 두 번째 매개 변수로 전달할 수 있습니다.
+        
+        ::
 
-			$response->setContentType('text/plain', 'x-pig-latin');
+            $response->setContentType('text/plain', 'x-pig-latin');
 
-	.. php:method:: noCache()
+    .. php:method:: noCache()
 
-		:returns: response 인스턴스.
-		:rtype: CodeIgniter\HTTP\Response
+        :returns: response 인스턴스.
+        :rtype: CodeIgniter\HTTP\Response
 
-		모든 HTTP 캐싱을 끄도록 ``Cache-Control`` 헤더를 설정합니다.
-		모든 응답 메시지의 기본 설정값입니다.
-		
-		::
+        모든 HTTP 캐싱을 끄도록 ``Cache-Control`` 헤더를 설정합니다.
+        모든 응답 메시지의 기본 설정값입니다.
+        
+        ::
 
-		    $response->noCache();
+            $response->noCache();
 
-		    // Sets the following header:
-		    Cache-Control: no-store, max-age=0, no-cache
+            // Sets the following header:
+            Cache-Control: no-store, max-age=0, no-cache
 
-	.. php:method:: setCache($options)
+    .. php:method:: setCache($options)
 
-		:param array $options: 키/값 캐시 제어 설정 배열
-		:returns: response 인스턴스.
-		:rtype: CodeIgniter\HTTP\Response
+        :param array $options: 키/값 캐시 제어 설정 배열
+        :returns: response 인스턴스.
+        :rtype: CodeIgniter\HTTP\Response
 
-		``ETags``\ 와 ``Last-Modified``\ 를 포함하여 ``Cache-Control`` 헤더를 설정합니다.
-		대표적으로 많이 사용되는 키:
+        ``ETags``\ 와 ``Last-Modified``\ 를 포함하여 ``Cache-Control`` 헤더를 설정합니다.
+        대표적으로 많이 사용되는 키:
 
-		* etag
-		* last-modified
-		* max-age
-		* s-maxage
-		* private
-		* public
-		* must-revalidate
-		* proxy-revalidate
-		* no-transform
+        * etag
+        * last-modified
+        * max-age
+        * s-maxage
+        * private
+        * public
+        * must-revalidate
+        * proxy-revalidate
+        * no-transform
 
-		``last-modified`` 옵션은 날짜 문자열 또는 DateTime 개체일 수 있습니다.
+        ``last-modified`` 옵션은 날짜 문자열 또는 DateTime 개체일 수 있습니다.
 
-	.. php:method:: setLastModified($date)
+    .. php:method:: setLastModified($date)
 
-		:param string|DateTime $date: Last-Modified 헤더를 설정할 날짜
-		:returns: response 인스턴스.
-		:rtype: CodeIgniter\HTTP\Response
+        :param string|DateTime $date: Last-Modified 헤더를 설정할 날짜
+        :returns: response 인스턴스.
+        :rtype: CodeIgniter\HTTP\Response
 
-		``Last-Modified`` 헤더를 설정합니다. ``$date`` 객체는 문자열 또는 ``DateTime`` 인스턴스일 수 있습니다.
-		
-		::
+        ``Last-Modified`` 헤더를 설정합니다. ``$date`` 객체는 문자열 또는 ``DateTime`` 인스턴스일 수 있습니다.
+        
+        ::
 
-			$response->setLastModified(date('D, d M Y H:i:s'));
-			$response->setLastModified(DateTime::createFromFormat('u', $time));
+            $response->setLastModified(date('D, d M Y H:i:s'));
+            $response->setLastModified(DateTime::createFromFormat('u', $time));
 
-	.. php:method:: send()
-                :noindex:
+    .. php:method:: send()
+        :noindex:
 
-		:returns: response 인스턴스.
-		:rtype: CodeIgniter\HTTP\Response
+        :returns: response 인스턴스.
+        :rtype: CodeIgniter\HTTP\Response
 
-		모든것을 클라이언트로 다시 보내도록 응답(Response)에 지시합니다.
-		먼저 헤더를 보낸 다음 응답 본문을 보냅니다.
-		어플리케이션의 기본 응답인 경우 CodeIgniter에서 자동으로 처리하므로 이를 호출할 필요가 없습니다.
+        모든것을 클라이언트로 다시 보내도록 응답(Response)에 지시합니다.
+        먼저 헤더를 보낸 다음 응답 본문을 보냅니다.
+        어플리케이션의 기본 응답인 경우 CodeIgniter에서 자동으로 처리하므로 이를 호출할 필요가 없습니다.
 
-	.. php:method:: setCookie($name = ''[, $value = ''[, $expire = ''[, $domain = ''[, $path = '/'[, $prefix = ''[, $secure = FALSE[, $httponly = FALSE[, $samesite = null]]]]]]]])
+    .. php:method:: setCookie($name = ''[, $value = ''[, $expire = ''[, $domain = ''[, $path = '/'[, $prefix = ''[, $secure = FALSE[, $httponly = FALSE[, $samesite = null]]]]]]]])
 
-		:param	mixed	$name: 쿠키명 또는 매개 변수 배열
-		:param	string	$value: 쿠키값
-		:param	int	$expire: 쿠키 만료 시간(초)
-		:param	string	$domain: 쿠키 domain
-		:param	string	$path: 쿠키 path
-		:param	string	$prefix: 쿠키명 prefix
-		:param	bool	$secure: HTTPS를 통해서만 쿠키를 전송할지 여부
-		:param	bool	$httponly: HTTP 요청에 대해서만 쿠키에 액세스 할 수 있는지 여부 (no JavaScript)
-		:param	string	$samesite: SameSite 쿠키 매개 변수의 값. ``''``\ 로 설정하면 쿠키에 SameSite 속성이 설정되지 않습니다. ``null``\ 로 설정하면 ``config/App.php`` 값이 사용됩니다.
+        :param mixed $name: 쿠키명 또는 매개 변수 배열
+        :param string $value: 쿠키값
+        :param int $expire: 쿠키 만료 시간(초)
+        :param string $domain: 쿠키 domain
+        :param string $path: 쿠키 path
+        :param string $prefix: 쿠키명 prefix
+        :param bool $secure: HTTPS를 통해서만 쿠키를 전송할지 여부
+        :param bool $httponly: HTTP 요청에 대해서만 쿠키에 액세스 할 수 있는지 여부 (no JavaScript)
+        :param string $samesite: SameSite 쿠키 매개 변수의 값. ``''``\ 로 설정하면 쿠키에 SameSite 속성이 설정되지 않습니다. ``null``\ 로 설정하면 ``config/App.php`` 값이 사용됩니다.
 
-		:rtype:	void
+        :rtype: void
 
-		지정한 값이 포함된 쿠키를 설정합니다.
-		이 메소드로 쿠키를 설정 정보를 전달할 때 연관 배열과 개별 매개 변수(Discrete Parameters) 두 가지 방법을 사용할 수 있습니다.
+        지정한 값이 포함된 쿠키를 설정합니다.
+        이 메소드로 쿠키를 설정 정보를 전달할 때 연관 배열과 개별 매개 변수(Discrete Parameters) 두 가지 방법을 사용할 수 있습니다.
 
-		**연관 배열**
+        **연관 배열**
 
-		연관 배열을 첫 번째 매개 변수로 전달합니다.
-		
-		::
+        연관 배열을 첫 번째 매개 변수로 전달합니다.
+        
+        ::
 
-			$cookie = [
-				'name'   => 'The Cookie Name',
-				'value'  => 'The Value',
-				'expire' => '86500',
-				'domain' => '.some-domain.com',
-				'path'   => '/',
-				'prefix' => 'myprefix_',
-				'secure' => TRUE,
-				'httponly' => FALSE,
-				'samesite' => 'Lax'
-			];
+            $cookie = [
+                'name'   => 'The Cookie Name',
+                'value'  => 'The Value',
+                'expire' => '86500',
+                'domain' => '.some-domain.com',
+                'path'   => '/',
+                'prefix' => 'myprefix_',
+                'secure' => TRUE,
+                'httponly' => FALSE,
+                'samesite' => 'Lax'
+            ];
 
-			$response->setCookie($cookie);
+            $response->setCookie($cookie);
 
-		**Notes**
+        **Notes**
 
-		이름과 값만 필요합니다. 
-		쿠키를 삭제하려면 ``expire``\ 를 공백(blank)으로 쿠키를 설정하십시오.
+        이름과 값만 필요합니다. 
+        쿠키를 삭제하려면 ``expire``\ 를 공백(blank)으로 쿠키를 설정하십시오.
 
-		쿠키 만료 시간은 **초** 단위로 설정되며, 현재 시간에 추가됩니다.
-		시간을 포함하지 말고 쿠키가 **유효해지기를 바라는 시간(초)**\ 만 포함하십시오.
-		``expire``\ 가 0으로 설정되면 쿠키는 브라우저가 열려있는 동안만 지속됩니다.
+        쿠키 만료 시간은 **초** 단위로 설정되며, 현재 시간에 추가됩니다.
+        시간을 포함하지 말고 쿠키가 **유효해지기를 바라는 시간(초)**\ 만 포함하십시오.
+        ``expire``\ 가 0으로 설정되면 쿠키는 브라우저가 열려있는 동안만 지속됩니다.
 
-		사이트 요청 방식에 관계없는 사이트 전체 쿠키의 경우 ``.your-domain.com``\ 와 같이 마침표로 시작하는 URL을 ``domain``\ 에 추가하십시오.
+        사이트 요청 방식에 관계없는 사이트 전체 쿠키의 경우 ``.your-domain.com``\ 와 같이 마침표로 시작하는 URL을 ``domain``\ 에 추가하십시오.
 
-		메소드가 루트 경로를 설정하므로 일반적으로 ``path``\ 는 설정하지 않아도 됩니다.
+        메소드가 루트 경로를 설정하므로 일반적으로 ``path``\ 는 설정하지 않아도 됩니다.
 
-		``prefix``\ 는 서버의 다른 동일한 이름의 쿠키와 이름 충돌을 피해야하는 경우에만 필요합니다.
+        ``prefix``\ 는 서버의 다른 동일한 이름의 쿠키와 이름 충돌을 피해야하는 경우에만 필요합니다.
 
-		보안 쿠키를 만들고 싶다면 ``secure``\ 의 값을 부울(boolean) TRUE로 설정합십시오.
+        보안 쿠키를 만들고 싶다면 ``secure``\ 의 값을 부울(boolean) TRUE로 설정합십시오.
 
-		SameSite 값은 도메인과 하위 도메인 간에 쿠키가 공유되는 방식을 제어합니다.
-		허용되는 값은 'None', 'Lax', 'Strict' 또는 빈 문자열 ``''``\ 입니다.
-		빈 문자열(``''``)로 설정하면 클라이언트로 보낸 쿠키에 SameSite 속성이 설정되지 않습니다.
-		``null``\ 로 설정하면 ``config/App.php``\ 의 값이 사용됩니다.
+        SameSite 값은 도메인과 하위 도메인 간에 쿠키가 공유되는 방식을 제어합니다.
+        허용되는 값은 'None', 'Lax', 'Strict' 또는 빈 문자열 ``''``\ 입니다.
+        빈 문자열(``''``)로 설정하면 클라이언트로 보낸 쿠키에 SameSite 속성이 설정되지 않습니다.
+        ``null``\ 로 설정하면 ``config/App.php``\ 의 값이 사용됩니다.
 
-		**개별 매개 변수**
+        **개별 매개 변수**
 
-		개별 매개 변수를 사용하여 쿠키를 설정할 수 있습니다.
-		
-		::
+        개별 매개 변수를 사용하여 쿠키를 설정할 수 있습니다.
+        
+        ::
 
-			$response->setCookie($name, $value, $expire, $domain, $path, $prefix, $secure, $httponly, $samesite);
+            $response->setCookie($name, $value, $expire, $domain, $path, $prefix, $secure, $httponly, $samesite);
 
-	.. php:method:: deleteCookie($name = ''[, $domain = ''[, $path = '/'[, $prefix = '']]])
+    .. php:method:: deleteCookie($name = ''[, $domain = ''[, $path = '/'[, $prefix = '']]])
 
-		:param	mixed	$name: 쿠키명 또는 매개 변수 배열
-		:param	string	$domain: 쿠키 domain
-		:param	string	$path: 쿠키 path
-		:param	string	$prefix: 쿠키명 prefix
-		:rtype:	void
+        :param mixed $name: 쿠키명 또는 매개 변수 배열
+        :param string $domain: 쿠키 domain
+        :param string $path: 쿠키 path
+        :param string $prefix: 쿠키명 prefix
+        :rtype: void
 
-		``expire``\ 를 공백(blank)으로 설정하여 기존 쿠키를 삭제합니다.
+        ``expire``\ 를 ``0``\ 으로 설정하여 기존 쿠키를 삭제합니다.
 
-		**Notes**
+        **Notes**
 
-		쿠키명만 필요합니다.
+        쿠키명만 필요합니다.
 
-		prefix는 서버의 다른 동일한 이름의 쿠키와 이름 충돌을 피해야하는 경우에만 필요합니다.
+        prefix는 서버의 다른 동일한 이름의 쿠키와 이름 충돌을 피해야하는 경우에만 필요합니다.
 
-			- 해당 하위 집합에 대해서만 쿠키를 삭제해야 하는 경우 prefix를 제공하십시오.
-			- 해당 도메인에 대해서만 쿠키를 삭제해야 하는 경우 domain을 제공하십시오.
-			- 해당 경로에 대해서만 쿠키를 삭제해야 하는 경우 path를 제공하십시오.
+            - 해당 하위 집합에 대해서만 쿠키를 삭제해야 하는 경우 prefix를 제공하십시오.
+            - 해당 도메인에 대해서만 쿠키를 삭제해야 하는 경우 domain을 제공하십시오.
+            - 해당 경로에 대해서만 쿠키를 삭제해야 하는 경우 path를 제공하십시오.
 
-		선택적 매개 변수중 하나라도 비어 있으면 동일한 이름의 모든 쿠키가 삭제됩니다.
+        선택적 매개 변수중 하나라도 비어 있으면 동일한 이름의 모든 쿠키가 삭제됩니다.
 
-		Example::
+        Example::
 
-			$response->deleteCookie($name);
+            $response->deleteCookie($name);
 
-	.. php:method:: hasCookie($name = ''[, $value = null[, $prefix = '']])
+    .. php:method:: hasCookie($name = ''[, $value = null[, $prefix = '']])
 
-		:param	mixed	$name: 쿠키명 또는 매개 변수 배열
-		:param	string	$value: 쿠키값
-		:param	string	$prefix: 쿠키명 prefix
-		:rtype:	boolean
+        :param mixed $name: 쿠키명 또는 매개 변수 배열
+        :param string $value: 쿠키값
+        :param string $prefix: 쿠키명 접두사
+        :rtype: bool
 
-		Checks to see if the Response has a specified cookie or not.
+        응답(Response)에 지정된 쿠키가 있는지 확인합니다.
 
-		**Notes**
+        **Notes**
 
-		쿠키명만 필요합니다. prefix가 지정되면 쿠키명 앞에 붙습니다.
-		
-			- 값이 제공되지 않으면, 메소드는 이름으로 지정된 쿠키가 있는지 확인합니다.
-			- 값이 제공되면, 메소드는 쿠키가 존재하는지, 제공된 값을 가지고 있는지 확인합니다.
+        쿠키명만 필요합니다. prefix가 지정되면 쿠키명 앞에 붙습니다.
+        
+            - 값이 제공되지 않으면, 메소드는 이름으로 지정된 쿠키가 있는지 확인합니다.
+            - 값이 제공되면, 메소드는 쿠키가 존재하는지, 제공된 값을 가지고 있는지 확인합니다.
 
-		Example::
+        Example::
 
-			if ($response->hasCookie($name)) ...
+            if ($response->hasCookie($name)) ...
 
-	.. php:method:: getCookie($name = ''[, $prefix = ''])
-		:noindex:
+    .. php:method:: getCookie($name = ''[, $prefix = ''])
+        :noindex:
 
-		:param	mixed	$name: 쿠키명
-		:param	string	$prefix: 쿠키명 prefix
-		:rtype:	boolean
+        :param mixed $name: 쿠키명
+        :param string $prefix: 쿠키명 접두사
+        :rtype: ``Cookie|Cookie[]|null``
 
-		이름이 지정된 쿠키(있는 경우) 또는 null을 반환합니다.
+        이름이 지정된 쿠키(있는 경우) 또는 null을 반환합니다.
 
-		이름이 없으면 쿠키 배열을 반환합니다.
+        이름이 없으면 ``Cookie`` 객체의 배열을 반환합니다.
 
-		각 쿠키는 연관 배열로 반환됩니다.
+        각 쿠키는 연관 배열로 반환됩니다.
 
-		Example::
+        Example::
 
-			$cookie = $response->getCookie($name);
+            $cookie = $response->getCookie($name);
 
     .. php:method:: getCookies()
 
-        :rtype: array
+        :rtype: ``Cookie[]``
 
         응답(Response) 인스턴스 내에 현재 설정된 모든 쿠키를 반환합니다.
         이 쿠키는 현재 요청 중에만 설정하도록 특별히 지정한 쿠키입니다.

@@ -54,10 +54,10 @@
 
 .. php:function:: delete_cookie($name[, $domain = ''[, $path = '/'[, $prefix = '']]])
 
-    :param	string	$name: 쿠키 이름
-    :param	string	$domain: 쿠키 도메인 (일반적으로 .yourdomain.com)
-    :param	string	$path: 쿠키 경로
-    :param	string	$prefix: 쿠키 이름 접두사
+    :param string $name: 쿠키 이름
+    :param string $domain: 쿠키 도메인 (일반적으로 .yourdomain.com)
+    :param string $path: 쿠키 경로
+    :param string $prefix: 쿠키 이름 접두사
     :rtype:	void
 
     쿠키를 삭제할 수 있습니다. 
@@ -73,3 +73,12 @@
     ::
 
         delete_cookie($name, $domain, $path, $prefix);
+
+.. php:function:: has_cookie(string $name[, ?string $value = null[, string $prefix = '']])
+
+    :param string $name: 쿠키 이름
+    :param string|null $value: 쿠키 값
+    :param string $prefix: 쿠키 접두사(prefix)
+    :rtype: bool
+
+    이름으로 쿠키가 있는지 확인합니다. ``Response::hasCookie()``\ 의 별칭(alias)입니다..
