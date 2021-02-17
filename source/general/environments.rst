@@ -12,6 +12,10 @@ ENVIRONMENT 상수
 기본적으로 CodeIgniter에는 ``ENVIRONMENT`` 상수가 ``$_SERVER['CI_ENVIRONMENT']``\ 에 제공된 값을 사용하도록 설정되어 있으며, 그렇지 않은 경우 'production' 값을 기본 값으로 설정합니다.
 서버 설정에 따라 여러 가지 방법으로 설정할 수 있습니다.
 
+.. note:: PHPUit 테스트에는 환경 ``testing``\ 이 특별합니다.
+    이를 지원하기 위해 여러 곳의 프레임워크에 특수 조건이 내장되어 있습니다.
+    개발에는 사용할 수 없습니다.
+
 .env
 ----
 

@@ -17,7 +17,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 서비스 Accessors
 =================
 
-.. php:function:: cache ( [$key] )
+.. php:function:: cache([$key])
 
     :param  string $key: 캐시에서 검색할 항목의 캐시 이름 (Optional)
     :returns: 캐시 오브젝트 또는 캐시에서 검색된 항목
@@ -31,7 +31,27 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
         $foo = cache('foo');
         $cache = cache();
 
-.. php:function:: env ( $key[, $default=null])
+.. php:function:: cookie(string $name[, string $value = ''[, array $options = []]])
+
+    :param string $name: Cookie 이름
+    :param string $value: Cookie 값
+    :param array $options: Cookie 옵션
+    :rtype: ``Cookie``
+    :returns: ``Cookie`` instance
+    :throws: ``CookieException``
+
+    새 쿠키 인스턴스를 만드는 간단한 함수입니다.
+
+.. php:function:: cookies([array $cookies = [][, bool $getGlobal = true]])
+
+    :param array $cookies: ``getGlobal``\ 이 ``false``\ 라면 ``CookieStore``\ 의 생성자에 전달됩니다.
+    :param bool $getGlobal: ``false``\ 인 경우 ``CookieStore``\ 의 새 인스턴스를 만듭니다.
+    :rtype: ``CookieStore``
+    :returns: ``Response``\ 에 저장된 ``CookieStore``\ 인스턴스 또는 새로운 ``CookieStore`` 인스턴스.
+
+    ``Response``\ 가 보유한 전역 ``CookieStore``\ 를 가져옵니다.
+
+.. php:function:: env($key[, $default = null])
 
     :param string $key: 검색 할 환경 변수의 이름
     :param mixed  $default: 값을 찾지 못하면 반환할 기본값
@@ -43,7 +63,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
     데이터베이스 설정, API 키 등과 같이 환경 자체에 특정한 값을 설정하기 위해 .env 파일과 함께 사용하면 특히 유용합니다.
 
-.. php:function:: esc( $data, $context='html' [, $encoding])
+.. php:function:: esc($data[, $context = 'html' [, $encoding]])
 
     :param   string|array   $data: 이스케이프할 정보(문자열)
     :param   string   $context: escaping context. 기본값은 'html'
@@ -59,7 +79,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
     지정 가능한 context 값: ``html``, ``js``, ``css``, ``url``, ``attr``, ``raw``, ``null``
 
-.. php:function:: helper( $filename )
+.. php:function:: helper($filename)
 
     :param   string|array  $filename: 로드할 헬퍼 파일의 이름 또는 이름의 배열.
 
