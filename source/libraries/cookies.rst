@@ -1,39 +1,35 @@
 #######
-Cookies
+쿠키
 #######
 
-An **HTTP cookie** (web cookie, browser cookie) is a small piece of data that a
-server sends to the user's web browser. The browser may store it and send it
-back with later requests to the same server. Typically, it's used to tell if
-two requests came from the same browser — keeping a user logged-in, for
-example. It remembers stateful information for the stateless HTTP protocol.
+HTTP 쿠키 (웹 쿠키, 브라우저 쿠키가) 서버가 사용자의 웹 브라우저에 보내는 데이터의 작은 조각이다.
+브라우저는이를 저장하고 나중에 동일한 서버에 대한 요청과 함께 다시 보낼 수 있습니다.
+일반적으로 두 개의 요청이 동일한 브라우저에서 왔는지 알려주는 데 사용됩니다 (예 : 사용자 로그인 유지). 상태 비 저장 HTTP 프로토콜에 대한 상태 저장 정보를 기억합니다.
 
-Cookies are mainly used for three purposes:
+쿠키는 주로 세 가지 목적으로 사용됩니다.
 
-- **Session management**: Logins, shopping carts, game scores, or anything else the server should remember
-- **Personalization**: User preferences, themes, and other settings
-- **Tracking**: Recording and analyzing user behavior
+- **세션관리**: 로그인, 쇼핑 카트, 게임 점수 또는 서버가 기억해야하는 기타 사항
+- **개인화**: 사용자 환경 설정, 테마 및 기타 설정
+- **추적**: 사용자 행동 기록 및 분석
 
-To help you efficiently use cookies across browsers with your request and response,
-CodeIgniter provides the ``CodeIgniter\HTTP\Cookie\Cookie`` class to abstract the
-cookie interaction.
+요청 및 응답을 통해 브라우저에서 쿠키를 효율적으로 사용하도록 돕기 위해 CodeIgniter는 ``CodeIgniter\HTTP\Cookie\Cookie`` 쿠키 상호 작용을 추상화하는 클래스를 제공합니다 .
 
 .. contents::
     :local:
     :depth: 2
 
 ****************
-Creating Cookies
+쿠키 생성
 ****************
 
-There are currently five (5) ways to create a new ``Cookie`` value object.
+현재 새 ``Cookie`` 값 개체를 만드는 방법은 5가지가 있습니다 .
 
 ::
 
     use CodeIgniter\HTTP\Cookie\Cookie;
     use DateTime;
 
-    // Providing all arguments in the constructor
+    // 생성자에 모든 인수 제공
     $cookie = new Cookie(
         'remember_token', // name
         'f699c7fd18a8e082d0228932f3acd40e1ef5ef92efcedda32842a211d62f0aa6', // value
@@ -47,7 +43,7 @@ There are currently five (5) ways to create a new ``Cookie`` value object.
         Cookie::SAMESITE_LAX // samesite
     );
 
-    // Using the static constructor
+    // 정적 생성자 사용
     $cookie = Cookie::create(
         'remember_token',
         'f699c7fd18a8e082d0228932f3acd40e1ef5ef92efcedda32842a211d62f0aa6',
@@ -63,13 +59,13 @@ There are currently five (5) ways to create a new ``Cookie`` value object.
         ]
     );
 
-    // Supplying a Set-Cookie header string
+    // Set-Cookie 헤더 문자열 제공
     $cookie = Cookie::fromHeaderString(
         'remember_token=f699c7fd18a8e082d0228932f3acd40e1ef5ef92efcedda32842a211d62f0aa6; Path=/; Secure; HttpOnly; SameSite=Lax',
         false, // raw
     );
 
-    // Using the fluent builder interface
+    // 빌더 인터페이스 사용
     $cookie = (new Cookie('remember_token'))
         ->withValue('f699c7fd18a8e082d0228932f3acd40e1ef5ef92efcedda32842a211d62f0aa6')
         ->withPrefix('__Secure-')
@@ -80,24 +76,23 @@ There are currently five (5) ways to create a new ``Cookie`` value object.
         ->withHttpOnly(true)
         ->withSameSite(Cookie::SAMESITE_LAX);
 
-    // Using the global function `cookie` which implicitly calls `Cookie::create()`
+    // 암시적으로 `Cookie::create()`를 호출하는 전역 함수 `cookie` 사용
     $cookie = cookie('remember_token', 'f699c7fd18a8e082d0228932f3acd40e1ef5ef92efcedda32842a211d62f0aa6');
 
-When constructing the ``Cookie`` object, only the ``name`` attribute is required. All other else are optional.
-If the optional attributes are not modified, their values will be filled up by the default values saved in
-the ``Cookie`` class. To override the defaults currently stored in the class, you can pass a ``Config\App``
-instance or an array of defaults to the static ``Cookie::setDefaults()`` method.
+``Cookie`` 객체를 구성 할 때 ``name`` 속성 만 필요합니다. 다른 모든 것은 선택 사항입니다.
+선택적 속성이 수정되지 않은 경우 해당 값은 ``Cookie`` 클래스에 저장된 기본값으로 채워집니다.
+현재 클래스에 저장된 기본값을 재정의하려면 ``Config\App`` 인스턴스 또는 기본값 배열을 정적 ``Cookie::setDefaults()`` 메서드에 전달할 수 있습니다.
 
 ::
 
     use CodeIgniter\HTTP\Cookie\Cookie;
     use Config\App;
 
-    // pass in an App instance before constructing a Cookie class
+    // Cookie 클래스를 생성하기 전에 App 인스턴스를 전달합니다.
     Cookie::setDefaults(new App());
     $cookie = new Cookie('login_token');
 
-    // pass in an array of defaults
+    // 기본값 배열 전달
     $myDefaults = [
         'expires'  => 0,
         'samesite' => Cookie::SAMESITE_STRICT,
@@ -105,10 +100,8 @@ instance or an array of defaults to the static ``Cookie::setDefaults()`` method.
     Cookie::setDefaults($myDefaults);
     $cookie = Cookie::create('login_token');
 
-Passing the ``Config\App`` instance or an array to ``Cookie::setDefaults()`` will effectively
-overwrite your defaults and will persist until new defaults are passed. If you do not want this
-behavior but only want to change defaults for a limited time, you can take advantage of
-``Cookie::setDefaults()`` return which returns the old defaults array.
+``Config\App`` 인스턴스 또는 배열을에 전달하면 ``Cookie::setDefaults()`` 기본값을 효과적으로 덮어 쓰고 새 기본값이 전달 될 때까지 유지됩니다.
+이 동작을 원하지 않고 제한된 시간 동안 만 기본값을 변경하려는 ``Cookie::setDefaults()`` 경우 이전 기본값 배열을 반환하는 return을 활용할 수 있습니다 .
 
 ::
 
@@ -118,14 +111,14 @@ behavior but only want to change defaults for a limited time, you can take advan
     $oldDefaults = Cookie::setDefaults(new App());
     $cookie = Cookie::create('my_token', 'muffins');
 
-    // return the old defaults
+    // 이전 기본값을 반환합니다.
     Cookie::setDefaults($oldDefaults);
 
 *****************************
-Accessing Cookie's Attributes
+쿠키의 속성에 액세스
 *****************************
 
-Once instantiated, you can easily access a ``Cookie``'s attribute by using one of its getter methods.
+인스턴스화되면 getter 메소드 중 하나를 사용하여 ``Cookie``의 속성에 쉽게 액세스 할 수 있습니다. 
 
 ::
 
@@ -162,21 +155,21 @@ Once instantiated, you can easily access a ``Cookie``'s attribute by using one o
     $cookie->isHttpOnly(); // true
     $cookie->getSameSite(); // 'Lax'
 
-    // additional getter
+    // 추가 getter
     $cookie->getId(); // '__Secure-remember_token;;/'
 
-    // when using `setcookie()`'s alternative signature on PHP 7.3+
-    // you can easily use the `getOptions()` method to supply the
-    // $options parameter
+    // PHP 7.3+ 에서 `setcookie()`의 대체 서명을 사용할 때
+    // `getOptions()` 메소드를 사용하여
+    // $options 매개 변수를 쉽게 제공 할 수 있습니다.
     $cookie->getOptions();
 
 *****************
-Immutable Cookies
+불변 쿠키
 *****************
 
-A new ``Cookie`` instance is an immutable value object representation of an HTTP cookie. Being immutable,
-modifying any of the instance's attributes will not affect the original instance. The modification **always**
-returns a new instance. You need to retain this new instance in order to use it.
+새로운 ``Cookie`` 인스턴스는 HTTP 쿠키의 변경 불가능한 값 객체 표현입니다.
+**불변**이므로 인스턴스의 속성을 수정해도 원래 인스턴스에는 영향을주지 않습니다.
+수정은 항상 새 인스턴스를 반환합니다. 이 새 인스턴스를 사용하려면 유지해야합니다.
 
 ::
 
@@ -192,59 +185,56 @@ returns a new instance. You need to retain this new instance in order to use it.
     $new->getName(); // 'remember_token'
 
 ********************************
-Validating a Cookie's Attributes
+쿠키의 속성 검증
 ********************************
 
-An HTTP cookie is regulated by several specifications that need to be followed in order to be
-accepted by browsers. Thus, when creating or modifying certain attributes of the ``Cookie``,
-these are validated in order to check if these follow the specifications.
+HTTP 쿠키는 브라우저에서 허용하기 위해 따라야하는 몇 가지 사양에 의해 규제됩니다.
+따라서 ``Cookie``의 특정 속성을 생성하거나 수정할 때 이러한 속성이 사양을 따르는 지 확인하기 위해 유효성을 검사합니다.
 
-A ``CookieException`` is thrown if violations were reported.
+위반이보고되면 ``CookieException``이 발생합니다.
 
-Validating the Name Attribute
+이름 속성 검증
 =============================
 
-A cookie name can be any US-ASCII character, except for the following:
+쿠키 이름은 다음을 제외한 모든 US-ASCII 문자가 될 수 있습니다.
 
-- control characters;
-- spaces or tabs;
-- separator characters, such as ``( ) < > @ , ; : \ " / [ ] ? = { }``
+- 제어문자;
+- 공백 또는 탭;
+- 다음과 같은 구분 문자 ``( ) < > @ , ; : \ " / [ ] ? = { }``
 
-If setting the ``$raw`` parameter to ``true`` this validation will be strictly made. This is because
-PHP's ``setcookie`` and ``setrawcookie`` will reject cookies with invalid names. Additionally, cookie
-names cannot be an empty string.
+``$raw`` 매개 변수를 ``true``로 설정하면이 유효성 검사가 엄격하게 수행됩니다. 이는 PHP의 ``setcookie`` 및 ``setrawcookie``가 잘못된 이름을 가진 쿠키를 거부하기 때문입니다. 또한 쿠키 이름은 빈 문자열을 사용할 수 없습니다.
 
-Validating the Prefix Attribute
+접두사 속성 유효성 검사
 ===============================
 
-When using the ``__Secure-`` prefix, cookies must be set with the ``$secure`` flag set to ``true``. If
-using the ``__Host-`` prefix, cookies must exhibit the following:
+``__Secure-`` 접두사를 사용하는 경우 ``$secure`` 플래그를 ``true``로 설정하여 쿠키를 설정해야합니다.
+만약 ``__Host-`` 접두사를 사용하면 쿠키는 다음을 표시해야합니다.
 
-- ``$secure`` flag set to ``true``
-- ``$domain`` is empty
-- ``$path`` must be ``/``
+- ``$secure`` 플래그를 ``true``로 설정
+- ``$domain`` 을 empty로 설정
+- ``$path`` 반드시 ``/``로 설정
 
-Validating the SameSite Attribute
+SameSite 속성 유효성 검사
 =================================
 
-The SameSite attribute only accepts three (3) values:
+SameSite 속성은 3가지 값만 허용합니다.
 
-- **Lax**: Cookies are not sent on normal cross-site subrequests (for example to load images or frames into a third party site), but are sent when a user is navigating to the origin site (*i.e.* when following a link).
-- **Strict**: Cookies will only be sent in a first-party context and not be sent along with requests initiated by third party websites.
-- **None**: Cookies will be sent in all contexts, *i.e.* in responses to both first-party and cross-origin requests.
+- **Lax**: 쿠키는 일반적인 교차 사이트 하위 요청 (예 : 이미지 또는 프레임을 제 3 자 사이트로로드)에서 전송되지 않지만 사용자가 원본 사이트로 이동할 때 전송됩니다 (*즉,* 링크를 따라갈 때).
+- **Strict**: 쿠키는 자사 컨텍스트로만 전송되며 타사 웹 사이트에서 시작된 요청과 함께 전송되지 않습니다.
+- **None**: 쿠키는``first-party``` 및 ``cross-origin`` 요청에 대한 응답으로 *즉* 모든 컨텍스트에서 전송됩니다.
 
-CodeIgniter, however, allows you to set the SameSite attribute to an empty string. When an empty string is
-provided, the default SameSite setting saved in the ``Cookie`` class is used. You can change the default SameSite
-by using the ``Cookie::setDefaults()`` as discussed above.
+그러나 CodeIgniter를 사용하면 SameSite 속성을 빈 문자열로 설정할 수 있습니다. 빈 문자열이
+단, ``Cookie`` 클래스에 저장된 기본 SameSite 설정이 사용됩니다. 기본 SameSite를 변경할 수 있습니다.
+위에서 설명한대로 ``Cookie::setDefaults()``를 사용합니다.
 
-Recent cookie specifications have changed such that modern browsers are being required to give a default SameSite
-if nothing was provided. This default is ``Lax``. If you have set the SameSite to be an empty string and your
-default SameSite is also an empty string, your cookie will be given the ``Lax`` value.
+최신 쿠키 사양이 변경되어 기본 SameSite를 제공하기 위해 최신 브라우저가 필요합니다.
+아무것도 제공되지 않았다면. 이 기본값은 ``Lax``입니다. SameSite를 빈 문자열로 설정하고
+기본 SameSite도 빈 문자열이며 쿠키에 ``Lax`` 값이 제공됩니다.
 
-If the SameSite is set to ``None`` you need to make sure that ``Secure`` is also set to ``true``.
+SameSite가 ``None``으로 설정된 경우 ``Secure``도 ``true``로 설정되어 있는지 확인해야합니다.
 
-When writing the SameSite attribute, the ``Cookie`` class accepts any of the values case-insensitively. You can
-also take advantage of the class's constants to make it not a hassle.
+SameSite 속성을 작성할 때``Cookie`` 클래스는 대소 문자를 구분하지 않는 값을 허용합니다. 당신은 할 수 있습니다
+또한 클래스의 상수를 활용하여 번거롭지 않게 만드십시오.
 
 ::
 
@@ -255,11 +245,11 @@ also take advantage of the class's constants to make it not a hassle.
     Cookie::SAMESITE_NONE; // 'none'
 
 **********************
-Using the Cookie Store
+쿠키 저장소 사용
 **********************
 
-The ``CookieStore`` class represents an immutable collection of ``Cookie`` objects. The ``CookieStore``
-instance can be accessed from the current ``Response`` object.
+``CookieStore`` 클래스는 ``Cookie`` 개체의 변경 불가능한 컬렉션을 나타냅니다.
+``CookieStore`` 인스턴스는 현재 ``Response`` 개체에서 액세스 할 수 있습니다.
 
 ::
 
@@ -267,120 +257,122 @@ instance can be accessed from the current ``Response`` object.
 
     $cookieStore = Services::response()->getCookieStore();
 
-CodeIgniter provides three (3) other ways to create a new instance of the ``CookieStore``.
+CodeIgniter는 ``CookieStore``의 새 인스턴스를 생성하는 3 가지 다른 방법을 제공합니다.
 
 ::
 
     use CodeIgniter\HTTP\Cookie\Cookie;
     use CodeIgniter\HTTP\Cookie\CookieStore;
 
-    // Passing an array of `Cookie` objects in the constructor
+    // 생성자에서 `Cookie` 객체의 배열 전달
     $store = new CookieStore([
         Cookie::create('login_token'),
         Cookie::create('remember_token'),
     ]);
 
-    // Passing an array of `Set-Cookie` header strings
+    // `Set-Cookie` 헤더 문자열 배열 전달
     $store = CookieStore::fromCookieHeaders([
         'remember_token=me; Path=/; SameSite=Lax',
         'login_token=admin; Path=/; SameSite=Lax',
     ]);
 
-    // using the global `cookies` function
+    // 전역 '쿠키' 기능 사용
     $store = cookies([Cookie::create('login_token')], false);
 
-    // retrieving the `CookieStore` instance saved in our current `Response` object
+    // 현재 `Response` 객체에 저장된 `CookieStore` 인스턴스 검색
     $store = cookies();
 
-.. note:: When using the global ``cookies()`` function, the passed ``Cookie`` array will only be considered
-    if the second argument, ``$getGlobal``, is set to ``false``.
+.. note:: 전역 ``cookies ()`` 함수를 사용할 때 전달 된 ``Cookie``배열 만 고려됩니다.
+    두 번째 인수 ``$getGlobal``가 ``false``로 설정된 경우
 
-Checking Cookies in Store
+스토어에서 쿠키 확인
 =========================
 
-To check whether a ``Cookie`` object exists in the ``CookieStore`` instance, you can use several ways::
+``Cookie`` 객체가 ``CookieStore`` 인스턴스에 존재하는지 확인하려면 다음과 같은 여러 방법을 사용할 수 있습니다.
+
+::
 
     use CodeIgniter\HTTP\Cookie\Cookie;
     use CodeIgniter\HTTP\Cookie\CookieStore;
     use Config\Services;
 
-    // check if cookie is in the current cookie collection
+    // 쿠키가 현재 쿠키 컬렉션에 있는지 확인
     $store = new CookieStore([
         Cookie::create('login_token'),
         Cookie::create('remember_token'),
     ]);
     $store->has('login_token');
 
-    // check if cookie is in the current Response's cookie collection
+    // 쿠키가 현재 응답의 쿠키 컬렉션에 있는지 확인
     cookies()->has('login_token');
     Services::response()->hasCookie('remember_token');
 
-    // using the cookie helper to check the current Response
-    // not available to v4.1.1 and lower
+    // 쿠키 도우미를 사용하여 v4.1.1 이하에서
+    // 사용할 수없는 현재 응답 확인
     helper('cookie');
     has_cookie('login_token');
 
-Getting Cookies in Store
+스토어에서 쿠키 받기
 ========================
 
-Retrieving a ``Cookie`` instance in a cookie collection is very easy::
+쿠키 컬렉션에서 ``Cookie`` 인스턴스를 검색하는 것은 매우 쉽습니다.
+
+::
 
     use CodeIgniter\HTTP\Cookie\Cookie;
     use CodeIgniter\HTTP\Cookie\CookieStore;
     use Config\Services;
 
-    // getting cookie in the current cookie collection
+    // 현재 쿠키 컬렉션에서 쿠키 가져오기
     $store = new CookieStore([
         Cookie::create('login_token'),
         Cookie::create('remember_token'),
     ]);
     $store->get('login_token');
 
-    // getting cookie in the current Response's cookie collection
+    // 현재 응답의 쿠키 컬렉션에서 쿠키 가져오기
     cookies()->get('login_token');
     Services::response()->getCookie('remember_token');
 
-    // using the cookie helper to get cookie from the Response's cookie collection
+    // 쿠키 헬퍼를 사용하여 응답의 쿠키 컬렉션에서 쿠키 가져오기
     helper('cookie');
     get_cookie('remember_token');
 
-When getting a ``Cookie`` instance directly from a ``CookieStore``, an invalid name
-will throw a ``CookieException``.
+``CookieStore``에서 직접 ``Cookie`` 인스턴스를 가져올 때
+잘못된 이름은 ``CookieException``을 발생시킵니다.
 
 ::
 
-    // throws CookieException
+    // CookieException 발생
     $store->get('unknown_cookie');
 
-When getting a ``Cookie`` instance from the current ``Response``'s cookie collection,
-an invalid name will just return ``null``.
+현재``Response``의 쿠키 컬렉션에서 ``Cookie`` 인스턴스를 가져올 때,
+잘못된 이름은 ``null``을 반환합니다.
 
 ::
 
     cookies()->get('unknown_cookie'); // null
 
-If no arguments are supplied in when getting cookies from the ``Response``, all ``Cookie`` objects
-in store will be displayed.
+``Response``에서 쿠키를 가져올 때 인수가 제공되지 않으면 상점에있는 모든 ``Cookie`` 개체가 표시됩니다.
 
 ::
 
-    cookies()->get(); // array of Cookie objects
+    cookies()->get(); // Cookie 객체의 배열
 
-    // alternatively, you can use the display method
+    // 또는 표시 방법을 사용할 수 있습니다.
     cookies()->display();
 
-    // or even from the Response
+    // 또는 이벤트에 따른 응답
     Services::response()->getCookies();
 
-.. note:: The helper function ``get_cookie()`` gets the cookie from the current ``Request`` object, not
-    from ``Response``. This function checks the `$_COOKIE` array if that cookie is set and fetches it
-    right away.
+.. note:: 헬퍼 함수 ``get_cookie()``는 ``Response``가 아닌 현재 ``Request`` 객체에서 쿠키를 가져옵니다.
+    이 함수는 쿠키가 설정되어 있으면 `$_COOKIE` 배열을 확인하고 즉시 가져옵니다.
 
-Adding/Removing Cookies in Store
+스토어에서 쿠키 추가/제거
 ================================
 
-As previously mentioned, ``CookieStore`` objects are immutable. You need to save the modified instance
-in order to work on it. The original instance is left unchanged.
+앞서 언급했듯이``CookieStore`` 객체는 변경 불가능합니다.
+작업하려면 수정 된 인스턴스를 저장해야합니다. 원래 인스턴스는 변경되지 않습니다.
 
 ::
 
@@ -393,19 +385,18 @@ in order to work on it. The original instance is left unchanged.
         Cookie::create('remember_token'),
     ]);
 
-    // adding a new Cookie instance
+    // 새로운 Cookie 인스턴스 추가
     $new = $store->put(Cookie::create('admin_token', 'yes'));
 
-    // removing a Cookie instance
+    // 쿠키 인스턴스 제거
     $new = $store->remove('login_token');
 
-.. note:: Removing a cookie from the store **DOES NOT** delete it from the browser.
-    If you intend to delete a cookie *from the browser*, you must put an empty value
-    cookie with the same name to the store.
+.. note:: 스토어에서 쿠키를 제거하면 브라우저에서 쿠키가 삭제되지 * 않습니다**.
+    *브라우저에서* 쿠키를 삭제하려면 빈 값을 입력해야합니다.
+    동일한 이름의 쿠키를 상점에 등록합니다
 
-When interacting with the cookies in store in the current ``Response`` object, you can safely add or delete
-cookies without worrying the immutable nature of the cookie collection. The ``Response`` object will replace
-the instance with the modified instance.
+현재 ``Response`` 개체에 저장된 쿠키와 상호 작용할 때 쿠키 컬렉션의 불변성에 대해 걱정하지 않고 안전하게 쿠키를 추가하거나 삭제할 수 있습니다.
+``Response`` 객체는 인스턴스를 수정 된 인스턴스로 대체합니다.
 
 ::
 
@@ -414,18 +405,17 @@ the instance with the modified instance.
     Services::response()->setCookie('admin_token', 'yes');
     Services::response()->deleteCookie('login_token');
 
-    // using the cookie helper
+    // cookie helper 사용
     helper('cookie');
     set_cookie('admin_token', 'yes');
     delete_cookie('login_token');
 
-Dispatching Cookies in Store
+스토어의 쿠키 Dispatching
 ============================
 
-More often than not, you do not need to concern yourself in manually sending cookies. CodeIgniter will do this
-for you. However, if you really need to manually send cookies, you can use the ``dispatch`` method. Just like
-in sending other headers, you need to make sure the headers are not yet sent by checking the value
-of ``headers_sent()``.
+대개는 수동으로 쿠키를 보내는 데 신경 쓸 필요가 없습니다. CodeIgniter가이 작업을 수행합니다.
+그러나 수동으로 쿠키를 보내야하는 경우 ``dispatch`` 방법을 사용할 수 있습니다.
+다른 헤더를 보낼 때와 마찬가지로 ``headers_sent()`` 값을 확인하여 헤더가 아직 전송되지 않았는지 확인해야합니다.
 
 ::
 
@@ -437,33 +427,31 @@ of ``headers_sent()``.
         Cookie::create('remember_token'),
     ]);
 
-    $store->dispatch(); // After dispatch, the collection is now empty.
+    $store->dispatch(); // dispatch 후 컬렉션은 이제 비어 있습니다.
 
 **********************
-Cookie Personalization
+쿠키 개인화
 **********************
 
-Sane defaults are already in place inside the ``Cookie`` class to ensure the smooth creation of cookie
-objects. However, you may wish to define your own settings by changing the following settings in the
-``Config\App`` class in ``app/Config/App.php`` file.
+쿠키 객체의 원활한 생성을 보장하기 위해 Sane 기본값은 이미 ``Cookie`` 클래스 내에 있습니다. 그러나 ``app/Config/App.php`` 파일의 ``Config\App`` 클래스에서 다음 설정을 변경하여 자신의 설정을 정의 할 수 있습니다.
 
 ==================== ===================================== ========= =====================================================
-Setting              Options/ Types                        Default   Description
+설정              옵션/타입                        기본겂   설명
 ==================== ===================================== ========= =====================================================
-**$cookiePrefix**    ``string``                            ``''``    Prefix to prepend to the cookie name.
-**$cookieDomain**    ``string``                            ``''``    The domain property of the cookie.
-**$cookiePath**      ``string``                            ``/``     The path property of the cookie, with trailing slash.
-**$cookieSecure**    ``true/false``                        ``false`` If to be sent over secure HTTPS.
-**$cookieHTTPOnly**  ``true/false``                        ``true``  If not accessible to JavaScript.
-**$cookieSameSite**  ``Lax|None|Strict|lax|none|strict''`` ``Lax``   The SameSite attribute.
-**$cookieRaw**       ``true/false``                        ``false`` If to be dispatched using ``setrawcookie()``.
-**$cookieExpires**   ``DateTimeInterface|string|int``      ``0``     The expires timestamp.
+**$cookiePrefix**    ``string``                            ``''``    쿠키 이름 앞에 붙일 접두사입니다.
+**$cookieDomain**    ``string``                            ``''``    쿠키의 도메인 속성입니다.
+**$cookiePath**      ``string``                            ``/``     후행 슬래시가있는 쿠키의 경로 속성입니다.
+**$cookieSecure**    ``true/false``                        ``false`` 보안 HTTPS를 통해 전송되는 경우
+**$cookieHTTPOnly**  ``true/false``                        ``true``  JavaScript에 액세스 할 수없는 경우
+**$cookieSameSite**  ``Lax|None|Strict|lax|none|strict''`` ``Lax``   SameSite 속성입니다.
+**$cookieRaw**       ``true/false``                        ``false`` ``setrawcookie()``를 사용하여 발송되는 경우
+**$cookieExpires**   ``DateTimeInterface|string|int``      ``0``     만료 타임 스탬프
 ==================== ===================================== ========= =====================================================
 
-In runtime, you can manually supply a new default using the ``Cookie::setDefaults()`` method.
+런타임에서 ``Cookie::setDefaults()`` 메서드를 사용하여 수동으로 새 기본값을 제공 할 수 있습니다.
 
 ***************
-Class Reference
+클래스 참조
 ***************
 
 .. php:class:: CodeIgniter\\HTTP\\Cookie\\Cookie
