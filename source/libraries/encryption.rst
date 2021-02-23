@@ -100,11 +100,11 @@ AES-256의 경우 길이는 256 비트 또는 32 바이트 (문자)입니다.
 ::
 
 	// $key will be assigned a 32-byte (256-bit) random key
-	public $key = Encryption::createKey(32);
+	public $key = \CodeIgniter\Encryption\Encryption::createKey(32);
 
 	// for the SodiumHandler, you can use either:
 	$key = sodium_crypto_secretbox_keygen();
-	$key = Encryption::createKey(SODIUM_CRYPTO_SECRETBOX_KEYBYTES);
+	$key = \CodeIgniter\Encryption\Encryption::createKey(SODIUM_CRYPTO_SECRETBOX_KEYBYTES);
 
 키는 ``app/Config/Encryption.php``\ 에 저장되거나, 직접 저장 메커니즘을 설계하고 암호화/암호 해독시 동적으로 키를 전달할 수 있습니다.
 
@@ -122,7 +122,7 @@ AES-256의 경우 길이는 256 비트 또는 32 바이트 (문자)입니다.
 ::
 
 	// Get a hex-encoded representation of the key:
-	$encoded = bin2hex(Encryption::createKey(32));
+	$encoded = bin2hex(\CodeIgniter\Encryption\Encryption::createKey(32));
 
 	// Put the same value with hex2bin(),
 	// so that it is still passed as binary to the library:
@@ -222,7 +222,7 @@ Sodium은 XSalsa20, MAC의 경우 Poly1305를 사용하여 암호화하고, 엔�
 ::
 
     // create an Encryption instance
-    $encryption = new CodeIgniter\Encryption\Encryption();
+    $encryption = new \CodeIgniter\Encryption\Encryption();
 
     // reconfigure an instance with different settings
     $encrypter = $encryption->initialize($config);

@@ -694,10 +694,15 @@ POST 데이터에 다음이 있다고 가정합니다.
 
 ::
 
+    use CodeIgniter\Validation\CreditCardRules;
+    use CodeIgniter\Validation\FileRules;
+    use CodeIgniter\Validation\FormatRules;
+    use CodeIgniter\Validation\Rules;
+
     public $ruleSets = [
-        \CodeIgniter\Validation\Rules::class,
-        \CodeIgniter\Validation\FileRules::class,
-        \CodeIgniter\Validation\CreditCardRules::class,
+        Rules::class,
+        FileRules::class,
+        CreditCardRules::class,
     ];
 
 정규화된 클래스 이름을 가진 간단한 문자열 또는 위와 같은 ``::class`` 접미사를 사용하여 추가할 수 있습니다.

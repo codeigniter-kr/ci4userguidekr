@@ -789,10 +789,10 @@ insert* 또는 update* 메소드의 경우 데이터베이스에 삽입되는 �
 
     protected function hashPassword(array $data)
     {
-        if (! isset($data['data']['password']) return $data;
+        if (! isset($data['data']['password'])) return $data;
 
         $data['data']['password_hash'] = password_hash($data['data']['password'], PASSWORD_DEFAULT);
-        unset($data['data']['password'];
+        unset($data['data']['password']);
 
         return $data;
     }
