@@ -108,7 +108,7 @@ Test 클래스
 
 .. note:: 네임스페이스는 테스트 클래스에 반드시 필요한 것은 아니지만 클래스 이름이 충돌하지 않도록 하는 데 도움이 됩니다.
 
-데이터베이스 결과를 테스트할 때는 `CIDatabaseTestClass <database.html>`_ 클래스를 사용해야 합니다.
+데이터베이스 결과를 테스트할 때는 `DatabaseTestTrait <database.html>`_ 클래스를 사용해야 합니다.
 
 Staging
 -------
@@ -160,6 +160,31 @@ PHPUnit의 ``TestCase``\ 는 준비 및 정리를 돕는 4가지 방법을 제�
             $this->model->purgeDeleted()
         }
     }
+
+Traits
+------
+
+테스트를 강화하는 일반적인 방법은 Trait을 사용하여 여러 테스트 사례의 스테이징을 통합하는 것입니다.
+``CIUintTestCase``\ 는 모든 클래스의 Trait을 감지하고 Trait 자체의 명명된 실행할 스테이징 방법을 찾을 것입니다.
+프레임워크의 고유한 ``DatabaseTestTrait``\ 은 `setUpDatabaseTestTrait()`\ 과 ``tearDownDatabaseTestTrait()`` 메소드을 사용하여 이를 구현합니다.
+
+예를 들어 일부 테스트 케이스에 인증을 추가해야 하는 경우 로그인된 사용자를 위조하는 설정 방법을 사용하여 인증 Trait을 생성할 수 있습니다.
+
+::
+
+	trait AuthTrait
+	{
+		protected setUpAuthTrait()
+		{
+			$user = $this->createFakeUser();
+			$this->logInUser($user);
+		}
+	...
+
+	class AuthenticationFeatureTest
+	{
+		use AuthTrait;
+	...
 
 
 추가 어설션(Assertion)

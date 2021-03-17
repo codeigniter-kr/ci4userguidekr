@@ -41,7 +41,7 @@ Entity 클래스 만들기
 ::
 
     <?php 
-    
+
     namespace App\Entities;
 
     use CodeIgniter\Entity;
@@ -61,7 +61,7 @@ Entity 클래스 만들기
 ::
 
     <?php 
-    
+
     namespace App\Models;
 
     use CodeIgniter\Model;
@@ -144,9 +144,6 @@ Entity 클래스는 키/값 쌍 배열을 클래스에 전달하여 클래스 �
 대량 액세스 속성
 -------------------------
 
-The Entity class has two methods to extract all available properties into an array: ``toArray()`` and ``toRawArray()``.
-Using the raw version will bypass magic "getter" methods and casts. Both methods can take a boolean first parameter to specify whether returned values should be filtered by those that have changed, and a boolean final parameter to make the method recursive, in case of nested Entities.
-
 Entity 클래스는 ``toArray()``\ 와 ``toRawArray()`` 메소드를 통하여 사용 가능한 모든 속성을 배열로 추출할 수 있습니다.
 원시(raw) 버전을 사용하면 매직 "getter" 메소드와 캐스트(cast)를 우회할 수 있습니다. 
 두 메소드 모두 첫 번째 매개 변수를 사용하여 반환된 값을 변경된 값으로 필터링할지 여부를 지정하고, 최종 매개 변수를 사용하여 중첩된 엔티티 요소를 재귀적으로 만들수 있습니다.
@@ -155,7 +152,6 @@ Entity 클래스는 ``toArray()``\ 와 ``toRawArray()`` 메소드를 통하여 �
 =======================
 
 위의 예제는 편리하지만 비즈니스 로직을 강화하는데 도움이 되지는 않습니다.
-The base Entity class implements some smart ``__get()`` and ``__set()`` methods that will check for special methods and use those instead of using the attributes directly, allowing you to enforce any business logic or data conversion that you need.
 기본 Entity 클래스는 특수한 메소드를 확인하고 속성을 직접 사용하는 대신 스마트한 ``__get()``\ 과 ``__set()`` 메소드를 구현하여 비즈니스 로직 또는 데이터 변환을 시행할 수 있습니다. 
 
 다음은 이를 사용하는 방법에 대한 몇 가지 예를 제공하기 위해 업데이트된 사용자 Entity입니다.
@@ -426,8 +422,116 @@ CSV 캐스팅
 .. note:: CSV로 캐스팅은 PHP의 내장 함수 ``implode``\ 와 ``explode`` 함수를 사용하며 모든 값이 쉼표가 없는 문자열이라고 가정합니다. 
     더 복잡한 데이터를 캐스팅하려면 ``array`` 또는 ``json``\ 을 사용합니다.
 
+커스텀 캐스팅
+--------------
+
+데이터를 가져오고 설정하는 고유한 변환 유형을 정의할 수 있습니다.
+
+처음에는 사용자 유형에 대한 처리기 클래스를 만들어야 합니다.
+클래스가 ``app/Entity/Cast`` 디렉토리에 위치한다고 가정합니다.
+
+::
+
+    <?php
+
+    namespace App\Entity\Cast
+
+    //The class must inherit the CodeIgniter\EntityCast\AbstractCast class
+    class CastBase64 extends \CodeIgniter\EntityCast\AbstractCast
+    {
+        public static function get($value, array $params = [])
+        {
+            return base64_decode($value);
+        }
+
+        public static function set($value, array $params = [])
+        {
+            return base64_encode($value);
+        }
+    }
+
+이제 등록해야 합니다.
+
+::
+
+    <?php
+
+    namespace App\Entities;
+
+    use CodeIgniter\Entity;
+
+    class MyEntity extends Entity
+    {
+        // Specifying the type for the field
+        protected $casts = [
+            'key' => 'base64',
+        ];
+
+        //Bind the type to the handler
+        protected $castHandlers = [
+            'base64' => 'App\Entity\Cast\CastBase64',
+        ];
+    }
+
+    //...
+
+    $entity->key = 'test'; // dGVzdA==
+    echo $entity->key;     // test
+
+
+값을 가져오거나 설정할 때 값을 변경할 필요가 없는 경우 메소드를 구현하지 마십시오.
+
+::
+
+    class CastBase64 extends \CodeIgniter\EntityCast\AbstractCast
+    {
+        public static function get($value, array $params = [])
+        {
+            return base64_decode($value);
+        }
+    }
+
+
+**Parameters**
+
+한 가지 유형으로 충분하지 않다면, 추가 매개 변수를 사용할 수 있습니다.
+추가 매개 변수는 대괄호로 표시되고 쉼표로 나열됩니다.
+
+**type[param1, param2]**
+
+::
+
+    //Defining a type with parameters
+    protected $casts = [
+        'some_attribute' => 'class[App\SomeClass, param2, param3]',
+    ];
+
+    //Bind the type to the handler
+    protected $castHandlers = [
+        'class' => 'SomeHandler',
+    ];
+
+    class SomeHandler extends \CodeIgniter\EntityCast\AbstractCast
+    {
+        public static function get($value, array $params = [])
+        {
+            var_dump($params);
+            // array(3) {
+            //   [0]=>
+            //   string(13) "App\SomeClass"
+            //   [1]=>
+            //   string(6) "param2"
+            //   [2]=>
+            //   string(6) "param3"
+            // }
+        }
+    }
+
+.. note:: 캐스팅 유형이 nullable ``?bool``\ 로 표시되어 있고 전달 된 값이 null이 아닌 경우 값이 ``nullable``\ 인 매개 변수가 캐스팅 유형 처리기에 전달됩니다.
+    캐스팅 유형에 사전 정의된 매개 변수가 있는 경우 목록 끝에 ``nullable``\ 이 추가됩니다.
+
 변경된 속성 확인
--------------------------------
+==================
 
 속성의 이름을 이용하여 엔티티 속성이 작성된 이후로 변경되었는지 확인할 수 있습니다.
 

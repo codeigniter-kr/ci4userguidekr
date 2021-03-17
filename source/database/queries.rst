@@ -67,7 +67,7 @@ query() 함수는 "읽기" 유형의 쿼리가 실행될 때 데이터베이스 
 
 ::
 
-    $db->setPrefix('newprefix');
+    $db->setPrefix('newprefix_');
     $db->prefixTable('tablename'); // outputs newprefix_tablename
 
 다음 메소드로 언제든지 현재 사용중인 접두사를 얻을 수 있습니다

@@ -64,10 +64,11 @@ emergency   시스템 사용 불가
 
 로깅 시스템은 동시에 실행중인 로깅을 처리하는 여러 가지 방법을 지원할 수 있습니다.
 각 처리기는 특정 수준을 처리하고 나머지는 무시하도록 설정할 수 있습니다.
-두 개의 핸들러가 기본적으로 설치되어 제공됩니다.
+3가지의 핸들러가 기본적으로 설치되어 제공됩니다.
 
 - **File Handler**\ 는 기본 핸들러이며, 매일 로컬로 단일 파일을 작성합니다. 권장되는 로깅 방법입니다.
 - **ChromeLogger Handler**\ 는 Chrome 웹 브라우저에 `ChromeLogger extension <https://craig.is/writing/chrome-logger>`_\ 이 설치되어 있다면, Chrome의 콘솔 창에 로그 정보를 표시 할 수 있습니다.
+- **Errorlog Handler** 이 핸들러는 PHP의 네이티브 ``error_log()`` 함수를 활용하고 거기에 로그를 작성합니다. 현재는 ``error_log()``\ 의 ``0``\ 과\ ``4`` 메시지 유형만 지원됩니다.
 
 핸들러는 로그 구성 파일의 ``$handlers`` 속성에 지정할 수 있으며, 핸들러 및 핸들러에 대한 설정값으로 이루어진 배열입니다.
 Each handler is specified with the key being the fully name-spaced class name. 

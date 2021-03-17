@@ -11,10 +11,12 @@ CodeIgniter는 의도적으로 내부 인증 또는 권한 부여 클래스를 �
 * 로그인 및 로그아웃 작업을 처리하는 모듈은 성공시 ``login``\ 과 ``logout`` 이벤트를 트리거(trigger)합니다.
 * "현재 사용자"\ 를 정의하는 모듈에 ``user_id()`` 함수를 정의하여 사용자의 고유 식별자를 반환하거나, "현재 사용자 없음"\ 에 대해 ``null``\ 을 반환해야 합니다.
 
-위 요구 사항을 충족하는 모듈은 **composer.json**\ 에 다음 항목을 추가하여 프레임워크 기대치와의 호환성을 나타낼 수 있습니다.
+이러한 권장 사항을 충족하는 모듈은 **composer.json**\ 에 다음 항목을 추가하여 호환성을 나타낼 수 있습니다.
 
 ::
 
     "provide": {
-        "codeigniter4/authentication-implementation": "1.0",
+        "codeigniter4/authentication-implementation": "1.0"
     },
+
+이 구현을 제공하는 모듈 목록을 `Packagist <https://packagist.org/providers/codeigniter4/authentication-implementation>`_\ 에서 검색할 수 있습니다.

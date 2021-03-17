@@ -9,7 +9,7 @@
 Test 클래스
 ==============
 
-CodeIgniter가 테스트를 위해 제공하는 내장 데이터베이스 도구를 이용하려면 테스트에서``CIDatabaseTestCase``\ 를 확장해야 합니다.
+CodeIgniter가 테스트를 위해 제공하는 내장 데이터베이스 도구를 이용하려면 테스트에서``CIUnitTestCase``\ 를 확장하고 ``DatabaseTestTrait``\ 을 사용 해야 합니다.
 
 ::
 
@@ -17,11 +17,14 @@ CodeIgniter가 테스트를 위해 제공하는 내장 데이터베이스 도구
     
     namespace App\Database;
 
-    use CodeIgniter\Test\CIDatabaseTestCase;
+    use CodeIgniter\Test\CIUnitTestCase;
+    use CodeIgniter\Test\DatabaseTestTrait;
 
-    class MyTests extends CIDatabaseTestCase
+    class MyTests extends CIUnitTestCase
     {
-        . . .
+        use DatabaseTestTrait;
+
+        // ...
     }
 
 ``setUp()`` 및 ``tearDown()`` 단계에서 특수 기능이 실행되므로 해당 메소드를 사용해야 하는 경우 부모의 메소드를 호출해야합니다. 
@@ -33,10 +36,13 @@ CodeIgniter가 테스트를 위해 제공하는 내장 데이터베이스 도구
     
     namespace App\Database;
 
-    use CodeIgniter\Test\CIDatabaseTestCase;
+    use CodeIgniter\Test\CIUnitTestCase;
+    use CodeIgniter\Test\DatabaseTestTrait;
 
-    class MyTests extends CIDatabaseTestCase
+    class MyTests extends CIUnitTestCase
     {
+        use DatabaseTestTrait;
+
         public function setUp()
         {
             parent::setUp();
@@ -82,10 +88,13 @@ Test 데이터베이스 설정
     
     namespace App\Database;
 
-    use CodeIgniter\Test\CIDatabaseTestCase;
+    use CodeIgniter\Test\CIUnitTestCase;
+    use CodeIgniter\Test\DatabaseTestTrait;
 
-    class MyTests extends CIDatabaseTestCase
+    class MyTests extends CIUnitTestCase
     {
+        use DatabaseTestTrait;
+
         protected $refresh  = true;
         protected $seed     = 'TestSeeder';
         protected $basePath = 'path/to/database/files';
@@ -134,7 +143,7 @@ true인 경우 모든 마이그레이션이 버전 0으로 롤백됩니다.
 헬퍼 메소드
 ==============
 
-**CIDatabaseTestCase** 클래스는 데이터베이스 테스트에 도움이 되는 몇 가지 헬퍼 메소드를 제공합니다.
+**DatabaseTestTrait** 클래스는 데이터베이스 테스트에 도움이 되는 몇 가지 헬퍼 메소드를 제공합니다.
 
 **regressDatabase()**
 

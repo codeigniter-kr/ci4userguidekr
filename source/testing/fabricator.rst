@@ -6,6 +6,10 @@
 ``Fabricator`` 클래스는 fzaninotto의 `Faker <https://github.com/fzaninotto/Faker//>`_\ 를 사용하여 모델을 임의의 데이터 생성기로 변환합니다.
 시드 또는 테스트 케이스에서 조작자를 사용하여 단위 테스트를 위한 테스트 데이터를 준비할 수 있습니다.
 
+.. contents::
+    :local:
+    :depth: 2
+
 지원되는 모델
 ================
 
@@ -309,4 +313,4 @@ Test 헬퍼
 **resetCounts()**
 
 모든 카운트를 재설정합니다. 테스트 케이스를 전환할 때 이를 호출하는 것이 좋습니다.
-(``CIDatabaseTestCase::$refresh=true`` 로 설정하면 자동으로 수행)
+(``CIUnitTestCase::$refresh=true`` 로 설정하면 자동으로 수행)
