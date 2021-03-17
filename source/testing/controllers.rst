@@ -8,6 +8,10 @@
 
 .. note:: 전체 프레임워크가 부트스트랩되지 않았으므로 이 방법으로 컨트롤러를 테스트할 수 없는 경우가 있습니다.
 
+.. contents::
+    :local:
+    :depth: 2
+
 헬퍼 특성(Trait)
 ==================
 
@@ -20,9 +24,12 @@
     namespace CodeIgniter;
 
     use CodeIgniter\Test\ControllerTester;
+    use CodeIgniter\Test\CIUnitTestCase;
+    use CodeIgniter\Test\DatabaseTestTrait;
 
-    class TestControllerA extends \CIDatabaseTestCase
+    class TestControllerA extends CIUnitTestCase
     {
+        use DatabaseTestTrait;
         use ControllerTester;
     }
 
@@ -37,9 +44,12 @@
     namespace CodeIgniter;
 
     use CodeIgniter\Test\ControllerTester;
+    use CodeIgniter\Test\CIUnitTestCase;
+    use CodeIgniter\Test\DatabaseTestTrait;
 
-    class TestControllerA extends \CIDatabaseTestCase
+    class TestControllerA extends CIUnitTestCase
     {
+        use DatabaseTestTrait
         use ControllerTester;
 
         public function testShowCategories()

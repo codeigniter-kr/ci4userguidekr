@@ -153,3 +153,12 @@ Class Reference
 
     ``check ()``\ 가 실행되고 FALSE가 반환된 후 이 메소드를 사용하여 새 토큰을 사용할 수 있고, 조치를 다시 시도할 수있는 시간을 판별할 수 있습니다. 
     이 경우 최소 대기 시간은 1 초입니다.
+
+.. php:method:: remove(string $key) : self
+
+    :param string $key: 버킷의 이름
+    :returns: $this
+    :rtype: self
+
+    버킷을 제거하거나 재설정합니다.
+    버킷이 존재하지 않아도 실패하지 않습니다.
