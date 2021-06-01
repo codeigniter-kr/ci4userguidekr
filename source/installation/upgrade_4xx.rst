@@ -88,7 +88,13 @@ CodeIgniter4는 프레임워크를 다시 작성하였으며 이전 버전과 �
 - 앱 클래스는 ``app/Libraries``\ 에 들어갈 수 있지만, 반드시 그럴 필요는 없습니다.
 - CI3의 ``$this->load->library(x);`` 이제 구성 요소에 대해 다음 이름 지정 규칙을 따르는 ``$this->x = new X();``\ 를 사용할 수 있습니다.
 - CodeIgniter 3의 일부 라이브러리는 버전 4에 더 이상 존재하지 않습니다. 이러한 모든 라이브러리에 대해 기능을 구현하는 새로운 방법을 찾아야 합니다. 
-  이 라이브러리들은 `Calendaring <http://codeigniter.com/userguide3/libraries/calendar.html>`_, `FTP <http://codeigniter.com/userguide3/libraries/ftp.html>`_, `Javascript <http://codeigniter.com/userguide3/libraries/javascript.html>`_, `Shopping Cart <http://codeigniter.com/userguide3/libraries/cart.html>`_, `Trackback <http://codeigniter.com/userguide3/libraries/trackback.html>`_, `XML-RPC /-Server <http://codeigniter.com/userguide3/libraries/xmlrpc.html>`_, and `Zip Encoding <http://codeigniter.com/userguide3/libraries/zip.html>`_ 등이 있습니다.
+  이 라이브러리들은 `Calendaring <http://codeigniter.com/userguide3/libraries/calendar.html>`_, 
+  `FTP <http://codeigniter.com/userguide3/libraries/ftp.html>`_, 
+  `Javascript <http://codeigniter.com/userguide3/libraries/javascript.html>`_, 
+  `Shopping Cart <http://codeigniter.com/userguide3/libraries/cart.html>`_, 
+  `Trackback <http://codeigniter.com/userguide3/libraries/trackback.html>`_, 
+  `XML-RPC /-Server <http://codeigniter.com/userguide3/libraries/xmlrpc.html>`_, 
+  `Zip Encoding <http://codeigniter.com/userguide3/libraries/zip.html>`_ 등이 있습니다.
 - CodeIgniter3의 다른 모든 라이브러리는 일부 조정을 통해 업그레이드할 수 있습니다. 가장 중요하고 주로 사용되는 라이브러리는 업그레이드 안내서가 제공되어 간단한 단계와 예제를 통해 코드를 조정할 수 있습니다.
 
 .. toctree::

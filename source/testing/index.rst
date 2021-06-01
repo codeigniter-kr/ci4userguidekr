@@ -13,6 +13,7 @@ CodeIgniter에는 어플리케이션을 철저히 테스트하고 디버깅할 �
     데이터 생성 <fabricator>
     컨트롤러 테스트 <controllers>
     HTTP 테스트 <feature>
+    response
     벤치마크 <benchmark>
     디버깅 <debugging>
 

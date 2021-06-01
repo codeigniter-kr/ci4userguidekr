@@ -9,7 +9,7 @@
 ==============
 
 - `Codeigniter 3.X 모델 설명서 <http://codeigniter.com/userguide3/general/models.html>`_
-- `Codeigniter 4.X 모델 설명서 </models/model.html>`_
+- :doc:`Codeigniter 4.X 모델 설명서 </models/model>`
 
 무엇이 바뀌었습니까?
 =====================

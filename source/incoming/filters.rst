@@ -177,10 +177,8 @@ POST, GET, PUT등과 같은 특정 HTTP 메소드의 모든 요청에 필터를 
         'get'  => ['baz'],
     ]
 
-표준 HTTP 메소드 외에도 'cli'\ 와 'ajax' 두 가지 특수한 경우도 지원하며, 'cli'는 커맨드 라인에서 실행 된 모든 요청에 적용되고 'ajax'는 모든 AJAX 요청에 적용됩니다.
-
-.. note:: AJAX 요청은 ``X-Requested-With`` 헤더에 의존하며, JavaScript를 통한 XHR 요청은 경우에 따라 기본적으로 헤더가 전송되지 않습니다. (예: fetch). 
-    이를 해결하는 방법에 대해서는 :doc:`AJAX 요청(Requests) </general/ajax>`\ 을 참조하십시오.
+표준 HTTP 메소드 외에도 'cli'\ 도 필터를 지원합니다. 
+'cli' 메소드는 명령줄에서 실행된 모든 요청에 적용됩니다.
 
 $filters
 ========

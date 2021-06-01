@@ -514,7 +514,7 @@ isAfter()
 차이점 보기
 ===================
 
-두개의 시간을 직접 비교할 때 **difference()** 메소드를 사용하면 **CodeIgniter\I18n\TimeDifference** 인스턴스를 반환합니다.
+두개의 시간을 직접 비교할 때 **difference()** 메소드를 사용하면 **CodeIgniter\\I18n\\TimeDifference** 인스턴스를 반환합니다.
 첫 번째 매개 변수는 Time 인스턴스, DateTime 인스턴스 또는 날짜/시간이 포함된 문자열입니다.
 문자열이 첫 번째 매개 변수에 전달되면 두 번째 매개 변수는 시간대 문자열일 수 있습니다.
 

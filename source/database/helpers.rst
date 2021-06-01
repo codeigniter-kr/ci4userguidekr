@@ -51,7 +51,7 @@
 
 ::
 
-    echo $db->table('my_table')->countAllResults();
+    echo $db->table('my_table')->like('title', 'match')->countAllResults();
 
     // Produces an integer, like 5
 

@@ -13,13 +13,13 @@
 
 ::
 
-	$view = \Config\Services::renderer();
+    $view = \Config\Services::renderer();
 
 또는 ``View`` 클래스를 기본 렌더러로 사용하지 않는다면 직접 인스턴스화할 수 있습니다
 
 ::
 
-	$view = new \CodeIgniter\View\View();
+    $view = new \CodeIgniter\View\View();
 
 .. important:: 컨트롤러 내에서만 서비스를 작성해야합니다. 라이브러리에서 View 클래스에 액세스해야 한다면, 라이브러리 생성자에서 종속성(dependency)으로 설정해야합니다.
 
@@ -48,9 +48,9 @@ PHP 코드에서 배열을 적절하게 처리하는 것은 사용자의 책임�
 
 ::
 
-	$view->setVar('one', $one)
-	     ->setVar('two', $two)
-	     ->render('myView');
+    $view->setVar('one', $one)
+         ->setVar('two', $two)
+         ->render('myView');
 
 이스케이핑(Escaping) 데이타
 =============================
@@ -63,14 +63,14 @@ PHP 코드에서 배열을 적절하게 처리하는 것은 사용자의 책임�
 
 ::
 
-	$view->setVar('one', $one, 'raw');
+    $view->setVar('one', $one, 'raw');
 
 데이터를 이스케이프하지 않기로 선택하거나 객체 인스턴스를 전달하는 경우 ``esc()`` 함수를 사용하여 뷰의 데이터를 수동으로 이스케이프할 수 있습니다.
 첫 번째 매개 변수는 이스케이프할 문자열입니다. 두 번째 매개 변수는 데이터를 이스케이프하기 위한 컨텍스트입니다 (아래 참조).
 
 ::
 
-	<?= esc($object->getStat()) ?>
+    <?= esc($object->getStat()) ?>
 
 이스케이핑 컨텍스트
 ------------------------
@@ -82,17 +82,17 @@ PHP 코드에서 배열을 적절하게 처리하는 것은 사용자의 책임�
 
 ::
 
-	<a href="<?= esc($url, 'url') ?>" data-foo="<?= esc($bar, 'attr') ?>">Some Link</a>
+    <a href="<?= esc($url, 'url') ?>" data-foo="<?= esc($bar, 'attr') ?>">Some Link</a>
 
-	<script>
-		var siteName = '<?= esc($siteName, 'js') ?>';
-	</script>
+    <script>
+        var siteName = '<?= esc($siteName, 'js') ?>';
+    </script>
 
-	<style>
-		body {
-			background-color: <?= esc('bgColor', 'css') ?>
-		}
-	</style>
+    <style>
+        body {
+            background-color: <?= esc('bgColor', 'css') ?>
+        }
+    </style>
 
 뷰 랜더러 옵션
 =====================
@@ -110,73 +110,73 @@ Class Reference
 
 .. php:class:: CodeIgniter\\View\\View
 
-	.. php:method:: render($view[, $options[, $saveData=false]])
-                :noindex:
+    .. php:method:: render($view[, $options[, $saveData=false]])
+        :noindex:
 
-		:param  string       $view: 뷰 소스의 파일 이름
-		:param  array        $options: 옵션 배열, 키/값 쌍
-		:param  boolean|null $saveData: true 인 경우 다른 호출에 사용할 데이터를 저장, false인 경우 뷰를 렌더링 한 후 데이터를 정리
-		:returns: 선택된 뷰의 렌더링 된 텍스트
-		:rtype: string
+        :param  string       $view: 뷰 소스의 파일 이름
+        :param  array        $options: 옵션 배열, 키/값 쌍
+        :param  boolean|null $saveData: true 인 경우 다른 호출에 사용할 데이터를 저장, false인 경우 뷰를 렌더링 한 후 데이터를 정리
+        :returns: 선택된 뷰의 렌더링 된 텍스트
+        :rtype: string
 
-		파일 이름과 이미 설정된 데이터를 기반으로 출력을 빌드합니다.
-		
-		::
+        파일 이름과 이미 설정된 데이터를 기반으로 출력을 빌드합니다.
+        
+        ::
 
-			echo $view->render('myview');
+            echo $view->render('myview');
 
-	.. php:method:: renderString($view[, $options[, $saveData=false]])
-                :noindex:
+    .. php:method:: renderString($view[, $options[, $saveData=false]])
+        :noindex:
 
-		:param  string       $view: 렌더링 할 뷰의 내용 (예 : 데이터베이스에서 검색된 내용)
-		:param  array        $options: 옵션 배열, 키/값 쌍
-		:param  boolean|null $saveData: true 인 경우 다른 호출에 사용할 데이터를 저장, false인 경우 뷰를 렌더링 한 후 데이터를 정리
-		:returns: 선택된 뷰의 렌더링 된 텍스트
-		:rtype: string
+        :param  string       $view: 렌더링 할 뷰의 내용 (예 : 데이터베이스에서 검색된 내용)
+        :param  array        $options: 옵션 배열, 키/값 쌍
+        :param  boolean|null $saveData: true 인 경우 다른 호출에 사용할 데이터를 저장, false인 경우 뷰를 렌더링 한 후 데이터를 정리
+        :returns: 선택된 뷰의 렌더링 된 텍스트
+        :rtype: string
 
-		뷰 프래그먼트와 이미 설정된 데이터를 기반으로 출력을 빌드합니다.
-		
-		::
+        뷰 프래그먼트와 이미 설정된 데이터를 기반으로 출력을 빌드합니다.
+        
+        ::
 
-			echo $view->renderString('<div>My Sharona</div>');
+            echo $view->renderString('<div>My Sharona</div>');
 
-		데이터베이스에 저장된 컨텐츠를 표시하는데 사용될 수 있지만, 이러한 데이터의 유효성을 검사하고 적절하게 이스케이프 하지 않으면 잠재적인 보안 취약점이 됩니다.
+        데이터베이스에 저장된 컨텐츠를 표시하는데 사용될 수 있지만, 이러한 데이터의 유효성을 검사하고 적절하게 이스케이프 하지 않으면 잠재적인 보안 취약점이 됩니다.
 
-	.. php:method:: setData([$data[, $context=null]])
-                :noindex:
+    .. php:method:: setData([$data[, $context=null]])
+        :noindex:
 
-		:param  array   $data: 뷰 데이터 문자열의 배열, 키/값 쌍
-		:param  string  $context: 데이터 이스케이프에 사용할 컨텍스트
-		:returns: 메소드 체이닝을 위한 Renderer 객체
-		:rtype: CodeIgniter\\View\\RendererInterface.
+        :param  array   $data: 뷰 데이터 문자열의 배열, 키/값 쌍
+        :param  string  $context: 데이터 이스케이프에 사용할 컨텍스트
+        :returns: 메소드 체이닝을 위한 Renderer 객체
+        :rtype: CodeIgniter\\View\\RendererInterface.
 
-		한 번에 여러 개의 뷰 데이터를 설정합니다
-		
-		::
+        한 번에 여러 개의 뷰 데이터를 설정합니다
+        
+        ::
 
-			$view->setData(['name'=>'George', 'position'=>'Boss']);
+            $view->setData(['name'=>'George', 'position'=>'Boss']);
 
-		지원되는 이스케이프 컨텍스트: ``html``, ``css``, ``js``, ``url``, ``attr``, ``raw``.
-		'raw'\ 면 이스케이프가 발생하지 않습니다.
+        지원되는 이스케이프 컨텍스트: ``html``, ``css``, ``js``, ``url``, ``attr``, ``raw``.
+        'raw'\ 면 이스케이프가 발생하지 않습니다.
 
-		각 호출은 뷰가 렌더링될 때까지 객체가 누적하는 데이터 배열에 추가합니다.
+        각 호출은 뷰가 렌더링될 때까지 객체가 누적하는 데이터 배열에 추가합니다.
 
-	.. php:method:: setVar($name[, $value=null[, $context=null]])
-                :noindex:
+    .. php:method:: setVar($name[, $value=null[, $context=null]])
+        :noindex:
 
-		:param  string  $name: 뷰 데이터 변수명
-		:param  mixed   $value: 뷰 데이터의 값
-		:param  string  $context: 데이터 이스케이프에 사용할 컨텍스트
-		:returns: 메소드 체이닝을 위한 Renderer 객체
-		:rtype: CodeIgniter\\View\\RendererInterface.
+        :param  string  $name: 뷰 데이터 변수명
+        :param  mixed   $value: 뷰 데이터의 값
+        :param  string  $context: 데이터 이스케이프에 사용할 컨텍스트
+        :returns: 메소드 체이닝을 위한 Renderer 객체
+        :rtype: CodeIgniter\\View\\RendererInterface.
 
-		한 개의 뷰 데이터를 설정합니다
-		
-		::
+        한 개의 뷰 데이터를 설정합니다
+        
+        ::
 
-			$view->setVar('name','Joe','html');
+            $view->setVar('name','Joe','html');
 
-		지원되는 이스케이프 컨텍스트: ``html``, ``css``, ``js``, ``url``, ``attr``, ``raw``.
-		'raw'\ 면 이스케이프가 발생하지 않습니다.
+        지원되는 이스케이프 컨텍스트: ``html``, ``css``, ``js``, ``url``, ``attr``, ``raw``.
+        'raw'\ 면 이스케이프가 발생하지 않습니다.
 
-		이 객체에 이전에 사용한 뷰 데이터 변수를 사용하면 새 값이 기존 값을 대체합니다.
+        이 객체에 이전에 사용한 뷰 데이터 변수를 사용하면 새 값이 기존 값을 대체합니다.

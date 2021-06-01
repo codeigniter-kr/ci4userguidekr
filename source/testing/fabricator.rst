@@ -245,7 +245,7 @@ Faker는 다양한 로케일을 지원합니다.
 Test 헬퍼
 ===========
 
-테스트에 일회용 가짜 객체(fake object)만 필요한 경우를 위해 테스트 헬퍼는 ``fake($model, $overrides)``\ 함수를 제공합니다.
+테스트에 일회용 가짜 객체(fake object)만 필요한 경우를 위해 테스트 헬퍼는 ``fake($model, $overrides, $persist = true)``\ 함수를 제공합니다.
 
 ::
 
@@ -259,6 +259,8 @@ Test 헬퍼
     $fabricator = new Fabricator('App\Models\UserModel');
     $fabricator->setOverrides(['name' => 'Gerry']);
     $user = $fabricator->create();
+
+데이터베이스에 저장하지 않고 가짜 개체만 필요한 경우 매개 변수 $persist에 false를 전달합니다.
 
 테이블 카운트
 ================

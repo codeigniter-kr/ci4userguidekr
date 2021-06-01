@@ -1,12 +1,12 @@
-######################################
-Upgrading from 4.0.5 to 4.1.0 or 4.1.1
-######################################
+#######################################
+4.0.5에서 4.1.0 또는 4.1.1로 업그레이드
+#######################################
 
-**Legacy Autoloading**
+**레거시 자동 로딩**
 
-`Autoloader::loadLegacy()` method was originally for transition to CodeIgniter v4. Since `4.1.0`,
-this support was removed and this method should not be used.
+`Autoloader::loadLegacy()` 메소드는 CodeIgniter v3에서 v4로 전환하기위한 것입니다. 
+'4.1.0'부터 이 지원이 제거되었으며 이 메소드을 사용해서는 안됩니다.
 
 **Model::fillPlaceholders**
 
-Replace any use of this method with its equivalent version from Validation instead.
+이 메소드의 사용을 Validation의 해당 버전으로 바꿉니다.

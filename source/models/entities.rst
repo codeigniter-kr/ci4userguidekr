@@ -44,7 +44,7 @@ Entity 클래스 만들기
 
     namespace App\Entities;
 
-    use CodeIgniter\Entity;
+    use CodeIgniter\Entity\Entity;
 
     class User extends Entity
     {
@@ -162,7 +162,7 @@ Entity 클래스는 ``toArray()``\ 와 ``toRawArray()`` 메소드를 통하여 �
     
     namespace App\Entities;
 
-    use CodeIgniter\Entity;
+    use CodeIgniter\Entity\Entity;
     use CodeIgniter\I18n\Time;
 
     class User extends Entity
@@ -230,7 +230,7 @@ Entity 클래스는 ``toArray()``\ 와 ``toRawArray()`` 메소드를 통하여 �
     
     namespace App\Entities;
 
-    use CodeIgniter\Entity;
+    use CodeIgniter\Entity\Entity;
 
     class User extends Entity
     {
@@ -258,7 +258,7 @@ Entity 클래스는 ``toArray()``\ 와 ``toRawArray()`` 메소드를 통하여 �
     
     namespace App\Entities;
 
-    use CodeIgniter\Entity;
+    use CodeIgniter\Entity\Entity;
 
     class User extends Entity
     {
@@ -301,7 +301,7 @@ Time 클래스는 변하지 않고, 지역화된 방식으로 많은 유용한 �
     
     namespace App\Entities;
 
-    use CodeIgniter\Entity;
+    use CodeIgniter\Entity\Entity;
 
     class User extends Entity
     {
@@ -338,7 +338,7 @@ Time 클래스는 변하지 않고, 지역화된 방식으로 많은 유용한 �
     
     namespace App\Entities;
 
-    use CodeIgniter\Entity;
+    use CodeIgniter\Entity\Entity;
 
     class User extends Entity
     {
@@ -371,7 +371,7 @@ Array/Json 캐스팅은 직렬화된 배열 또는 JSON을 저장하는 필드�
     
     namespace App\Entities;
 
-    use CodeIgniter\Entity;
+    use CodeIgniter\Entity\Entity;
 
     class User extends Entity
     {
@@ -404,7 +404,7 @@ CSV 캐스팅
     
     namespace App\Entities;
 
-    use CodeIgniter\Entity;
+    use CodeIgniter\Entity\Entity;
 
     class Widget extends Entity
     {
@@ -434,10 +434,12 @@ CSV 캐스팅
 
     <?php
 
-    namespace App\Entity\Cast
+    namespace App\Entity\Cast;
+    
+    use CodeIgniter\Entity\Cast\BaseCast;
 
-    //The class must inherit the CodeIgniter\EntityCast\AbstractCast class
-    class CastBase64 extends \CodeIgniter\EntityCast\AbstractCast
+    //The class must inherit the CodeIgniter\Entity\Cast\BaseCast class
+    class CastBase64 extends BaseCast
     {
         public static function get($value, array $params = [])
         {
@@ -458,7 +460,7 @@ CSV 캐스팅
 
     namespace App\Entities;
 
-    use CodeIgniter\Entity;
+    use CodeIgniter\Entity\Entity;
 
     class MyEntity extends Entity
     {
@@ -483,7 +485,9 @@ CSV 캐스팅
 
 ::
 
-    class CastBase64 extends \CodeIgniter\EntityCast\AbstractCast
+    use CodeIgniter\Entity\Cast\BaseCast;
+    
+    class CastBase64 extends BaseCast
     {
         public static function get($value, array $params = [])
         {
@@ -511,7 +515,9 @@ CSV 캐스팅
         'class' => 'SomeHandler',
     ];
 
-    class SomeHandler extends \CodeIgniter\EntityCast\AbstractCast
+    use CodeIgniter\Entity\Cast\BaseCast;
+    
+    class SomeHandler extends BaseCas
     {
         public static function get($value, array $params = [])
         {
