@@ -64,6 +64,19 @@ CodeIgniter는 간단하지만 매우 유연한 레이아웃 시스템을 지원
 
 ``endSection()``\ 은 섹션 이름이 필요하지 않으며, 어느 것을 닫아야하는지 자동으로 인식합니다.
 
+Sections can contain nested sections
+
+::
+
+    <?= $this->extend('default') ?>
+
+    <?= $this->section('content') ?>
+        <h1>Hello World!</h1>
+        <?= $this->section('javascript') ?>
+           let a = 'a';
+        <?= $this->endSection() ?>
+    <?= $this->endSection() ?>
+
 ******************
 뷰 랜더링
 ******************

@@ -68,6 +68,30 @@ CodeIgniter의 모델을 활용하려면 ``CodeIgniter\Model``\ 을 확장하는
 
 이렇게 작성된 클래스는 데이터베이스 연결, 쿼리 빌더 등 여러 가지 편리한 추가 메소드를 제공합니다.
 
+모델에 추가 설정이 필요한 경우 모델의 생성자 직후에 실행되는 ``initialize()`` 메소드를 확장할 수 있습니다.
+이렇게 하면 생성자 매개 변수를 반복하지 않고 추가 단계를 수행할 수 있습니다(예: 다른 모델 확장).
+
+::
+
+    <?php
+
+    namespace App\Models;
+
+    use Modules\Authentication\Models\UserAuthModel;
+
+    class UserModel extends UserAuthModel
+    {
+    	/**
+    	 * Called during initialization. Appends
+    	 * our custom field to the module's model.
+    	 */
+        protected function initialize()
+        {
+        	$this->allowedFields[] = 'middlename';
+        }
+    }
+
+
 데이터베이스 연결
 --------------------------
 

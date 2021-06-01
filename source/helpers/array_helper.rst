@@ -65,6 +65,26 @@ Array 헬퍼
         // Returns: 23
         $baz = dot_array_search('foo.*.baz', $data);
 
+    배열의 키에 점(.)이 있으면 백슬래시(\\)를 사용하여 키를 이스케이프할 수 있습니다.
+    
+    ::
+
+        $data = [
+            'foo' => [
+                'bar.baz' => 23
+            ],
+            'foo.bar' => [
+                'baz' => 43
+            ],
+        ];
+
+        // Returns: 23
+        $barBaz = dot_array_search('foo.bar\.baz', $data);
+        // Returns: 42
+        $fooBar = dot_array_search('foo\.bar.baz', $data);
+
+
+
 ..  php:function:: array_deep_search($key, array $array)
 
     :param  mixed  $key: 대상 키(key)

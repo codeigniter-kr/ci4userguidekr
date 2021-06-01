@@ -35,12 +35,11 @@ Acme라는 회사 이름으로 폴더를 만들어 모든 모듈을 그 안에 �
 
 ::
 
-    $psr4 = [
-        'Config'        => APPPATH . 'Config',
-        APP_NAMESPACE   => APPPATH,                // For custom namespace
-        'App'           => APPPATH,                // To ensure filters, etc still found,
-        'Acme'          => ROOTPATH.'acme'
-    ];
+    public $psr4 = [
+        APP_NAMESPACE => APPPATH, // For custom namespace
+        'Config'      => APPPATH . 'Config',
+        'Acme'        => ROOTPATH . 'acme',
+    ]
 
 이제 이 설정으로 ``Acme`` 네임스페이스를 통해 **acme** 폴더 내의 모든 파일에 액세스할 수 있습니다. 
 이 작업만으로도 모듈이 작동하는 데 필요한 작업의 80%를 처리할 수 있으므로, 네임스페이스에 익숙해져야 하며, 모듈 사용에 익숙해져야 합니다. 
@@ -65,6 +64,23 @@ Acme라는 회사 이름으로 폴더를 만들어 모든 모듈을 그 안에 �
             /Views
 
 물론, 이 구조를 반드시 사용하도록 강요 할 필요는 없으며, 모듈에 가장 적합한 방식으로 조직화하여 필요하지 않은 디렉토리는 제거하고, 엔티티, 인터페이스 또는 저장소 등을 위한 새 디렉토리를 작성합니다.
+
+===========================
+Non-class 파일 자동로드
+===========================
+
+모듈에는 PHP 클래스뿐만 아니라 프로시저 함수, 부트스트래핑 파일, 모듈 상수 파일 등과 같은 클래스도 포함되어 있는 경우가 있으며, 이러한 파일들은 일반적으로 클래스가 로드되는 방식으로 로드되지 않습니다. 
+이를 위한 한 가지 방법은 파일 시작 부분에 ``require``\ 를 사용하여 파일을 포함하는 것입니다.
+
+CodeIgniter는 자동 로드하고자 하는 파일에 대한 경로 목록을 ``app/Config/Autoload.php``\ 파일의 ``$files`` 속성에 포함하면, 클래스를 자동 로드하는 방법으로 *비클래스* 파일을 자동으로 로드할 수 있습니다. 
+
+::
+
+    public $files = [
+        'path/to/my/functions.php',
+        'path/to/my/constants.php',
+        'path/to/my/bootstrap.php',
+    ];
 
 ======================
 자동 검색(Discovery)

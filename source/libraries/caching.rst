@@ -138,6 +138,25 @@ Class Reference
 
         $cache->delete('cache_item_id');
 
+. php:method:: deleteMatching($pattern): integer
+
+    :param string $pattern: 캐시된 항목 키와 일치하는 glob-style 패턴
+    :returns: 삭제된 항목 수
+    :rtype: integer
+
+    이 메서드는 glob-style 패턴과 키를 일치시켜 캐시 저장소에서 여러 항목을 한 번에 삭제합니다. 
+    삭제된 총 항목 수가 반환됩니다.
+
+    .. important:: 이 메소드는 file, Redis, Predis 핸들러에만 구현됩니다.
+            제한으로 인해 Memcached와 Wincache 핸들러에 구현할 수 없습니다.
+
+    Example::
+
+        $cache->deleteMatching('prefix_*'); // deletes all items of which keys start with "prefix_"
+        $cache->deleteMatching('*_suffix'); // deletes all items of which keys end with "_suffix"
+
+    glob 스타일 구문에 대한 자세한 내용은 `https://en.wikipedia.org/wiki/Glob_(programming) <https://en.wikipedia.org/wiki/Glob_(programming)#Syntax>`_\ 을 참조하십시오.
+
 .. php:method:: increment($key[, $offset = 1]): mixed
     :noindex:
 
@@ -198,8 +217,8 @@ Class Reference
 .. php:method:: getMetadata($key)
 
     :param string $key: 캐시 아이템 이름
-    :returns: 캐시된 항목의 메타 데이터
-    :rtype: mixed
+    :returns: 캐시된 항목의 메타 데이터, 누락된 항목인 경우 ``null``, 기간 만료된 항목인 경우 ``expire`` 키가 있는 배열 (``null``\ 인 경우 기간 만료가 아님).
+    :rtype: array|null
 
     캐시의 특정 항목에 대한 자세한 정보를 리턴합니다.
 
@@ -207,7 +226,21 @@ Class Reference
 
         var_dump($cache->getMetadata('my_cached_item'));
 
-.. note:: 리턴된 정보 및 데이터 구조는 사용중인 어댑터에 따라 다릅니다.
+.. note:: 리턴된 정보 및 데이터 구조는 사용중인 어댑터에 따라 다릅며, 일부 어댑터(File, Memcached, Wincache)는 누락된 항목에 대해 여전히 ``false``\ 를 반환합니다.
+
+.. php:staticmethod:: validateKey(string $key, string $prefix)
+
+    :param string $key: 잠재적 캐시 키
+    :param string $prefix: 선택적 접두사
+    :returns: 확인되고 접두사가 붙은 키입니다. 키가 캐시 드라이버의 최대 키 길이를 초과할 경우 해시(hash)가 됩니다.
+    :rtype: string
+
+    이 메소드는 핸들러 메소드에 유효한 키인지 확인하는 데 사용됩니다. 
+    문자열이 아닌 문자, 잘못된 문자 및 빈 문자열에 대해 ``InvalidArgumentException`` 예외가 발생합니다.
+
+    Example::
+
+        $prefixedKey = BaseHandler::validateKey($key, $prefix)
 
 *******
 Drivers

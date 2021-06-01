@@ -8,8 +8,8 @@
 관련 문서
 ==============
 
-- `Codeigniter 3.X 데이터베이스 마이그레이션 설명서 <http://codeigniter.com/userguide3/libraries/migration.html?highlight=migration>`_
-- `Codeigniter 4.X 데이터베이스 마이그레이션 설명서 </dbmgmt/migration.html?highlight=migration>`_
+- `Codeigniter 3.X 데이터베이스 마이그레이션 설명서 <http://codeigniter.com/userguide3/libraries/migration.html>`_
+- :doc:`Codeigniter 4.X 데이터베이스 마이그레이션 설명서 </dbmgmt/migration>`
 
 무엇이 바뀌었습니까?
 =====================

@@ -193,6 +193,7 @@ selectMax()와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 �
 
 ::
 
+    $builder = $db->table('users');
     $builder->select('title, content, date');
     $builder->from('mytable');
     $query = $builder->get();
@@ -206,7 +207,7 @@ selectMax()와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 �
 
 ::
 
-    $builder->db->table('blogs');
+    $builder = db->table('blogs');
     $builder->select('*');
     $builder->join('comments', 'comments.id = blogs.id');
     $query = $builder->get();
