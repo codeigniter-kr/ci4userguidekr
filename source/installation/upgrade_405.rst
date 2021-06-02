@@ -61,3 +61,84 @@ HTTP 계층의 추가적인 지원 중단(deprecate) 항목:
 
 타사 서비스(모듈을 통해 활성화된 경우)가 핵심 서비스보다 우선하도록 서비스 검색이 업데이트되었습니다.
 **app/Config/Services.php**\ 를 업데이트하여 클래스가 ``CodeIigniter\Config\BaseService``\ 를 확장하여 타사 서비스를 제대로 검색할 수 있도록 합니다.
+
+
+Project Files
+=============
+
+프로젝트에 포함된 수많은 파일(root, app, public, writable)이 업데이트를 되었습니다.
+이러한 파일들은 시스템 범위를 벗어나므로 사용자의 개입 없이 변경되지 않습니다.
+프로젝트에 대한 변경 사항을 병합하는 데 도움이 되는 타사 CodeIgniter 모듈 `Explore on Packagist <https://packagist.org/explore/?query=codeigniter4%20updates>`_\ 이 있습니다. 
+
+.. note:: 버그 수정에 대한 매우 드문 경우를 제외하고 프로젝트의 파일을 변경해도 어플리케이션은 중단되지 않습니다.
+    여기에 명시된 모든 변경 사항은 다음 주요 버전까지 선택 사항이며, 모든 필수 변경 사항은 위의 섹션에서 다룹니다.
+
+Content Changes
+---------------
+
+The following files received significant changes (including deprecations or visual adjustments) and it is recommended that you merge the updated versions with your application:
+다음 파일에 중요한 변경 사항(사용 중단 또는 시각적 개선 등)이 적용되었으며 업데이트된 버전을 어플리케이션과 병합하는 것이 좋습니다.
+
+* ``app/Views/*``
+* ``public/index.php``
+* ``public/.htaccess``
+* ``spark``
+* ``phpunit.xml.dist``
+* ``composer.json``
+
+All Changes
+-----------
+
+This is a list of all files in the project space that received changes;
+many will be simple comments or formatting that have no affect on the runtime:
+
+* ``LICENSE``
+* ``README.md``
+* ``app/Config/App.php``
+* ``app/Config/Autoload.php``
+* ``app/Config/Boot/development.php``
+* ``app/Config/Boot/production.php``
+* ``app/Config/Boot/testing.php``
+* ``app/Config/Cache.php``
+* ``app/Config/Constants.php``
+* ``app/Config/ContentSecurityPolicy.php``
+* ``app/Config/Database.php``
+* ``app/Config/DocTypes.php``
+* ``app/Config/Email.php``
+* ``app/Config/Encryption.php``
+* ``app/Config/Events.php``
+* ``app/Config/Exceptions.php``
+* ``app/Config/Filters.php``
+* ``app/Config/ForeignCharacters.php``
+* ``app/Config/Format.php``
+* ``app/Config/Generators.php``
+* ``app/Config/Honeypot.php``
+* ``app/Config/Images.php``
+* ``app/Config/Kint.php``
+* ``app/Config/Logger.php``
+* ``app/Config/Migrations.php``
+* ``app/Config/Mimes.php``
+* ``app/Config/Modules.php``
+* ``app/Config/Pager.php``
+* ``app/Config/Paths.php``
+* ``app/Config/Routes.php``
+* ``app/Config/Security.php``
+* ``app/Config/Services.php``
+* ``app/Config/Toolbar.php``
+* ``app/Config/UserAgents.php``
+* ``app/Config/Validation.php``
+* ``app/Config/View.php``
+* ``app/Controllers/BaseController.php``
+* ``app/Controllers/Home.php``
+* ``app/Views/errors/cli/error_404.php``
+* ``app/Views/errors/cli/error_exception.php``
+* ``app/Views/errors/html/debug.css``
+* ``app/Views/errors/html/debug.js``
+* ``app/Views/errors/html/error_exception.php``
+* ``composer.json``
+* ``env``
+* ``license.txt``
+* ``phpunit.xml.dist``
+* ``public/.htaccess``
+* ``public/index.php``
+* ``spark``

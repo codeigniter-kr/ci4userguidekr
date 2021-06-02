@@ -250,9 +250,9 @@ Class Reference
 
     	return $this->failNotFound('User 13 cannot be found.');
 
-.. php:method:: failValidationError(string $description = 'Bad Request'[, string $code=null[, string $message = '']])
+.. php:method:: failValidationErrors($errors[, string $code=null[, string $message = '']])
 
-    :param string  $description: 사용자에게 표시할 오류 메시지
+    :param mixed  $errors: 사용자에게 표시할 오류 메시지 또는 메시지 배열
     :param string $code: 사용자 정의 API별 오류 코드
     :param string $message: 사용자 정의 "이유" 메시지
     :returns: Response 객체 send() 메소드의 값
@@ -261,7 +261,7 @@ Class Reference
 
     ::
 
-    	return $this->failValidationError($validation->getError('api_field'));
+    	return $this->failValidationErrors($validation->getErrors());
 
 .. php:method:: failResourceExists(string $description = 'Conflict'[, string $code=null[, string $message = '']])
 

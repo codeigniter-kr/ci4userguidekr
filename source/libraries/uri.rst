@@ -36,15 +36,7 @@ URI 인스턴스는 아래와 같이 간단합니다.
 ---------------
 
 여러 경우에, 당신이 정말로 원하는 것은 요청에 대한 현재 URL을 나타내는 객체입니다.
-두 가지 방법으로 액세스할 수 있습니다.
-첫 번째는 현재 요청 객체에서 직접 가져 오는 것입니다.
-``CodeIgniter\Controller``\ 를 확장하는 컨트롤러에 있다고 가정하면 다음과 같이 얻을 수 있습니다
-
-::
-
-	$uri = $this->request->uri;
-
-둘째, **url_helper**\ 에서 사용할 수 있는 기능중 하나를 사용할 수 있습니다
+**url_helper**\ 에서 사용 가능한 함수 중 하나를 사용할 수 있습니다.
 
 ::
 
@@ -52,6 +44,15 @@ URI 인스턴스는 아래와 같이 간단합니다.
 
 첫 번째 매개 변수로 ``true``\ 를 전달해야 합니다. 
 그렇지 않으면 현재 URL의 문자열 표현이 반환됩니다.
+This URI is based on the path (relative to your ``baseURL``) as determined by the current request object and your settings in ``Config\App`` (baseURL, indexPage, and forceGlobalSecureRequests).
+Assuming that you're in a controller that extends ``CodeIgniter\Controller`` you can get this relative path
+
+이 URI는 request 객체와 ``Config\App``(baseURL, indexPage, forceGlobalSecureRequests)의 설정에 다라 결정된 경로(``baseURL``\ 에 상대적)를 기반으로 합니다.
+사용자가 ``CodeIgniter\Controller``\ 를 확장하는 컨트롤러에 있다고 가정하면 이 상대 경로를 얻을 수 있습니다.
+
+::
+
+	$path = $this->request->getPath();
 
 ===============
 URI 문자열
@@ -63,7 +64,7 @@ URI 문자열
 ::
 
 	$uri = current_url(true);
-	echo (string)$uri;  // http://example.com
+	echo (string) $uri;  // http://example.com/index.php
 
 URI 조각을 알고 있고 모든 형식이 올바른지 확인하려면 URI 클래스의 정적 ``createURIString()`` 메소드를 사용하여 문자열을 생성할 수 있습니다
 
@@ -73,6 +74,9 @@ URI 조각을 알고 있고 모든 형식이 올바른지 확인하려면 URI �
 
 	// Creates: http://exmample.com/some/path?foo=bar#first-heading
 	echo URI::createURIString('http', 'example.com', 'some/path', 'foo=bar', 'first-heading');
+
+.. important:: ``URI``\ 가 문자열에 캐스팅되면 프로젝트 URL을  ``Config\App``\ 에 정의된 설정으로 조정하려고 시도합니다.
+	변경되지 않은 정확한 문자열 표현이 필요한 경우 ``URI::createURIString()``\ 을 사용하십시오.
 
 =============
 URI 부분

@@ -90,15 +90,18 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
 
         http://example.com/images/icons/edit.png
 
-.. php:function:: current_url([$returnObject = false])
+.. php:function:: current_url([$returnObject = false[, $request = null]])
 
     :param    boolean    $returnObject: 문자열 대신 URI 인스턴스를 반환하려면 True.
+    :param	IncomingRequest|null	$request: 경로 탐지에 사용할 대체 요청이며 테스트에 유용합니다.
     :returns: 현재 URL
     :rtype:   string|URI
 
     현재 보고있는 페이지의 전체 URL(세그먼트 포함)을 반환합니다.
 
-    .. note:: 이 함수를 호출하는 것은 ``base_url(uri_string());``\ 을 수행하는 것과 같습니다
+    .. note:: 이 함수를 호출하는 것은 ``site_url(uri_string());``\ 을 수행하는 것과 같습니다
+
+    .. important:: **4.1.2** 이전 버전에는 버그가 있어 ``App:$indexPage``\ 의 구성을 무시했습니다.
 
 .. php:function:: previous_url([$returnObject = false])
 

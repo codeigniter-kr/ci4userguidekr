@@ -35,6 +35,12 @@ CLI 명령을 실행하는데 사용되는 사용자 정의 스크립트 **spark
 
     > php spark db:seed DevUserSeeder
 
+헤더 출력을 억제하기 위해 ``--no-header``\ 을 전달하여 결과를 구문 분석할 수 있습니다.
+
+::
+
+    > php spark cache:clear --no-header
+
 CodeIgniter가 제공하는 모든 명령에 대해 필요한 인수를 제공하지 않으면 올바르게 실행하는 데 필요한 정보를 묻는 메시지가 표시됩니다.
 
 ::

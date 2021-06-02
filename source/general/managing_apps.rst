@@ -21,15 +21,15 @@
 
 ::
 
-    require realpath('app/Config/Paths.php') ?: 'app/Config/Paths.php';
-    // ^^^ Change this if you move your application folder
+    $pathsConfig = 'app/Config/Paths.php';
+    // ^^^ Change this line if you move your application folder
 
 
 - ``/public/index.php`` 파일의 16번째 행, webapp의 프론트 컨트롤러입니다.
 
 ::
 
-    require realpath(FCPATH . '../app/Config/Paths.php') ?: FCPATH . '../app/Config/Paths.php';
+    $pathsConfig = FCPATH . '../app/Config/Paths.php';
     // ^^^ Change this if you move your application folder
 
 
