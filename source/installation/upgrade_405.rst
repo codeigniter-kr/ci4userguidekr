@@ -70,14 +70,13 @@ Project Files
 이러한 파일들은 시스템 범위를 벗어나므로 사용자의 개입 없이 변경되지 않습니다.
 프로젝트에 대한 변경 사항을 병합하는 데 도움이 되는 타사 CodeIgniter 모듈 `Explore on Packagist <https://packagist.org/explore/?query=codeigniter4%20updates>`_\ 이 있습니다. 
 
-.. note:: 버그 수정에 대한 매우 드문 경우를 제외하고 프로젝트의 파일을 변경해도 어플리케이션은 중단되지 않습니다.
+.. note:: 매우 드문 버그 수정의 경우를 제외하고, 프로젝트의 파일을 변경해도 어플리케이션은 중단되지 않습니다.
     여기에 명시된 모든 변경 사항은 다음 주요 버전까지 선택 사항이며, 모든 필수 변경 사항은 위의 섹션에서 다룹니다.
 
 Content Changes
 ---------------
 
-The following files received significant changes (including deprecations or visual adjustments) and it is recommended that you merge the updated versions with your application:
-다음 파일에 중요한 변경 사항(사용 중단 또는 시각적 개선 등)이 적용되었으며 업데이트된 버전을 어플리케이션과 병합하는 것이 좋습니다.
+다음 파일에 중요한 변경 사항(사용 중단 또는 시각적 개선 등)이 적용되었으며, 업데이트된 버전을 어플리케이션과 병합하는 것이 좋습니다.
 
 * ``app/Views/*``
 * ``public/index.php``
@@ -89,8 +88,8 @@ The following files received significant changes (including deprecations or visu
 All Changes
 -----------
 
-This is a list of all files in the project space that received changes;
-many will be simple comments or formatting that have no affect on the runtime:
+프로젝트의 변경된 모든 파일 목록입니다.
+대부분은 런타임에 영향을 미치지 않는 간단한 주석 또는 서식입니다.
 
 * ``LICENSE``
 * ``README.md``
