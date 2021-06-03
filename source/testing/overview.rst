@@ -334,7 +334,7 @@ Protected/Private 속성에 액세스
 
 **app/Config/Services.php**에 정의된 서비스 중 하나를 모의 실행하여 테스트를 문제의 코드로만 제한하고 서비스의 다양한 응답을 시뮬레이션해야 하는 경우가 종종 있습니다.
 이는 컨트롤러와 기타 통합 테스트를 테스트할 때 특히 그렇습니다.
-**Services** 클래스는 이것을 간단하게 하기 위해 ``injectMock()``\ 과 ``reset()`` 두 가지 메소드를 제공합니다.
+**Services** 클래스는 이를 단순화하는 다음 메소드를 제공합니다.
 
 **injectMock()**
 
@@ -360,6 +360,12 @@ Protected/Private 속성에 액세스
 **reset()**
 
 서비스 클래스에서 모든 모의(mock) 클래스를 제거하여 원래 상태로 되돌립니다.
+
+**resetSingle(string $name)**
+
+이름별로 단일 서비스에 대한 모의 및 공유 인스턴스를 제거합니다.
+
+.. note:: ``Cache``, ``Email``, ``Session`` 서비스는 침입 테스트 동작을 방지하기 위해 기본적으로 모의 처리됩니다. 이 모의 처리를 방지하려면 클래스 속성 ``$setUpMethods = ['mockEmail', 'mockSession'];``\ 에서 메소드 콜백을 제거합니다;``
 
 모의(Moking) Factory 인스턴스
 ==============================

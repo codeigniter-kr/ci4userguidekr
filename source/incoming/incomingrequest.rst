@@ -300,6 +300,22 @@ POST 변수를 필터링하면 다음과 같습니다
     echo $uri->getSegment(1);       // 'path'
     echo $uri->getTotalSegments();  // 3
 
+``getPath()``\ 와 ``setPath()`` 메소드를 사용하여 현재 URI 문자열(baseURL에 상대적인 경로)로 작업할 수 있습니다.
+``IncomingRequest``\ 의 공유 인스턴스에 있는 이 상대 경로는 :doc:`URL Helper </helpers/url_helper>` 함수가 사용되므로 테스트를 위해 들어오는 요청을 "스푸핑"\ 하는 데 도움이 됩니다.
+
+::
+
+	class MyMenuTest extends CIUnitTestCase
+	{
+		public function testActiveLinkUsesCurrentUrl()
+		{
+			service('request')->setPath('users/list');
+			$menu = new MyMenu();
+			$this->assertTrue('users/list', $menu->getActiveLink());
+		}
+	}
+
+
 업로드(Upload) 파일
 ----------------------------------------------------------------------------
 
@@ -549,3 +565,19 @@ Class Reference
         ::
 
             $request->getUserAgent();
+
+    .. php:method:: getPath()
+
+        :returns:	    ``$_SERVER['SCRIPT_NAME']``\ 에 상대적인 현재 URI 경로
+        :rtype:	string
+
+        ``IncomingRequest::$uri``\ 는 기본 URL에 대한 전체 앱 구성을 인식하지 못할 수 있으므로 "현재 URI"를 결정하는 가장 안전한 메소드입니다.
+
+    .. php:method:: setPath($path)
+
+        :param	string	$path: 현재 URI로 사용할 상대 경로
+        :returns:	    This Incoming Request
+        :rtype:	IncomingRequest
+
+        대부분 테스트 목적으로만 사용되며, URI 탐지에 의존하는 대신 현재 요청에 대한 상대 경로 값을 설정할 수 있습니다.
+        이 메소드를 사용하면 기본 ``URI`` 인스턴스도 새로운 경로로 업데이트됩니다.

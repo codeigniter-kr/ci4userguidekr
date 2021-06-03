@@ -31,7 +31,7 @@ To help you efficiently use cookies across browsers with your request and respon
     use CodeIgniter\Cookie\Cookie;
     use DateTime;
 
-    // Throw the constructor
+    // Using the constructor
     $cookie = new Cookie(
         'remember_token',
         'f699c7fd18a8e082d0228932f3acd40e1ef5ef92efcedda32842a211d62f0aa6',
@@ -76,7 +76,7 @@ To help you efficiently use cookies across browsers with your request and respon
     use CodeIgniter\Cookie\Cookie;
     use Config\Cookie as CookieConfig;
 
-    // pass in an App instance before constructing a Cookie class
+    // pass in an Config\Cookie instance before constructing a Cookie class
     Cookie::setDefaults(new CookieConfig());
     $cookie = new Cookie('login_token');
 
@@ -447,11 +447,11 @@ Class Reference
 
     .. php:staticmethod:: setDefaults([$config = []])
 
-        :param App|array $config: 구성 배열 또는 인스턴스
+        :param \Config\Cookie|array $config: 구성 배열 또는 인스턴스
         :rtype: array<string, mixed>
         :returns: 이전 기본값
 
-        ``App`` 구성 또는 배열의 값을 주입하여 기본 속성을 Cookie 인스턴스에 설정합니다.
+        ``\Config\Cookie`` 구성 또는 배열의 값을 주입하여 기본 속성을 Cookie 인스턴스에 설정합니다.
 
     .. php:staticmethod:: fromHeaderString(string $header[, bool $raw = false])
 

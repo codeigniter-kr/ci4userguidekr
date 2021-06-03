@@ -52,6 +52,8 @@ Language strings are stored in the **app/Language** directory, with a sub-direct
 첫 번째는 :doc:`컨텐츠 협상 </incoming/content_negotiation>`\ 을 자동으로 수행하여 올바른 로케일을 결정하는 "set and forget" 방법입니다.
 두 번째 방법을 사용하면 경로에서 로케일을 설정하는데 사용할 세그먼트를 지정할 수 있습니다.
 
+로케일을 직접 설정해야 하는 경우 ``IncomingRequest::setLocale(string $locale)``\ 을 사용할 수 있습니다.``
+
 컨텐츠 협상
 -------------------
 

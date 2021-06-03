@@ -80,7 +80,7 @@ Array 헬퍼
 
         // Returns: 23
         $barBaz = dot_array_search('foo.bar\.baz', $data);
-        // Returns: 42
+        // Returns: 43
         $fooBar = dot_array_search('foo\.bar.baz', $data);
 
 

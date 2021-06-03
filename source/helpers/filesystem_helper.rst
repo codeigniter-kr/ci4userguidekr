@@ -29,7 +29,7 @@ Filesystem 헬퍼
 
     :param	string  $source_dir: 소스 디렉토리의 경로
     :param	int	    $directory_depth: 탐색할 디렉토리의 깊이 (0 = 완전 재귀, 1 = 현재 디렉토리 등)
-    :param	bool	$hidden: 숨겨진 디렉토리 포함 여부
+    :param	bool	$hidden: 숨겨진 경로 포함 여부
     :returns:	파일의 배열
     :rtype:	array
 
@@ -47,8 +47,8 @@ Filesystem 헬퍼
 
         $map = directory_map('./mydirectory/', 1);
 
-    기본적으로 숨겨진 파일은 반환된 배열에 포함되지 않습니다.
-    이 동작을 재정의하기 위해 세 번째 매개 변수를 true(부울)로 설정할 수 있습니다.
+    기본적으로 숨김 파일은 반환된 배열에 포함되지 않으며 숨김 디렉토리는 건너뜁니다. 
+    이 동작을 재정의하려면 세 번째 매개 변수를 true(부울)로 설정할 수 있습니다.
 
     ::
 
@@ -87,6 +87,27 @@ Filesystem 헬퍼
         )
 
     결과가 없으면 빈 배열을 반환합니다.
+
+.. php:function:: directory_mirror($original, $target[, $overwrite = true])
+
+    :param	string	$original: 원본 디렉터리
+    :param	string	$target: 대상 디렉토리
+    :param	bool	$overwrite: 충돌 시 개별 파일을 덮어쓸지 여부
+
+    원본 디렉터리의 파일 및 디렉터리를 대상 디렉터리로 재귀적으로 복사합니다. 즉, 내용을 "미러링" 합니다.
+
+    Example::
+
+        try
+        {     
+            directory_mirror($uploadedImages, FCPATH . 'images/');
+        }
+        catch (Throwable $e)
+        {     
+            echo 'Failed to export uploads!';
+        }
+
+    선택적으로 세 번째 매개 변수를 통해 덮어쓰기 동작을 변경할 수 있습니다.
 
 .. php:function:: write_file($path, $data[, $mode = 'wb'])
 
@@ -212,6 +233,19 @@ Filesystem 헬퍼
     ::
 
         echo octal_permissions(fileperms('./index.php')); // 644
+
+.. php:function:: same_file($file1, $file2)
+
+    :param	string	$file1: 첫 번째 파일의 경로
+    :param	string	$file2: 두 번째 파일의 경로
+    :returns:	두 파일의 해시가 동일한지 여부
+    :rtype:	boolean
+
+    두 파일을 비교하여 동일한지 확인합니다.(MD5 해시 기준)
+
+    ::
+
+        echo same_file($newFile, $oldFile) ? 'Same!' : 'Different!';
 
 .. php:function:: set_realpath($path[, $check_existence = FALSE])
 

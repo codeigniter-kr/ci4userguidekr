@@ -144,8 +144,8 @@ createFromTimestamp()
 
     $time = Time::createFromTimestamp(1501821586, 'America/Chicago', 'en_US');
 
-instance()
-----------
+createFromInstance()
+----------------------
 
 DateTime 인스턴스를 제공하는 다른 라이브러리로 작업할 때 이 메소드를 사용하여 선택적으로 로케일을 설정하여 Time 인스턴스로 변환 할 수 있습니다. 
 시간대는 전달된 DateTime 인스턴스를 통하여 자동으로 결정됩니다.
@@ -153,7 +153,7 @@ DateTime 인스턴스를 제공하는 다른 라이브러리로 작업할 때 �
 ::
 
     $dt   = new DateTime('now');
-    $time = Time::instance($dt, 'en_US');
+    $time = Time::createFromInstance($dt, 'en_US');
 
 toDateTime()
 ------------

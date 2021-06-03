@@ -25,11 +25,12 @@ CodeIgniter의 :doc:`Logger </general/logging>` 는 이 PSR에서 제공하는 �
 이 PSR은 파일과 네임스페이스를 구성하여 표준 자동로드 클래스 방법을 허용하는 방법을 제공합니다.
 우리의 :doc:`Autoloader </concepts/autoloader>`\ 는 PSR-4 권장 사항을 충족합니다.
 
-**PSR-6: Caching Interface**
+**PSR-6: Caching Interfaces**
+**PSR-16: SimpleCache Interface**
 
-CodeIgniter는 PSR을 충족시키려 하지 않을 것입니다. 
-PSR은 필요 이상으로 발전한다고 믿습니다.
-새로 제안된 `SimpleCache Interfaces <https://github.com/dragoonis/fig-standards/blob/psr-simplecache/proposed/simplecache.md>`_\ 는 우리가 고려할 만한 것으로 보입니다.
+프레임워크 캐시 구성요소는 PSR-6 또는 PSR-16을 준수하지 않지만, CodeIgniter4 조직에서는 별도의 어댑터 집합을 보조 모듈로 사용할 수 있습니다.
+어댑터는 타사 라이브러리와의 호환성만을 위한것이므로 프로젝트는 기본 캐시 드라이버를 직접 사용하는 것이 좋습니다.
+자세한 내용은 `CodeIgniter4 Cache repo <https://github.com/codeigniter4/cache>`_\ 를 참조하십시오.
 
 **PSR-7: HTTP Message Interface**
 
