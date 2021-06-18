@@ -80,7 +80,7 @@ Project Files
 
 프로젝트에 포함된 수많은 파일(root, app, public, writable)이 업데이트를 되었습니다.
 이러한 파일들은 시스템 범위를 벗어나므로 사용자의 개입 없이 변경되지 않습니다.
-프로젝트에 대한 변경 사항을 병합하는 데 도움이 되는 타사 CodeIgniter 모듈 `Explore on Packagist <https://packagist.org/explore/?query=codeigniter4%20updates>`_\ 이 있습니다. 
+프로젝트에 대한 변경 사항을 병합하는데 도움이 되는 타사 CodeIgniter 모듈 `Explore on Packagist <https://packagist.org/explore/?query=codeigniter4%20updates>`_\ 이 있습니다. 
 
 .. note:: 매우 드문 버그 수정의 경우를 제외하고, 프로젝트의 파일을 변경해도 어플리케이션은 중단되지 않습니다.
     여기에 명시된 모든 변경 사항은 다음 주요 버전까지 선택 사항이며, 모든 필수 변경 사항은 위의 섹션에서 다룹니다.
