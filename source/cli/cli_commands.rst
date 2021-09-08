@@ -206,12 +206,9 @@ CLI 문자열이 아래와 같다면
         
         ::
 
-            try
-            {
+            try {
                 . . .
-            }
-            catch (\Exception $e)
-            {
+            } catch (\Exception $e) {
                 $this->showError($e);
             }
 
@@ -231,8 +228,8 @@ CLI 문자열이 아래와 같다면
         ::
 
             $pad = $this->getPad($this->options, 6);
-            foreach ($this->options as $option => $description)
-            {
+
+            foreach ($this->options as $option => $description){
                 CLI::write($tab . CLI::color(str_pad($option, $pad), 'green') . $description, 'yellow');
             }
 

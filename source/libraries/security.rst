@@ -30,9 +30,9 @@
 
 	public $globals = [
 		'before' => [
-			//'honeypot'
-			'csrf'
-		]
+			//'honeypot',
+			'csrf',
+		],
 	];
 
 URI를 화이트리스트에 추가하여 CSRF 보호에서 제외할 수 있습니다. (예 : 외부 POST 컨텐츠를 예상하는 API 엔드 포인트)
@@ -42,8 +42,8 @@ URI를 화이트리스트에 추가하여 CSRF 보호에서 제외할 수 있습
 
 	public $globals = [
 		'before' => [
-			'csrf' => ['except' => ['api/record/save']]
-		]
+			'csrf' => ['except' => ['api/record/save']],
+		],
 	];
 
 정규식도 지원합니다. (대/소문자 구분)
@@ -52,8 +52,8 @@ URI를 화이트리스트에 추가하여 CSRF 보호에서 제외할 수 있습
 
     public $globals = [
 		'before' => [
-			'csrf' => ['except' => ['api/record/[0-9]+']]
-		]
+			'csrf' => ['except' => ['api/record/[0-9]+']],
+		],
 	];
 
 :doc:`form helper <../helpers/form_helper>`\ 의 :func:`form_open()`\ 를 사용하면 자동으로 폼(form)에 숨겨진  추가합니다.

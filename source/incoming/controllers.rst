@@ -234,12 +234,9 @@ URI 세그먼트를 지정하지 않고 사이트를 탐색하면 "Hello World"�
 
     public function _remap($method)
     {
-        if ($method === 'some_method')
-        {
+        if ($method === 'some_method') {
             return $this->$method();
-        }
-        else
-        {
+        } else {
             return $this->default_method();
         }
     }
@@ -252,8 +249,7 @@ Example::
     public function _remap($method, ...$params)
     {
         $method = 'process_'.$method;
-        if (method_exists($this, $method))
-        {
+        if (method_exists($this, $method)) {
             return $this->$method(...$params);
         }
         throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
@@ -328,8 +324,7 @@ HTTPS를 통해 메소드에 액세스할 수있는 편리한 메소드를 모�
 
 ::
 
-    if (! $this->request->isSecure())
-    {
+    if (! $this->request->isSecure()) {
         $this->forceHTTPS();
     }
 
@@ -338,8 +333,7 @@ HTTPS를 통해 메소드에 액세스할 수있는 편리한 메소드를 모�
 
 ::
 
-    if (! $this->request->isSecure())
-    {
+    if (! $this->request->isSecure()) {
         $this->forceHTTPS(31536000);    // one year
     }
 
@@ -375,8 +369,7 @@ HTTPS를 통해 메소드에 액세스할 수있는 편리한 메소드를 모�
         if (! $this->validate([
             'email' => "required|is_unique[users.email,id,{$userID}]",
             'name'  => 'required|alpha_numeric_spaces'
-        ]))
-        {
+        ])) {
             return view('users/update', [
                 'errors' => $this->validator->getErrors()
             ]);
@@ -391,8 +384,7 @@ HTTPS를 통해 메소드에 액세스할 수있는 편리한 메소드를 모�
 
     public function updateUser(int $userID)
     {
-        if (! $this->validate('userRules'))
-        {
+        if (! $this->validate('userRules')) {
             return view('users/update', [
                 'errors' => $this->validator->getErrors()
             ]);

@@ -35,7 +35,7 @@ cURL이 요청을 처리하는 방법을 수정하기 위해 기본 옵션 배�
 
 	$options = [
 		'baseURI' => 'http://example.com/api/v1/',
-		'timeout'  => 3
+		'timeout'  => 3,
 	];
 	$client = \Config\Services::curlrequest($options);
 
@@ -72,7 +72,7 @@ HTTP 메소드, url 및 옵션 배열을 매개 변수로 사용합니다.
 	$client = \Config\Services::curlrequest();
 
 	$response = $client->request('GET', 'https://api.github.com/user', [
-		'auth' => ['user', 'pass']
+		'auth' => ['user', 'pass'],
 	]);
 
 응답은 ``CodeIgniter\HTTP\Response``\ 의 인스턴스이므로 모든 일반 정보를 사용할 수 있습니다
@@ -107,7 +107,7 @@ API로 작업할 때 특히 유용합니다
 ::
 
 	$client = \Config\Services::curlrequest([
-		'baseURI' => 'https://example.com/api/v1/'
+		'baseURI' => 'https://example.com/api/v1/',
 	]);
 
 	// GET http:example.com/api/v1/photos
@@ -140,8 +140,8 @@ API로 작업할 때 특히 유용합니다
 
 ::
 
-	$code   = $response->getStatusCode();    // 200
-	$reason = $response->getReason();      // OK
+	$code   = $response->getStatusCode(); // 200
+	$reason = $response->getReason(); // OK
 
 응답에서 헤더를 검색할 수 있습니다
 
@@ -151,8 +151,7 @@ API로 작업할 때 특히 유용합니다
 	echo $response->getHeaderLine('Content-Type');
 
 	// Get all headers
-	foreach ($response->getHeaders() as $name => $value)
-	{
+	foreach ($response->getHeaders() as $name => $value) {
 		echo $name .': '. $response->getHeaderLine($name) ."\n";
 	}
 
@@ -167,8 +166,7 @@ API로 작업할 때 특히 유용합니다
 
 ::
 
-	if (strpos($response->getHeader('content-type'), 'application/json') !== false)
-	{
+	if (strpos($response->getHeader('content-type'), 'application/json') !== false) {
 		$body = json_decode($body);
 	}
 
@@ -232,8 +230,7 @@ PUT 또는 POST와 같이 요청을 지원하는 요청 유형에 대한 요청 
 
 ::
 
-	$client->setBody($body)
-	       ->request('put', 'http://example.com');
+	$client->setBody($body)->request('put', 'http://example.com');
 
 두 번째 방법은 ``body`` 옵션을 전달하는 것입니다. 
 이는 Guzzle API 호환성을 유지하기 위해 제공되며, 이전 예제와 동일한 방식으로 작동합니다.
@@ -313,8 +310,8 @@ form_params
 	$client->request('POST', '/post', [
 		'form_params' => [
 			'foo' => 'bar',
-			'baz' => ['hi', 'there']
-		]
+			'baz' => ['hi', 'there'],
+		],
 	]);
 
 .. note:: ``form_params``\ 는 ``multipart`` 옵션과 함께 사용할 수 없습니다. 둘 중 하나를 사용해야 합니다. ``application/x-www-form-urlencoded`` 요청에는 ``form_params``\ 를 사용하고 ``multipart/form-data`` 요청에는 ``multipart``\ 를 사용하십시오.
@@ -331,8 +328,8 @@ headers
 		'headers' => [
 			'User-Agent' => 'testing/1.0',
 			'Accept'     => 'application/json',
-			'X-Foo'      => ['Bar', 'Baz']
-		]
+			'X-Foo'      => ['Bar', 'Baz'],
+		],
 	]);
 
 헤더가 생성자로 전달되면 나중에 추가 헤더 배열 또는 ``setHeader()`` 호출로 재정의되는 기본값으로 처리됩니다.
@@ -377,7 +374,7 @@ POST 요청을 통해 파일 및 기타 데이터를 보내야 할 경우 `CURLF
 
 	$post_data = [
 		'foo'      => 'bar',
-		'userfile' => new \CURLFile('/path/to/file.txt')
+		'userfile' => new \CURLFile('/path/to/file.txt'),
 	];
 
 .. note:: ``multipart``\ 는 ``form_params`` 옵션과 함께 사용할 수 없습니다. 하나만 사용할 수 있습니다. ``application/x-www-form-urlencoded`` 요청에는 ``form_params``\ 를 사용하고 ``multipart/form-data``\ 요청에는 ``multipart``\ 를 사용하십시오.

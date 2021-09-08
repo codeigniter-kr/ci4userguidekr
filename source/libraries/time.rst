@@ -97,8 +97,8 @@ createFromDate()
 
 ::
 
-    $today       = Time::createFromDate();            // Uses current year, month, and day
-    $anniversary = Time::createFromDate(2018);  // Uses current month and day
+    $today       = Time::createFromDate(); // Uses current year, month, and day
+    $anniversary = Time::createFromDate(2018); // Uses current month and day
     $date        = Time::createFromDate(2018, 3, 15, 'America/Chicago', 'en_US');
 
 createFromTime()
@@ -110,8 +110,8 @@ Time 인스턴스의 날짜 부분에 현재 날짜를 사용합니다.
 
 ::
 
-    $lunch  = Time::createFromTime(11, 30)       // 11:30 am today
-    $dinner = Time::createFromTime(18, 00, 00)  // 6:00 pm today
+    $lunch  = Time::createFromTime(11, 30) // 11:30 am today
+    $dinner = Time::createFromTime(18, 00, 00) // 6:00 pm today
     $time   = Time::createFromTime($hour, $minutes, $seconds, $timezone, $locale);
 
 create()
@@ -183,7 +183,7 @@ toLocalizedString()
 ::
 
     $time = Time::parse('March 9, 2016 12:00:00', 'America/Chicago');
-    echo $time->toLocalizedString('MMM d, yyyy');   // March 9, 2016
+    echo $time->toLocalizedString('MMM d, yyyy'); // March 9, 2016
 
 toDateTimeString()
 ------------------
@@ -194,7 +194,7 @@ toDateTimeString()
 ::
 
     $time = Time::parse('March 9, 2016 12:00:00', 'America/Chicago');
-    echo $time->toDateTimeString();     // 2016-03-09 12:00:00
+    echo $time->toDateTimeString(); // 2016-03-09 12:00:00
 
 toDateString()
 --------------
@@ -204,7 +204,7 @@ toDateString()
 ::
 
     $time = Time::parse('March 9, 2016 12:00:00', 'America/Chicago');
-    echo $time->toDateTimeString();     // 2016-03-09
+    echo $time->toDateTimeString(); // 2016-03-09
 
 toTimeString()
 --------------
@@ -214,7 +214,7 @@ toTimeString()
 ::
 
     $time = Time::parse('March 9, 2016 12:00:00', 'America/Chicago');
-    echo $time->toTimeString();     // 12:00:00
+    echo $time->toTimeString(); // 12:00:00
 
 humanize()
 ----------
@@ -224,10 +224,10 @@ humanize()
 
 ::
 
-    // Assume current time is: March 10, 2017 (America/Chicago)
+ // Assume current time is: March 10, 2017 (America/Chicago)
     $time = Time::parse('March 9, 2016 12:00:00', 'America/Chicago');
 
-    echo $time->humanize();     // 1 year ago
+    echo $time->humanize(); // 1 year ago
 
 표시되는 정확한 시간은 다음과 같은 방식으로 결정됩니다.
 
@@ -265,19 +265,19 @@ Getters
 
     $time = Time::parse('August 12, 2016 4:15:23pm');
 
-    echo $time->getYear();      // 2016
-    echo $time->getMonth();     // 8
-    echo $time->getDay();       // 12
-    echo $time->getHour();      // 16
-    echo $time->getMinute();    // 15
-    echo $time->getSecond();    // 23
+    echo $time->getYear(); // 2016
+    echo $time->getMonth(); // 8
+    echo $time->getDay(); // 12
+    echo $time->getHour(); // 16
+    echo $time->getMinute(); // 15
+    echo $time->getSecond(); // 23
 
-    echo $time->year;           // 2016
-    echo $time->month;          // 8
-    echo $time->day;            // 12
-    echo $time->hour;           // 16
-    echo $time->minute;         // 15
-    echo $time->second;         // 23
+    echo $time->year; // 2016
+    echo $time->month; // 8
+    echo $time->day; // 12
+    echo $time->hour; // 16
+    echo $time->minute; // 15
+    echo $time->second; // 23
 
 이 외에도 날짜에 대한 추가 정보를 제공하는 여러 가지 방법이 있습니다.
 
@@ -285,19 +285,19 @@ Getters
 
     $time = Time::parse('August 12, 2016 4:15:23pm');
 
-    echo $time->getDayOfWeek();     // 6 - but may vary based on locale's starting day of the week
-    echo $time->getDayOfYear();     // 225
-    echo $time->getWeekOfMonth();   // 2
-    echo $time->getWeekOfYear();    // 33
-    echo $time->getTimestamp();     // 1471018523 - UNIX timestamp
-    echo $time->getQuarter();       // 3
+    echo $time->getDayOfWeek(); // 6 - but may vary based on locale's starting day of the week
+    echo $time->getDayOfYear(); // 225
+    echo $time->getWeekOfMonth(); // 2
+    echo $time->getWeekOfYear(); // 33
+    echo $time->getTimestamp(); // 1471018523 - UNIX timestamp
+    echo $time->getQuarter(); // 3
 
-    echo $time->dayOfWeek;          // 6
-    echo $time->dayOfYear;          // 225
-    echo $time->weekOfMonth;        // 2
-    echo $time->weekOfYear;         // 33
-    echo $time->timestamp;          // 1471018523
-    echo $time->quarter;            // 3
+    echo $time->dayOfWeek; // 6
+    echo $time->dayOfYear; // 225
+    echo $time->weekOfMonth; // 2
+    echo $time->weekOfYear; // 33
+    echo $time->timestamp; // 1471018523
+    echo $time->quarter; // 3
 
 getAge()
 --------
@@ -309,8 +309,8 @@ Time 인스턴스와 현재 시간 사이의 나이를 년 단위로 반환합�
 
     $time = Time::parse('5 years ago');
 
-    echo $time->getAge();   // 5
-    echo $time->age;        // 5
+    echo $time->getAge(); // 5
+    echo $time->age; // 5
 
 getDST()
 --------
@@ -319,8 +319,8 @@ Time 인스턴스가 현재 일광 절약 시간(Daylight Savings Time)을 준�
 
 ::
 
-    echo Time::createFromDate(2012, 1, 1)->getDst();     // false
-    echo Time::createFromDate(2012, 9, 1)->dst;     // true
+    echo Time::createFromDate(2012, 1, 1)->getDst(); // false
+    echo Time::createFromDate(2012, 9, 1)->dst; // true
 
 getLocal()
 ----------
@@ -329,8 +329,8 @@ Time 인스턴스가 현재 어플리케이션이 실행되는 시간대와 동�
 
 ::
 
-    echo Time::now()->getLocal();       // true
-    echo Time::now('Europe/London');    // false
+    echo Time::now()->getLocal(); // true
+    echo Time::now('Europe/London'); // false
 
 getUtc()
 --------
@@ -339,8 +339,8 @@ Time 인스턴스가 UTC 시간인 경우 부울 true를 리턴합니다.
 
 ::
 
-    echo Time::now('America/Chicago')->getUtc();    // false
-    echo Time::now('UTC')->utc;                     // true
+    echo Time::now('America/Chicago')->getUtc(); // false
+    echo Time::now('UTC')->utc; // true
 
 getTimezone()
 -------------
@@ -362,8 +362,8 @@ Time 인스턴스의 전체 `시간대 문자열 <https://www.php.net/manual/en/
 
 ::
 
-    echo Time::now('America/Chicago')->getTimezoneName();   // America/Chicago
-    echo Time::now('Europe/London')->timezoneName;          // Europe/London
+    echo Time::now('America/Chicago')->getTimezoneName(); // America/Chicago
+    echo Time::now('Europe/London')->timezoneName; // Europe/London
 
 Setters
 =======
@@ -378,11 +378,11 @@ Setters
 ::
 
     $time = $time->setYear(2017);
-    $time = $time->setMonthNumber(4);           // April
+    $time = $time->setMonthNumber(4); // April
     $time = $time->setMonthLongName('April');
-    $time = $time->setMonthShortName('Feb');    // February
+    $time = $time->setMonthShortName('Feb'); // February
     $time = $time->setDay(25);
-    $time = $time->setHour(14);                 // 2:00 pm
+    $time = $time->setHour(14); // 2:00 pm
     $time = $time->setMinute(30);
     $time = $time->setSecond(54);
 
@@ -394,13 +394,13 @@ setTimezone()
 ::
 
     $time  = Time::parse('13 May 2020 10:00', 'America/Chicago');
-    $time2 = $time->setTimezone('Europe/London');           // Returns new instance converted to new timezone
+    $time2 = $time->setTimezone('Europe/London'); // Returns new instance converted to new timezone
 
-    echo $time->getTimezoneName();   // American/Chicago
-    echo $time2->getTimezoneName();  // Europe/London
+    echo $time->getTimezoneName(); // American/Chicago
+    echo $time2->getTimezoneName(); // Europe/London
 
-    echo $time->toDateTimeString();   // 2020-05-13 10:00:00
-    echo $time2->toDateTimeString();   // 2020-05-13 18:00:00
+    echo $time->toDateTimeString(); // 2020-05-13 10:00:00
+    echo $time2->toDateTimeString(); // 2020-05-13 18:00:00
 
 setTimestamp()
 --------------
@@ -412,8 +412,8 @@ setTimestamp()
     $time = Time::parse('May 10, 2017', 'America/Chicago');
     $time2 = $time->setTimestamp(strtotime('April 1, 2017'));
 
-    echo $time->toDateTimeString();     // 2017-05-10 00:00:00
-    echo $time2->toDateTimeString();     // 2017-04-01 00:00:00
+    echo $time->toDateTimeString(); // 2017-05-10 00:00:00
+    echo $time2->toDateTimeString(); // 2017-04-01 00:00:00
 
 값 수정
 ===================
@@ -454,7 +454,7 @@ equals()
     $time1 = Time::parse('January 10, 2017 21:50:00', 'America/Chicago');
     $time2 = Time::parse('January 11, 2017 03:50:00', 'Europe/London');
 
-    $time1->equals($time2);    // true
+    $time1->equals($time2); // true
 
 테스트중인 값은 Time 인스턴스, DateTime 인스턴스, 새 DateTime 인스턴스가 이해할 수있는 방식으로 전체 날짜 시간이 포함 된 문자열 일 수 있습니다.
 문자열을 첫 번째 매개 변수로 전달할 때 시간대 문자열을 두 번째 매개 변수로 전달할 수 있습니다.
@@ -462,7 +462,7 @@ equals()
 
 ::
 
-    $time1->equals('January 11, 2017 03:50:00', 'Europe/London');  // true
+    $time1->equals('January 11, 2017 03:50:00', 'Europe/London'); // true
 
 sameAs()
 --------
@@ -474,8 +474,8 @@ sameAs()
     $time1 = Time::parse('January 10, 2017 21:50:00', 'America/Chicago');
     $time2 = Time::parse('January 11, 2017 03:50:00', 'Europe/London');
 
-    $time1->sameAs($time2);    // false
-    $time2->sameAs('January 10, 2017 21:50:00', 'America/Chicago');    // true
+    $time1->sameAs($time2); // false
+    $time2->sameAs('January 10, 2017 21:50:00', 'America/Chicago'); // true
 
 isBefore()
 ----------
@@ -487,8 +487,8 @@ isBefore()
     $time1 = Time::parse('January 10, 2017 21:50:00', 'America/Chicago');
     $time2 = Time::parse('January 11, 2017 03:50:00', 'America/Chicago');
 
-    $time1->isBefore($time2);  // true
-    $time2->isBefore($time1);  // false
+    $time1->isBefore($time2); // true
+    $time2->isBefore($time1); // false
 
 테스트중인 값은 Time 인스턴스, DateTime 인스턴스, 새 DateTime 인스턴스가 이해할 수있는 방식으로 전체 날짜 시간이 포함 된 문자열 일 수 있습니다.
 문자열을 첫 번째 매개 변수로 전달할 때 시간대 문자열을 두 번째 매개 변수로 전달할 수 있습니다.
@@ -496,7 +496,7 @@ isBefore()
 
 ::
 
-    $time1->isBefore('March 15, 2013', 'America/Chicago');  // false
+    $time1->isBefore('March 15, 2013', 'America/Chicago'); // false
 
 isAfter()
 ---------
@@ -508,8 +508,8 @@ isAfter()
     $time1 = Time::parse('January 10, 2017 21:50:00', 'America/Chicago');
     $time2 = Time::parse('January 11, 2017 03:50:00', 'America/Chicago');
 
-    $time1->isAfter($time2);  // false
-    $time2->isAfter($time1);  // true
+    $time1->isAfter($time2); // false
+    $time2->isAfter($time1); // true
 
 차이점 보기
 ===================
@@ -536,25 +536,25 @@ isAfter()
 
     $diff = $current->difference($test);
 
-    echo $diff->getYears();     // -7
-    echo $diff->getMonths();    // -84
-    echo $diff->getWeeks();     // -365
-    echo $diff->getDays();      // -2557
-    echo $diff->getHours();     // -61368
-    echo $diff->getMinutes();   // -3682080
-    echo $diff->getSeconds();   // -220924800
+    echo $diff->getYears(); // -7
+    echo $diff->getMonths(); // -84
+    echo $diff->getWeeks(); // -365
+    echo $diff->getDays(); // -2557
+    echo $diff->getHours(); // -61368
+    echo $diff->getMinutes(); // -3682080
+    echo $diff->getSeconds(); // -220924800
 
 **getX()** 메소드를 사용하거나, 속성처럼 계산 값에 액세스할 수 있습니다.
 
 ::
 
-    echo $diff->years;     // -7
-    echo $diff->months;    // -84
-    echo $diff->weeks;     // -365
-    echo $diff->days;      // -2557
-    echo $diff->hours;     // -61368
-    echo $diff->minutes;   // -3682080
-    echo $diff->seconds;   // -220924800
+    echo $diff->years; // -7
+    echo $diff->months; // -84
+    echo $diff->weeks; // -365
+    echo $diff->days; // -2557
+    echo $diff->hours; // -61368
+    echo $diff->minutes; // -3682080
+    echo $diff->seconds; // -220924800
 
 humanize()
 ----------
@@ -570,7 +570,7 @@ Time의 humanize() 메소드와 마찬가지로, 쉽게 이해할 수 있도록 
 
     $diff = $current->difference($test)
 
-    echo $diff->humanize();     // 1 year ago
+    echo $diff->humanize(); // 1 year ago
 
 표시되는 정확한 시간은 다음과 같은 방식으로 결정됩니다.
 

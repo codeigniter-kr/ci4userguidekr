@@ -17,7 +17,7 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
 
 사용 가능한 함수는 다음과 같습니다.
 
-.. php:function:: site_url([$uri = ''[, $protocol = NULL[, $altConfig = NULL]]])
+.. php:function:: site_url([$uri = ''[, $protocol = null[, $altConfig = null]]])
 
     :param    mixed            $uri: URI 문자열 또는 URI 세그먼트 배열
     :param    string           $protocol: 프로토콜, 'http' or 'https'
@@ -52,7 +52,7 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
     다른 구성 환경 설정을 포함하는 다른 사이트에 대한 URL을 생성하는 경우 대체 구성이 유용합니다.
     이 함수는 프레임워크 자체 단위 테스트에 사용됩니다.
 
-.. php:function:: base_url([$uri = ''[, $protocol = NULL]])
+.. php:function:: base_url([$uri = ''[, $protocol = null]])
 
     :param    mixed     $uri: URI 문자열 또는 URI 세그먼트 배열
     :param    string    $protocol: 프로토콜, 'http' or 'https'
@@ -142,7 +142,7 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
         uri_string(); // "/subfolder/blog/comments/123"
         uri_string(true); // "blog/comments/123"
 
-.. php:function:: index_page([$altConfig = NULL])
+.. php:function:: index_page([$altConfig = null])
 
     :param    \Config\App    $altConfig: 사용할 대체 구성
     :returns: 'index_page' 값
@@ -158,7 +158,7 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
     다른 구성 환경 설정을 포함하는 다른 사이트에 대한 URL을 생성하는 경우 대체 구성이 유용합니다.
     이 함수는 프레임워크 자체 단위 테스트에 사용됩니다.
 
-.. php:function:: anchor([$uri = ''[, $title = ''[, $attributes = ''[, $altConfig = NULL]]]])
+.. php:function:: anchor([$uri = ''[, $title = ''[, $attributes = ''[, $altConfig = null]]]])
 
     :param    mixed          $uri: URI 문자열 또는 URI 세그먼트 배열
     :param    string         $title: Anchor 제목
@@ -199,7 +199,7 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
 
     .. note:: 앵커 기능으로 전달된 속성은 XSS 공격으로부터 보호하기 위해 자동으로 이스케이프됩니다.
 
-.. php:function:: anchor_popup([$uri = ''[, $title = ''[, $attributes = FALSE[, $altConfig = NULL]]]])
+.. php:function:: anchor_popup([$uri = ''[, $title = ''[, $attributes = false[, $altConfig = null]]]])
 
     :param    string         $uri: URI 문자열
     :param    string         $title: Anchor 제목
@@ -222,7 +222,7 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
             'resizable'   => 'yes',
             'screenx'     => 0,
             'screeny'     => 0,
-            'window_name' => '_blank'
+            'window_name' => '_blank',
         ];
 
         echo anchor_popup('news/local/123', 'Click Me!', $atts);
@@ -277,7 +277,7 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
 
     :php:func:`mailto()` 함수와 동일하지만, 이메일 주소가 스팸봇에 의해 수집되는 것을 방지하기 위해 JavaScript로 작성된 서수를 사용하여 *mailto* 태그의 난독화된 버전을 작성합니다.
 
-.. php:function:: auto_link($str[, $type = 'both'[, $popup = FALSE]])
+.. php:function:: auto_link($str[, $type = 'both'[, $popup = false]])
 
     :param    string    $str: 입력 문자열
     :param    string    $type: Link type ('email', 'url' or 'both')
@@ -304,15 +304,15 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
         $string = auto_link($string, 'email');
 
     세 번째 파라미터는 링크가 새 창에 표시되는지 여부를 결정한다.
-    값은 TRUE 또는 FALSE(부울).
+    값은 true 또는 false(부울).
 
     ::
 
-        $string = auto_link($string, 'both', TRUE);
+        $string = auto_link($string, 'both', true);
 
     .. note:: 인식되는 URL은 'www' 또는 '://'로 시작하는 URL입니다.
 
-.. php:function:: url_title($str[, $separator = '-'[, $lowercase = FALSE]])
+.. php:function:: url_title($str[, $separator = '-'[, $lowercase = false]])
 
     :param    string    $str: 입력 문자열
     :param    string    $separator: 단어 구분 기호
@@ -340,15 +340,15 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
         // Produces: Whats_wrong_with_CSS
 
     세 번째 파라미터는 소문자 강제 변환 여부를 결정합니다.
-    기본적으로 변환하지 않습니다. 옵션은 부울 TRUE/FALSE.
+    기본적으로 변환하지 않습니다. 옵션은 부울 true/false.
 
     ::
 
         $title     = "What's wrong with CSS?";
-        $url_title = url_title($title, 'underscore', TRUE);
+        $url_title = url_title($title, 'underscore', true);
         // Produces: whats_wrong_with_css
 
-php:function:: mb_url_title($str[, $separator = '-'[, $lowercase = FALSE]])
+php:function:: mb_url_title($str[, $separator = '-'[, $lowercase = false]])
 
     :param  string  $str: 입력 문자열
     :param  string  $separator: 단어 구분 기호 (일반적으로 '-' or '_')
@@ -362,7 +362,7 @@ php:function:: mb_url_title($str[, $separator = '-'[, $lowercase = FALSE]])
 .. php:function:: prep_url([$str = ''[, $secure = false]])
 
     :param    string   $str: URL 문자열
-    :param    boolean  $secure: TRUE for https://
+    :param    boolean  $secure: true for https://
     :returns: 프로토콜 접두사 URL 문자열
     :rtype:   string
 

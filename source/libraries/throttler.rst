@@ -66,8 +66,7 @@ Code
          * This is a demo implementation of using the Throttler class
          * to implement rate limiting for your application.
          *
-         * @param RequestInterface|\CodeIgniter\HTTP\IncomingRequest $request
-         * @param array|null                                         $arguments
+         * @param array|null $arguments
          *
          * @return mixed
          */
@@ -89,9 +88,7 @@ Code
         /**
          * We don't have anything to do here.
          *
-         * @param RequestInterface|\CodeIgniter\HTTP\IncomingRequest $request
-         * @param ResponseInterface|\CodeIgniter\HTTP\Response       $response
-         * @param array|null                                         $arguments
+         * @param array|null $arguments
          *
          * @return mixed
          */
@@ -117,7 +114,7 @@ Code
 
 	public $aliases = [
 		...
-		'throttle' => \App\Filters\Throttle::class
+		'throttle' => \App\Filters\Throttle::class,
 	];
 
 그런 다음, 사이트의 모든 POST 요청에 대해 필터를 적용합니다.
@@ -125,7 +122,7 @@ Code
 ::
 
     public $methods = [
-        'post' => ['throttle', 'CSRF']
+        'post' => ['throttle', 'CSRF'],
     ];
 
 이제 설정이 끝났습니다. 사이트의 모든 POST 요청은 속도가 제한됩니다.
@@ -140,7 +137,7 @@ Class Reference
     :param int $capacity: 버킷이 보유한 토큰 수
     :param int $seconds: 버킷이 완전히 채워지는데 걸리는 시간 (초)
     :param int $cost: 이 작업에 사용되는 토큰 수
-    :returns: 작업을 수행할 수 있으면 TRUE, 그렇지 않으면 FALSE
+    :returns: 작업을 수행할 수 있으면 true, 그렇지 않으면 FALSE
     :rtype: bool
 
     버킷 내에 남아있는 토큰이 있는지 또는 할당된 시간 제한 내에 너무 많은 토큰이 사용되었는지 확인합니다.
@@ -151,7 +148,7 @@ Class Reference
     :returns: 다른 토큰을 사용할 수 있을 때까지의 시간(초)
     :rtype: integer
 
-    ``check ()``\ 가 실행되고 FALSE가 반환된 후 이 메소드를 사용하여 새 토큰을 사용할 수 있고, 조치를 다시 시도할 수있는 시간을 판별할 수 있습니다. 
+    ``check ()``\ 가 실행되고 false가 반환된 후 이 메소드를 사용하여 새 토큰을 사용할 수 있고, 조치를 다시 시도할 수있는 시간을 판별할 수 있습니다. 
     이 경우 최소 대기 시간은 1 초입니다.
 
 .. php:method:: remove(string $key) : self

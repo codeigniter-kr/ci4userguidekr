@@ -21,7 +21,7 @@
 
 query() 함수는 "읽기" 유형의 쿼리가 실행될 때 데이터베이스 결과 **object**\ 를 반환합니다.
 이 쿼리는 :doc:`결과를 보여줍니다 <results>`.
-"쓰기" 유형 쿼리가 실행되면 성공 또는 실패에 따라 TRUE 또는 FALSE만 반환합니다.
+"쓰기" 유형 쿼리가 실행되면 성공 또는 실패에 따라 true 또는 false만 반환합니다.
 데이터를 검색할 때 일반적으로 다음과 같이 고유 변수에 쿼리를 할당합니다
 
 ::
@@ -37,16 +37,13 @@ query() 함수는 "읽기" 유형의 쿼리가 실행될 때 데이터베이스 
 대부분의 사용자는 이 기능을 거의 사용하지 않습니다.
 
 데이터베이스 드라이버의 "execute" 함수가 리턴하는 모든 것을 리턴합니다.
-이는 일반적으로 INSERT, DELETE 또는 UPDATE문 (실제로 사용해야 하는것)과 같은 쓰기 유형 쿼리의 성공 또는 실패와 페치 가능한 결과가 있는 쿼리의 성공시 리소스/객체에 대한 TRUE/FALSE입니다.
+이는 일반적으로 INSERT, DELETE 또는 UPDATE문 (실제로 사용해야 하는것)과 같은 쓰기 유형 쿼리의 성공 또는 실패와 페치 가능한 결과가 있는 쿼리의 성공시 리소스/객체에 대한 true/false입니다.
 
 ::
 
-    if ($db->simpleQuery('YOUR QUERY'))
-    {
+    if ($db->simpleQuery('YOUR QUERY')) {
         echo "Success!";
-    }
-    else
-    {
+    } else {
         echo "Query failed!";
     }
 
@@ -89,11 +86,11 @@ query() 함수는 "읽기" 유형의 쿼리가 실행될 때 데이터베이스 
 .. important:: 쿼리 빌더는 피드를 제공하는 필드와 테이블명을 올바르게 인용하기 위해 최선을 다하지만, 임의의 사용자 입력과 함께 작동하도록 설계되지 않았으므로 손상된 사용자 데이터는 공급하지 마십시오.
 
 이 함수는 또한 데이터베이스 구성 파일에 접두사가 지정되어 있으면 지정된 접두사를 테이블에 추가할 수 있습니다.
-접두사 세트를 활성화하려면 두 번째 매개 변수에 TRUE(부울)를 전달하십시오. 
+접두사 세트를 활성화하려면 두 번째 매개 변수에 true(부울)를 전달하십시오. 
 
 ::
 
-    $db->protectIdentifiers('table_name', TRUE);
+    $db->protectIdentifiers('table_name', true);
 
 ****************
 이스케이프 쿼리
@@ -169,7 +166,7 @@ CodeIgniter에는 이를 수행하는 데 도움이 되는 세 가지 방법이 
         $db->query($sql, [
                 'id'     => 3,
                 'status' => 'live',
-                'name'   => 'Rick'
+                'name'   => 'Rick',
         ]);
 
 .. note:: 쿼리의 각 이름은 콜론(:)으로 묶어야합니다.
@@ -185,8 +182,7 @@ CodeIgniter에는 이를 수행하는 데 도움이 되는 세 가지 방법이 
 
 ::
 
-    if ( ! $db->simpleQuery('SELECT `example_field` FROM `example_table`'))
-    {
+    if ( ! $db->simpleQuery('SELECT `example_field` FROM `example_table`')) {
         $error = $db->error(); // Has keys 'code' and 'message'
     }
 
@@ -213,14 +209,14 @@ Codeigniter의 쿼리 빌더 및 데이터베이스 연결은 이미 데이터 �
 
 ::
 
-    $pQuery = $db->prepare(function($db)
+    $pQuery = $db->prepare(function ($db)
     {
         return $db->table('user')
-                  ->insert([
-                        'name'    => 'x',
-                        'email'   => 'y',
-                        'country' => 'US'
-                  ]);
+            ->insert([
+                'name'    => 'x',
+                'email'   => 'y',
+                'country' => 'US'
+            ]);
     });
 
 쿼리 작성기를 사용하지 않는 경우 값 자리 표시자에 물음표를 사용하여 수동으로 쿼리 개체를 만들 수 있습니다.
@@ -229,8 +225,7 @@ Codeigniter의 쿼리 빌더 및 데이터베이스 연결은 이미 데이터 �
 
     use CodeIgniter\Database\Query;
 
-    $pQuery = $db->prepare(function($db)
-    {
+    $pQuery = $db->prepare(function ($db) {
         $sql = "INSERT INTO user (name, email, country) VALUES (?, ?, ?)";
 
         return (new Query($db))->setQuery($sql);
@@ -242,8 +237,7 @@ Codeigniter의 쿼리 빌더 및 데이터베이스 연결은 이미 데이터 �
 
     use CodeIgniter\Database\Query;
 
-    $pQuery = $db->prepare(function($db)
-    {
+    $pQuery = $db->prepare(function ($db) {
         $sql = "INSERT INTO user (name, email, country) VALUES (?, ?, ?)";
 
         return (new Query($db))->setQuery($sql);
@@ -260,8 +254,7 @@ Codeigniter의 쿼리 빌더 및 데이터베이스 연결은 이미 데이터 �
 ::
 
     // Prepare the Query
-    $pQuery = $db->prepare(function($db)
-    {
+    $pQuery = $db->prepare(function ($db) {
         return $db->table('user')
                   ->insert([
                         'name'    => 'x',
@@ -310,7 +303,7 @@ PHP는 데이터베이스로 모든 열린 명령문을 닫는 작업을 꽤 잘
 쿼리 개체 작업
 **************************
 
-내부적으로 모든 쿼리는 \CodeIgniter\Database\Query의 인스턴스로 처리 및 저장됩니다.
+내부적으로 모든 쿼리는 ``CodeIgniter\Database\Query``\ 의 인스턴스로 처리 및 저장됩니다.
 이 클래스는 매개 변수 바인딩, 쿼리 준비, 쿼리 성능 데이터 저장을 합니다.
 
 **getLastQuery()**
@@ -320,7 +313,7 @@ PHP는 데이터베이스로 모든 열린 명령문을 닫는 작업을 꽤 잘
 ::
 
     $query = $db->getLastQuery();
-    echo (string)$query;
+    echo (string) $query;
 
 쿼리 클래스
 ===============
@@ -341,7 +334,7 @@ Query 객체를 문자열로 캐스팅하여 동일한 값을 얻을수 있습�
 
 ::
 
-    $sql = (string)$query;
+    $sql = (string) $query;
 
 **getOriginalQuery()**
 
@@ -358,10 +351,9 @@ Query 객체를 문자열로 캐스팅하여 동일한 값을 얻을수 있습�
 
 ::
 
-    if ($query->hasError())
-    {
-        echo 'Code: '. $query->getErrorCode();
-        echo 'Error: '. $query->getErrorMessage();
+    if ($query->hasError()) {
+        echo 'Code: ' . $query->getErrorCode();
+        echo 'Error: ' . $query->getErrorMessage();
     }
 
 **isWriteType()**
@@ -370,8 +362,7 @@ Query 객체를 문자열로 캐스팅하여 동일한 값을 얻을수 있습�
 
 ::
 
-    if ($query->isWriteType())
-    {
+    if ($query->isWriteType()) {
         ... do something
     }
 

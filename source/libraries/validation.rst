@@ -127,14 +127,11 @@ CodeIgniter의 데이터 검증 접근 방식을 설명하기 전에 이상적�
         {
             helper(['form', 'url']);
 
-            if (! $this->validate([]))
-            {
+            if (! $this->validate([])) {
                 echo view('Signup', [
                     'validation' => $this->validator,
                 ]);
-            }
-            else
-            {
+            } else {
                 echo view('Success');
             }
         }
@@ -230,7 +227,7 @@ setRules()
 
     $validation->setRules([
         'username' => ['label' => 'Username', 'rules' => 'required'],
-        'password' => ['label' => 'Password', 'rules' => 'required|min_length[10]']
+        'password' => ['label' => 'Password', 'rules' => 'required|min_length[10]'],
     ]);
 
 withRequest()
@@ -241,8 +238,7 @@ Request 객체의 인스턴스를 전달하면, 모든 입력 데이터를 가�
 
 ::
 
-    $validation->withRequest($this->request)
-               ->run();
+    $validation->withRequest($this->request)->run();
 
 검증 작업
 ****************
@@ -259,22 +255,22 @@ Request 객체의 인스턴스를 전달하면, 모든 입력 데이터를 가�
         'name' => 'Joe Smith',
         'friends' => [
             [
-                'name' => 'Fred Flinstone'
+                'name' => 'Fred Flinstone',
             ],
             [
-                'name' => 'Wilma'
-            ]
+                'name' => 'Wilma',
+            ],
         ]
     ]
 
     // Joe Smith
     $validation->setRules([
-        'contacts.name' => 'required'
+        'contacts.name' => 'required',
     ]);
 
     // Fred Flintsone & Wilma
     $validation->setRules([
-        'contacts.friends.name' => 'required'
+        'contacts.friends.name' => 'required',
     ]);
 
 '*' 와일드 카드 기호를 사용하여 한 수준(one level)의 배열과 일치시킬 수 있습니다.
@@ -283,7 +279,7 @@ Request 객체의 인스턴스를 전달하면, 모든 입력 데이터를 가�
 
     // Fred Flintsone & Wilma
     $validation->setRules([
-        'contacts.*.name' => 'required'
+        'contacts.*.name' => 'required',
     ]);
 
 "dot array syntax"은 단일 차원 배열 데이터의 경우에도 유용할 수 있습니다.
@@ -295,7 +291,7 @@ Request 객체의 인스턴스를 전달하면, 모든 입력 데이터를 가�
     'user_ids' => [
         1,
         2,
-        3
+        3,
     ]
     // 검증 규칙
     $validation->setRules([
@@ -335,7 +331,7 @@ Validation 클래스의 좋은 기능은 어플리케이션 전체에 대한 모
             'username'     => 'required',
             'password'     => 'required',
             'pass_confirm' => 'required|matches[password]',
-            'email'        => 'required|valid_email'
+            'email'        => 'required|valid_email',
         ];
     }
 
@@ -356,7 +352,7 @@ Validation 클래스의 좋은 기능은 어플리케이션 전체에 대한 모
             'username'     => 'required',
             'password'     => 'required',
             'pass_confirm' => 'required|matches[password]',
-            'email'        => 'required|valid_email'
+            'email'        => 'required|valid_email',
         ];
 
         public $signup_errors = [
@@ -364,7 +360,7 @@ Validation 클래스의 좋은 기능은 어플리케이션 전체에 대한 모
                 'required'    => 'You must choose a username.',
             ],
             'email'    => [
-                'valid_email' => 'Please check the Email field. It does not appear to be valid.'
+                'valid_email' => 'Please check the Email field. It does not appear to be valid.',
             ]
         ];
     }
@@ -380,14 +376,14 @@ Validation 클래스의 좋은 기능은 어플리케이션 전체에 대한 모
                 'label'  => 'Username',
                 'rules'  => 'required',
                 'errors' => [
-                    'required' => 'You must choose a {field}.'
-                ]
+                    'required' => 'You must choose a {field}.',
+                ],
             ],
             'email'    => [
                 'rules'  => 'required|valid_email',
                 'errors' => [
-                    'valid_email' => 'Please check the Email field. It does not appear to be valid.'
-                ]
+                    'valid_email' => 'Please check the Email field. It does not appear to be valid.',
+                ],
             ],
         ];
     }
@@ -413,6 +409,26 @@ Validation 클래스의 좋은 기능은 어플리케이션 전체에 대한 모
 
     $validation->setRuleGroup('signup');
 
+다중 검증 실행
+===============
+
+.. note:: ``run()`` 메소드는 오류 상태를 재설정하지 않습니다.
+   이전 실행이 실패하면 ``run()`` 메소드는 false를 반환하고, ``getErrors()`` 메소드는 명시적으로 재설정될 때까지 이전 오류를 반환합니다.
+
+서로 다른 데이터 집합 또는 서로 다른 규칙에 대해 여러 유효성 검사를 실행하려면 각 실행 전에 ``$validation->reset()``\ 을 호출하여 이전 실행 오류를 제거해야 합니다.
+``reset()`` 메소드는 이전에 설정한 데이터, 규칙 또는 사용자 지정 오류를 무효화하므로 ``setRules()``, ''setRuleGroup()' 등을 반복하여 호출해야 합니다.
+
+::
+
+    foreach ($userAccounts as $user) {
+        $validation->reset();
+        $validation->setRules($userAccountRules);
+
+        if (! $validation->run($user)) {
+            // handle validation errors
+        }
+    }
+
 검증 자리 표시자(Placeholders)
 =======================================================
 
@@ -425,7 +441,7 @@ Validation 클래스의 좋은 기능은 어플리케이션 전체에 대한 모
 ::
 
     $validation->setRules([
-        'email' => 'required|valid_email|is_unique[users.email,id,{id}]'
+        'email' => 'required|valid_email|is_unique[users.email,id,{id}]',
     ]);
 
 이 규칙 집합에서는 자리 표시자 값과 일치하는 ID가 있는 행을 제외하고 전자 메일 주소가 데이터베이스에서 고유해야 한다고 명시되어 있습니다. 
@@ -435,7 +451,7 @@ POST 데이터에 다음이 있다고 가정합니다.
 
     $_POST = [
         'id' => 4,
-        'email' => 'foo@example.com'
+        'email' => 'foo@example.com',
     ];
 
 그러면 ``{id}`` 자리 표시자가 숫자 **4**\ 로 대체되고 이 수정된 규칙이 적용됩니다.
@@ -443,33 +459,12 @@ POST 데이터에 다음이 있다고 가정합니다.
 ::
 
     $validation->setRules([
-        'email' => 'required|valid_email|is_unique[users.email,id,4]'
+        'email' => 'required|valid_email|is_unique[users.email,id,4]',
     ]);
 
 따라서 고유한 이메일인지 확인할 때 ``id=4``\ 인 데이터베이스의 행을 무시하게 됩니다.
 
 또한 전달된 동적 키가 양식 데이터와 충돌하지 않도록 주의한다면 런타임에 더 많은 동적 규칙을 만드는 데 사용할 수 있습니다.
-
-여러개의 검증 실행
-=======================================================
-
-.. note:: ``run()`` 메소드는 오류 상태를 재설정하지 않습니다. 
-    이전 검사가 실패하면 ``run()``\ 은 항상 false를 반환하고 ``getErrors()``\ 는 
-    명시적으로 재설정될 때까지 이전의 모든 오류를 반환합니다.
-
-서로 다른 데이터 세트 또는 서로 다른 규칙을 사용하여 여러개의 검증을 실행하고 싶다면 각 검증을 실행전에 ``$validation->reset()``\ 을 호출하여 이전 실행에서 발생한 오류를 제거해야 합니다.
-``reset()``\은 이전에 설정한 데이터, 검증 규칙, 사용자 정의 오류를 모두 무효화시키므로 재 검사를 위해서는 ``setRules()``, ``setRuleGroup()`` 등을 반복해야 합니다.
-
-::
-
-    for ($userAccounts as $user) {
-        $validation->reset();
-        $validation->setRules($userAccountRules);
-        if (!$validation->run($user)) {
-            // handle validation errors
-        }
-    }
-
 
 오류에 대한 작업
 *************************
@@ -495,15 +490,15 @@ POST 데이터에 다음이 있다고 가정합니다.
 
     $validation->setRules([
             'username' => 'required|is_unique[users.username]',
-            'password' => 'required|min_length[10]'
+            'password' => 'required|min_length[10]',
         ],
         [   // Errors
             'username' => [
                 'required' => 'All accounts must have usernames provided',
             ],
             'password' => [
-                'min_length' => 'Your password is too short. You want to get hacked?'
-            ]
+                'min_length' => 'Your password is too short. You want to get hacked?',
+            ],
         ]
     );
 
@@ -516,15 +511,15 @@ POST 데이터에 다음이 있다고 가정합니다.
                 'label'  => 'Username',
                 'rules'  => 'required|is_unique[users.username]',
                 'errors' => [
-                    'required' => 'All accounts must have {field} provided'
-                ]
+                    'required' => 'All accounts must have {field} provided',
+                ],
             ],
             'password' => [
                 'label'  => 'Password',
                 'rules'  => 'required|min_length[10]',
                 'errors' => [
-                    'min_length' => 'Your {field} is too short. You want to get hacked?'
-                ]
+                    'min_length' => 'Your {field} is too short. You want to get hacked?',
+                ],
             ]
         ]
     );
@@ -555,15 +550,15 @@ POST 데이터에 다음이 있다고 가정합니다.
                 'label'  => 'Rules.username',
                 'rules'  => 'required|is_unique[users.username]',
                 'errors' => [
-                    'required' => 'Rules.username.required'
-                ]
+                    'required' => 'Rules.username.required',
+                ],
             ],
             'password' => [
                 'label'  => 'Rules.password',
                 'rules'  => 'required|min_length[10]',
                 'errors' => [
-                    'min_length' => 'Rules.password.min_length'
-                ]
+                    'min_length' => 'Rules.password.min_length',
+                ],
             ]
         ]
     );
@@ -605,8 +600,7 @@ POST 데이터에 다음이 있다고 가정합니다.
 
 ::
 
-    if ($validation->hasError('username'))
-    {
+    if ($validation->hasError('username')) {
         echo $validation->getError('username');
     }
 
@@ -642,7 +636,7 @@ POST 데이터에 다음이 있다고 가정합니다.
 
     $errors = [
         'username' => 'The username field must be unique.',
-        'email'    => 'You must provide a valid email address.'
+        'email'    => 'You must provide a valid email address.',
     ];
 
 실제로 작성할 수 있는 두 가지 유형의 뷰가 있습니다.
@@ -717,7 +711,7 @@ POST 데이터에 다음이 있다고 가정합니다.
     {
         public function even(string $str): bool
         {
-            return (int)$str % 2 == 0;
+            return (int) $str % 2 == 0;
         }
     }
 
@@ -728,8 +722,7 @@ POST 데이터에 다음이 있다고 가정합니다.
 
     public function even(string $str, string &$error = null): bool
     {
-        if ((int)$str % 2 != 0)
-        {
+        if ((int) $str % 2 != 0) {
             $error = lang('myerrors.evenError');
             return false;
         }
@@ -763,8 +756,7 @@ $data 배열은 결과를 기반으로 제출된 다른 필드의 값을 확인�
         // search field is present or not.
         $present = $this->required($str ?? '');
 
-        if ($present)
-        {
+        if ($present) {
             return true;
         }
 
@@ -773,10 +765,8 @@ $data 배열은 결과를 기반으로 제출된 다른 필드의 값을 확인�
         // as $fields is the lis
         $requiredFields = [];
 
-        foreach ($fields as $field)
-        {
-            if (array_key_exists($field, $data))
-            {
+        foreach ($fields as $field) {
+            if (array_key_exists($field, $data)) {
                 $requiredFields[] = $field;
             }
         }
@@ -886,7 +876,7 @@ valid_cc_number         Yes         신용 카드 번호가 지정된 공급자�
 
     // In the controller
     $this->validate([
-        'avatar' => 'uploaded[avatar]|max_size[avatar,1024]'
+        'avatar' => 'uploaded[avatar]|max_size[avatar,1024]',
     ]);
 
 ======================= =========== =============================================================================================== ========================================

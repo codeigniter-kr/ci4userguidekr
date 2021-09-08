@@ -78,7 +78,7 @@ Response 테스트 도구가 통합되고 개선되었습니다.
 Project Files
 =============
 
-프로젝트에 포함된 수많은 파일(root, app, public, writable)이 업데이트를 되었습니다.
+프로젝트에 포함된 수많은 파일(root, app, public, writable)이 업데이트 되었습니다.
 이러한 파일들은 시스템 범위를 벗어나므로 사용자의 개입 없이 변경되지 않습니다.
 프로젝트에 대한 변경 사항을 병합하는데 도움이 되는 타사 CodeIgniter 모듈 `Explore on Packagist <https://packagist.org/explore/?query=codeigniter4%20updates>`_\ 이 있습니다. 
 

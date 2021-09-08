@@ -26,7 +26,7 @@ CodeIgniter의 다른 서비스와 마찬가지로 ``Config\Services``\ 를 통�
 
 **autoTypography()**
 
-.. php:function:: autoTypography($str[, $reduce_linebreaks = FALSE])
+.. php:function:: autoTypography($str[, $reduce_linebreaks = false])
 
 	:param	string	$str: 입력 문자열
 	:param	bool	$reduce_linebreaks: 이중 개행의 여러 인스턴스를 2개로 줄일지 여부

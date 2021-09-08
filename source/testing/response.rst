@@ -44,8 +44,7 @@ Request/Response 액세스
 
 ::
 
-    if ($result->isOK())
-    {
+    if ($result->isOK()) {
         ...
     }
 
@@ -64,8 +63,7 @@ Request/Response 액세스
 
 ::
 
-    if ($result->isRedirect())
-    {
+    if ($result->isRedirect()) {
         ...
     }
 
@@ -358,7 +356,7 @@ $fragment\ 가 JSON 응답 내에서 발견되없음 주장합니다. 전체 JSO
 
     // Response body is this:
     [
-        'config' => ['key-a', 'key-b']
+        'config' => ['key-a', 'key-b'],
     ]
 
     // Is true

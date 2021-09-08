@@ -21,8 +21,7 @@
 
     $query = $db->query("YOUR QUERY");
 
-    foreach ($query->getResult() as $row)
-    {
+    foreach ($query->getResult() as $row) {
         echo $row->title;
         echo $row->name;
         echo $row->body;
@@ -36,8 +35,7 @@
 
     $query = $db->query("YOUR QUERY");
 
-    foreach ($query->getResult('array') as $row)
-    {
+    foreach ($query->getResult('array') as $row) {
         echo $row['title'];
         echo $row['name'];
         echo $row['body'];
@@ -51,8 +49,7 @@
 
     $query = $db->query("SELECT * FROM users;");
 
-    foreach ($query->getResult('User') as $user)
-    {
+    foreach ($query->getResult('User') as $user) {
         echo $user->name; // access attributes
         echo $user->reverseName(); // or methods defined on the 'User' class
     }
@@ -68,8 +65,7 @@
 
     $query = $db->query("YOUR QUERY");
 
-    foreach ($query->getResultArray() as $row)
-    {
+    foreach ($query->getResultArray() as $row) {
         echo $row['title'];
         echo $row['name'];
         echo $row['body'];
@@ -91,8 +87,7 @@
 
     $row = $query->getRow();
 
-    if (isset($row))
-    {
+    if (isset($row)) {
         echo $row->title;
         echo $row->name;
         echo $row->body;
@@ -122,8 +117,7 @@
 
     $row = $query->getRowArray();
 
-    if (isset($row))
-    {
+    if (isset($row)) {
         echo $row['title'];
         echo $row['name'];
         echo $row['body'];
@@ -160,8 +154,7 @@
 
     $query = $db->query("YOUR QUERY");
 
-    while ($row = $query->getUnbufferedRow())
-    {
+    while ($row = $query->getUnbufferedRow()) {
         echo $row->title;
         echo $row->name;
         echo $row->body;
@@ -201,16 +194,14 @@ Example::
 
         public function __set($name, $value)
         {
-            if ($name === 'lastLogin')
-            {
+            if ($name === 'lastLogin') {
                 $this->lastLogin = DateTime::createFromFormat('U', $value);
             }
         }
 
         public function __get($name)
         {
-            if (isset($this->$name))
-            {
+            if (isset($this->$name)) {
                 return $this->$name;
             }
         }
@@ -229,8 +220,7 @@ Example::
 
     $rows = $query->getCustomResultObject('User');
 
-    foreach ($rows as $row)
-    {
+    foreach ($rows as $row) {
         echo $row->id;
         echo $row->email;
         echo $row->last_login('Y-m-d');
@@ -248,8 +238,7 @@ Example::
 
     $row = $query->getCustomRowObject(0, 'User');
 
-    if (isset($row))
-    {
+    if (isset($row)) {
         echo $row->email;                 // access attributes
         echo $row->last_login('Y-m-d');   // access class methods
     }
@@ -310,8 +299,7 @@ Example::
 
     $query = $thisdb->query('SELECT title FROM my_table');
 
-    foreach ($query->getResult() as $row)
-    {
+    foreach ($query->getResult() as $row) {
         echo $row->title;
     }
 
@@ -384,7 +372,7 @@ Class Reference
 
         :param int $n: 쿼리 결과(query result) 행의 인덱스
         :param string $type: 요청한 결과의 유형 - array, object, class name
-        :returns: 요청 된 행, 존재하지 않는 경우 NULL
+        :returns: 요청 된 행, 존재하지 않는 경우 null
         :rtype: mixed
 
         ``getRowArray()``, ``getRowObject()``, ``getCustomRowObject()``  메소드에 대한 랩퍼(wrapper).
@@ -394,7 +382,7 @@ Class Reference
     .. php:method:: getUnbufferedRow([$type = 'object'])
 
         :param string $type: 요청한 결과의 유형 - array, object, class name
-        :returns: 결과 집합의 다음 행, 존재하지 않는 경우 NULL
+        :returns: 결과 집합의 다음 행, 존재하지 않는 경우 null
         :rtype: mixed
 
         다음 결과 행을 가져 와서 요청된 유형으로 반환합니다.
@@ -404,7 +392,7 @@ Class Reference
     .. php:method:: getRowArray([$n = 0])
 
         :param int $n: 쿼리 결과(query result) 행의 인덱스
-        :returns: 요청 된 행, 존재하지 않는 경우 NULL
+        :returns: 요청 된 행, 존재하지 않는 경우 null
         :rtype: array
 
         요청 된 결과행을 연관 배열로 반환합니다.
@@ -414,7 +402,7 @@ Class Reference
     .. php:method:: getRowObject([$n = 0])
 
         :param int $n: 쿼리 결과(query result) 행의 인덱스
-        :returns: 요청 된 행, 존재하지 않는 경우 NULL
+        :returns: 요청 된 행, 존재하지 않는 경우 null
         :rtype: stdClass
 
         요청 된 결과 행을 ``stdClass`` 객체로 반환합니다.
@@ -425,7 +413,7 @@ Class Reference
 
         :param int $n: 쿼리 결과(query result) 행의 인덱스
         :param string $class_name: 결과 행의 클래스 이름
-        :returns: 요청 된 행, 존재하지 않는 경우 NULL
+        :returns: 요청 된 행, 존재하지 않는 경우 null
         :rtype: $type
 
         요청한 결과 행을 요청된 클래스의 인스턴스로 반환합니다.
@@ -440,7 +428,7 @@ Class Reference
 
         사용법: `결과 헬퍼 메소드`_.
 
-    .. php:method:: setRow($key[, $value = NULL])
+    .. php:method:: setRow($key[, $value = null])
 
         :param mixed $key: 열 이름 또는 키/값 쌍의 배열
         :param mixed $value: 열에 할당할 값, $key 필드명
@@ -451,7 +439,7 @@ Class Reference
     .. php:method:: getNextRow([$type = 'object'])
 
         :param string $type: 요청한 결과의 유형 - array, object, class name
-        :returns: 결과 집합의 다음 행, 존재하지 않는 경우 NULL
+        :returns: 결과 집합의 다음 행, 존재하지 않는 경우 null
         :rtype: mixed
 
         결과 집합에서 다음 행을 반환합니다.
@@ -459,7 +447,7 @@ Class Reference
     .. php:method:: getPreviousRow([$type = 'object'])
 
         :param string $type: 요청한 결과의 유형 - array, object, class name
-        :returns: 결과 집합의 이전 행, 존재하지 않는 경우 NULL
+        :returns: 결과 집합의 이전 행, 존재하지 않는 경우 null
         :rtype: mixed
 
         결과 집합에서 이전 행을 반환합니다.
@@ -467,7 +455,7 @@ Class Reference
     .. php:method:: getFirstRow([$type = 'object'])
 
         :param string $type: 요청한 결과의 유형 - array, object, class name
-        :returns: 결과 집합의 첫 번째 행, 존재하지 않는 경우 NULL
+        :returns: 결과 집합의 첫 번째 행, 존재하지 않는 경우 null
         :rtype: mixed
 
         결과 집합에서 첫 번째 행을 반환합니다.
@@ -475,7 +463,7 @@ Class Reference
     .. php:method:: getLastRow([$type = 'object'])
 
         :param string $type: 요청한 결과의 유형 - array, object, class name
-        :returns: 결과 세트의 마지막 행, 존재하지 않는 경우 NULL
+        :returns: 결과 세트의 마지막 행, 존재하지 않는 경우 null
         :rtype: mixed
 
         결과 집합에서 마지막 행을 반환합니다.

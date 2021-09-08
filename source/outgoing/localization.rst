@@ -138,7 +138,7 @@ For example, let's say you want to create a file containing error messages.
 
     'language_key' => [
         'nested' => [
-            'key' => 'The actual message to be shown.'
+            'key' => 'The actual message to be shown.',
         ],
     ],
 
@@ -301,8 +301,8 @@ To specify a different locale to be used when replacing parameters, you can pass
             'Grapes',
             'Lemons',
             'Oranges',
-            'Strawberries'
-        ]
+            'Strawberries',
+        ],
     ];
 
     // Displays "Apples, Bananas, Grapes, Lemons, Oranges, Strawberries"

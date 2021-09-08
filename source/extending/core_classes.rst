@@ -65,8 +65,7 @@ For example, if you have a new ``App\Libraries\RouteCollection`` class that you 
 
 	public static function routes(bool $getShared = false)
 	{
-		if (! $getShared)
-		{
+		if ($getShared) {
 			return static::getSharedInstance('routes');
 		}
 
@@ -112,6 +111,8 @@ For example, if you have a new ``App\Libraries\RouteCollection`` class that you 
         public function __construct()
         {
             parent::__construct();
+
+            // your code here
         }
     }
 

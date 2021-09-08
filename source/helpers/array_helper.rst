@@ -37,10 +37,10 @@ Array 헬퍼
         $data = [
             'foo' => [
                 'buzz' => [
-                    'fizz' => 11
+                    'fizz' => 11,
                 ],
                 'bar' => [
-                    'baz' => 23
+                    'baz' => 23,
                 ]
             ]
         ]
@@ -71,10 +71,10 @@ Array 헬퍼
 
         $data = [
             'foo' => [
-                'bar.baz' => 23
+                'bar.baz' => 23,
             ],
             'foo.bar' => [
-                'baz' => 43
+                'baz' => 43,
             ],
         ];
 

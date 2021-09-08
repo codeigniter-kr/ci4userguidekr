@@ -25,7 +25,7 @@ XML 헬퍼에는 XML 데이터 작업을 지원하는 기능이 포함되어 있
 
 사용 가능한 함수는 다음과 같습니다.
 
-.. php:function:: xml_convert($str[, $protect_all = FALSE])
+.. php:function:: xml_convert($str[, $protect_all = false])
 
     :param string $str: 변환할 텍스트 문자열
     :param bool $protect_all: 번호가 매겨진 엔티티 대신 잠재적 엔티티처럼 보이는 모든 콘텐츠를 보호할지 여부(예: &foo).

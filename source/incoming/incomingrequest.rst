@@ -25,8 +25,7 @@ Accessing the Request
     {
         public function index()
         {
-            if ($this->request->isAJAX())
-            {
+            if ($this->request->isAJAX()) {
                 . . .
             }
         }
@@ -66,14 +65,12 @@ Accessing the Request
 ::
 
     // Check for AJAX request.
-    if ($request->isAJAX())
-    {
+    if ($request->isAJAX()) {
         // ...
     }
 
     // Check for CLI Request
-    if ($request->isCLI())
-    {
+    if ($request->isCLI()) {
         // ...
     }
 
@@ -99,8 +96,7 @@ Accessing the Request
 
 ::
 
-    if (! $request->isSecure())
-    {
+    if (! $request->isSecure()) {
         force_https();
     }
 
@@ -114,7 +110,7 @@ Accessing the Request
 
 ::
 
-    $something = isset($_POST['foo']) ? $_POST['foo'] : NULL;
+    $something = isset($_POST['foo']) ? $_POST['foo'] : null;
 
 CodeIgniter의 내장 메소드를 사용하면 간단히 수행 할 수 있습니다.
 
@@ -255,8 +251,7 @@ POST 변수를 필터링하면 다음과 같습니다
 
 ::
 
-    if ($request->hasHeader('DNT'))
-    {
+    if ($request->hasHeader('DNT')) {
         // Don't track something...
     }
 
@@ -281,7 +276,7 @@ POST 변수를 필터링하면 다음과 같습니다
 
 ::
 
-    $uri = (string)$request->uri;
+    $uri = (string) $request->uri;
 
 이 개체는 요청의 일부를 얻을 수 있는 모든 기능을 제공합니다.
 
@@ -327,8 +322,7 @@ POST 변수를 필터링하면 다음과 같습니다
     $files = $request->getFiles();
 
     // Grab the file by name given in HTML form
-    if ($files->hasFile('uploadedFile'))
-    {
+    if ($files->hasFile('uploadedFile')) {
         $file = $files->getFile('uploadedfile');
 
         // Generate a new secure name

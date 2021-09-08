@@ -83,7 +83,7 @@ Parser 클래스는 내부적으로 연관 배열을 사용하여 ``render()``\ 
 
 	$data = [
 		'blog_title'   => 'My Blog Title',
-		'blog_heading' => 'My Blog Heading'
+		'blog_heading' => 'My Blog Heading',
 	];
 
 	echo $parser->setData($data)
@@ -181,8 +181,8 @@ Parser 클래스는 내부적으로 연관 배열을 사용하여 ``render()``\ 
 			['title' => 'Title 2', 'body' => 'Body 2'],
 			['title' => 'Title 3', 'body' => 'Body 3'],
 			['title' => 'Title 4', 'body' => 'Body 4'],
-			['title' => 'Title 5', 'body' => 'Body 5']
-		]
+			['title' => 'Title 5', 'body' => 'Body 5'],
+		],
 	];
 
 	echo $parser->setData($data)
@@ -200,11 +200,11 @@ Parser 클래스는 내부적으로 연관 배열을 사용하여 ``render()``\ 
 	$data = [
 		'blog_title'   => 'My Blog Title',
 		'blog_heading' => 'My Blog Heading',
-		'blog_entries' => $query->getResultArray()
+		'blog_entries' => $query->getResultArray(),
 	];
 
 	echo $parser->setData($data)
-	             ->render('blog_template');
+	            ->render('blog_template');
 
 반복하려는 배열에 배열 대신 객체라면 파서는 먼저 객체에서 ``asArray`` 메소드를 찾습니다.
 ``asArray`` 메소드가 존재한다면 해당 메소드를 호출하여 얻은 결과 배열을 위에서 설명한대로 반복합니다.
@@ -223,12 +223,12 @@ Parser 클래스는 내부적으로 연관 배열을 사용하여 ``render()``\ 
 		'blog_title'   => 'My Blog Title',
 		'blog_heading' => 'My Blog Heading',
 		'blog_entry'   => [
-			'title' => 'Title 1', 'body' => 'Body 1'
-		]
+			'title' => 'Title 1', 'body' => 'Body 1',
+		],
 	];
 
 	echo $parser->setData($data)
-	             ->render('blog_template');
+	            ->render('blog_template');
 
 의사 변수 ``blog_entry``\ 의 값은 연관 배열이며 각 키/값 쌍은 해당 변수의 루프안에 노출됩니다.
 
@@ -274,7 +274,7 @@ Parser 클래스는 내부적으로 연관 배열을 사용하여 ``render()``\ 
 
 	$data = [
 		'name'     => 'George',
-		'location' => [ 'city' => 'Red City', 'planet' => 'Mars' ]
+		'location' => ['city' => 'Red City', 'planet' => 'Mars'],
 	];
 
 	echo $parser->setData($data)->renderString($template);
@@ -288,7 +288,7 @@ Parser 클래스는 내부적으로 연관 배열을 사용하여 ``render()``\ 
 
 	$data = [
 		'name'     => 'George',
-		'location' => [ 'city' => 'Red City', 'planet' => 'Mars' ]
+		'location' => ['city' => 'Red City', 'planet' => 'Mars'],
 	];
 
 	echo $parser->setData($data)->renderString($template, ['cascadeData'=>false]);
@@ -549,7 +549,7 @@ route                route name                 Alias for the route_to helper fu
 
 	public $plugins = [
 		'foo'	=> '\Some\Class::methodName',
-		'bar'	=> function($str, array $params=[]) {
+		'bar'	=> function ($str, array $params=[]) {
 			return $str;
 		},
 	];
@@ -564,7 +564,7 @@ route                route name                 Alias for the route_to helper fu
 
         public function __construct()
         {
-            $this->plugins['bar'] = function(array $params=[]) {
+            $this->plugins['bar'] = function (array $params=[]) {
                 return $params[0] ?? '';
             };
 
@@ -620,7 +620,7 @@ route                route name                 Alias for the route_to helper fu
 	$data = [
 		'title'     => 'Mr',
 		'firstname' => 'John',
-		'lastname'  => 'Doe'
+		'lastname'  => 'Doe',
 	];
 	echo $parser->setData($data)
 	             ->renderString($template);
@@ -638,11 +638,11 @@ route                route name                 Alias for the route_to helper fu
 		'lastname'  => 'Doe',
 		'titles'    => [
 			['degree' => 'BSc'],
-			['degree' => 'PhD']
-		]
+			['degree' => 'PhD'],
+		],
 	];
 	echo $parser->setData($data)
-	             ->renderString($template);
+	            ->renderString($template);
 
 	// Result: Hello, John Doe (Mr{degree} {/degrees})
 
@@ -665,7 +665,7 @@ route                route name                 Alias for the route_to helper fu
 		]
 	];
 	echo $parser->setData($data)
-	             ->renderString($template);
+	            ->renderString($template);
 
 Result::
 
@@ -683,17 +683,16 @@ Result::
 		['title' => 'Second Link', 'link' => '/second'],
 	];
 
-	foreach ($data1 as $menuItem)
-	{
+	foreach ($data1 as $menuItem) {
 		$temp .= $parser->setData($menuItem)->renderString($template1);
 	}
 
 	$template2 = '<ul>{menuitems}</ul>';
 	$data = [
-		'menuitems' => $temp
+		'menuitems' => $temp,
 	];
 	echo $parser->setData($data)
-	             ->renderString($template2);
+	            ->renderString($template2);
 
 Result::
 
@@ -722,12 +721,12 @@ Class Reference
 
         지원되는 옵션:
 
-	        -   ``cache`` - 뷰 결과를 저장하는 시간(초)
-	        -   ``cache_name`` - 캐시된 뷰 결과를 저장/검색하는 데 사용되는 ID; 기본적으로 viewpath
-	        -   ``cascadeData`` - 중첩 또는 루프 대체가 발생할 때 데이터가 전파 되어야 하는 경우 true
-	        -   ``saveData`` - 후속 호출에 대해 뷰 데이터 매개 변수를 유지해야하는 경우 true
-	        -   ``leftDelimiter`` - 의사 변수 구문에서 사용할 왼쪽 구분 기호
-	        -   ``rightDelimiter`` - 의사 변수 구문에 사용할 오른쪽 구분 기호
+	        - ``cache`` - 뷰 결과를 저장하는 시간(초)
+	        - ``cache_name`` - 캐시된 뷰 결과를 저장/검색하는 데 사용되는 ID; 기본적으로 viewpath
+	        - ``cascadeData`` - 중첩 또는 루프 대체가 발생할 때 데이터가 전파 되어야 하는 경우 true
+	        - ``saveData`` - 후속 호출에 대해 뷰 데이터 매개 변수를 유지해야하는 경우 true
+	        - ``leftDelimiter`` - 의사 변수 구문에서 사용할 왼쪽 구분 기호
+	        - ``rightDelimiter`` - 의사 변수 구문에 사용할 오른쪽 구분 기호
 
 		모든 조건부 대체가 먼저 수행된 다음 각 데이터 쌍에 대해 나머지 대체가 수행됩니다.
 

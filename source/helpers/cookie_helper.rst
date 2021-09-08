@@ -45,7 +45,7 @@
 
     :param	string	$index: 쿠키 이름
     :param	bool	$xss_clean: 반환된 값에 XSS 필터링을 적용할지 여부
-    :returns:	쿠키 값 또는 찾지 못한 경우 NULL
+    :returns:	쿠키 값 또는 찾지 못한 경우 null
     :rtype:	mixed
 
     브라우저 쿠키를 얻기 위해 보다 친근한 구문을 제공합니다.

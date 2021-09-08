@@ -23,8 +23,7 @@
 
     $tables = $db->listTables();
 
-    foreach ($tables as $table)
-    {
+    foreach ($tables as $table) {
         echo $table;
     }
     
@@ -36,12 +35,11 @@
 **$db->tableExists();**
 
 때로는 작업을 실행하기 전에 특정 테이블이 존재하는지 확인하는 것이 도움이됩니다. 
-TRUE / FALSE를 반환합니다.
+true / false를 반환합니다.
 
 ::
 
-    if ($db->tableExists('table_name'))
-    {
+    if ($db->tableExists('table_name')) {
         // some code...
     }
 
@@ -64,8 +62,7 @@ TRUE / FALSE를 반환합니다.
 
     $fields = $db->getFieldNames('table_name');
 
-    foreach ($fields as $field)
-    {
+    foreach ($fields as $field) {
         echo $field;
     }
 
@@ -75,8 +72,7 @@ TRUE / FALSE를 반환합니다.
 
     $query = $db->query('SELECT * FROM some_table');
 
-    foreach ($query->getFieldNames() as $field)
-    {
+    foreach ($query->getFieldNames() as $field) {
         echo $field;
     }
 
@@ -86,12 +82,11 @@ TRUE / FALSE를 반환합니다.
 **$db->fieldExists()**
 
 때로는 작업을 수행하기 전에 특정 필드가 존재하는지 확인하는 것이 도움이됩니다. 
-TRUE / FALSE를 반환합니다.
+true / false를 반환합니다.
 
 ::
 
-    if ($db->fieldExists('field_name', 'table_name'))
-    {
+    if ($db->fieldExists('field_name', 'table_name')) {
         // some code...
     }
 
@@ -112,8 +107,7 @@ TRUE / FALSE를 반환합니다.
 
     $fields = $db->getFieldData('table_name');
 
-    foreach ($fields as $field)
-    {
+    foreach ($fields as $field) {
         echo $field->name;
         echo $field->type;
         echo $field->max_length;
@@ -145,8 +139,7 @@ TRUE / FALSE를 반환합니다.
 
     $keys = $db->getIndexData('table_name');
 
-    foreach ($keys as $key)
-    {
+    foreach ($keys as $key) {
         echo $key->name;
         echo $key->type;
         echo $key->fields;  // array of field names
@@ -163,8 +156,7 @@ TRUE / FALSE를 반환합니다.
 
     $keys = $db->getForeignKeyData('table_name');
 
-    foreach ($keys as $key)
-    {
+    foreach ($keys as $key) {
         echo $key->constraint_name;
         echo $key->table_name;
         echo $key->column_name;

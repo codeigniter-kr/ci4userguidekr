@@ -188,7 +188,7 @@ Examples
 
 ::
 
-    $routes->add('feed', function()
+    $routes->add('feed', function ()
     {
         $rss = new RSSFeeder();
         return $rss->feed('general');
@@ -203,7 +203,7 @@ Examples
 ::
 
     $routes = [];
-    $routes['product/(:num)']      = 'Catalog::productLookupById';
+    $routes['product/(:num)'] = 'Catalog::productLookupById';
     $routes['product/(:alphanum)'] = 'Catalog::productLookupByName';
 
     $collection->map($routes);
@@ -238,7 +238,7 @@ Examples
 
 ::
 
-    $routes->group('admin', function($routes)
+    $routes->group('admin', function ($routes)
     {
         $routes->add('users', 'Admin\Users::index');
         $routes->add('blog', 'Admin\Blog::index');
@@ -248,7 +248,7 @@ Examples
 
 콜백 전에 `namespace <#assigning-namespace>`_\ 처럼 그룹에 옵션을 할당해야 하는 경우::
 
-    $routes->group('api', ['namespace' => 'App\API\v1'], function($routes)
+    $routes->group('api', ['namespace' => 'App\API\v1'], function ($routes)
     {
         $routes->resource('users');
     });
@@ -260,7 +260,7 @@ Examples
 
 ::
 
-    $routes->group('api', ['filter' => 'api-auth'], function($routes)
+    $routes->group('api', ['filter' => 'api-auth'], function ($routes)
     {
         $routes->resource('users');
     });
@@ -271,9 +271,9 @@ Examples
 
 ::
 
-    $routes->group('admin', function($routes)
+    $routes->group('admin', function ($routes)
     {
-        $routes->group('users', function($routes)
+        $routes->group('users', function ($routes)
         {
             $routes->add('list', 'Admin\Users::list');
         });
@@ -301,7 +301,7 @@ Without necessarily needing to add a prefix to the group, you can pass an empty 
 
 ::
 
-    $routes->environment('development', function($routes) {
+    $routes->environment('development', function ($routes) {
         $routes->add('builder', 'Tools\Builder::index');
     });
 
@@ -392,7 +392,7 @@ CLI에서 HTTP 동사 기반 라우트 메소드(get, post, put 등)로 작성�
     $routes->match(['get', 'put'], 'from', 'to', $options);
     $routes->resource('photos', $options);
     $routes->map($array, $options);
-    $routes->group('name', $options, function());
+    $routes->group('name', $options, function ());
 
 필터 적용
 ----------------
@@ -601,7 +601,7 @@ URI와 일치하는 정의된 경로가 없으면 시스템은 위에서 설명�
     $routes->set404Override('App\Errors::show404');
 
     // Will display a custom view
-    $routes->set404Override(function()
+    $routes->set404Override(function ()
     {
         echo view('my_errors/not_found.html');
     });

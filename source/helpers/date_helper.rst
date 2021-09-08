@@ -21,7 +21,7 @@ Date 헬퍼 파일에는 Date 작업을 지원하는 함수가 포함되어 있�
 
 사용 가능한 함수는 다음과 같습니다.
 
-.. php:function:: now([$timezone = NULL])
+.. php:function:: now([$timezone = null])
 
     :param	string	$timezone: 시간대
     :returns:	UNIX 타임 스탬프

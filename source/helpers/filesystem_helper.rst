@@ -25,7 +25,7 @@ Filesystem 헬퍼
 
 사용 가능한 함수는 다음과 같습니다.
 
-.. php:function:: directory_map($source_dir[, $directory_depth = 0[, $hidden = FALSE]])
+.. php:function:: directory_map($source_dir[, $directory_depth = 0[, $hidden = false]])
 
     :param	string  $source_dir: 소스 디렉토리의 경로
     :param	int	    $directory_depth: 탐색할 디렉토리의 깊이 (0 = 완전 재귀, 1 = 현재 디렉토리 등)
@@ -52,7 +52,7 @@ Filesystem 헬퍼
 
     ::
 
-        $map = directory_map('./mydirectory/', FALSE, TRUE);
+        $map = directory_map('./mydirectory/', false, true);
 
     각 폴더 이름은 배열 색인이며 포함된 파일은 숫자로 색인됩니다.
     다음은 일반적인 배열의 예입니다.
@@ -98,12 +98,9 @@ Filesystem 헬퍼
 
     Example::
 
-        try
-        {     
+        try {     
             directory_mirror($uploadedImages, FCPATH . 'images/');
-        }
-        catch (Throwable $e)
-        {     
+        } catch (Throwable $e) {     
             echo 'Failed to export uploads!';
         }
 
@@ -114,7 +111,7 @@ Filesystem 헬퍼
     :param	string	$path: 파일 경로
     :param	string	$data: 파일에 쓸 데이터
     :param	string	$mode: ``fopen()`` 모드
-    :returns:	쓰기에 성공하면 TRUE, 오류가 발생하면 FALSE
+    :returns:	쓰기에 성공하면 true, 오류가 발생하면 false
     :rtype:	bool
 
     경로에 지정된 파일에 데이터를 씁니다. 파일이 존재하지 않으면 함수가 파일을 작성합니다.
@@ -122,12 +119,9 @@ Filesystem 헬퍼
     Example::
 
         $data = 'Some file data';
-        if ( ! write_file('./path/to/file.php', $data))
-        {     
+        if ( ! write_file('./path/to/file.php', $data)) {     
             echo 'Unable to write the file';
-        }
-        else
-        {     
+        } else {     
             echo 'File written!';
         }
 
@@ -145,13 +139,13 @@ Filesystem 헬퍼
 
     .. note:: 이 기능은 파일에 쓰는 동안 파일에 대한 잠금(exclusive lock)을 획득합니다.
 
-.. php:function:: delete_files($path[, $delDir = FALSE[, $htdocs = FALSE[, $hidden = FALSE]]]])
+.. php:function:: delete_files($path[, $delDir = false[, $htdocs = false[, $hidden = false]]]])
 
     :param	string	$path: 디렉토리 경로
     :param	bool	$delDir: 디렉토리 삭제 여부
     :param	bool	$htdocs: .htaccess 및 색인 페이지 파일 삭제를 건너 뛸지 여부
     :param  bool    $hidden: 숨김 파일 삭제 여부 (마침표(.)로 시작하는 파일)
-    :returns:	성공시 TRUE, 오류 발생시 FALSE
+    :returns:	성공시 true, 오류 발생시 false
     :rtype:	bool
 
     제공된 경로에 포함된 모든 파일을 삭제합니다.
@@ -160,15 +154,15 @@ Filesystem 헬퍼
 
         delete_files('./path/to/directory/');
 
-    두 번째 매개 변수가 TRUE로 설정되면 제공된 루트 경로에 포함된 모든 디렉토리도 삭제됩니다.
+    두 번째 매개 변수가 true로 설정되면 제공된 루트 경로에 포함된 모든 디렉토리도 삭제됩니다.
 
     Example::
 
-        delete_files('./path/to/directory/', TRUE);
+        delete_files('./path/to/directory/', true);
 
     .. note:: 파일을 삭제하려면 시스템에서 파일을 쓸 수 있거나 소유해야합니다.
 
-.. php:function:: get_filenames($source_dir[, $include_path = FALSE])
+.. php:function:: get_filenames($source_dir[, $include_path = false])
 
     :param	string	$source_dir: 디렉토리 경로
     :param	bool|null	$include_path: 파일 이름의 일부로 경로를 포함할지 여부; 경로가 없을때 ``false``, $source_dir인 경우 ``null``, 전체 경로일때 ``true``
@@ -191,7 +185,7 @@ Filesystem 헬퍼
     :rtype:	array
 
     지정된 디렉토리를 읽고 파일 이름, 파일 크기, 날짜 및 권한을 포함하는 배열을 만듭니다.
-    지정된 경로에 포함된 하위 폴더는 두 번째 매개 변수를 FALSE로 전달한 경우에만 읽힙니다. 
+    지정된 경로에 포함된 하위 폴더는 두 번째 매개 변수를 false로 전달한 경우에만 읽힙니다. 
     이는 많은 주의를 기울여 하는 작업이 될 수 있기 때문입니다.
 
     Example::
@@ -202,7 +196,7 @@ Filesystem 헬퍼
 
     :param	string	        $file: 파일 경로
     :param	array|string    $returned_values: 배열 또는 쉼표로 구분된 문자열로 전달하기 위해 반환할 정보 유형
-    :returns:	지정된 파일에 대한 정보가 포함된 배열, 실패시 FALSE
+    :returns:	지정된 파일에 대한 정보가 포함된 배열, 실패시 false
     :rtype:	array
 
     파일 및 경로가 제공되면 파일의 *name*, *path*, *size*, *date modified* 정보 속성을 (선택적으로) 반환합니다.
@@ -247,7 +241,7 @@ Filesystem 헬퍼
 
         echo same_file($newFile, $oldFile) ? 'Same!' : 'Different!';
 
-.. php:function:: set_realpath($path[, $check_existence = FALSE])
+.. php:function:: set_realpath($path[, $check_existence = false])
 
     :param	string	$path: 경로
     :param	bool	$check_existence: 경로가 실제로 존재하는지 확인
@@ -262,12 +256,12 @@ Filesystem 헬퍼
         echo set_realpath($file); // Prints '/etc/php5/apache2/php.ini'
 
         $non_existent_file = '/path/to/non-exist-file.txt';
-        echo set_realpath($non_existent_file, TRUE);	// Shows an error, as the path cannot be resolved
-        echo set_realpath($non_existent_file, FALSE);	// Prints '/path/to/non-exist-file.txt'
+        echo set_realpath($non_existent_file, true);	// Shows an error, as the path cannot be resolved
+        echo set_realpath($non_existent_file, false);	// Prints '/path/to/non-exist-file.txt'
 
         $directory = '/etc/php5';
         echo set_realpath($directory);	// Prints '/etc/php5/'
 
         $non_existent_directory = '/path/to/nowhere';
-        echo set_realpath($non_existent_directory, TRUE);	// Shows an error, as the path cannot be resolved
-        echo set_realpath($non_existent_directory, FALSE);	// Prints '/path/to/nowhere'
+        echo set_realpath($non_existent_directory, true);	// Shows an error, as the path cannot be resolved
+        echo set_realpath($non_existent_directory, false);	// Prints '/path/to/nowhere'

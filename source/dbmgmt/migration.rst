@@ -164,12 +164,9 @@ Database/Migrations에서 찾은 모든 마이그레이션이 포함됩니다.
 		{
 			$migrate = \Config\Services::migrations();
 
-			try
-			{
+			try {
 				$migrate->latest();
-			}
-			catch (\Throwable $e)
-			{
+			} catch (\Throwable $e) {
 				// Do something with the error here...
 			}
 		}
@@ -324,7 +321,7 @@ Class Reference
 		:rtype:	bool
 
 		순서나 배치에 관계없이 단일 파일이 마이그레이션됩니다. 
-		이미 마이그레이션되었는지 여부에 따라 "up" 또는 "down" 메소드가 감지됩니다. 
+		이미 마이그레이션되었는지 여부에 따라 "up" 또는 "down" 메소드가 감지됩니다.
 		
 		.. note:: 이 메소드는 테스트에만 권장되며 데이터 일관성 문제가 발생할 수 있습니다.
 
@@ -338,8 +335,7 @@ Class Reference
 	  
 	  ::
 
-	    $migration->setNamespace($namespace)
-	              ->latest();
+	    $migration->setNamespace($namespace)->latest();
 
 	.. php:method:: setGroup($group)
 
@@ -351,5 +347,4 @@ Class Reference
 	  
 	  ::
 
-	    $migration->setGroup($group)
-	              ->latest();
+	    $migration->setGroup($group)->latest();

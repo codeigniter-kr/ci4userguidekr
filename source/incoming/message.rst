@@ -119,6 +119,12 @@ Class Reference
 
             $message->header('Document-URI', FILTER_SANITIZE_URL);
 
+    .. php:method:: hasHeader($name)
+
+        :param  string  $name: 확인할 헤더의 이름.
+        :returns: 있으면 true, 그렇지 않으면 false.
+        :rtype: bool
+
     .. php:method:: getHeaderLine($name)
 
         :param  string $name: 검색 할 헤더의 이름

@@ -267,18 +267,18 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 .. php:function:: function_usable( $function_name )
 
     :param string $function_name: 함수 확인
-    :returns: 함수가 존재하여 호출해도 안전한 경우 TRUE, 그렇지 않으면 FALSE
+    :returns: 함수가 존재하여 호출해도 안전한 경우 true, 그렇지 않으면 false
     :rtype: bool
 
 .. php:function:: is_really_writable ( $file )
 
     :param string $file: 확인할 파일명
-    :returns: 파일에 쓸 수 있으면 TRUE, 그렇지 않으면 FALSE
+    :returns: 파일에 쓸 수 있으면 true, 그렇지 않으면 false
     :rtype: bool
 
 .. php:function:: is_cli()
 
-    :returns: TRUE(커맨드 라인(command line)에서 스크립트를 실행중인 경우) 또는 FALSE(아닌 경우)
+    :returns: true(커맨드 라인(command line)에서 스크립트를 실행중인 경우) 또는 false(아닌 경우)
     :rtype: bool
 
 .. php:function:: log_message ($level, $message [, $context])
@@ -286,7 +286,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
     :param   string   $level: 심각도 수준
     :param   string   $message: 기록 될 메시지
     :param   array    $context: $message로 바꿔야할 태그와 값의 연관 배열
-    :returns: TRUE(성공적으로 기록 된 경우) 또는 FALSE(기록하는 데 문제가있는 경우)
+    :returns: true(성공적으로 기록 된 경우) 또는 false(기록하는 데 문제가있는 경우)
     :rtype: bool
 
     **app/Config/Logger.php**\ 에 정의된 로그 처리기를 사용하여 메시지를 기록합니다..
@@ -331,14 +331,14 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
         // Go to a named/reverse-routed URI
         return redirect('named_route');
 
-.. php:function:: remove_invisible_characters($str[, $urlEncoded = TRUE])
+.. php:function:: remove_invisible_characters($str[, $urlEncoded = true])
 
     :param    string    $str: 입력 문자열
     :param    bool    $urlEncoded: URL 인코딩 문자도 제거할지 여부
     :returns: 안전한 문자열
     :rtype:    string
 
-    이 함수는 "Java\\0script"와 같은 문자열에서 NULL 문자를 제거 합니다.
+    이 함수는 "Java\\0script"와 같은 문자열에서 null 문자를 제거 합니다.
 
     Example::
 
@@ -383,7 +383,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 .. php:function:: slash_item ( $item )
 
     :param string $item: Config item명
-    :returns: Config 항목(Item)이 없는 경우 NULL
+    :returns: Config 항목(Item)이 없는 경우 null
     :rtype:  string|null
 
     슬래시가 추가된 구성(Config) 파일 항목을 가져옵니다. (값이 있는 경우)
@@ -391,7 +391,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 .. php:function:: stringify_attributes( $attributes [, $js] )
 
     :param   mixed    $attributes: 문자열, 키/값 쌍의 배열, 객체
-    :param   boolean  $js: TRUE (값에 따옴표가 필요하지 않은 경우, Javascript-style)
+    :param   boolean  $js: true (값에 따옴표가 필요하지 않은 경우, Javascript-style)
     :returns: 쉼표로 구분된 속성의 키/값 쌍을 포함하는 문자열
     :rtype: string
 

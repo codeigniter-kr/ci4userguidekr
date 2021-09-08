@@ -17,8 +17,7 @@ CodeIgniter는 가장 널리 사용되는 빠르고 동적인 캐싱 형태에 �
 
 ::
 
-    if ( ! $foo = cache('foo'))
-    {
+    if ( ! $foo = cache('foo')) {
         echo 'Saving to the cache!<br />';
         $foo = 'foobarbaz!';
 
@@ -91,7 +90,7 @@ Class Reference
     :rtype: mixed
 
     이 메소드는 캐시 저장소에서 항목을 가져 오려고 시도합니다.
-    항목이 존재하지 않으면 NULL을 리턴합니다.
+    항목이 존재하지 않으면 null을 리턴합니다.
 
     Example
     
@@ -111,7 +110,7 @@ Class Reference
     ``null``\ 이 반환된 경우 콜백을 호출하고 결과를 저장합니다.
     어느 쪽이든 값을 반환합니다.
 
-.. php:method:: save($key, $data[, $ttl = 60[, $raw = FALSE]])
+.. php:method:: save($key, $data[, $ttl = 60[, $raw = false]])
 
     :param string $key: 캐시 아이템 이름
     :param mixed $data: 저장할 데이터
@@ -121,7 +120,7 @@ Class Reference
     :rtype: bool
 
     항목을 캐시 저장소에 저장합니다.
-    저장에 실패하면 FALSE를 리턴합니다.
+    저장에 실패하면 false를 리턴합니다.
 
     Example::
 
@@ -137,7 +136,7 @@ Class Reference
     :rtype: bool
 
     캐시 저장소에서 특정 항목을 삭제합니다.
-    항목 삭제에 실패하면 FALSE를 리턴합니다.
+    항목 삭제에 실패하면 false를 리턴합니다.
 
     Example::
 
@@ -200,7 +199,7 @@ Class Reference
     :rtype: bool
 
     전체 캐시를 '삭제' 합니다. 
-    캐시 파일 삭제에 실패하면 FALSE를 리턴합니다.
+    캐시 파일 삭제에 실패하면 false를 리턴합니다.
 
     Example::
 

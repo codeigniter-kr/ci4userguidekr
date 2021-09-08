@@ -70,7 +70,7 @@ Entity 클래스 만들기
     {
         protected $table         = 'users';
         protected $allowedFields = [
-            'username', 'email', 'password'
+            'username', 'email', 'password',
         ];
         protected $returnType    = 'App\Entities\User';
         protected $useTimestamps = true;
@@ -97,10 +97,10 @@ Entity 클래스 작업
 
     // Updating
     unset($user->username);
-    if (! isset($user->username)
-    {
+    if (! isset($user->username) {
         $user->username = 'something new';
     }
+
     $userModel->save($user);
 
     // Create
@@ -159,7 +159,7 @@ Entity 클래스는 ``toArray()``\ 와 ``toRawArray()`` 메소드를 통하여 �
 ::
 
     <?php 
-    
+
     namespace App\Entities;
 
     use CodeIgniter\Entity\Entity;
@@ -236,7 +236,7 @@ Entity 클래스는 ``toArray()``\ 와 ``toRawArray()`` 메소드를 통하여 �
     {
         protected $attributes = [
             'id' => null,
-            'name' => null,        // Represents a username
+            'name' => null, // Represents a username
             'email' => null,
             'password' => null,
             'created_at' => null,
@@ -478,7 +478,7 @@ CSV 캐스팅
     //...
 
     $entity->key = 'test'; // dGVzdA==
-    echo $entity->key;     // test
+    echo $entity->key; // test
 
 
 값을 가져오거나 설정할 때 값을 변경할 필요가 없는 경우 메소드를 구현하지 마십시오.
@@ -553,4 +553,4 @@ CSV 캐스팅
 
 ::
 
-    $user->hasChanged();       // true
+    $user->hasChanged(); // true

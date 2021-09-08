@@ -309,7 +309,7 @@ limit 및 offset 값을 각각 첫 번째와 두 번째 매개 변수로 전달�
 
 **withDeleted()**
 
-``$useSoftDeletes``\ 가 ``true``\ 이면 find* 메소드는 'deleted_at IS NOT NULL'\ 인 행을 반환하지 않습니다.
+``$useSoftDeletes``\ 가 ``true``\ 이면 find* 메소드는 'deleted_at IS NOT null'\ 인 행을 반환하지 않습니다.
 이를 일시적으로 무시하려면 find* 메소드를 호출하기 전에 ``withDeleted()`` 메소드를 사용합니다.
 
 ::
@@ -318,8 +318,7 @@ limit 및 offset 값을 각각 첫 번째와 두 번째 매개 변수로 전달�
     $activeUsers = $userModel->findAll();
 
     // Gets all rows
-    $allUsers = $userModel->withDeleted()
-                          ->findAll();
+    $allUsers = $userModel->withDeleted()->findAll();
 
 **onlyDeleted()**
 
@@ -327,8 +326,7 @@ withDeleted()는 삭제된 행과 삭제되지 않은 행을 모두 리턴하지
 
 ::
 
-    $deletedUsers = $userModel->onlyDeleted()
-                              ->findAll();
+    $deletedUsers = $userModel->onlyDeleted()->findAll();
 
 데이터 저장
 ---------------
@@ -342,7 +340,7 @@ withDeleted()는 삭제된 행과 삭제되지 않은 행을 모두 리턴하지
 
     $data = [
         'username' => 'darth',
-        'email'    => 'd.vader@theempire.com'
+        'email'    => 'd.vader@theempire.com',
     ];
 
     $userModel->insert($data);
@@ -357,7 +355,7 @@ withDeleted()는 삭제된 행과 삭제되지 않은 행을 모두 리턴하지
 
     $data = [
         'username' => 'darth',
-        'email'    => 'd.vader@theempire.com'
+        'email'    => 'd.vader@theempire.com',
     ];
 
     $userModel->update($id, $data);
@@ -367,7 +365,7 @@ withDeleted()는 삭제된 행과 삭제되지 않은 행을 모두 리턴하지
 ::
 
     $data = [
-        'active' => 1
+        'active' => 1,
     ];
 
     $userModel->update([1, 2, 3], $data);
@@ -393,7 +391,7 @@ withDeleted()는 삭제된 행과 삭제되지 않은 행을 모두 리턴하지
     // Does an insert()
     $data = [
         'username' => 'darth',
-        'email'    => 'd.vader@theempire.com'
+        'email'    => 'd.vader@theempire.com',
     ];
 
     $userModel->save($data);
@@ -402,7 +400,7 @@ withDeleted()는 삭제된 행과 삭제되지 않은 행을 모두 리턴하지
     $data = [
         'id'       => 3,
         'username' => 'darth',
-        'email'    => 'd.vader@theempire.com'
+        'email'    => 'd.vader@theempire.com',
     ];
     $userModel->save($data);
 
@@ -425,16 +423,14 @@ save 메소드는 단순하지 않은 오브젝트를 인식하고 공용 및 �
 
         public function __get($key)
         {
-            if (property_exists($this, $key))
-            {
+            if (property_exists($this, $key)) {
                 return $this->$key;
             }
         }
 
         public function __set($key, $value)
         {
-            if (property_exists($this, $key))
-            {
+            if (property_exists($this, $key)) {
                 $this->$key = $value;
             }
         }
@@ -499,7 +495,7 @@ save 메소드는 단순하지 않은 오브젝트를 인식하고 공용 및 �
 
 **purgeDeleted()**
 
-'deleted_at IS NOT NULL'\ 이 있는 모든 행을 데이터베이스 테이블에서 영구적으로 제거합니다.
+'deleted_at IS NOT null'\ 이 있는 모든 행을 데이터베이스 테이블에서 영구적으로 제거합니다.
 
 ::
 
@@ -522,13 +518,13 @@ Model 클래스는 ``insert()``, ``update()``, ``save()`` 메소드를 사용하
             'username'     => 'required|alpha_numeric_space|min_length[3]',
             'email'        => 'required|valid_email|is_unique[users.email]',
             'password'     => 'required|min_length[8]',
-            'pass_confirm' => 'required_with[password]|matches[password]'
+            'pass_confirm' => 'required_with[password]|matches[password]',
         ];
 
         protected $validationMessages = [
             'email'        => [
-                'is_unique' => 'Sorry. That email has already been taken. Please choose another.'
-            ]
+                'is_unique' => 'Sorry. That email has already been taken. Please choose another.',
+            ],
         ];
     }
 
@@ -786,8 +782,7 @@ find*() 메소드의 데이터를 표준 객체 또는 사용자 정의 클래�
 
 ::
 
-    $userModel->chunk(100, function ($data)
-    {
+    $userModel->chunk(100, function ($data) {
         // do something.
         // $data is a single row of data.
     });
@@ -844,7 +839,7 @@ insert* 또는 update* 메소드의 경우 데이터베이스에 삽입되는 �
 ::
 
     $model->allowCallbacks(false)->find(1); // No callbacks triggered
-    $model->find(1);                        // Callbacks subject to original property value
+    $model->find(1); // Callbacks subject to original property value
 
 이벤트 매개 변수
 ---------------------
@@ -893,13 +888,15 @@ Modifying Find* Data
     protected function checkCache(array $data)
     {
         // 요청한 항목이 캐시에 있는지 확인
-        if (isset($data['id']) && $item = $this->getCachedItem($data['id']]))
-        {
+        if (isset($data['id']) && $item = $this->getCachedItem($data['id']])) {
             $data['data']       = $item;
             $data['returnData'] = true;
 
             return $data;
-    // ...
+        }
+
+        // ...
+    }
 
 사용자 정의 모델 만들기
 =======================

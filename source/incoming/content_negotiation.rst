@@ -57,7 +57,7 @@ Media
     $supported = [
         'application/json',
         'text/html',
-        'application/xml'
+        'application/xml',
     ];
 
     $format = $request->negotiate('media', $supported);
@@ -94,7 +94,7 @@ Language
 
     $supported = [
         'en',
-        'de'
+        'de',
     ];
 
     $lang = $request->negotiate('language', $supported);

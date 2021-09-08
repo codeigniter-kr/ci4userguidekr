@@ -121,14 +121,14 @@ Inflector 헬퍼에는 **영어** 단어를 복수, 단수, camel 등으로 변�
 .. php:function:: is_pluralizable($word)
 
     :param	string	$word: 입력 문자열
-    :returns:	단어가 복수형이면 TRUE, 그렇지 않은 경우 FALSE
+    :returns:	단어가 복수형이면 true, 그렇지 않은 경우 false
     :rtype:	bool
 
     주어진 단어가 복수형인지 확인합니다.
     
     ::
 
-        is_pluralizable('equipment'); // Returns FALSE
+        is_pluralizable('equipment'); // Returns false
 
 .. php:function:: dasherize($string)
 

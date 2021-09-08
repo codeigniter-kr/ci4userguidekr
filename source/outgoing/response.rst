@@ -41,7 +41,7 @@ CodeIgniter가 헤더와 본문 전송을 담당하므로 클래스를 직접 �
 
     $data = [
         'success' => true,
-        'id' => 123
+        'id' => 123,
     ];
 
     return $this->response->setJSON($data);
@@ -85,9 +85,9 @@ CodeIgniter가 헤더와 본문 전송을 담당하므로 클래스를 직접 �
 
 첫 번째 매개 변수는 **다운로드 한 파일의 이름을 지정** 하는 이름이고, 두 번째 매개 변수는 파일 데이터입니다.
 
-두 번째 매개 변수를 NULL로 설정하고 ``$filename``\ 이 읽을 수 있는 파일 경로인 경우 해당 내용을 대신 읽습니다.
+두 번째 매개 변수를 null로 설정하고 ``$filename``\ 이 읽을 수 있는 파일 경로인 경우 해당 내용을 대신 읽습니다.
 
-세 번째 매개 변수를 TRUE(boolean)로 설정하면 실제 파일 MIME 유형 (파일 이름 확장자를 기준으로)이 전송되고, 브라우저에 해당 유형에 대한 핸들러가 있는 경우 이를 사용할 수 있습니다.
+세 번째 매개 변수를 true(boolean)로 설정하면 실제 파일 MIME 유형 (파일 이름 확장자를 기준으로)이 전송되고, 브라우저에 해당 유형에 대한 핸들러가 있는 경우 이를 사용할 수 있습니다.
 
 Example::
 
@@ -412,7 +412,7 @@ Class Reference
         먼저 헤더를 보낸 다음 응답 본문을 보냅니다.
         어플리케이션의 기본 응답인 경우 CodeIgniter에서 자동으로 처리하므로 이를 호출할 필요가 없습니다.
 
-    .. php:method:: setCookie($name = ''[, $value = ''[, $expire = ''[, $domain = ''[, $path = '/'[, $prefix = ''[, $secure = FALSE[, $httponly = FALSE[, $samesite = null]]]]]]]])
+    .. php:method:: setCookie($name = ''[, $value = ''[, $expire = ''[, $domain = ''[, $path = '/'[, $prefix = ''[, $secure = false[, $httponly = false[, $samesite = null]]]]]]]])
 
         :param mixed $name: 쿠키명 또는 매개 변수 배열
         :param string $value: 쿠키값
@@ -442,8 +442,8 @@ Class Reference
                 'domain' => '.some-domain.com',
                 'path'   => '/',
                 'prefix' => 'myprefix_',
-                'secure' => TRUE,
-                'httponly' => FALSE,
+                'secure' => true,
+                'httponly' => false,
                 'samesite' => 'Lax'
             ];
 
@@ -464,7 +464,7 @@ Class Reference
 
         ``prefix``\ 는 서버의 다른 동일한 이름의 쿠키와 이름 충돌을 피해야하는 경우에만 필요합니다.
 
-        보안 쿠키를 만들고 싶다면 ``secure``\ 의 값을 부울(boolean) TRUE로 설정합십시오.
+        보안 쿠키를 만들고 싶다면 ``secure``\ 의 값을 부울(boolean) true로 설정합십시오.
 
         SameSite 값은 도메인과 하위 도메인 간에 쿠키가 공유되는 방식을 제어합니다.
         허용되는 값은 'None', 'Lax', 'Strict' 또는 빈 문자열 ``''``\ 입니다.
