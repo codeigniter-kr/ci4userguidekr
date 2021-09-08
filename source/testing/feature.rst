@@ -61,8 +61,8 @@ HTTP 기능 테스트
 
     // Submit a form
     $result = $this->call('post', 'contact'), [
-        'name' => 'Fred Flintstone',
-        'email' => 'flintyfred@example.com'
+        'name'  => 'Fred Flintstone',
+        'email' => 'flintyfred@example.com',
     ]);
 
 타이핑을 쉽고 더 명확하게 하기 위해 각 HTTP 동사에 대한 속기 방법이 있습니다.
@@ -87,11 +87,10 @@ HTTP 기능 테스트
 ::
 
     $routes = [
-       [ 'get', 'users', 'UserController::list' ]
+        ['get', 'users', 'UserController::list'],
      ];
 
-    $result = $this->withRoutes($routes)
-        ->get('users');
+    $result = $this->withRoutes($routes)->get('users');
 
 각 "routes"는 HTTP동사 (또는 "all"), 일치할 URI,  라우팅 대상을 포함하는 3요소 배열입니다.
 
@@ -110,11 +109,10 @@ $_SESSION 변수에 존재해야 하는 값을 키/값 쌍의 배열을 사용�
 ::
 
     $values = [
-        'logged_in' => 123
+        'logged_in' => 123,
     ];
 
-    $result = $this->withSession($values)
-        ->get('admin');
+    $result = $this->withSession($values)->get('admin');
 
     // Or...
 
@@ -130,7 +128,7 @@ $_SESSION 변수에 존재해야 하는 값을 키/값 쌍의 배열을 사용�
 ::
 
     $headers = [
-        'CONTENT_TYPE' => 'application/json'
+        'CONTENT_TYPE' => 'application/json',
     ];
 
     $result = $this->withHeaders($headers)->post('users');
@@ -144,8 +142,7 @@ $_SESSION 변수에 존재해야 하는 값을 키/값 쌍의 배열을 사용�
 
 ::
 
-    $result = $this->skipEvents()
-        ->post('users', $userInfo);
+    $result = $this->skipEvents()->post('users', $userInfo);
 
 request 형식 설정
 -----------------------
@@ -158,8 +155,7 @@ request 형식 설정
 ::
 
     // 기능 테스트에 다음이 포함된 경우:
-    $result = $this->withBodyFormat('json')
-        ->post('users', $userInfo);
+    $result = $this->withBodyFormat('json')->post('users', $userInfo);
 
     // 컨트롤러는 다음과 같이 전달된 매개 변수를 가져올 수 있습니다.
     $userInfo = $this->request->getJson();

@@ -37,12 +37,10 @@ Spl의 장점 활용
     echo $file->getPerms();
 
     // Write CSV rows to it.
-    if ($file->isWritable())
-    {
+    if ($file->isWritable()) {
         $csv = $file->openFile('w');
 
-        foreach ($rows as $row)
-        {
+        foreach ($rows as $row) {
             $csv->fputcsv($row);
         }
     }
@@ -68,7 +66,7 @@ SplFileInfo 클래스의 모든 메소드 외에도 몇 가지 새로운 도구�
 
 ::
 
-	$bytes     = $file->getSize();      // 256901
+	$bytes     = $file->getSize(); // 256901
 
 **getSizeByUnit()**
 
@@ -77,9 +75,9 @@ SplFileInfo 클래스의 모든 메소드 외에도 몇 가지 새로운 도구�
 
 ::
 
-	$bytes     = $file->getSizeByUnit();      // 256901
-	$kilobytes = $file->getSizeByUnit('kb');  // 250.880
-	$megabytes = $file->getSizeByUnit('mb');  // 0.245
+	$bytes     = $file->getSizeByUnit(); // 256901
+	$kilobytes = $file->getSizeByUnit('kb'); // 250.880
+	$megabytes = $file->getSizeByUnit('mb'); // 0.245
 
 **getMimeType()**
 

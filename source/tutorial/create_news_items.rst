@@ -1,11 +1,11 @@
 뉴스 아이템 만들기
-###############################################################################
+##################
 
 CodeIgniter를 사용하여 데이터베이스에서 데이터를 읽는 방법을 알았지만 아직 데이터베이스에 정보를 쓰지는 않았습니다.
 이 섹션에서는 이 기능을 포함하기 위해 이전에 작성한 뉴스 컨트롤러 및 모델을 확장합니다.
 
 Create a form
--------------------------------------------------------
+-------------
 
 데이터베이스에 데이터를 입력하려면 저장할 정보를 입력 할 수 있는 양식(form)을 작성해야 합니다.
 제목과 텍스트 입력을 위해 두 개의 필드가 있는 양식이 필요합니다.
@@ -45,21 +45,18 @@ Create a form
         $model = new NewsModel();
 
         if ($this->request->getMethod() === 'post' && $this->validate([
-                'title' => 'required|min_length[3]|max_length[255]',
-                'body'  => 'required',
-            ]))
-        {
+            'title' => 'required|min_length[3]|max_length[255]',
+            'body'  => 'required',
+        ])) {
             $model->save([
                 'title' => $this->request->getPost('title'),
-                'slug'  => url_title($this->request->getPost('title'), '-', TRUE),
+                'slug'  => url_title($this->request->getPost('title'), '-', true),
                 'body'  => $this->request->getPost('body'),
             ]);
 
             echo view('news/success');
             
-        }
-        else
-        {
+        } else {
             echo view('templates/header', ['title' => 'Create a news item']);
             echo view('news/create');
             echo view('templates/footer');

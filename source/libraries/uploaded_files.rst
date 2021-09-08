@@ -137,8 +137,7 @@ HTML에서
     {
        foreach($imagefile['images'] as $img)
        {
-          if ($img->isValid() && ! $img->hasMoved())
-          {
+          if ($img->isValid() && ! $img->hasMoved()) {
                $newName = $img->getRandomName();
                $img->move(WRITEPATH.'uploads', $newName);
           }
@@ -192,8 +191,7 @@ UploadedFile 인스턴스를 검색한 후에는 파일에 대한 정보를 안�
 
 ::
 
-	if (! $file->isValid())
-	{
+	if (! $file->isValid()) {
 		throw new \RuntimeException($file->getErrorString().'('.$file->getError().')');
 	}
 
@@ -285,8 +283,7 @@ UploadedFile 인스턴스를 검색한 후에는 파일에 대한 정보를 안�
 
 ::
 
-    if ($file->isValid() && ! $file->hasMoved())
-    {
+    if ($file->isValid() && ! $file->hasMoved()) {
         $file->move($path);
     }
 

@@ -138,8 +138,7 @@ CodeIgniter의 CLI 라이브러리를 사용하면 다음을 포함하여 대화
 
 ::
 
-    for ($i = 0; $i <= 10; $i++)
-    {
+    for ($i = 0; $i <= 10; $i++) {
         CLI::print($i);
     }
 
@@ -196,8 +195,7 @@ Windows는 현재 창 크기를 결정하는 방법을 제공하지 않으므로
     // to determine the width of the left column
     $maxlen = max(array_map('strlen', $titles));
 
-    for ($i=0; $i < count($titles); $i++)
-    {
+    for ($i=0; $i < count($titles); $i++) {
         CLI::write(
             // Display the title on the left of the row
             $titles[$i].'   '.
@@ -256,8 +254,7 @@ Windows 10 bash 통합은 이것을 변경해야 합니다
     $totalSteps = count($tasks);
     $currStep   = 1;
 
-    foreach ($tasks as $task)
-    {
+    foreach ($tasks as $task) {
         CLI::showProgress($currStep++, $totalSteps);
         $task->run();
     }

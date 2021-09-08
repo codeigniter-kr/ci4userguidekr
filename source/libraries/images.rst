@@ -127,9 +127,7 @@ ImageMagick 라이브러리를 사용하는 경우 **app/Config/Images.php**\ �
             ->withFile('/path/to/image/mypic.jpg')
             ->fit(100, 100, 'center')
             ->save('/path/to/image/mypic_thumb.jpg');
-	}
-	catch (CodeIgniter\Images\ImageException $e)
-	{
+	} catch (CodeIgniter\Images\ImageException $e) {
 		echo $e->getMessage();
 	}
 

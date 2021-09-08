@@ -112,23 +112,23 @@ Preference          Default Value          Options                      Descript
 **SMTPPass**        No Default             None                         SMTP Password
 **SMTPPort**        25                     None                         SMTP Port
 **SMTPTimeout**     5                      None                         SMTP Timeout (초)
-**SMTPKeepAlive**   FALSE                  TRUE or FALSE (boolean)      지속적인 SMTP 연결을 활성화 여부
+**SMTPKeepAlive**   false                  true or false (boolean)      지속적인 SMTP 연결을 활성화 여부
 **SMTPCrypto**      No Default             tls or ssl                   SMTP 암호화. 이 값을 "ssl"\ 로 설정하면 SSL을 사용하여 보안 채널이 생성
                                                                         되고 "tls"\ 로 설정하면 서버에 "STARTTLS" 명령을 실행합니다.
                                                                         465번 포트 연결은 이 값을 빈 값으로 설정해야 합니다.
-**wordWrap**        TRUE                   TRUE or FALSE (boolean)      Enable word-wrap.
-**wordWrap**        TRUE                   TRUE or FALSE (boolean)      자동 줄 바꿈을 활성화 여부
+**wordWrap**        true                   true or false (boolean)      Enable word-wrap.
+**wordWrap**        true                   true or false (boolean)      자동 줄 바꿈을 활성화 여부
 **wrapChars**       76                                                  랩핑할 문자 수
 **mailType**        text                   text or html                 메일 유형. HTML 이메일을 보내려면 완전한 웹 페이지로 보내야합니다. 상대 링크
                                                                         또는 상대 이미지 경로가 없는지 확인하십시오. 그렇지 않으면 작동하지 않습니다.
 **charset**         utf-8                                               Character set (utf-8, iso-8859-1, etc.).
-**validate**        TRUE                   TRUE or FALSE (boolean)      이메일 주소의 유효성 검사 여부
+**validate**        true                   true or false (boolean)      이메일 주소의 유효성 검사 여부
 **priority**        3                      1, 2, 3, 4, 5                이메일 우선 순위: 1 = highest. 5 = lowest. 3 = normal.
 **CRLF**            \\n                    "\\r\\n" or "\\n" or "\\r"   Newline character. (Use "\\r\\n" to comply with RFC 822).
 **newline**         \\n                    "\\r\\n" or "\\n" or "\\r"   Newline character. (Use "\\r\\n" to comply with RFC 822).
-**BCCBatchMode**    FALSE                  TRUE or FALSE (boolean)      BCC 배치 모드 활성화 여부
+**BCCBatchMode**    false                  true or false (boolean)      BCC 배치 모드 활성화 여부
 **BCCBatchSize**    200                    None                         각 BCC 배치의 이메일 수
-**DSN**             FALSE                  TRUE or FALSE (boolean)      서버 알림 메시지 사용 여부
+**DSN**             false                  true or false (boolean)      서버 알림 메시지 사용 여부
 =================== ====================== ============================ =======================================================================
 
 단어 줄 바꿈 무시
@@ -308,7 +308,7 @@ Class Reference
 				$email->send();
 			}
 
-		매개 변수를 ``TRUE``\ 로 설정하면 첨부 파일도 지워집니다.
+		매개 변수를 ``true``\ 로 설정하면 첨부 파일도 지워집니다.
 		
 		::
 
@@ -317,10 +317,10 @@ Class Reference
 	.. php:method:: send($autoClear = true)
 
 		:param	bool	$autoClear: 메시지 데이터 자동 삭제 여부
-		:returns:	성공하면 TRUE, 실패하면 FALSE
+		:returns:	성공하면 true, 실패하면 false
 		:rtype:	bool
 
-		이메일 전송 방법. 성공 또는 실패에 따라 부울 ``TRUE`` 또는 ``FALSE``\ 를 반환하여 조건부로 사용할 수 있습니다.
+		이메일 전송 방법. 성공 또는 실패에 따라 부울 ``true`` 또는 ``false``\ 를 반환하여 조건부로 사용할 수 있습니다.
 		
 		::
 
@@ -329,7 +329,7 @@ Class Reference
 				// Generate error
 			}
 
-		요청이 성공하면 이 메소드는 모든 매개 변수를 자동으로 삭제합니다. 이 동작을 중지하려면 FALSE를 전달하십시오.
+		요청이 성공하면 이 메소드는 모든 매개 변수를 자동으로 삭제합니다. 이 동작을 중지하려면 false를 전달하십시오.
 
 		::
 
@@ -340,7 +340,7 @@ Class Reference
 
 		.. note:: ``printDebugger()`` 메소드를 사용하려면 이메일 매개 변수를 삭제하지 않아야 합니다.
 
-		.. note:: ``BCCBatchMode``\ 가 활성화되어 있고 ``BCCBatchSize`` 수신자가 여러 명인 경우 이 메소드는 항상 부울 ``TRUE``\ 를 반환합니다.
+		.. note:: ``BCCBatchMode``\ 가 활성화되어 있고 ``BCCBatchSize`` 수신자가 여러 명인 경우 이 메소드는 항상 부울 ``true``\ 를 반환합니다.
 
 	.. php:method:: attach($filename[, $disposition = ''[, $newname = null[, $mime = '']]])
 
@@ -388,7 +388,7 @@ Class Reference
 	.. php:method:: setAttachmentCID($filename)
 
 		:param	string	$filename: 기존 첨부 파일 이름
-		:returns:	첨부 파일 Content-ID, 발견되지 않은 경우 FALSE
+		:returns:	첨부 파일 Content-ID, 발견되지 않은 경우 false
 		:rtype:	string
 
 		첨부 파일의 Content-ID를 설정하고 반환하여, HTML에 인라인(이미지) 첨부 파일을 포함할 수 있습니다.
@@ -422,7 +422,7 @@ Class Reference
 
 		::
 
-			// You need to pass FALSE while sending in order for the email data
+			// You need to pass false while sending in order for the email data
 			// to not be cleared - if that happens, printDebugger() would have
 			// nothing to output.
 			$email->send(false);

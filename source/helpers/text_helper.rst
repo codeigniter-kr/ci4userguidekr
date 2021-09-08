@@ -73,8 +73,7 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
     
     ::
 
-        for ($i = 0; $i < 10; $i++)
-        {     
+        for ($i = 0; $i < 10; $i++) {     
             echo alternator('string one', 'string two');
         }
 
@@ -82,8 +81,7 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
 
     ::
 
-        for ($i = 0; $i < 10; $i++)
-        {     
+        for ($i = 0; $i < 10; $i++) {     
             echo alternator('one', 'two', 'three', 'four', 'five');
         }
 
@@ -130,7 +128,7 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
 
     .. note:: 이것은 ``stripslashes()``\ 의 별칭이며, 호환성을 위해 문자열 입력도 받아들이고 처리합니다.
 
-.. php:function:: reduce_multiples($str[, $character = ''[, $trim = FALSE]])
+.. php:function:: reduce_multiples($str[, $character = ''[, $trim = false]])
 
     :param	string	$str: 검색할 텍스트
     :param	string	$character: 줄일 문자
@@ -145,12 +143,12 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
         $string = "Fred, Bill,, Joe, Jimmy";
         $string = reduce_multiples($string, ","); //results in "Fred, Bill, Joe, Jimmy"
 
-    세 번째 매개 변수가 TRUE로 설정되면 문자열의 시작과 끝에 있는 문자가 제거됩니다.
+    세 번째 매개 변수가 true로 설정되면 문자열의 시작과 끝에 있는 문자가 제거됩니다.
     
     ::
 
         $string = ",Fred, Bill,, Joe, Jimmy,";
-        $string = reduce_multiples($string, ", ", TRUE); // results in "Fred, Bill, Joe, Jimmy"
+        $string = reduce_multiples($string, ", ", true); // results in "Fred, Bill, Joe, Jimmy"
 
 .. php:function:: quotes_to_entities($str)
 
@@ -230,7 +228,7 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
 
         $string = ascii_to_entities($string);
 
-.. php:function:: entities_to_ascii($str[, $all = TRUE])
+.. php:function:: entities_to_ascii($str[, $all = true])
 
     :param	string	$str: 입력 문자열
     :param	bool	$all: 안전하지 않은 엔터티도 변환할지 여부

@@ -61,8 +61,8 @@ Path: ``application/migrations``
                 'blog_id' => array(
                     'type' => 'INT',
                     'constraint' => 5,
-                    'unsigned' => TRUE,
-                    'auto_increment' => TRUE,
+                    'unsigned' => true,
+                    'auto_increment' => true,
                 ),
                 'blog_title' => array(
                     'type' => 'VARCHAR',
@@ -70,10 +70,10 @@ Path: ``application/migrations``
                 ),
                 'blog_description' => array(
                     'type' => 'TEXT',
-                    'null' => TRUE,
+                    'null' => true,
                 ),
             ));
-            $this->dbforge->add_key('blog_id', TRUE);
+            $this->dbforge->add_key('blog_id', true);
             $this->dbforge->create_table('blog');
         }
 
@@ -102,18 +102,18 @@ Path: ``app/Database/Migrations``
         {
             $this->forge->addField([
                 'blog_id' => [
-                        'type'           => 'INT',
-                        'constraint'     => 5,
-                        'unsigned'       => true,
-                        'auto_increment' => true,
+                    'type'           => 'INT',
+                    'constraint'     => 5,
+                    'unsigned'       => true,
+                    'auto_increment' => true,
                 ],
                 'blog_title' => [
-                        'type'       => 'VARCHAR',
-                        'constraint' => '100',
+                    'type'       => 'VARCHAR',
+                    'constraint' => '100',
                 ],
                 'blog_description' => [
-                        'type' => 'TEXT',
-                        'null' => true,
+                    'type' => 'TEXT',
+                    'null' => true,
                 ],
             ]);
             $this->forge->addKey('blog_id', true);

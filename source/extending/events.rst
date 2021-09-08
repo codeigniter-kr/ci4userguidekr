@@ -43,7 +43,7 @@ Events 클래스의 ``on()`` 메소드로 이벤트에 액션을 구독할 수 �
 	Events::on('pre_system', 'SomeClass::someMethod');
 
 	// Use a Closure
-	Events::on('pre_system', function(...$params)
+	Events::on('pre_system', function (...$params)
 	{
 		. . .
 	});
@@ -91,7 +91,7 @@ Events 클래스의 ``on()`` 메소드로 이벤트에 액션을 구독할 수 �
 
 	\CodeIgniter\Events\Events::trigger('some_events', $foo, $bar, $baz);
 
-	Events::on('some_event', function($foo, $bar, $baz) {
+	Events::on('some_event', function ($foo, $bar, $baz) {
 		...
 	});
 

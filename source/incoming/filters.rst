@@ -69,8 +69,7 @@ before 필터에서 반환하면 실행이 중지되지 않고 현재 ``$request
     {
         $auth = service('auth');
 
-        if (! $auth->isLoggedIn())
-        {
+        if (! $auth->isLoggedIn()) {
             return redirect()->to(site_url('login'));
         }
     }
@@ -133,7 +132,7 @@ $globals
         'before' => [
             'csrf',
         ],
-        'after'  => []
+        'after' => [],
     ];
 
 모든 요청에 필터를 적용하고 싶을 때도 있지만, 몇 개만 남겨두어야 할 경우도 있습니다.
@@ -146,7 +145,7 @@ $globals
         'before' => [
             'csrf' => ['except' => 'api/*'],
         ],
-        'after'  => [],
+        'after' => [],
     ];
 
 필터 설정에서 URI를 사용할 수 있는 모든 장소, 정규 표현식을 사용하거나 이 예에서와 같이 와일드 카드 별표(*)를 사용하여 그 이후의 모든 문자를 일치시킬 수 있습니다.
@@ -159,7 +158,7 @@ $globals
         'before' => [
             'csrf' => ['except' => ['foo/*', 'bar/*']],
         ],
-        'after'  => [],
+        'after' => [],
     ];
 
 $methods

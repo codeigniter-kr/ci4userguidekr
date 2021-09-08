@@ -89,7 +89,7 @@ CodeIgniter는 컨트롤러에서 ``view()``\를 여러 호출하여도 똑똑�
 		public function index()
 		{
 			$data = [
-				'page_title' => 'Your title'
+				'page_title' => 'Your title',
 			];
 
 			echo view('header');
@@ -153,7 +153,7 @@ PHP는 네임스페이스에 클래스가 아닌 파일 로드를 지원하지 �
 	$data = [
 		'title'   => 'My title',
 		'heading' => 'My Heading',
-		'message' => 'My Message'
+		'message' => 'My Message',
 	];
 
 	echo view('blogview', $data);
@@ -202,7 +202,7 @@ PHP는 네임스페이스에 클래스가 아닌 파일 로드를 지원하지 �
 	$data = [
 		'title'   => 'My title',
 		'heading' => 'My Heading',
-		'message' => 'My Message'
+		'message' => 'My Message',
 	];
 
 	echo view('blogview', $data, ['saveData' => true]);
@@ -230,8 +230,8 @@ PHP는 네임스페이스에 클래스가 아닌 파일 로드를 지원하지 �
 		{
 			$data = [
 				'todo_list' => ['Clean House', 'Call Mom', 'Run Errands'],
-				'title'     => "My Real Title",
-				'heading'   => "My Real Heading"
+				'title'     => 'My Real Title',
+				'heading'   => 'My Real Heading',
 			];
 
 			echo view('blogview', $data);

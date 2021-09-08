@@ -133,7 +133,7 @@ CodeIgniter는 PHP에서 제공하는 세션 핸들러 메커니즘을 사용하
 
 	$name = $session->get('name');
 
-.. note:: 액세스하려는 항목이 존재하지 않으면 ``get()`` 메소드는 NULL을 반환합니다.
+.. note:: 액세스하려는 항목이 존재하지 않으면 ``get()`` 메소드는 null을 반환합니다.
 
 기존 사용자 데이터를 모두 검색하려면 항목 키를 생략하면 됩니다. (magic getter 는 단일 속성 값에 대해서만 작동합니다)
 
@@ -167,7 +167,7 @@ CodeIgniter는 PHP에서 제공하는 세션 핸들러 메커니즘을 사용하
 	$newdata = [
 		'username'  => 'johndoe',
 		'email'     => 'johndoe@some-site.com',
-		'logged_in' => TRUE
+		'logged_in' => true
 	];
 
 	$session->set($newdata);
@@ -182,8 +182,8 @@ CodeIgniter는 PHP에서 제공하는 세션 핸들러 메커니즘을 사용하
 
 ::
 
-	// returns FALSE if the 'some_name' item doesn't exist or is NULL,
-	// TRUE otherwise:
+	// returns false if the 'some_name' item doesn't exist or is null,
+	// true otherwise:
 	isset($_SESSION['some_name'])
 
 또는 ``has()``\ 를 호출 할 수도 있습니다.
@@ -288,7 +288,7 @@ flashdata 변수는 CodeIgniter 세션 핸들러내에서 관리되는 일반 �
 
 	$session->getFlashdata();
 
-.. note:: ``getFlashdata()`` 메소드는 항목을 찾을 수 없는 경우 NULL을 리턴합니다.
+.. note:: ``getFlashdata()`` 메소드는 항목을 찾을 수 없는 경우 null을 리턴합니다.
 
 추가 요청을 통해 플래시 데이터 변수를 유지해야 하는 경우 ``keepFlashdata()`` 메소드를 사용하여 이를 수행 할 수 있습니다.
 단일 항목 또는 플래시 데이터 항목 배열을 전달하여 유지합니다.
@@ -343,8 +343,8 @@ tempdata를 추가하려면
 ``set_tempdata()``\ 에 배열을 전달할 수 있습니다.
 ::
 
-	$tempdata = ['newuser' => TRUE, 'message' => 'Thanks for joining!'];
-	$session->setTempdata($tempdata, NULL, $expire);
+	$tempdata = ['newuser' => true, 'message' => 'Thanks for joining!'];
+	$session->setTempdata($tempdata, null, $expire);
 
 .. note:: 만료를 생략하거나 0으로 설정하면 기본 활성 시간 값인 300 초(5 분)가 사용됩니다.
 
@@ -372,7 +372,7 @@ Or if you want to be sure that you're reading "tempdata" (and not any other kind
 
 	$session->getTempdata();
 
-.. note:: ``getTempdata()`` 메소드는 항목을 찾을 수 없는 경우 NULL을 리턴합니다.
+.. note:: ``getTempdata()`` 메소드는 항목을 찾을 수 없는 경우 null을 리턴합니다.
 
 만료되기 전에 tempdata 값을 제거해야 하는 경우 ``$_SESSION`` 배열에서 직접 설정을 해제 할 수 있습니다.
 
@@ -441,13 +441,13 @@ Preference                     Default                                      Opti
 **sessionCookieName**          ci_session                                   [A-Za-z\_-] characters only                      세션 쿠키에 사용되는 이름
 **sessionExpiration**          7200 (2 hours)                               Time in seconds (integer)                        세션이 지속되기를 원하는 시간 (초), 
                                                                                                                              만료되지 않는 세션을 원할 경우 (브라우저가 닫힐 때까지) 값을 0으로 설정하십시오.
-**sessionSavePath**            NULL                                         None                                             사용중인 드라이버에 따라 저장 위치를 지정
-**sessionMatchIP**             FALSE                                        TRUE/FALSE (boolean)                             세션 쿠키를 읽을 때 사용자의 IP 주소를 확인할지 여부,
-                                                                                                                             일부 ISP는 동적으로 IP를 변경하므로 만료되지 않는 세션을 원할 경우 FALSE로 설정합십시오.
+**sessionSavePath**            null                                         None                                             사용중인 드라이버에 따라 저장 위치를 지정
+**sessionMatchIP**             false                                        true/false (boolean)                             세션 쿠키를 읽을 때 사용자의 IP 주소를 확인할지 여부,
+                                                                                                                             일부 ISP는 동적으로 IP를 변경하므로 만료되지 않는 세션을 원할 경우 false로 설정합십시오.
 **sessionTimeToUpdate**        300                                          Time in seconds (integer)                        이 옵션은 세션 클래스가 자신을 재생성하고 새 세션 ID를 작성하는 빈도를 제어합니다. 
                                                                                                                              0 으로 설정하면 세션 ID 재생성이 비활성화됩니다.
-**sessionRegenerateDestroy**   FALSE                                        TRUE/FALSE (boolean)                             세션 ID를 자동 재생성 할 때 이전 세션 ID와 연관된 세션 데이터를 삭제할지 여부,
-                                                                                                                             FALSE로 설정하면 나중에 가비지 콜렉터가 데이터를 삭제합니다.
+**sessionRegenerateDestroy**   false                                        true/false (boolean)                             세션 ID를 자동 재생성 할 때 이전 세션 ID와 연관된 세션 데이터를 삭제할지 여부,
+                                                                                                                             false로 설정하면 나중에 가비지 콜렉터가 데이터를 삭제합니다.
 ============================== ============================================ ================================================ ============================================================================================
 
 .. note:: 세션 라이브러리는 PHP의 세션 관련 INI 설정과 위의 항목 중 하나라도 구성되지 않은 경우, 최후의 수단으로 'sess_expire_on_close'\ 와 같은 레거시 CI 설정을 가져 오려고 시도합니다.
@@ -460,7 +460,7 @@ Preference           Default         Description
 ==================== =============== ===========================================================================
 **cookieDomain**     ''              세션 적용 도메인
 **cookiePath**       /               세션 적용 가능 경로
-**cookieSecure**     FALSE           암호화된 (HTTPS) 연결에서만 세션 쿠키를 작성할 지 여부
+**cookieSecure**     false           암호화된 (HTTPS) 연결에서만 세션 쿠키를 작성할 지 여부
 **cookieSameSite**   Lax             세션 쿠키에 대한 SameSite 설정
 ==================== =============== ===========================================================================
 
@@ -549,10 +549,10 @@ MySQL
 ::
 
 	CREATE TABLE IF NOT EXISTS `ci_sessions` (
-		`id` varchar(128) NOT NULL,
-		`ip_address` varchar(45) NOT NULL,
-		`timestamp` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
-		`data` blob NOT NULL,
+		`id` varchar(128) NOT null,
+		`ip_address` varchar(45) NOT null,
+		`timestamp` timestamp DEFAULT CURRENT_TIMESTAMP NOT null,
+		`data` blob NOT null,
 		KEY `ci_sessions_timestamp` (`timestamp`)
 	);
 
@@ -561,10 +561,10 @@ PostgreSQL
 ::
 
 	CREATE TABLE "ci_sessions" (
-		"id" varchar(128) NOT NULL,
-		"ip_address" inet NOT NULL,
-		"timestamp" timestamptz DEFAULT CURRENT_TIMESTAMP NOT NULL,
-		"data" bytea DEFAULT '' NOT NULL
+		"id" varchar(128) NOT null,
+		"ip_address" inet NOT null,
+		"timestamp" timestamptz DEFAULT CURRENT_TIMESTAMP NOT null,
+		"data" bytea DEFAULT '' NOT null
 	);
 
 	CREATE INDEX "ci_sessions_timestamp" ON "ci_sessions" ("timestamp");
@@ -574,10 +574,10 @@ PostgreSQL
 
 ::
 
-	// When sessionMatchIP = TRUE
+	// When sessionMatchIP = true
 	ALTER TABLE ci_sessions ADD PRIMARY KEY (id, ip_address);
 
-	// When sessionMatchIP = FALSE
+	// When sessionMatchIP = false
 	ALTER TABLE ci_sessions ADD PRIMARY KEY (id);
 
 	// To drop a previously created primary key (use when changing the setting)

@@ -84,7 +84,7 @@ XML과 JSON 응답의 형식이 기본적으로 지정되어 있습니다.
 
         public $supportedResponseFormats = [
             'application/json',
-            'application/xml'
+            'application/xml',
         ];
 
 이 배열은 :doc:`컨텐츠 협상 </incoming/content_negotiation>`\ 후 반환할 응답 유형을 결정하는데 사용됩니다.
@@ -98,7 +98,7 @@ JSON과 XML을 모두 지원하는 포맷터가 기본으로 제공됩니다.
 
     public $formatters = [
         'application/json' => \CodeIgniter\Format\JSONFormatter::class,
-        'application/xml'  => \CodeIgniter\Format\XMLFormatter::class
+        'application/xml'  => \CodeIgniter\Format\XMLFormatter::class,
     ];
 
 따라서 요청이 **Accept** 헤더에서 JSON 형식의 데이터를 요청하면 ``respond*`` 또는 ``fail*`` 메소드는 데이터 배열을 **CodeIgniter\\API\\JSONFormatter** 클래스로 형식화합니다.
@@ -167,8 +167,8 @@ Class Reference
 	        'code'     => '321a',
 	        'messages' => [
 	            'Error message 1',
-	            'Error message 2'
-	        ]
+	            'Error message 2',
+	        ],
 	    ];
 
 .. php:method:: respondCreated($data = null[, string $message = ''])

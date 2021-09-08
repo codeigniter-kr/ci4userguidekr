@@ -44,7 +44,7 @@ CLIRequest 클래스
 
     // command line: php index.php users 21 profile --foo bar
     echo $request->getOption('foo');  // bar
-    echo $request->getOption('notthere'); // NULL
+    echo $request->getOption('notthere'); // null
 
 **getOptionString()**
 

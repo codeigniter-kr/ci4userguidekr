@@ -81,7 +81,7 @@ CodeIgniter에는 이름에서 알 수 있듯이 툴바에 표시할 데이터�
         \CodeIgniter\Debug\Toolbar\Collectors\Database::class,
         \CodeIgniter\Debug\Toolbar\Collectors\Logs::class,
         \CodeIgniter\Debug\Toolbar\Collectors\Views::class,
-         \CodeIgniter\Debug\Toolbar\Collectors\Cache::class,
+        \CodeIgniter\Debug\Toolbar\Collectors\Cache::class,
         \CodeIgniter\Debug\Toolbar\Collectors\Files::class,
         \CodeIgniter\Debug\Toolbar\Collectors\Routes::class,
         \CodeIgniter\Debug\Toolbar\Collectors\Events::class,
@@ -183,7 +183,7 @@ HTML 문자열을 반환해야 합니다.
         'name'      => '',     // Name displayed on the left of the timeline
         'component' => '',     // Name of the Component listed in the middle of timeline
         'start'     => 0.00,   // start time, like microtime(true)
-        'duration'  => 0.00    // duration, like mircrotime(true) - microtime(true)
+        'duration'  => 0.00,   // duration, like mircrotime(true) - microtime(true)
     ];
 
 Vars 제공
@@ -202,10 +202,10 @@ Vars 탭에 데이터를 추가하려면 다음을 수행합니다.
     $data = [
         'section 1' => [
             'foo' => 'bar',
-            'bar' => 'baz'
+            'bar' => 'baz',
         ],
         'section 2' => [
             'foo' => 'bar',
-            'bar' => 'baz'
-        ]
+            'bar' => 'baz',
+        ],
      ];

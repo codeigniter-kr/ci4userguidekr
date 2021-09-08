@@ -28,9 +28,7 @@ CodeIgniter는 프레임워크에서 제공하는 몇 가지 사용자 정의 �
 
     try {
         $user = $userModel->find($id);
-    }
-    catch (\Exception $e)
-    {
+    } catch (\Exception $e) {
         die($e->getMessage());
     }
 
@@ -43,8 +41,7 @@ CodeIgniter는 프레임워크에서 제공하는 몇 가지 사용자 정의 �
 
 ::
 
-    catch (\CodeIgniter\UnknownFileException $e)
-    {
+    catch (\CodeIgniter\UnknownFileException $e) {
         // do something here...
     }
 
@@ -52,8 +49,7 @@ CodeIgniter는 프레임워크에서 제공하는 몇 가지 사용자 정의 �
 
 ::
 
-    catch (\CodeIgniter\UnknownFileException $e)
-    {
+    catch (\CodeIgniter\UnknownFileException $e) {
         // do something here...
 
         throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
@@ -105,8 +101,7 @@ PageNotFoundException
 
 ::
 
-    if (! $page = $pageModel->find($id))
-    {
+    if (! $page = $pageModel->find($id)) {
         throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
     }
 

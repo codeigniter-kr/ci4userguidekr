@@ -154,7 +154,7 @@ Class Reference
 
 .. php:class:: Table
 
-	.. attribute:: $function = NULL
+	.. attribute:: $function = null
 
 		모든 셀 데이터에 PHP 함수 또는 유효한 함수 배열 객체를 지정할 수 있습니다.
 
@@ -174,7 +174,7 @@ Class Reference
 
 			<td>Fred</td><td>&lt;strong&gt;Blue&lt;/strong&gt;</td><td>Small</td>
 
-	.. php:method:: generate([$tableData = NULL])
+	.. php:method:: generate([$tableData = null])
 
 		:param	mixed	$tableData: 테이블 행을 채울 데이터
 		:returns:	HTML table
@@ -281,7 +281,7 @@ Class Reference
 	.. php:method:: setTemplate($template)
 
 		:param	array	$template: 템플릿 값을 포함하는 연관 배열
-		:returns:	성공하면 TRUE, 실패하면 FALSE
+		:returns:	성공하면 true, 실패하면 false
 		:rtype:	bool
 
 		전체 또는 부분 템플릿을 설정합니다.
@@ -321,19 +321,19 @@ Class Reference
 
 
 			$table->setCaption('Preferences')
-                            ->setHeading('Name', 'Color', 'Size')
-                            ->addRow('Fred', 'Blue', 'Small')
-                            ->addRow('Mary', 'Red', 'Large')
-                            ->addRow('John', 'Green', 'Medium');
+				->setHeading('Name', 'Color', 'Size')
+				->addRow('Fred', 'Blue', 'Small')
+				->addRow('Mary', 'Red', 'Large')
+				->addRow('John', 'Green', 'Medium');
 
 			echo $table->generate();
 
 			$table->clear();
 
 			$table->setCaption('Shipping')
-                            ->setHeading('Name', 'Day', 'Delivery')
-                            ->addRow('Fred', 'Wednesday', 'Express')
-                            ->addRow('Mary', 'Monday', 'Air')
-                            ->addRow('John', 'Saturday', 'Overnight');
+				->setHeading('Name', 'Day', 'Delivery')
+				->addRow('Fred', 'Wednesday', 'Express')
+				->addRow('Mary', 'Monday', 'Air')
+				->addRow('John', 'Saturday', 'Overnight');
 
 			echo $table->generate();

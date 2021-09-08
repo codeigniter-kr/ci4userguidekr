@@ -169,7 +169,7 @@ The Form Helper file contains functions that assist in working with forms.
         $data = [
                         'name'	=> 'John Doe',
                         'email'	=> 'john@example.com',
-                        'url'	=> 'http://example.com'
+                        'url'	=> 'http://example.com',
         ];
 
         echo form_hidden($data);
@@ -188,7 +188,7 @@ The Form Helper file contains functions that assist in working with forms.
         $data = [
                         'name'	=> 'John Doe',
                         'email'	=> 'john@example.com',
-                        'url'	=> 'http://example.com'
+                        'url'	=> 'http://example.com',
         ];
 
         echo form_hidden('my_array', $data);
@@ -210,7 +210,7 @@ The Form Helper file contains functions that assist in working with forms.
                         'name'	=> 'email',
                         'id'	=> 'hiddenemail',
                         'value'	=> 'john@example.com',
-                        'class'	=> 'hiddenemail'
+                        'class'	=> 'hiddenemail',
         ];
 
         echo form_input($data);
@@ -246,7 +246,7 @@ The Form Helper file contains functions that assist in working with forms.
                         'value'     => 'johndoe',
                         'maxlength' => '100',
                         'size'      => '50',
-                        'style'     => 'width:50%'
+                        'style'     => 'width:50%',
         ];
 
         echo form_input($data);
@@ -261,14 +261,14 @@ The Form Helper file contains functions that assist in working with forms.
     
     ::
 
-        $js = 'onClick="some_function()"';
+        $js = 'onClick="some_function ()"';
         echo form_input('username', 'johndoe', $js);
 
     또는 배열로 전달합니다.
     
     ::
 
-        $js = ['onClick' => 'some_function();'];
+        $js = ['onClick' => 'some_function ();'];
         echo form_input('username', 'johndoe', $js);
 
     HTML5 입력 필드의 확장된 입력 유형은 네 번째 매개 변수로 전달합니다.
@@ -368,7 +368,7 @@ The Form Helper file contains functions that assist in working with forms.
 
     ::
 
-        $js = 'id="shirts" onChange="some_function();"';
+        $js = 'id="shirts" onChange="some_function ();"';
         echo form_dropdown('shirts', $options, 'large', $js);
 
     또는 배열로 전달할 수 있습니다.
@@ -377,7 +377,7 @@ The Form Helper file contains functions that assist in working with forms.
 
         $js = [
                         'id'       => 'shirts',
-                        'onChange' => 'some_function();'
+                        'onChange' => 'some_function ();'
         ];
         echo form_dropdown('shirts', $options, 'large', $js);
 
@@ -458,7 +458,7 @@ The Form Helper file contains functions that assist in working with forms.
         echo form_fieldset_close($string);
         // Would produce: </fieldset></div></div>
 
-.. php:function:: form_checkbox([$data = ''[, $value = ''[, $checked = FALSE[, $extra = '']]]])
+.. php:function:: form_checkbox([$data = ''[, $value = ''[, $checked = false[, $extra = '']]]])
 
     :param	array	$data: 필드 속성 데이터
     :param	string	$value: 필드 값
@@ -471,10 +471,10 @@ The Form Helper file contains functions that assist in working with forms.
     
     ::
 
-        echo form_checkbox('newsletter', 'accept', TRUE);
+        echo form_checkbox('newsletter', 'accept', true);
         // Would produce:  <input type="checkbox" name="newsletter" value="accept" checked="checked" />
 
-    세 번째 매개 변수에는 checkbox를 선택해야 하는지 여부를 결정하는 부울 TRUE/FALSE가 포함됩니다.
+    세 번째 매개 변수에는 checkbox를 선택해야 하는지 여부를 결정하는 부울 true/false가 포함됩니다.
 
     이 헬퍼의 다른 폼 함수와 마찬가지로 속성 배열을 함수에 전달할 수 있습니다.
     
@@ -484,7 +484,7 @@ The Form Helper file contains functions that assist in working with forms.
                         'name'    => 'newsletter',
                         'id'      => 'newsletter',
                         'value'   => 'accept',
-                        'checked' => TRUE,
+                        'checked' => true,
                         'style'   => 'margin:10px'
         ];
 
@@ -495,17 +495,17 @@ The Form Helper file contains functions that assist in working with forms.
 
     ::
 
-        $js = 'onClick="some_function()"';
-        echo form_checkbox('newsletter', 'accept', TRUE, $js);
+        $js = 'onClick="some_function ()"';
+        echo form_checkbox('newsletter', 'accept', true, $js);
 
     또는 배열로 전달할 수 있습니다
 
     ::
 
-        $js = ['onClick' => 'some_function();'];
-        echo form_checkbox('newsletter', 'accept', TRUE, $js);
+        $js = ['onClick' => 'some_function ();'];
+        echo form_checkbox('newsletter', 'accept', true, $js);
 
-.. php:function:: form_radio([$data = ''[, $value = ''[, $checked = FALSE[, $extra = '']]]])
+.. php:function:: form_radio([$data = ''[, $value = ''[, $checked = false[, $extra = '']]]])
 
     :param	array	$data: 필드 속성 데이터
     :param	string	$value: 필드 값
@@ -607,7 +607,7 @@ The Form Helper file contains functions that assist in working with forms.
 
     ::
 
-        $js = 'onClick="some_function()"';
+        $js = 'onClick="some_function ()"';
         echo form_button('mybutton', 'Click Me', $js);
 
 .. php:function:: form_close([$extra = ''])
@@ -625,7 +625,7 @@ The Form Helper file contains functions that assist in working with forms.
         echo form_close($string);
         // Would produce:  </form> </div></div>
 
-.. php:function:: set_value($field[, $default = ''[, $html_escape = TRUE]])
+.. php:function:: set_value($field[, $default = ''[, $html_escape = true]])
 
     :param	string	$field: 필드 이름
     :param	string	$default: 기본 값
@@ -644,7 +644,7 @@ The Form Helper file contains functions that assist in working with forms.
 
     처음 로드할 때 위의 폼에 "0"\ 이 표시됩니다.
 
-.. php:function:: set_select($field[, $value = ''[, $default = FALSE]])
+.. php:function:: set_select($field[, $value = ''[, $default = false]])
 
     :param	string	$field: 필드 이름
     :param	string	$value: 확인할 값
@@ -654,17 +654,17 @@ The Form Helper file contains functions that assist in working with forms.
 
     <select> 메뉴를 사용하는 경우이 기능을 사용하면 선택한 메뉴 항목을 표시 할 수 있습니다.
 
-    첫 번째 매개 변수는 선택 메뉴의 이름을 포함해야하고 두 번째 매개 변수는 각 항목의 값을 포함해야하며 세 번째 (선택적) 매개 변수를 사용하면 항목을 기본값으로 설정할 수 있습니다 (부울 TRUE / FALSE 사용).
+    첫 번째 매개 변수는 선택 메뉴의 이름을 포함해야하고 두 번째 매개 변수는 각 항목의 값을 포함해야하며 세 번째 (선택적) 매개 변수를 사용하면 항목을 기본값으로 설정할 수 있습니다 (부울 true / false 사용).
 
     ::
 
         <select name="myselect">
-                        <option value="one" <?= set_select('myselect', 'one', TRUE); ?> >One</option>
+                        <option value="one" <?= set_select('myselect', 'one', true); ?> >One</option>
                         <option value="two" <?= set_select('myselect', 'two'); ?> >Two</option>
                         <option value="three" <?= set_select('myselect', 'three'); ?> >Three</option>
         </select>
 
-.. php:function:: set_checkbox($field[, $value = ''[, $default = FALSE]])
+.. php:function:: set_checkbox($field[, $value = ''[, $default = false]])
 
     :param	string	$field: 필드 이름
         :param	string	$value: 확인할 값
@@ -674,14 +674,14 @@ The Form Helper file contains functions that assist in working with forms.
 
         제출된 상태의 checkbox를 표시합니다.
 
-        첫 번째 매개 변수에는 확인란의 이름이 있어야 하고 두 번째 매개 변수에는 값이 있어야 하며 세 번째 (선택적) 매개 변수를 사용하면 항목을 기본값으로 설정할 수 있습니다 (부울 TRUE / FALSE 사용).
+        첫 번째 매개 변수에는 확인란의 이름이 있어야 하고 두 번째 매개 변수에는 값이 있어야 하며 세 번째 (선택적) 매개 변수를 사용하면 항목을 기본값으로 설정할 수 있습니다 (부울 true / false 사용).
 
         Example::
 
         <input type="checkbox" name="mycheck" value="1" <?= set_checkbox('mycheck', '1'); ?> />
         <input type="checkbox" name="mycheck" value="2" <?= set_checkbox('mycheck', '2'); ?> />
 
-.. php:function:: set_radio($field[, $value = ''[, $default = FALSE]])
+.. php:function:: set_radio($field[, $value = ''[, $default = false]])
 
     :param	string	$field: 필드 이름
         :param	string	$value: 확인할 값
@@ -694,7 +694,7 @@ The Form Helper file contains functions that assist in working with forms.
 
     Example::
 
-        <input type="radio" name="myradio" value="1" <?= set_radio('myradio', '1', TRUE); ?> />
+        <input type="radio" name="myradio" value="1" <?= set_radio('myradio', '1', true); ?> />
         <input type="radio" name="myradio" value="2" <?= set_radio('myradio', '2'); ?> />
 
     .. note:: 폼 유효성 검사 클래스를 사용하는 경우 ``set_*()`` 함수가 작동하려면 항상 비어있는 경우에도 필드에 대한 규칙을 지정해야합니다.

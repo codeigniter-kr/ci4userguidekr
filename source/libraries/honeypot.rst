@@ -17,15 +17,15 @@
 ::
 
     public $globals = [
-            'before' => [
-                'honeypot'
-                // 'csrf',
-            ],
-            'after'  => [
-                'toolbar',
-                'honeypot'
-            ]
-        ];
+        'before' => [
+            'honeypot'
+            // 'csrf',
+        ],
+        'after'  => [
+            'toolbar',
+            'honeypot'
+        ],
+    ];
 
 샘플 Honeypot 필터는 번들로 제공되며, ``system/Filters/Honeypot.php``\ 입니다.
 직접 만든 필터를 사용하려면 ``app/Filters/Honeypot.php``\ 에 만들고 구성(config)의 ``$aliases``\ 를 적절하게 수정하십시오.

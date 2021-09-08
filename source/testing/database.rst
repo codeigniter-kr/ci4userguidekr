@@ -168,7 +168,7 @@ true인 경우 모든 마이그레이션이 버전 0으로 롤백됩니다.
 
     $criteria = [
         'email'  => 'joe@example.com',
-        'active' => 1
+        'active' => 1,
     ];
     $this->dontSeeInDatabase('users', $criteria);
 
@@ -180,7 +180,7 @@ true인 경우 모든 마이그레이션이 버전 0으로 롤백됩니다.
 
     $criteria = [
         'email'  => 'joe@example.com',
-        'active' => 1
+        'active' => 1,
     ];
     $this->seeInDatabase('users', $criteria);
 
@@ -203,7 +203,7 @@ true인 경우 모든 마이그레이션이 버전 0으로 롤백됩니다.
 
     $data = [
         'email' => 'joe@example.com',
-        'name'  => 'Joe Cool'
+        'name'  => 'Joe Cool',
     ];
     $this->hasInDatabase('users', $data);
 
@@ -214,7 +214,7 @@ true인 경우 모든 마이그레이션이 버전 0으로 롤백됩니다.
 ::
 
     $criteria = [
-        'active' => 1
+        'active' => 1,
     ];
     $this->seeNumRecords(2, 'users', $criteria);
 

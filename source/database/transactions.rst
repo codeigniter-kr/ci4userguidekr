@@ -65,8 +65,7 @@ Config/Database.php 파일에서 오류보고를 활성화 한 경우 커밋이 
     $this->db->query('ANOTHER QUERY...');
     $this->db->transComplete();
 
-    if ($this->db->transStatus() === FALSE)
-    {
+    if ($this->db->transStatus() === false) {
         // generate an error... or use the log_message() function to log your error
     }
 
@@ -89,7 +88,7 @@ Config/Database.php 파일에서 오류보고를 활성화 한 경우 커밋이 
 ==================
 
 선택적으로 트랜잭션 시스템을 "테스트 모드"\ 로 설정하면 쿼리가 유효한 결과를 생성하더라도 쿼리가 롤백됩니다.
-테스트 모드를 사용하려면 ``$this->db->transStart()`` 함수의 첫 번째 매개 변수를 TRUE로 설정하십시오.
+테스트 모드를 사용하려면 ``$this->db->transStart()`` 함수의 첫 번째 매개 변수를 true로 설정하십시오.
 
 ::
 
@@ -110,12 +109,9 @@ Config/Database.php 파일에서 오류보고를 활성화 한 경우 커밋이 
     $this->db->query('ANOTHER QUERY...');
     $this->db->query('AND YET ANOTHER QUERY...');
 
-    if ($this->db->transStatus() === FALSE)
-    {
+    if ($this->db->transStatus() === false) {
         $this->db->transRollback();
-    }
-    else
-    {
+    } else {
         $this->db->transCommit();
     }
 

@@ -96,7 +96,7 @@ Next(다음) 및 Previous(이전)는 다음 또는 이전 페이지가 아닌 �
         $data = [
             'users' => $userModel->paginate(10, 'group1'),
             'pages' => $pageModel->paginate(15, 'group2'),
-            'pager' => $userModel->pager
+            'pager' => $userModel->pager,
         ];
 
         echo view('users/index', $data);
@@ -206,7 +206,7 @@ Pager에 의해 생성된 URI는 ``https://domain.tld/model?page=[pageNumber]`` 
 
     public $templates = [
         'default_full'   => 'CodeIgniter\Pager\Views\default_full',
-        'default_simple' => 'CodeIgniter\Pager\Views\default_simple'
+        'default_simple' => 'CodeIgniter\Pager\Views\default_simple',
     ];
 
 이 설정은 사용해야 하는 뷰의 별명과 :doc:`네임스페이스 뷰 경로 </outgoing/views>`\ 를 저장합니다.
@@ -330,7 +330,7 @@ Pager에 의해 생성된 URI는 ``https://domain.tld/model?page=[pageNumber]`` 
 	$link = [
 		'active' => false,
 		'uri'    => 'http://example.com/foo?page=2',
-		'title'  => 1
+		'title'  => 1,
 	];
 
 표준 페이지 지정 구조에 대해 제시된 코드에서 ``getPrevious()``\ 와 ``getNext()`` 메소드는 각각 이전과 다음 페이지 부여 그룹에 대한 연결을 얻기 위해 사용됩니다.

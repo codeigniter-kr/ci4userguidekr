@@ -38,20 +38,13 @@ User Agent 클래스가 초기화되면 사이트를 탐색하는 User Agent가 
 
 	$agent = $this->request->getUserAgent();
 
-	if ($agent->isBrowser())
-	{
+	if ($agent->isBrowser())  {
 		$currentAgent = $agent->getBrowser().' '.$agent->getVersion();
-	}
-	elseif ($agent->isRobot())
-	{
+	} elseif ($agent->isRobot()) {
 		$currentAgent = $this->agent->robot();
-	}
-	elseif ($agent->isMobile())
-	{
+	} elseif ($agent->isMobile()) {
 		$currentAgent = $agent->getMobile();
-	}
-	else
-	{
+	} else {
 		$currentAgent = 'Unidentified User Agent';
 	}
 
@@ -65,13 +58,13 @@ Class Reference
 
 .. php:class:: CodeIgniter\\HTTP\\UserAgent
 
-	.. php:method:: isBrowser([$key = NULL])
+	.. php:method:: isBrowser([$key = null])
 
 		:param	string	$key: 선택적 브라우저 이름
-    		:returns:	User Agent가 (지정된) 브라우저인 경우 TRUE, 그렇지 않으면 FALSE
+    		:returns:	User Agent가 (지정된) 브라우저인 경우 true, 그렇지 않으면 false
     		:rtype:	bool
 
-    		사용자 에이전트가 알려진 웹 브라우저인 경우 TRUE/FALSE (부울)를 리턴합니다.
+    		사용자 에이전트가 알려진 웹 브라우저인 경우 true/false (부울)를 리턴합니다.
 
     		::
 
@@ -87,13 +80,13 @@ Class Reference
 		.. note:: 이 예에서 문자열 "Safari" 는 브라우저 정의 목록의 배열 키입니다. 새 브라우저를 추가하거나 문자열을 변경하려는 경우 **app/Config/UserAgents.php**\ 에서 이 목록을 찾을 수 있습니다.
 				  
 
-	.. php:method:: isMobile([$key = NULL])
+	.. php:method:: isMobile([$key = null])
 
 		:param	string	$key: 선택적 모바일 장치 이름
-    		:returns:	User Agent가 (지정된) 모바일 장치 인 경우 TRUE, 그렇지 않으면 FALSE
+    		:returns:	User Agent가 (지정된) 모바일 장치 인 경우 true, 그렇지 않으면 false
     		:rtype:	bool
 
-    		User Agent가 알려진 모바일 장치인 경우 TRUE/FALSE (부울)를 반환합니다.
+    		User Agent가 알려진 모바일 장치인 경우 true/false (부울)를 반환합니다.
 
     		::
 
@@ -110,13 +103,13 @@ Class Reference
 				echo view('web/home');
 			}
 
-	.. php:method:: isRobot([$key = NULL])
+	.. php:method:: isRobot([$key = null])
 
 		:param	string	$key: 선택적 로봇 이름
-    		:returns:	User Agent가 (지정된) 로봇인 경우 TRUE, 그렇지 않은 경우 FALSE
+    		:returns:	User Agent가 (지정된) 로봇인 경우 true, 그렇지 않은 경우 false
     		:rtype:	bool
 
-    		User Agent가 알려진 로봇인 경우 TRUE / FALSE (부울)를 리턴합니다.
+    		User Agent가 알려진 로봇인 경우 true / false (부울)를 리턴합니다.
 
     		.. note:: User Agent 라이브러리에는 가장 일반적인 로봇 정의만 포함됩니다. 전체 봇 목록이 아닙니다. 
 				수백 개가 있으므로 각각을 검색하는 것은 그리 효율적이지 않습니다. 
@@ -124,10 +117,10 @@ Class Reference
 
 	.. php:method:: isReferral()
 
-		:returns:	User Agent가 추천인 경우 TRUE, 그렇지 않으면 FALSE
+		:returns:	User Agent가 추천인 경우 true, 그렇지 않으면 false
 		:rtype:	bool
 
-		User Agent가 다른 사이트에서 참조된 경우 TRUE/FALSE(부울)를 리턴합니다.
+		User Agent가 다른 사이트에서 참조된 경우 true/false(부울)를 리턴합니다.
 
 	.. php:method:: getBrowser()
 
@@ -173,8 +166,7 @@ Class Reference
 
 		::
 
-			if ($agent->isReferral())
-			{
+			if ($agent->isReferral()) {
 				echo $agent->referrer();
 			}
 

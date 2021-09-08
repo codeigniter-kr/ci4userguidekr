@@ -60,7 +60,7 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
             'width'  => '200',
             'height' => '200',
             'title'  => 'That was quite a night',
-            'rel'    => 'lightbox'
+            'rel'    => 'lightbox',
         ];
 
         img($imageProperties);
@@ -129,7 +129,7 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
             'href'  => 'css/printer.css',
             'rel'   => 'stylesheet',
             'type'  => 'text/css',
-            'media' => 'print'
+            'media' => 'print',
         ];
 
         echo link_tag($link);
@@ -176,12 +176,12 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
             'red',
             'blue',
             'green',
-            'yellow'
+            'yellow',
         ];
 
         $attributes = [
             'class' => 'boldlist',
-            'id'    => 'mylist'
+            'id'    => 'mylist',
         ];
 
         echo ul($list, $attributes);
@@ -203,14 +203,14 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
 
         $attributes = [
             'class' => 'boldlist',
-            'id'    => 'mylist'
+            'id'    => 'mylist',
         ];
 
         $list = [
             'colors' => [
                 'red',
                 'blue',
-                'green'
+                'green',
             ],
             'shapes' => [
                 'round',
@@ -218,7 +218,7 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
                 'circles' => [
                     'ellipse',
                     'oval',
-                    'sphere'
+                    'sphere',
                 ]
             ],
             'moods'  => [
@@ -227,11 +227,11 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
                     'defeated' => [
                         'dejected',
                         'disheartened',
-                        'depressed'
+                        'depressed',
                     ],
                     'annoyed',
                     'cross',
-                    'angry'
+                    'angry',
                 ]
             ]
         ];
@@ -307,25 +307,21 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
     
     ::
 
-        $tracks =
-        [
+        $tracks = [
             track('subtitles_no.vtt', 'subtitles', 'no', 'Norwegian No'),
             track('subtitles_yes.vtt', 'subtitles', 'yes', 'Norwegian Yes')
         ];
 
         echo video('test.mp4', 'Your browser does not support the video tag.', 'controls');
 
-        echo video
-        (
+        echo video(
             'http://www.codeigniter.com/test.mp4',
             'Your browser does not support the video tag.',
             'controls',
             $tracks
         );
 
-        echo video
-        (
-            [
+        echo video([
               source('movie.mp4', 'video/mp4', 'class="test"'),
               source('movie.ogg', 'video/ogg'),
               source('movie.mov', 'video/quicktime'),
@@ -422,8 +418,7 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
 
         echo object('movie.swf', 'application/x-shockwave-flash', 'class="test"');
 
-        echo object
-        (
+        echo object(
             'movie.swf',
             'application/x-shockwave-flash',
             'class="test"',

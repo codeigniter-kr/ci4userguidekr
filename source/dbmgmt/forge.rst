@@ -34,32 +34,30 @@ Forge 클래스 초기화
 **$forge->createDatabase('db_name')**
 
 첫 번째 매개 변수로 지정된 데이터베이스를 생성합니다.
-성공 또는 실패에 따라 TRUE/FALSE를 반환합니다.
+성공 또는 실패에 따라 true/false를 반환합니다.
 
 ::
 
-	if ($forge->createDatabase('my_db'))
-	{
+	if ($forge->createDatabase('my_db')) {
 		echo 'Database created!';
 	}
 
-두 번째 매개 변수를 TRUE로 설정하면 IF EXISTS 문을 추가하거나, 데이터베이스를 작성하기 전에 데이터베이스가 존재하는지 점검합니다. (DBMS에 따라 다름)
+두 번째 매개 변수를 true로 설정하면 IF EXISTS 문을 추가하거나, 데이터베이스를 작성하기 전에 데이터베이스가 존재하는지 점검합니다. (DBMS에 따라 다름)
 
 ::
 
-	$forge->createDatabase('my_db', TRUE);
+	$forge->createDatabase('my_db', true);
 	// gives CREATE DATABASE IF NOT EXISTS my_db
 	// or will check if a database exists
 
 **$forge->dropDatabase('db_name')**
 
 첫 번째 매개 변수로 지정된 데이터베이스를 삭제합니다.
-성공 또는 실패에 따라 TRUE/FALSE를 반환합니다.
+성공 또는 실패에 따라 true/false를 반환합니다.
 
 ::
 
-	if ($forge->dropDatabase('my_db'))
-	{
+	if ($forge->dropDatabase('my_db')) {
 		echo 'Database deleted!';
 	}
 
@@ -118,7 +116,7 @@ CodeIgniter는 이를 위한 메커니즘을 제공합니다.
 
 -  unsigned/true : 필드 정의에서 "UNSIGNED"를 생성합니다.
 -  default/value : 필드 정의에서 기본값을 생성합니다.
--  null/true : 필드 정의에서 "NULL"을 생성합니다. 이 옵션이 없으면 필드는 기본적으로 "NOT NULL"이 됩니다.
+-  null/true : 필드 정의에서 "null"을 생성합니다. 이 옵션이 없으면 필드는 기본적으로 "NOT null"이 됩니다.
 -  auto_increment/true : 필드에 auto_increment 플래그를 생성합니다. 필드 유형은 정수와 같이 이를 지원하는 유형이어야합니다.
 -  unique/true : 필드 정의를 위한 고유 키를 생성합니다.
 
@@ -165,7 +163,7 @@ CodeIgniter는 이를 위한 메커니즘을 제공합니다.
 
 ::
 
-	$forge->addField("label varchar(100) NOT NULL DEFAULT 'default label'");
+	$forge->addField("label varchar(100) NOT null DEFAULT 'default label'");
 
 .. note:: 문자열을 필드로 전달한 후에는 해당 필드에서 ``addKey()`` 호출을 수행 할 수 없습니다.
 
@@ -180,14 +178,14 @@ id 필드는 만들때 특별한 예외가 적용됩니다.
 ::
 
 	$forge->addField('id');
-	// gives id INT(9) NOT NULL AUTO_INCREMENT
+	// gives id INT(9) NOT null AUTO_INCREMENT
 
 키 추가
 ===========
 
 일반적으로 테이블에 키가 필요합니다.
 이것은 $forge->addKey( 'field')로 추가합니다.
-선택 사항인 두 번째 매개 변수를 TRUE로 설정하면 기본(Primary) 키가 되고 세 번째 매개 변수가 TRUE로 설정되면 고유(Unique) 키가 됩니다.
+선택 사항인 두 번째 매개 변수를 true로 설정하면 기본(Primary) 키가 되고 세 번째 매개 변수가 true로 설정되면 고유(Unique) 키가 됩니다.
 addKey() 다음에 createTable()을 호출해야 합니다.
 
 기본 키가 아닌 경우 여러 컬럼을 혼합하여 키를 만들 때는 배열로 보내야 합니다.
@@ -195,11 +193,11 @@ addKey() 다음에 createTable()을 호출해야 합니다.
 
 ::
 
-	$forge->addKey('blog_id', TRUE);
+	$forge->addKey('blog_id', true);
 	// gives PRIMARY KEY `blog_id` (`blog_id`)
 
-	$forge->addKey('blog_id', TRUE);
-	$forge->addKey('site_id', TRUE);
+	$forge->addKey('blog_id', true);
+	$forge->addKey('site_id', true);
 	// gives PRIMARY KEY `blog_id_site_id` (`blog_id`, `site_id`)
 
 	$forge->addKey('blog_name');
@@ -208,7 +206,7 @@ addKey() 다음에 createTable()을 호출해야 합니다.
 	$forge->addKey(['blog_name', 'blog_label']);
 	// gives KEY `blog_name_blog_label` (`blog_name`, `blog_label`)
 
-	$forge->addKey(['blog_id', 'uri'], FALSE, TRUE);
+	$forge->addKey(['blog_id', 'uri'], false, true);
 	// gives UNIQUE KEY `blog_id_uri` (`blog_id`, `uri`)
 
 코드를 보다 객관적으로 만들려면 특정 메소드로 기본 및 고유 키를 추가할 수 있습니다
@@ -249,11 +247,11 @@ addKey() 다음에 createTable()을 호출해야 합니다.
 	$forge->createTable('table_name');
 	// gives CREATE TABLE table_name
 
-선택적으로 두 번째 매개 변수를 TRUE로 설정하면 "IF NOT EXISTS"절이 정의에 추가됩니다.
+선택적으로 두 번째 매개 변수를 true로 설정하면 "IF NOT EXISTS"절이 정의에 추가됩니다.
 
 ::
 
-	$forge->createTable('table_name', TRUE);
+	$forge->createTable('table_name', true);
 	// gives CREATE TABLE IF NOT EXISTS table_name
 
 MySQL의``ENGINE``\ 과 같은 선택적 테이블 속성을 전달할 수 있습니다.
@@ -261,7 +259,7 @@ MySQL의``ENGINE``\ 과 같은 선택적 테이블 속성을 전달할 수 있�
 ::
 
 	$attributes = ['ENGINE' => 'InnoDB'];
-	$forge->createTable('table_name', FALSE, $attributes);
+	$forge->createTable('table_name', false, $attributes);
 	// produces: CREATE TABLE `table_name` (...) ENGINE = InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci
 
 .. note:: ``CHARACTER SET`` 또는 ``COLLATE`` 속성을 지정하지 않으면 ``createTable()``\ 은 미리 구성된 *charset* 과 *DBCollat* 값을 추가합니다. (MySQL 만 해당).
@@ -338,7 +336,7 @@ MySQL 또는 CUBIRD를 사용하는 경우 AFTER 및 FIRST 절을 활용하여 �
 
 	// 테이블의 시작 부분에 컬럼을 배치합니다.
 	$fields = [
-		'preferences' => ['type' => 'TEXT', 'first' => TRUE]
+		'preferences' => ['type' => 'TEXT', 'first' => true]
 	];
 
 테이블의 컬럼 삭제
@@ -389,7 +387,7 @@ Class Reference
 
 		:param	string	$table: 컬럼을 추가 할 테이블 이름
 		:param	array	$field: 컬럼 정의
-		:returns:	TRUE면 성공, FALSE면 실패
+		:returns:	true면 성공, false면 실패
 		:rtype:	bool
 
 		테이블에 컬럼을 추가합니다. 사용법:  `테이블에 컬럼 추가`_.
@@ -402,11 +400,11 @@ Class Reference
 
                 테이블을 만드는데 사용될 필드를 세트에 추가합니다. 사용법: `필드 추가`_.
 
-	.. php:method:: addKey($key[, $primary = FALSE[, $unique = FALSE]])
+	.. php:method:: addKey($key[, $primary = false[, $unique = false]])
 
 		:param	mixed	$key: 키 필드 또는 필드 배열의 이름
-		:param	bool	$primary: 기본(Primary) 키여야 하는 경우 TRUE로 설정
-		:param	bool	$unique: 고유(Unique) 키여야 하는 경우 TRUE로 설정
+		:param	bool	$primary: 기본(Primary) 키여야 하는 경우 true로 설정
+		:param	bool	$unique: 고유(Unique) 키여야 하는 경우 true로 설정
 		:returns:	\CodeIgniter\Database\Forge instance (method chaining)
 		:rtype:	\CodeIgniter\Database\Forge
 
@@ -428,21 +426,21 @@ Class Reference
 
 		테이블 작성할 때 사용될 고유 키를 세트에 추가합니다. 사용법:  `키 추가`_.
 
-	.. php:method:: createDatabase($db_name[, $ifNotExists = FALSE])
+	.. php:method:: createDatabase($db_name[, $ifNotExists = false])
 
 		:param	string	$db_name: 생성할 데이터베이스 이름
-		:param	string	$ifNotExists: 'IF NOT EXISTS' 절을 추가하거나 데이터베이스가 존재하는지 확인하려면 TRUE로 설정
-		:returns:	TRUE면 성공, FALSE면 실패
+		:param	string	$ifNotExists: 'IF NOT EXISTS' 절을 추가하거나 데이터베이스가 존재하는지 확인하려면 true로 설정
+		:returns:	true면 성공, false면 실패
 		:rtype:	bool
 
 		새로운 데이터베이스를 생성합니다. 사용법: `데이터베이스 생성 및 삭제`_.
 
-	.. php:method:: createTable($table[, $if_not_exists = FALSE[, array $attributes = []]])
+	.. php:method:: createTable($table[, $if_not_exists = false[, array $attributes = []]])
 
 		:param	string	$table: 생성할 테이블 이름
-		:param	string	$if_not_exists: 'IF NOT EXISTS' 절을 추가하려면 TRUE로 설정
+		:param	string	$if_not_exists: 'IF NOT EXISTS' 절을 추가하려면 true로 설정
 		:param	string	$attributes: 테이블 속성의 연관 배열
-		:returns:  Query 객체면 성공, FALSE면 실패
+		:returns:  Query 객체면 성공, false면 실패
 		:rtype:	mixed
 
 		새로운 테이블을 생성합니다. 사용법:  `테이블 만들기`_.
@@ -451,7 +449,7 @@ Class Reference
 
 		:param	string	$table: 테이블 이름
 		:param	mixed	$column_name: 쉼표로 구분된 컬럼 이름 또는 컬럼 이름 배열
-		:returns:	TRUE면 성공, FALSE면 실패
+		:returns:	true면 성공, false면 실패
 		:rtype:	bool
 
 		테이블에서 한 개의 컬럼 또는 여러 컬럼을 제거합니다. 사용법:  `테이블의 컬럼 삭제`_.
@@ -459,16 +457,16 @@ Class Reference
 	.. php:method:: dropDatabase($dbName)
 
 		:param	string	$dbName: 제거할 데이터베이스 이름
-		:returns:	TRUE면 성공, FALSE면 실패
+		:returns:	true면 성공, false면 실패
 		:rtype:	bool
 
 		데이터베이스를 제거합니다. 사용법:  `데이터베이스 생성 및 삭제`_.
 
-	.. php:method:: dropTable($table_name[, $if_exists = FALSE])
+	.. php:method:: dropTable($table_name[, $if_exists = false])
 
 		:param	string	$table: 제거할 테이블 이름
-		:param	string	$if_exists: 'IF EXISTS' 절을 추가하려면 TRUE로 설정
-		:returns:	TRUE면 성공, FALSE면 실패
+		:param	string	$if_exists: 'IF EXISTS' 절을 추가하려면 true로 설정
+		:returns:	true면 성공, false면 실패
 		:rtype:	bool
 
 		테이블을 제거합니다.. 사용법:  `테이블 삭제`_.
@@ -477,7 +475,7 @@ Class Reference
 
 		:param	string	$table: 테이블 이름
 		:param	array	$field: 컬럼 정의
-		:returns:	TRUE면 성공, FALSE면 실패
+		:returns:	true면 성공, false면 실패
 		:rtype:	bool
 
 		테이블의 컬럼을 수정합니다. 사용법:  `테이블의 컬럼 수정`_.
@@ -486,7 +484,7 @@ Class Reference
 
 		:param	string	$table: 테이블 이름
 		:param	string	$new_table_name: 테이블의 새로운 이름
-		:returns:  Query 객체면 성공, FALSE면 실패
+		:returns:  Query 객체면 성공, false면 실패
 		:rtype:	mixed
 
 		테이블 이름을 바꿉니다. 사용법:  `테이블 이름 바꾸기`_.

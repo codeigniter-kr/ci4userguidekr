@@ -101,8 +101,7 @@ Autoloader 구성 파일의 PSR-4 섹션에 네임스페이스를 설정하면 *
     {
         $needle = is_array($needle) ? $needle : [$needle];
 
-        foreach ($needle as $item)
-        {
+        foreach ($needle as $item) {
             if (in_array($item, $haystack))
             {
                 return true;
@@ -116,6 +115,7 @@ Autoloader 구성 파일의 PSR-4 섹션에 네임스페이스를 설정하면 *
     function random_element($array)
     {
         shuffle($array);
+
         return array_pop($array);
     }
 

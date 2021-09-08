@@ -89,8 +89,7 @@ Model 클래스를 사용하면 Query Builder로 쉽게 작업 할 수 있으며
 
     public function getNews($slug = false)
     {
-        if ($slug === false)
-        {
+        if ($slug === false) {
             return $this->findAll();
         }
 
@@ -216,14 +215,13 @@ title의 값은 ``$data['title']`` 요소에 할당되며 모든 데이터는 �
 
 ::
 
-    public function view($slug = NULL)
+    public function view($slug = null)
     {
         $model = new NewsModel();
 
         $data['news'] = $model->getNews($slug);
 
-        if (empty($data['news']))
-        {
+        if (empty($data['news'])) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the news item: '. $slug);
         }
 
@@ -248,7 +246,7 @@ title의 값은 ``$data['title']`` 요소에 할당되며 모든 데이터는 �
     자세한 내용은 :doc:`여기 </general/common_functions>`\ 를 참조하십시오.
 
 라우팅
--------------------------------------------------------
+-------
 
 
 앞서 만든 와일드카드(:any) 라우팅 규칙 때문에 방금 만든 컨트롤러를 보려면 새로운 라우팅 규칙이 필요합니다.

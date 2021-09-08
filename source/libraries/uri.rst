@@ -275,8 +275,7 @@ URI 클래스는 세그먼트 값이 무엇인지 판별하는 간단한 방법�
 	// URI = http://example.com/users/15/profile
 
 	// Prints '15'
-	if ($uri->getSegment(1) == 'users')
-	{
+	if ($uri->getSegment(1) == 'users') {
 		echo $uri->getSegment(2);
 	}
 

@@ -64,7 +64,7 @@ The name is not case-sensitive, but otherwise must match the name you gave it wh
         'render view'  => [
             'start'    => 1234567890,
             'end'      => 1345678920,
-            'duration' => 15.4315      // number of seconds
+            'duration' => 15.4315, // number of seconds
         ]
     ]
 
@@ -109,15 +109,13 @@ Creating Tasks To Run
     $iterator = new \CodeIgniter\Benchmark\Iterator();
 
     // Add a new task
-    $iterator->add('single_concat', function()
-        {
+    $iterator->add('single_concat', function () {
             $str = 'Some basic'.'little'.'string concatenation test.';
         }
     );
 
     // Add another task
-    $iterator->add('double', function($a='little')
-        {
+    $iterator->add('double', function ($a = 'little') {
             $str = "Some basic {$little} string test.";
         }
     );

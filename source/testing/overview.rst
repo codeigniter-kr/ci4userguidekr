@@ -210,7 +210,7 @@ Traits
 
 ::
 
-    Events::on('foo', function($arg) use(&$result) {
+    Events::on('foo', function ($arg) use(&$result) {
         $result = $arg;
     });
 

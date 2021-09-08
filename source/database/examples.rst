@@ -27,11 +27,10 @@
 
 ::
 
-    $query = $db->query('SELECT name, title, email FROM my_table');
+    $query   = $db->query('SELECT name, title, email FROM my_table');
     $results = $query->getResult();
 
-    foreach ($results as $row)
-    {
+    foreach ($results as $row) {
         echo $row->title;
         echo $row->name;
         echo $row->email;
@@ -50,8 +49,7 @@
     $query   = $db->query('SELECT name, title, email FROM my_table');
     $results = $query->getResultArray();
 
-    foreach ($results as $row)
-    {
+    foreach ($results as $row) {
         echo $row['title'];
         echo $row['name'];
         echo $row['email'];
@@ -103,8 +101,7 @@ getRowArray() 함수는 **배열**\ 을 반환합니다.
 
     $query = $db->table('table_name')->get();
 
-    foreach ($query->getResult() as $row)
-    {
+    foreach ($query->getResult() as $row) {
         echo $row->title;
     }
 
@@ -123,4 +120,3 @@ get() 함수는 제공된 테이블에서 모든 결과를 검색합니다.
     ];
 
     $db->table('mytable')->insert($data);  // Produces: INSERT INTO mytable (title, name, date) VALUES ('{$title}', '{$name}', '{$date}')
-

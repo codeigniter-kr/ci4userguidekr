@@ -23,14 +23,14 @@ CodeIgniter에는 데이터베이스 연결 값(username, password, database nam
         'database' => 'database_name',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
-        'pConnect' => TRUE,
-        'DBDebug'  => TRUE,
+        'pConnect' => true,
+        'DBDebug'  => true,
         'charset'  => 'utf8',
         'DBCollat' => 'utf8_general_ci',
         'swapPre'  => '',
-        'encrypt'  => FALSE,
-        'compress' => FALSE,
-        'strictOn' => FALSE,
+        'encrypt'  => false,
+        'compress' => false,
+        'strictOn' => false,
         'failover' => [],
     ];
 
@@ -82,14 +82,14 @@ CodeIgniter에는 데이터베이스 연결 값(username, password, database nam
                 'database' => '',
                 'DBDriver' => 'MySQLi',
                 'DBPrefix' => '',
-                'pConnect' => TRUE,
-                'DBDebug'  => TRUE,
+                'pConnect' => true,
+                'DBDebug'  => true,
                 'charset'  => 'utf8',
                 'DBCollat' => 'utf8_general_ci',
                 'swapPre'  => '',
-                'encrypt'  => FALSE,
-                'compress' => FALSE,
-                'strictOn' => FALSE
+                'encrypt'  => false,
+                'compress' => false,
+                'strictOn' => false
             ],
             [
                 'hostname' => 'localhost2',
@@ -98,14 +98,14 @@ CodeIgniter에는 데이터베이스 연결 값(username, password, database nam
                 'database' => '',
                 'DBDriver' => 'MySQLi',
                 'DBPrefix' => '',
-                'pConnect' => TRUE,
-                'DBDebug'  => TRUE,
+                'pConnect' => true,
+                'DBDebug'  => true,
                 'charset'  => 'utf8',
                 'DBCollat' => 'utf8_general_ci',
                 'swapPre'  => '',
-                'encrypt'  => FALSE,
-                'compress' => FALSE,
-                'strictOn' => FALSE
+                'encrypt'  => false,
+                'compress' => false,
+                'strictOn' => false
             ]
         ];
 
@@ -125,14 +125,14 @@ CodeIgniter에는 데이터베이스 연결 값(username, password, database nam
         'database' => 'database_name',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
-        'pConnect' => TRUE,
-        'DBDebug'  => TRUE,
+        'pConnect' => true,
+        'DBDebug'  => true,
         'charset'  => 'utf8',
         'DBCollat' => 'utf8_general_ci',
         'swapPre'  => '',
-        'compress' => FALSE,
-        'encrypt'  => FALSE,
-        'strictOn' => FALSE,
+        'compress' => false,
+        'encrypt'  => false,
+        'strictOn' => false,
         'failover' => []
     );
 
@@ -190,8 +190,8 @@ You only need to enter the values that change from what is in the default group'
 **database**            연결하려는 데이터베이스의 이름
 **DBDriver**            데이터베이스 유형(MySQLi, Postgre, etc.), 드라이버 이름과 일치해야 합니다.
 **DBPrefix**            :doc:`쿼리 빌더 <query_builder>` 쿼리를 실행할 때 테이블 이름에 추가될 선택적 테이블 접두사, 이를 통해 설치된 여러개의 CodeIgniter가 하나의 데이터베이스를 공유할 수 있습니다.
-**pConnect**            TRUE/FALSE (boolean) - 지속적 연결 사용 여부
-**DBDebug**             TRUE/FALSE (boolean) - 데이터베이스 오류를 표시해야 하는지 여부
+**pConnect**            true/false (boolean) - 지속적 연결 사용 여부
+**DBDebug**             true/false (boolean) - 데이터베이스 오류를 표시해야 하는지 여부
 **charset**             데이터베이스와 통신하는 데 사용되는 문자 세트(character set)
 **DBCollat**            데이터베이스와의 통신에 사용되는 문자 조합(character collation)
 
@@ -201,7 +201,7 @@ You only need to enter the values that change from what is in the default group'
 **schema**                데이터베이스 스키마, 기본값은 드라이버에 따라 다릅니다. PostgreSQL 및 SQLSRV 드라이버에서 사용합니다.
 **encrypt**                암호화 된 연결을 사용할지 여부.
 
-                        - 'sqlsrv'\ 과 'pdo/sqlsrv' 드라이버는 TRUE/FALSE
+                        - 'sqlsrv'\ 과 'pdo/sqlsrv' 드라이버는 true/false
                         - 'MySQLi'\ 관 'pdo/mysql' 드라이버는 다음 옵션 배열로 설정:
 
                             - 'ssl_key'    - 개인키 파일의 경로
@@ -209,10 +209,10 @@ You only need to enter the values that change from what is in the default group'
                             - 'ssl_ca'     - 인증 기관 파일의 경로
                             - 'ssl_capath' - PEM 형식의 신뢰할 수 있는 CA 인증서가 포함된 디렉토리 경로
                             - 'ssl_cipher' - 암호화에 사용될 *허용* 암호 목록, 콜론(':')으로 구분
-                            - 'ssl_verify' - TRUE/FALSE; 서버 인증서를 확인할지 여부 ('MySQLi' 전용)
+                            - 'ssl_verify' - true/false; 서버 인증서를 확인할지 여부 ('MySQLi' 전용)
 
 **compress**            클라이언트 압축 사용 여부 (MySQL 전용).
-**strictOn**            TRUE/FALSE (boolean) - "엄격 모드" 연결을 강제 적용할지 여부, 어플리케이션을 개발하는 동안 엄격한 SQL을 보장하는데 좋습니다.
+**strictOn**            true/false (boolean) - "엄격 모드" 연결을 강제 적용할지 여부, 어플리케이션을 개발하는 동안 엄격한 SQL을 보장하는데 좋습니다.
 **port**                데이터베이스 포트 번호, 이 값을 사용하려면 데이터베이스 구성 배열에 아래 행을 추가해야합니다.
 
                         ::

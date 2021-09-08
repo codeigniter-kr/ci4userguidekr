@@ -12,8 +12,7 @@
 
 ::
 
-    if ($some_var == '')
-    {
+    if ($some_var === '') {
         log_message('error', 'Some variable did not contain a value.');
     }
 
@@ -79,13 +78,8 @@ Each handler is specified with the key being the fully name-spaced class name.
 ::
 
     public $handlers = [
-
-        //--------------------------------------------------------------------
         // File Handler
-        //--------------------------------------------------------------------
-
         'CodeIgniter\Log\Handlers\FileHandler' => [
-
             'handles' => ['critical', 'alert', 'emergency', 'debug', 'error', 'info', 'notice', 'warning'],
         ]
     ];
@@ -115,12 +109,9 @@ Each handler is specified with the key being the fully name-spaced class name.
 
 ::
 
-    try
-    {
+    try {
         ... Something throws error here
-    }
-    catch (\Exception $e)
-    {
+    } catch (\Exception $e) {
         log_message('error', '[ERROR] {exception}', ['exception' => $e]);
     }
 
