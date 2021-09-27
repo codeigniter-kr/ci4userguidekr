@@ -202,11 +202,11 @@ Examples
 
 ::
 
-    $routes = [];
-    $routes['product/(:num)'] = 'Catalog::productLookupById';
-    $routes['product/(:alphanum)'] = 'Catalog::productLookupByName';
+    $collection = [];
+    $collection['product/(:num)'] = 'Catalog::productLookupById';
+    $collection['product/(:alphanum)'] = 'Catalog::productLookupByName';
 
-    $collection->map($routes);
+    $routes->map($collection);
 
 라우트 리디렉션
 ==================
@@ -279,11 +279,6 @@ Examples
         });
 
     });
-
-This would handle the URL at ``admin/users/list``. Note that options passed to the outer ``group()`` (for example ``namespace`` and ``filter``) are not merged with the inner ``group()`` options.
-
-At some point, you may want to group routes for the purpose of applying filters or other route config options like namespace, subdomain, etc. 
-Without necessarily needing to add a prefix to the group, you can pass an empty string in place of the prefix and the routes in the group will be routed as though the group never existed but with the given route config options
 
 위 예는 URL을 ``admin/users/list`` 로 처리할 것입니다. 
 외부 ``group()``\ 에 전달된 옵션(예: ``namespace``\ 와 ``filter``)은 내부 ``group()`` 옵션과 병합되지 않습니다.
