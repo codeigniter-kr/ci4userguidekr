@@ -39,9 +39,6 @@ System Class 목록
 핵심 클래스 교체
 ======================
 
-To use one of your own system classes instead of a default one, ensure that the :doc:`Autoloader <../concepts/autoloader>` can find your class, that your new class extends the appropriate interface, and modify the appropriate :doc:`Service <../concepts/services>` to load your class in place of the core class.
-
-For example, if you have a new ``App\Libraries\RouteCollection`` class that you would like to use in place of the core system class, you would create your class like this
 기본 시스템 클래스 대신 자신의 시스템 클래스 중 하나를 사용하려면 :doc:`오토로더 <../concepts/autoloader>`\ 가 클래스를 찾을 수 있는지, 새 클래스가 적절한 인터페이스를 확장하는지 확인하고 코어 클래스 대신 클래스를 로드하는 :doc:`서비스 <../concepts/services>`\ 를 수정해야 합니다.
 
 다음 예는 핵심 시스템 클래스 대신 사용할 새 ``App\Libraries\RouteCollection`` 클래스를 작성합니다.

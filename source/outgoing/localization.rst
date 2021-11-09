@@ -13,7 +13,6 @@
 CodeIgniter는 어플리케이션을 다른 언어로 지역화하는데 도움이 되는 몇 가지 도구를 제공합니다.
 어플리케이션의 전체 지역화는 복잡한 주제이지만 어플리케이션에서 지원되는 언어로 문자열을 바꾸는 것은 간단합니다.
 
-Language strings are stored in the **app/Language** directory, with a sub-directory for each supported language
 언어 문자열은 지원되는 각 언어의 하위 디렉토리와 함께 **app/Language** 디렉토리에 저장됩니다.
 
 ::
@@ -52,7 +51,7 @@ Language strings are stored in the **app/Language** directory, with a sub-direct
 첫 번째는 :doc:`컨텐츠 협상 </incoming/content_negotiation>`\ 을 자동으로 수행하여 올바른 로케일을 결정하는 "set and forget" 방법입니다.
 두 번째 방법을 사용하면 경로에서 로케일을 설정하는데 사용할 세그먼트를 지정할 수 있습니다.
 
-로케일을 직접 설정해야 하는 경우 ``IncomingRequest::setLocale(string $locale)``\ 을 사용할 수 있습니다.``
+로케일을 직접 설정해야 하는 경우 ``IncomingRequest::setLocale(string $locale)``\ 을 사용할 수 있습니다.
 
 컨텐츠 협상
 -------------------
@@ -122,7 +121,6 @@ Config/App에서 두 개의 추가 설정을 설정하여 컨텐츠 협상이 �
 
 언어에는 필요한 특정 명명 규칙이 없습니다.
 파일의 내용 유형을 설명하기 위해 파일 이름을 논리적으로 지정해야 합니다.
-For example, let's say you want to create a file containing error messages.
 예를 들어, 오류 메시지가 포함된 파일을 작성하려고 한다고 가정합니다.
 **Errors.php**\ 라는 이름으로 간단히 지정할 수 있습니다.
 
@@ -272,7 +270,6 @@ For example, let's say you want to create a file containing error messages.
 로케일 지정
 -----------------
 
-To specify a different locale to be used when replacing parameters, you can pass the locale in as the third parameter to the ``lang()`` method.
 매개 변수를 대체할 때 사용할 다른 로케일을 지정하기 위해 로케일을 ``lang()`` 메소드의 세 번째 매개 변수로 전달할 수 있습니다.
 
 ::

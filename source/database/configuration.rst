@@ -165,7 +165,6 @@ CodeIgniter에는 데이터베이스 연결 값(username, password, database nam
 --------------------------
 
 현재 서버의 데이터베이스 설정으로 ``.env`` 파일내에 구성 값을 저장할 수 있습니다.
-You only need to enter the values that change from what is in the default group's configuration settings. The values should be name following this format, where ``default`` is the group name
 기본 그룹의 구성 설정에서 변경된 값만 입력하면 됩니다.
 값은 이 형식을 따르는 이름이어야 합니다. 여기서 ``default``\ 는 그룹 이름입니다.
 
