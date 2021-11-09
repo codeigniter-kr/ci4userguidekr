@@ -85,12 +85,12 @@ Accessing the Request
     $method = $request->getMethod();
 
 이 메소드는 기본적으로 소문자(예 : 'get', 'post', 등)로 값을 반환합니다.
-``str_to_upper()``\ 함수를 이용하여 대문자로 변환할 수 있습니다.
+``strtoupper()``\ 함수를 이용하여 대문자로 변환할 수 있습니다.
 
 ::
 
     // Returns 'GET'
-    $method = str_to_upper($request->getMethod());
+    $method = strtoupper($request->getMethod());
 
 ``isSecure()`` 메소드를 이용하여 HTTPS 연결을 통해 요청이 이루어 졌는지 확인할 수 있습니다.
 
