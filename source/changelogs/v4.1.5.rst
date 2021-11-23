@@ -1,0 +1,35 @@
+Version 4.1.5
+#############
+
+Release Date: November 8, 2021
+
+**4.1.5 release of CodeIgniter4**
+
+.. contents::
+    :local:
+    :depth: 1
+
+BREAKING
+========
+
+- CSRF 보호 `버그 <https://github.com/codeigniter4/CodeIgniter4/issues/2913>`_ 수정. CSRF 필터가 적용되면 **PUT/PATCH/DELETE** 요청에 대해 CSRF 보호가 작동합니다. 이러한 요청을 사용할 경우 CSRF 토큰을 전송해야 합니다.
+- ``CURLRequest`` 사용시 헤더를 제공하지 않았다면 브라우저로부터 요청된 헤더를 보내는 버그 수정.
+- ``testMode``\ 에서 ``BaseBuilder::insertBatch()``\ 는 영향을 받는 여러 행 대신 SQL 문자열 배열을 반환합니다. 이러한 변경은 배치 메소드에 대한 반환 유형 호환성 유지를 위해서입니다.  ``BaseBuilder::insertBatch()``\ 와 ``updateBatch()`` 대한 반환된 데이터 형식을 통일합니다.
+- ``BaseBuilder::insertBatch()``\ 와 ``BaseBuilder::updateBatch()`` 메소드로 데이터 처리에 대해 주 최적화 작업이 이루어졌습니다. 이로 인해 메모리 사용량이 줄고 쿼리 처리 속도가 빨라졌습니다. 절충안으로 ``$query->getOriginalQuery()`` 메소드에 의해 생성된 결과가 변경됩니다. 바인딩된 매개 변수를 사용한 쿼리를 반환하지 않고, 실행된 실제 쿼리를 반환합니다.
+
+Enhancements
+============
+
+- 예약된 문자에 대한 캐시 구성 추가
+- ``Forge`` 클래스의 ``addForeignKey`` 함수로 배열에 복합 외래 키(composite foreign key)를 정의할 수 있습니다.
+- ``Forge`` 클래스의 ``dropKey`` 함수로 키를 제거할 수 있습니다.
+
+Changes
+=======
+
+- ``BaseBuilder``\ 의 ``setUpdateBatch``, ``insertBatch`` 함수는 ``set`` 설정시 식별자를 이스케이프합니다.
+
+Deprecations
+============
+
+- ``CodeIgniter\\Cache\\Handlers\\BaseHandler::RESERVED_CHARACTERS`` 속성은 사용되지 않습니다.
