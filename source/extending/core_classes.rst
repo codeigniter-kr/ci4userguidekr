@@ -56,7 +56,7 @@ System Class 목록
         // ...
     }
 
-그런 다음 ``routes`` 서비스에서 클래스를 로드 하도록 수정합니다.
+그런 다음 **app/Config/Services**\ 에 ``routes``\ 를 추가하여 클래스를 로드 하도록 수정합니다.
 
 ::
 

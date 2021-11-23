@@ -13,7 +13,7 @@ HTTP 기능 테스트
 테스트 클래스
 =================
 
-기능 테스트에서는 모든 테스트 클래스가 ``CodeIgniter\Test\DatabaseTestCase`` \와 ``CodeIgniter\Test\FeatureTestTrait`` 특성(trait)을 사용해야 합니다.
+기능 테스트에서는 모든 테스트 클래스가 ``CodeIgniter\Test\DatabaseTestTrait`` \과 ``CodeIgniter\Test\FeatureTestTrait`` 특성(trait)을 사용해야 합니다.
 이러한 테스트 도구는 적절한 데이터베이스 스테이징에 의존하기 때문에 자체 메서드를 구현하는 경우 항상 ``parent::setUp()``\ 과 ``parent::tearDown()``\ 이 호출되도록 해야 합니다.
 
 ::
@@ -25,7 +25,7 @@ HTTP 기능 테스트
     use CodeIgniter\Test\DatabaseTestTrait;
     use CodeIgniter\Test\FeatureTestTrait;
 
-    class TestFoo extends FeatureTestCase
+    class TestFoo extends CIUnitTestCase
     {
     	use DatabaseTestTrait, FeatureTestTrait;
 

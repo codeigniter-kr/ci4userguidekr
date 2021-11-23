@@ -14,6 +14,7 @@
 	honeypot
 	images
 	pagination
+	publisher
 	security
 	sessions
 	throttler

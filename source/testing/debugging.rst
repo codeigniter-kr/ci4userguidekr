@@ -17,7 +17,7 @@ Kint는 일반적인 도구를 넘어서 타임스탬프를 인식 가능한 날
 Kint 활성화
 ===============
 
-Kint는 기본적으로 **development** 와 **testing** 환경에서만 활성화됩니다. 
+Kint는 기본적으로 **development** 와 **testing** :doc:`환경 </general/environments>`\ 에서만 활성화됩니다. 
 기본 **index.php** 파일의 환경 구성 섹션에서 ``$useKint`` 값을 수정하여 이를 변경할 수 있습니다.
 
 ::
@@ -61,9 +61,11 @@ Kint 사용
 툴바 활성화
 ====================
 
-툴바는 프로덕션 환경을 *제외한* 모든 환경에서 기본적으로 사용됩니다.
+툴바는 프로덕션 :doc:`환경 </general/environments>`\ 을 *제외한* 모든 환경에서 기본적으로 사용됩니다.
 상수 CI_DEBUG가 정의되고 값이 양수일 때 표시됩니다.
-부팅 파일 (예 : app/Config/Boot/development.php)에 정의되어 있으며, 어떤 환경에 표시되는지를 결정하기 위해 수정될 수 있습니다.
+부팅 파일 (예 : **app/Config/Boot/development.php**)에 정의되어 있으며, 어떤 환경에 표시되는지를 결정하기 위해 수정될 수 있습니다.
+
+.. note:: ``baseURL`` 설정이(**app/Config/App.php** 또는 **.env**\ 의 ``app.baseURL``) 실제 URL과 일치하지 않으면 디버그 툴바가 표시되지 않습니다.
 
 툴바 자체는 :doc:`After Filter </incoming/filters>`\ 로 표시됩니다. 
 **app/Config/Filters.php**\ 의 ``$globals`` 속성에서 제거하여 실행을 중지할 수 있습니다.

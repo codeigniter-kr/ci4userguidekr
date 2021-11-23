@@ -6,9 +6,9 @@
     :local:
     :depth: 2
 
-CodeIgniter에는 데이터베이스 연결 값(username, password, database name, etc.)을 저장할 수 있는 구성 파일이 있습니다.
+CodeIgniter에는 데이터베이스 연결 값(username, password, database name, etc.)을 저장할 수 있는 구성(config) 파일이 있습니다.
 구성 파일은 ``app/Config/Database.php``\ 에 있습니다.
-``.env`` 파일에서 데이터베이스 연결 값을 설정할 수도 있습니다.
+``.env`` 파일에서 데이터베이스 연결 구성을 설정할 수 있습니다.
 자세한 내용은 아래를 참조하십시오.
 
 구성 설정은 이 프로토타입이 포함된 배열인 클래스 속성에 저장됩니다.

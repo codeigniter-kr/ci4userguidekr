@@ -9,12 +9,11 @@ CodeIgniter는 FIG의 회원은 아니지만 여러 제안과 호환됩니다.
 **PSR-1: Basic Coding Standard**
 
 이 권장 사항에는 기본 클래스, 메서드 및 파일 이름 지정 표준이 포함됩니다. 
-저희의 `스타일 가이드 https://github.com/codeigniter4/CodeIgniter4/blob/develop/contributing/styleguide.rst`\ 는 PSR-1을 충족하고 그 위에 자체 요구 사항을 추가합니다.
+저희의 `스타일 가이드 <https://github.com/codeigniter4/CodeIgniter4/blob/develop/contributing/styleguide.md>`\ 는 PSR-1을 충족하고 그 위에 자체 요구 사항을 추가합니다.
 
-**PSR-2: Coding Style Guide**
+**PSR-12: Extended Coding Style**
 
-이 PSR은 처음 나왔을 때 상당히 논란이 많았습니다. 
-CodeIgniter는 많은 권장 사항을 충족하지만 모든 권장 사항을 충족하지는 않습니다.
+우리의 `style guide <https://github.com/codeigniter4/CodeIgniter4/blob/develop/contributing/styleguide.md>`_\ 는 권장 사항과 더불어 자체 스타일링 컨벤션 세트를 따르고 있습니다.
 
 **PSR-3: Logger Interface**
 

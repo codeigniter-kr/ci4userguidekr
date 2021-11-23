@@ -55,7 +55,7 @@ CodeIgniter의 핵심 컨트롤러는 변경해서는 안되지만 기본 클래
 예를 들어, 프로젝트에 공용 인터페이스와 간단한 관리 포털이 있는 경우 ``BaseController``\ 를 공용 컨트롤러로 확장하고 
 모든 관리 컨트롤러에 대해 새로 작성된 ``AdminController``\ 를 확장하여 만들 수 있습니다.
 
-``BaseController``\ 를 사용하고 싶지 않다면 시스템 컨트롤러인 ``\CodeIgniter\Controller``\ 를 확장하도록 하여 ``BaseController``\ 를 무시할 수 있습니다
+``BaseController``\ 를 사용하지 않다면 시스템 컨트롤러인 ``\CodeIgniter\Controller``\ 를 확장하도록 하여 ``BaseController``\ 를 무시할 수 있습니다
 
 ::
 

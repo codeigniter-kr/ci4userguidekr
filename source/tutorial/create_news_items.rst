@@ -4,6 +4,22 @@
 CodeIgniter를 사용하여 데이터베이스에서 데이터를 읽는 방법을 알았지만 아직 데이터베이스에 정보를 쓰지는 않았습니다.
 이 섹션에서는 이 기능을 포함하기 위해 이전에 작성한 뉴스 컨트롤러 및 모델을 확장합니다.
 
+CSRF 필터 활성화
+------------------
+
+폼을 만들기 전에 CSRF 보호를 사용하도록 설정합니다.
+
+**app/Config/Filters.php** 파일을 열고 다음과 같이 ``$methods`` 속성을 업데이트합니다.
+
+::
+
+    public $methods = [
+        'post' => ['csrf'],
+    ];
+
+모든 **POST** 요청에 대해 CSRF 필터를 사용하도록 구성합니다.
+CSRF 보호에 대한 자세한 내용은 :doc:`보안 </libraries/security>`\ 라이브러리에서 확인할 수 있습니다.
+
 Create a form
 -------------
 
@@ -16,7 +32,7 @@ Create a form
 
     <h2><?= esc($title); ?></h2>
 
-    <?= \Config\Services::validation()->listErrors() ?>
+    <?= service('validation')->listErrors() ?>
 
     <form action="/news/create" method="post">
         <?= csrf_field() ?>
@@ -25,13 +41,13 @@ Create a form
         <input type="input" name="title" /><br />
 
         <label for="body">Text</label>
-        <textarea name="body"></textarea><br />
+        <textarea name="body" cols="45" rows="4"></textarea><br />
 
         <input type="submit" name="submit" value="Create news item" />
     </form>
 
 여기에 생소해 보이는 두 가지가 있을 것입니다.
-``\Config\Services::validation()->listErrors()`` 함수는 양식 검증과 관련된 오류를 보고하는 데 사용됩니다. 
+``service('validation')->listErrors()`` 함수는 폼 검증과 관련된 오류를 보고하는 데 사용됩니다. 
 ``csrf_field()`` 함수는 CSRF 토큰으로 숨겨진 입력을 생성하여 일부 일반적인 공격으로부터 보호합니다.
 
 ``News`` 컨트롤러로 돌아갑니다.
@@ -66,7 +82,7 @@ Create a form
 위의 코드는 많은 기능을 추가합니다.
 먼저 ``NewsModel``\ 을 로드합니다.
 그리고 ``POST`` 요청을 처리하는지 확인한 다음 컨트롤러 제공 헬퍼 기능을 사용하여 유효성을 검증합니다
-위의 경우 제목(title)과 텍스트(body) 필드는 필수입니다.
+위의 경우 POST 데이터 제목(title)과 텍스트(body) 필드는 필수입니다.
 
 CodeIgniter에는 위에서 설명한 강력한 유효성 검사 라이브러리가 있습니다.
 이 라이브러리에 대한 자세한 내용은 :doc:`여기 <../libraries/validation>`\ 를 참조하십시오.
@@ -77,7 +93,7 @@ CodeIgniter에는 위에서 설명한 강력한 유효성 검사 라이브러리
 모델로 뉴스 아이템을 전달하여 처리합니다.
 여기에는 새로운 함수인 ``url_title()``\ 이 포함되어 있습니다.
 이 함수 - :doc:`URL helper <../helpers/url_helper>`\ 에서 제공 - 는 전달받은 문자열에서 
-모든 공백을 대시 (-)로 바꾸고 모든 문자가 소문자인지 확인합니다. 
+모든 공백을 대시 (``-``)로 바꾸고 모든 문자가 소문자인지 확인합니다. 
 이 함수는 URI로 사용 가능한 완벽한 slug를 만듭니다.
 
 
@@ -98,7 +114,7 @@ CodeIgniter에는 위에서 설명한 강력한 유효성 검사 라이브러리
 ``id`` 필드가 전달되지 않을 경우 **news** 테이블에 새 행이 삽입됩니다.
 
 그러나 모델의 insert 및 update 메소드는 기본적으로 업데이트할 안전한 필드를 모르기 때문에 실제로 데이터를 저장하지 않습니다.
-업데이트 가능한 필드 목록을 모델의 ``$allowedFields`` 속성에 작성합니다.
+업데이트 가능한 필드 목록을 **NewsModel**\ 의 ``$allowedFields`` 속성에 작성합니다.
 
 ::
 
@@ -157,7 +173,7 @@ CodeIgniter 어플리케이션에 뉴스 항목을 추가하기 전에 **app/Con
 당신은 첫 번째 CodeIgniter4 어플리케이션을 방금 완료하셨습니다!
 
 아래에 있는 이미지는 프로젝트의 **app** 폴더를 표시하며, 녹색으로 생성한 모든 파일을 표시합니다.
-수정된 두 구성 파일(Database & Routes)은 표시되지 않았습니다.
+수정된 두 구성 파일(**Config/Routes.php**, **Config/Filters.php**)은 표시되지 않았습니다.
 
 .. image:: ../images/tutorial9.png
     :align: left

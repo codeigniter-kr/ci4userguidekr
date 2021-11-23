@@ -72,7 +72,7 @@ Entity 클래스 만들기
         protected $allowedFields = [
             'username', 'email', 'password',
         ];
-        protected $returnType    = 'App\Entities\User';
+        protected $returnType    = \App\Entities\User::class;
         protected $useTimestamps = true;
     }
 
@@ -272,7 +272,7 @@ Entity 클래스는 ``toArray()``\ 와 ``toRawArray()`` 메소드를 통하여 �
         ];
 
         protected $datamap = [
-            'full_name' => 'name',
+            'name' => 'full_name',
         ],
     }
 
@@ -471,7 +471,7 @@ CSV 캐스팅
 
         //Bind the type to the handler
         protected $castHandlers = [
-            'base64' => 'App\Entity\Cast\CastBase64',
+            'base64' => \App\Entity\Cast\CastBase64::class,
         ];
     }
 
@@ -505,15 +505,17 @@ CSV 캐스팅
 
 ::
 
-    //Defining a type with parameters
+    // Defining a type with parameters
     protected $casts = [
         'some_attribute' => 'class[App\SomeClass, param2, param3]',
     ];
 
-    //Bind the type to the handler
+    // Bind the type to the handler
     protected $castHandlers = [
         'class' => 'SomeHandler',
     ];
+
+::
 
     use CodeIgniter\Entity\Cast\BaseCast;
     
@@ -543,7 +545,7 @@ CSV 캐스팅
 
 ::
 
-    $user = new User();
+    $user = new \App\Entities\User();
     $user->hasChanged('name'); // false
 
     $user->name = 'Fred';

@@ -16,6 +16,27 @@ Google 검색 내용을 가져 오거나 웹 페이지 또는 이미지를 검�
 .. note:: 이 클래스는 사용하기 위해서는 PHP 버전의 `cURL 라이브러리 <https://www.php.net/manual/en/book.curl.php>`_\ 를 설치해야합니다. 
 	이 라이브러리는 일반적으로 사용 가능하지만 모든 호스트가 제공하지는 않으므로 문제가 발생한다면 호스트에 문의하여 설치를 확인하십시오.
 
+**********************
+CURLRequest 설정
+**********************
+
+공유 옵션
+===============
+
+Due to historical reasons, by default, the CURLRequest shares all the options between requests.
+If you send more than one request with an instance of the class, this behavior may cause an error request with unnecessary headers.
+
+You can change the behavior by editing the following config parameter value in **app/Config/CURLRequest.php** to ``false``
+
+역사적인 이유로 CURLRequest는 기본적으로 요청 간의 모든 옵션을 공유합니다.
+클래스의 인스턴스와 함께 2개 이상의 요청을 보내는 경우 이로 인해 불필요한 헤더가 포함된 오류 요청이 발생할 수 있습니다.
+
+**app/Config/CURLRequest.php** 파일의 다음 매개별수 값을 ``false``\ 로 설정하여 공유 여부를 변경할 수 있습니다.
+
+::
+
+    public $shareOptions = false;
+
 *******************
 라이브러리 로드
 *******************
@@ -39,11 +60,13 @@ cURL이 요청을 처리하는 방법을 수정하기 위해 기본 옵션 배�
 	];
 	$client = \Config\Services::curlrequest($options);
 
+.. note:: ``$shareOptions``\ 가 `false`\ 이면 클래스 생성자에 전달된 기본 옵션이 모든 요청에 사용됩니다. 다른 옵션은 요청 전송 후 재설정됩니다.
+
 클래스를 수동으로 만들 때는 몇 가지 종속성을 전달해야 합니다.
 첫 번째 매개 변수는 ``Config\App`` 클래스의 인스턴스입니다.
 두 번째 매개 변수는 URI 인스턴스입니다.
 세 번째 매개 변수는 Response 객체입니다.
-네 번째 매개 변수는 ``$options`` 배열입니다.(선택)
+네 번째 매개 변수는 기본값 ``$options`` 배열입니다.
 
 ::
 
@@ -72,8 +95,10 @@ HTTP 메소드, url 및 옵션 배열을 매개 변수로 사용합니다.
 	$client = \Config\Services::curlrequest();
 
 	$response = $client->request('GET', 'https://api.github.com/user', [
-		'auth' => ['user', 'pass'],
-	]);
+        'auth' => ['user', 'pass'],
+    ]);
+
+.. note:: ``$shareOptions``\ 가 `false`\ 이면 메서드에 전달된 옵션이 요청에 사용됩니다. 요청을 전송하면 삭제됩니다. 옵션을 모든 요청에 사용하려면 생성자의 옵션을 전달합니다.
 
 응답은 ``CodeIgniter\HTTP\Response``\ 의 인스턴스이므로 모든 일반 정보를 사용할 수 있습니다
 

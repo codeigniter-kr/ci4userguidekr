@@ -37,7 +37,7 @@ emergency   시스템 사용 불가
 구성
 =============
 
-``/app/Config/Logger.php`` 구성 파일 내에서 실제로 로깅된 레벨을 수정하고 다른 로거를 지정하여 다른 레벨을 처리할 수 있습니다.
+``app/Config/Logger.php`` 구성 파일 내에서 실제로 로깅된 레벨을 수정하고 다른 로거를 지정하여 다른 레벨을 처리할 수 있습니다.
 
 구성 파일의 ``threshold`` 값은 어플리케이션에서 기록되는 수준을 결정합니다.
 어플리케이션에서 수준을 기록하도록 요청해도 ``threshold``\ 에 지정된 수준에 따라 기록 할 수 없는 경우 무시됩니다.
@@ -141,7 +141,7 @@ Each handler is specified with the key being the fully name-spaced class name.
 `PSR3 <http://www.php-fig.org/psr/psr-3/>`_\ 와 호환 가능한 다른 로거를 ``Psr\Log\LoggerInterface``\ 를 확장하여 사용할 수 있습니다.
 즉, PSR3 호환 로거를 쉽게 사용하거나 직접 생성할 수 있습니다.
 
-시스템에서 타사 로거를 찾을수 있도록 ``/app/Config/Autoload.php`` 구성 파일에 추가하거나, Composer와 같은 다른 자동 로더를 통해 타사 로거를 찾을 수 있는지 확인해야합니다.
-그 다음, 별칭 ``logger``\ 가 새 클래스 이름으로 가리키도록 ``/app/Config/Services.php``\ 를 수정해야 합니다.
+시스템에서 타사 로거를 찾을수 있도록 ``app/Config/Autoload.php`` 구성 파일에 추가하거나, Composer와 같은 다른 자동 로더를 통해 타사 로거를 찾을 수 있는지 확인해야합니다.
+그 다음, 별칭 ``logger``\ 가 새 클래스 이름으로 가리키도록 ``app/Config/Services.php``\ 를 수정해야 합니다.
 
 이렇게 하면 ``log_message()``\ 함수를 호출 통해 수행된 모든 작업은 수정된 새로운 라이브러리를 사용하게 됩니다.

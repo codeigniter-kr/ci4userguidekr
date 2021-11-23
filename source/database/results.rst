@@ -160,6 +160,31 @@
         echo $row->body;
     }
 
+MySQLi와 함께 사용할 때 MySQLi의 결과 모드를 ``MYSQLI_USE_RESULT``\ 로 설정하면 메모리를 절약할 수 있습니다.
+이 방법은 일반적으로 사용할 때 권장되지 않지만 많은 결과를 csv 파일로 덤프할 경우 유용할 수 있습니다.
+결과 모드를 변경할 경우 결과 모드와 관련된 트레이드오프를 인식해야 합니다.
+
+::
+
+    $db->resultMode = MYSQLI_USE_RESULT; // for unbuffered results
+
+    $query = $db->query("YOUR QUERY");
+
+    $file = new \CodeIgniter\Files\File(WRITEPATH.'data.csv');
+
+    $csv = $file->openFile('w');
+
+    while ($row = $query->getUnbufferedRow('array'))
+    {
+        $csv->fputcsv($row);
+    }
+
+    $db->resultMode = MYSQLI_STORE_RESULT; // return to default mode
+
+.. note:: ``MYSQLI_USE_RESULT``\ 를 사용할 경우 모든 레코드를 가져오거나 ``freeResult()`` 호출이 수행될 때까지 동일한 연결에서 모든 후속 호출에 오류가 발생합니다.
+    ``getNumRows()`` 메서드는 데이터 포인터의 현재 위치를 기준으로 행 수를 반환합니다. 
+    모든 레코드를 가져오거나 ``freeResult()`` 호출이 수행될 때까지 MyISAM 테이블은 잠긴 상태로 유지됩니다.
+
 반환된 값의 유형을 지정하기 위해 선택적으로 'object'(기본값) 또는 'array'를 전달할 수 있습니다.
 
 ::

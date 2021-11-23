@@ -50,7 +50,7 @@
 
     브라우저 쿠키를 얻기 위해 보다 친근한 구문을 제공합니다.
     사용법에 대한 자세한 설명은 :doc:`IncomingRequest Library </incoming/incomingrequest>`\ 를 참조하십시오.
-    이 함수는 *app/Config/App.php* 파일의 ``$cookiePrefix`` 설정에 따라 접두사가 설정됩니다.
+    이 함수는 **app/Config/App.php** 파일의 ``$cookiePrefix`` 설정에 따라 접두사가 설정됩니다.
 
 .. php:function:: delete_cookie($name[, $domain = ''[, $path = '/'[, $prefix = '']]])
 

@@ -260,8 +260,11 @@ CodeIgniter는 마이그레이션 작업에 도움이되는 커맨드 라인에�
 
 다음 옵션으로 (make:migration) 사용할 수 있습니다:
 
-- ``-n`` - 네임스페이스 선택, 선택하지 않은 경우 ``APP_NAMESPACE``\ 의 값이 사용됩니다.
-- ``-force`` - 지정된 이름과 유사한 이름의 마이그레이션 파일이 대상에 있는 경우 덮어씁니다.
+- ``--session``   - 데이터베이스 세션에 대한 마이그레이션 파일을 생성합니다.
+- ``--table``     - 데이터베이스 세션에 사용할 테이블 이름입니다. 기본 값: ``ci_sessions``.
+- ``--dbgroup``   - 데이터베이스 세션에 사용할 데이터베이스 그룹입니다. 기본 값: ``default``.
+- ``--namespace`` - root namespace 설정. 기본 값: ``APP_NAMESPACE``.
+- ``--suffix``    - 클래스 이름에 구성 요소 제목을 추가합니다.
 
 ****************************
 마이그레이션 환경 설정
@@ -329,7 +332,7 @@ Class Reference
 
 	  :param  string  $namespace: 어플리케이션 네임스페이스
 	  :returns:   MigrationRunner instance
-	  :rtype:     CodeIgniter\Database\MigrationRunner
+	  :rtype:     CodeIgniter\\Database\\MigrationRunner
 
 	  라이브러리에서 마이그레이션 파일을 찾아야 하는 네임스페이스를 설정합니다.
 	  
@@ -341,7 +344,7 @@ Class Reference
 
 	  :param  string  $group: 데이터베이스 그룹 이름
 	  :returns:   MigrationRunner instance
-	  :rtype:     CodeIgniter\Database\MigrationRunner
+	  :rtype:     CodeIgniter\\Database\\MigrationRunner
 
 	  라이브러리에서 마이그레이션 파일을 찾을 그룹을 설정합니다.
 	  

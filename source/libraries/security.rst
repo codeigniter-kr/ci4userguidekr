@@ -24,6 +24,27 @@
 사이트 간 요청 위조 (CSRF)
 *********************************
 
+.. warning:: CSRF 보호는 **POST/PUT/PATCH/DELETE** 요청에 대해서만 사용할 수 있습니다.
+    다른 메서드에 대한 요청은 보호되지 않습니다.
+
+CSRF Protection Methods
+=======================
+
+코드이그나이터는 기본적으로 쿠키 기반 CSRF 보호를 사용합니다. 
+OWASP 교차사이트 요청서 위조방지 컨닝시트의 `Double Submit Cookie <https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#double-submit-cookie>`_\ .
+
+세션 기반 CSRF 보호를 사용할 수도 있습니다.
+`Synchronizer Token Pattern <https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#synchronizer-token-pattern>`_.
+
+**app/Config/Security.php**\ 에서 다음 구성 매개 변수 값을 편집하여 세션 기반 CSRF 보호를 사용하도록 설정할 수 있습니다.
+
+::
+
+    public $csrfProtection = 'session';
+
+CSRF 보호 활성화
+======================
+
 **app/Config/Filters.php**\ 파일의 `csrf` 필터를 활성화하여 사이트 전체적으로 CSRF 보호(protection)를 활성화할 수 있습니다
 
 ::
@@ -56,7 +77,23 @@ URI를 화이트리스트에 추가하여 CSRF 보호에서 제외할 수 있습
 		],
 	];
 
+특정 메소드에 대해서만 CSRF 필터를 활성화할 수 있습니다.
+
+::
+
+    public $methods = [
+        'get'  => ['csrf'],
+        'post' => ['csrf'],
+    ];
+
+HTML Forms
+==========
+
 :doc:`form helper <../helpers/form_helper>`\ 의 :func:`form_open()`\ 를 사용하면 자동으로 폼(form)에 숨겨진  추가합니다.
+
+.. note:: CSRF 필드의 자동 생성을 사용하려면 CSRF 필터를 폼 페이지로 설정해야 합니다.
+    대부분의 경우 ``GET`` 메소드를 사용하여 요청됩니다.
+
 직접 폼에 csrf 필드를 추가하고 싶다면 ``csrf_token()`` 와 ``csrf_hash()`` 함수를 사용합니다
 
 ::
@@ -80,11 +117,17 @@ CSRF 토큰을 전달하는 방법은 특수한 Http 헤더이며, ``csrf_header
 	// Generates: <meta name="{csrf_header}" content="{csrf_hash}" />
 	<?= csrf_meta() ?>
 
+사용자 토큰 확인 순서
+================================
+
 CSRF 토큰을 확인하는 순서는 다음과 같습니다.
 
 1. ``$_POST`` array
 2. Http header
 3. ``php://input`` (JSON 요청) - JSON을 디코딩한 다음 다시 인코딩해야 하기 때문에 이 방법이 가장 느립니다.
+
+토큰 재생성
+===================
 
 토큰은 제출할 때마다 재생성되거나(기본값), CSRF 쿠키 존재하는 동안 동일하게 유지됩니다.
 토큰의 기본 재생성은 강력한 보안을 제공하지만, 다른 토큰이 뒤로/앞으로 탐색, 여러 탭/창, 비동기 작업 등으로 무효화됨에 따라 사용성 문제가 발생할 수 있습니다.
@@ -93,6 +136,9 @@ CSRF 토큰을 확인하는 순서는 다음과 같습니다.
 ::
 
 	public $regenerate  = true;
+
+실패 시 리디렉션
+======================
 
 요청이 CSRF 유효성 검사에 실패하면 기본적으로 이전 페이지로 리디렉션되어 최종 사용자에게 표시 할 수있는 ``error`` 플래시 메시지를 설정합니다. 
 이것은 단순히 충돌하는 것보다 더 좋은 경험을 제공합니다. 

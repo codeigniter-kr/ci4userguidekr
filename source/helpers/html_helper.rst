@@ -28,12 +28,12 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
 .. php:function:: img([$src = ''[, $indexPage = false[, $attributes = '']]])
 
     :param  string|array  $src:  이미지 소스 URI 또는 속성 및 값의 배열
-    :param  bool    $indexPage:  $src를 라우팅된 URI 문자열로 취급할 지 여부
+    :param  bool    $indexPage:  ``$src``\ 를 라우팅된 URI 문자열로 취급할 지 여부
     :param  mixed   $attributes: 추가 HTML 속성
     :returns:   HTML image 태그
     :rtype: string
 
-    HTML <img /> 태그를 만들 수 있습니다. 첫 번째 매개 변수는 이미지 소스를 포함합니다.
+    HTML ``<img />`` 태그를 만들 수 있습니다. 첫 번째 매개 변수는 이미지 소스를 포함합니다.
 
     ::
 
@@ -86,7 +86,7 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
 
         $src = img_data('path/img_without_extension', 'image/png'); // data:image/png;base64,HT5A822...
 
-    $path가 존재해야하며 ``data:`` 프로토콜에서 지원하는 읽을 수 있는 이미지 형식이어야 합니다.
+    ``$path``\ 가 존재해야하며 ``data:`` 프로토콜에서 지원하는 읽을 수 있는 이미지 형식이어야 합니다.
     이 기능은 매우 큰 파일에는 권장되지 않지만 웹 액세스가 (예: **public/**) 불가능한 앱에서 이미지를 편리하게 제공할 수 있습니다.
 
 .. php:function:: link_tag([$href = ''[, $rel = 'stylesheet'[, $type = 'text/css'[, $title = ''[, $media = ''[, $indexPage = false[, $hreflang = '']]]]]]])
@@ -96,12 +96,12 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
     :param  string  $type:      관련 문서의 종류
     :param  string  $title:     링크 제목
     :param  string  $media:     미디어 타입
-    :param  bool    $indexPage: $src를 라우팅된 URI 문자열로 취급할 지 여부
+    :param  bool    $indexPage: ``$src``\ 를 라우팅된 URI 문자열로 취급할 지 여부
     :param  string  $hreflang:  Hreflang 타입
     :returns:   HTML link 태그
     :rtype: string
 
-    HTML <link /> 태그를 만들 수 있습니다.    
+    HTML ``<link />`` 태그를 만들 수 있습니다.    
     스타일 시트 링크 및 기타 링크에 유용합니다.
 
     필수 매개 변수는 *href* 이며 선택적 매개 변수는 *rel*, *type*, *title*, *media*, *indexPage* 입니다.
@@ -138,11 +138,11 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
 .. php:function:: script_tag([$src = ''[, $indexPage = false]])
 
     :param  mixed  $src: JavaScript 파일의 소스 이름
-    :param  bool    $indexPage: $src를 라우팅된 URI 문자열로 취급할 지 여부
+    :param  bool    $indexPage: ``$src``\ 를 라우팅된 URI 문자열로 취급할 지 여부
     :returns:   HTML script 태그
     :rtype: string
 
-    HTML <script> </ script> 태그를 만듭니다. 
+    HTML ``<script></script>`` 태그를 만듭니다. 
     필수 매개 변수는 *src* 이며 선택적 매개 변수는 * indexPage * 입니다.
 
     *indexPage*\ 는 *src*\ 가 생성한 주소에 ``$config['indexPage']``\ 로 지정된 페이지를 추가해야 하는지 여부를 지정하는 부울 값입니다.
@@ -291,7 +291,7 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
     :returns:   HTML 형식의 정렬 된 목록
     :rtype: string
 
-    :php:func:`ul()`\ 과 동일하지만 <ul> 대신 <ol> 태그를 사용하여 정렬된 목록을 생성합니다.
+    :php:func:`ul()`\ 과 동일하지만 ``<ul>`` 대신 ``<ol>`` 태그를 사용하여 정렬된 목록을 생성합니다.
 
 .. php:function:: video($src[, $unsupportedMessage = ''[, $attributes = ''[, $tracks = [][, $indexPage = false]]]])
 
@@ -366,7 +366,7 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
     :returns:                            HTML 형식의 오디오 요소
     :rtype: string
 
-    :php:func:`video()`\ 와 동일하지만 <video> 대신 <audio> 태그를 생성합니다.
+    :php:func:`video()`\ 와 동일하지만 ``<video>`` 대신 ``<audio>`` 태그를 생성합니다.
 
 .. php:function:: source($src = ''[, $type = false[, $attributes = '']])
 
@@ -376,7 +376,7 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
     :returns:   HTML source 태그
     :rtype: string
 
-    HTML <source /> 태그를 만듭니다.
+    HTML ``<source />`` 태그를 만듭니다.
 
     첫 번째 매개 변수는 소스를 포함합니다.
     
@@ -394,7 +394,7 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
     :returns:   HTML embed 태그
     :rtype: string
 
-    HTML <embed /> 태그를 만듭니다.
+    HTML ``<embed />`` 태그를 만듭니다.
     첫 번째 매개 변수에는 소스를 포함합니다.
     
     ::
@@ -411,7 +411,7 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
     :returns:   HTML object tag
     :rtype: string
 
-    HTML <object /> 태그를 만듭니다. 
+    HTML ``<object />`` 태그를 만듭니다. 
     첫 번째 파라미터는 object 데이터를 포함합니다.
 
     ::
@@ -447,7 +447,7 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
     :returns:   HTML param 태그
     :rtype: string
 
-    HTML <param /> 태그를 만듭니다. 첫 번째 매개 변수는 param 소스를 포함합니다.
+    HTML ``<param />`` 태그를 만듭니다. 첫 번째 매개 변수는 param 소스를 포함합니다.
     
     ::
 
@@ -488,7 +488,7 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
         // <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
     다음은 사전 정의된 doctype 선택 목록입니다.
-    이 정보는 `application/Config/DocTypes.php`\ 에 있으며, `.env` 설정을 통하여 오버라이드될 수 있습니다.
+    이 정보는 `application/Config/DocTypes.php`\ 에 있으며, ``.env`` 설정을 통하여 오버라이드될 수 있습니다.
 
     =============================== =================== ==================================================================================================================================================
     Document type                   Option              Result

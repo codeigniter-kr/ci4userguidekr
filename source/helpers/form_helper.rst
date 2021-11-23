@@ -90,34 +90,36 @@ The Form Helper file contains functions that assist in working with forms.
 
         ::
 
-                        $attributes = ['class' => 'email', 'id' => 'myform'];
-                        echo form_open('email/send', $attributes);
+            $attributes = ['class' => 'email', 'id' => 'myform'];
+            echo form_open('email/send', $attributes);
 
         또는 두 번째 매개 변수를 문자열로 지정할 수 있습니다.
         
         ::
 
-                        echo form_open('email/send', 'class="email" id="myform"');
+            echo form_open('email/send', 'class="email" id="myform"');
 
         위의 예제는 이와 비슷한 형식을 만듭니다.
 
         ::
 
-                        <form method="post" accept-charset="utf-8" action="http://example.com/index.php/email/send" class="email" id="myform">
+            <form method="post" accept-charset="utf-8" action="http://example.com/index.php/email/send" class="email" id="myform">
 
         CSRF 필터가 켜져 있으면 `form_open()` 은 폼의 시작 부분에 CSRF 필드를 생성합니다.
         csrf_id를 $attribute 배열중 하나로 전달하여 이 필드의 ID를 지정할 수 있습니다.
 
         ::
 
-                        form_open('/u/sign-up', ['csrf_id' => 'my-id']);
+            form_open('/u/sign-up', ['csrf_id' => 'my-id']);
 
         다음과 같이 표시됩니다.
 
         ::
 
-                        <form action="/u/sign-up" method="post" accept-charset="utf-8">
-                        <input type="hidden" id="my-id" name="csrf_field" value="964ede6e0ae8a680f7b8eab69136717d" />
+            <form action="/u/sign-up" method="post" accept-charset="utf-8">
+            <input type="hidden" id="my-id" name="csrf_field" value="964ede6e0ae8a680f7b8eab69136717d" />
+
+        .. note:: CSRF 필드의 자동 생성을 사용하려면 CSRF 필터를 폼 페이지로 설정해야 합니다. 대부분 ``GET``\ 을  사용하여 요청됩니다.
 
     **Adding Hidden Input Fields**
 
@@ -125,8 +127,8 @@ The Form Helper file contains functions that assist in working with forms.
         
         ::
 
-                        $hidden = ['username' => 'Joe', 'member_id' => '234'];
-                        echo form_open('email/send', '', $hidden);
+            $hidden = ['username' => 'Joe', 'member_id' => '234'];
+            echo form_open('email/send', '', $hidden);
 
         잘못된 값을 전달하여 두 번째 매개 변수를 건너뛸 수 있습니다.
 
@@ -134,9 +136,9 @@ The Form Helper file contains functions that assist in working with forms.
         
         ::
 
-                        <form method="post" accept-charset="utf-8" action="http://example.com/index.php/email/send">
-                        <input type="hidden" name="username" value="Joe" />
-                        <input type="hidden" name="member_id" value="234" />
+            <form method="post" accept-charset="utf-8" action="http://example.com/index.php/email/send">
+            <input type="hidden" name="username" value="Joe" />
+            <input type="hidden" name="member_id" value="234" />
 
 .. php:function:: form_open_multipart([$action = ''[, $attributes = ''[, $hidden = []]]])
 
@@ -167,18 +169,18 @@ The Form Helper file contains functions that assist in working with forms.
     ::
 
         $data = [
-                        'name'	=> 'John Doe',
-                        'email'	=> 'john@example.com',
-                        'url'	=> 'http://example.com',
+            'name'	=> 'John Doe',
+            'email'	=> 'john@example.com',
+            'url'	=> 'http://example.com',
         ];
 
         echo form_hidden($data);
 
         /*
-                        Would produce:
-                        <input type="hidden" name="name" value="John Doe" />
-                        <input type="hidden" name="email" value="john@example.com" />
-                        <input type="hidden" name="url" value="http://example.com" />
+            Would produce:
+            <input type="hidden" name="name" value="John Doe" />
+            <input type="hidden" name="email" value="john@example.com" />
+            <input type="hidden" name="url" value="http://example.com" />
         */
 
     값 배열에 연관 배열을 전달할 수도 있습니다.
@@ -186,19 +188,19 @@ The Form Helper file contains functions that assist in working with forms.
     ::
 
         $data = [
-                        'name'	=> 'John Doe',
-                        'email'	=> 'john@example.com',
-                        'url'	=> 'http://example.com',
+            'name'	=> 'John Doe',
+            'email'	=> 'john@example.com',
+            'url'	=> 'http://example.com',
         ];
 
         echo form_hidden('my_array', $data);
 
         /*
-                        Would produce:
+            Would produce:
 
-                        <input type="hidden" name="my_array[name]" value="John Doe" />
-                        <input type="hidden" name="my_array[email]" value="john@example.com" />
-                        <input type="hidden" name="my_array[url]" value="http://example.com" />
+            <input type="hidden" name="my_array[name]" value="John Doe" />
+            <input type="hidden" name="my_array[email]" value="john@example.com" />
+            <input type="hidden" name="my_array[url]" value="http://example.com" />
         */
 
     추가 속성으로 숨겨진 입력 필드를 만들려면
@@ -206,19 +208,19 @@ The Form Helper file contains functions that assist in working with forms.
     ::
 
         $data = [
-                        'type'	=> 'hidden',
-                        'name'	=> 'email',
-                        'id'	=> 'hiddenemail',
-                        'value'	=> 'john@example.com',
-                        'class'	=> 'hiddenemail',
+            'type'	=> 'hidden',
+            'name'	=> 'email',
+            'id'	=> 'hiddenemail',
+            'value'	=> 'john@example.com',
+            'class'	=> 'hiddenemail',
         ];
 
         echo form_input($data);
 
         /*
-                        Would produce:
+            Would produce:
 
-                        <input type="hidden" name="email" value="john@example.com" id="hiddenemail" class="hiddenemail" />
+            <input type="hidden" name="email" value="john@example.com" id="hiddenemail" class="hiddenemail" />
         */
 
 .. php:function:: form_input([$data = ''[, $value = ''[, $extra = ''[, $type = 'text']]]])
@@ -241,20 +243,20 @@ The Form Helper file contains functions that assist in working with forms.
     ::
 
         $data = [
-                        'name'      => 'username',
-                        'id'        => 'username',
-                        'value'     => 'johndoe',
-                        'maxlength' => '100',
-                        'size'      => '50',
-                        'style'     => 'width:50%',
+            'name'      => 'username',
+            'id'        => 'username',
+            'value'     => 'johndoe',
+            'maxlength' => '100',
+            'size'      => '50',
+            'style'     => 'width:50%',
         ];
 
         echo form_input($data);
 
         /*
-                        Would produce:
+            Would produce:
 
-                        <input type="text" name="username" value="johndoe" id="username" maxlength="100" size="50" style="width:50%" />
+            <input type="text" name="username" value="johndoe" id="username" maxlength="100" size="50" style="width:50%" />
         */
 
     JavaScript와 같은 일부 데이터를 폼에 추가하려면 문자열로 세 번째 매개 변수에 전달합니다.
@@ -278,9 +280,9 @@ The Form Helper file contains functions that assist in working with forms.
         echo form_input('email', 'joe@example.com', ['placeholder' => 'Email Address...'], 'email');
 
         /*
-                         Would produce:
+            Would produce:
 
-                        <input type="email" name="email" value="joe@example.com" placeholder="Email Address..." />
+            <input type="email" name="email" value="joe@example.com" placeholder="Email Address..." />
         */
 
 .. php:function:: form_password([$data = ''[, $value = ''[, $extra = '']]])
@@ -331,37 +333,37 @@ The Form Helper file contains functions that assist in working with forms.
     Example::
 
         $options = [
-                        'small'  => 'Small Shirt',
-                        'med'    => 'Medium Shirt',
-                        'large'  => 'Large Shirt',
-                        'xlarge' => 'Extra Large Shirt',
+            'small'  => 'Small Shirt',
+            'med'    => 'Medium Shirt',
+            'large'  => 'Large Shirt',
+            'xlarge' => 'Extra Large Shirt',
         ];
 
         $shirts_on_sale = ['small', 'large'];
         echo form_dropdown('shirts', $options, 'large');
 
         /*
-                        Would produce:
+            Would produce:
 
-                        <select name="shirts">
-                            <option value="small">Small Shirt</option>
-                            <option value="med">Medium Shirt</option>
-                            <option value="large" selected="selected">Large Shirt</option>
-                            <option value="xlarge">Extra Large Shirt</option>
-                        </select>
+            <select name="shirts">
+                <option value="small">Small Shirt</option>
+                <option value="med">Medium Shirt</option>
+                <option value="large" selected="selected">Large Shirt</option>
+                <option value="xlarge">Extra Large Shirt</option>
+            </select>
         */
 
         echo form_dropdown('shirts', $options, $shirts_on_sale);
 
         /*
-                        Would produce:
+            Would produce:
 
-                        <select name="shirts" multiple="multiple">
-                            <option value="small" selected="selected">Small Shirt</option>
-                            <option value="med">Medium Shirt</option>
-                            <option value="large" selected="selected">Large Shirt</option>
-                            <option value="xlarge">Extra Large Shirt</option>
-                        </select>
+            <select name="shirts" multiple="multiple">
+                <option value="small" selected="selected">Small Shirt</option>
+                <option value="med">Medium Shirt</option>
+                <option value="large" selected="selected">Large Shirt</option>
+                <option value="xlarge">Extra Large Shirt</option>
+            </select>
         */
 
     <select> 태그의 id 속성 또는 JavaScript와 같은 추가 데이터를 포함하도록 하려면 네 번째 매개 변수에서 문자열로 전달합니다.
@@ -376,8 +378,8 @@ The Form Helper file contains functions that assist in working with forms.
     ::
 
         $js = [
-                        'id'       => 'shirts',
-                        'onChange' => 'some_function ();'
+            'id'       => 'shirts',
+            'onChange' => 'some_function ();'
         ];
         echo form_dropdown('shirts', $options, 'large', $js);
 
@@ -413,12 +415,12 @@ The Form Helper file contains functions that assist in working with forms.
         echo form_fieldset_close();
 
         /*
-                        Produces:
+            Produces:
 
-                            <fieldset>
-                                <legend>Address Information</legend>
-                                                <p>form content here</p>
-                            </fieldset>
+                <fieldset>
+                    <legend>Address Information</legend>
+                                    <p>form content here</p>
+                </fieldset>
         */
 
     다른 기능과 마찬가지로 추가 속성을 설정하려는 경우 두 번째 매개 변수에 연관 배열을 전달합니다.
@@ -426,8 +428,8 @@ The Form Helper file contains functions that assist in working with forms.
     ::
 
         $attributes = [
-                        'id'	=> 'address_info',
-                        'class'	=> 'address_info'
+            'id'	=> 'address_info',
+            'class'	=> 'address_info'
         ];
 
         echo form_fieldset('Address Information', $attributes);
@@ -435,12 +437,12 @@ The Form Helper file contains functions that assist in working with forms.
         echo form_fieldset_close();
 
         /*
-                        Produces:
+            Produces:
 
-                        <fieldset id="address_info" class="address_info">
-                            <legend>Address Information</legend>
-                            <p>form content here</p>
-                        </fieldset>
+            <fieldset id="address_info" class="address_info">
+                <legend>Address Information</legend>
+                <p>form content here</p>
+            </fieldset>
         */
 
 .. php:function:: form_fieldset_close([$extra = ''])
@@ -481,11 +483,11 @@ The Form Helper file contains functions that assist in working with forms.
     ::
 
         $data = [
-                        'name'    => 'newsletter',
-                        'id'      => 'newsletter',
-                        'value'   => 'accept',
-                        'checked' => true,
-                        'style'   => 'margin:10px'
+            'name'    => 'newsletter',
+            'id'      => 'newsletter',
+            'value'   => 'accept',
+            'checked' => true,
+            'style'   => 'margin:10px'
         ];
 
         echo form_checkbox($data);
@@ -536,8 +538,8 @@ The Form Helper file contains functions that assist in working with forms.
     ::
 
         $attributes = [
-                        'class' => 'mycustomclass',
-                        'style' => 'color: #000;'
+            'class' => 'mycustomclass',
+            'style' => 'color: #000;'
         ];
 
         echo form_label('What is your Name', 'username', $attributes);
@@ -593,11 +595,11 @@ The Form Helper file contains functions that assist in working with forms.
     ::
 
         $data = [
-                        'name'    => 'button',
-                        'id'      => 'button',
-                        'value'   => 'true',
-                        'type'    => 'reset',
-                        'content' => 'Reset'
+            'name'    => 'button',
+            'id'      => 'button',
+            'value'   => 'true',
+            'type'    => 'reset',
+            'content' => 'Reset'
         ];
 
         echo form_button($data);
@@ -659,9 +661,9 @@ The Form Helper file contains functions that assist in working with forms.
     ::
 
         <select name="myselect">
-                        <option value="one" <?= set_select('myselect', 'one', true); ?> >One</option>
-                        <option value="two" <?= set_select('myselect', 'two'); ?> >Two</option>
-                        <option value="three" <?= set_select('myselect', 'three'); ?> >Three</option>
+            <option value="one" <?= set_select('myselect', 'one', true); ?> >One</option>
+            <option value="two" <?= set_select('myselect', 'two'); ?> >Two</option>
+            <option value="three" <?= set_select('myselect', 'three'); ?> >Three</option>
         </select>
 
 .. php:function:: set_checkbox($field[, $value = ''[, $default = false]])

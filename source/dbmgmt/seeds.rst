@@ -133,16 +133,15 @@ Faker를 프로젝트에 설치합니다.
 
 ::
 
-	// 이 명령은 UserSeeder 시드 파일을 생성합니다.
-	// app/Database/Seeds/ 디렉토리에 있습니다.
-	> php spark make:seeder UserSeeder
+	> php spark make:seeder user --suffix
+    // Output: UserSeeder.php file located at app/Database/Seeds directory.
 
-``-n`` 옵션을 제공하여 시드 파일이 저장될 **root** 네임스페이스를 지정할 수 있습니다.
+``--namespace`` 옵션을 사용하여 시드 파일이 저장될 **root** 네임스페이스를 지정할 수 있습니다.
 
 ::
 
-	> php spark make:seeder MySeeder -n Acme\Blog
+	> php spark make:seeder MySeeder -namespace Acme\Blog
 
-``Acme\Blog``\ 가 ``app/Blog`` 디렉토리에 매핑되면 이 명령은 시드 파일을 ``app/Blog/Database/Seeds/``\ 에 저장합니다.
+``Acme\Blog``\ 가 ``app/Blog`` 디렉토리에 매핑되면 이 명령은 시드 파일을 ``app/Blog/Database/Seeds/`` 디레토리에 저장합니다.
 
 ``--force`` 옵션을 지정하면 대상에 있는 기존 파일을 덮어 씁니다.

@@ -24,7 +24,7 @@ CodeIgniter4는 프레임워크를 다시 작성하였으며 이전 버전과 �
 
 **Downloads**
 
-- CI4는 사용 설명서('docs' 하위 폴더에 있음)가 포함된 즉시 실행 가능한 zip 또는 tarball로 계속 사용할 수 있습니다.
+- CI4는 즉시 실행 가능한 zip 또는 tarball로 계속 사용할 수 있습니다.
 - Composer를 사용하여 설치할 수도 있습니다
 
 **Namespaces**
@@ -94,14 +94,29 @@ CodeIgniter4는 프레임워크를 다시 작성하였으며 이전 버전과 �
   `Shopping Cart <http://codeigniter.com/userguide3/libraries/cart.html>`_, 
   `Trackback <http://codeigniter.com/userguide3/libraries/trackback.html>`_, 
   `XML-RPC /-Server <http://codeigniter.com/userguide3/libraries/xmlrpc.html>`_, 
-  `Zip Encoding <http://codeigniter.com/userguide3/libraries/zip.html>`_ 등이 있습니다.
+  `Zip Encoding <http://codeigniter.com/userguide3/libraries/zip.html>`_ 
+- CI3의 `Input <http://codeigniter.com/userguide3/libraries/input.html>`_\ 는 CI4의 :doc:`IncomingRequest </incoming/incomingrequest>`\ 에 해당합니다.
+- CI3의 `Output <http://codeigniter.com/userguide3/libraries/output.html>`\ 는 to CI4의 :doc:`Responses </outgoing/response>`\ 에 해당합니다.
 - CodeIgniter3의 다른 모든 라이브러리는 일부 조정을 통해 업그레이드할 수 있습니다. 가장 중요하고 주로 사용되는 라이브러리는 업그레이드 안내서가 제공되어 간단한 단계와 예제를 통해 코드를 조정할 수 있습니다.
 
 .. toctree::
     :titlesonly:
 
-    upgrade_migrations
     upgrade_configuration
+    upgrade_database
+    upgrade_emails
+    upgrade_encryption
+    upgrade_file_upload
+    upgrade_html_tables
+    upgrade_localization
+    upgrade_migrations
+    upgrade_pagination
+    upgrade_responses
+    upgrade_routing
+    upgrade_security
+    upgrade_sessions
+    upgrade_validations
+    upgrade_view_parser
 
 .. note::
     더 많은 업그레이드 가이드가 곧 출시됩니다.

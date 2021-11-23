@@ -50,7 +50,7 @@ CodeIgniter 규약
 ----------------------
 
 - `세션 <../libraries/sessions.html>`_ 라이브러리
-- CSRF 유효성 검사를 제공하는 `HTTP 라이브러리 <../incoming/incomingrequest.html>`_
+- CSRF 유효성 검사를 제공하는 :doc:`Security </libraries/security>`
 - 타사(third party ) 인증을 쉽게 추가할 수 있습니다.
 
 *****************************
@@ -150,7 +150,7 @@ CodeIgniter 규약
 ----------------------
 
 - 공용 폴더제공, 어플리케이션 및 시스템이 웹 루트 외부에 있습니다.
-- CSRF 유효성 검사를 제공하는 `HTTP 라이브러리 <../incoming/incomingrequest.html>`_
+- CSRF 유효성 검사를 제공하는 :doc:`Security </libraries/security>`
 
 *********************************************************
 A8 사이트간 요청 위조(Cross Site Request Forgery (CSRF))
@@ -168,7 +168,7 @@ OWASP 추천 사항
 CodeIgniter 규약
 ----------------------
 
-- CSRF 유효성 검사를 제공하는 `HTTP 라이브러리 <../incoming/incomingrequest.html>`_
+- CSRF 유효성 검사를 제공하는 :doc:`Security </libraries/security>`
 
 ************************************************************************************
 A9 알려진 취약성이 있는 구성 요소 사용(Using Components with Known Vulnerabilities)

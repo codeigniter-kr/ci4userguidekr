@@ -47,7 +47,7 @@ Forge 클래스 초기화
 ::
 
 	$forge->createDatabase('my_db', true);
-	// gives CREATE DATABASE IF NOT EXISTS my_db
+	// gives CREATE DATABASE IF NOT EXISTS `my_db`
 	// or will check if a database exists
 
 **$forge->dropDatabase('db_name')**
@@ -178,7 +178,7 @@ id 필드는 만들때 특별한 예외가 적용됩니다.
 ::
 
 	$forge->addField('id');
-	// gives id INT(9) NOT null AUTO_INCREMENT
+	// gives `id` INT(9) NOT null AUTO_INCREMENT
 
 키 추가
 ===========
@@ -227,15 +227,21 @@ addKey() 다음에 createTable()을 호출해야 합니다.
 
 ::
 
-        $forge->addForeignKey('users_id','users','id');
-        // gives CONSTRAINT `TABLENAME_users_foreign` FOREIGN KEY(`users_id`) REFERENCES `users`(`id`)
+    $forge->addForeignKey('users_id','users','id');
+    // gives CONSTRAINT `TABLENAME_users_foreign` FOREIGN KEY(`users_id`) REFERENCES `users`(`id`)
+
+    $forge->addForeignKey(['users_id', 'users_name'],'users',['id', 'name']);
+    // gives CONSTRAINT `TABLENAME_users_foreign` FOREIGN KEY(`users_id`, `users_name`) REFERENCES `users`(`id`, `name`)
 
 구속 조건의 "on delete" 및 "on update" 속성에 대해 원하는 작업을 지정할 수 있습니다.
 
 ::
 
-        $forge->addForeignKey('users_id','users','id','CASCADE','CASCADE');
-        // gives CONSTRAINT `TABLENAME_users_foreign` FOREIGN KEY(`users_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+    $forge->addForeignKey('users_id','users','id','CASCADE','CASCADE');
+    // gives CONSTRAINT `TABLENAME_users_foreign` FOREIGN KEY(`users_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+
+    $forge->addForeignKey(['users_id', 'users_name'],'users',['id', 'name'],'CASCADE','CASCADE');
+    // gives CONSTRAINT `TABLENAME_users_foreign` FOREIGN KEY(`users_id`, `users_name`) REFERENCES `users`(`id`, `name`) ON DELETE CASCADE ON UPDATE CASCADE
 
 테이블 만들기
 ==================
@@ -271,10 +277,10 @@ DROP TABLE 문을 실행하고 옵션으로 IF EXISTS 절을 추가합니다.
 
 ::
 
-	// Produces: DROP TABLE table_name
+	// Produces: DROP TABLE `table_name`
 	$forge->dropTable('table_name');
 
-	// Produces: DROP TABLE IF EXISTS table_name
+	// Produces: DROP TABLE IF EXISTS `table_name`
 	$forge->dropTable('table_name', true);
 
 세 번째 매개 변수를 설정하여 "CASCADE" 옵션을 추가할 수 있습니다. 
@@ -282,7 +288,7 @@ DROP TABLE 문을 실행하고 옵션으로 IF EXISTS 절을 추가합니다.
 
 ::
 
-	// Produces: DROP TABLE table_name CASCADE
+	// Produces: DROP TABLE `table_name` CASCADE
 	$forge->dropTable('table_name', false, true);
 
 외래 키 삭제
@@ -294,6 +300,16 @@ DROP FOREIGN KEY 문을 실행합니다.
 
 	// Produces: ALTER TABLE 'tablename' DROP FOREIGN KEY 'users_foreign'
 	$forge->dropForeignKey('tablename','users_foreign');
+
+키 삭제
+======================
+
+DROP KEY 문을 실행합니다.
+
+::
+
+    // Produces: DROP INDEX `users_index` ON `tablename`
+    $forge->dropKey('tablename','users_index');
 
 테이블 이름 바꾸기
 ===========================
@@ -375,7 +391,7 @@ MySQL 또는 CUBIRD를 사용하는 경우 AFTER 및 FIRST 절을 활용하여 �
 		],
 	];
 	$forge->modifyColumn('table_name', $fields);
-	// gives ALTER TABLE table_name CHANGE old_name new_name TEXT
+	// gives ALTER TABLE `table_name` CHANGE old_name new_name TEXT
 
 ***************
 Class Reference
@@ -398,7 +414,19 @@ Class Reference
 		:returns:	\CodeIgniter\Database\Forge instance (method chaining)
 		:rtype:	\CodeIgniter\Database\Forge
 
-                테이블을 만드는데 사용될 필드를 세트에 추가합니다. 사용법: `필드 추가`_.
+		테이블을 만드는데 사용될 필드를 세트에 추가합니다. 사용법: `필드 추가`_.
+
+    .. php:method:: addForeignKey($fieldName, $tableName, $tableField[, $onUpdate = '', $onDelete = ''])
+
+		:param    string|string[]    $fieldName: 키 필드 또는 필드 배열 이름
+		:param    string    $tableName: 상위 테이블의 이름
+		:param    string|string[]    $tableField: 상위 테이블 필드 또는 필드 배열의 이름
+		:param    string    $onUpdate: “on update”시 원하는 작업
+		:param    string    $onDelete: “on delete”시 원하는 작업
+		:returns:    \CodeIgniter\Database\Forge instance (method chaining)
+		:rtype:    \CodeIgniter\Database\Forge
+
+		테이블에 외부 키를 추가합니다. 사용법: `외래(Foreign) 키 추가`_.
 
 	.. php:method:: addKey($key[, $primary = false[, $unique = false]])
 
