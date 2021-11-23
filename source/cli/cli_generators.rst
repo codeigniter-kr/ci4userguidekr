@@ -192,7 +192,7 @@ Usage:
 ======
 ::
 
-    migrate:create <name> [options]
+    make:migration <name> [options]
 
 Argument:
 =========
@@ -206,6 +206,27 @@ Options:
 * ``--namespace``: 루트(root) 네임스페이스 설정. 기본값은 상수 ``APP_NAMESPACE``\ 의 값.
 * ``--suffix``: 접미사를 생성된 클래스 이름에 추가합니다.
 * ``--force``: 기존 파일을 덮어 쓰려면 이 플래그를 설정합니다.
+
+make:validation
+---------------
+
+새 유효성 검사 파일을 만듭니다.
+
+Usage:
+======
+::
+
+    make:validation <name> [options]
+
+Argument:
+=========
+* ``name``: 유효성 검사 클래스 이름. **[REQUIRED]**
+
+Options:
+========
+* ``--namespace``: root namespace. 기본 값은 ``APP_NAMESPACE``.
+* ``--suffix``: 생성된 클래스 이름에 구성 요소 접미사 추가.
+* ``--force``: 기존 파일을 덮어쓰도록 설정.
 
 .. note:: 하위 폴더에 생성된 코드를 저장하고 싶나요?
     메인 ``Controllers`` 폴더의 ``Admin`` 하위 폴더에 컨트롤러 클래스를 만들고 싶다면, 클래스 이름 앞에 ``php spark make:controller admin/login``\ 와 같이 하위 폴더를 추가하면 됩니다.

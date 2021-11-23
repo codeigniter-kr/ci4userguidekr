@@ -38,9 +38,9 @@ CodeIgniter의 CLI 라이브러리를 사용하면 다음을 포함하여 대화
 사용자로부터 입력 받기
 ===========================
 
-때때로 사용자에게 추가 정보를 요청해야합니다. 
-선택적 커맨드 라인 인수를 제공하지 않았거나 스크립트에 기존 파일이 있어서 겹쳐 쓰기 전에 확인이 필요한 경우등..
-이것은``prompt ()``메소드로 처리됩니다.
+사용자에게 추가 정보를 요청해야 하는 경우가 있습니다.
+선택적 커맨드 라인 인수를 입력 받거나, 기존 파일을 덮어 쓰기 전에 확인이 필요한 경우등등..
+이런 경우 ``prompt()`` 또는 ``promptByKey()`` 메소드를 사용하여 처리합니다.
 
 질문을 첫 번째 매개 변수로 전달하여 질문을 제공 할 수 있습니다.
 
@@ -71,6 +71,43 @@ CodeIgniter의 CLI 라이브러리를 사용하면 다음을 포함하여 대화
 ::
 
     $email = CLI::prompt('What is your email?', null, ['required', 'valid_email']);
+
+
+**promptByKey()**
+
+프롬프트에 대한 미리 정의된 답변(옵션)을 설명해야 하거나 너무 복잡하여 값을 통해 선택할 수 없는 경우
+ ``promptByKey()``\ 를 사용하면 값이 아닌 키로 옵션을 선택할 수 있습니다.
+
+::
+
+    $fruit = CLI::promptByKey('These are your choices:', ['The red apple', 'The plump orange', 'The ripe banana']);
+
+    //These are your choices:
+    //  [0]  The red apple
+    //  [1]  The plump orange
+    //  [2]  The ripe banana
+    //
+    //[0, 1, 2]:
+
+명명된 키도 가능합니다.
+
+::
+
+    $fruit = CLI::promptByKey(['These are your choices:', 'Which would you like?'], [
+        'apple' => 'The red apple',
+        'orange' => 'The plump orange',
+        'banana' => 'The ripe banana'
+    ]);
+
+    //These are your choices:
+    //  [apple]   The red apple
+    //  [orange]  The plump orange
+    //  [banana]  The ripe banana
+    //
+    //Which would you like? [apple, orange, banana]:
+
+마지막으로 :ref:`validation <validation>` 규칙을 세 번째 매개 변수로 전달하면, 허용되는 답변은 전달된 옵션에 의해 검증됩니다.
+
 
 피드백 제공
 ==================
@@ -191,6 +228,15 @@ Windows는 현재 창 크기를 결정하는 방법을 제공하지 않으므로
 
 ::
 
+    $titles = [
+        'task1a',
+        'task1abc',
+    ];
+    $descriptions = [
+        'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+        "Lorem Ipsum has been the industry's standard dummy text ever since the",
+    ];
+
     // Determine the maximum length of all titles
     // to determine the width of the left column
     $maxlen = max(array_map('strlen', $titles));
@@ -198,7 +244,11 @@ Windows는 현재 창 크기를 결정하는 방법을 제공하지 않으므로
     for ($i=0; $i < count($titles); $i++) {
         CLI::write(
             // Display the title on the left of the row
-            $titles[$i].'   '.
+            substr(
+                $titles[$i] . str_repeat(' ', $maxlen + 3),
+                0,
+                $maxlen + 3
+            ) .
             // Wrap the descriptions in a right-hand column
             // with its left side 3 characters wider than
             // the longest item on the left.
@@ -210,11 +260,12 @@ Windows는 현재 창 크기를 결정하는 방법을 제공하지 않으므로
 
 .. code-block:: none
 
-    task1a   Lorem Ipsum is simply dummy
-               text of the printing and typesetting
-               industry.
-    task1abc   Lorem Ipsum has been the industry's
-               standard dummy text ever since the
+    task1a     Lorem Ipsum is simply dummy
+               text of the printing and
+               typesetting industry.
+    task1abc   Lorem Ipsum has been the
+               industry's standard dummy
+               text ever since the
 
 **newLine()**
 

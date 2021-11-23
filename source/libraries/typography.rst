@@ -24,8 +24,6 @@ CodeIgniter의 다른 서비스와 마찬가지로 ``Config\Services``\ 를 통�
 
 다음 기능을 사용할 수 있습니다:
 
-**autoTypography()**
-
 .. php:function:: autoTypography($str[, $reduce_linebreaks = false])
 
 	:param	string	$str: 입력 문자열
@@ -42,15 +40,13 @@ CodeIgniter의 다른 서비스와 마찬가지로 ``Config\Services``\ 를 통�
 	.. note:: Typographic 형식은 특히 많은 콘텐츠를 포맷하는 경우 프로세서를 많이 사용할 수 있습니다. 
 		이 기능을 사용하기로 했다면 :doc:`caching <../general/caching>` 페이지를 고려하십시오.
 
-**formatCharacters()**
-
 .. php:function:: formatCharacters($str)
 
 	:param	string	$str: 입력 문자열
 	:returns:	형식이 지정된 문자가 포함된 문자열
 	:rtype:	string
 
-	이 함수는 주로 큰 따옴표와 작은 따옴표를 중괄호로 변환하지만 em-dashes, 이중 공백(double spaces), 앰퍼샌드(&)도 변환합니다.
+	이 함수는 주로 큰 따옴표(")와 작은 따옴표(')를 중괄호로 변환하지만 em-dashes, 이중 공백(double spaces), 앰퍼샌드(&)도 변환합니다.
 
 	Usage example::
 
@@ -64,8 +60,8 @@ CodeIgniter의 다른 서비스와 마찬가지로 ``Config\Services``\ 를 통�
 	:returns:	String with HTML-formatted line breaks
 	:rtype:	string
 
-	줄 바꿈이 <pre> 태그내에 나타나지 않으면 개행을 <br /> 태그로 변환합니다.
-	이 함수는 <pre> 태그를 무시한다는 점을 제외하면 PHP 네이티브 ``nl2br()`` 함수와 동일합니다.
+	줄 바꿈이 ``<pre>`` 태그내에 나타나지 않으면 개행을 ``<br />`` 태그로 변환합니다.
+	이 함수는 ``<pre>`` 태그를 무시한다는 점을 제외하면 PHP 네이티브 ``nl2br()`` 함수와 동일합니다.
 
 	Usage example::
 

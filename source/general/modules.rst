@@ -98,7 +98,16 @@ CodeIgniter는 자동 로드하고자 하는 파일에 대한 경로 목록을 `
 자동 검색 시스템은 **Config/Autoload.php**\ 에 정의된 psr4 네임스페이스 내의 특정 디렉토리 및 파일을 검색하여 작동합니다.
 
 **Blog** 네임스페이스에 자동 검색 기능을 적용하려면 작은 조정 하나를 수행해야 합니다.
-네임스페이스 내의 각 "모듈"을 완전히 정의해야 하므로 **Acme**\ 를 **Acme\\Blog**\ 로 변경해야 합니다. 
+네임스페이스 내의 각 "모듈"을 완전히 정의해야 하므로 **Acme**\ 를 **Acme\\Blog**\ 로 변경해야 합니다.
+
+::
+
+    public $psr4 = [
+        APP_NAMESPACE => APPPATH, // For custom namespace
+        'Config'      => APPPATH . 'Config',
+        'Acme\Blog'   => ROOTPATH . 'acme/Blog', // Change
+    ];
+
 모듈 폴더 경로가 정의되면 검색 프로세스는 해당 경로에서 검색 가능한 항목을 찾습니다. 
 예시된 경로 파일은 **/acme/Blog/Config/Routes.php**\ 에서 찾아야 합니다.
 
@@ -140,6 +149,21 @@ PSR0 네임스페이스는 감지되지 않습니다.
 기본적으로 모듈 내에서 :doc:`라우트 </incoming/routing>`\ 가 자동으로 검색됩니다. 위에서 설명한 **모듈** 구성 파일에서 끌 수 있습니다.
 
 .. note:: 파일이 현재 범위에 포함되므로 ``$routes`` 인스턴스가 이미 정의되어 있습니다. 해당 클래스를 재정의하려고 하면 오류가 발생합니다.
+
+Filters
+=======
+
+기본적으로 :doc:`filters </incoming/filters>`\ 는 모듈 내에서 자동으로 검색됩니다.
+위에서 설명한 **Modules** 구성 파일에서 이 기능을 해제할 수 있습니다.
+
+.. note:: 파일이 현재 범위에 포함되어 있으므로 ``$filters`` 인스턴스가 이미 정의되어 있습니다.
+    이 클래스를 재정의하려고 하면 오류가 발생합니다.
+
+모듈의 **Config/Filters.php** 파일에서 사용하는 필터의 별칭(aliase)을 정의해야 합니다.
+
+::
+
+    $filters->aliases['menus'] = MenusFilter::class;
 
 컨트롤러
 ===========

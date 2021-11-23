@@ -296,7 +296,7 @@ CodeIgniter를 사용하면 컨트롤러를 하위(sub) 디렉터리에 계층�
         example.com/index.php/products/shoes/show/123
 
 각 하위 디렉토리에는 URL에 하위 디렉토리만 호출하는 경우를 위하여 기본 컨트롤러가 지정할 수 있습니다.
-*app/Config/Routes.php* 파일의 'default_controller'\ 에 이를 위한 컨트롤러를 지정하십시오.
+**app/Config/Routes.php** 파일의 'default_controller'\ 에 이를 위한 컨트롤러를 지정하십시오.
 
 CodeIgniter에서는 :doc:`URI 라우팅 <routing>` 기능을 사용하여 URI를 다시 매핑할 수도 있습니다.
 

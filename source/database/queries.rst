@@ -17,6 +17,7 @@
 
 ::
 
+    $db = db_connect();
     $db->query('YOUR QUERY HERE');
 
 query() 함수는 "읽기" 유형의 쿼리가 실행될 때 데이터베이스 결과 **object**\ 를 반환합니다.

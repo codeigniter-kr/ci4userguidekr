@@ -159,7 +159,7 @@ Class Reference
         $cache->deleteMatching('prefix_*'); // deletes all items of which keys start with "prefix_"
         $cache->deleteMatching('*_suffix'); // deletes all items of which keys end with "_suffix"
 
-    glob 스타일 구문에 대한 자세한 내용은 `https://en.wikipedia.org/wiki/Glob_(programming) <https://en.wikipedia.org/wiki/Glob_(programming)#Syntax>`_\ 을 참조하십시오.
+    glob 스타일 구문에 대한 자세한 내용은  `Glob (programming) <https://en.wikipedia.org/wiki/Glob_(programming)#Syntax>`_\ 을 참조하십시오.
 
 .. php:method:: increment($key[, $offset = 1]): mixed
     :noindex:

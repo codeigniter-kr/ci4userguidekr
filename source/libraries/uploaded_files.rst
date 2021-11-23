@@ -133,15 +133,13 @@ HTML에서
 
 ::
 
-    if($imagefile = $this->request->getFiles())
-    {
-       foreach($imagefile['images'] as $img)
-       {
-          if ($img->isValid() && ! $img->hasMoved()) {
+    if ($imagefile = $this->request->getFiles()) {
+        foreach ($imagefile['images'] as $img) {
+            if ($img->isValid() && ! $img->hasMoved()) {
                $newName = $img->getRandomName();
                $img->move(WRITEPATH.'uploads', $newName);
-          }
-       }
+            }
+        }
     }
 
 여기서 **images**\ 는 다중 폼(form) 필드의 이름입니다.

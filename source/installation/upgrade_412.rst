@@ -39,7 +39,7 @@ ConnectionInterface를 구현하는 클래스를 작성한 경우 ``public funct
 
 ``CodeIgniter\Test`` 네임스페이스는 개발자들이 자체 테스트 사례를 활용할 수 있도록 크게 개선되었습니다.
 특히 테스트 확장(extension)은 다양한 테스트 케이스 요구사항에 대해 쉽게 선택하고 선택할 수 있도록 특성(Trait)으로 이동했습니다.
-``DatabaseTestCase``\ 와 ``FeatureTestCase`` 클래스는 더 이상 사용되지 않으며, 해당 메소드는 각각 ``DatabaseTestTrait``\ 과 ``FeatureTestTrait``\ 로 이동했습니다.
+``CIDatabaseTestCase``\ 와 ``FeatureTestCase`` 클래스는 더 이상 사용되지 않으며, 해당 메소드는 각각 ``DatabaseTestTrait``\ 과 ``FeatureTestTrait``\ 로 이동했습니다.
 주요 테스트 케이스를 확장하고 필요한 특성(Trait)을 사용하도록 테스트 케이스를 업데이트하십시오.
 
 ::

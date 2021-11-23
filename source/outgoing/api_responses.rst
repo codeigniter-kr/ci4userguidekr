@@ -43,29 +43,40 @@ CodeIgniter는 어떤 응답 유형에 대해 어떤 HTTP 상태 코드를 반�
 ::
 
     // Generic response method
-    respond($data, 200);
+    $this->respond($data, 200);
+
     // Generic failure response
-    fail($errors, 400);
+    $this->fail($errors, 400);
+
     // Item created response
-    respondCreated($data);
+    $this->respondCreated($data);
+
     // Item successfully deleted
-    respondDeleted($data);
+    $this->respondDeleted($data);
+
     // Command executed by no response required
-    respondNoContent($message);
+    $this->respondNoContent($message);
+
     // Client isn't authorized
-    failUnauthorized($description);
+    $this->failUnauthorized($description);
+
     // Forbidden action
-    failForbidden($description);
+    $this->failForbidden($description);
+
     // Resource Not Found
-    failNotFound($description);
+    $this->failNotFound($description);
+
     // Data did not validate
-    failValidationError($description);
+    $this->failValidationError($description);
+
     // Resource already exists
-    failResourceExists($description);
+    $this->failResourceExists($description);
+
     // Resource previously deleted
-    failResourceGone($description);
+    $this->failResourceGone($description);
+
     // Client made too many requests
-    failTooManyRequests($description);
+    $this->failTooManyRequests($description);
 
 ***********************
 응답 유형 처리
@@ -73,8 +84,8 @@ CodeIgniter는 어떤 응답 유형에 대해 어떤 HTTP 상태 코드를 반�
 
 이러한 메소드중 하나로 데이터를 전달하면 다음 기준에 따라 결과 형식의 지정된 데이터 유형이 결정됩니다:
 
-* $data가 문자열이면 클라이언트로 다시 보내기 위해 HTML로 처리됩니다.
-* $data가 배열이면 컨트롤러의 ``$this-format`` 값에 따라 형식이 지정됩니다. 이 항목이 비어 있으면 클라이언트가 요청한 내용과 내용 유형을 협상하려고 시도합니다. 기본적으로 JSON으로 설정됩니다.
+* 데이타가 문자열이면 클라이언트로 다시 보내기 위해 HTML로 처리됩니다.
+* 데이타가가 배열이면 컨트롤러의 ``$this-format`` 값에 따라 형식이 지정됩니다. 이 항목이 비어 있으면 클라이언트가 요청한 내용과 내용 유형을 협상하려고 시도합니다. **Config/Format.php**\ 의 속성 ``$supportedResponseFormats``\ 에 다른 내용이 지정되지 않은 경우 기본적으로 JSON으로 설정됩니다.
 
 사용되는 포맷터를 정의하려면 **Config/Format.php**\ 를 수정하십시오.
 ``$supportedResponseFormats``\ 에는 어플리케이션이 자동으로 응답 형식을 지정할 수 있는 MIME 유형 목록이 포함되어 있습니다.
@@ -118,7 +129,7 @@ Class Reference
 
     return $this->setResponseFormat('json')->respond(['error' => false]);
 
-.. php:method:: respond($data[, $statusCode=200[, $message='']])
+.. php:method:: respond($data[, $statusCode = 200[, $message = '']])
 
     :param mixed  $data: 클라이언트에게 반환 할 데이터, 문자열 또는 배열
     :param int    $statusCode: HTTP 상태 코드, 기본값은 200
@@ -134,7 +145,7 @@ Class Reference
 
     .. note:: 활성 Response 인스턴스에서 상태 코드 및 본문을 설정하므로 항상 스크립트의 마지막에 이 메소드가 실행 되어야합니다.
 
-.. php:method:: fail($messages[, int $status=400[, string $code=null[, string $message='']]])
+.. php:method:: fail($messages[, int $status = 400[, string $code = null[, string $message='']]])
 
     :param mixed $messages: 오류 메시지가 포함 된 문자열 또는 문자열 배열
     :param int   $status: HTTP 상태 코드, 기본값은 400
@@ -209,7 +220,7 @@ Class Reference
 	    sleep(1);
 	    return $this->respondNoContent();
 
-.. php:method:: failUnauthorized(string $description = 'Unauthorized'[, string $code=null[, string $message = '']])
+.. php:method:: failUnauthorized(string $description = 'Unauthorized'[, string $code = null[, string $message = '']])
 
     :param string  $description: 사용자에게 표시할 오류 메시지
     :param string $code: 사용자 정의 API별 오류 코드
@@ -222,7 +233,7 @@ Class Reference
 
 	    return $this->failUnauthorized('Invalid Auth token');
 
-.. php:method:: failForbidden(string $description = 'Forbidden'[, string $code=null[, string $message = '']])
+.. php:method:: failForbidden(string $description = 'Forbidden'[, string $code = null[, string $message = '']])
 
     :param string  $description: 사용자에게 표시할 오류 메시지
     :param string $code: 사용자 정의 API별 오류 코드
@@ -237,7 +248,7 @@ Class Reference
 
     	return $this->failForbidden('Invalid API endpoint.');
 
-.. php:method:: failNotFound(string $description = 'Not Found'[, string $code=null[, string $message = '']])
+.. php:method:: failNotFound(string $description = 'Not Found'[, string $code = null[, string $message = '']])
 
     :param string  $description: 사용자에게 표시할 오류 메시지
     :param string $code: 사용자 정의 API별 오류 코드
@@ -250,7 +261,7 @@ Class Reference
 
     	return $this->failNotFound('User 13 cannot be found.');
 
-.. php:method:: failValidationErrors($errors[, string $code=null[, string $message = '']])
+.. php:method:: failValidationErrors($errors[, string $code = null[, string $message = '']])
 
     :param mixed  $errors: 사용자에게 표시할 오류 메시지 또는 메시지 배열
     :param string $code: 사용자 정의 API별 오류 코드

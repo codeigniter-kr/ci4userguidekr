@@ -232,7 +232,9 @@ selectMax()와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 �
 
 이 함수를 사용하면 네 가지 방법중 하나를 사용하여 **WHERE** 절을 설정할 수 있습니다:
 
-.. note:: 이 함수에 전달된 모든 값은 자동으로 이스케이프되어 안전한 쿼리를 생성합니다.
+.. note:: 이 함수에 전달된 모든 값(사용자 지정 문자열은 제외됨)은 자동으로 이스케이프되어 안전한 쿼리를 생성합니다.
+
+.. note:: ``$builder->where()``\ 는 세 번째 매개 변수를 옵션으로 허용하며, ``false``\ 로 설정하면 CodeIgniter는 필드 또는 테이블 이름을 보호하지 않습니다.
 
 #. **key/value 방법:**
 
@@ -286,11 +288,15 @@ selectMax()와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 �
         $where = "name='Joe' AND status='boss' OR status='active'";
         $builder->where($where);
 
-    ``$builder->where()``\ 는 세 번째 매개 변수를 옵션으로 허용하며, ``false``\ 로 설정하면 CodeIgniter는 필드 또는 테이블 이름을 보호하지 않습니다.
+    
+    문자열 내에 사용자 지정 데이터를 사용하는 경우 데이터를 수동으로 이스케이프해야 합니다.
+    그렇지 않으면 SQL 주입(SQL injections)이 발생할 수 있습니다.
 
     ::
 
-        $builder->where('MATCH (field) AGAINST ("value")', null, false);
+        $name = $builder->db->escape('Joe');
+        $where = "name={$name} AND status='boss' OR status='active'";
+        $builder->where($where);
 
 #. **서브 쿼리:**
 
@@ -1714,7 +1720,7 @@ Class Reference
 
         :param mixed $key: 필드 이름 또는 필드/값 쌍 배열
         :param string $value: $key가 단일 필드인 경우 필드 값
-        :param bool $escape: 값과 식별자를 이스케이프할지 여부
+        :param bool $escape: 값을 이스케이프할지 여부
         :returns: ``BaseBuilder`` instance (method chaining)
         :rtype: ``BaseBuilder``
 
@@ -1723,7 +1729,7 @@ Class Reference
     .. php:method:: insert([$set = null[, $escape = null]])
 
         :param array $set: 필드/값 쌍 배열
-        :param bool $escape: 값과 식별자를 이스케이프할지 여부
+        :param bool $escape: 값을 이스케이프할지 여부
         :returns: true on success, false on failure
         :rtype: bool
 
@@ -1732,7 +1738,7 @@ Class Reference
     .. php:method:: insertBatch([$set = null[, $escape = null[, $batch_size = 100]]])
 
         :param array $set: Insert할 데이터
-        :param bool $escape: 값과 식별자를 이스케이프할지 여부
+        :param bool $escape: 값을 이스케이프할지 여부
         :param int $batch_size: 한 번에 Insert할 행의 수
         :returns: Insert된 행의 수, 실패시 false
         :rtype: mixed
@@ -1745,7 +1751,7 @@ Class Reference
 
         :param mixed $key: 필드 이름 또는 필드/값 쌍 배열
         :param string $value: $key가 단일 필드인 경우 필드 값
-        :param bool $escape: 값과 식별자를 이스케이프할지 여부
+        :param bool $escape: 값을 이스케이프할지 여부
         :returns: ``BaseBuilder`` instance (method chaining)
         :rtype: ``BaseBuilder``
 
@@ -1777,7 +1783,7 @@ Class Reference
 
         :param mixed $key: 필드 이름 또는 필드/값 쌍 배열
         :param string $value: $key가 단일 필드인 경우 필드 값
-        :param bool $escape: 값과 식별자를 이스케이프할지 여부
+        :param bool $escape: 값을 이스케이프할지 여부
         :returns: ``BaseBuilder`` instance (method chaining)
         :rtype: ``BaseBuilder``
 

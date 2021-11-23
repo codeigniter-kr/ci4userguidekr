@@ -56,6 +56,12 @@ URL은 체계가 복잡해짐에 따라 변경될 수 있지만 지금은 이것
 그리고 기본 컨트롤러인 **app/Controllers/Home.php**\ 와 동일한 ``index()`` 메소드(method)를 가지고 있습니다. 
 이 메소드는 CodeIgniter의 welcome 페이지를 보여줍니다.
 
+.. note:: There are two ``view()`` functions referred to in this tutorial.
+    One is the class method created with ``public function view($page = 'home')``
+    and ``echo view('welcome_message')`` for displaying a view.
+    Both are *technically* a function. But when you create a function in a class,
+    it's called a method.
+
 ``Pages`` 클래스는 ``CodeIgniter\Controller`` 클래스를 확장하고 있습니다.
 이는 새 Pages 클래스가 ``CodeIgniter\Controller`` 클래스에 정의된 메소드와 변수를 이용할 수 있다는 것을 의미합니다.
 

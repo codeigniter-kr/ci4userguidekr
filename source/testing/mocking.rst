@@ -1,0 +1,52 @@
+######################
+Mocking System 클래스
+######################
+
+프레임워크 내의 여러 구성 요소는 테스트 중에 사용할 수 있는 해당 클래스의 모의 버전을 제공합니다.
+이러한 클래스는 테스트 실행 중에 일반 클래스를 대신할 수 있으며, 종종 테스트 실행 중에 작업이 수행되었는지(또는 수행되지 않았는지) 테스트하기 위한 추가 어설션을 제공합니다.
+이를 통하여 데이터가 올바르게 캐시되었는지, 이메일이 올바르게 전송되었는지 등을 확인할 수 있습니다.
+
+.. contents::
+    :local:
+    :depth: 1
+
+Cache
+=====
+
+유일한 매개변수 ``CacheFactory``\ 를 사용하여 ``mock()`` 메소드로 캐시를 흉내(mocking)낼 수 있습니다.
+
+::
+
+    $mock = mock(CodeIgniter\Cache\CacheFactory::class);
+
+이는 직접 사용할 수 있는 ``CodeIgniter\Test\Mock\MockCache``\ 의 인스턴스를 반환하지만, 서비스 클래스에 모의(mock)도 삽입하므로 코드 내의 모든 호출 ``service('cache')`` 또는 ``Config\Services::cache()``\ 는 해당 위치에 모의 클래스를 사용합니다.
+
+단일 파일에서 둘 이상의 테스트를 할 때 ``setUp()``\ 의 깨끗한 상태를 보장하기 위해 ``clean()``, ``bypass()`` 메소드를 호출하여 테스트가 실행됩니다.
+
+추가 메소드
+------------------
+
+캐시 핸들러에 ``bypass()`` 메소드를 사용하여 캐시를 수행하지 않도록 지시할 수 있습니다.
+이렇게 하면 더미 핸들러를 사용하여 에뮬레이트되며 테스트를 위해 캐시된 데이터에 의존하지 않습니다.
+
+::
+
+    $mock = mock(CodeIgniter\Cache\CacheFactory::class);
+    // Never cache any items during this test.
+    $mock->bypass();
+
+사용 가능 어설션
+--------------------
+
+다음과 같은 새로운 어설션을 테스트 중에 사용할 수 있습니다.
+
+::
+
+    $mock = mock(CodeIgniter\Cache\CacheFactory::class);
+
+    // Assert that a cached item named $key exists
+    $mock->assertHas($key);
+    // Assert that a cached item named $key exists with a value of $value
+    $mock->assertHasValue($key, $value);
+    // Assert that a cached item named $key does NOT exist
+    $mock->assertMissing($key);

@@ -39,9 +39,9 @@ User Agent 클래스가 초기화되면 사이트를 탐색하는 User Agent가 
 	$agent = $this->request->getUserAgent();
 
 	if ($agent->isBrowser())  {
-		$currentAgent = $agent->getBrowser().' '.$agent->getVersion();
+		$currentAgent = $agent->getBrowser() . ' ' . $agent->getVersion();
 	} elseif ($agent->isRobot()) {
-		$currentAgent = $this->agent->robot();
+		$currentAgent = $agent->agent->getRobot();
 	} elseif ($agent->isMobile()) {
 		$currentAgent = $agent->getMobile();
 	} else {

@@ -1,0 +1,105 @@
+파일 업로드 업그레이드
+###################################
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+Documentations
+==============
+- `Codeigniter 3.X Output Class 문서  <http://codeigniter.com/userguide3/libraries/file_uploading.html>`_
+- :doc:`Codeigniter 4.X Uploaded Files 문서  </libraries/uploaded_files>`
+
+변경된 사항
+=====================
+- 파일 업로드 기능은 파일이 오류 없이 업로드되었는지 확인할 수 있고, 파일을 더 쉽게 이동/저장할 수 있도록 많이 변경되었습니다.
+
+Upgrade Guide
+=============
+CI4에서는 ``$file = $this->request->getFile('userfile')``\ 로 업로드된 파일에 액세스합니다. 업로드된 파일은 ``$file->isValid()``\ 를 사용하여 파일이 성공적으로 업로드되었는지 확인할 수 있습니다.
+업로드된 파일을 저장하려면 ``$path = $this->request->getFile('userfile')->store('head_img/', 'user_name.jpg');``\ 를 사용합니다. 파일은 ``writable/uploads/head_img/user_name.jpg``\ 로 저장됩니다.
+
+새로운 메소드와 일치하도록 파일 업로드 코드를 변경해야 합니다.
+
+Code Example
+============
+
+Codeigniter Version 3.11
+------------------------
+::
+
+    <?php
+
+    class Upload extends CI_Controller {
+
+        public function __construct()
+        {
+            parent::__construct();
+            $this->load->helper(array('form', 'url'));
+        }
+
+        public function index()
+        {
+            $this->load->view('upload_form', array('error' => ' ' ));
+        }
+
+        public function do_upload()
+        {
+            $config['upload_path']   = './uploads/';
+            $config['allowed_types'] = 'png|jpg|gif';
+            $config['max_size']      = 100;
+            $config['max_width']     = 1024;
+            $config['max_height']    = 768;
+
+            $this->load->library('upload', $config);
+
+            if ( ! $this->upload->do_upload('userfile'))
+            {
+                $error = array('error' => $this->upload->display_errors());
+
+                $this->load->view('upload_form', $error);
+            }
+            else
+            {
+                $data = array('upload_data' => $this->upload->data());
+
+                $this->load->view('upload_success', $data);
+            }
+        }
+    }
+
+Codeigniter Version 4.x
+-----------------------
+::
+
+    <?php
+
+    namespace App\Controllers;
+
+    class Upload extends BaseController {
+
+        public function index()
+        {
+            echo view('upload_form', ['error' => ' ']);
+        }
+
+        public function do_upload()
+        {
+            $this->validate([
+                'userfile' => 'uploaded[userfile]|max_size[userfile,100]'
+                               . '|mime_in[userfile,image/png,image/jpg,image/gif]'
+                               . '|ext_in[userfile,png,jpg,gif]|max_dims[userfile,1024,768]'
+            ]);
+
+            $file = $this->request->getFile('userfile');
+
+            if (! $path = $file->store()) {
+                echo view('upload_form', ['error' => "upload failed"]);
+            } else {
+                $data = ['upload_file_path' => $path];
+
+                echo view('upload_success', $data);
+            }
+        }
+    }

@@ -15,6 +15,7 @@
 =====================
 
 - 우선 순차적 마이그레이션 이름은 (``001_create_users``, ``002_create_posts``)\  더 이상 지원되지 않습니다. CodeIgniter 버전4는 타임스탬프 구성만 (``20121031100537_create_users``, ``20121031500638_create_posts``) 지원합니다. 순차적 이름을 사용한 경우에는 각 마이그레이션 파일의 이름을 변경해야 합니다.
+- 마이그레이션 테이블 구조가 변경되었습니다. CI3에서 CI4로 업그레이드하고 동일한 데이터베이스를 사용하는 경우 마이그레이션 테이블 구조와 해당 데이터를 업그레이드해야 합니다.
 - 마이그레이션 절차도 변경되었습니다. 이제 간단한 CLI 명령을 사용하여 데이터베이스를 마이그레이션할 수 있습니다.
 
 ::
@@ -32,12 +33,18 @@
 6. ``extends CI_Migration``\ 을 ``extends Migration``\ 으로 대체합니다.
 7. ``Forge`` 클래스 내의 메서드 이름이 camelCase를 사용하도록 변경되었습니다.
 
-- ``$this->dbforge->add_field`` to ``$this->forge->addField``
-- ``$this->dbforge->add_key`` to ``$this->forge->addKey``
-- ``$this->dbforge->create_table`` to ``$this->forge->addTable``
-- ``$this->dbforge->drop_table`` to ``$this->forge->addTable``
+    - ``$this->dbforge->add_field`` to ``$this->forge->addField``
+    - ``$this->dbforge->add_key`` to ``$this->forge->addKey``
+    - ``$this->dbforge->create_table`` to ``$this->forge->addTable``
+    - ``$this->dbforge->drop_table`` to ``$this->forge->addTable``
 
 8. (선택사항) 배열 구문을 ``array(...)``\ 에서 ``[...]``\ 로 변경할 수 있습니다.
+9. 동일한 데이터베이스를 사용하는 경우 마이그레이션 테이블을 업그레이드합니다.
+
+    - **(development)** 개발 환경의 새로운 데이터베이스에 CI4 마이그레이션을 실행하여 마이그레이션 테이블을 만듭니다.
+    - **(development)** 마이그레이션 테이블을 내보냅니다.(Export)
+    - **(production)** CI3 마이그레이션 테이블을 삭제하거나 이름을 변경합니다.
+    - **(production)** CI4 마이그레이션 테이블과 데이터를 가져옵니다.
 
 코드 예
 ============

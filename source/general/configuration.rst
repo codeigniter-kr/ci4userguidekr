@@ -169,8 +169,7 @@ CodeIgniter와 함께 배포된 템플릿 파일 **env**\ 가 프로젝트 루�
 
 ::
 
-    Config\App.CSRFProtection  = true
-    Config\App.CSRFCookieName = csrf_cookie
+    Config\App.forceGlobalSecureRequests  = true
     Config\App.CSPEnabled = true
 
 
@@ -182,11 +181,18 @@ CodeIgniter와 함께 배포된 템플릿 파일 **env**\ 가 프로젝트 루�
 
 ::
 
-    app.CSRFProtection  = true    
-    app.CSRFCookieName = csrf_cookie
+    app.forceGlobalSecureRequests  = true    
     app.CSPEnabled = true
 
 .. note:: *short prefix*\ 를 사용할 때 속성 이름은 여전히 클래스 정의 이름과 정확히 일치해야 합니다.
+
+일부 환경에서는 점이 있는 변수 이름을 허용하지 않습니다. 이 경우 분리자로 ``_``\ 를 사용할 수 있습니다.
+
+::
+
+    app_forceGlobalSecureRequests = true
+    app_CSPEnabled = true
+
 
 데이터를 대체하는 환경 변수
 ============================

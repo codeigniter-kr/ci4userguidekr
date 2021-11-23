@@ -218,7 +218,7 @@ Traits
 
     $this->assertEventTriggered('foo');
 
-**assertHeaderEmitted($header, $ignoreCase=false)**
+**assertHeaderEmitted($header, $ignoreCase = false)**
 
 헤더 또는 쿠키가 실제로 방출되었는지 확인
 
@@ -234,7 +234,7 @@ Traits
 
 Note: 테스트 케이스는 `PHPunit에서 별도의 프로세스로 실행 <https://phpunit.readthedocs.io/en/7.4/annotations.html#runinseparateprocess>`_\ 되어야 합니다.
 
-**assertHeaderNotEmitted($header, $ignoreCase=false)**
+**assertHeaderNotEmitted($header, $ignoreCase = false)**
 
 헤더 또는 쿠키가 방출되지 않았는지 확인
 
@@ -250,7 +250,7 @@ Note: 테스트 케이스는 `PHPunit에서 별도의 프로세스로 실행 <ht
 
 Note: 테스트 케이스는 `PHPunit에서 별도의 프로세스로 실행 <https://phpunit.readthedocs.io/en/7.4/annotations.html#runinseparateprocess>`_\ 되어야 합니다.
 
-**assertCloseEnough($expected, $actual, $message='', $tolerance=1)**
+**assertCloseEnough($expected, $actual, $message = '', $tolerance = 1)**
 
 확장된 실행 시간 테스트의 경우 예상 시간과 실제 시간의 절대 차이가 규정된 허용 오차 내에 있는지 테스트합니다.
 
@@ -262,7 +262,7 @@ Note: 테스트 케이스는 `PHPunit에서 별도의 프로세스로 실행 <ht
 
 위의 테스트를 통해 실제 시간은 660 초 또는 661 초가 될 수 있습니다.
 
-**assertCloseEnoughString($expected, $actual, $message='', $tolerance=1)**
+**assertCloseEnoughString($expected, $actual, $message = '', $tolerance = 1)**
 
 확장된 실행 시간 테스트의 경우 문자열 형식의 예상 시간과 실제 시간의 절대 차이가 규정된 허용 오차내에 있는지 테스트합니다.
 

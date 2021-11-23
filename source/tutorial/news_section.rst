@@ -93,16 +93,14 @@ Model 클래스를 사용하면 Query Builder로 쉽게 작업 할 수 있으며
             return $this->findAll();
         }
 
-        return $this->asArray()
-                ->where(['slug' => $slug])
-                ->first();
+        return $this->where(['slug' => $slug])->first();
     }
 
 이 코드를 사용하면 두 가지 다른 쿼리를 수행 할 수 있습니다.
 모든 뉴스 레코드를 얻거나, `slug <#>`_\ 를 통해 뉴스 항목을 얻을 수 있습니다.
 :doc:`Query Builder <../database/query_builder>`\ 를 실행하기 전 ``$slug`` 변수에 값이 제거되지 않았습니다.
 
-여기서 사용되는 두 가지 메소드 ``findAll()``\ 과 ``first()``\ 는 모델 클래스에 의해 제공됩니다.
+여기서 사용되는 두 가지 메소드 ``findAll()``\ 과 ``first()``\ 는 ``CodeIgniter\Model`` 클래스에 의해 제공됩니다.
 이 두 메소드는 이미 우리가 앞서 **NewsModel** 클래스에 설정한 ``$table`` 속성을 기준으로 사용할 테이블를 알고 있습니다.
 이 메소드는 Query Builder를 사용하여 현재 테이블에서 명령을 실행하고 원하는 형식으로 결과 배열을 반환하는 도우미(helper) 메소드입니다.
 이 예에서 ``findAll()``\ 은 일련의 객체(object)를 반환합니다.
@@ -127,14 +125,14 @@ Model 클래스를 사용하면 Query Builder로 쉽게 작업 할 수 있으며
     {
         public function index()
         {
-            $model = new NewsModel();
+            $model = model(NewsModel::class);
 
             $data['news'] = $model->getNews();
         }
 
         public function view($slug = null)
         {
-            $model = new NewsModel();
+            $model = model(NewsModel::class);
 
             $data['news'] = $model->getNews($slug);
         }
@@ -155,7 +153,7 @@ Model 클래스를 사용하면 Query Builder로 쉽게 작업 할 수 있으며
 
     public function index()
     {
-        $model = new NewsModel();
+        $model = model(NewsModel::class);
 
         $data = [
             'news'  => $model->getNews(),
@@ -176,7 +174,7 @@ title의 값은 ``$data['title']`` 요소에 할당되며 모든 데이터는 �
 
     <h2><?= esc($title) ?></h2>
 
-    <?php if (! empty($news) && is_array($news)) : ?>
+    <?php if (! empty($news) && is_array($news)): ?>
 
         <?php foreach ($news as $news_item): ?>
 
@@ -189,7 +187,7 @@ title의 값은 ``$data['title']`` 요소에 할당되며 모든 데이터는 �
 
         <?php endforeach; ?>
 
-    <?php else : ?>
+    <?php else: ?>
 
         <h3>No News</h3>
 
@@ -217,12 +215,12 @@ title의 값은 ``$data['title']`` 요소에 할당되며 모든 데이터는 �
 
     public function view($slug = null)
     {
-        $model = new NewsModel();
+        $model = model(NewsModel::class);
 
         $data['news'] = $model->getNews($slug);
 
         if (empty($data['news'])) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the news item: '. $slug);
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the news item: ' . $slug);
         }
 
         $data['title'] = $data['news']['title'];
@@ -240,7 +238,7 @@ title의 값은 ``$data['title']`` 요소에 할당되며 모든 데이터는 �
     <h2><?= esc($news['title']) ?></h2>
     <p><?= esc($news['body']) ?></p>
 
-.. note:: XSS 공격을 방지하기 위해 다시 **esc()**\ 를 사용하고 있습니다.
+.. note:: XSS 공격을 방지하기 위해 다시 ``esc()``\ 를 사용하고 있습니다.
     하지만 이번에는 "url"\ 을 두 번째 매개 변수로 전달했습니다. 
     출력이 사용되는 상황에 따라 공격 패턴이 다르기 때문입니다.
     자세한 내용은 :doc:`여기 </general/common_functions>`\ 를 참조하십시오.
