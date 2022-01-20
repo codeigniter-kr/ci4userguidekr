@@ -109,7 +109,7 @@ CodeIgniter의 거의 모든 클래스는 해당 클래스가 준수하는 인�
 
 ::
 
-    public static function renderer($viewPath=APPPATH.'views/')
+    public static function renderer($viewPath = APPPATH . 'views/')
     {
         return new \CodeIgniter\View\View($viewPath);
     }
@@ -135,8 +135,7 @@ CodeIgniter의 거의 모든 클래스는 해당 클래스가 준수하는 인�
     {
         public static function routes($getShared = false)
         {
-            if (! $getShared)
-            {
+            if (! $getShared) {
                 return new \CodeIgniter\Router\RouteCollection();
             }
 

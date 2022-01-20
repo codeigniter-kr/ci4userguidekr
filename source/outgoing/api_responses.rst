@@ -102,7 +102,7 @@ XML과 JSON 응답의 형식이 기본적으로 지정되어 있습니다.
 지원하는 것중 클라이언트가 요청한 것과 일치하는 것이 없으면 이 배열의 첫 번째 형식이 반환됩니다.
 
 다음으로, 데이터 배열을 형식화하는데 사용되는 클래스를 정의해야 합니다.
-정규화된 클래스 이름이어야 하며 클래스는 **CodeIgniter\\Format\\FormatterInterface**\ 를 구현해야 합니다.
+정규화된 클래스 이름이어야 하며 클래스는 ``CodeIgniter\Format\FormatterInterface``\ 를 구현해야 합니다.
 JSON과 XML을 모두 지원하는 포맷터가 기본으로 제공됩니다.
 
 ::
@@ -112,7 +112,7 @@ JSON과 XML을 모두 지원하는 포맷터가 기본으로 제공됩니다.
         'application/xml'  => \CodeIgniter\Format\XMLFormatter::class,
     ];
 
-따라서 요청이 **Accept** 헤더에서 JSON 형식의 데이터를 요청하면 ``respond*`` 또는 ``fail*`` 메소드는 데이터 배열을 **CodeIgniter\\API\\JSONFormatter** 클래스로 형식화합니다.
+따라서 요청이 **Accept** 헤더에서 JSON 형식의 데이터를 요청하면 ``respond*`` 또는 ``fail*`` 메소드는 데이터 배열을 ``CodeIgniter\Format\JSONFormatter`` 클래스로 형식화합니다.
 결과인 JSON 데이터는 클라이언트로 다시 전송됩니다.
 
 Class Reference
@@ -240,7 +240,7 @@ Class Reference
     :param string $message: 사용자 정의 "이유" 메시지
     :returns: Response 객체 send() 메소드의 값
 
-    ``failUnauthorized``\ 와 달리 이 메소드는 요청된 API 엔드 포인트가 허용되지 않을 때 사용합니다.
+    ``failUnauthorized()``\ 와 달리 이 메소드는 요청된 API 엔드 포인트가 허용되지 않을 때 사용합니다.
     Unauthorized는 클라이언트가 다른 자격 증명으로 다시 시도하도록 권장합니다.
     Forbidden은 클라이언트가 도움이 되지 않기 때문에 다시 시도해서는 안 됨을 의미합니다. (상태 코드 403)
 

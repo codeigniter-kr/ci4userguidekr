@@ -3,7 +3,7 @@
 ######################
 
 ``Test Response`` 클래스는 테스트 케이스의 응답을 구문 분석하고 테스트하는 데 유용한 여러 기능을 제공합니다. 
-일반적으로 `Controller Tests <controller.html>`_ 또는 `HTTP Feature Tests <feature.html>`_\ 의 결과로 ``TestResponse``\ 가 제공되지만 언제든지 ``ResponseInterface``\ 를 사용하여 직접 생성할 수 있습니다.
+일반적으로 :doc:`Controller Tests <controllers>` 또는 :doc:`HTTP Feature Tests <feature>`\ 의 결과로 ``TestResponse``\ 가 제공되지만 언제든지 ``ResponseInterface``\ 를 사용하여 직접 생성할 수 있습니다.
 
 ::
 
@@ -41,6 +41,7 @@ Request/Response 액세스
 
 응답이 "ok"\ 로 인식되는지 여부에 따라 부울 true/false\ 를 반환합니다. 
 이는 주로 응답 상태 코드 200 또는 300에 의해 결정됩니다.
+리디렉션이 아니라면 빈 본문은 유효한 것으로 간주되지 않습니다.
 
 ::
 

@@ -31,7 +31,7 @@
 
 	<ul>
 
-	<?php foreach ($todo as $item) : ?>
+	<?php foreach ($todo as $item): ?>
 
 		<li><?= $item ?></li>
 
@@ -49,15 +49,15 @@ Each of the control structures listed above has a similar closing syntax: ``endi
 
 ::
 
-	<?php if ($username === 'sally') : ?>
+	<?php if ($username === 'sally'): ?>
 
 		<h3>Hi Sally</h3>
 
-	<?php elseif ($username === 'joe') : ?>
+	<?php elseif ($username === 'joe'): ?>
 
 		<h3>Hi Joe</h3>
 
-	<?php else : ?>
+	<?php else: ?>
 
 		<h3>Hi unknown user</h3>
 

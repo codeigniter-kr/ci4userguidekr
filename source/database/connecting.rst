@@ -24,8 +24,10 @@
 사용 가능한 매개 변수
 --------------------------
 
-#. 데이터베이스 그룹 이름, 구성 클래스의 특성 이름과 일치 하는 문자열. 기본값은 $config->defaultGroup.
-#. true/false (boolean). 공유 연결을 반환할지 여부 (아래의 여러 데이터베이스에 연결 참조).
+**\\Config\\Database::connect($group = null, bool $getShared = true): BaseConnection**
+
+#. ``$group``: 데이터베이스 그룹 이름, 구성 클래스의 특성 이름과 일치 하는 문자열. 기본값은 $config->defaultGroup.
+#. ``$getShared``: true/false (boolean). 공유 연결을 반환할지 여부 (아래의 여러 데이터베이스에 연결 참조).
 
 데이터베이스 수동 연결
 ---------------------------------
@@ -60,9 +62,9 @@
 ::
 
     $db1 = \Config\Database::connect('group_one');
-    $db  = \Config\Database::connect('group_two');
+    $db2 = \Config\Database::connect('group_two');
 
-Note: "group_one"\ 과 "group_two"\ 라는 단어를 연결중인 특정 그룹 이름으로 변경하십시오.
+Note: ``group_one``\ 과 ``group_two``\ 라는 단어를 연결중인 특정 그룹 이름으로 변경하십시오.
 
 .. note:: 동일한 연결에서 다른 데이터베이스만 사용해야 할때는 별도의 데이터베이스 구성을 만들 필요가 없습니다.
     다음과 같이하면 필요할 때 다른 데이터베이스로 전환할 수 있습니다::

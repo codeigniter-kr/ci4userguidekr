@@ -13,8 +13,7 @@
       "avatar_url": "https://avatars3.githubusercontent.com/u/4138634?v=4",
       "profile": "https://github.com/hoksi",
       "contributions": [
-        "doc",
-        "translation"
+        "doc"
       ]
     },
     {
@@ -25,19 +24,10 @@
       "contributions": [
         "doc"
       ]
-    },
-    {
-      "login": "pushwing",
-      "name": "Jongwon Byun",
-      "avatar_url": "https://avatars0.githubusercontent.com/u/13030572?v=4",
-      "profile": "https://github.com/pushwing",
-      "contributions": [
-        "doc"
-      ]
     }
   ],
   "projectName": "ci4userguidekr",
-  "projectOwner": "codeigniter-kr",
+  "projectOwner": "hoksi",
   "repoType": "github",
   "repoHost": "https://github.com"
 }

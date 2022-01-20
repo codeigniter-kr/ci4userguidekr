@@ -341,6 +341,8 @@ form_params
 
 .. note:: ``form_params``\ 는 ``multipart`` 옵션과 함께 사용할 수 없습니다. 둘 중 하나를 사용해야 합니다. ``application/x-www-form-urlencoded`` 요청에는 ``form_params``\ 를 사용하고 ``multipart/form-data`` 요청에는 ``multipart``\ 를 사용하십시오.
 
+.. _curlrequest-request-options-headers:
+
 headers
 =======
 

@@ -5,11 +5,8 @@ Inflector 헬퍼
 Inflector 헬퍼에는 **영어** 단어를 복수, 단수, camel 등으로 변경할 수 있는 함수가 포함되어 있습니다.
 
 .. contents::
-  :local:
-
-.. raw:: html
-
-  <div class="custom-index container"></div>
+    :local:
+    :depth: 2
 
 헬퍼 로드
 ===================

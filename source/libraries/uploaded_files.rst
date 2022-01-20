@@ -11,6 +11,155 @@ CodeIgniter는 PHP의 ``$_FILES`` 배열을 직접 사용하는 것보다 훨씬
     :local:
     :depth: 2
 
+*****************
+일반적인 프로세스
+*****************
+
+파일 업로드에는 다음과 같은 일반적인 프로세스가 포함됩니다.
+
+- 사용자가 파일을 선택하여 업로드할 수 있는 업로드 양식(form)이 표시됩니다.
+- 양식(form)이 제출(submit)되면 지정한 대상에 파일이 업로드됩니다.
+- 그 과정에서 파일의 유효성이 검사되어 설정한 기본 설정에 따라 업로드가 허용되는지 확인합니다.
+- 업로드가 완료되면 사용자에게 성공 메시지가 표시됩니다.
+
+이 프로세스를 보여주기 위해 간단한 자습서를 제공합니다.
+
+업로드 양식(form) 만들기
+========================
+
+텍스트 편집기를 사용하여 **upload_form.php** 파일을 만듭니다. 여기에 아래의 코드를 넣고 **app/Views/** 디렉터리에 저장합니다.
+
+::
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <title>Upload Form</title>
+    </head>
+    <body>
+
+    <?php foreach ($errors as $error): ?>
+        <li><?= esc($error) ?></li>
+    <?php endforeach ?>
+
+    <?= form_open_multipart('upload/upload') ?>
+
+    <input type="file" name="userfile" size="20" />
+
+    <br /><br />
+
+    <input type="submit" value="upload" />
+
+    </form>
+
+    </body>
+    </html>
+
+파일 업로드에는 멀티파트(multipart) 형식이 필요하므로 폼(form) 헬퍼의 ``form_open_multipart()`` 함수를 사용합니다.
+오류 메시지를 표시할 수 있도록 하기 위해 ``$errors`` 변수를 사용합니다.
+
+성공 페이지
+================
+
+텍스트 편집기를 사용하여 **upload_success.php** 파일을 만듭니다. 여기에 아래의 코드를 넣고 **app/Views/** 디렉터리에 저장합니다.
+
+::
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <title>Upload Form</title>
+    </head>
+    <body>
+
+    <h3>Your file was successfully uploaded!</h3>
+
+    <ul>
+        <li>name: <?= esc($uploaded_flleinfo->getBasename()) ?></li>
+        <li>size: <?= esc($uploaded_flleinfo->getSizeByUnit('kb')) ?> KB</li>
+        <li>extension: <?= esc($uploaded_flleinfo->guessExtension()) ?></li>
+    </ul>
+
+    <p><?= anchor('upload', 'Upload Another File!') ?></p>
+
+    </body>
+    </html>
+
+컨트롤러
+==============
+
+텍스트 편집기를 사용하여 **Upload.php** 파일을 만듭니다. 여기에 아래의 코드를 넣고 **app/Controllers/** 디렉터리에 저장합니다.
+
+::
+
+    <?php
+
+    namespace App\Controllers;
+
+    use CodeIgniter\Files\File;
+
+    class Upload extends BaseController
+    {
+        protected $helpers = ['form'];
+
+        public function index()
+        {
+            return view('upload_form', ['errors' => []]);
+        }
+
+        public function upload()
+        {
+            $validationRule = [
+                'userfile' => [
+                    'label' => 'Image File',
+                    'rules' => 'uploaded[userfile]'
+                        . '|is_image[userfile]'
+                        . '|mime_in[userfile,image/jpg,image/jpeg,image/gif,image/png,image/webp]'
+                        . '|max_size[userfile,100]'
+                        . '|max_dims[userfile,1024,768]',
+                ],
+            ];
+            if (! $this->validate($validationRule)) {
+                $data = ['errors' => $this->validator->getErrors()];
+
+                return view('upload_form', $data);
+            }
+
+            $img = $this->request->getFile('userfile');
+
+            if (! $img->hasMoved()) {
+                $filepath = WRITEPATH . 'uploads/' . $img->store();
+
+                $data = ['uploaded_flleinfo' => new File($filepath)];
+
+                return view('upload_success', $data);
+            } else {
+                $data = ['errors' => 'The file has already been moved.'];
+
+                return view('upload_form', $data);
+            }
+        }
+    }
+
+.. note:: 파일 업로드 HTML 필드의 값이 존재하지 않고 전역 변수 ``$_FILES``\ 에 저장되기 때문에 :ref:`rules-for-file-uploads`\ 만 업로드 파일의 유효성을 검사(:doc:`validation`)하는 데 사용할 수 있습니다.
+    ``required`` 규칙도 사용할 수 없으므로 ``uploaded``\ 을 대신 사용하십시오.
+
+업로드 디렉토리
+====================
+
+업로드된 파일은 **writable/uploads/** 디렉토리에 저장됩니다.
+
+업로드!!
+=========
+
+업로드하려면 다음과 유사한 URL을 사용하여 사이트를 방문합니다.
+
+::
+
+    example.com/index.php/upload/
+
+업로드 양식(form)이 표시되어야 합니다. 이미지 파일(**jpg**, **gif**, **png** 또는 **webp**)을 업로드해 보세요. 컨트롤러의 경로가 정확하면 작동해야 합니다.
+
 ===============
 파일 접근
 ===============
@@ -44,6 +193,8 @@ CodeIgniter는 공통 인터페이스뒤에서 파일 사용을 표준화하여 
 	[
 		'avatar' => // UploadedFile instance
 	]
+
+.. note:: 여기의 파일은 ``$_FILES``\ 에 해당합니다. 사용자가 양식(form)에 파일을 업로드하지 않고 제출(submit) 버튼을 클릭하여도 파일($_FILES)은 계속 존재합니다. userfile의 ``isValid()`` 메소드로 파일이 실제로 업로드 되었는지 확인할 수 있습니다. 자세한 내용은 :ref:`verify-a-file`\ 을 참조하세요.
 
 이름에 배열 표기법을 사용한 경우 입력은 다음과 같습니다.
 
@@ -181,6 +332,8 @@ HTML에서
 =====================
 
 UploadedFile 인스턴스를 검색한 후에는 파일에 대한 정보를 안전한 방법으로 검색하고 파일을 새 위치로 옮길 수 있습니다.
+
+.. _verify-a-file:
 
 파일 확인
 -------------

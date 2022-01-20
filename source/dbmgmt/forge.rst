@@ -42,7 +42,7 @@ Forge 클래스 초기화
 		echo 'Database created!';
 	}
 
-두 번째 매개 변수를 true로 설정하면 IF EXISTS 문을 추가하거나, 데이터베이스를 작성하기 전에 데이터베이스가 존재하는지 점검합니다. (DBMS에 따라 다름)
+두 번째 매개 변수를 true로 설정하면 ``IF EXISTS``\ 문을 추가하거나, 데이터베이스를 작성하기 전에 데이터베이스가 존재하는지 점검합니다. (DBMS에 따라 다름)
 
 ::
 
@@ -72,7 +72,7 @@ CodeIgniter는 ``db:create`` 명령을 사용하여 터미널에서 직접 데�
 
 ::
 
-	php spark db:create foo
+	> php spark db:create foo
 
 모든 것이 잘 되었다면, 여러분에게 ``Database "foo" successfully created.`` 메시지가 표시됩니다.
 
@@ -82,7 +82,7 @@ CodeIgniter는 ``db:create`` 명령을 사용하여 터미널에서 직접 데�
 
 ::
 
-	php spark db:create foo --ext sqlite
+	> php spark db:create foo --ext sqlite
 	// will create the db file in WRITEPATH/foo.sqlite
 
 .. note:: 특수 SQLite3 데이터베이스 이름 ``:memory:``\ 를 사용하는 경우 인메모리(in-memory) 데이터베이스를 사용하므로 데이터베이스 파일은 생성되지 않습니다.
@@ -99,8 +99,8 @@ CodeIgniter는 이를 위한 메커니즘을 제공합니다.
 =============
 
 필드는 일반적으로 연관 배열을 통해 생성됩니다. 
-배열 내에 필드의 데이터 유형과 관련된 'type' 키를 포함해야 합니다.
-예를 들면 INT, VARCHAR, TEXT 등입니다. 많은 데이터 유형(예 : VARCHAR)에 'constraint' 키가 필요합니다.
+배열 내에 필드의 데이터 유형과 관련된 ``type`` 키를 포함해야 합니다.
+예를 들면 INT, VARCHAR, TEXT 등입니다. 많은 데이터 유형(예 : VARCHAR)에 ``constraint`` 키가 필요합니다.
 
 ::
 
@@ -114,11 +114,11 @@ CodeIgniter는 이를 위한 메커니즘을 제공합니다.
 
 또한 다음 키/값을 사용할 수 있습니다:
 
--  unsigned/true : 필드 정의에서 "UNSIGNED"를 생성합니다.
--  default/value : 필드 정의에서 기본값을 생성합니다.
--  null/true : 필드 정의에서 "null"을 생성합니다. 이 옵션이 없으면 필드는 기본적으로 "NOT null"이 됩니다.
--  auto_increment/true : 필드에 auto_increment 플래그를 생성합니다. 필드 유형은 정수와 같이 이를 지원하는 유형이어야합니다.
--  unique/true : 필드 정의를 위한 고유 키를 생성합니다.
+-  ``unsigned``/true : 필드 정의에서 "UNSIGNED"를 생성합니다.
+-  ``default``/value : 필드 정의에서 기본값을 생성합니다.
+-  ``null``/true : 필드 정의에서 "null"을 생성합니다. 이 옵션이 없으면 필드는 기본적으로 "NOT null"이 됩니다.
+-  ``auto_increment``/true : 필드에 auto_increment 플래그를 생성합니다. 필드 유형은 정수와 같이 이를 지원하는 유형이어야합니다.
+-  ``unique``/true : 필드 정의를 위한 고유 키를 생성합니다.
 
 ::
 
@@ -150,7 +150,7 @@ CodeIgniter는 이를 위한 메커니즘을 제공합니다.
 		],
 	];
 
-필드가 정의 된 후 ``$forge->addField($ fields);``\ 를 사용하여 추가하고 ``createTable()`` 메소드를 호출합니다.
+필드가 정의 된 후 ``$forge->addField($ fields)``\ 를 사용하여 추가하고 ``createTable()`` 메소드를 호출합니다.
 
 **$forge->addField()**
 
@@ -159,7 +159,7 @@ CodeIgniter는 이를 위한 메커니즘을 제공합니다.
 문자열을 필드로 전달
 -------------------------
 
-필드 생성 방법을 정확히 알고 있다면 addField()를 사용하여 필드 정의에 문자열을 전달할 수 있습니다.
+필드 생성 방법을 정확히 알고 있다면 ``addField()``\ 를 사용하여 필드 정의에 문자열을 전달할 수 있습니다.
 
 ::
 
@@ -167,7 +167,7 @@ CodeIgniter는 이를 위한 메커니즘을 제공합니다.
 
 .. note:: 문자열을 필드로 전달한 후에는 해당 필드에서 ``addKey()`` 호출을 수행 할 수 없습니다.
 
-.. note:: addField()를 여러 번 호출하면 누적됩니다.
+.. note:: ``addField()``\ 를 여러 번 호출하면 누적됩니다.
 
 id 필드 만들기
 --------------------
@@ -184,9 +184,9 @@ id 필드는 만들때 특별한 예외가 적용됩니다.
 ===========
 
 일반적으로 테이블에 키가 필요합니다.
-이것은 $forge->addKey( 'field')로 추가합니다.
+이것은 ``$forge->addKey('field')``\ 로 추가합니다.
 선택 사항인 두 번째 매개 변수를 true로 설정하면 기본(Primary) 키가 되고 세 번째 매개 변수가 true로 설정되면 고유(Unique) 키가 됩니다.
-addKey() 다음에 createTable()을 호출해야 합니다.
+``addKey()`` 다음에 ``createTable()``\ 을 호출해야 합니다.
 
 기본 키가 아닌 경우 여러 컬럼을 혼합하여 키를 만들 때는 배열로 보내야 합니다.
 아래 샘플 출력은 MySQL 용입니다.
@@ -219,6 +219,7 @@ addKey() 다음에 createTable()을 호출해야 합니다.
 	$forge->addUniqueKey(['blog_id', 'uri']);
 	// gives UNIQUE KEY `blog_id_uri` (`blog_id`, `uri`)
 
+.. _adding-foreign-keys:
 
 외래(Foreign) 키 추가
 ==========================
@@ -227,20 +228,20 @@ addKey() 다음에 createTable()을 호출해야 합니다.
 
 ::
 
-    $forge->addForeignKey('users_id','users','id');
+    $forge->addForeignKey('users_id', 'users', 'id');
     // gives CONSTRAINT `TABLENAME_users_foreign` FOREIGN KEY(`users_id`) REFERENCES `users`(`id`)
 
-    $forge->addForeignKey(['users_id', 'users_name'],'users',['id', 'name']);
+    $forge->addForeignKey(['users_id', 'users_name'], 'users', ['id', 'name']);
     // gives CONSTRAINT `TABLENAME_users_foreign` FOREIGN KEY(`users_id`, `users_name`) REFERENCES `users`(`id`, `name`)
 
 구속 조건의 "on delete" 및 "on update" 속성에 대해 원하는 작업을 지정할 수 있습니다.
 
 ::
 
-    $forge->addForeignKey('users_id','users','id','CASCADE','CASCADE');
+    $forge->addForeignKey('users_id', 'users', 'id', 'CASCADE', 'CASCADE');
     // gives CONSTRAINT `TABLENAME_users_foreign` FOREIGN KEY(`users_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 
-    $forge->addForeignKey(['users_id', 'users_name'],'users',['id', 'name'],'CASCADE','CASCADE');
+    $forge->addForeignKey(['users_id', 'users_name'], 'users', ['id', 'name'], 'CASCADE', 'CASCADE');
     // gives CONSTRAINT `TABLENAME_users_foreign` FOREIGN KEY(`users_id`, `users_name`) REFERENCES `users`(`id`, `name`) ON DELETE CASCADE ON UPDATE CASCADE
 
 테이블 만들기
@@ -253,14 +254,14 @@ addKey() 다음에 createTable()을 호출해야 합니다.
 	$forge->createTable('table_name');
 	// gives CREATE TABLE table_name
 
-선택적으로 두 번째 매개 변수를 true로 설정하면 "IF NOT EXISTS"절이 정의에 추가됩니다.
+선택적으로 두 번째 매개 변수를 true로 설정하면 ``IF NOT EXISTS``\ 절이 정의에 추가됩니다.
 
 ::
 
 	$forge->createTable('table_name', true);
 	// gives CREATE TABLE IF NOT EXISTS table_name
 
-MySQL의``ENGINE``\ 과 같은 선택적 테이블 속성을 전달할 수 있습니다.
+MySQL의 ``ENGINE``\ 과 같은 선택적 테이블 속성을 전달할 수 있습니다.
 
 ::
 
@@ -273,7 +274,7 @@ MySQL의``ENGINE``\ 과 같은 선택적 테이블 속성을 전달할 수 있�
 테이블 삭제
 ================
 
-DROP TABLE 문을 실행하고 옵션으로 IF EXISTS 절을 추가합니다.
+``DROP TABLE``\ 문을 실행하고 옵션으로 ``IF EXISTS``\ 절을 추가합니다.
 
 ::
 
@@ -283,7 +284,7 @@ DROP TABLE 문을 실행하고 옵션으로 IF EXISTS 절을 추가합니다.
 	// Produces: DROP TABLE IF EXISTS `table_name`
 	$forge->dropTable('table_name', true);
 
-세 번째 매개 변수를 설정하여 "CASCADE" 옵션을 추가할 수 있습니다. 
+세 번째 매개 변수를 설정하여 ``CASCADE`` 옵션을 추가할 수 있습니다. 
 이 옵션이 true로 설정되면 일부 드라이버에서 외부 키가 있는 테이블을 제거할 수 있습니다.
 
 ::
@@ -294,12 +295,12 @@ DROP TABLE 문을 실행하고 옵션으로 IF EXISTS 절을 추가합니다.
 외래 키 삭제
 ======================
 
-DROP FOREIGN KEY 문을 실행합니다.
+DROP FOREIGN KEY문을 실행합니다.
 
 ::
 
 	// Produces: ALTER TABLE 'tablename' DROP FOREIGN KEY 'users_foreign'
-	$forge->dropForeignKey('tablename','users_foreign');
+	$forge->dropForeignKey('tablename', 'users_foreign');
 
 키 삭제
 ======================
@@ -341,7 +342,7 @@ TABLE rename 문을 실행합니다.
 	$forge->addColumn('table_name', $fields);
 	// Executes: ALTER TABLE table_name ADD preferences TEXT
 
-MySQL 또는 CUBIRD를 사용하는 경우 AFTER 및 FIRST 절을 활용하여 새 컬럼을 배치할 수 있습니다.
+MySQL 또는 CUBIRD를 사용하는 경우 ``AFTER`` 및 ``FIRST`` 절을 활용하여 새 컬럼을 배치할 수 있습니다.
 
 ::
 
@@ -457,7 +458,7 @@ Class Reference
 	.. php:method:: createDatabase($db_name[, $ifNotExists = false])
 
 		:param	string	$db_name: 생성할 데이터베이스 이름
-		:param	string	$ifNotExists: 'IF NOT EXISTS' 절을 추가하거나 데이터베이스가 존재하는지 확인하려면 true로 설정
+		:param	string	$ifNotExists: ``IF NOT EXISTS`` 절을 추가하거나 데이터베이스가 존재하는지 확인하려면 true로 설정
 		:returns:	true면 성공, false면 실패
 		:rtype:	bool
 
@@ -466,7 +467,7 @@ Class Reference
 	.. php:method:: createTable($table[, $if_not_exists = false[, array $attributes = []]])
 
 		:param	string	$table: 생성할 테이블 이름
-		:param	string	$if_not_exists: 'IF NOT EXISTS' 절을 추가하려면 true로 설정
+		:param	string	$if_not_exists: ``IF NOT EXISTS`` 절을 추가하려면 true로 설정
 		:param	string	$attributes: 테이블 속성의 연관 배열
 		:returns:  Query 객체면 성공, false면 실패
 		:rtype:	mixed
@@ -493,7 +494,7 @@ Class Reference
 	.. php:method:: dropTable($table_name[, $if_exists = false])
 
 		:param	string	$table: 제거할 테이블 이름
-		:param	string	$if_exists: 'IF EXISTS' 절을 추가하려면 true로 설정
+		:param	string	$if_exists: ``IF EXISTS`` 절을 추가하려면 true로 설정
 		:returns:	true면 성공, false면 실패
 		:rtype:	bool
 

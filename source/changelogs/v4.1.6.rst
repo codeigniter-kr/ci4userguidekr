@@ -1,25 +1,67 @@
 Version 4.1.6
 #############
 
-Release Date: Not released
+Release Date: January 3, 2022
 
 **4.1.6 release of CodeIgniter4**
 
 .. contents::
     :local:
-    :depth: 1
+    :depth: 2
+
+SECURITY
+********
+
+- ``old()`` 함수에서 발견된 *신뢰할 수 없는 데이터의 역직렬화*\ 가 수정되었습니다. 자세한 내용은 `보안 권고 <https://github.com/codeigniter4/CodeIgniter4/security/advisories/GHSA-w6jr-wj64-mc9x>`_\ 를 참조하세요.
 
 BREAKING
-========
+********
+
+- 다중 테이블명을 더 이상 ``BaseBuilder::$tableName``\ 에 저장할 수 없습니다. 대신 빈 문자열이 사용됩니다.
+
+.. _changelog-v416-validation-changes:
+
+Validation changes
+==================
+
+- 이전 버전의 유효성 검사는 배열 항목을 처리할 수 없습니다.
+  버그 수정으로 인해 유효성 검사 결과가 다르거나 ``TypeError``\ 가 발생할 수 있습니다.
+  그러나 이전 버전의 결과도 정확하지 않을 것입니다.
+- 유효성 검사에서 ``contacts.*.name``\ 과 같은 다중 필드와 단일 필드의 유효성 검사 프로세스를 분리했습니다.
+  단일 필드에 배열 데이터가 있는 경우 이전 버전은 배열의 각 요소를 검증합니다.
+  유효성 검사 규칙은 배열의 요소를 매개변수로 가져옵니다.
+  반면에 현재 버전은 배열을 전체적으로 유효성 검사 규칙에 전달합니다.
 
 Enhancements
-============
+************
+
+- 디버그 도구 모음의 데이터베이스 창에 쿼리가 호출된 위치가 표시됩니다. 전체 역추적도 표시합니다.
+- QueryBuilder의 :ref:`Subqueries <query-builder-where-subquery>`\ 는 BaseBuilder 클래스의 인스턴스가 될 수 있습니다.
 
 Changes
-=======
+*******
+
+- 쿠키 전송은 ``Response``\ 클래스로 옮겨져, ``Security``\ 와 ``CookieStore`` 클래스는 쿠키를 전송하지 않으므로 Response로 설정합니다.
 
 Deprecations
-============
+************
+
+- ``Seeder::faker()``\ 와 ``Seeder::$faker``\ 는 사용되지 않습니다.
+- ``BaseBuilder::cleanClone()``\ 는 사용되지 않습니다.
+
+쿠키 전송
+===============
+
+쿠키 전송은  ``Response`` 클래스로 옮겨졌습니다.
+다음 메소드는 더 이상 사용되지 않습니다.
+
+- ``CookieStore::dispatch()``
+- ``CookieStore::setRawCookie()``
+- ``CookieStore::setCookie()``
+- ``Security::sendCookie()``
+- ``Security::doSendCookie()``
 
 Bugs Fixed
-==========
+**********
+
+수정된 전체 버그 목록은 리포지토리의 `CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_\ 를 참조하세요.

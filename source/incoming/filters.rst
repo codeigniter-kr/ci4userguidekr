@@ -91,6 +91,12 @@ API 요청에 대한 속도 제한을 구현하는데 유용하며, 이에 대�
 필터를 만든 후에는 실행시기를 구성해야 하며, 이 작업은 ``app/Config/Filters``\ 에서 이루어집니다.
 이 파일에는 필터가 실행될 때 구성할 수 있는 네 가지 속성이 포함되어 있습니다.
 
+.. Note:: 필터를 적용하는 가장 안전한 방법은 :ref:`자동 라우팅 비활성화 <use-defined-routes-only>`\ 와 :ref:`경로에 필터를 설정 <applying-filters>`\ 하는 것입니다.
+
+.. Warning:: 필터 설정에서 URI 끝에 항상 ``*``\ 를 추가하는 것이 좋습니다.
+    컨트롤러 메서드는 생각보다 다른 URL에서 액세스하는 경우가 많기 때문입니다.
+    예를 들어, 자동 라우팅이 활성화된 상태에서 ``Blog::index``\ 가 설정되어 있는 경우 ``blog``, ``blog/index``, ``blog/index/1``\ 등으로 액세스할 수 있습니다.
+
 $aliases
 ========
 
@@ -137,7 +143,7 @@ $globals
 
 모든 요청에 필터를 적용하고 싶을 때도 있지만, 몇 개만 남겨두어야 할 경우도 있습니다.
 한 가지 일반적인 예는 CSRF 보호 필터에 몇 개의 URI를 제외하여 제3자 웹 사이트의 요청이 하나 또는 두 개의 특정 URI를 도달할 수 있도록 하고 나머지 URI는 보호해야 하는 경우입니다.
-이렇게 하려면 'except' 키가 있는 배열을 별칭 과 함께 값으로 일치시킬 uri를 추가하십시오.
+이렇게 하려면 'except' 키가 있는 배열을 별칭 과 함께 값으로 일치시킬 URI를 추가하십시오.
 
 ::
 
@@ -207,6 +213,30 @@ $filters
 제공되는 필터
 ****************
 
-CodeIgniter4에 3개의 필터가 번들로 제공됩니다: ``Honeypot``, ``CSRF``, ``DebugToolbar``
+CodeIgniter4에 3개의 필터가 번들로 제공됩니다: :doc:`Honeypot <../libraries/honeypot>`, :ref:`CSRF <cross-site-request-forgery>`, ``InvalidChars``, ``SecureHeaders``, :ref:`DebugToolbar <the-debug-toolbar>`
 
-.. note:: 필터는 구성 파일에 정의되어 선언된 순서대로 실행되지만, ``DebugToolbar``\ 는 다른 필터에서 일어나는 모든 일을 등록해야 하므로 선언된 순서와 상관없이 항상 마지막에 실행됩니다.
+.. note:: 필터는 구성 파일에 정의되어 선언된 순서대로 실행됩니다. 그러나 ``DebugToolbar``\ 를 활성화하면 다른 필터에서 발생하는 모든 것을 캡처해야 하므로 선언된 순서와 상관없이 항상 마지막에 실행됩니다.
+
+InvalidChars
+=============
+
+이 필터는 사용자 입력 데이터(``$_GET``, ``$_POST``, ``$_COOKIE``, ``php://input``)가 다음 문자를 포함하는 것을 금지합니다.
+
+- 잘못된 UTF-8 문자
+- 줄 바꿈 및 탭 코드를 제외한 제어 문자
+
+SecureHeaders
+=============
+
+이 필터는 프로그램의 보안을 강화하는 데 사용할 수 있는 HTTP 응답 헤더를 추가합니다.
+
+헤더를 사용자 정의하려면 ``CodeIgniter\Filters\SecureHeaders``\ 를 확장하고 ``$headers`` 속성을 재정의한 후 **app/Config/Filters.php**\ 에서 ``$aliases`` 속성을 변경합니다.
+
+::
+
+    public $aliases = [
+        ...
+        'secureheaders' => \App\Filters\SecureHeaders::class,
+    ];
+
+보안 헤더에 대해 알고 싶다면 `OWASP Secure Headers Project <https://owasp.org/www-project-secure-headers/>`_\ 를 살펴보십시오.

@@ -3,14 +3,14 @@ Upgrade View Parser
 
 .. contents::
     :local:
-    :depth: 1
+    :depth: 2
 
 
 Documentations
 ==============
 
-- `Codeigniter 3.X Template Parser 문서 <http://codeigniter.com/userguide3/libraries/parser.html>`_
-- :doc:`Codeigniter 4.X View Parser 문서 </outgoing/view_parser>`
+- `CodeIgniter 3.X Template Parser 문서 <http://codeigniter.com/userguide3/libraries/parser.html>`_
+- :doc:`CodeIgniter 4.X View Parser 문서 </outgoing/view_parser>`
 
 
 변경된 사항
@@ -26,21 +26,21 @@ Upgrade Guide
 Code Example
 ============
 
-Codeigniter Version 3.11
+CodeIgniter Version 3.11
 ------------------------
 ::
 
     $this->load->library('parser');
 
     $data = array(
-        'blog_title' => 'My Blog Title',
+        'blog_title'   => 'My Blog Title',
         'blog_heading' => 'My Blog Heading'
     );
 
     $this->parser
         ->parse('blog_template', $data);
 
-Codeigniter Version 4.x
+CodeIgniter Version 4.x
 -----------------------
 ::
 

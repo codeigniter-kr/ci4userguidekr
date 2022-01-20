@@ -17,6 +17,7 @@ CodeIgniter4는 다양한 방법으로 설치할 수 있습니다.: 수동 설�
     installing_git
     running
     upgrading
+    ../changelogs/index
     troubleshooting
     repositories
 

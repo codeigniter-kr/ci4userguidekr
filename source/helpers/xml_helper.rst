@@ -6,10 +6,7 @@ XML 헬퍼에는 XML 데이터 작업을 지원하는 기능이 포함되어 있
 
 .. contents::
   :local:
-
-.. raw:: html
-
-  <div class="custom-index container"></div>
+  :depth: 2
 
 헬퍼 로드
 ===================

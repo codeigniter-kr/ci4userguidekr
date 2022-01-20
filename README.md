@@ -1,4 +1,4 @@
-# CodeIgniter4 한국어 사용자 가이드
+# CodeIgniter 한국어 사용자 가이드
 ## 설치지침
 CodeIgniter 사용자 가이드는 Sphinx를 사용하여 문서를 관리하고 다양한 형식으로 출력합니다.
 소스 파일은 [ReStructured Text](https://en.wikipedia.org/wiki/ReStructuredText) 포맷으로 작성되었습니다.
@@ -7,7 +7,7 @@ CodeIgniter 사용자 가이드는 Sphinx를 사용하여 문서를 관리하고
 ### 설치전 확인
 #### Python
 Sphinx는 Python 3.5 이상이 필요하며 OS X 또는 Linux를 사용 중이라면 이미 설치되어 있을 수 있습니다. 
-터미널 창에서 "python" 또는 "python3"를 실행하여 확인할 수 있습니다. 
+터미널 창에서 "python" 또는 "python3"를 실행하여 확인할 수 있습니다.
 ```bash
 python --version
 Python 2.7.17
@@ -97,9 +97,8 @@ CodeIgniter를 문서화하기 위해 Sphinx를 사용하기 위한 일반적인
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/hoksi"><img src="https://avatars3.githubusercontent.com/u/4138634?v=4" width="100px;" alt=""/><br /><sub><b>Daeseung Han</b></sub></a><br /><a href="https://github.com/codeigniter-kr/ci4userguidekr/commits?author=hoksi" title="Documentation">📖</a> <a href="#translation-hoksi" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://z9n.net"><img src="https://avatars1.githubusercontent.com/u/5427199?v=4" width="100px;" alt=""/><br /><sub><b>Terrorboy</b></sub></a><br /><a href="https://github.com/codeigniter-kr/ci4userguidekr/commits?author=Terrorboy" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/pushwing"><img src="https://avatars0.githubusercontent.com/u/13030572?v=4" width="100px;" alt=""/><br /><sub><b>Jongwon Byun</b></sub></a><br /><a href="https://github.com/codeigniter-kr/ci4userguidekr/commits?author=pushwing" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/hoksi"><img src="https://avatars3.githubusercontent.com/u/4138634?v=4" width="100px;" alt=""/><br /><sub><b>Daeseung Han</b></sub></a><br /><a href="https://github.com/hoksi/ci4userguidekr/commits?author=hoksi" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://z9n.net"><img src="https://avatars1.githubusercontent.com/u/5427199?v=4" width="100px;" alt=""/><br /><sub><b>Terrorboy</b></sub></a><br /><a href="https://github.com/hoksi/ci4userguidekr/commits?author=Terrorboy" title="Documentation">📖</a></td>
   </tr>
 </table>
 

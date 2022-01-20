@@ -21,8 +21,16 @@ Enhancements
 ============
 
 - 예약된 문자에 대한 캐시 구성 추가
-- ``Forge`` 클래스의 ``addForeignKey`` 함수로 배열에 복합 외래 키(composite foreign key)를 정의할 수 있습니다.
-- ``Forge`` 클래스의 ``dropKey`` 함수로 키를 제거할 수 있습니다.
+- ``Forge`` 클래스의 :ref:`addForeignKey()<adding-foreign-keys>` 함수는 배열에서 복합 외래 키를 정의할 수 있습니다.
+- ``Forge`` 클래스의 ``dropKey`` 함수는 키를 제거할 수 있습니다.
+- ``_``\ 를 환경 변수의 구분 기호로 사용할 수 있습니다.
+- 경로 및 클래스 이름 필터에 대한 다중 필터 추가
+- ``insertBatch()``\ 와 ``updateBatch()``\ 의 메모리 사용량 감소
+- :ref:`세션 기반 CSRF 보호 <csrf-protection-methods>` 추가
+- ``Validation``\ 에 대한 ``valid_url_strict`` 규칙 추가
+- Debug Toolbar
+    - 타임라인에 형식이 지정된 쿼리 문자열 추가
+    - 쿼리 문자열의 키워드 강조 표시 및 이스케이프 개선
 
 Changes
 =======
@@ -33,3 +41,8 @@ Deprecations
 ============
 
 - ``CodeIgniter\\Cache\\Handlers\\BaseHandler::RESERVED_CHARACTERS`` 속성은 사용되지 않습니다.
+
+Bugs Fixed
+==========
+
+See the repo's `CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_ for a complete list of bugs fixed.

@@ -31,10 +31,11 @@ CodeIgniter 구성 파일은 필요한 설정이 공용 속성인 단순 클래�
 ::
 
     // config() 함수로 공유 인스턴스 가져 오기
-    $config = config( 'Pager' );
+    $config = config('Pager');
 
     // 네임스페이스가 있는 config 클래스에 액세스합니다.
-    $config = config( 'Config\\Pager' );
+    $config = config('Config\\Pager');
+    $config = config(\Config\Pager::class);
 
     // config() 함수를 사용하여 새 객체 생성
     $config = config('Pager', false);
@@ -121,7 +122,7 @@ CodeIgniter와 함께 배포된 템플릿 파일 **env**\ 가 프로젝트 루�
     $s3_bucket = $_ENV['S3_BUCKET'];
     $s3_bucket = $_SERVER['S3_BUCKET'];
 
-.. important:: **.env** 파일의 설정이 환경 변수에 추가됩니다. 이것은 그 부작용으로, ``var_dump($_ENV)`` 또는 ``phpinfo()``\ 를 통해 **중요한 보안 관련 데이터가 공개적으로 노출된다는 것**\ 을 의미합니다.
+.. warning:: **.env** 파일의 설정이 환경 변수에 추가됩니다. 그 부작용으로, (디버깅 또는 기타 유효한 이유로) ``var_dump($_ENV)`` 또는 ``phpinfo()``\ 를 사용하면 **중요한 보안 관련 데이터가 공개적으로 노출**\ 됩니다.
 
 중첩(Nesting) 변수
 =====================

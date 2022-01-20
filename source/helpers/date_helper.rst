@@ -5,7 +5,8 @@ Date 헬퍼
 Date 헬퍼 파일에는 Date 작업을 지원하는 함수가 포함되어 있습니다.
 
 .. contents::
-  :local:
+    :local:
+    :depth: 2
 
 헬퍼 로드
 ===================

@@ -6,10 +6,7 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
 
 .. contents::
     :local:
-
-.. raw:: html
-
-    <div class="custom-index container"></div>
+    :depth: 2
 
 헬퍼 로드
 ===================

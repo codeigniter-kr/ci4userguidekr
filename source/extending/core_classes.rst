@@ -66,7 +66,7 @@ System Class 목록
 			return static::getSharedInstance('routes');
 		}
 
-		return new RouteCollection(static::locator(), config('Modules'));
+		return new \App\Libraries\RouteCollection(static::locator(), config('Modules'));
 	}
 
 핵심 클래스 확장

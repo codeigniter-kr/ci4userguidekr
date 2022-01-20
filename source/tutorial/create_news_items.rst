@@ -32,6 +32,7 @@ Create a form
 
     <h2><?= esc($title); ?></h2>
 
+    <?= session()->getFlashdata('error') ?>
     <?= service('validation')->listErrors() ?>
 
     <form action="/news/create" method="post">
@@ -46,9 +47,13 @@ Create a form
         <input type="submit" name="submit" value="Create news item" />
     </form>
 
-여기에 생소해 보이는 두 가지가 있을 것입니다.
-``service('validation')->listErrors()`` 함수는 폼 검증과 관련된 오류를 보고하는 데 사용됩니다. 
-``csrf_field()`` 함수는 CSRF 토큰으로 숨겨진 입력을 생성하여 일부 일반적인 공격으로부터 보호합니다.
+여기에 낯설게 보이는 것 세 가지가 있습니다.
+
+``<?= session()->getFlashdata('error') ?>`` 함수는 CSRF 보호와 관련된 오류를 보고하는 데 사용됩니다.
+
+``service('validation')->listErrors()`` 함수는 양식 유효성 검사와 관련된 오류를 보고하는 데 사용됩니다.
+
+``csrf_field()`` 함수는 몇 가지 일반적인 공격으로부터 보호하는 데 도움이 되는 CSRF 토큰으로 숨겨진 입력을 생성합니다.
 
 ``News`` 컨트롤러로 돌아갑니다.
 여기서 우리는 두 가지 작업, 양식이 제출되었는지와 제출된 데이터가 검증 규칙을 통과했는지 여부를 확인할 겁니다

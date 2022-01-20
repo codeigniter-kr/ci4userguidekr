@@ -18,7 +18,7 @@ MVC 프레임워크에서는 컨트롤러가 교통경찰 역할을 하므로 �
 뷰 만들기
 ===============
 
-텍스트 에디터를 사용하여 ``BlogView.php``\ 라는 파일을 만들고 다음을 입력하세요.
+텍스트 에디터를 사용하여 ``blog_view.php``\ 라는 파일을 만들고 다음을 입력하세요.
 
 ::
 
@@ -58,7 +58,7 @@ MVC 프레임워크에서는 컨트롤러가 교통경찰 역할을 하므로 �
 	{
 		public function index()
 		{
-			echo view('BlogView');
+			echo view('blog_view');
 		}
 	}
 
@@ -118,11 +118,13 @@ CodeIgniter는 컨트롤러에서 ``view()``\를 여러 호출하여도 똑똑�
 PHP는 네임스페이스에 클래스가 아닌 파일 로드를 지원하지 않지만, CodeIgniter는 이 기능을 제공하여 쉽게 재사용하거나 배포할 수 있도록 모듈과 같은 방식으로 뷰를 함께 패키지화할 수 있습니다.
 
 :doc:`오토로더 </concepts/autoloader>`\ 에 PSR-4 매핑 설정이 있는 ``Blog`` 디렉토리가 있다면, 뷰 파일도 ``Example\Blog``\ 처럼 네임스페이스를 붙여 불러올 수 있습니다.
-다음은 네임스페이스를 뷰 이름앞에 추가하여 **/blog/views** 디렉토리에서 **BlogView** 파일을 로드하는 예입니다.
+다음은 네임스페이스를 뷰 이름앞에 추가하여 **example/blog/Views** 디렉토리에서 **blog_view.php** 파일을 로드하는 예입니다.
 
 ::
 
     echo view('Example\Blog\Views\BlogView');
+
+.. _caching-views:
 
 뷰 캐싱
 =============
@@ -156,7 +158,7 @@ PHP는 네임스페이스에 클래스가 아닌 파일 로드를 지원하지 �
 		'message' => 'My Message',
 	];
 
-	echo view('blogview', $data);
+	echo view('blog_view', $data);
 
 컨트롤러 파일에 시도해 봅시다. 컨트롤러 파일을 열고 아래 코드를 추가하십시오.
 
@@ -173,7 +175,7 @@ PHP는 네임스페이스에 클래스가 아닌 파일 로드를 지원하지 �
 			$data['title']   = "My Real Title";
 			$data['heading'] = "My Real Heading";
 
-			echo view('blogview', $data);
+			echo view('blog_view', $data);
 		}
 	}
 
@@ -183,10 +185,10 @@ PHP는 네임스페이스에 클래스가 아닌 파일 로드를 지원하지 �
 
 	<html>
         <head>
-            <title><?= $title ?></title>
+            <title><?= esc($title) ?></title>
         </head>
         <body>
-            <h1><?= $heading ?></h1>
+            <h1><?= esc($heading) ?></h1>
         </body>
 	</html>
 
@@ -205,7 +207,7 @@ PHP는 네임스페이스에 클래스가 아닌 파일 로드를 지원하지 �
 		'message' => 'My Message',
 	];
 
-	echo view('blogview', $data, ['saveData' => true]);
+	echo view('blog_view', $data, ['saveData' => true]);
 
 **app/Config/Views.php** 의 ``$saveData``\ 를 ``true``\ 로 설정하면 옵션을 별도로 설정하지 않아도 뷰(view) 함수가 데이터를 유지합니다.
 
@@ -234,7 +236,7 @@ PHP는 네임스페이스에 클래스가 아닌 파일 로드를 지원하지 �
 				'heading'   => 'My Real Heading',
 			];
 
-			echo view('blogview', $data);
+			echo view('blog_view', $data);
 		}
 	}
 
@@ -244,19 +246,19 @@ PHP는 네임스페이스에 클래스가 아닌 파일 로드를 지원하지 �
 
 	<html>
 	<head>
-		<title><?= $title ?></title>
+		<title><?= esc($title) ?></title>
 	</head>
 	<body>
-		<h1><?= $heading ?></h1>
+		<h1><?= esc($heading) ?></h1>
 
 		<h3>My Todo List</h3>
 
 		<ul>
-		<?php foreach ($todo_list as $item):?>
+		<?php foreach ($todo_list as $item): ?>
 
-			<li><?= $item ?></li>
+			<li><?= esc($item) ?></li>
 
-		<?php endforeach;?>
+		<?php endforeach ?>
 		</ul>
 
 	</body>

@@ -316,7 +316,7 @@ Predis는 Redis 키-값 저장소를 위한 유연하고 기능이 완전한 PHP
 
 ::
 
-    composer require predis/predis
+    > composer require predis/predis
 
 Redis에 대한 자세한 내용은 `https://github.com/nrk/predis <https://github.com/nrk/predis>`_\ 을 참조하시기 바랍니다.
 

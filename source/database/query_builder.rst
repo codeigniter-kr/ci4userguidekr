@@ -289,8 +289,8 @@ selectMax()와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 �
         $builder->where($where);
 
     
-    문자열 내에 사용자 지정 데이터를 사용하는 경우 데이터를 수동으로 이스케이프해야 합니다.
-    그렇지 않으면 SQL 주입(SQL injections)이 발생할 수 있습니다.
+    .. warning:: 문자열 내에 사용자 지정 데이터를 사용하는 경우 데이터를 수동으로 이스케이프해야 합니다.
+        그렇지 않으면 SQL 주입(SQL injections)이 발생할 수 있습니다.
 
     ::
 
@@ -298,16 +298,21 @@ selectMax()와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 �
         $where = "name={$name} AND status='boss' OR status='active'";
         $builder->where($where);
 
-#. **서브 쿼리:**
+.. _query-builder-where-subquery:
 
-    익명 함수를 사용하여 서브 쿼리를 만들 수 있습니다.
+#. **서브 쿼리:**
 
     ::
 
+        // With closure
         $builder->where('advance_amount <', function (BaseBuilder $builder) {
             return $builder->select('MAX(advance_amount)', false)->from('orders')->where('id >', 2);
         });
         // Produces: WHERE "advance_amount" < (SELECT MAX(advance_amount) FROM "orders" WHERE "id" > 2)
+
+        // With builder directly
+        $subQuery = $db->table('orders')->select('MAX(advance_amount)', false)->where('id >', 2)
+        $builder->where('advance_amount <', $subQuery);
 
 **$builder->orWhere()**
 
@@ -333,10 +338,15 @@ selectMax()와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 �
 
 ::
 
+    // With closure
     $builder->whereIn('id', function (BaseBuilder $builder) {
         return $builder->select('job_id')->from('users_jobs')->where('user_id', 3);
     });
     // Produces: WHERE "id" IN (SELECT "job_id" FROM "users_jobs" WHERE "user_id" = 3)
+
+    // With builder directly
+    $subQuery = $db->table('users_jobs')->select('job_id')->where('user_id', 3);
+    $builder->whereIn('id', $subQuery);
 
 **$builder->orWhereIn()**
 
@@ -352,11 +362,16 @@ selectMax()와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 �
 
 ::
 
+    // With closure
     $builder->orWhereIn('id', function (BaseBuilder $builder) {
         return $builder->select('job_id')->from('users_jobs')->where('user_id', 3);
     });
 
     // Produces: OR "id" IN (SELECT "job_id" FROM "users_jobs" WHERE "user_id" = 3)
+
+    // With builder directly
+        $subQuery = $db->table('users_jobs')->select('job_id')->where('user_id', 3);
+        $builder->orWhereIn('id', $subQuery);
 
 **$builder->whereNotIn()**
 
@@ -372,12 +387,16 @@ selectMax()와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 �
 
 ::
 
+    // With closure
     $builder->whereNotIn('id', function (BaseBuilder $builder) {
         return $builder->select('job_id')->from('users_jobs')->where('user_id', 3);
     });
 
     // Produces: WHERE "id" NOT IN (SELECT "job_id" FROM "users_jobs" WHERE "user_id" = 3)
 
+    // With builder directly
+    $subQuery = $db->table('users_jobs')->select('job_id')->where('user_id', 3);
+    $builder->whereNotIn('id', $subQuery);
 
 **$builder->orWhereNotIn()**
 
@@ -393,11 +412,16 @@ selectMax()와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 �
 
 ::
 
+    // With closure
     $builder->orWhereNotIn('id', function (BaseBuilder $builder) {
         return $builder->select('job_id')->from('users_jobs')->where('user_id', 3);
     });
 
     // Produces: OR "id" NOT IN (SELECT "job_id" FROM "users_jobs" WHERE "user_id" = 3)
+
+    // With builder directly
+    $subQuery = $db->table('users_jobs')->select('job_id')->where('user_id', 3);
+    $builder->orWhereNotIn('id', $subQuery);
 
 ************************
 유사한 데이터 찾기
@@ -538,10 +562,15 @@ CodeIgniter는 기본적으로 쿼리를 이스케이프하여 데이터베이�
 
 ::
 
+    // With closure
     $builder->havingIn('id', function (BaseBuilder $builder) {
         return $builder->select('user_id')->from('users_jobs')->where('group_id', 3);
     });
     // Produces: HAVING "id" IN (SELECT "user_id" FROM "users_jobs" WHERE "group_id" = 3)
+
+    // With builder directly
+    $subQuery = $db->table('users_jobs')->select('user_id')->where('group_id', 3);
+    $builder->havingIn('id', $subQuery);
 
 **$builder->orHavingIn()**
 
@@ -557,11 +586,16 @@ CodeIgniter는 기본적으로 쿼리를 이스케이프하여 데이터베이�
 
 ::
 
+    //With closure
     $builder->orHavingIn('id', function (BaseBuilder $builder) {
         return $builder->select('user_id')->from('users_jobs')->where('group_id', 3);
     });
 
     // Produces: OR "id" IN (SELECT "user_id" FROM "users_jobs" WHERE "group_id" = 3)
+
+    // With builder directly
+    $subQuery = $db->table('users_jobs')->select('user_id')->where('group_id', 3);
+    $builder->orHavingIn('id', $subQuery);
 
 **$builder->havingNotIn()**
 
@@ -577,12 +611,16 @@ CodeIgniter는 기본적으로 쿼리를 이스케이프하여 데이터베이�
 
 ::
 
+    //With closure
     $builder->havingNotIn('id', function (BaseBuilder $builder) {
         return $builder->select('user_id')->from('users_jobs')->where('group_id', 3);
     });
 
     // Produces: HAVING "id" NOT IN (SELECT "user_id" FROM "users_jobs" WHERE "group_id" = 3)
 
+    // With builder directly
+    $subQuery = $db->table('users_jobs')->select('user_id')->where('group_id', 3);
+    $builder->havingNotIn('id', $subQuery);
 
 **$builder->orHavingNotIn()**
 
@@ -598,11 +636,16 @@ CodeIgniter는 기본적으로 쿼리를 이스케이프하여 데이터베이�
 
 ::
 
+    //With closure
     $builder->orHavingNotIn('id', function (BaseBuilder $builder) {
         return $builder->select('user_id')->from('users_jobs')->where('group_id', 3);
     });
 
     // Produces: OR "id" NOT IN (SELECT "user_id" FROM "users_jobs" WHERE "group_id" = 3)
+
+    // With builder directly
+    $subQuery = $db->table('users_jobs')->select('user_id')->where('group_id', 3);
+    $builder->orHavingNotIn('id', $subQuery);
 
 **$builder->havingLike()**
 
@@ -911,16 +954,16 @@ Example::
         'date'  => 'My date',
     ];
 
-    $sql = $builder->set($data)->getCompiledInsert('mytable');
+    $sql = $builder->set($data)->getCompiledInsert();
     echo $sql;
 
     // Produces string: INSERT INTO mytable (`title`, `name`, `date`) VALUES ('My title', 'My name', 'My date')
 
-두 번째 매개 변수를 사용하면 쿼리 빌더의 쿼리를 재설정할 지 여부를 설정할 수 있습니다. (기본적으로 ``$builder->insert()``\ 와 같습니다)
+첫 번째 매개 변수를 사용하면 쿼리 빌더의 쿼리를 재설정할 지 여부를 설정할 수 있습니다. (기본적으로 ``$builder->insert()``\ 와 같습니다)
 
 ::
 
-    echo $builder->set('title', 'My Title')->getCompiledInsert('mytable', false);
+    echo $builder->set('title', 'My Title')->getCompiledInsert(false);
 
     // Produces string: INSERT INTO mytable (`title`) VALUES ('My Title')
 
@@ -928,8 +971,7 @@ Example::
 
     // Produces string: INSERT INTO mytable (`title`, `content`) VALUES ('My Title', 'My Content')
 
-위 예제에서 주목할 점은 두 번째 쿼리는 ``$builder->from()``\ 을 사용하거나, 첫 번째 매개 변수에 테이블 이름을 전달하지 않았다는 것입니다.
-이것이 작동하는 이유는  ``$builder->resetQuery()``\ 를 사용하여 값을 재설정하거나, ``$builder->insert()``\ 를 사용하여 쿼리가 실행되지 않았기 때문입니다.
+두 번째 쿼리가 작동한 이유는 ``$builder->resetQuery()``\ 를 사용하여 값을 재 설정하거나, 값을 재설정하는  ``$builder->insert()``\ 를 사용하여 쿼리가 실행되지 않았기 때문입니다.
 
 .. note:: 이 방법은 insertBatch() 에서는 작동하지 않습니다.
 
@@ -1418,7 +1460,7 @@ Class Reference
     .. php:method:: orWhereIn([$key = null[, $values = null[, $escape = null]]])
 
         :param string $key: 검색할 필드
-        :param array|Closure $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
+        :param array|BaseBulder|Closure $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
         :param bool $escape: 값과 식별자를 이스케이프할지 여부
         :returns: ``BaseBuilder`` instance
         :rtype: object
@@ -1428,7 +1470,7 @@ Class Reference
     .. php:method:: orWhereNotIn([$key = null[, $values = null[, $escape = null]]])
 
         :param string $key: 검색할 필드
-        :param array|Closure $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
+        :param array|BaseBulder|Closure $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
         :param bool $escape: 값과 식별자를 이스케이프할지 여부
         :returns: ``BaseBuilder`` instance
         :rtype: object
@@ -1438,7 +1480,7 @@ Class Reference
     .. php:method:: whereIn([$key = null[, $values = null[, $escape = null]]])
 
         :param string $key: 검사 할 필드 이름
-        :param array|Closure $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
+        :param array|BaseBulder|Closure $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
         :param bool $escape: 값과 식별자를 이스케이프할지 여부
         :returns: ``BaseBuilder`` instance
         :rtype: object
@@ -1448,7 +1490,7 @@ Class Reference
     .. php:method:: whereNotIn([$key = null[, $values = null[, $escape = null]]])
 
         :param string $key: 검사 할 필드 이름
-        :param array|Closure $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
+        :param array|BaseBulder|Closure $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
         :param bool $escape: 값과 식별자를 이스케이프할지 여부
         :returns: ``BaseBuilder`` instance
         :rtype: object
@@ -1561,7 +1603,7 @@ Class Reference
     .. php:method:: orHavingIn([$key = null[, $values = null[, $escape = null]]])
 
         :param string $key: 검색할 필드
-        :param array|Closure $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
+        :param array|BaseBulder|Closure $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
         :param bool $escape: 값과 식별자를 이스케이프할지 여부
         :returns: ``BaseBuilder`` instance
         :rtype: object
@@ -1571,7 +1613,7 @@ Class Reference
     .. php:method:: orHavingNotIn([$key = null[, $values = null[, $escape = null]]])
 
         :param string $key: 검색할 필드
-        :param array|Closure $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
+        :param array|BaseBulder|Closure $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
         :param bool $escape: 값과 식별자를 이스케이프할지 여부
         :returns: ``BaseBuilder`` instance
         :rtype: object
@@ -1581,7 +1623,7 @@ Class Reference
     .. php:method:: havingIn([$key = null[, $values = null[, $escape = null]]])
 
         :param string $key: 검사 할 필드 이름
-        :param array|Closure $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
+        :param array|BaseBulder|Closure $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
         :param bool $escape: 값과 식별자를 이스케이프할지 여부
         :returns: ``BaseBuilder`` instance
         :rtype: object
@@ -1591,7 +1633,7 @@ Class Reference
     .. php:method:: havingNotIn([$key = null[, $values = null[, $escape = null]]])
 
         :param string $key: 검사 할 필드 이름
-        :param array|Closure $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
+        :param array|BaseBulder|Closure $values: 대상 값 배열 또는 서브 쿼리에 대한 익명 함수
         :param bool $escape: 값과 식별자를 이스케이프할지 여부
         :param bool $insensitiveSearch: 대소문자를 구분하지 않고 검색할지 여부
         :returns: ``BaseBuilder`` instance

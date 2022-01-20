@@ -33,4 +33,4 @@ CodeIgniter는 유연하게 유지되므로 여러분이 원하는 방식으로 
 	requirements
 	credits
 	psr
-
+	License Agreement <../license>

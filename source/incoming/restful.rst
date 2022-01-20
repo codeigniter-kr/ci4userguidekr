@@ -37,7 +37,7 @@ CodeIgniter를 사용하면 리소스 경로(Resource route)와 `ResourceControl
 .. important:: 위의 순서는 명확성을 위한 것이며, RouteCollection에서 경로가 생성되는 실제 순서는 적절한 경로 확인을 보장합니다.
 
 두 번째 매개 변수는 생성된 경로를 수정하는데 사용할 수 있는 옵션 배열입니다. 
-이 경로는 더 많은 메소드가 허용되는 API 사용을 목표로하고 있지만 'websafe' 옵션을 전달하여 HTML 폼에서 작동하는 업데이트 및 삭제 메소드를 생성할 수 있습니다.
+이 경로는 더 많은 메소드가 허용되는 API 사용을 목표로하고 있지만 ``websafe`` 옵션을 전달하여 HTML 폼에서 작동하는 업데이트 및 삭제 메소드를 생성할 수 있습니다.
 
 
 ::
@@ -63,7 +63,7 @@ CodeIgniter를 사용하면 리소스 경로(Resource route)와 `ResourceControl
 사용된 자리 표시자(Placeholder) 변경
 ----------------------------------------
 
-기본적으로 ``segment`` 자리 표시자는 리소스 ID가 필요할 때 사용됩니다.
+기본적으로 ``(:segment)`` 자리 표시자는 리소스 ID가 필요할 때 사용됩니다.
 ``placeholder`` 옵션과 함께 문자열을 전달하여 이를 변경할 수 있습니다.
 
 ::
@@ -77,27 +77,27 @@ CodeIgniter를 사용하면 리소스 경로(Resource route)와 `ResourceControl
 ---------------------
 
 ``only`` 옵션으로 생성된 경로를 제한할 수 있습니다.
-이것은 배열 또는 쉼표로 구분된 메소드 이름 목록이어야 합니다.
+이것은 메소드 이름 **배열** 또는 **쉼표로 구분된 목록**\ 이어야 합니다.
 이 메소드들 중 하나와 일치하는 경로만 생성되고 나머지는 무시됩니다.
 
 ::
 
     $routes->resource('photos', ['only' => ['index', 'show']]);
 
-``except`` 옵션을 사용하여 사용하지 않는 경로를 제거할 수도 있습니다. 이 옵션은 ``only`` 이후에 실행됩니다
+``except`` 옵션을 사용하여 사용하지 않는 경로를 제거할 수 있습니다. 이는 메소드 이름 **배열** 또는 **쉼표로 구분된 목록**\ 이어야 합니다. 이 옵션은 ``only`` 다음에 실행됩니다.
 
 ::
 
     $routes->resource('photos', ['except' => 'new,edit']);
 
-유효한 메소드: index, show, create, update, new, edit, delete.
+유효한 메소드: ``index``, ``show``, ``create``, ``update``, ``new``, ``edit``, ``delete``.
 
 ResourceController
 ============================================================
 
-"ResourceController"는 위의 리소스 경로에 해당하는 RESTful API에 편리한 시작점을 제공합니다.
+``ResourceController``\ 는 위의 리소스 경로에 해당하는 RESTful API에 편리한 시작점을 제공합니다.
 
-`modelName` 과 `format` 특성을 재정의하여 확장한 다음 처리하려는 메소드를 구현하십시오.
+``modelName``\ 과 ``format`` 속성(propertie)을 재정의하여 확장한 다음 처리하려는 메소드를 구현하십시오.
 
 ::
 
@@ -179,7 +179,7 @@ ResourceController
 사용된 자리 표시자 변경
 ---------------------------
 
-기본적으로 ``segment`` 자리 표시자는 리소스 ID가 필요할 때 사용됩니다. 사용할 새 문자열과 함께 ``placeholder`` 옵션을 전달하면 이 항목을 변경할 수 있습니다.
+기본적으로 ``(:segment)`` 자리 표시자는 리소스 ID가 필요할 때 사용됩니다. 사용할 새 문자열과 함께 ``placeholder`` 옵션을 전달하면 이 항목을 변경할 수 있습니다.
 
 ::
 
@@ -191,28 +191,28 @@ ResourceController
 경로(Route) 제한
 --------------------------
 
-``only`` 옵션에 배열 또는 쉼표로 구분 된 메소드 이름 목록을 전달하여 생성된 경로를 제한 할 수 있습니다.
+``only`` 옵션에 메소드 이름으로 된 **배열** 또는 **쉼표로 구분된 목록**\ 을 전달하여 생성된 경로를 제한할 수 있습니다.
 메소드 중 일치하는 경로만 접근할 수 있으며, 나머지는 무시됩니다.
 
 ::
 
     $routes->presenter('photos', ['only' => ['index', 'show']]);
 
-``except`` 옵션을 사용하여 사용하지 않는 경로를 제거할 수 있습니다.
+``except`` 옵션에  메소드 이름으로 된 **배열** 또는 **쉼표로 구분된 목록**\ 을 전달하여 사용하지 않는 경로를 제거할 수 있습니다.
 이 옵션은 ``only`` 이 후에 실행됩니다.
 
 ::
 
     $routes->presenter('photos', ['except' => 'new,edit']);
 
-유효한 메소드: index, show, new, create, edit, update, remove and delete.
+유효한 메소드: ``index``, ``show``, ``new``, ``create``, ``edit``, ``update``, ``remove``, ``delete``.
 
 ResourcePresenter
 ============================================================
 
-`ResourcePresenter`\ 는 리소스의 뷰를 제공하고 위의 리소스 경로에 맞는 방법으로 해당 뷰의 폼에서 데이터를 처리하기 위한 편리한 시작점을 제공합니다.
+``ResourcePresenter``\ 는 리소스의 뷰를 제공하고 위의 리소스 경로에 맞는 방법으로 해당 뷰의 폼에서 데이터를 처리하기 위한 편리한 시작점을 제공합니다.
 
-`modelName` 속성을 재정의하여 확장한 다음 처리하려는 메소드를 구현하십시오.
+``modelName`` 속성을 재정의하여 확장한 다음 처리하려는 메소드를 구현하십시오.
 
 ::
 

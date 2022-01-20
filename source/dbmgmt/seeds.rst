@@ -72,41 +72,6 @@
 		$this->call('My\Database\Seeds\CountrySeeder');
 	}
 
-Faker 사용
-===========
-
-시드 데이터 생성을 자동화하려면 `Faker 라이브러리 <https://github.com/fakerphp/faker>`_\ 를 사용할 수 있습니다.
-
-Faker를 프로젝트에 설치합니다.
-
-::
-
-	> composer require --dev fakerphp/faker
-
-설치가 완료되면 ``Seeder`` 클래스에서 ``Faker\Generator`` 인스턴스를 사용할 수 있고, 모든 자식 시더에서 액세스할 수 있습니다.
-``Faker\Generator`` 인스턴스에 액세스하려면 정적 메소드인 ``faker()``\ 를 사용합니다.
-
-::
-
-	<?php
-
-	namespace App\Database\Seeds;
-
-	use CodeIgniter\Database\Seeder;
-
-	class UserSeeder extends Seeder
-	{
-		public function run()
-		{
-			$model = model('UserModel');
-
-			$model->insert([
-				'email'      => static::faker()->email,
-				'ip_address' => static::faker()->ipv4,
-			]);
-		}
-	}
-
 시더 사용
 =============
 

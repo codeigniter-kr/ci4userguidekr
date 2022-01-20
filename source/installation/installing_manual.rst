@@ -1,5 +1,9 @@
 수동 설치
-###############################################################################
+#########
+
+.. contents::
+    :local:
+    :depth: 2
 
 `CodeIgniter 4 framework <https://github.com/codeigniter4/framework>`_  프레임워크 레파지토리에는 
 릴리스된 버전의 프레임워크가 있으며, 이는 Composer를 사용하지 않으려는 개발자를 위한 것입니다.
@@ -7,7 +11,7 @@
 ``app`` 폴더안에서 앱을 개발하고, ``public`` 폴더는 웹 루트(root)가 됩니다. 
 ``system`` 폴더안에 있는 내용은 변경하지 마십시오!
 
-.. note:: 이 방법은 `CodeIgniter 3 <https://www.codeigniter.com/user_guide/installation/index.html>`_\ 의 설치 방법과 비슷한 설치 방법입니다. 
+.. note:: 이 방법은 `CodeIgniter 3 <https://codeigniter.com/userguide3/installation/index.html>`_\ 의 설치 방법과 비슷한 설치 방법입니다. 
 
 설치 방법
 =============
@@ -20,14 +24,14 @@
 
 없음
 
+.. _installing-manual-upgrading:
+
 업그레이드
 --------------
 
-프레임워크의 새 사본을 다운로드한 다음, 릴리스 통지(notice) 또는 변경 로그(changelog)의 
-업그레이드 지침에 따라 이를 프로젝트와 병합하십시오.
+프레임워크의 새 사본을 다운로드한 다음 ``sysstem`` 폴더를 교체합니다.
 
-일반적으로 ``system`` 폴더를 교체하고 지정된 ``app/Config`` 폴더에서 영향을 받는 변경 
-사항을 확인합니다.
+:doc:`업그레이드 지침 <upgrading>`\ 을 읽고 변경 사항 및 개선 사항을 확인하십시오.
 
 장점
 ---------

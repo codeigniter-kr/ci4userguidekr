@@ -20,9 +20,9 @@ CodeIgniter는 어플리케이션을 다른 언어로 지역화하는데 도움�
     /app
         /Language
             /en
-                app.php
+                App.php
             /fr
-                app.php
+                App.php
 
 .. important:: 로케일 감지는 ``IncomingRequest`` 클래스를 사용하는 웹 기반 요청에만 작동합니다. 커맨드 라인 요청에는 이러한 기능이 없습니다.
 
@@ -128,20 +128,17 @@ Config/App에서 두 개의 추가 설정을 설정하여 컨텐츠 협상이 �
 
 ::
 
-    'language_key' => 'The actual message to be shown.'
+    'languageKey' => 'The actual message to be shown.'
 
 또한 중첩된 정의(define)를 지원합니다.
 
 ::
 
-    'language_key' => [
+    'languageKey' => [
         'nested' => [
             'key' => 'The actual message to be shown.',
         ],
     ],
-
-.. note:: 지정된 파일의 모든 메시지에 공통 접두사를 사용하여 다른 파일의 비슷한 이름의 항목과 충돌을 피하는 것이 좋습니다.
-    예를 들어, 오류 메시지를 작성하는 경우 접두어에 ``error_``\ 를 붙일수 있습니다.
 
 ::
 
@@ -189,9 +186,9 @@ Config/App에서 두 개의 추가 설정을 설정하여 컨텐츠 협상이 �
 
     // The language file, Tests.php:
     return [
-        "apples"      => "I have {0, number} apples.",
-        "men"         => "The top {1, number} men out-performed the remaining {0, number}",
-        "namedApples" => "I have {number_apples, number, integer} apples.",
+        'apples'      => 'I have {0, number} apples.',
+        'men'         => 'The top {1, number} men out-performed the remaining {0, number}',
+        'namedApples' => 'I have {number_apples, number, integer} apples.',
     ];
 
     // Displays "I have 3 apples."
@@ -209,7 +206,7 @@ Config/App에서 두 개의 추가 설정을 설정하여 컨텐츠 협상이 �
 ::
 
     // Displays "I have 3 apples."
-    echo lang("Tests.namedApples", ['number_apples' => 3]);
+    echo lang('Tests.namedApples', ['number_apples' => 3]);
 
 분명히, 당신은 단순히 숫자 교체 이상을 할 수 있습니다.
 기본 라이브러리에 대한 `공식 ICU 문서 <https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classMessageFormat.html#details>`_\ 에 따르면 다음 유형의 데이터를 대체할 수 있습니다:

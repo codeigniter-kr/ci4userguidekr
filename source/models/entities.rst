@@ -109,10 +109,10 @@ Entity 클래스 작업
     $user->email    = 'foo@example.com';
     $userModel->save($user);
 
-User 클래스는 열에 대한 속성을 설정하지 않았지만 여전히 공용 속성인 것처럼 열에 액세스할 수 있습니다.
-기본 클래스 **CodeIgniter\\Entity**는 데이터베이스에서 개체를 만들거나, 가져온 후 변경된 열을 추적하여 **isset()** 또는 **unset()** 으로 속성을 확인하는 기능을 제공합니다. 
+``User`` 클래스는 열에 대한 속성을 설정하지 않았지만 여전히 공용 속성인 것처럼 열에 액세스할 수 있습니다.
+기본 클래스 ``CodeIgniter\Entity\Entity``\ 는 데이터베이스에서 개체를 만들거나, 가져온 후 변경된 열을 추적하여 ``isset()`` 또는 ``unset()``\ 으로 속성을 확인하는 기능을 제공합니다. 
 
-User가 모델의 **save()** 메소드로 전달되면 자동으로 특성을 읽고 모델의 **$allowedFields** 속성에 나열된 열의 변경 사항을 저장합니다.
+User가 모델의 ``save()`` 메소드로 전달되면 자동으로 특성을 읽고 모델의 ``$allowedFields`` 속성에 나열된 열의 변경 사항을 저장합니다.
 또한 새 행을 만들거나 기존 행을 업데이트할지 여부도 알고 있습니다.
 
 .. note:: ``insert()``\ 를 호출할 때는 엔티티의 모든 값이 메소드로 전달되지만 ``update()``\ 를 호출하면 변경된 값만 전달됩니다.
@@ -122,7 +122,7 @@ User가 모델의 **save()** 메소드로 전달되면 자동으로 특성을 �
 
 Entity 클래스는 키/값 쌍 배열을 클래스에 전달하여 클래스 속성을 채울 수 있는 ``fill()`` 메소드도 제공합니다.
 배열의 모든 속성은 Entity에 설정됩니다.
-그러나 모델을 통해 저장할 때 **$allowedFields**\ 에 명시된 필드만 실제 데이터베이스에 저장되므로 필드가 잘못 저장되는 것에 대해 걱정할 필요가 없습니다.
+그러나 모델을 통해 저장할 때 ``$allowedFields``\ 에 명시된 필드만 실제 데이터베이스에 저장되므로 필드가 잘못 저장되는 것에 대해 걱정할 필요가 없습니다.
 
 ::
 
@@ -196,7 +196,7 @@ Entity 클래스는 ``toArray()``\ 와 ``toRawArray()`` 메소드를 통하여 �
 
 가장 먼저 알아야 할 것은 우리가 추가 한 메소드의 이름입니다.
 각각의 클래스는 snake_case로 작성된 컬럼 이름을 ``set`` 또는 ``get`` 접두사가 붙은 PascalCase로 변환합니다. 
-이 메소드는 직접 구문을 (예: $user->email) 사용하여 클래스 속성을 설정하거나 검색할 때마다 자동으로 호출됩니다.
+이 메소드는 직접 구문을 (예: ``$user->email``) 사용하여 클래스 속성을 설정하거나 검색할 때마다 자동으로 호출됩니다.
 다른 클래스에서 액세스하지 않으려면 메소드를 공개(public)하지 않아도됩니다.
 예를 들어, ``created_at`` 클래스 속성은 ``setCreatedAt()`` 와 ``getCreatedAt()`` 메소드를 통해 액세스됩니다.
 
@@ -235,10 +235,10 @@ Entity 클래스는 ``toArray()``\ 와 ``toRawArray()`` 메소드를 통하여 �
     class User extends Entity
     {
         protected $attributes = [
-            'id' => null,
-            'name' => null, // Represents a username
-            'email' => null,
-            'password' => null,
+            'id'         => null,
+            'name'       => null, // Represents a username
+            'email'      => null,
+            'password'   => null,
             'created_at' => null,
             'updated_at' => null,
         ];
@@ -263,10 +263,10 @@ Entity 클래스는 ``toArray()``\ 와 ``toRawArray()`` 메소드를 통하여 �
     class User extends Entity
     {
         protected $attributes = [
-            'id' => null,
-            'name' => null,        // Represents a username
-            'email' => null,
-            'password' => null,
+            'id'         => null,
+            'name'       => null,        // Represents a username
+            'email'      => null,
+            'password'   => null,
             'created_at' => null,
             'updated_at' => null,
         ];
@@ -293,7 +293,7 @@ The value will still be accessible through the original ``$user->full_name``, al
 기본적으로 Entity 클래스는 `created_at`, `updated_at`, `deleted_at` 이라는 필드를 데이터를 설정하거나 검색할 때마다 :doc:`Time </libraries/time>` 인스턴스로 변환합니다.
 Time 클래스는 변하지 않고, 지역화된 방식으로 많은 유용한 메소드를 제공합니다.
 
-**options['dates']** 배열에 이름을 추가하여 자동으로 변환할 특성을 정의할 수 있습니다
+``$dates`` 속성에 이름을 추가하여 자동으로 변환할 특성을 정의할 수 있습니다
 
 ::
 
@@ -324,13 +324,13 @@ Time 클래스는 변하지 않고, 지역화된 방식으로 많은 유용한 �
 속성 캐스팅
 ----------------
 
-**casts** 속성을 사용하여 엔티티의 속성을 공통 데이터 유형으로 변환하도록 지정할 수 있습니다.
+``$casts`` 속성을 사용하여 엔티티의 속성을 공통 데이터 유형으로 변환하도록 지정할 수 있습니다.
 이 옵션은 키가 클래스 속성의 이름이고 값은 캐스트해야 하는 데이터 유형인 배열이어야합니다.
 캐스팅은 값을 읽을 때만 영향을 줍니다. 엔티티나 데이터베이스의 영구적인 값에 영향을 주는 변환이 발생하지 않습니다.
 속성은 다음 데이터 형식중 하나로 캐스팅할 수 있습니다: **integer**, **float**, **double**, **string**, **boolean**, **object**, **array**, **datetime**, **timestamp**, **uri**.
 유형의 시작 부분에 물음표를 추가하면 특성을 null 입력 가능으로 표시합니다. 예 : **?string**, **?integer**.
 
-다음 예는 User Entity의 **is_banned** 속성을 boolean으로 캐스팅합니다.
+다음 예는 User Entity의 ``is_banned`` 속성을 boolean으로 캐스팅합니다.
 
 ::
 
@@ -355,8 +355,8 @@ Array/Json 캐스팅은 직렬화된 배열 또는 JSON을 저장하는 필드�
 캐스팅할 때는:
 
 * **array**, 자동으로 직렬화 해제(unserialized)
-* **json**, json_decode($value, false)\ 값으로 자동 설정
-* **json-array**, json_decode($value, true) 값으로 자동 설정
+* **json**, ``json_decode($value, false)`` 값으로 자동 설정
+* **json-array**, ``json_decode($value, true)`` 값으로 자동 설정
 
 속성 값을 설정할 때 속성을 캐스팅할 수있는 나머지 데이터 형식과 달리:
 
@@ -428,17 +428,17 @@ CSV 캐스팅
 데이터를 가져오고 설정하는 고유한 변환 유형을 정의할 수 있습니다.
 
 처음에는 사용자 유형에 대한 처리기 클래스를 만들어야 합니다.
-클래스가 ``app/Entity/Cast`` 디렉토리에 위치한다고 가정합니다.
+클래스가 **app/Entities/Cast** 디렉토리에 위치한다고 가정합니다.
 
 ::
 
     <?php
 
-    namespace App\Entity\Cast;
+    namespace App\Entities\Cast;
     
     use CodeIgniter\Entity\Cast\BaseCast;
 
-    //The class must inherit the CodeIgniter\Entity\Cast\BaseCast class
+    // The class must inherit the CodeIgniter\Entity\Cast\BaseCast class
     class CastBase64 extends BaseCast
     {
         public static function get($value, array $params = [])
@@ -469,13 +469,13 @@ CSV 캐스팅
             'key' => 'base64',
         ];
 
-        //Bind the type to the handler
+        // Bind the type to the handler
         protected $castHandlers = [
-            'base64' => \App\Entity\Cast\CastBase64::class,
+            'base64' => \App\Entities\Cast\CastBase64::class,
         ];
     }
 
-    //...
+    // ...
 
     $entity->key = 'test'; // dGVzdA==
     echo $entity->key; // test

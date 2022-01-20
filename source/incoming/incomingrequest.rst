@@ -159,7 +159,7 @@ CodeIgniter의 내장 메소드를 사용하면 간단히 수행 할 수 있습�
 
 ::
 
-    //With a request body of:
+    // With a request body of:
     {
         "foo": "bar",
         "fizz": {
@@ -167,10 +167,10 @@ CodeIgniter의 내장 메소드를 사용하면 간단히 수행 할 수 있습�
         }
     }
     $data = $request->getVar('foo');
-    //$data = "bar"
+    // $data = "bar"
 
     $data = $request->getVar('fizz.buzz');
-    //$data = "baz"
+    // $data = "baz"
 
 
 결과가 객체 대신 연관 배열이 되도록 하려면 ``getJsonVar()``\ 를 대신 사용하고 두 번째 매개 변수에 true를 전달합니다.
@@ -178,12 +178,12 @@ CodeIgniter의 내장 메소드를 사용하면 간단히 수행 할 수 있습�
 
 ::
 
-    //With the same request as above
+    // With the same request as above
     $data = $request->getJsonVar('fizz');
-    //$data->buzz = "baz"
+    // $data->buzz = "baz"
 
     $data = $request->getJsonVar('fizz', true);
-    //$data = ["buzz" => "baz"]
+    // $data = ["buzz" => "baz"]
 
 .. note:: ``dot`` 표기법에 대한 자세한 내용은 ``Array`` 헬퍼의 ``dot_array_search()`` 설명서를 참조하십시오.
 
@@ -271,18 +271,18 @@ POST 변수를 필터링하면 다음과 같습니다
 요청 URL
 ----------------------------------------------------------------------------
 
-``$request->uri`` 속성을 통해 요청에 대한 현재 URI를 나타내는 :doc:`URI </libraries/uri>` 객체를 검색할 수 있습니다.
+``$request->getUri()`` 메소드를 통해 요청에 대한 현재 URI를 나타내는 :doc:`URI </libraries/uri>` 객체를 검색할 수 있습니다.
 이 객체를 문자열로 캐스트하여 현재 요청에 대한 전체 URL을 얻을 수 있습니다.
 
 ::
 
-    $uri = (string) $request->uri;
+    $uri = (string) $request->getUri();
 
-이 개체는 요청의 일부를 얻을 수 있는 모든 기능을 제공합니다.
+이 객체는 요청의 일부를 얻을 수 있는 모든 기능을 제공합니다.
 
 ::
 
-    $uri = $request->uri;
+    $uri = $request->getUri();
 
     echo $uri->getScheme();         // http
     echo $uri->getAuthority();      // snoopy:password@example.com:88
@@ -322,8 +322,8 @@ POST 변수를 필터링하면 다음과 같습니다
     $files = $request->getFiles();
 
     // Grab the file by name given in HTML form
-    if ($files->hasFile('uploadedFile')) {
-        $file = $files->getFile('uploadedfile');
+    if ($files->hasFile('userfile')) {
+        $file = $files->getFile('userfile');
 
         // Generate a new secure name
         $name = $file->getRandomName();
@@ -340,13 +340,15 @@ HTML 파일 입력에 지정된 파일 이름을 기반으로 업로드한 파�
 
 ::
 
-    $file = $request->getFile('uploadedfile');
+    $file = $request->getFile('userfile');
 
 HTML 파일 입력에 제공된 파일 이름을 기반으로 동일한 이름으로 업로드된 다중 파일 배열 얻을 수 있습니다.
 
 ::
 
-    $files = $request->getFileMultiple('uploadedfile');
+    $files = $request->getFileMultiple('userfile');
+
+.. note:: 여기의 파일은 ``$_FILES``\ 에 해당합니다. 사용자가 양식(form)에 파일을 업로드하지 않고 제출(submit) 버튼을 클릭하여도 파일($_FILES)은 계속 존재합니다. userfile의 ``isValid()`` 메소드로 파일이 실제로 업로드 되었는지 확인할 수 있습니다. 자세한 내용은 :ref:`verify-a-file`\ 을 참조하세요.
 
 컨텐츠 협상
 ----------------------------------------------------------------------------
@@ -431,7 +433,7 @@ Class Reference
         
         ::
 
-            $request->getVar('some_data', FILTER_SANITIZE_STRING);
+            $request->getVar('some_data', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         모든 REQUEST 항목의 배열을 반환하려면 매개 변수없이 호출하십시오.
 
@@ -439,7 +441,8 @@ Class Reference
         
         ::
 
-            $request->getVar(null, FILTER_SANITIZE_STRING); // returns all POST items with string sanitation
+            $request->getVar(null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            // returns all POST items with string sanitation
 
         여러 REQUEST 매개 변수의 배열을 반환하려면 필요한 모든 키를 배열로 전달하십시오.
         
@@ -451,7 +454,7 @@ Class Reference
         
         ::
 
-            $request->getVar(['field1', 'field2'], FILTER_SANITIZE_STRING);
+            $request->getVar(['field1', 'field2'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
     .. php:method:: getGet([$index = null[, $filter = null[, $flags = null]]])
 
@@ -517,7 +520,7 @@ Class Reference
         ::
 
             $request->getCookie('some_cookie');
-            $request->getCookie('some_cookie', FILTER_SANITIZE_STRING); // with filter
+            $request->getCookie('some_cookie', FILTER_SANITIZE_FULL_SPECIAL_CHARS); // with filter
 
         여러 쿠키 값의 배열을 반환하려면 필요한 모든 키를 배열로 전달하십시오.
         

@@ -7,6 +7,7 @@ Array 헬퍼
 
 .. contents::
     :local:
+    :depth: 2
 
 헬퍼 로드
 ===================

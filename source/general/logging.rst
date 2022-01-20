@@ -98,7 +98,7 @@ Each handler is specified with the key being the fully name-spaced class name.
     // Generates a message like: User 123 logged into the system from 127.0.0.1
     $info = [
         'id' => $user->id,
-        'ip_address' => $this->request->ip_address()
+        'ip_address' => $this->request->getIPAddress()
     ];
 
     log_message('info', 'User {id} logged into the system from {ip_address}', $info);
@@ -138,8 +138,8 @@ Each handler is specified with the key being the fully name-spaced class name.
 타사(third-party) 로거 사용
 ==============================
 
-`PSR3 <http://www.php-fig.org/psr/psr-3/>`_\ 와 호환 가능한 다른 로거를 ``Psr\Log\LoggerInterface``\ 를 확장하여 사용할 수 있습니다.
-즉, PSR3 호환 로거를 쉽게 사용하거나 직접 생성할 수 있습니다.
+`PSR-3 <http://www.php-fig.org/psr/psr-3/>`_\ 와 호환 가능한 다른 로거를 ``Psr\Log\LoggerInterface``\ 를 확장하여 사용할 수 있습니다.
+즉, PSR-3 호환 로거를 쉽게 사용하거나 직접 생성할 수 있습니다.
 
 시스템에서 타사 로거를 찾을수 있도록 ``app/Config/Autoload.php`` 구성 파일에 추가하거나, Composer와 같은 다른 자동 로더를 통해 타사 로거를 찾을 수 있는지 확인해야합니다.
 그 다음, 별칭 ``logger``\ 가 새 클래스 이름으로 가리키도록 ``app/Config/Services.php``\ 를 수정해야 합니다.
