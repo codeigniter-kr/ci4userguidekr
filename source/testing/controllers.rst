@@ -4,7 +4,7 @@
 
 컨트롤러를 테스트하는것은 몇 가지 새로운 헬퍼 클래스와 특성(trait)으로 편리합니다. 
 컨트롤러를 테스트는 전체 어플리케이션 부트스트랩 프로세스를 실행하지 않고도 컨트롤러내에서 코드를 실행할 수 있습니다.
-종종 `기능 테스트 도구 <feature.html>`_\ 를 사용하는 것이 더 간단하며 이 기능은 필요할 때 사용할 수 있습니다.
+종종 :doc:`기능 테스트 도구 <feature>`\ 를 사용하는 것이 더 간단하며 이 기능은 필요할 때 사용할 수 있습니다.
 
 .. note:: 전체 프레임워크가 부트스트랩되지 않았으므로 이 방법으로 컨트롤러를 테스트할 수 없는 경우가 있습니다.
 
@@ -72,16 +72,17 @@
 
     $this->controller(\App\Controllers\ForumController::class);
 
-**execute($method)**
+**execute(string $method, ...$params)**
 
 컨트롤러 내에서 지정된 메소드를 실행합니다. 
-단일 매개 변수로 실행할 메소드의 이름입니다.
+첫 번재 매개 변수는 실행할 메소드의 이름입니다.
 
 ::
 
     $results = $this->controller(\App\Controllers\ForumController::class)
                      ->execute('showCategories');
 
+두 번째 또는 후속 매개변수를 지정하여 컨트롤러 메소드에 전달할 수 있습니다.
 응답 자체를 검사하기 위한 많은 루틴을 제공하는 새로운 헬퍼 클래스를 리턴합니다.
 자세한 내용은 아래를 참조하십시오.
 
@@ -106,7 +107,7 @@
 
 ::
 
-    $request = new CodeIgniter\HTTP\IncomingRequest(new Config\App(), new URI('http://example.com'));
+    $request = new \CodeIgniter\HTTP\IncomingRequest(new Config\App(), new URI('http://example.com'));
     $request->setLocale($locale);
 
     $results = $this->withRequest($request)
@@ -121,7 +122,7 @@
 
 ::
 
-    $response = new CodeIgniter\HTTP\Response(new Config\App());
+    $response = new \CodeIgniter\HTTP\Response(new Config\App());
 
     $results = $this->withResponse($response)
                     ->controller(\App\Controllers\ForumController::class)
@@ -135,7 +136,7 @@ Response를 제공하지 않으면 기본 어플리케이션 값을 가진 새 R
 
 ::
 
-    $logger = new CodeIgniter\Log\Handlers\FileHandler();
+    $logger = new \CodeIgniter\Log\Handlers\FileHandler();
 
     $results = $this->withResponse($response)
                     ->withLogger($logger)
@@ -176,7 +177,7 @@ Logger를 제공하지 않으면 기본 어플리케이션 값을 가진 새 Log
 =====================
 
 ``ControllerTestTrait::execute()``\ 는 ``TestResponse`` 인스턴스를 반환합니다. 
-이 클래스를 사용하여 테스트 케이스에 추가 어썰션 및 검증을 수행하는 방법은 `Testing Responses <response.html>`_\ 를 참조하십시오.
+이 클래스를 사용하여 테스트 케이스에 추가 어썰션 및 검증을 수행하는 방법은 :doc:`Testing Responses <response>`\ 를 참조하십시오.
 
 필터 테스트
 ==============

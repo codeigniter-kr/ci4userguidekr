@@ -24,7 +24,8 @@
 - `Sodium_compat <https://github.com/paragonie/sodium_compat>`_, 이전 버전의 PHP(5.2.4+)에 libsodium 지원을 추가하는 순수한 PHP 구현
 
 .. contents::
-  :local:
+	:local:
+	:depth: 2
 
 .. _usage:
 

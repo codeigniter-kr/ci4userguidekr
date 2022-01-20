@@ -36,9 +36,7 @@ URL은 체계가 복잡해짐에 따라 변경될 수 있지만 지금은 이것
     
     namespace App\Controllers;
 
-    use CodeIgniter\Controller;
-
-    class Pages extends Controller 
+    class Pages extends BaseController 
     {
         public function index()
         {
@@ -56,13 +54,11 @@ URL은 체계가 복잡해짐에 따라 변경될 수 있지만 지금은 이것
 그리고 기본 컨트롤러인 **app/Controllers/Home.php**\ 와 동일한 ``index()`` 메소드(method)를 가지고 있습니다. 
 이 메소드는 CodeIgniter의 welcome 페이지를 보여줍니다.
 
-.. note:: There are two ``view()`` functions referred to in this tutorial.
-    One is the class method created with ``public function view($page = 'home')``
-    and ``echo view('welcome_message')`` for displaying a view.
-    Both are *technically* a function. But when you create a function in a class,
-    it's called a method.
+.. note:: 이 튜토리얼에서 언급되는 두 개의 ``view()`` 함수가 있습니다.
+    하나는 뷰를 표시하기 위한 ``echo view('welcome_message')``\ 와 ``public function view($page = 'home')``\ 로 생성된 클래스 메소드입니다.
+    둘 다 *기술적으로는* 함수입니다. 그러나 클래스에서 함수를 만들면 메서드라고 부릅니다.
 
-``Pages`` 클래스는 ``CodeIgniter\Controller`` 클래스를 확장하고 있습니다.
+``Pages`` 클래스는 ``BaseController`` 클래스를 확장하고 있습니다.
 이는 새 Pages 클래스가 ``CodeIgniter\Controller`` 클래스에 정의된 메소드와 변수를 이용할 수 있다는 것을 의미합니다.
 
 **컨트트롤러는 웹 어플리케이션에 대한 모든 요청의 중심**\ 이 될 것입니다.
@@ -165,7 +161,7 @@ CodeIgniter는 이를 위해 보완하는 자체 명령을 가지고 있습니�
 
 ::
 
-    php spark serve
+    > php spark serve
 
 포트 8080을 통하여 액세스할 수 있는 웹 서버를 시작됩니다.
 브라우저에서 ``localhost:8080``\ 을 입력하면 CodeIgniter Welcome 페이지가 나타나야 합니다.

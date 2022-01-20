@@ -4,7 +4,7 @@ Upgrading from 4.1.4 to 4.1.5
 
 .. contents::
     :local:
-    :depth: 1
+    :depth: 2
 
 Breaking Changes
 ================
@@ -19,6 +19,7 @@ BaseBuilder 및 Model 클래스의 set() 메소드 변경
 ------------------------------------------------
 
 최적화를 위해 세션 테이블의 다음 열(column) 유형이 변경되었습니다.
+
 
 - MySQL
     - ``timestamp``
@@ -55,7 +56,7 @@ CURLRequest 헤더 변경
 이전 버전에서는 헤더를 제공하지 않은 경우 ``CURLRquest``\ 가 브라우저의 요청 헤더를  보냅니다.
 그 버그는 수정되었습니다. 요청이 헤더에 종속된 경우 업그레이드 후 요청이 실패할 수 있습니다.
 이 경우 필요한 헤더를 수동으로 추가합니다.
-추가하는 방법에 대해서는 `CURLRequest Class <../libraries/curlrequest.html#headers>`_\ 를 참조하십시오.
+추가하는 방법에 대해서는 :ref:`CURLRequest Class <curlrequest-request-options-headers>`\ 를 참조하십시오.
 
 쿼리 빌더 변경
 ---------------------
@@ -67,6 +68,8 @@ CURLRequest 헤더 변경
 
 Breaking Enhancements
 =====================
+
+.. _upgrade-415-multiple-filters-for-a-route:
 
 경로에 대한 다중 필터
 ----------------------------
@@ -97,7 +100,7 @@ If you enable it
 - ``CodeIgniter\Router\RouteCollection::getFilterForRoute()``
 - ``CodeIgniter\Router\RouteCollection``'s property ``$filterInfo``
 
-각 기능에 대해서는 :doc:`Routing </incoming/routing>`\ 의 *Applying Filters*\ 를 참조하십시오.
+각 기능에 대해서는 :ref:`applying-filters`\ 를 참조하십시오.
 
 Project Files
 =============

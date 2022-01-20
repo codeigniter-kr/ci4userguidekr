@@ -3,14 +3,14 @@ Upgrade HTML Tables
 
 .. contents::
     :local:
-    :depth: 1
+    :depth: 2
 
 
 Documentations
 ==============
 
-- `Codeigniter 3.X HTML Table 문서 <http://codeigniter.com/userguide3/libraries/table.html>`_
-- :doc:`Codeigniter 4.X  HTML Table 문서 </outgoing/table>`
+- `CodeIgniter 3.X HTML Table 문서 <http://codeigniter.com/userguide3/libraries/table.html>`_
+- :doc:`CodeIgniter 4.X  HTML Table 문서 </outgoing/table>`
 
 
 변경된 사항
@@ -26,7 +26,7 @@ Upgrade Guide
 Code Example
 ============
 
-Codeigniter Version 3.11
+CodeIgniter Version 3.11
 ------------------------
 ::
 
@@ -40,7 +40,7 @@ Codeigniter Version 3.11
 
     echo $this->table->generate();
 
-Codeigniter Version 4.x
+CodeIgniter Version 4.x
 -----------------------
 ::
 

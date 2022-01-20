@@ -3,13 +3,13 @@
 
 .. contents::
     :local:
-    :depth: 1
+    :depth: 2
 
 관련 문서
 ==============
 
-- `Codeigniter 3.X 컨트롤러 설명서 <http://codeigniter.com/userguide3/general/controllers.html>`_
-- `Codeigniter 4.X 컨트롤러 설명서 </incoming/controllers.html>`_
+- `CodeIgniter 3.X 컨트롤러 설명서 <http://codeigniter.com/userguide3/general/controllers.html>`_
+- `CodeIgniter 4.X 컨트롤러 설명서 </incoming/controllers.html>`_
 
 무엇이 바뀌었습니까?
 =====================
@@ -22,21 +22,21 @@
 업그레이드 가이드
 =================
 
-1. 먼저 모든 컨트롤러 파일을 ``app/Controllers`` 폴더로 이동합니다.
+1. 먼저 모든 컨트롤러 파일을 **app/Controllers** 폴더로 이동합니다.
 2. <?php 태그 바로 뒤에 ``namespace App\Controllers;``\ 를 추가합니다.
 3. ``extends CI_Controller``\ 를 ``extends BaseController``\ 로 바꿉니다.
 
-컨트롤러 구조에 하위 디렉터리를 사용한다면 네임스페이스를 변경해야 합니다.
-예를 들어 ``application/controllers/users/auth/Register.php``\ 에 버전 3의 컨트롤러가 있다면 네임스페이스는 ``namespace App\Controllers\Users\ Auth;``\ 이고 버전 4의 컨트롤러 경로는 ``app/Controllers/Users/Auth/Register.php``\ 와 같이 표시됩니다. 하위 디렉토리의 첫 글자가 대문자로 되어 있는지 확인하십시오.
-``BaseController``\ 를 확장하려면 네임스페이스를 정의한 다음 ``use App\Controllers\BaseController;``\ 문을 삽입해야 합니다. 
+| 컨트롤러 구조에 하위 디렉터리를 사용한다면 네임스페이스를 변경해야 합니다.
+| 예를 들어 **application/controllers/users/auth/Register.php**\ 에 버전 3의 컨트롤러가 있다면 네임스페이스는 ``namespace App\Controllers\Users\Auth;``\ 이고 버전 4의 컨트롤러 경로는 **app/Controllers/Users/Auth/Register.php**\ 와 같이 변경됩니다. 하위 디렉토리의 첫 글자가 대문자로 되어 있는지 확인하십시오.
+| ``BaseController``\ 를 확장하려면 네임스페이스 정의 아래에 ``use``\ 문을 삽입해야 합니다 : ``use App\Controllers\BaseController;``
 
 코드 예
 ============
 
-Codeigniter Version 3.11
+CodeIgniter Version 3.11
 ------------------------
 
-Path: ``application/controllers``::
+Path: **application/controllers**::
 
     <?php
 
@@ -48,10 +48,10 @@ Path: ``application/controllers``::
         }
     }
 
-Codeigniter Version 4.x
+CodeIgniter Version 4.x
 -----------------------
 
-Path: ``app/Controllers``::
+Path: **app/Controllers**::
 
     <?php
 

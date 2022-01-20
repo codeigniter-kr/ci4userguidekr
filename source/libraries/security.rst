@@ -6,7 +6,7 @@
 
 .. contents::
     :local:
-    :depth: 2
+    :depth: 3
 
 *******************
 라이브러리 로드
@@ -20,6 +20,8 @@
 
 	$security = \Config\Services::security();
 
+.. _cross-site-request-forgery:
+
 *********************************
 사이트 간 요청 위조 (CSRF)
 *********************************
@@ -27,8 +29,13 @@
 .. warning:: CSRF 보호는 **POST/PUT/PATCH/DELETE** 요청에 대해서만 사용할 수 있습니다.
     다른 메서드에 대한 요청은 보호되지 않습니다.
 
+Config for CSRF
+===============
+
+.. _csrf-protection-methods:
+
 CSRF Protection Methods
-=======================
+-----------------------
 
 코드이그나이터는 기본적으로 쿠키 기반 CSRF 보호를 사용합니다. 
 OWASP 교차사이트 요청서 위조방지 컨닝시트의 `Double Submit Cookie <https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#double-submit-cookie>`_\ .
@@ -41,6 +48,45 @@ OWASP 교차사이트 요청서 위조방지 컨닝시트의 `Double Submit Cook
 ::
 
     public $csrfProtection = 'session';
+
+Token Randomization
+-------------------
+
+`BREACH`_\ 와 같은 압축 부채널 공격(mitigate compression side-channel attacks)을 완화하고 공격자가 CSRF 토큰을 추측하지 못하도록 토큰 무작위화(기본값 해제)를 구성할 수 있습니다.
+
+활성화하면 토큰에 무작위 마스크가 추가되어 스크램블에 사용됩니다.
+
+.. _`BREACH`: https://en.wikipedia.org/wiki/BREACH
+
+다음과 같이 **app/Config/Security.php**\ 파일의 매개 변수 값을 편집하여 활성화할 수 있습니다.
+
+::
+
+    public $tokenRandomize = true;
+
+토큰 재생성
+===================
+
+토큰은 제출할 때마다 재생성되거나(기본값), CSRF 쿠키 존재하는 동안 동일하게 유지됩니다.
+토큰의 기본 재생성은 강력한 보안을 제공하지만, 다른 토큰이 뒤로/앞으로 탐색, 여러 탭/창, 비동기 작업 등으로 무효화됨에 따라 사용성 문제가 발생할 수 있습니다.
+다음과 같이 **app/Config/Security.php**\ 파일의 매개 변수를 편집하여 이 동작을 변경할 수 있습니다.
+
+::
+
+	public $regenerate  = true;
+
+실패 시 리디렉션
+======================
+
+요청이 CSRF 유효성 검사에 실패하면 기본적으로 이전 페이지로 리디렉션되어 최종 사용자에게 표시 할 수있는 ``error`` 플래시 메시지를 설정합니다. 
+이것은 단순히 충돌하는 것보다 더 좋은 경험을 제공합니다. 
+다음과 같이 **app/Config/Security.php**\ 매개 변수를 편집하여 끌 수 있습니다.
+
+::
+
+	public $redirect = false;
+
+리디렉션 값이 **true**\ 인 경우 AJAX 호출은 리디렉션되지 않지만 오류가 발생합니다.
 
 CSRF 보호 활성화
 ======================
@@ -125,30 +171,6 @@ CSRF 토큰을 확인하는 순서는 다음과 같습니다.
 1. ``$_POST`` array
 2. Http header
 3. ``php://input`` (JSON 요청) - JSON을 디코딩한 다음 다시 인코딩해야 하기 때문에 이 방법이 가장 느립니다.
-
-토큰 재생성
-===================
-
-토큰은 제출할 때마다 재생성되거나(기본값), CSRF 쿠키 존재하는 동안 동일하게 유지됩니다.
-토큰의 기본 재생성은 강력한 보안을 제공하지만, 다른 토큰이 뒤로/앞으로 탐색, 여러 탭/창, 비동기 작업 등으로 무효화됨에 따라 사용성 문제가 발생할 수 있습니다.
-다음과 같이 **app/Config/Security.php**\ 파일의 매개 변수를 편집하여 이 동작을 변경할 수 있습니다.
-
-::
-
-	public $regenerate  = true;
-
-실패 시 리디렉션
-======================
-
-요청이 CSRF 유효성 검사에 실패하면 기본적으로 이전 페이지로 리디렉션되어 최종 사용자에게 표시 할 수있는 ``error`` 플래시 메시지를 설정합니다. 
-이것은 단순히 충돌하는 것보다 더 좋은 경험을 제공합니다. 
-다음과 같이 **app/Config/Security.php**\ 매개 변수를 편집하여 끌 수 있습니다.
-
-::
-
-	public $redirect = false;
-
-리디렉션 값이 **true**\ 인 경우 AJAX 호출은 리디렉션되지 않지만 오류가 발생합니다.
 
 *********************
 다른 유용한 메소드

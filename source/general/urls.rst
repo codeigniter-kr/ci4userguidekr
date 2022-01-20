@@ -2,6 +2,9 @@
 CodeIgniter URL
 #####################
 
+.. contents::
+    :local:
+    :depth: 2
 
 기본적으로 CodeIgniter의 URL은 검색 엔진 및 인간 친화적으로 설계되었습니다.
 CodeIgniter는 URL 표준 접근 방식인 "query-string" 사용하지 않고 **segment-based** 접근 방식을 사용합니다.

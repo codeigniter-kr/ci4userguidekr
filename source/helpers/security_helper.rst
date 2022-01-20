@@ -5,7 +5,8 @@ Security 헬퍼
 Security 헬퍼에는 보안 관련 함수가 포함되어 있습니다.
 
 .. contents::
-  :local:
+    :local:
+    :depth: 2
 
 헬퍼 로드
 ===================

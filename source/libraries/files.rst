@@ -110,20 +110,20 @@ MIME 형식을 알 수 없으면 null을 반환합니다.
 
 ::
 
-	$file->move(WRITEPATH.'uploads');
+	$file->move(WRITEPATH . 'uploads');
 
 기본적으로 원래 파일 이름이 사용됩니다. 두 번째 매개 변수에 새 파일 이름을 지정할 수 있습니다
 
 ::
 
 	$newName = $file->getRandomName();
-	$file->move(WRITEPATH.'uploads', $newName);
+	$file->move(WRITEPATH . 'uploads', $newName);
 
 move() 메소드는 재배치된 파일에 대한 새 File 인스턴스를 리턴하므로 이동된 위치가 필요한 경우 결과를 캡처해야 합니다.
 
 ::
 
-    $file = $file->move(WRITEPATH.'uploads');
+    $file = $file->move(WRITEPATH . 'uploads');
 
 
 ****************
@@ -157,8 +157,7 @@ move() 메소드는 재배치된 파일에 대한 새 File 인스턴스를 리�
     echo 'My files: ' . implode(PHP_EOL, $files->get());
     echo 'I have ' . count($files) . ' files!';
 
-    foreach ($files as $file)
-    {
+    foreach ($files as $file) {
         echo 'Moving ' . $file->getBasename() . ', ' . $file->getSizeByUnit('mb');
         $file->move(WRITABLE . $file->getRandomName());
     }
@@ -171,7 +170,7 @@ Collection
 **__construct(string[] $files = [])**
 
 생성자에 collection으로 사용할 파일 경로를 옵션 배열로 지정 할 수 있습니다. 
-지정된 파일은 **add()** 메소드에 전달되며 **$files**\ 의 자식 클래스에서 제공한 파일은 그대로 유지됩니다.
+지정된 파일은 ``add()`` 메소드에 전달되며 ``$files``\ 의 자식 클래스에서 제공한 파일은 그대로 유지됩니다.
 
 **define()**
 
@@ -203,12 +202,12 @@ Inputting Files
 경로 또는 경로 배열로 표시된 모든 파일을 추가합니다. 
 경로가 디렉터리로 확인되면 ``$recursive``\ 에 하위 디렉터리가 포함됩니다.
 
-**addFile(string $file)**
+**addFile(string $file)** /
 **addFiles(array $files)**
 
 현재 입력 파일 목록에 파일을 추가합니다. 파일은 실제 파일의 절대 경로입니다.
 
-**removeFile(string $file)**
+**removeFile(string $file)** /
 **removeFiles(array $files)**
 
 현재 입력 파일 목록에서 파일을 제거합니다.
@@ -222,7 +221,7 @@ Inputting Files
 파일 필터링
 ===============
 
-**removePattern(string $pattern, string $scope = null)**
+**removePattern(string $pattern, string $scope = null)** /
 **retainPattern(string $pattern, string $scope = null)**
 
 패턴(또는 선택적 범위)을 통해 현재 파일 목록을 필터링하여 일치하는 파일을 제거하거나 유지합니다.

@@ -3,13 +3,13 @@
 
 .. contents::
     :local:
-    :depth: 1
+    :depth: 2
 
 관련 문서
 ==============
 
-- `Codeigniter 3.X 뷰 설명서 <http://codeigniter.com/userguide3/general/views.html>`_
-- :doc:`Codeigniter 4.X 뷰 설명서 </outgoing/views>`
+- `CodeIgniter 3.X 뷰 설명서 <http://codeigniter.com/userguide3/general/views.html>`_
+- :doc:`CodeIgniter 4.X 뷰 설명서 </outgoing/views>`
 
 무엇이 바뀌었습니까?
 =====================
@@ -22,7 +22,7 @@
 업그레이드 가이드
 =================
 
-1. 먼저 모든 뷰를 ``app/Views`` 폴더로 옮깁니다.
+1. 먼저 모든 뷰를 **app/Views** 폴더로 옮깁니다.
 2. 뷰를 로드하는 모든 스크립트의 뷰 로드 구문을 ``$this->load->view('directory_name/file_name')`` 대신
    ``echo view('directory_name/file_name');``\ 로 변경합니다.
 3. (선택사항) 뷰의 에코 구문 ``<?php echo $title; ?>``\ 을 ``<?= $title ?>``\ 로 변경할 수 있습니다.
@@ -30,10 +30,10 @@
 Code Example
 ============
 
-Codeigniter Version 3.11
+CodeIgniter Version 3.11
 ------------------------
 
-Path: ``application/views``::
+Path: **application/views**::
 
     <html>
     <head>
@@ -53,10 +53,10 @@ Path: ``application/views``::
     </body>
     </html>
 
-Codeigniter Version 4.x
+CodeIgniter Version 4.x
 -----------------------
 
-Path: ``app/Views``::
+Path: **app/Views**::
 
     <html>
     <head>
@@ -70,7 +70,7 @@ Path: ``app/Views``::
         <ul>
         <?php foreach ($todo_list as $item): ?>
             <li><?= esc($item) ?></li>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         </ul>
 
     </body>

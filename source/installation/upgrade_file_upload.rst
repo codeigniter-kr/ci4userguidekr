@@ -3,13 +3,13 @@
 
 .. contents::
     :local:
-    :depth: 1
+    :depth: 2
 
 
 Documentations
 ==============
-- `Codeigniter 3.X Output Class 문서  <http://codeigniter.com/userguide3/libraries/file_uploading.html>`_
-- :doc:`Codeigniter 4.X Uploaded Files 문서  </libraries/uploaded_files>`
+- `CodeIgniter 3.X Output Class 문서  <http://codeigniter.com/userguide3/libraries/file_uploading.html>`_
+- :doc:`CodeIgniter 4.X Uploaded Files 문서  </libraries/uploaded_files>`
 
 변경된 사항
 =====================
@@ -18,14 +18,14 @@ Documentations
 Upgrade Guide
 =============
 CI4에서는 ``$file = $this->request->getFile('userfile')``\ 로 업로드된 파일에 액세스합니다. 업로드된 파일은 ``$file->isValid()``\ 를 사용하여 파일이 성공적으로 업로드되었는지 확인할 수 있습니다.
-업로드된 파일을 저장하려면 ``$path = $this->request->getFile('userfile')->store('head_img/', 'user_name.jpg');``\ 를 사용합니다. 파일은 ``writable/uploads/head_img/user_name.jpg``\ 로 저장됩니다.
+업로드된 파일을 저장하려면 ``$path = $this->request->getFile('userfile')->store('head_img/', 'user_name.jpg');``\ 를 사용합니다. 파일은 **writable/uploads/head_img/user_name.jpg**\ 로 저장됩니다.
 
 새로운 메소드와 일치하도록 파일 업로드 코드를 변경해야 합니다.
 
 Code Example
 ============
 
-Codeigniter Version 3.11
+CodeIgniter Version 3.11
 ------------------------
 ::
 
@@ -69,7 +69,7 @@ Codeigniter Version 3.11
         }
     }
 
-Codeigniter Version 4.x
+CodeIgniter Version 4.x
 -----------------------
 ::
 

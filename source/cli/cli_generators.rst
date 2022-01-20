@@ -259,7 +259,7 @@ CodeIgniter4는 컨트롤러, 모델, 엔티티, 마이그레이션 및 시더 �
 
 ::
 
-    php spark make:scaffold user
+    > php spark make:scaffold user
 
 다음 클래스를 생성합니다.
 

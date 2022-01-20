@@ -3,14 +3,14 @@ Upgrade Security
 
 .. contents::
     :local:
-    :depth: 1
+    :depth: 2
 
 
 Documentations
 ==============
 
-- `Codeigniter 3.X Security Class 문서 <http://codeigniter.com/userguide3/libraries/security.html>`_
-- :doc:`Codeigniter 4.X Security 문서 </libraries/security>`
+- `CodeIgniter 3.X Security Class 문서 <http://codeigniter.com/userguide3/libraries/security.html>`_
+- :doc:`CodeIgniter 4.X Security 문서 </libraries/security>`
 
 .. note::
     :doc:`폼(form) 헬퍼 </helpers/form_helper>`\ 를 사용하고 CSRF 필터를 전역적으로 활성화하면 ``form_open()`` 함수는 자동으로 폼에 숨겨진 CSRF 필드를 삽입합니다. 따라서 직접 업그레이드할 필요가 없습니다.
@@ -21,7 +21,7 @@ Documentations
 
 Upgrade Guide
 =============
-1. CI4에서 CSRF 보호를 활성화하려면 ``app/Config/Filters.php``\ 에서 활성화해야 합니다.
+1. CI4에서 CSRF 보호를 활성화하려면 **app/Config/Filters.php**\ 에서 활성화해야 합니다.
 
 ::
 
@@ -38,7 +38,7 @@ Upgrade Guide
 Code Example
 ============
 
-Codeigniter Version 3.11
+CodeIgniter Version 3.11
 ------------------------
 ::
 
@@ -58,7 +58,7 @@ Codeigniter Version 3.11
         <input type="submit" value="Save">
     </form>
 
-Codeigniter Version 4.x
+CodeIgniter Version 4.x
 -----------------------
 ::
 

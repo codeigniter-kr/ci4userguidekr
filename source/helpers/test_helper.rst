@@ -6,10 +6,7 @@ Test 헬퍼
 
 .. contents::
   :local:
-
-.. raw:: html
-
-  <div class="custom-index container"></div>
+  :depth: 2
 
 헬퍼 로드
 ===================

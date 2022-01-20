@@ -3,7 +3,7 @@ Composer로 설치
 
 .. contents::
     :local:
-    :depth: 1
+    :depth: 2
 
 Composer는 CodeIgniter4를 시스템에 여러 가지 방법으로 설치하여 사용할 수 있게해 줍니다.
 
@@ -29,7 +29,7 @@ Composer는 CodeIgniter4를 시스템에 여러 가지 방법으로 설치하여
 
 ::
 
-    composer create-project codeigniter4/appstarter project-root
+    > composer create-project codeigniter4/appstarter project-root
 
 위와 같이하면 "project-root" 폴더가 생성됩니다.
 
@@ -47,6 +47,8 @@ phpunit과 관련된 composer 종속성이 필요하지 않다면 위 명령에 
 
 설치 후에는 "업그레이드" 섹션의 단계를 따르십시오.
 
+.. _app-starter-upgrading:
+
 업그레이드
 --------------
 
@@ -54,13 +56,13 @@ phpunit과 관련된 composer 종속성이 필요하지 않다면 위 명령에 
 
 ::
 
-    composer update 
+    > composer update 
 
 시스템에 속하지 않는 디렉토리(app, public 등)를 최신 프레임워크 소스 구조와 비교하려면 ``--prefer-source`` 옵션으로 업데이트합니다.
 
 ::
 
-    composer update codeigniter4/framework --prefer-source
+    > composer update codeigniter4/framework --prefer-source
 
 ``--prefer-source`` 옵션으로 최신 프레임워크 소스 구조를 가져올때 자동 업데이트가 되지 않으면 이전 코드를 다음과 같이 제거할 수 있습니다.
 
@@ -71,7 +73,7 @@ phpunit과 관련된 composer 종속성이 필요하지 않다면 위 명령에 
 
 프로젝트를 만들 때 ``--no-dev`` 옵션을 사용했다면 ``composer update --no-dev``\ 를 입력합니다.
 
-업그레이드 지침에서 ``app/Config`` 폴더에 영향을 주는 변경 사항이 있는지 확인하십시오.
+:doc:`업그레이드 지침 <upgrading>`\ 을 읽고 변경 사항 및 개선 사항을 확인하십시오.
 
 장점
 ----------
@@ -130,7 +132,7 @@ App Starter 저장소에는 현재 안정 릴리스와 프레임워크의 최신
 
 ::
 
-    composer require codeigniter4/framework --prefer-sourc
+    > composer require codeigniter4/framework --prefer-sourc
 
 앞서 설명한 두 가지 composer 설치 방법과 마찬가지로, phpunit 관련 패키지가 필요 없다면 ``composer require`` 명령에 ``---no-dev`` 옵션을 추가하십시오.
 
@@ -149,15 +151,16 @@ App Starter 저장소에는 현재 안정 릴리스와 프레임워크의 최신
     // app/Config/Paths.php
     $systemDirectory = ROOTPATH . '/vendor/codeigniter4/framework/system';
 
+.. _adding-codeigniter4-upgrading:
 
 업그레이드
 ---------------
 
 새 릴리즈가 있을 때마다 프로젝트 루트의 커맨드 라인에서 다음 명령을 입력하십시오.::
 
-    composer update --prefer-source
+    > composer update --prefer-source
 
-업그레이드 지침을 읽고 ``app/Config`` 파일에 지정된 폴더에 영향을 받는 변경 사항이 있는지 확인하십시오
+:doc:`업그레이드 지침 <upgrading>`\ 을 읽고 변경 사항 및 개선 사항을 확인하십시오.
 
 장점
 -------------
@@ -187,6 +190,6 @@ App Starter 저장소에는 현재 안정 릴리스와 프레임워크의 최신
 
 ::
 
-    composer require codeigniter4/translations
+    > composer require codeigniter4/translations
 
 업데이트된 내용은 ``composer update``\ 를 실행할 때마다 프레임워크와 함께 업데이트됩니다.

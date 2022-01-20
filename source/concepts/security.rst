@@ -28,7 +28,7 @@ OWASP 추천 사항
 CodeIgniter 규약
 ----------------------
 
-- `HTTP 라이브러리 <../ incoming / incomingrequest.html>`_\ 는 입력 필드 필터링 및 컨텐츠 메타데이터를 제공합니다.
+- :doc:`HTTP 라이브러리 <../incoming/incomingrequest>`\ 는 입력 필드 필터링 및 컨텐츠 메타데이터를 제공합니다.
 - 폼 검증 라이브러리 제공
 
 *********************************************
@@ -49,7 +49,7 @@ OWASP 추천 사항
 CodeIgniter 규약
 ----------------------
 
-- `세션 <../libraries/sessions.html>`_ 라이브러리
+- :doc:`세션 <../libraries/sessions>` 라이브러리
 - CSRF 유효성 검사를 제공하는 :doc:`Security </libraries/security>`
 - 타사(third party ) 인증을 쉽게 추가할 수 있습니다.
 
@@ -202,5 +202,5 @@ OWASP 추천 사항
 CodeIgniter 규약
 ----------------------
 
-- `HTTP 라이브러리 <../incoming/incomingrequest.html>`_ 제공
-- `세션 <../libraries/sessions.html>`_\ 가 제공하는 flashdata 사용
+- :doc:`HTTP 라이브러리 <../incoming/incomingrequest>` 제공
+- :doc:`세션 <../libraries/sessions>`\ 가 제공하는 flashdata 사용

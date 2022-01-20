@@ -69,7 +69,7 @@ PHP는 요청 및 응답 헤더와 상호 작용하는 방법을 제공하지만
     $request = service('request');
 
     // the URI being requested (i.e. /about)
-    $request->uri->getPath();
+    $request->getUri()->getPath();
 
     // Retrieve $_GET and $_POST variables
     $request->getGet('foo');
@@ -89,7 +89,7 @@ PHP는 요청 및 응답 헤더와 상호 작용하는 방법을 제공하지만
     $request->getHeader('host');
     $request->getHeader('Content-Type');
 
-    $request->getMethod();  // GET, POST, PUT, etc
+    $request->getMethod();  // get, post, put, etc
 
 요청 클래스는 여러분을 위해 백그라운드에서 많은 작업을 수행합니다.
 ``isAJAX()`` 및 ``isSecure()`` 메소드는 여러 가지 다른 방법으로 이를 확인하여 올바른 답을 결정합니다.

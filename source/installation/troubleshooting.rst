@@ -11,7 +11,7 @@
 
 ::
 
-    php spark serve
+    > php spark serve
 
 브라우저의 ``http://localhost:8080``\ 을 입력하였을 때 Codeigniter4 시작 페이지를 표시해야 합니다.
 

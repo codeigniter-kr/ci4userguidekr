@@ -3,14 +3,14 @@ Upgrade Sessions
 
 .. contents::
     :local:
-    :depth: 1
+    :depth: 2
 
 
 Documentations
 ==============
 
-- `Codeigniter 3.X Session Library 문서 <http://codeigniter.com/userguide3/libraries/sessions.html>`_
-- :doc:`Codeigniter 4.X Session Library 문서 </libraries/sessions>`
+- `CodeIgniter 3.X Session Library 문서 <http://codeigniter.com/userguide3/libraries/sessions.html>`_
+- :doc:`CodeIgniter 4.X Session Library 문서 </libraries/sessions>`
 
 
 변경된 사항
@@ -30,7 +30,7 @@ Upgrade Guide
 Code Example
 ============
 
-Codeigniter Version 3.11
+CodeIgniter Version 3.11
 ------------------------
 ::
 
@@ -40,7 +40,7 @@ Codeigniter Version 3.11
     $this->session->item;
     $this->session->userdata('item');
 
-Codeigniter Version 4.x
+CodeIgniter Version 4.x
 -----------------------
 ::
 

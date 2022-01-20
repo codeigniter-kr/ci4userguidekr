@@ -9,7 +9,7 @@ CodeIgniter 모델 사용
 모델
 ========
 
-데이터베이스 테이블과 상호 작용(레코드 찾기, 업데이트, 삭제등)하는 많은 표준 메소드가 기본 제공됩니다.
+데이터베이스 **테이블**\ 과 상호 작용(레코드 찾기, 업데이트, 삭제등)하는 많은 표준 메소드가 기본 제공됩니다.
 
 모델에 액세스하기
 ==================
@@ -96,7 +96,7 @@ CodeIgniter의 모델을 활용하려면 ``CodeIgniter\Model``\ 을 확장하는
 --------------------------
 
 클래스가 처음 인스턴스화될 때 데이터베이스 연결 인스턴스가 생성자에 전달되지 않으면 구성에서 설정한대로 기본 데이터베이스 그룹에 자동으로 연결됩니다.
-``DBGroup`` 속성을 클래스에 추가하여 모델별로 사용되는 그룹을 수정할 수 있습니다.
+``$DBGroup`` 속성을 클래스에 추가하여 모델별로 사용되는 그룹을 수정할 수 있습니다.
 이는 모델 내에서 ``$this->db``\ 에 대한 참조가 적절한 DB에 연결되도록 합니다.
 
 ::
@@ -172,44 +172,44 @@ CodeIgniter의 모델을 활용하려면 ``CodeIgniter\Model``\ 을 확장하는
 
 모델의 CRUD 메소드는 Result 객체 대신 결과 데이터를 자동으로 반환합니다.
 이 설정을 통해 반환되는 데이터 유형을 정의할 수 있습니다.
-유효한 값은 'array', 'object' 또는 Result 오브젝트의 getCustomResultObject() 메소드와 함께 사용할 수 있는 클래스명입니다.
+유효한 값은 **array** (기본 값), **object** 또는 Result 오브젝트의 ``getCustomResultObject()`` 메소드와 함께 사용할 수 있는 **정규화된 클래스명**\ 입니다.
 
 **$useSoftDeletes**
 
-``true``\ 이면 delete* 메소드 호출은 실제로 행을 삭제하는 대신 데이터베이스의 ``deleted_at`` 필드를 설정합니다.
+``true``\ 이면 ``delete()`` 메소드 호출은 실제로 행을 삭제하는 대신 데이터베이스의 ``deleted_at`` 필드를 설정합니다.
 이를 통해 데이터가 다른 곳에서 참조될 때 데이터를 보존하거나 복원할 수있는 개체의 "휴지통"\ 을 유지하거나 단순히 보안 추적의 일부로 보존할 수 있습니다.
-``true``\ 인 경우, find* 메소드를 호출하기 전에 withDeleted() 메소드를 호출하지 않으면 find* 메소드는 삭제되지 않은 행만 리턴합니다.
+``true``\ 인 경우, **find*()** 메소드를 호출하기 전에 ``withDeleted()`` 메소드를 호출하지 않으면 **find*()** 메소드는 삭제되지 않은 행만 리턴합니다.
 
-모델의 $dateFormat 설정에 따라 데이터베이스에 타입이 DATETIME 또는 INTEGER인 ``deleted_at`` 필드가 필요합니다.
+모델의 ``$dateFormat`` 설정에 따라 데이터베이스에 타입이 DATETIME 또는 INTEGER인 ``deleted_at`` 필드가 필요합니다.
 기본 필드 이름은 ``deleted_at``\ 이지만 이 이름은 ``$deletedField`` 속성을 사용하여 원하는 이름으로 수정할 수 있습니다.
 
 **$allowedFields**
 
-이 배열은 save, insert, update 메소드를 통하여 설정할 수 있는 필드 이름입니다.
+이 배열은 ``save()``, ``insert()``, ``update()`` 메소드를 통하여 설정할 수 있는 필드 이름입니다.
 여기에 명시되지 않은 필드명은 삭제됩니다. 
 이렇게 하면 양식(Form)에서 입력된 모든 데이터를 모델에 모두 입력되는 것을 방지하여 대량 할당 취약점이 발생하지 않도록 보호할 수 있습니다.
 
 **$useTimestamps**
 
 이 값은 현재 날짜가 모든 INSERT 및 UPDATE에 자동으로 추가되는지 여부를 결정합니다.
-``true``\ 이면 $dateFormat에 지정된 형식으로 현재 시간을 설정합니다.
-이를 위해서 테이블에 적절한 데이터 유형의 'created_at'\ 와 'updated_at' 라는 열(column)이 있어야 합니다.
+``true``\ 이면 ``$dateFormat``\ 에 지정된 형식으로 현재 시간을 설정합니다.
+이를 위해서 테이블에 적절한 데이터 유형의 **created_at**\ 와 **updated_at** 라는 열(column)이 있어야 합니다.
 
 **$createdField**
 
 데이터 레코드 작성 타임스탬프를 유지하기 위해 사용하는 데이터베이스 필드를 지정합니다.
-업데이트가 되지않도록 하려면 비워 두십시오. (``$useTimestamps``\ 가 true여도)
+업데이트가 되지않도록 하려면 비워 두십시오. (``$useTimestamps``\ 가 활성화된 경우에도)
 
 **$updatedField**
 
 데이터 레코드 업데이트 타임스탬프를 유지하기 위해 사용할 데이터베이스 필드를 지정합니다.
-업데이트가 되지않도록 하려면 비워 두십시오 (useTimestamps가 true여도)
+업데이트가 되지않도록 하려면 비워 두십시오 (``$useTimestamps``\ 가 활성화된 경우에도)
 
 **$dateFormat**
 
-$useTimestamps 및 $useSoftDeletes와 함께 작동하여 올바른 유형의 날짜 값이 데이터베이스에 INSERT되도록 합니다.
-기본적으로 DATETIME 값을 작성하지만 옵션을 통해 수정할 수 있으며, 유효한 옵션은 `datetime`, `date`, `int` (PHP 타임 스탬프)입니다.
-'useSoftDeletes' 또는 'useTimestamps'\ 에 유효하지 않거나 잘못된 dateFormat을 사용하면 예외가 발생합니다.
+``$useTimestamps``, ``$useSoftDeletes``\ 와 함께 작동하여 올바른 유형의 날짜 값이 데이터베이스에 INSERT되도록 합니다.
+기본적으로 DATETIME 값을 작성하지만 옵션을 통해 수정할 수 있으며, 유효한 옵션은 ``'datetime'``, ``'date'``, ``'int'`` (PHP 타임 스탬프)입니다.
+**useSoftDeletes** 또는 **useTimestamps**\ 에 유효하지 않거나 잘못된 dateFormat을 사용하면 예외가 발생합니다.
 
 **$validationRules**
 
@@ -223,7 +223,7 @@ $useTimestamps 및 $useSoftDeletes와 함께 작동하여 올바른 유형의 �
 
 **$skipValidation**
 
-모든 ``inserts``\ 와 ``updates``\ 의 유효성 검사를 하지 않을지 여부입니다.
+모든 **inserts**\ 와 **updates**\ 의 유효성 검사를 하지 않을지 여부입니다.
 기본값은 ``false``\ 이며 데이터의 유효성 검사를 항상 시도합니다.
 
 이 속성은 주로 ``skipValidation()`` 메소드에 의해 사용되지만, 모델이 유효성을 검사하지 않도록 ``true``\ 로 변경될 수 있습니다.
@@ -248,7 +248,7 @@ $useTimestamps 및 $useSoftDeletes와 함께 작동하여 올바른 유형의 �
 데이터 찾기
 ----------------
 
-find(), insert(), update(), delete() 등을 포함하여 테이블에서 기본 CRUD 작업을 수행하기 위한 여러 함수가 제공됩니다.
+``find()``, ``insert()``, ``update()``, ``delete()`` 등을 포함하여 테이블에서 기본 CRUD 작업을 수행하기 위한 여러 함수가 제공됩니다.
 
 **find()**
 
@@ -309,8 +309,8 @@ limit 및 offset 값을 각각 첫 번째와 두 번째 매개 변수로 전달�
 
 **withDeleted()**
 
-``$useSoftDeletes``\ 가 ``true``\ 이면 find* 메소드는 'deleted_at IS NOT null'\ 인 행을 반환하지 않습니다.
-이를 일시적으로 무시하려면 find* 메소드를 호출하기 전에 ``withDeleted()`` 메소드를 사용합니다.
+``$useSoftDeletes``\ 가 ``true``\ 이면 **find*()** 메소드는 'deleted_at IS NOT null'\ 인 행을 반환하지 않습니다.
+이를 일시적으로 무시하려면 **find*()** 메소드를 호출하기 전에 ``withDeleted()`` 메소드를 사용합니다.
 
 ::
 
@@ -381,7 +381,7 @@ withDeleted()는 삭제된 행과 삭제되지 않은 행을 모두 리턴하지
 
 **save()**
 
-``$primaryKey`` 값과 일치하는 배열 키가 존재하는지의 여부에 따라 레코드 INSERT 또는 UPDATE를 자동으로 처리합니다.
+``$primaryKey`` 값과 일치하는 배열 키가 존재하는지의 여부에 따라 레코드 INSERT 또는 UPDATE를 자동으로 처리하는 ``insert()``\ 와 ``update()`` 메서드를 둘러싼 래퍼입니다.
 
 ::
 
@@ -478,7 +478,7 @@ save 메소드는 단순하지 않은 오브젝트를 인식하고 공용 및 �
 
     $userModel->delete(12);
 
-모델의 $useSoftDeletes 값이 ``true``\ 인 경우 ``deleted_at``\ 를 현재 날짜 및 시간으로 설정하여 행을 업데이트합니다.
+모델의 ``$useSoftDeletes`` 값이 true인 경우 ``deleted_at``\ 를 현재 날짜 및 시간으로 설정하여 행을 업데이트합니다.
 두 번째 매개 변수를 true로 설정하여 영구적으로 삭제할 수 있습니다.
 
 첫 번째 매개 변수로 기본 키 배열을 전달하여 한 번에 여러 레코드를 삭제할 수 있습니다
@@ -605,8 +605,7 @@ Model 클래스는 ``insert()``, ``update()``, ``save()`` 메소드를 사용하
 
 ::
 
-    if ($model->save($data) === false)
-    {
+    if ($model->save($data) === false) {
         return view('updateUser', ['errors' => $model->errors()];
     }
 
@@ -614,9 +613,9 @@ Model 클래스는 ``insert()``, ``update()``, ``save()`` 메소드를 사용하
 
 ::
 
-    <?php if (! empty($errors)) : ?>
+    <?php if (! empty($errors)): ?>
         <div class="alert alert-danger">
-        <?php foreach ($errors as $field => $error) : ?>
+        <?php foreach ($errors as $field => $error): ?>
             <p><?= $error ?></p>
         <?php endforeach ?>
         </div>
@@ -646,7 +645,7 @@ Model 클래스는 ``insert()``, ``update()``, ``save()`` 메소드를 사용하
 
     $rules = $model->getValidationRules($options);
 
-``$options`` 매개 변수는 하나의 요소를 가진 연관 배열이며, 키는 "except" 또는 "only"\ 이며, 값은 해당 필드 이름의 배열입니다.
+``$options`` 매개 변수는 하나의 요소를 가진 연관 배열이며, 키는 ``'except'`` 또는 ``'only'``\ 이며, 값은 해당 필드 이름의 배열입니다.
 
 ::
 
@@ -660,7 +659,7 @@ Model 클래스는 ``insert()``, ``update()``, ``save()`` 메소드를 사용하
 
 이 모델은 전달된 데이터를 기반으로 규칙의 일부를 바꾸는 간단한 방법을 제공합니다.
 이것은 명확하지 않은 것처럼 들리지만 특히 ``is_unique`` 유효성 검사 규칙을 사용하면 편리합니다.
-자리 표시자는 단순히 중괄호로 묶인 $data로 전달된 필드(또는 배열 키)의 이름이며, 일치하는 필드의 **값**\ 으로 대체됩니다. 
+자리 표시자는 단순히 중괄호로 묶인 ``$data``\ 로 전달된 필드(또는 배열 키)의 이름이며, 일치하는 필드의 **값**\ 으로 대체됩니다. 
 다음 예를 확인하세요.
 
 ::
@@ -720,7 +719,7 @@ POST 데이터가 다음과 같다고 가정합니다.
 
     $builder = $userModel->builder();
 
-빌더는 모델의 $table로 설정되어 있습니다.
+빌더는 모델의 ``$table``\ 로 설정되어 있습니다.
 다른 테이블에 액세스해야 하는 경우 매개 변수로 전달할 수 있지만 공유 인스턴스는 반환되지 않습니다.
 
 ::
@@ -744,15 +743,15 @@ POST 데이터가 다음과 같다고 가정합니다.
 런타임 리턴 유형 변경
 ----------------------------
 
-find*() 메소드를 클래스 $returnType 속성으로 사용하여 데이터가 리턴되는 형식을 지정할 수 있습니다.
+**find*()** 메소드를 클래스 ``$returnType`` 속성으로 사용하여 데이터가 리턴되는 형식을 지정할 수 있습니다.
 그러나 지정한 형식과 다른 형식으로 데이터를 다시 원할 수도 있습니다.
 모델은이를 수행할 수 있는 메소드를 제공합니다.
 
-.. note:: 이 메소드는 다음 find*() 메소드 호출에 대한 리턴 유형만 변경합니다. 그 후에는 기본값으로 재설정됩니다.
+.. note:: 이 메소드는 다음 **find*()** 메소드 호출에 대한 리턴 유형만 변경합니다. 그 후에는 기본값으로 재설정됩니다.
 
 **asArray()**
 
-find*() 메소드의 데이터를 연관 배열로 리턴합니다.
+**find*()** 메소드의 데이터를 연관 배열로 리턴합니다.
 
 ::
 
@@ -760,7 +759,7 @@ find*() 메소드의 데이터를 연관 배열로 리턴합니다.
 
 **asObject()**
 
-find*() 메소드의 데이터를 표준 객체 또는 사용자 정의 클래스 인스턴스로 반환합니다.
+**find*()** 메소드의 데이터를 표준 객체 또는 사용자 정의 클래스 인스턴스로 반환합니다.
 
 ::
 
@@ -792,14 +791,14 @@ find*() 메소드의 데이터를 표준 객체 또는 사용자 정의 클래�
 
 모델 실행시 호출 가능한 콜백 메소드를 지정할 수 있는 몇 가지 이벤트 포인트가 있습니다.
 이를 이용하여 데이터를 정규화하거나, 암호를 해시하고 관련 엔터티를 저장하는 작업등을 수행할 수 있습니다.
-모델 실행의 다음 이벤트 포인트(**$beforeInsert**, **$afterInsert**, **$beforeUpdate**, **$afterUpdate**, **$afterFind**, **$afterDelete**)는 각 클래스 속성을 통해 영향을 받을 수 있습니다.
+모델 실행의 다음 이벤트 포인트(``$beforeInsert``, ``$afterInsert``, ``$beforeUpdate``, ``$afterUpdate``, ``$afterFind``, ``$afterDelete``)는 각 클래스 속성을 통해 영향을 받을 수 있습니다.
 
 콜백 정의
 -----------
 
 사용할 모델에 먼저 새 클래스 메소드를 작성하고 콜백을 지정하십시오.
-이 클래스는 $data 배열을 매개 변수로 받습니다.
-$data 배열에 전달되는 내용은 이벤트마다 다르지만, 원래 메소드에 전달된 기본 데이터를 **data**\ 라는 키에 전달합니다.
+이 클래스는 ``$data`` 배열을 매개 변수로 받습니다.
+``$data`` 배열에 전달되는 내용은 이벤트마다 다르지만, 원래 메소드에 전달된 기본 데이터를 **data**\ 라는 키에 전달합니다.
 insert* 또는 update* 메소드의 경우 데이터베이스에 삽입되는 키/값 쌍이 됩니다.
 기본 배열에는 메소드에 전달된 다른 값도 포함됩니다.
 다른 콜백이 정보를 전달받을 수 있도록 호출된 콜백 메소드는 $data 배열을 리턴해야 합니다.
@@ -808,7 +807,9 @@ insert* 또는 update* 메소드의 경우 데이터베이스에 삽입되는 �
 
     protected function hashPassword(array $data)
     {
-        if (! isset($data['data']['password'])) return $data;
+        if (! isset($data['data']['password'])) {
+            return $data;
+        }
 
         $data['data']['password_hash'] = password_hash($data['data']['password'], PASSWORD_DEFAULT);
         unset($data['data']['password']);
@@ -819,7 +820,7 @@ insert* 또는 update* 메소드의 경우 데이터베이스에 삽입되는 �
 콜백 지정
 --------------
 
-적절한 클래스 속성(beforeInsert, afterUpdate 등)에 메소드 이름을 추가하여 콜백이 호출되는 시기를 지정합니다.
+적절한 클래스 속성(``$beforeInsert``, ``$afterUpdate`` 등)에 메소드 이름을 추가하여 콜백이 호출되는 시기를 지정합니다.
 단일 이벤트에 여러 개의 콜백을 추가할 수 있으며 지정된 순서대로 처리됩니다.
 여러 이벤트에서 동일한 콜백을 사용할 수도 있습니다
 
@@ -828,7 +829,7 @@ insert* 또는 update* 메소드의 경우 데이터베이스에 삽입되는 �
     protected $beforeInsert = ['hashPassword'];
     protected $beforeUpdate = ['hashPassword'];
 
-또한 각 모델은 $allowCallbacks 속성을 설정하여 클래스 전체에 콜백을 허용(기본값)하거나 거부할 수 있습니다.
+또한 각 모델은 ``$allowCallbacks`` 속성을 설정하여 클래스 전체에 콜백을 허용(기본값)하거나 거부할 수 있습니다.
 
 ::
 
@@ -845,7 +846,7 @@ insert* 또는 update* 메소드의 경우 데이터베이스에 삽입되는 �
 ---------------------
 
 각 콜백에 전달되는 데이터는 약간씩 다릅니다.
-다음은 각 이벤트의 $data 매개 변수에 전달되는 세부 정보입니다.
+다음은 각 이벤트의 ``$data`` 매개 변수에 전달되는 세부 정보입니다.
 
 ================ =========================================================================================================
 Event            $data contents

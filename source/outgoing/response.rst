@@ -414,7 +414,7 @@ Class Reference
 
     .. php:method:: setCookie($name = ''[, $value = ''[, $expire = ''[, $domain = ''[, $path = '/'[, $prefix = ''[, $secure = false[, $httponly = false[, $samesite = null]]]]]]]])
 
-        :param mixed $name: 쿠키명 또는 매개 변수 배열
+        :param array|Cookie|string $name: 쿠키명 또는 매개 변수 배열
         :param string $value: 쿠키값
         :param int $expire: 쿠키 만료 시간(초)
         :param string $domain: 쿠키 domain

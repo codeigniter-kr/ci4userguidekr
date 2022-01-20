@@ -161,12 +161,9 @@ Examples
         {
             $publisher = new Publisher('/path/to/photos/', FCPATH . 'assets/images');
 
-            try
-            {
+            try {
                 $publisher->addPath('daily_photo.jpg')->copy(true); // `true` to enable overwrites
-            }
-            catch (Throwable $e)
-            {
+            } catch (Throwable $e) {
                 $this->showError($e);
             }
         }
@@ -296,27 +293,23 @@ Examples
 
             $publisher = new Publisher($source, APPATH);
 
-            try
-            {
+            try {
                 // Add only the desired components
                 $publisher->addPaths([
                     'Controllers',
                     'Database/Migrations',
                     'Models',
                 ])->merge(false); // Be careful not to overwrite anything
-            }
-            catch (Throwable $e)
-            {
+            } catch (Throwable $e) {
                 $this->showError($e);
                 return;
             }
 
             // If publication succeeded then update namespaces
-            foreach ($publisher->getPublished() as $file)
-            {
+            foreach ($publisher->getPublished() as $file) {
                 // Replace the namespace
                 $contents = file_get_contents($file);
-                $contents = str_replace('namespace Math\\Auth', 'namespace ' . APP_NAMESPACE, );
+                $contents = str_replace('namespace Math\\Auth', 'namespace ' . APP_NAMESPACE, $contents);
                 file_put_contents($file, $contents);
             }
         }
@@ -359,20 +352,20 @@ Library Reference
 임시 작업공간을 반환하고 필요한 경우 작성합니다.
 일부 작업에서는 중간 스토리지를 사용하여 파일 및 변경 사항을 스테이징하고, 이를 통해 사용 가능한 임시 쓰기 가능 디렉토리로 이동할 수 있습니다.
 
-**getErrors(): array<string,Throwable>**
+**getErrors(): array<string, Throwable>**
 
 마지막 쓰기 작업에서 발생한 오류를 반환합니다. 
 배열 키는 오류를 발생시킨 파일이며 값은 발견된 실행 파일입니다.
 오류 메시지를 가져오려면 Drowable에서 ``getMessage()``\ 를 사용하십시오.
 
-**addPath(string $path, bool $recursive = true)**
+**addPath(string $path, bool $recursive = true)** /
 **addPaths(array $path, bool $recursive = true)**
 
 상대 경로로 표시된 모든 파일을 추가합니다.
 경로는 ``$source``\ 와 관련된 실제 파일 또는 디렉토리에 대한 참조입니다.
 상대 경로가 디렉토리로 확인되면 ``$recursive``\ 는 하위 디렉토리를 포함합니다.
 
-**addUri(string $uri)**
+**addUri(string $uri)** /
 **addUris(array $uris)**
 
 ``CURLRequest``\ 를 사용하여 URI의 내용을 스크래치 작업 공간으로 다운로드한 다음 결과 파일을 목록에 추가합니다.

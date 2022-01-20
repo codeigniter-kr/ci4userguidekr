@@ -5,7 +5,8 @@ Filesystem 헬퍼
 디렉토리 헬퍼 파일에는 디렉토리 작업을 지원하는 기능이 있습니다.
 
 .. contents::
-  :local:
+    :local:
+    :depth: 2
 
 .. raw:: html
 

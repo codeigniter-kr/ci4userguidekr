@@ -108,7 +108,7 @@ Test 클래스
 
 .. note:: 네임스페이스는 테스트 클래스에 반드시 필요한 것은 아니지만 클래스 이름이 충돌하지 않도록 하는 데 도움이 됩니다.
 
-데이터베이스 결과를 테스트할 때는 `DatabaseTestTrait <database.html>`_ 클래스를 사용해야 합니다.
+데이터베이스 결과를 테스트할 때는 :doc:`DatabaseTestTrait <database>` 클래스를 사용해야 합니다.
 
 Staging
 -------
@@ -232,7 +232,7 @@ Traits
 
     $this->assertHeaderEmitted("Set-Cookie: foo=bar");
 
-Note: 테스트 케이스는 `PHPunit에서 별도의 프로세스로 실행 <https://phpunit.readthedocs.io/en/7.4/annotations.html#runinseparateprocess>`_\ 되어야 합니다.
+Note: 테스트 케이스는 `PHPunit에서 별도의 프로세스로 실행 <https://phpunit.readthedocs.io/en/9.5/annotations.html#runinseparateprocess>`_\ 되어야 합니다.
 
 **assertHeaderNotEmitted($header, $ignoreCase = false)**
 
@@ -248,7 +248,7 @@ Note: 테스트 케이스는 `PHPunit에서 별도의 프로세스로 실행 <ht
 
     $this->assertHeaderNotEmitted("Set-Cookie: banana");
 
-Note: 테스트 케이스는 `PHPunit에서 별도의 프로세스로 실행 <https://phpunit.readthedocs.io/en/7.4/annotations.html#runinseparateprocess>`_\ 되어야 합니다.
+Note: 테스트 케이스는 `PHPunit에서 별도의 프로세스로 실행 <https://phpunit.readthedocs.io/en/9.5/annotations.html#runinseparateprocess>`_\ 되어야 합니다.
 
 **assertCloseEnough($expected, $actual, $message = '', $tolerance = 1)**
 

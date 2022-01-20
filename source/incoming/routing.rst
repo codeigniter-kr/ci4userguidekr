@@ -204,11 +204,12 @@ Examples
 
 ::
 
-    $collection = [];
-    $collection['product/(:num)'] = 'Catalog::productLookupById';
-    $collection['product/(:alphanum)'] = 'Catalog::productLookupByName';
+    $multipleRoutes = [
+        'product/(:num)' => 'Catalog::productLookupById',
+        'product/(:alphanum)' => 'Catalog::productLookupByName'
+    ];
 
-    $routes->map($collection);
+    $routes->map($multipleRoutes);
 
 라우트 리디렉션
 ==================
@@ -248,7 +249,7 @@ Examples
 
 이것은 'users'\ 와 'blog' URI를 접두사 "admin"\ 을 사용하여 ``/admin/users`` 및 ``/admin/blog``\ 로 만들어 줍니다.
 
-콜백 전에 `namespace <#assigning-namespace>`_\ 처럼 그룹에 옵션을 할당해야 하는 경우::
+콜백 전에 :ref:`assigning-namespace`\ 처럼 그룹에 옵션을 할당해야 하는 경우::
 
     $routes->group('api', ['namespace' => 'App\API\v1'], function ($routes)
     {
@@ -257,7 +258,7 @@ Examples
 
 위 예는 ``/api/users`` URI를 사용하여 ``App\API\v1\Users`` 컨트롤러에 대한 리소스 경로(route)를 처리합니다.
 
-라우트 그룹에 특정 `필터(filter) <filters.html>`_\ 를 사용할 수도 있습니다.
+라우트 그룹에 특정 :doc:`filter <filters>`\ 를 사용할 수도 있습니다.
 필터를 사용하면 컨트롤러 전후에 필터를 실행하며, 인증이나 api 로깅에 유용합니다.
 
 ::
@@ -287,6 +288,14 @@ Examples
 
 필터 또는 네임스페이스, 하위 도메인 등과 같은 다른 경로 구성 옵션을 적용하기 위해 경로를 그룹화할 수 있습니다. 
 그룹에 접두사를 추가할 필요 없이 접두사 대신 빈 문자열을 전달할 수 있으며, 그룹의 경로는 그룹이 존재하지 않았지만 주어진 경로 구성 옵션을 사용하여 라우팅됩니다.
+
+::
+
+    $routes->group('', ['namespace' => 'Myth\Auth\Controllers'], static function ($routes) {
+        $routes->get('login', 'AuthController::login', ['as' => 'login']);
+        $routes->post('login', 'AuthController::attemptLogin');
+        $routes->get('logout', 'AuthController::logout');
+    });
 
 환경 제한(Restrictions)
 ===========================
@@ -364,7 +373,7 @@ RESTFUL 어플리케이션을 빌드할 때 특히 유용합니다.
 ===============================================
 
 ``cli()`` 메소드를 사용하여 명령행(cronjob 또는 CLI 전용 도구)에서만 작동하고 웹 브라우저에서 액세스할 수 없는 경로(route)를 작성할 수 있습니다.
-CLI에서 HTTP 동사 기반 라우트 메소드(get, post, put 등)로 작성된 라우트는 액세스할 수 없지만, ``any()`` 메소드로 작성된 라우트는 커맨드 라인에서 사용 가능합니다.
+CLI에서 HTTP 동사 기반 라우트 메소드(get, post, put 등)로 작성된 라우트는 액세스할 수 없지만, ``add()`` 메소드로 작성된 라우트는 커맨드 라인에서 사용 가능합니다.
 
 ::
 
@@ -373,7 +382,7 @@ CLI에서 HTTP 동사 기반 라우트 메소드(get, post, put 등)로 작성�
 전역 옵션
 ==============
 
-경로(route)를 만드는 모든 메소드(add, get, post, `resource <restful.html>`_ etc)는 생성된 경로를 수정하거나 추가로 제한할 수 있는 옵션을 배열로 취할 수 있습니다.
+경로(route)를 만드는 모든 메소드(add, get, post, :doc:`resource <restful>` etc)는 생성된 경로를 수정하거나 추가로 제한할 수 있는 옵션을 배열로 취할 수 있습니다.
 ``$options`` 배열은 항상 마지막 매개 변수(parameter)입니다
 
 ::
@@ -391,6 +400,8 @@ CLI에서 HTTP 동사 기반 라우트 메소드(get, post, put 등)로 작성�
     $routes->map($array, $options);
     $routes->group('name', $options, function ());
 
+.. _applying-filters:
+
 필터 적용
 ----------------
 
@@ -401,7 +412,7 @@ CLI에서 HTTP 동사 기반 라우트 메소드(get, post, put 등)로 작성�
 * **app/Config/Filters.php**\ 에 정의된 별칭 필터.
 * 필터 클래스이름
 
-필터에 대한 자세한 내용은 `Controller filters <filters.html>`_\ 를 확인하세요.
+필터에 대한 자세한 내용은 :doc:`Controller filters <filters>`\ 를 확인하세요.
 
 .. Warning:: **app/Config/Routes.php**(**app/Config/Filters.php**\ 가 아님) 파일에 경로에 대한 필터를 설정한 경우 자동 라우팅을 비활성화하는 것이 좋습니다.
     자동 라우팅을 활성화하면 구성된 경로와 다른 URL을 통해 컨트롤러에 액세스할 수 있으며, 이 경우 경로에 지정한 필터가 적용되지 않습니다.
@@ -432,7 +443,7 @@ CLI에서 HTTP 동사 기반 라우트 메소드(get, post, put 등)로 작성�
 **다중 필터**
 
 .. important:: *다중 필터*\ 는 이전 버전과 호환되지 않아 기본적으로 비활성화되어 있으며, 사용시 별도의 설정이 필요합니다. 
-    *경로(route)에 대한 다중 필터*\ 에 대한 상세한 내용은 :doc:`/installation/upgrade_415`\ 를 확인하세요.
+    자세한 내용은 :ref:'upgrade-415-multiple-filters-for-a-route\ 를 확인하세요.
 
 필터를 배열로 지정합니다.
 
@@ -440,6 +451,7 @@ CLI에서 HTTP 동사 기반 라우트 메소드(get, post, put 등)로 작성�
 
     $routes->add('admin',' AdminController::index', ['filter' => ['admin-auth', \App\Filters\SomeFilter::class]]);
 
+.. _assigning-namespace:
 
 네임스페이스 할당
 ---------------------
@@ -462,7 +474,7 @@ CLI에서 HTTP 동사 기반 라우트 메소드(get, post, put 등)로 작성�
 
 ::
 
-    $collection->get('from', 'to', ['hostname' => 'accounts.example.com']);
+    $routes->get('from', 'to', ['hostname' => 'accounts.example.com']);
 
 이 예는 도메인이 "accounts.example.com".과 정확히 일치하는 경우에만 작동하도록 허용합니다.
 기본 사이트인 "example.com" 에서는 작동하지 않습니다.
@@ -504,7 +516,7 @@ CLI에서 HTTP 동사 기반 라우트 메소드(get, post, put 등)로 작성�
     // Creates:
     $routes['users/(:num)'] = 'users/show/$2';
 
-.. _priority:
+.. _routing-priority:
 
 경로 처리 대기열
 ----------------------
@@ -645,7 +657,7 @@ URI와 일치하는 정의된 경로가 없으면 시스템은 위에서 설명�
 우선 순위는 경로 옵션에 정의되어 있습니다.
 기본적으로 비활성화되어 있습니다. 
 이 기능은 모든 경로에 영향을 미칩니다.
-우선 순위를 낮추는 사용 예는 ref:`priority` \를 참조하십시오.
+우선 순위를 낮추는 사용 예는 ref:`routing-priority` \를 참조하십시오.
 
 ::
 

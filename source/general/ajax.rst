@@ -10,6 +10,10 @@ AJAX Requests
 
 Fetch API 및 기타 JavaScript 라이브러리에서 ``X-Requested-With`` 헤더를 전송하는 방법은 다음과 같습니다.
 
+.. contents::
+    :local:
+    :depth: 2
+
 Fetch API
 =========
 

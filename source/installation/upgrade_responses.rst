@@ -3,13 +3,13 @@ Upgrade HTTP Responses
 
 .. contents::
     :local:
-    :depth: 1
+    :depth: 2
 
 
 Documentations
 ==============
-- `Codeigniter 3.X Output Class 문서 <http://codeigniter.com/userguide3/libraries/output.html>`_
-- :doc:`Codeigniter 4.X HTTP Responses 문서 </outgoing/response>`
+- `CodeIgniter 3.X Output Class 문서 <http://codeigniter.com/userguide3/libraries/output.html>`_
+- :doc:`CodeIgniter 4.X HTTP Responses 문서 </outgoing/response>`
 
 변경된 사항
 =====================
@@ -23,7 +23,7 @@ Upgrade Guide
 Code Example
 ============
 
-Codeigniter Version 3.11
+CodeIgniter Version 3.11
 ------------------------
 ::
 
@@ -35,7 +35,7 @@ Codeigniter Version 3.11
         ->set_content_type('application/json')
         ->set_output(json_encode(array('foo' => 'bar')));
 
-Codeigniter Version 4.x
+CodeIgniter Version 4.x
 -----------------------
 ::
 

@@ -5,11 +5,8 @@ Number 헬퍼
 Number 헬퍼 파일에는 로케일을 인식하는 방식으로 숫자 데이터를 작업하는데 도움이되는 함수가 포함되어 있습니다.
 
 .. contents::
-  :local:
-
-.. raw:: html
-
-  <div class="custom-index container"></div>
+    :local:
+    :depth: 2
 
 헬퍼 로드
 ===================
@@ -30,7 +27,7 @@ PHP의 국제화 및 현지화 로직이 제공된 로케일 및 옵션에 대�
 
 사용 가능한 함수는 다음과 같습니다.
 
-.. php:function:: number_to_size($num[, $precision = 1[, $locale = null])
+.. php:function:: number_to_size($num[, $precision = 1[, $locale = null]])
 
     :param	mixed	$num: 바이트 수
     :param	int	$precision: 부동 소수점 정밀도
@@ -97,11 +94,11 @@ PHP의 국제화 및 현지화 로직이 제공된 로케일 및 옵션에 대�
 
         echo number_to_amount('123,456,789,012', 2, 'de_DE'); // Returns 123,46 billion
 
-.. php:function:: number_to_currency($num, $currency[, $locale = null])
+.. php:function:: number_to_currency($num, $currency[, $locale = 0])
 
     :param mixed $num: 서식을 지정할 숫자
     :param string $currency: 통화 유형 : USD, EUR등
-    :param string $locale: 서식 지정에 사용할 로케일
+    :param string|null $locale: 서식 지정에 사용할 로케일
     :param integer $fraction: 소수점 뒤의 소수 자릿수
     :returns: 로케일에 적합한 통화 문자열
     :rtype: string
@@ -110,10 +107,12 @@ PHP의 국제화 및 현지화 로직이 제공된 로케일 및 옵션에 대�
 
     ::
 
-        echo number_to_currency(1234.56, 'USD');  // Returns $1,234.56
-        echo number_to_currency(1234.56, 'EUR');  // Returns €1,234.56
-        echo number_to_currency(1234.56, 'GBP');  // Returns £1,234.56
-        echo number_to_currency(1234.56, 'YEN');  // Returns YEN1,234.56
+        echo number_to_currency(1234.56, 'USD', 'en_US', 2);  // Returns $1,234.56
+        echo number_to_currency(1234.56, 'EUR', 'de_DE', 2);  // Returns 1.234,56 €
+        echo number_to_currency(1234.56, 'GBP', 'en_GB', 2);  // Returns £1,234.56
+        echo number_to_currency(1234.56, 'YEN', 'ja_JP', 2);  // Returns YEN 1,234.56
+
+    로케일을 지정하지 않으면 요청 로케일이 사용됩니다.
 
 .. php:function:: number_to_roman($num)
 

@@ -119,9 +119,8 @@ Model 클래스를 사용하면 Query Builder로 쉽게 작업 할 수 있으며
     namespace App\Controllers;
 
     use App\Models\NewsModel;
-    use CodeIgniter\Controller;
 
-    class News extends Controller
+    class News extends BaseController
     {
         public function index()
         {
@@ -185,7 +184,7 @@ title의 값은 ``$data['title']`` 요소에 할당되며 모든 데이터는 �
             </div>
             <p><a href="/news/<?= esc($news_item['slug'], 'url') ?>">View article</a></p>
 
-        <?php endforeach; ?>
+        <?php endforeach ?>
 
     <?php else: ?>
 

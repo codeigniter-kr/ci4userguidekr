@@ -3,14 +3,14 @@ Upgrade Database
 
 .. contents::
     :local:
-    :depth: 1
+    :depth: 2
 
 
 Documentations
 ==============
 
-- `Codeigniter 3.X 데이터베이스 문서 <http://codeigniter.com/userguide3/database/index.html>`_
-- :doc:`Codeigniter 4.X 데이터베이스 문서 </database/index>`
+- `CodeIgniter 3.X 데이터베이스 문서 <http://codeigniter.com/userguide3/database/index.html>`_
+- :doc:`CodeIgniter 4.X 데이터베이스 문서 </database/index>`
 
 
 변경된 사항
@@ -20,11 +20,6 @@ Documentations
 
 Upgrade Guide
 =============
-1. Add your database credentials to ``app/Config/Database.php``. The options are pretty much the same as in CI3 only some names have changed slightly.
-2. Everywhere you have used the database you have to replace ``$this->load->database();`` with ``$db = db_connect();``.
-3. If you use multiple databases use the following code to load additional databases ``$db = db_connect('group_name');``.
-4. Now you have to change all database queries. The most important change here is to replace ``$this->db`` with just ``$db`` and adjust the method name and ``$db``. 
-
 1. 데이터베이스 자격 증명을 ``app/Config/Database.php``\ 에 추가합니다. 옵션은 CI3와 거의 동일하며 일부 이름이 약간 바뀌었습니다.
 2. 데이터베이스를 사용하는 모든 곳에서 ``$this->load->database();``\ 를 ``$db = db_connect();``\ 로 대체해야 합니다.
 3. 여러 데이터베이스를 사용하는 경우 ``$db = db_connect('group_name');``\ 를 사용하여 추가 데이터베이스를 로드합니다.
@@ -51,7 +46,7 @@ Upgrade Guide
 Code Example
 ============
 
-Codeigniter Version 3.11
+CodeIgniter Version 3.11
 ------------------------
 ::
 
@@ -60,7 +55,7 @@ Codeigniter Version 3.11
                 ->limit(10, 20)
                 ->get('mytable');
 
-Codeigniter Version 4.x
+CodeIgniter Version 4.x
 -----------------------
 ::
 

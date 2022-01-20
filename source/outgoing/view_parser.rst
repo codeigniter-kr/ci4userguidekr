@@ -49,9 +49,8 @@
 
 	$parser = new \CodeIgniter\View\Parser();
 
-로드가 완료되면 제공하는 세 가지 표준 렌더링 방법중 하나를 사용할 수 있습니다:
-**render(viewpath, options, save)**, **setVar(name, value, context)**, **setData(data, context)**. 
-**setDelimiters(left, right)** 메소드를 통해 구분자를 직접 지정할 수도 있습니다.
+로드가 완료되면 제공하는 세 가지 표준 렌더링 방법중 하나를 사용할 수 있습니다 : ``render(viewpath, options, save)``, ``setVar(name, value, context)``, ``setData(data, context)``. 
+``setDelimiters(left, right)`` 메소드를 통해 구분자를 직접 지정할 수도 있습니다.
 
 ``Parser``\ 를 사용한 뷰 템플릿은 일반적인 뷰 PHP 스크립트와 달리 파서에서만 처리됩니다.
 뷰 템플릿에 포함된 PHP 코드는 파서에 의해 무시되며 대체 코드만 수행됩니다.
@@ -90,7 +89,7 @@ Parser 클래스는 내부적으로 연관 배열을 사용하여 ``render()``\ 
 	             ->render('blog_template');
 
 뷰 파라미터는 템플릿에서 교체할 데이터의 연관 배열로 ``setData()``\ 에 전달됩니다.
-위 예제에서 템플릿은 두 개의 변수를 포함합니다: {blog_title}\ 과 {blog_heading}
+위 예제에서 템플릿은 두 개의 변수를 포함합니다: ``{blog_title}``\ 과 ``{blog_heading}``
 ``render()``\ 에 대한 첫 번째 매개 변수는 :doc:`뷰 파일 </outgoing/views>`\ 의 이름입니다. 
 여기서 *log_template*\ 가 뷰 파일의 이름입니다.
 
@@ -165,7 +164,7 @@ Parser 클래스는 내부적으로 연관 배열을 사용하여 ``render()``\ 
 	</body>
 	</html>
 
-위의 코드에서 한 쌍의 변수를 볼 수 있습니다: {blog_entries} data... {/blog_entries}. 
+위의 코드에서 한 쌍의 변수를 볼 수 있습니다: ``{blog_entries}`` data... ``{/blog_entries}``. 
 이와 같은 경우에, 이들 쌍들 사이의 전체 데이터 청크는 파라미터 배열의 "blog_entries" 요소의 행 수에 대응하여 여러 번 반복 됩니다.
 
 변수 쌍 구문 분석은 단일 변수를 구문 분석하기 위해 위에 표시된 동일한 코드를 사용하지만 데이터에 다차원 배열을 추가합니다.
@@ -206,9 +205,9 @@ Parser 클래스는 내부적으로 연관 배열을 사용하여 ``render()``\ 
 	echo $parser->setData($data)
 	            ->render('blog_template');
 
-반복하려는 배열에 배열 대신 객체라면 파서는 먼저 객체에서 ``asArray`` 메소드를 찾습니다.
-``asArray`` 메소드가 존재한다면 해당 메소드를 호출하여 얻은 결과 배열을 위에서 설명한대로 반복합니다.
-``asArray`` 메소드가 없으면 객체가 배열로 캐스트(cast)되고 해당 퍼블릭 속성이 파서에 제공됩니다.
+반복하려는 배열에 배열 대신 객체라면 파서는 먼저 객체에서 ``asArray()`` 메소드를 찾습니다.
+``asArray()`` 메소드가 존재한다면 해당 메소드를 호출하여 얻은 결과 배열을 위에서 설명한대로 반복합니다.
+``asArray()`` 메소드가 없으면 객체가 배열로 캐스트(cast)되고 해당 퍼블릭 속성이 파서에 제공됩니다.
 
 이는 파서가 사용할 수 있는 asArray 메소드가 있는 Entity 클래스에 특히 유용합니다.
 
@@ -232,7 +231,7 @@ Parser 클래스는 내부적으로 연관 배열을 사용하여 ``render()``\ 
 
 의사 변수 ``blog_entry``\ 의 값은 연관 배열이며 각 키/값 쌍은 해당 변수의 루프안에 노출됩니다.
 
-위와 데이터로 작동하는 ``blog_template``
+위와 데이터로 작동하는 **blog_template.php**
 
 ::
 
@@ -244,7 +243,7 @@ Parser 클래스는 내부적으로 연관 배열을 사용하여 ``render()``\ 
 		</div>
 	{/blog_entry}
 
-"blog_entry" 범위내에서 다른 유사 변수에 액세스할 수 있도록 하려면 "cascadeData" 옵션이 true로 설정되어 있는지 확인하십시오.
+``blog_entry`` 범위내에서 다른 유사 변수에 액세스할 수 있도록 하려면 ``cascadeData`` 옵션이 true로 설정되어 있는지 확인하십시오.
 
 주석
 ========
@@ -343,15 +342,15 @@ if 문에 사용된 모든 변수는 이전과 같은 이름으로 설정되어 
 		<h1>Welcome, User</h1>
 	{endif}
 
-.. note:: 백그라운드에서 **eval()**\ 을 사용하여 조건부 구문을 분석하므로 조건부에서 사용되는 사용자 데이터를 주의하여 관리해야합니다. 그렇지 않으면 보안 위험에 따라 어플리케이션 코드가 노출될 수 있습니다.
+.. warning:: 백그라운드에서 ``eval()``\ 을 사용하여 조건부 구문을 분석하므로 조건부에서 사용되는 사용자 데이터를 주의하여 관리해야합니다. 그렇지 않으면 보안 위험에 따라 어플리케이션 코드가 노출될 수 있습니다.
 
 이스케이프 데이터
 ====================
 
 기본적으로 XSS 공격을 방지하기 위해 페이지의 모든 변수 대체는 이스케이프됩니다.
-CodeIgniter의 ``esc`` 메소드는 HTML **attr**, **css**\ 등을 위해 **html**\ 과 같은 여러 가지 컨텍스트를 지원합니다.
+CodeIgniter의 ``esc()`` 메소드는 HTML ``attr``, ``css``\ 등을 위해 ``html``\ 과 같은 여러 가지 컨텍스트를 지원합니다.
 컨텍스트를 지정하지 않으면 데이터는 HTML로 간주됩니다.
-**esc** 필터를 사용하여 컨텍스트 지정을 바꿀 수 있습니다.
+``esc()`` 필터를 사용하여 컨텍스트 지정을 바꿀 수 있습니다.
 
 ::
 
@@ -398,66 +397,65 @@ Provided Filters
 
 파서를 사용할 때 다음 필터를 사용할 수 있습니다
 
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ **Filter**    + **Arguments**       + **Description**                                              + **Example**                         +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ abs           +                     + Displays the absolute value of a number.                     + { v|abs }                           +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ capitalize    +                     + Displays the string in sentence case: all lowercase          + { v|capitalize}                     +
-+               +                     + with firstletter capitalized.                                +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ date          + format (Y-m-d)      + A PHP **date**-compatible formatting string.                 + { v|date(Y-m-d) }                   +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ date_modify   + value to add        + A **strtotime** compatible string to modify the date,        + { v|date_modify(+1 day) }           +
-+               + / subtract          + like ``+5 day`` or ``-1 week``.                              +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ default       + default value       + Displays the default value if the variable is empty or       + { v|default(just in case) }         +
-+               +                     + undefined.                                                   +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ esc           + html, attr, css, js + Specifies the context to escape the data.                    + { v|esc(attr) }                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ excerpt       + phrase, radius      + Returns the text within a radius of words from a given       + { v|excerpt(green giant, 20) }      +
-+               +                     + phrase. Same as **excerpt** helper function.                 +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ highlight     + phrase              + Highlights a given phrase within the text using              + { v|highlight(view parser) }        +
-+               +                     + '<mark></mark>' tags.                                        +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ highlight_code+                     + Highlights code samples with HTML/CSS.                       + { v|highlight_code }                +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ limit_chars   + limit               + Limits the number of characters to $limit.                   + { v|limit_chars(100) }              +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ limit_words   + limit               + Limits the number of words to $limit.                        + { v|limit_words(20) }               +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ local_currency+ currency, locale    + Displays a localized version of a currency. "currency"       + { v|local_currency(EUR,en_US) }     +
-+               +                     + valueis any 3-letter ISO 4217 currency code.                 +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ local_number  + type, precision,    + Displays a localized version of a number. "type" can be      + { v|local_number(decimal,2,en_US) } +
-+               + locale              + one of: decimal, currency, percent, scientific, spellout,    +                                     +
-+               +                     + ordinal, duration.                                           +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ lower         +                     + Converts a string to lowercase.                              + { v|lower }                         +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ nl2br         +                     + Replaces all newline characters (\n) to an HTML <br/> tag.   + { v|nl2br }                         +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ number_format + places              + Wraps PHP **number_format** function for use within the      + { v|number_format(3) }              +
-+               +                     + parser.                                                      +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ prose         +                     + Takes a body of text and uses the **auto_typography()**      + { v|prose }                         +
-+               +                     + method to turn it into prettier, easier-to-read, prose.      +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ round         + places, type        + Rounds a number to the specified places. Types of **ceil**   + { v|round(3) } { v|round(ceil) }    +
-+               +                     + and **floor** can be passed to use those functions instead.  +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ strip_tags    + allowed chars       + Wraps PHP **strip_tags**. Can accept a string of allowed     + { v|strip_tags(<br>) }              +
-+               +                     + tags.                                                        +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ title         +                     + Displays a "title case" version of the string, with all      + { v|title }                         +
-+               +                     + lowercase, and each word capitalized.                        +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ upper         +                     + Displays the string in all uppercase.                        + { v|upper }                         +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+               +                     +                                                              +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
+================ ================= =========================================================== ======================================
+Filter           Arguments         Description                                                  Example
+================ ================= =========================================================== ======================================
+abs                                Displays the absolute value of a number.                    { v|abs }
+
+capitalize                         Displays the string in sentence case: all lowercase         { v|capitalize}
+                                   with firstletter capitalized.
+
+date              format (Y-m-d)   A PHP **date**-compatible formatting string.                { v|date(Y-m-d) }
+
+date_modify       value to add     A **strtotime** compatible string to modify the date,       { v|date_modify(+1 day) }
+                  / subtract       like ``+5 day`` or ``-1 week``.
+
+default           default value    Displays the default value if the variable is empty or      { v|default(just in case) }
+                                   undefined.
+
+esc               html, attr,      Specifies the context to escape the data.                   { v|esc(attr) }
+                  css, js
+
+excerpt           phrase, radius   Returns the text within a radius of words from a given      { v|excerpt(green giant, 20) }
+                                   phrase. Same as **excerpt** helper function.
+
+highlight         phrase           Highlights a given phrase within the text using             { v|highlight(view parser) }
+                                   '<mark></mark>' tags.
+
+highlight_code                     Highlights code samples with HTML/CSS.                      { v|highlight_code }
+
+limit_chars       limit            Limits the number of characters to $limit.                  { v|limit_chars(100) }
+
+limit_words       limit            Limits the number of words to $limit.                       { v|limit_words(20) }
+
+local_currency    currency, locale Displays a localized version of a currency. "currency"      { v|local_currency(EUR,en_US) }
+                                   valueis any 3-letter ISO 4217 currency code.
+
+local_number      type, precision, Displays a localized version of a number. "type" can be     { v|local_number(decimal,2,en_US) }
+                  locale           one of: decimal, currency, percent, scientific, spellout,
+                                   ordinal, duration.
+
+lower                              Converts a string to lowercase.                             { v|lower }
+
+nl2br                              Replaces all newline characters (\n) to an HTML <br/> tag.  { v|nl2br }
+
+number_format     places           Wraps PHP **number_format** function for use within the     { v|number_format(3) }
+                                   parser.
+
+prose                              Takes a body of text and uses the **auto_typography()**     { v|prose }
+                                   method to turn it into prettier, easier-to-read, prose.
+
+round             places, type     Rounds a number to the specified places. Types of **ceil**  { v|round(3) } { v|round(ceil) }
+                                   and **floor** can be passed to use those functions instead.
+
+strip_tags        allowed chars    Wraps PHP **strip_tags**. Can accept a string of allowed    { v|strip_tags(<br>) }
+                                   tags.
+
+title                              Displays a "title case" version of the string, with all     { v|title }
+                                   lowercase, and each word capitalized.
+
+upper                              Displays the string in all uppercase.                       { v|upper }
+================ ================= =========================================================== ======================================
 
 "local_number" 필터와 관련된 자세한 내용은 `PHP의 NumberFormatter <https://www.php.net/manual/en/numberformatter.create.php>`_\ 를 참조하십시오.
 
@@ -525,18 +523,19 @@ PHP를 호출할 수 있으므로 구현하기 매우 간단합니다.
 
 파서를 사용할 때 다음 플러그인을 사용할 수 있습니다.
 
-==================== ========================== ================================================================================== ================================================================
-Plugin               Arguments                  Description                                                           			   Example
-==================== ========================== ================================================================================== ================================================================
-current_url                                     Alias for the current_url helper function.                                         {+ currentURL +}
-previous_url                                    Alias for the previous_url helper function.                           		       {+ previousURL +}
-siteURL                                         Alias for the site_url helper function.                                            {+ siteURL "login" +}
-mailto               email, title, attributes   Alias for the mailto helper function.                                 		       {+ mailto email=foo@example.com title="Stranger Things" +}
-safe_mailto          email, title, attributes   Alias for the safe_mailto helper function.                            		       {+ safe_mailto email=foo@example.com title="Stranger Things" +}
-lang                 language string            Alias for the lang helper function.                                    		       {+ lang number.terabyteAbbr +}
-validation_errors    fieldname(optional)        Returns either error string for the field (if specified) or all validation errors. {+ validation_errors +} , {+ validation_errors field="email" +}
-route                route name                 Alias for the route_to helper function.                                            {+ route "login" +}
-==================== ========================== ================================================================================== ================================================================
+================== ========================= ============================================ ================================================================
+Plugin             Arguments                 Description                                    Example
+================== ========================= ============================================ ================================================================
+current_url                                  Alias for the current_url helper function.   {+ current_url +}
+previous_url                                 Alias for the previous_url helper function.  {+ previous_url +}
+siteURL                                      Alias for the site_url helper function.      {+ siteURL "login" +}
+mailto             email, title, attributes  Alias for the mailto helper function.        {+ mailto email=foo@example.com title="Stranger Things" +}
+safe_mailto        email, title, attributes  Alias for the safe_mailto helper function.   {+ safe_mailto email=foo@example.com title="Stranger Things" +}
+lang               language string           Alias for the lang helper function.          {+ lang number.terabyteAbbr +}
+validation_errors  fieldname(optional)       Returns either error string for the field    {+ validation_errors +} , {+ validation_errors field="email" +}
+                                             (if specified) or all validation errors.
+route              route name                Alias for the route_to helper function.      {+ route "login" +}
+================== ========================= ============================================ ================================================================
 
 플러그인 등록
 --------------------
@@ -707,7 +706,7 @@ Class Reference
 
 .. php:class:: CodeIgniter\\View\\Parser
 
-	.. php:method:: render($view[, $options[, $saveData=false]])
+	.. php:method:: render($view[, $options[, $saveData = false]])
 
 		:param  string  $view: 뷰 소스의 파일 이름
 		:param  array   $options: 옵션 배열, 키/값 쌍
@@ -730,7 +729,7 @@ Class Reference
 
 		모든 조건부 대체가 먼저 수행된 다음 각 데이터 쌍에 대해 나머지 대체가 수행됩니다.
 
-	.. php:method:: renderString($template[, $options[, $saveData=false]])
+	.. php:method:: renderString($template[, $options[, $saveData = false]])
 
 		:param  string  $template: 뷰 소스 문자열
 		:param  array   $options: 옵션 배열, 키/값 쌍
@@ -744,7 +743,7 @@ Class Reference
 
        지원되는 옵션은 render()와 동일함
 
-	.. php:method:: setData([$data[, $context=null]])
+	.. php:method:: setData([$data[, $context = null]])
 
 		:param  array   $data: 뷰 데이터 문자열의 배열, 키/값 쌍
 		:param  string  $context: 데이터 이스케이프에 사용할 컨텍스트
@@ -755,12 +754,12 @@ Class Reference
 			
 			::
 
-			$renderer->setData(['name'=>'George', 'position'=>'Boss']);
+			$renderer->setData(['name' => 'George', 'position' => 'Boss']);
 
         지원되는 이스케이프 컨텍스트: ``html``, ``css``, ``js``, ``url``, ``attr``, ``raw``.
 		'raw'\ 면 이스케이프가 발생하지 않습니다.
 
-	.. php:method:: setVar($name[, $value=null[, $context=null]])
+	.. php:method:: setVar($name[, $value=null[, $context = null]])
 
 		:param  string  $name: 뷰 데이터 변수명
     		:param  mixed   $value: 뷰 데이터의 값

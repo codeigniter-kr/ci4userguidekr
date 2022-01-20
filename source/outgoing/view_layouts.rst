@@ -18,7 +18,7 @@ CodeIgniter는 간단하지만 매우 유연한 레이아웃 시스템을 지원
 레이아웃은 뷰와 같습니다. 뷰와 유일한 차이점은 ``renderSection()`` 메소드를 사용한다는 것입니다.
 이 메소드는 컨텐츠의 자리 표시자 역할을 합니다.
 
-::
+E.g. **app/Views/default.php**::
 
     <!doctype html>
     <html>
@@ -54,7 +54,7 @@ CodeIgniter는 간단하지만 매우 유연한 레이아웃 시스템을 지원
 레이아웃을 확장하는 뷰는 ``section($name)``\ 과 ``endSection()`` 메소드 호출이 포함되어야 합니다.
 이러한 호출 사이의 모든 내용은 섹션 이름과 일치하는 ``renderSection($name)`` 호출이 있을 경우 레이아웃에 삽입됩니다.
 
-::
+E.g. **app/Views/some_view.php**::
 
     <?= $this->extend('default') ?>
 
@@ -90,6 +90,7 @@ Sections can contain nested sections
         echo view('some_view');
     }
 
+뷰 **app/Views/some_view.php**\ 를 렌더링하고 ``default``\ 를 확장하면 **app/Views/default.php** 레이아웃도 자동으로 사용됩니다.
 렌더러는 매우 똑똑하여 뷰를 자체적으로 랜더링해야 할지,  레이아웃과 함께 랜더링해야 할지 감지할 수 있습니다.
 
 ***********************

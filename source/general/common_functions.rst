@@ -77,7 +77,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
     $data가 문자열(string)이면 단순히 이스케이프하여 반환합니다.
     $data가 배열이면 키/값 쌍중 '값'을 반복하여 이스케이프 처리합니다.
 
-    지정 가능한 context 값: ``html``, ``js``, ``css``, ``url``, ``attr``, ``raw``, ``null``
+    지정 가능한 context 값: ``html``, ``js``, ``css``, ``url``, ``attr``, ``raw``
 
 .. php:function:: helper($filename)
 
@@ -173,10 +173,13 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
     RendererInterface 호환 클래스에게 지정된 뷰를 렌더링하도록 지시합니다.
     컨트롤러, 라이브러리 및 라우팅 클로저에서 뷰를 사용할 수있는 편리한 방법을 제공합니다.
 
-    현재는 `$options` 배열 내에 `saveData` 옵션 하나만 사용할 수 있으며, 동일한 요청에 대해 `view()`\ 를 여러번 호출해도 데이터가 지속되도록 지정합니다.
-    기본적으로 해당 단일 뷰 파일을 표시하면 해당 뷰의 데이터는 지워집니다.
+    옵션은 다음과 같고 ``$options`` 배열을 통하여 사용할 수 있습니다.
 
-    $option 배열은 주로 Twig 같은 타사(third-party) 라이브러리와 통합을 용이하게 하기 위해 제공됩니다.
+    - ``saveData`` 동일한 요청의 ``view()``\ 를 여러번 호출하여도 데이터를 유지합니다. 데이터를 유지하지 않으려면 ``false``\ 를 지정합니다.
+    - ``cache`` view를 캐시할 시간(초)을 지정합니다. 자세한 내용은 :ref:`caching-views`\ 를 참조하세요.
+    - ``debug`` ``false``\ 로 설정하여 :ref:`Debug Toolbar <the-debug-toolbar>`\ 에 대한 디버그 코드 추가를 비활성화합니다.
+
+    ``$option`` 배열은 Twig 같은 타사(third-party) 라이브러리와 통합을 용이하게 하기 위해 제공됩니다.
 
     Example::
 
@@ -306,10 +309,10 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
         // Go back to the previous page
         return redirect()->back();
 
-        // Go to specific UI
+        // Go to specific URI
         return redirect()->to('/admin');
 
-        // Go to a named/reverse-routed URI
+        // Go to a named URI
         return redirect()->route('named_route');
 
         // Keep the old input values upon redirect so they can be used by the `old()` function

@@ -3,13 +3,13 @@
 
 .. contents::
     :local:
-    :depth: 1
+    :depth: 2
 
 관련 문서
 ==============
 
-- `Codeigniter 3.X 데이터베이스 마이그레이션 설명서 <http://codeigniter.com/userguide3/libraries/migration.html>`_
-- :doc:`Codeigniter 4.X 데이터베이스 마이그레이션 설명서 </dbmgmt/migration>`
+- `CodeIgniter 3.X 데이터베이스 마이그레이션 설명서 <http://codeigniter.com/userguide3/libraries/migration.html>`_
+- :doc:`CodeIgniter 4.X 데이터베이스 마이그레이션 설명서 </dbmgmt/migration>`
 
 무엇이 바뀌었습니까?
 =====================
@@ -26,7 +26,7 @@
 =================
 
 1. v3 프로젝트에서 순차적 마이그레이션 이름을 사용한다면 타임스탬프로 마이그렝션 이름을 변경해야 합니다.
-2. 모든 마이그레이션 파일을 ``app/Database/Migration`` 폴더로 옮겨야 합니다.
+2. 모든 마이그레이션 파일을 **app/Database/Migration** 폴더로 옮겨야 합니다.
 3. ``defined('BASEPATH') OR exit('No direct script access allowed');``\ 를 제거합니다.
 4. <?php 태그 바로 아래 줄에 ``namespace App\Database\Migrations;``\ 를 추가합니다.
 5. ``namespace App\Database\Migrations;`` 아래에 ``use CodeIgniter\Database\Migration;``\ 을 추가합니다.
@@ -49,10 +49,10 @@
 코드 예
 ============
 
-Codeigniter Version 3.11
+CodeIgniter Version 3.11
 ------------------------
 
-Path: ``application/migrations``
+Path: **application/migrations**
 
 ::
 
@@ -66,13 +66,13 @@ Path: ``application/migrations``
         {
             $this->dbforge->add_field(array(
                 'blog_id' => array(
-                    'type' => 'INT',
-                    'constraint' => 5,
-                    'unsigned' => true,
+                    'type'           => 'INT',
+                    'constraint'     => 5,
+                    'unsigned'       => true,
                     'auto_increment' => true,
                 ),
                 'blog_title' => array(
-                    'type' => 'VARCHAR',
+                    'type'       => 'VARCHAR',
                     'constraint' => '100',
                 ),
                 'blog_description' => array(
@@ -90,10 +90,10 @@ Path: ``application/migrations``
         }
     }
 
-Codeigniter Version 4.x
+CodeIgniter Version 4.x
 -----------------------
 
-Path: ``app/Database/Migrations``
+Path: **app/Database/Migrations**
 
 ::
 
@@ -132,3 +132,22 @@ Path: ``app/Database/Migrations``
             $this->forge->dropTable('blog');
         }
     }
+
+검색 및 교체
+================
+
+CI3 파일의 다음 항목을 검색 및 교체합니다.
+
++------------------------------+----------------------------+
+|  Search                      | Replace                    |
++==============================+============================+
+| extends CI_Migration         | extends Migration          |
++------------------------------+----------------------------+
+| $this->dbforge->add_field    | $this->forge->addField     |
++------------------------------+----------------------------+
+| $this->dbforge->add_key      | $this->forge->addKey       |
++------------------------------+----------------------------+
+| $this->dbforge->create_table | $this->forge->createTable  |
++------------------------------+----------------------------+
+| $this->dbforge->drop_table   | $this->forge->dropTable    |
++------------------------------+----------------------------+
