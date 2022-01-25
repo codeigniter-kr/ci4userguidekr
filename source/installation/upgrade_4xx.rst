@@ -105,6 +105,7 @@ CodeIgniter4는 프레임워크를 다시 작성하였으며 이전 버전과 �
     :titlesonly:
 
     upgrade_configuration
+    upgrade_controllers
     upgrade_database
     upgrade_emails
     upgrade_encryption
