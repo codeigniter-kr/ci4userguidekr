@@ -1,0 +1,15 @@
+Version 4.1.8
+#############
+
+Release Date: January 24, 2022
+
+**4.1.8 release of CodeIgniter4**
+
+.. contents::
+    :local:
+    :depth: 2
+
+SECURITY
+********
+
+- ``API\ResponseTrait``\ 의 *XSS 취약점*\ 이 수정되었습니다. 자세한 내용은 `보안 권고 <https://github.com/codeigniter4/CodeIgniter4/security/advisories/GHSA-7528-7jg5-6g62>`_\ 를 참조하세요.
