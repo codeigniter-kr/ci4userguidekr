@@ -15,68 +15,12 @@ CodeIgniter는 어떤 응답 유형에 대해 어떤 HTTP 상태 코드를 반�
 
 다음 예는 컨트롤러내에서 일반적인 사용 패턴을 보여줍니다.
 
-::
-
-    <?php 
-    
-    namespace App\Controllers;
-
-    use CodeIgniter\API\ResponseTrait;
-
-    class Users extends \CodeIgniter\Controller
-    {
-        use ResponseTrait;
-
-        public function createUser()
-        {
-            $model = new UserModel();
-            $user  = $model->save($this->request->getPost());
-
-            // Respond with 201 status code
-            return $this->respondCreated();
-        }
-    }
+.. literalinclude:: api_responses/001.php
 
 이 예에서는 일반 상태 메시지 'Created'와 함께 HTTP 상태 코드 201이 반환됩니다.
 가장 일반적인 사용 사례에 대한 메소드입니다.
 
-::
-
-    // Generic response method
-    $this->respond($data, 200);
-
-    // Generic failure response
-    $this->fail($errors, 400);
-
-    // Item created response
-    $this->respondCreated($data);
-
-    // Item successfully deleted
-    $this->respondDeleted($data);
-
-    // Command executed by no response required
-    $this->respondNoContent($message);
-
-    // Client isn't authorized
-    $this->failUnauthorized($description);
-
-    // Forbidden action
-    $this->failForbidden($description);
-
-    // Resource Not Found
-    $this->failNotFound($description);
-
-    // Data did not validate
-    $this->failValidationError($description);
-
-    // Resource already exists
-    $this->failResourceExists($description);
-
-    // Resource previously deleted
-    $this->failResourceGone($description);
-
-    // Client made too many requests
-    $this->failTooManyRequests($description);
+.. literalinclude:: api_responses/002.php
 
 ***********************
 응답 유형 처리
@@ -91,12 +35,7 @@ CodeIgniter는 어떤 응답 유형에 대해 어떤 HTTP 상태 코드를 반�
 ``$supportedResponseFormats``\ 에는 어플리케이션이 자동으로 응답 형식을 지정할 수 있는 MIME 유형 목록이 포함되어 있습니다.
 XML과 JSON 응답의 형식이 기본적으로 지정되어 있습니다.
 
-::
-
-        public $supportedResponseFormats = [
-            'application/json',
-            'application/xml',
-        ];
+.. literalinclude:: api_responses/003.php
 
 이 배열은 :doc:`컨텐츠 협상 </incoming/content_negotiation>`\ 후 반환할 응답 유형을 결정하는데 사용됩니다.
 지원하는 것중 클라이언트가 요청한 것과 일치하는 것이 없으면 이 배열의 첫 번째 형식이 반환됩니다.
@@ -105,16 +44,12 @@ XML과 JSON 응답의 형식이 기본적으로 지정되어 있습니다.
 정규화된 클래스 이름이어야 하며 클래스는 ``CodeIgniter\Format\FormatterInterface``\ 를 구현해야 합니다.
 JSON과 XML을 모두 지원하는 포맷터가 기본으로 제공됩니다.
 
-::
-
-    public $formatters = [
-        'application/json' => \CodeIgniter\Format\JSONFormatter::class,
-        'application/xml'  => \CodeIgniter\Format\XMLFormatter::class,
-    ];
+.. literalinclude:: api_responses/004.php
 
 따라서 요청이 **Accept** 헤더에서 JSON 형식의 데이터를 요청하면 ``respond*`` 또는 ``fail*`` 메소드는 데이터 배열을 ``CodeIgniter\Format\JSONFormatter`` 클래스로 형식화합니다.
 결과인 JSON 데이터는 클라이언트로 다시 전송됩니다.
 
+***************
 Class Reference
 ***************
 
@@ -125,9 +60,7 @@ Class Reference
     응답에서 배열을 포맷할 때 사용할 형식을 정의합니다. 
     ``$format``\ 에 대해 ``null`` 값을 제공하면 콘텐츠 협상을 통해 자동으로 결정됩니다.
 
-::
-
-    return $this->setResponseFormat('json')->respond(['error' => false]);
+.. literalinclude:: api_responses/005.php
 
 .. php:method:: respond($data[, $statusCode = 200[, $message = '']])
 
@@ -171,16 +104,7 @@ Class Reference
     ``messages`` 요소에는 오류 메시지 배열이 포함되어 있습니다.
     그것은 다음과 같이 보일 것입니다
     
-    ::
-
-	    $response = [
-	        'status'   => 400,
-	        'code'     => '321a',
-	        'messages' => [
-	            'Error message 1',
-	            'Error message 2',
-	        ],
-	    ];
+    .. literalinclude:: api_responses/006.php
 
 .. php:method:: respondCreated($data = null[, string $message = ''])
 
@@ -190,10 +114,7 @@ Class Reference
 
     자원(resource)을 작성할 때 사용할 적절한 상태 코드를 설정합니다. (일반적으로 201)
     
-    ::
-
-	    $user = $userModel->insert($data);
-	    return $this->respondCreated($user);
+    .. literalinclude:: api_responses/007.php
 
 .. php:method:: respondDeleted($data = null[, string $message = ''])
 
@@ -203,10 +124,7 @@ Class Reference
 
     API 호출의 결과로 자원이 삭제될 때 사용할 적절한 상태 코드를 설정합니다. (일반적으로 200)
 
-    ::
-
-	    $user = $userModel->delete($id);
-	    return $this->respondDeleted(['id' => $id]);
+    .. literalinclude:: api_responses/008.php
 
 .. php:method:: respondNoContent(string $message = 'No Content')
 
@@ -215,10 +133,7 @@ Class Reference
 
     클라이언트로 다시 보낼 의미있는 응답은 없지만, 서버가 명령을 성공적으로 실행한 후 사용할 적절한 상태 코드를 설정합니다. (일반적으로 204)
 
-    ::
-
-	    sleep(1);
-	    return $this->respondNoContent();
+    .. literalinclude:: api_responses/009.php
 
 .. php:method:: failUnauthorized(string $description = 'Unauthorized'[, string $code = null[, string $message = '']])
 
@@ -229,9 +144,7 @@ Class Reference
 
     사용자에게 권한이 없거나 권한이 올바르지 않은 경우 사용할 적절한 상태 코드를 설정합니다. (상태 코드 401)
 
-    ::
-
-	    return $this->failUnauthorized('Invalid Auth token');
+    .. literalinclude:: api_responses/010.php
 
 .. php:method:: failForbidden(string $description = 'Forbidden'[, string $code = null[, string $message = '']])
 
@@ -244,9 +157,7 @@ Class Reference
     Unauthorized는 클라이언트가 다른 자격 증명으로 다시 시도하도록 권장합니다.
     Forbidden은 클라이언트가 도움이 되지 않기 때문에 다시 시도해서는 안 됨을 의미합니다. (상태 코드 403)
 
-    ::
-
-    	return $this->failForbidden('Invalid API endpoint.');
+    .. literalinclude:: api_responses/011.php
 
 .. php:method:: failNotFound(string $description = 'Not Found'[, string $code = null[, string $message = '']])
 
@@ -257,9 +168,7 @@ Class Reference
 
     요청된 리소스를 찾을 수 없을 때 사용할 적절한 상태 코드를 설정합니다. (상태 코드 404)
 
-    ::
-
-    	return $this->failNotFound('User 13 cannot be found.');
+    .. literalinclude:: api_responses/012.php
 
 .. php:method:: failValidationErrors($errors[, string $code = null[, string $message = '']])
 
@@ -270,9 +179,7 @@ Class Reference
 
     클라이언트가 보낸 데이터가 유효성 검사 규칙을 통과하지 못한 경우 사용할 적절한 상태 코드를 설정합니다. (일반적으로 400)
 
-    ::
-
-    	return $this->failValidationErrors($validation->getErrors());
+    .. literalinclude:: api_responses/013.php
 
 .. php:method:: failResourceExists(string $description = 'Conflict'[, string $code=null[, string $message = '']])
 
@@ -283,9 +190,7 @@ Class Reference
 
     클라이언트가 작성하려고하는 자원이 이미 존재하는 경우 사용할 적절한 상태 코드를 설정합니다. (일반적으로 409)
 
-    ::
-
-    	return $this->failResourceExists('A user already exists with that email.');
+    .. literalinclude:: api_responses/014.php
 
 .. php:method:: failResourceGone(string $description = 'Gone'[, string $code=null[, string $message = '']])
 
@@ -296,9 +201,7 @@ Class Reference
 
     요청된 리소스가 이전에 삭제되어 더 이상 사용할 수 없을 때 사용할 적절한 상태 코드를 설정합니다. (일반적으로 410)
 
-    ::
-
-    	return $this->failResourceGone('That user has been previously deleted.');
+    .. literalinclude:: api_responses/015.php
 
 .. php:method:: failTooManyRequests(string $description = 'Too Many Requests'[, string $code=null[, string $message = '']])
 
@@ -310,9 +213,7 @@ Class Reference
     클라이언트가 API 엔드(end) 포인트를 너무 많이 호출했을 때, 사용할 적절한 상태 코드를 설정합니다.
     일부 형태의 제한 또는 속도 제한 때문일 수 있습니다. (일반적으로 400)
 
-    ::
-
-    	return $this->failTooManyRequests('You must wait 15 seconds before making another request.');
+    .. literalinclude:: api_responses/016.php
 
 .. php:method:: failServerError(string $description = 'Internal Server Error'[, string $code = null[, string $message = '']])
 
@@ -323,6 +224,4 @@ Class Reference
 
     서버 오류가있을 때 사용할 적절한 상태 코드를 설정합니다.
 
-    ::
-
-    	return $this->failServerError('Server error.');
+    .. literalinclude:: api_responses/017.php

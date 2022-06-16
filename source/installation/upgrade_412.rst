@@ -2,6 +2,16 @@
 Upgrading from 4.1.1 to 4.1.2
 ######################################
 
+설치 방법에 해당하는 업그레이드 지침을 참조하십시오.
+
+- :ref:`Composer Installation App Starter Upgrading <app-starter-upgrading>`
+- :ref:`Composer Installation Adding CodeIgniter4 to an Existing Project Upgrading <adding-codeigniter4-upgrading>`
+- :ref:`Manual Installation Upgrading <installing-manual-upgrading>`
+
+.. contents::
+    :local:
+    :depth: 2
+
 **current_url() and indexPage**
 
 ``current_url()``\ 의 `버그 <https://github.com/codeigniter4/CodeIgniter4/issues/4116>`_\ 로 인해 결과 URI가 프로젝트 구성과 맞지 않을 수 있습니다.
@@ -42,26 +52,11 @@ ConnectionInterface를 구현하는 클래스를 작성한 경우 ``public funct
 ``CIDatabaseTestCase``\ 와 ``FeatureTestCase`` 클래스는 더 이상 사용되지 않으며, 해당 메소드는 각각 ``DatabaseTestTrait``\ 과 ``FeatureTestTrait``\ 로 이동했습니다.
 주요 테스트 케이스를 확장하고 필요한 특성(Trait)을 사용하도록 테스트 케이스를 업데이트하십시오.
 
-::
+.. literalinclude:: upgrade_412/001.php
 
-    use CodeIgniter\Test\DatabaseTestCase;
+... becomes
 
-    class MyDatabaseTest extends DatabaseTestCase
-    {
-        public function testBadRow()
-        {
-
-... becomes::
-
-    use CodeIgniter\Test\CIUnitTestCase;
-    use CodeIgniter\Test\DatabaseTestTrait;
-
-    class MyDatabaseTest extends CIUnitTestCase
-    {
-        use DatabaseTestTrait;
-
-        public function testBadRow()
-        {
+.. literalinclude:: upgrade_412/002.php
 
 마지막으로, ``ControllerTester``\ 는 접근 방식을 표준화하고 업데이트된 응답 테스트를 활용하기 위해 ``ControllerTestTrait``\ 로 대체되었다.
 

@@ -13,9 +13,7 @@ Security 헬퍼에는 보안 관련 함수가 포함되어 있습니다.
 
 이 헬퍼는 다음 코드를 사용하여 로드됩니다.
 
-::
-
-    helper('security');
+.. literalinclude:: security_helper/001.php
 
 사용 가능한 함수
 ===================
@@ -42,9 +40,7 @@ Security 헬퍼에는 보안 관련 함수가 포함되어 있습니다.
     이것은 문자열에서 이미지 태그를 제거하는 보안 기능입니다.
     이미지 URL을 일반 텍스트만 남겨 둡니다.
 
-    ::
-
-        $string = strip_image_tags($string);
+    .. literalinclude:: security_helper/002.php
 
 .. php:function:: encode_php_tags($str)
 
@@ -54,6 +50,4 @@ Security 헬퍼에는 보안 관련 함수가 포함되어 있습니다.
 
     PHP 태그를 엔티티로 변환하는 보안 기능입니다.
 
-    ::
-
-        $string = encode_php_tags($string);
+    .. literalinclude:: security_helper/003.php

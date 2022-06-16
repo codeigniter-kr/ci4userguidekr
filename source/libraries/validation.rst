@@ -1,8 +1,7 @@
 .. _validation:
 
-############################
 검증(Validation)
-############################
+####################
 
 CodeIgniter는 작성하는 코드의 양을 최소화하는데 도움이되는 포괄적인 데이터 검증 클래스를 제공합니다.
 
@@ -11,7 +10,7 @@ CodeIgniter는 작성하는 코드의 양을 최소화하는데 도움이되는 
     :depth: 2
 
 개요
-************************************************
+**********
 
 CodeIgniter의 데이터 검증 접근 방식을 설명하기 전에 이상적인 시나리오를 설명하겠습니다.
 
@@ -36,7 +35,7 @@ CodeIgniter의 데이터 검증 접근 방식을 설명하기 전에 이상적�
 폼 검증은 작성하기는 쉽지만 구현하기가 매우 지저분하고 지루합니다.
 
 폼 검증 튜토리얼
-**************************
+*****************
 
 다음은 CodeIgniter의 폼 검증을 구현하기 위한 "실습" 자습서입니다.
 
@@ -49,7 +48,7 @@ CodeIgniter의 데이터 검증 접근 방식을 설명하기 전에 이상적�
 회원 가입 폼을 예로 사용하여 이 세 가지를 만들어 봅시다.
 
 폼(Form)
-==============
+=========
 
 에디터를 사용하여 **Signup.php**\ 라는 폼을 만듭니다.
 여기에 이 코드를 넣고 **app/Views/** 폴더에 저장합니다.
@@ -86,7 +85,7 @@ CodeIgniter의 데이터 검증 접근 방식을 설명하기 전에 이상적�
     </html>
 
 성공 페이지
-==================
+============
 
 
 에디터를 사용하여 **Success.php**\ 라는 폼을 작성합니다.
@@ -108,37 +107,15 @@ CodeIgniter의 데이터 검증 접근 방식을 설명하기 전에 이상적�
     </html>
 
 컨트롤러
-===============
+=========
 
 에디터를 사용하여 **Form.php**\ 라는 컨트롤러를 만듭니다.
 여기에 이 코드를 넣고 **app/Controllers/** 폴더에 저장합니다.
 
-::
-
-    <?php 
-    
-    namespace App\Controllers;
-
-    use CodeIgniter\Controller;
-
-    class Form extends Controller
-    {
-        public function index()
-        {
-            helper(['form', 'url']);
-
-            if (! $this->validate([])) {
-                echo view('Signup', [
-                    'validation' => $this->validator,
-                ]);
-            } else {
-                echo view('Success');
-            }
-        }
-    }
+.. literalinclude:: validation/001.php
 
 Try it!
-===============
+=======
 
 폼을 사용하려면 아래와 비슷한 URL을 사용하여 사이트를 방문합니다.
 
@@ -150,13 +127,13 @@ Try it!
 아직 검증 규칙을 ``$this->validate()``\ 로 설정하지 않았기 때문입니다.
 
 ``validate()`` 메소드는 컨트롤러에 있는 메소드입니다.
-내부에는 **Validation class**\ 가 사용됩니다. :doc:`데이터 유효성 검사 </incoming/controllers>`\ 를 참조하십시오.
+내부에는 **Validation class**\ 가 사용됩니다. :ref:`controllers-validating-data`\ 를 참조하십시오.
 
 .. note:: **Validation 클래스**\ 에 아직 유효성을 검사하도록 지시하지 않았기 때문에 **기본적으로 false(bool false)를 반환**\ 합니다.
     ``validate()`` 메소드는 규칙이 실패하지 않고 규칙을 성공적으로 적용한 경우에만 true를 반환합니다.
 
 설명
-============
+=====
 
 위 페이지에 대해 몇 가지 사항을 알 수 있습니다.
 
@@ -181,38 +158,56 @@ Try it!
 검증 성공 여부에 따라 폼 또는 성공 페이지를 표시합니다.
 
 검증 룰 추가
-================================================
+=============
 
 컨트롤러(**Form.php**)에 유효성 검사 규칙을 추가합니다. 
 
-::
-
-            if (! $this->validate([
-                'username' => 'required',
-                'password' => 'required|min_length[10]',
-                'passconf' => 'required|matches[password]',
-                'email'    => 'required|valid_email',
-            ])) {
-                ...
-            }
+.. literalinclude:: validation/002.php
 
 폼을 제출할 경우 성공 또는 오류 메시지가 있는 폼을 볼 수 있습니다.
 
+검증을 위한 구성
+*********************
+
+.. _validation-traditional-and-strict-rules:
+
+전통적이고 엄격한 규칙
+============================
+
+CI4에는 두 가지 종류의 유효성 검사 규칙 클래스가 있습니다.
+기본 규칙 클래스(**Traditional Rules**)에는 ``CodeIgniter\Validation``\ 이라는 네임스페이스가 있고 새 클래스(**Strict Rules**)에는 엄격한 유효성 검사를 제공하는 ``CodeIgniter\Validation\StrictRules``\ 가 있습니다. .
+
+**기본 규칙(Traditional Rules)**\ 은 암시적으로 문자열 값이 검증되고 입력 값이 암시적으로 문자열 값으로 변환될 수 있다고 가정합니다.
+POST 데이터 유효성 검사와 같은 가장 기본적인 경우에 작동합니다.
+
+그러나 JSON 입력 데이터를 사용하는 경우 데이터의 유형은 **bool/null/array**\ 일 수 있습니다.
+부울 ``true``\ 의 유효성을 검사하면 전통적인 규칙 클래스를 사용하여 문자열 ``'1'``\ 로 변환됩니다.
+``integer`` 규칙으로 유효성을 검사하면 ``'1'``\ 이 유효성 검사를 통과합니다.
+
+**엄격한 규칙(Strict Rules)**\ 은 암시적 유형 변환을 사용하지 않습니다.
+
+.. warning:: JSON 데이터와 같이 문자열이 아닌 값을 포함하는 데이터의 유효성을 검사할 때 **엄격한 규칙**\ 을 사용하는 것이 좋습니다.
+
+엄격한 규칙 사용
+------------------
+
+엄격한 규칙을 사용하려면 **app/Config/Validation.php**\ 에서 규칙 클래스를 변경해야 합니다.
+
+.. literalinclude:: validation/003.php
+
 라이브러리 로드
-************************************************
+****************
 
 라이브러리는 **validation** 서비스로 로드됩니다.
 
-::
-
-    $validation =  \Config\Services::validation();
+.. literalinclude:: validation/004.php
 
 그러면 여러 규칙 세트를 포함하기 위한 설정과 쉽게 재사용할 수있는 규칙 모음이 포함된 ``Config\Validation`` 파일이 자동으로 로드됩니다.
 
 .. note:: :doc:`컨트롤러 </incoming/controllers>`\ 와 :doc:`모델 </models/model>` 모두 검증을 보다 쉽게 수행할 수 있는 메소드를 제공하므로 이 메소드를 사용할 필요가 없습니다.
 
 검증 규칙 설정
-================================================
+************************
 
 CodeIgniter를 사용하면 주어진 필드에 필요한 만큼의 검증 규칙을 순서대로 설정할 수 있습니다.
 검증 규칙을 설정하려면 ``setRule()``, ``setRules()``, ``withRequest()`` 메소드를 사용합니다.
@@ -220,36 +215,33 @@ CodeIgniter를 사용하면 주어진 필드에 필요한 만큼의 검증 규�
 setRule()
 =========
 
-이 메소드는 단일 규칙을 설정합니다. 
-필드 이름을 첫 번째 매개 변수, 선택적 레이블 및 파이프(|)로 구분된 적용 규칙 목록을 문자열로 전달합니다.
+이 메소드는 단일 규칙을 설정합니다. 메소드 시그니처입니다.
 
 ::
 
-    $validation->setRule('username', 'Username', 'required');
+    setRule(string $field, ?string $label, array|string $rules[, array $errors = []])
 
-**field name**\ 은 전송된 모든 데이터 배열의 키와 일치해야 합니다.
-데이터가 ``$_POST``\ 에서 직접 가져온 경우 폼 입력 이름과 정확히 일치해야 합니다.
+``$rules``\ 는 파이프(|)로 구분된 규칙 목록이나 규칙의 배열 컬렉션을 사용합니다.
+
+.. literalinclude:: validation/005.php
+
+``$field``\ 에 전달하는 값은 전송되는 모든 데이터 배열의 키와 일치해야 합니다.
+``$_POST``\ 에서 데이터를 직접 가져온 경우 폼(form) 입력 이름과 정확히 일치해야 합니다.
+
+.. warning:: v4.2.0 이전에는 이 메소드의 세 번째 매개변수인 ``$rules``\ 가 ``string``\ 을 허용하도록 타입힌팅(typehint)되었습니다.
+    v4.2.0 이상에서는 배열도 허용하기 위해 타입힌팅(typehint)이 제거되었습니다.
+    이 메서드를 재정의하는 확장 클래스에서 LSP가 손상되지 않도록 하려면 자식 클래스의 메소드도 수정하여 타입힌팅(typehint)을 제거해야 합니다.
 
 setRules()
 ==========
 
 ``setRule()``\ 과 비슷하지만 필드 이름 배열과 규칙을 허용합니다.
 
-::
-
-    $validation->setRules([
-        'username' => 'required',
-        'password' => 'required|min_length[10]'
-    ]);
+.. literalinclude:: validation/006.php
 
 지정된 오류 메시지를 레이블을 제공하려면 다음과 같이 설정합니다.
 
-::
-
-    $validation->setRules([
-        'username' => ['label' => 'Username', 'rules' => 'required'],
-        'password' => ['label' => 'Password', 'rules' => 'required|min_length[10]'],
-    ]);
+.. literalinclude:: validation/007.php
 
 withRequest()
 =============
@@ -257,79 +249,36 @@ withRequest()
 검증 라이브러리는 HTTP 요청에서 입력된 데이터를 검증할 때 가장 일반적으로 사용됩니다.
 Request 객체의 인스턴스를 전달하면, 모든 입력 데이터를 가져 와서 유효성을 검사할 데이터로 설정합니다.
 
-::
-
-    $validation->withRequest($this->request)->run();
+.. literalinclude:: validation/008.php
 
 검증 작업
-****************
+***********
 
 배열 키 검증
-================================================
+==============
 
 데이터가 중첩된 연관 배열dms "dot array syntax"\ 를 사용하여 데이터의 유효성을 쉽게 검증할 수 있습니다.
 
-::
+.. literalinclude:: validation/009.php
 
-    // The data to test:
-    'contacts' => [
-        'name' => 'Joe Smith',
-        'friends' => [
-            [
-                'name' => 'Fred Flinstone',
-            ],
-            [
-                'name' => 'Wilma',
-            ],
-        ]
-    ]
+'*' 와일드 카드 기호를 사용하여 단일 수준(one level)의 배열과 일치시킬 수 있습니다.
 
-    // Joe Smith
-    $validation->setRules([
-        'contacts.name' => 'required',
-    ]);
-
-    // Fred Flintsone & Wilma
-    $validation->setRules([
-        'contacts.friends.name' => 'required',
-    ]);
-
-'*' 와일드 카드 기호를 사용하여 한 수준(one level)의 배열과 일치시킬 수 있습니다.
-
-::
-
-    // Fred Flintsone & Wilma
-    $validation->setRules([
-        'contacts.*.name' => 'required',
-    ]);
+.. literalinclude:: validation/010.php
 
 "dot array syntax"은 단일 차원 배열 데이터의 경우에도 유용할 수 있습니다.
 다중 선택 드롭 다운 예시
 
-::
-
-    // 테스트 데이타:
-    'user_ids' => [
-        1,
-        2,
-        3,
-    ]
-    // 검증 규칙
-    $validation->setRules([
-        'user_ids.*' => 'required'
-    ]);
+.. literalinclude:: validation/011.php
 
 하나의 값 확인
 =======================
 
 규칙에 대해 하나의 값을 확인합니다.
 
-::
-
-    $validation->check($value, 'required');
+.. literalinclude:: validation/012.php
 
 구성 파일에 검증 규칙 저장
-==================================
+============================
 
 Validation 클래스의 좋은 기능은 어플리케이션 전체에 대한 모든 검증 규칙을 구성 파일에 저장할 수 있다는 것입니다.
 규칙을 "그룹"\ 으로 구성합니다.
@@ -338,97 +287,43 @@ Validation 클래스의 좋은 기능은 어플리케이션 전체에 대한 모
 .. _validation-array:
 
 규칙을 저장하는 방법
----------------------------
+----------------------
 
 검증 규칙을 저장하려면 ``Config\Validation`` 클래스에 그룹 이름으로 새로운 공용 속성을 만들면 됩니다.
 이 요소는 검증 규칙이 있는 배열을 보유합니다. 
 다음은 검증 배열에 대한 프로토 타입입니다.
 
-::
-
-    class Validation
-    {
-        public $signup = [
-            'username'     => 'required',
-            'password'     => 'required',
-            'pass_confirm' => 'required|matches[password]',
-            'email'        => 'required|valid_email',
-        ];
-    }
+.. literalinclude:: validation/013.php
 
 ``run()`` 메소드를 호출할 때 사용할 그룹을 지정합니다.
 
-::
-
-    $validation->run($data, 'signup');
+.. literalinclude:: validation/014.php
 
 속성을 그룹과 동일하게 지정하고 ``_errors``\ 를 추가하여 이 구성 파일에 사용자 정의 오류 메시지를 저장할 수 있습니다.
 이 그룹을 사용할 때 오류는 자동으로 사용됩니다.
 
-::
-
-    class Validation
-    {
-        public $signup = [
-            'username'     => 'required',
-            'password'     => 'required',
-            'pass_confirm' => 'required|matches[password]',
-            'email'        => 'required|valid_email',
-        ];
-
-        public $signup_errors = [
-            'username' => [
-                'required'    => 'You must choose a username.',
-            ],
-            'email'    => [
-                'valid_email' => 'Please check the Email field. It does not appear to be valid.',
-            ]
-        ];
-    }
+.. literalinclude:: validation/015.php
 
 또는 배열에 모든 설정을 전달합니다.
 
-::
-
-    class Validation
-    {
-        public $signup = [
-            'username' => [
-                'label'  => 'Username',
-                'rules'  => 'required',
-                'errors' => [
-                    'required' => 'You must choose a {field}.',
-                ],
-            ],
-            'email'    => [
-                'rules'  => 'required|valid_email',
-                'errors' => [
-                    'valid_email' => 'Please check the Email field. It does not appear to be valid.',
-                ],
-            ],
-        ];
-    }
+.. literalinclude:: validation/016.php
 
 배열 형식(format)에 대한 자세한 내용은 아래를 참조하십시오.
 
 규칙 그룹 가져 오기 및 설정
------------------------------------
+-----------------------------
 
 **Get Rule Group**
 
 유효성 검증 구성에서 규칙 그룹을 가져옵니다.
 
-::
-
-    $validation->getRuleGroup('signup');
+.. literalinclude:: validation/017.php
 
 **Set Rule Group**
 
 유효성 검증 규칙 구성 그룹을 검증 서비스에 설정합니다.
 
-::
-
-    $validation->setRuleGroup('signup');
+.. literalinclude:: validation/018.php
 
 다중 검증 실행
 ===============
@@ -437,21 +332,12 @@ Validation 클래스의 좋은 기능은 어플리케이션 전체에 대한 모
    이전 실행이 실패하면 ``run()`` 메소드는 false를 반환하고, ``getErrors()`` 메소드는 명시적으로 재설정될 때까지 이전 오류를 반환합니다.
 
 서로 다른 데이터 집합 또는 서로 다른 규칙에 대해 여러 유효성 검사를 실행하려면 각 실행 전에 ``$validation->reset()``\ 을 호출하여 이전 실행 오류를 제거해야 합니다.
-``reset()`` 메소드는 이전에 설정한 데이터, 규칙 또는 사용자 지정 오류를 무효화하므로 ``setRules()``, ''setRuleGroup()' 등을 반복하여 호출해야 합니다.
+``reset()`` 메소드는 이전에 설정한 데이터, 규칙 또는 사용자 지정 오류를 무효화하므로 ``setRules()``, ``setRuleGroup()`` 등을 반복하여 호출해야 합니다.
 
-::
-
-    foreach ($userAccounts as $user) {
-        $validation->reset();
-        $validation->setRules($userAccountRules);
-
-        if (! $validation->run($user)) {
-            // handle validation errors
-        }
-    }
+.. literalinclude:: validation/019.php
 
 검증 자리 표시자(Placeholders)
-=======================================================
+===============================
 
 검증 클래스는 전달되는 데이터를 기반으로 규칙의 일부를 교체하는 간단한 방법을 제공합니다. 
 이것은 상당히 모호하게 들리지만 ``is_unique`` 검증 규칙에 특히 유용할 수 있습니다. 
@@ -459,36 +345,23 @@ Validation 클래스의 좋은 기능은 어플리케이션 전체에 대한 모
 일치하는 수신 필드의 **값(value)**\ 으로 대체됩니다.
 예를 들면 다음과 같습니다.
 
-::
-
-    $validation->setRules([
-        'email' => 'required|valid_email|is_unique[users.email,id,{id}]',
-    ]);
+.. literalinclude:: validation/020.php
 
 이 규칙 집합에서는 자리 표시자 값과 일치하는 ID가 있는 행을 제외하고 전자 메일 주소가 데이터베이스에서 고유해야 한다고 명시되어 있습니다. 
 POST 데이터에 다음이 있다고 가정합니다.
 
-::
-
-    $_POST = [
-        'id' => 4,
-        'email' => 'foo@example.com',
-    ];
+.. literalinclude:: validation/021.php
 
 그러면 ``{id}`` 자리 표시자가 숫자 **4**\ 로 대체되고 이 수정된 규칙이 적용됩니다.
 
-::
-
-    $validation->setRules([
-        'email' => 'required|valid_email|is_unique[users.email,id,4]',
-    ]);
+.. literalinclude:: validation/022.php
 
 따라서 고유한 이메일인지 확인할 때 ``id=4``\ 인 데이터베이스의 행을 무시하게 됩니다.
 
 또한 전달된 동적 키가 양식 데이터와 충돌하지 않도록 주의한다면 런타임에 더 많은 동적 규칙을 만드는 데 사용할 수 있습니다.
 
 오류에 대한 작업
-*************************
+******************
 
 검증 라이브러리는 오류 메시지를 설정하고, 사용자 지정 오류 메시지를 제공하며 표시할 하나 이상의 오류를 검색하는 데 도움이 되는 몇 가지 방법을 제공합니다.
 
@@ -497,7 +370,7 @@ POST 데이터에 다음이 있다고 가정합니다.
 .. _validation-custom-errors:
 
 사용자 정의 오류 메시지 설정
-==================================
+==============================
 
 ``setRule()``\ 과 ``setRules()`` 메소드는 각 필드마다 고유한 오류로 사용되는 사용자 정의 메시지 배열을 마지막 매개 변수로 승인할 수 있습니다.
 오류는 각 인스턴스에 맞게 조정되므로 사용자에게 매우 쾌적한 환경을 제공합니다.
@@ -507,43 +380,11 @@ POST 데이터에 다음이 있다고 가정합니다.
 
 마지막 매개 변수로
 
-::
-
-    $validation->setRules([
-            'username' => 'required|is_unique[users.username]',
-            'password' => 'required|min_length[10]',
-        ],
-        [   // Errors
-            'username' => [
-                'required' => 'All accounts must have usernames provided',
-            ],
-            'password' => [
-                'min_length' => 'Your password is too short. You want to get hacked?',
-            ],
-        ]
-    );
+.. literalinclude:: validation/023.php
 
 또는 레이블이있는 스타일로
 
-::
-
-    $validation->setRules([
-            'username' => [
-                'label'  => 'Username',
-                'rules'  => 'required|is_unique[users.username]',
-                'errors' => [
-                    'required' => 'All accounts must have {field} provided',
-                ],
-            ],
-            'password' => [
-                'label'  => 'Password',
-                'rules'  => 'required|min_length[10]',
-                'errors' => [
-                    'min_length' => 'Your {field} is too short. You want to get hacked?',
-                ],
-            ]
-        ]
-    );
+.. literalinclude:: validation/024.php
 
 검증된 필드의 사용자의 이름 또는 일부 규칙에서 허용하는 선택적 매개 변수의 (예 : max_length) 값을 메시지에 
 포함하고 싶다면 ``{field}``, ``{param}``, ``{value}`` 태그를 필요에 따라 추가합니다.
@@ -559,58 +400,54 @@ POST 데이터에 다음이 있다고 가정합니다.
 .. note:: 레이블 스타일 오류 메시지를 사용할 때 두 번째 매개변수를 ``setRules()``\ 에 전달하면 첫 번째 매개변수 값으로 덮어씁니다.
 
 메시지 및 검증 레이블 변환
-=============================================
+============================
 
 언어 파일에서 변환된 문자열을 사용하려면 점 구문을 사용하면 됩니다. 
 ``app/Language/en/Rules.php``\ 에 번역본이 있는 파일이 있다고 가정해 보겠습니다. 
 이 파일에 정의된 언어 라인을 다음과 같이 간단히 사용할 수 있습니다.
 
-::
+.. literalinclude:: validation/025.php
 
-    $validation->setRules([
-            'username' => [
-                'label'  => 'Rules.username',
-                'rules'  => 'required|is_unique[users.username]',
-                'errors' => [
-                    'required' => 'Rules.username.required',
-                ],
-            ],
-            'password' => [
-                'label'  => 'Rules.password',
-                'rules'  => 'required|min_length[10]',
-                'errors' => [
-                    'min_length' => 'Rules.password.min_length',
-                ],
-            ]
-        ]
-    );
+.. _validation-getting-all-errors:
 
 모든 오류 얻기
 ==================
 
 실패한 필드에 대한 모든 오류 메시지를 검색해야 하는 경우 ``getErrors()`` 메소드를 사용합니다
 
-::
-
-    $errors = $validation->getErrors();
-
-    // Returns:
-    [
-        'field1' => 'error message',
-        'field2' => 'error message',
-    ]
+.. literalinclude:: validation/026.php
 
 오류가 없으면 빈 배열이 반환됩니다.
 
+와일드카드를 사용할 때 오류는 특정 필드를 가리키고 별표(*)를 적절한 키로 대체합니다.
+
+::
+
+    // for data
+    'contacts' => [
+        'friends' => [
+            [
+                'name' => 'Fred Flinstone',
+            ],
+            [
+                'name' => '',
+            ],
+        ]
+    ]
+
+    // rule
+    'contacts.*.name' => 'required'
+
+    // error will be
+    'contacts.friends.1.name' => 'The contacts.*.name field is required.'
+
 단일 오류 얻기
-======================
+================
 
 ``getError()`` 메소드를 사용하여 단일 필드의 오류를 검색할 수 있습니다.
 필드 이름을 단일 매개 변수로 사용합니다.
 
-::
-
-    $error = $validation->getError('username');
+.. literalinclude:: validation/027.php
 
 오류가 없으면 빈 문자열이 반환됩니다.
 
@@ -620,46 +457,33 @@ POST 데이터에 다음이 있다고 가정합니다.
 ``hasError()`` 메소드에 오류가 있는지 확인할 수 있습니다.
 필드 이름을 단일 매개 변수로 사용합니다.
 
-::
+.. literalinclude:: validation/028.php
 
-    if ($validation->hasError('username')) {
-        echo $validation->getError('username');
-    }
+와일드카드로 필드를 지정할 때 마스크와 일치하는 모든 오류가 검사됩니다.
+
+.. literalinclude:: validation/029.php
 
 오류 표시 사용자 정의
-*********************
+**********************
 
 ``$validation->listErrors()`` 또는 ``$validation->showError()``\ 를 호출하면 백그라운드에서 오류가 표시되는 방법을 결정하고 뷰 파일을 로드합니다.
 기본적으로 래핑 div에 ``errors`` 클래스와 함께 표시됩니다.
 어플리케이션에서 새로운 뷰를 쉽게 작성하고 사용할 수 있습니다.
 
 뷰 생성
-==================
+=========
 
 첫 번째 단계는 사용자 정의 뷰를 작성하는 것입니다.
 이들은 ``view()`` 메소드가 찾을 수 있는 곳이면 어디든지 배치할 수 있습니다. 
 즉 표준 View 디렉토리나 네임스페이스가 있는 View 폴더에 작성합니다.
 예를 들면 **/app/Views/_errors_list.php**\ 에 새로운 뷸를 만들 수 있습니다.
 
-::
-
-    <div class="alert alert-danger" role="alert">
-        <ul>
-        <?php foreach ($errors as $error): ?>
-            <li><?= esc($error) ?></li>
-        <?php endforeach ?>
-        </ul>
-    </div>
+.. literalinclude:: validation/030.php
 
 ``$errors``\ 라는 배열은 오류 목록이 포함된 뷰안에서 사용 가능합니다. 
 키는 오류가 있는 필드의 이름이고 값은 오류 메시지입니다.
 
-::
-
-    $errors = [
-        'username' => 'The username field must be unique.',
-        'email'    => 'You must provide a valid email address.',
-    ];
+.. literalinclude:: validation/031.php
 
 실제로 작성할 수 있는 두 가지 유형의 뷰가 있습니다.
 첫 번째는 모든 오류 배열을 가지고 있으며 방금 살펴본 것입니다.
@@ -671,22 +495,16 @@ POST 데이터에 다음이 있다고 가정합니다.
     <span class="help-block"><?= esc($error) ?></span>
 
 구성
-=============
+======
 
 뷰를 만든 후에는 검증 라이브러리에 해당 뷰를 알려야 합니다.
 ``Config/Validation.php``\ 에는 사용자 정의 뷰를 나열하고 참조 할 수 있는 짧은 별명(alias)을 제공하는 ``$templates``\ 속성이 있습니다.
 위의 예제 파일을 추가하면 다음과 같습니다.
 
-::
-
-    public $templates = [
-        'list'    => 'CodeIgniter\Validation\Views\list',
-        'single'  => 'CodeIgniter\Validation\Views\single',
-        'my_list' => '_errors_list'
-    ];
+.. literalinclude:: validation/032.php
 
 템플릿 지정
-=======================
+=============
 
 ``listErrors()``\ 의 첫 번째 매개 변수로 별칭을 전달하여 사용할 템플릿을 지정할 수 있습니다
 
@@ -701,25 +519,14 @@ POST 데이터에 다음이 있다고 가정합니다.
     <?= $validation->showError('username', 'my_single') ?>
 
 사용자 정의 규칙 생성
-******************************
+***********************
 
 규칙은 단순한 네임스페이스 클래스내에 저장됩니다.
 오토로더가 찾을 수 있다면 원하는 어느 위치든 저장할 수 있습니다. 
 이러한 파일을 규칙 세트(RuleSet)라고합니다.
 새 규칙 세트를 추가하려면 **Config/Validation.php**\ 의 ``$ruleSets`` 배열에 추가하십시오.
 
-::
-
-    use CodeIgniter\Validation\CreditCardRules;
-    use CodeIgniter\Validation\FileRules;
-    use CodeIgniter\Validation\FormatRules;
-    use CodeIgniter\Validation\Rules;
-
-    public $ruleSets = [
-        Rules::class,
-        FileRules::class,
-        CreditCardRules::class,
-    ];
+.. literalinclude:: validation/033.php
 
 정규화된 클래스 이름을 가진 간단한 문자열 또는 위와 같은 ``::class`` 접미사를 사용하여 추가할 수 있습니다.
 여기서 가장 큰 장점은 고급 IDE에서 몇 가지 추가 탐색 기능을 제공한다는 것입니다.
@@ -727,38 +534,16 @@ POST 데이터에 다음이 있다고 가정합니다.
 파일 자체에서 각 메소드는 규칙이며, 문자열을 첫 번째 매개 변수로 승인해야 합니다.
 테스트를 통과한 경우 부울 true 값을 그렇지 않은 경우 false를 리턴해야 합니다.
 
-::
-
-    class MyRules
-    {
-        public function even(string $str): bool
-        {
-            return (int) $str % 2 == 0;
-        }
-    }
+.. literalinclude:: validation/034.php
 
 기본적으로 시스템은 ``CodeIgniter\Language\en\Validation.php``\ 에서 오류에 사용되는 언어 문자열을 찾습니다.
 사용자 지정 규칙에서 두 번째 매개 변수에서 ``$error`` 변수를 참조하여 오류 메시지를 제공할 수 있습니다.
 
-::
-
-    public function even(string $str, string &$error = null): bool
-    {
-        if ((int) $str % 2 != 0) {
-            $error = lang('myerrors.evenError');
-            return false;
-        }
-
-        return true;
-    }
+.. literalinclude:: validation/035.php
 
 새로운 규칙은 다른 규칙처럼 사용합니다.
 
-::
-
-    $this->validate($request, [
-        'foo' => 'required|even'
-    ]);
+.. literalinclude:: validation/036.php
 
 허용되는 매개 변수
 =====================
@@ -767,40 +552,7 @@ POST 데이터에 다음이 있다고 가정합니다.
 유효성 검증할 문자열, 매개 변수 문자열, 폼에서 제출한 모든 데이터가 있는 배열.
 ``$data`` 배열은 결과를 기반으로 제출된 다른 필드의 값을 확인해야 하는 ``require_with``\ 와 같은 규칙에 특히 유용합니다.
 
-::
-
-    public function required_with($str, string $fields, array $data): bool
-    {
-        $fields = explode(',', $fields);
-
-        // If the field is present we can safely assume that
-        // the field is here, no matter whether the corresponding
-        // search field is present or not.
-        $present = $this->required($str ?? '');
-
-        if ($present) {
-            return true;
-        }
-
-        // Still here? Then we fail this test if
-        // any of the fields are present in $data
-        // as $fields is the lis
-        $requiredFields = [];
-
-        foreach ($fields as $field) {
-            if (array_key_exists($field, $data)) {
-                $requiredFields[] = $field;
-            }
-        }
-
-        // Remove any keys with empty values since, that means they
-        // weren't truly there, as far as this is concerned.
-        $requiredFields = array_filter($requiredFields, function ($item) use ($data) {
-            return ! empty($data[$item]);
-        });
-
-        return empty($requiredFields);
-    }
+.. literalinclude:: validation/037.php
 
 위에서 설명한 것처럼 사용자 지정 오류는 네 번째 매개 변수로 반환될 수 있습니다.
 
@@ -812,16 +564,7 @@ POST 데이터에 다음이 있다고 가정합니다.
 .. note:: 규칙은 문자열입니다. 매개 변수 사이에 공백은 없어야합니다 (특히 "is_unique"규칙).
     "ignore_value"\ 전후에는 공백이 있을 수 없습니다.
 
-::
-
-    // is_unique[table.field,ignore_field,ignore_value]
-
-    $validation->setRules([
-        'name' => "is_unique[supplier.name,uuid, $uuid]",  // is not ok
-        'name' => "is_unique[supplier.name,uuid,$uuid ]",  // is not ok
-        'name' => "is_unique[supplier.name,uuid,$uuid]",   // is ok
-        'name' => "is_unique[supplier.name,uuid,{uuid}]",  // is ok - 검증 자리 표시자(Placeholders) 확인
-    ]);
+.. literalinclude:: validation/038.php
 
 ======================= =========== =============================================================================================== ===================================================
 Rule                    Parameter   Description                                                                                     Example
@@ -870,7 +613,7 @@ valid_base64            No          필드에 유효한 Base64 문자 이외의 
 valid_json              No          필드에 유효한 JSON 문자열이 없으면 실패합니다.
 valid_email             No          필드에 유효한 이메일 주소가 없으면 실패합니다.
 valid_emails            No          쉼표로 구분된 목록에 제공된 값이 유효한 이메일이 아닌 경우 실패합니다.
-valid_ip                No          제공된 IP가 유효하지 않으면 실패합니다. IP 형식을 지정하기 위해 ‘ipv4’ 또는 ‘ipv6’의            valid_ip[ipv6]
+valid_ip                No          제공된 IP가 유효하지 않으면 실패합니다. IP 형식을 지정하기 위해 'ipv4' 또는 'ipv6'의            valid_ip[ipv6]
                                     선택적 매개 변수를 승인합니다.
 valid_url               No          필드에 URL이 포함되지 않은 경우(느슨하게) 실패합니다.
                                     "codeigniter"와 같은 호스트 이름일 수 있는 문자열을 포함합니다.

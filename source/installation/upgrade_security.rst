@@ -5,7 +5,6 @@ Upgrade Security
     :local:
     :depth: 2
 
-
 Documentations
 ==============
 
@@ -38,35 +37,12 @@ Upgrade Guide
 Code Example
 ============
 
-CodeIgniter Version 3.11
+CodeIgniter Version 3.x
 ------------------------
-::
 
-    $csrf = array(
-        'name' => $this->security->get_csrf_token_name(),
-        'hash' => $this->security->get_csrf_hash()
-    );
-
-    ...
-
-    <form>
-        <input name="name" type="text">
-        <input name="email" type="text">
-        <input name="password" type="password">
-
-        <input type="hidden" name="<?= $csrf['name'] ?>" value="<?= $csrf['hash'] ?>" />
-        <input type="submit" value="Save">
-    </form>
+.. literalinclude:: upgrade_security/ci3sample/002.php
 
 CodeIgniter Version 4.x
 -----------------------
-::
 
-    <form>
-        <input name="name" type="text">
-        <input name="email" type="text">
-        <input name="password" type="password">
-
-        <?= csrf_field() ?>
-        <input type="submit" value="Save">
-    </form>
+.. literalinclude:: upgrade_security/002.php

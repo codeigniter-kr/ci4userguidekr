@@ -9,56 +9,41 @@ CLIRequest 클래스
 추가 접근자
 ====================
 
-**getSegments()**
+getSegments()
+----------------
 
 경로의 일부로 간주되는 커맨드 라인 인수의 배열을 리턴합니다.
 
-::
+.. literalinclude:: cli_request/001.php
 
-    // command line: php index.php users 21 profile --foo bar
-    echo $request->getSegments();  // ['users', '21', 'profile']
-
-**getPath()**
+getPath()
+---------
 
 재구성된 경로를 문자열로 반환합니다
 
-::
+.. literalinclude:: cli_request/002.php
 
-    // command line: php index.php users 21 profile --foo bar
-    echo $request->getPath();  // users/21/profile
-
-**getOptions()**
+getOptions()
+------------
 
 옵션으로 간주되는 커맨드 라인 인수의 배열을 리턴합니다.
 
-::
+.. literalinclude:: cli_request/003.php
 
-    // command line: php index.php users 21 profile --foo bar
-    echo $request->getOptions();  // ['foo' => 'bar']
-
-**getOption($which)**
+getOption($which)
+-----------------
 
 옵션으로 간주되는 특정 커맨드 라인 인수의 값을 리턴합니다.
 
-::
+.. literalinclude:: cli_request/004.php
 
-    // command line: php index.php users 21 profile --foo bar
-    echo $request->getOption('foo');  // bar
-    echo $request->getOption('notthere'); // null
-
-**getOptionString()**
+etOptionString()
+----------------
 
 옵션에 대해 재구성된 커맨드 라인 문자열을 리턴합니다.
 
-::
-
-    // command line: php index.php users 21 profile --foo bar
-    echo $request->getOptionString();  // -foo bar
+.. literalinclude:: cli_request/005.php
 
 첫 번째 인수에 ``true``\ 를 전달하면 두 개의 대시(--)를 사용하여 긴 옵션을 작성합니다.
 
-::
-
-    // php index.php user 21 --foo bar -f
-    echo $request->getOptionString(); // -foo bar -f
-    echo $request->getOptionString(true); // --foo bar -f
+.. literalinclude:: cli_request/006.php

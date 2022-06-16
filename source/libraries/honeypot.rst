@@ -14,18 +14,7 @@
 
 허니팟을 활성화하려면 ``app/Config/Filters.php``\ 를 변경해야 합니다. 다음과 같이 ``$globals`` 배열의 허니팟의 주석 처리를 제거하십시오.
 
-::
-
-    public $globals = [
-        'before' => [
-            'honeypot'
-            // 'csrf',
-        ],
-        'after'  => [
-            'toolbar',
-            'honeypot'
-        ],
-    ];
+.. literalinclude:: honeypot/001.php
 
 샘플 Honeypot 필터는 번들로 제공되며, ``system/Filters/Honeypot.php``\ 입니다.
 직접 만든 필터를 사용하려면 ``app/Filters/Honeypot.php``\ 에 만들고 구성(config)의 ``$aliases``\ 를 적절하게 수정하십시오.

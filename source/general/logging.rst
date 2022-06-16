@@ -10,11 +10,7 @@
 첫 번째 매개 변수에 오류의 "수준"을 제공해야 하며 메시지 유형(디버그, 오류 등)을 나타냅니다.
 두 번째 매개 변수는 메시지 자체입니다
 
-::
-
-    if ($some_var === '') {
-        log_message('error', 'Some variable did not contain a value.');
-    }
+.. literalinclude:: logging/001.php
 
 `RFC 5424 <https://tools.ietf.org/html/rfc5424>`_ 레벨과 일치하는 8가지 로그 레벨이 있으며 다음과 같습니다.
 
@@ -45,18 +41,13 @@ emergency   시스템 사용 불가
 예를 들어 정보 메시지가 아닌 경고(warning) 메시지를 기록하려는 경우 ``threshold`` 값을 ``5``\ 로 설정합니다. 
 5 이하의 레벨(런타임 오류, 시스템 오류 등)의 모든 로그 요청은 기록되고 정보(info), 알림(notice) 및 디버그(debug)는 무시됩니다.
 
-::
-
-    public $threshold = 5;
+.. literalinclude:: logging/002.php
 
 전체 레벨 목록과 해당 ``threshold`` 값은 참조용 구성 파일에 있습니다.
 
 ``threshold`` 값을 특정 레벨로 여러개 선택하여 배열로 지정할 수 있습니다.
 
-::
-
-    // Log only debug and info type messages
-    public $threshold = [5, 8];
+.. literalinclude:: logging/003.php
 
 다중 로그 처리기 사용
 ---------------------------
@@ -75,14 +66,7 @@ Each handler is specified with the key being the fully name-spaced class name.
 값은 각 핸들러에 따른 다양한 속성을 지정한 배열이 됩니다.
 각 핸들러 섹션에는 ``handles``\ 라는 공통 속성이 있으며, 핸들러가 정보를 기록할 때 사용되는 로그 레벨 *수준*\ 을 지정한  배열입니다.
 
-::
-
-    public $handlers = [
-        // File Handler
-        'CodeIgniter\Log\Handlers\FileHandler' => [
-            'handles' => ['critical', 'alert', 'emergency', 'debug', 'error', 'info', 'notice', 'warning'],
-        ]
-    ];
+.. literalinclude:: logging/004.php
 
 컨텍스트를 사용하여 메시지 수정
 ==================================
@@ -93,27 +77,13 @@ Each handler is specified with the key being the fully name-spaced class name.
 세 번째 매개 변수에는 자리 표시자 이름(중괄호없이)에 상응하는 키/값 배열입니다. 
 이들은 메시지 문자열에 삽입됩니다.
 
-::
-
-    // Generates a message like: User 123 logged into the system from 127.0.0.1
-    $info = [
-        'id' => $user->id,
-        'ip_address' => $this->request->getIPAddress()
-    ];
-
-    log_message('info', 'User {id} logged into the system from {ip_address}', $info);
+.. literalinclude:: logging/005.php
 
 예외 또는 오류를 기록할 때 'exception' 키와 값을 예외 또는 오류 자체로 사용할 수 있습니다.
 오류 메시지, 파일 이름 및 줄 번호가 포함 된 개체에서 문자열이 생성됩니다.
 이를 위해 메시지에 exception 자리 표시자를 제공해야합니다.
 
-::
-
-    try {
-        ... Something throws error here
-    } catch (\Exception $e) {
-        log_message('error', '[ERROR] {exception}', ['exception' => $e]);
-    }
+.. literalinclude:: logging/006.php
 
 현재 페이지 요청에 따라 자동으로 확장되는 몇 가지 핵심 자리 표시자가 있습니다.
 

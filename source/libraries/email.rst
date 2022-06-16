@@ -30,19 +30,7 @@ CodeIgniter의 강력한 이메일(email) 클래스는 다음 기능을 지원�
 
 다음은 이메일을 보내는 방법을 보여주는 기본 예입니다.
 
-::
-
-	$email = \Config\Services::email();
-
-	$email->setFrom('your@example.com', 'Your Name');
-	$email->setTo('someone@example.com');
-	$email->setCC('another@another-example.com');
-	$email->setBCC('them@their-example.com');
-
-	$email->setSubject('Email Test');
-	$email->setMessage('Testing the email class.');
-
-	$email->send();
+.. literalinclude:: email/001.php
 
 .. _setting-email-preferences:
 
@@ -55,14 +43,7 @@ CodeIgniter의 강력한 이메일(email) 클래스는 다음 기능을 지원�
 기본 설정 값을 이메일 초기화 방법으로 전달하면 기본 설정이 설정됩니다. 
 다음은 일부 환경 설정을 설정하는 방법에 대한 예입니다.
 
-::
-
-	$config['protocol'] = 'sendmail';
-	$config['mailPath'] = '/usr/sbin/sendmail';
-	$config['charset']  = 'iso-8859-1';
-	$config['wordWrap'] = true;
-
-	$email->initialize($config);
+.. literalinclude:: email/002.php
 
 .. note:: 기본 설정에는 설정하지 않은 경우, 대부분 사용되는 기본값이 있습니다.
 
@@ -108,7 +89,7 @@ Preference          Default Value          Options                      Descript
 =================== ====================== ============================ =======================================================================
 **userAgent**       CodeIgniter            None                         user agent
 **protocol**        mail                   mail, sendmail, or smtp      메일 전송 프로토콜
-**mailpath**        /usr/sbin/sendmail     None                         Sendmail의 서버 경로
+**mailPath**        /usr/sbin/sendmail     None                         Sendmail의 서버 경로
 **SMTPHost**        No Default             None                         SMTP Server Address
 **SMTPUser**        No Default             None                         SMTP Username
 **SMTPPass**        No Default             None                         SMTP Password
@@ -149,7 +130,6 @@ CodeIgniter는 다음과 같이 메시지의 일부에서 단어 줄 바꿈을 �
 	More text that will be
 	wrapped normally.
 
-
 줄 바꿈하지 않으려는 항목을 배치하십시오: {unwrap} {/unwrap}
 
 ***************
@@ -168,15 +148,11 @@ Class Reference
 
 		이메일을 보내는 사람의 이메일 주소와 이름을 설정합니다.
 		
-		::
-
-			$email->setFrom('you@example.com', 'Your Name');
+		.. literalinclude:: email/003.php
 
 		배달되지 않은 메일을 리디렉션하는 데 도움이 되도록 Return-Path를 설정할 수 있습니다.
 
-		::
-
-			$email->setFrom('you@example.com', 'Your Name', 'returned_emails@example.com');
+		.. literalinclude:: email/004.php
 
 		.. note:: 프로토콜로 'smtp'\ 를 구성한 경우 Return-Path를 사용할 수 없습니다.
 
@@ -189,9 +165,9 @@ Class Reference
 
 		회신 주소를 설정합니다. 정보가 제공되지 않으면 `setFrom <#setFrom>`_ 메소드의 정보가 사용됩니다.
 		
-		Example::
+		Example
 
-			$email->setReplyTo('you@example.com', 'Your Name');
+		.. literalinclude:: email/005.php
 
 	.. php:method:: setTo($to)
 
@@ -202,17 +178,11 @@ Class Reference
 		수신자의 이메일 주소를 설정합니다.
 		이메일 주소 또는 쉼표로 구분된 이메일 목록, 이메일 배열일 수 있습니다.
 		
-		::
+		.. literalinclude:: email/006.php
 
-			$email->setTo('someone@example.com');
+        .. literalinclude:: email/007.php
 
-		::
-
-			$email->setTo('one@example.com, two@example.com, three@example.com');
-
-		::
-
-			$email->setTo(['one@example.com', 'two@example.com', 'three@example.com']);
+        .. literalinclude:: email/008.php
 
 	.. php:method:: setCC($cc)
 
@@ -241,9 +211,7 @@ Class Reference
 
 		이메일 제목을 설정합니다.
 		
-		::
-
-			$email->setSubject('This is my subject');
+		.. literalinclude:: email/009.php
 
 	.. php:method:: setMessage($body)
 
@@ -253,9 +221,7 @@ Class Reference
 
 		이메일 메시지 본문을 설정합니다.
 		
-		::
-
-			$email->setMessage('This is my message');
+		.. literalinclude:: email/010.php
 
 	.. php:method:: setAltMessage($str)
 
@@ -265,9 +231,7 @@ Class Reference
 
 		대체 이메일 메시지 본문을 설정합니다.
 		
-		::
-
-			$email->setAltMessage('This is the alternative message');
+		.. literalinclude:: email/011.php
 
 		이것은 HTML 형식의 전자 메일을 보내는 경우 사용할 수 있는 선택적 메시지 문자열입니다.
 		HTML 전자 메일을 수락하지 않는 사람들을 위해 헤더 문자열에 추가되는 HTML 형식이 없는 대체 메시지를 지정할 수 있습니다.
@@ -283,10 +247,7 @@ Class Reference
 
 		이메일에 추가 헤더를 추가합니다.
 		
-		::
-
-			$email->setHeader('Header1', 'Value1');
-			$email->setHeader('Header2', 'Value2');
+		.. literalinclude:: email/012.php
 
 	.. php:method:: clear($clearAttachments = false)
 
@@ -297,24 +258,11 @@ Class Reference
 		모든 이메일 변수를 빈 상태로 초기화합니다.
 		이 메소드는 전자 메일 전송 방법을 루프로 실행할 때 데이터를 재설정할 수 있도록 하기 위한 것입니다.
 
-		::
-
-			foreach ($list as $name => $address)
-			{
-				$email->clear();
-
-				$email->setTo($address);
-				$email->setFrom('your@example.com');
-				$email->setSubject('Here is your info '.$name);
-				$email->setMessage('Hi ' . $name . ' Here is the info you requested.');
-				$email->send();
-			}
+		.. literalinclude:: email/013.php
 
 		매개 변수를 ``true``\ 로 설정하면 첨부 파일도 지워집니다.
 		
-		::
-
-			$email->clear(true);
+		.. literalinclude:: email/014.php
 
 	.. php:method:: send($autoClear = true)
 
@@ -324,21 +272,11 @@ Class Reference
 
 		이메일 전송 방법. 성공 또는 실패에 따라 부울 ``true`` 또는 ``false``\ 를 반환하여 조건부로 사용할 수 있습니다.
 		
-		::
-
-			if (! $email->send())
-			{
-				// Generate error
-			}
+		.. literalinclude:: email/015.php
 
 		요청이 성공하면 이 메소드는 모든 매개 변수를 자동으로 삭제합니다. 이 동작을 중지하려면 false를 전달하십시오.
 
-		::
-
-			if ($email->send(false))
-			{
-				// Parameters won't be cleared
-			}
+		.. literalinclude:: email/016.php
 
 		.. note:: ``printDebugger()`` 메소드를 사용하려면 이메일 매개 변수를 삭제하지 않아야 합니다.
 
@@ -356,36 +294,24 @@ Class Reference
 		첨부 파일을 보낼 수 있습니다. 첫 번째 매개 변수에 파일 경로 / 이름을 입력하십시오. 
 		여러 파일을 첨부하려면 메소드를 여러 번 사용합니다.
 
-		::
-
-			$email->attach('/path/to/photo1.jpg');
-			$email->attach('/path/to/photo2.jpg');
-			$email->attach('/path/to/photo3.jpg');
+		.. literalinclude:: email/017.php
 
 		기본 분할(첨부 파일)를 사용하려면, 두 번째 매개 변수를 비워 두십시오. 
 		그렇지 않으면 사용자 지정 처리를 사용하십시오.
 
-		::
-
-			$email->attach('image.jpg', 'inline');
+		.. literalinclude:: email/018.php
 
 		URL을 사용할 수도 있습니다.
 		
-		::
-
-			$email->attach('http://example.com/filename.pdf');
+		.. literalinclude:: email/019.php
 
 		사용자 정의 파일 이름을 사용하려는 경우 세 번째 매개 변수를 사용합니다.
 		
-		::
-
-			$email->attach('filename.pdf', 'attachment', 'report.pdf');
+		.. literalinclude:: email/020.php
 
 		실제 파일 대신 버퍼 문자열을 사용해야 하는 경우 첫 번째 매개 변수를 버퍼로, 세 번째 매개 변수를 파일 이름으로, 네 번째 매개 변수를 mime-type으로 사용할 수 있습니다.
 
-		::
-
-			$email->attach($buffer, 'attachment', 'report.pdf', 'application/pdf');
+		.. literalinclude:: email/021.php
 
 	.. php:method:: setAttachmentCID($filename)
 
@@ -396,17 +322,7 @@ Class Reference
 		첨부 파일의 Content-ID를 설정하고 반환하여, HTML에 인라인(이미지) 첨부 파일을 포함할 수 있습니다.
 		첫 번째 매개 변수는 이미 첨부된 파일 이름이어야 합니다.
 
-		::
-
-			$filename = '/img/photo1.jpg';
-			$email->attach($filename);
-			foreach ($list as $address)
-			{
-				$email->setTo($address);
-				$cid = $email->setAttachmentCID($filename);
-				$email->setMessage('<img src="cid:'. $cid .'" alt="photo1" />');
-				$email->send();
-			}
+		.. literalinclude:: email/022.php
 
 		.. note:: 고유한 이메일을 만들려면 각 이메일의 Content-ID를 다시 작성해야 합니다.
 
@@ -422,14 +338,6 @@ Class Reference
 		메시지의 인쇄 할 부분을 선택적으로 지정할 수 있습니다.
 		유효한 옵션 : **headers**, **subject**, **body**.
 
-		::
-
-			// You need to pass false while sending in order for the email data
-			// to not be cleared - if that happens, printDebugger() would have
-			// nothing to output.
-			$email->send(false);
-
-			// Will only print the email headers, excluding the message subject and body
-			$email->printDebugger(['headers']);
+		.. literalinclude:: email/023.php
 
 		.. note:: 기본적으로 모든 데이터가 출력됩니다.

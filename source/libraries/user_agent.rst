@@ -18,9 +18,7 @@ User Agent 클래스 사용
 User Agent 클래스는 언제든지 :doc:`IncomingRequest </incoming/incomingrequest>` 인스턴스에서 직접 사용할 수 있습니다.
 기본적으로 컨트롤러는 User Agent 클래스를 검색할 수 있는 요청 인스턴스가 있습니다.
 
-::
-
-	$agent = $this->request->getUserAgent();
+.. literalinclude:: user_agent/001.php
 
 User Agent 정의
 ======================
@@ -34,23 +32,7 @@ Example
 User Agent 클래스가 초기화되면 사이트를 탐색하는 User Agent가 웹 브라우저, 모바일 장치 또는 로봇인지 확인하려고 시도합니다. 
 사용 가능한 경우 플랫폼 정보도 수집합니다.
 
-::
-
-	$agent = $this->request->getUserAgent();
-
-	if ($agent->isBrowser())  {
-		$currentAgent = $agent->getBrowser() . ' ' . $agent->getVersion();
-	} elseif ($agent->isRobot()) {
-		$currentAgent = $agent->agent->getRobot();
-	} elseif ($agent->isMobile()) {
-		$currentAgent = $agent->getMobile();
-	} else {
-		$currentAgent = 'Unidentified User Agent';
-	}
-
-	echo $currentAgent;
-
-	echo $agent->getPlatform(); // Platform info (Windows, Linux, Mac, etc.)
+.. literalinclude:: user_agent/002.php
 
 ***************
 Class Reference
@@ -66,16 +48,7 @@ Class Reference
 
     		사용자 에이전트가 알려진 웹 브라우저인 경우 true/false (부울)를 리턴합니다.
 
-    		::
-
-			if ($agent->isBrowser('Safari'))
-			{
-				echo 'You are using Safari.';
-			}
-			elseif ($agent->isBrowser())
-			{
-				echo 'You are using a browser.';
-			}
+    		.. literalinclude:: user_agent/003.php
 
 		.. note:: 이 예에서 문자열 "Safari" 는 브라우저 정의 목록의 배열 키입니다. 새 브라우저를 추가하거나 문자열을 변경하려는 경우 **app/Config/UserAgents.php**\ 에서 이 목록을 찾을 수 있습니다.
 				  
@@ -88,20 +61,7 @@ Class Reference
 
     		User Agent가 알려진 모바일 장치인 경우 true/false (부울)를 반환합니다.
 
-    		::
-
-			if ($agent->isMobile('iphone'))
-			{
-				echo view('iphone/home');
-			}
-			elseif ($agent->isMobile())
-			{
-				echo view('mobile/home');
-			}
-			else
-			{
-				echo view('web/home');
-			}
+    		.. literalinclude:: user_agent/004.php
 
 	.. php:method:: isRobot([$key = null])
 
@@ -164,11 +124,7 @@ Class Reference
 
 		User Agent가 다른 사이트에서 참조된 경우 리퍼러 일반적으로 다음과 같이 테스트합니다.
 
-		::
-
-			if ($agent->isReferral()) {
-				echo $agent->referrer();
-			}
+		.. literalinclude:: user_agent/005.php
 
 	.. php:method:: getAgentString()
 

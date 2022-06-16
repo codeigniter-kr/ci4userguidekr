@@ -27,28 +27,7 @@
 클래스에는 두 메소드가 모두 포함되어야하지만 필요하지 않은 경우 메소드를 비워둘 수 있습니다.
 스켈레톤 필터 클래스는 다음과 같습니다.
 
-::
-
-    <?php 
-    
-    namespace App\Filters;
-
-    use CodeIgniter\HTTP\RequestInterface;
-    use CodeIgniter\HTTP\ResponseInterface;
-    use CodeIgniter\Filters\FilterInterface;
-
-    class MyFilter implements FilterInterface
-    {
-        public function before(RequestInterface $request, $arguments = null)
-        {
-            // Do something here
-        }
-
-        public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
-        {
-            // Do something here
-        }
-    }
+.. literalinclude:: filters/001.php
 
 사전(Before) 필터
 ======================
@@ -63,16 +42,7 @@ before 필터에서 반환하면 실행이 중지되지 않고 현재 ``$request
 
 아래 예는 리디렉션을 수행합니다.
 
-::
-
-    public function before(RequestInterface $request, $arguments = null)
-    {
-        $auth = service('auth');
-
-        if (! $auth->isLoggedIn()) {
-            return redirect()->to(site_url('login'));
-        }
-    }
+.. literalinclude:: filters/002.php
 
 ``응답(Response)`` 인스턴스가 리턴되면 응답이 클라이언트로 전송되고 컨트롤러 실행이 중지됩니다.
 API 요청에 대한 속도 제한을 구현하는데 유용하며, 이에 대한 예는 :doc:`Throttler </libraries/throttler>`\ 를 참조하십시오.
@@ -102,11 +72,7 @@ $aliases
 
 ``$aliases`` 배열은 하나 이상의 정규화된 클래스 이름을 실행될 간단한 필터 이름으로 연결하는 데 사용합니다.
 
-::
-
-    public $aliases = [
-        'csrf' => \CodeIgniter\Filters\CSRF::class,
-    ];
+.. literalinclude:: filters/003.php
 
 별명은 필수이며 이후 전체 클래스 이름을 사용하려고 하면 시스템에서 오류가 발생합니다.
 이런 식으로 정의하면 필터에 사용되는 클래스를 간단하게 전환할 수 있습니다.
@@ -114,14 +80,7 @@ $aliases
 
 여러 필터를 하나의 별칭으로 결합하여 복잡한 필터 세트를 간단하게 적용할 수 있습니다.
 
-::
-
-    public $aliases = [
-        'apiPrep' => [
-            \App\Filters\Negotiate::class,
-            \App\Filters\ApiAuth::class,
-        ]
-    ];
+.. literalinclude:: filters/004.php
 
 필요한만큼 별칭을 정의해야 합니다.
 
@@ -132,40 +91,19 @@ $globals
 모든 요청에 너무 많은 작업을 적용하는 것은 성능에 영향을 미칠 수 있으므로 여기에 얼마나 많은 것을 사용할지 주의해야 합니다.
 사전(before) 또는 사후(after) 배열에 별칭을 추가하여 필터를 지정할 수 있습니다.
 
-::
-
-    public $globals = [
-        'before' => [
-            'csrf',
-        ],
-        'after' => [],
-    ];
+.. literalinclude:: filters/005.php
 
 모든 요청에 필터를 적용하고 싶을 때도 있지만, 몇 개만 남겨두어야 할 경우도 있습니다.
 한 가지 일반적인 예는 CSRF 보호 필터에 몇 개의 URI를 제외하여 제3자 웹 사이트의 요청이 하나 또는 두 개의 특정 URI를 도달할 수 있도록 하고 나머지 URI는 보호해야 하는 경우입니다.
 이렇게 하려면 'except' 키가 있는 배열을 별칭 과 함께 값으로 일치시킬 URI를 추가하십시오.
 
-::
-
-    public $globals = [
-        'before' => [
-            'csrf' => ['except' => 'api/*'],
-        ],
-        'after' => [],
-    ];
+.. literalinclude:: filters/006.php
 
 필터 설정에서 URI를 사용할 수 있는 모든 장소, 정규 표현식을 사용하거나 이 예에서와 같이 와일드 카드 별표(*)를 사용하여 그 이후의 모든 문자를 일치시킬 수 있습니다.
 다음 예는 ``api/``\ 로 시작하는 URL은 CSRF 보호에서 제외되지만 양식(Form)은 모두 보호됩니다.
 여러 개의 URI를 지정해야 하는 경우 URI 패턴 배열을 사용할 수 있습니다.
 
-::
-
-    public $globals = [
-        'before' => [
-            'csrf' => ['except' => ['foo/*', 'bar/*']],
-        ],
-        'after' => [],
-    ];
+.. literalinclude:: filters/007.php
 
 $methods
 ========
@@ -175,12 +113,7 @@ POST, GET, PUT등과 같은 특정 HTTP 메소드의 모든 요청에 필터를 
 값은 실행할 필터 배열입니다. 
 ``$globals`` 나 ``$filters`` 속성과 달리 이 속성은 이전(before) 필터처럼 실행됩니다.
 
-::
-
-    public $methods = [
-        'post' => ['foo', 'bar'],
-        'get'  => ['baz'],
-    ]
+.. literalinclude:: filters/008.php
 
 표준 HTTP 메소드 외에도 'cli'\ 도 필터를 지원합니다. 
 'cli' 메소드는 명령줄에서 실행된 모든 요청에 적용됩니다.
@@ -191,23 +124,23 @@ $filters
 이 속성은 필터 별칭(alias)의 배열입니다. 
 각 별명(alias)에 대해 필터링해야 하는 URI 패턴 목록이 포함된 전후 배열을 지정할 수 있습니다.
 
-::
-
-    public filters = [
-        'foo' => ['before' => ['admin/*'], 'after' => ['users/*']],
-        'bar' => ['before' => ['api/*', 'admin/*']],
-    ];
+.. literalinclude:: filters/009.php
 
 필터 인수(arguments)
 =======================
 
 라우터에 필터를 구성할 때 필터에 필요한 추가 인수를 전달할 수 있습니다.
 
-::
-
-    $routes->add('users/delete/(:segment)', 'AdminController::index', ['filter' => 'admin-auth:dual,noreturn']);
+.. literalinclude:: filters/010.php
 
 이 예에서 ``['dual', 'noreturn']`` 배열은 필터의 ``before()``\ 와 ``after()`` 메소드에 ``$arguments``\ 로 전달됩니다.
+
+******************
+필터 확인
+******************
+
+``spark routes`` 명령으로 경로와 필터를 볼 수 있습니다.
+:ref:`URI 라우팅 <spark-routes>`\ 을 확인하세요.
 
 ****************
 제공되는 필터
@@ -232,11 +165,6 @@ SecureHeaders
 
 헤더를 사용자 정의하려면 ``CodeIgniter\Filters\SecureHeaders``\ 를 확장하고 ``$headers`` 속성을 재정의한 후 **app/Config/Filters.php**\ 에서 ``$aliases`` 속성을 변경합니다.
 
-::
-
-    public $aliases = [
-        ...
-        'secureheaders' => \App\Filters\SecureHeaders::class,
-    ];
+.. literalinclude:: filters/011.php
 
 보안 헤더에 대해 알고 싶다면 `OWASP Secure Headers Project <https://owasp.org/www-project-secure-headers/>`_\ 를 살펴보십시오.

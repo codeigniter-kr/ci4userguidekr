@@ -50,7 +50,6 @@ Download and run
 
 - app, public, system, writable 
 
-
 번역 파일 설치
 ===================
 

@@ -83,12 +83,7 @@ Sections can contain nested sections
 
 레이아웃 랜더링은 다른 뷰가 컨트롤러 내에 하는것처럼 동일하게 수행됩니다.
 
-::
-
-    public function index()
-    {
-        echo view('some_view');
-    }
+.. literalinclude:: view_layouts/001.php
 
 뷰 **app/Views/some_view.php**\ 를 렌더링하고 ``default``\ 를 확장하면 **app/Views/default.php** 레이아웃도 자동으로 사용됩니다.
 렌더러는 매우 똑똑하여 뷰를 자체적으로 랜더링해야 할지,  레이아웃과 함께 랜더링해야 할지 감지할 수 있습니다.

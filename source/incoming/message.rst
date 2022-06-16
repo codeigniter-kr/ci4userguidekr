@@ -35,9 +35,7 @@ Class Reference
 
         설정된 경우 메시지 본문을 반환합니다. 본문이 없으면 null을 반환합니다.
         
-        ::
-
-            echo $message->getBody();
+        .. literalinclude:: message/001.php
 
     .. php:method:: setBody([$str])
 
@@ -84,40 +82,16 @@ Class Reference
         ``$name``\ 는 대소문자를 구분하지 않는 헤더 이름입니다.
         헤더가 내부적으로 변환되는 동안 모든 유형의 케이스를 사용하여 헤더를 액세스할 수 있습니다.
         
-        ::
-
-            // These are all the same:
-            $message->header('HOST');
-            $message->header('Host');
-            $message->header('host');
+        .. literalinclude:: message/002.php
 
         헤더에 값이 여러 개일 경우 ``getValue()``\ 는 값의 배열로 반환됩니다.
         ``getValueLine()`` 메소드를 사용하여 값을 문자열로 검색할 수 있습니다
         
-        ::
-
-            echo $message->header('Accept-Language');
-
-            // Outputs something like:
-            'Accept-Language: en,en-US'
-
-            echo $message->header('Accept-Language')->getValue();
-
-            // Outputs something like:
-            [
-                'en',
-                'en-US'
-            ]
-            echo $message->header('Accept-Language')->getValueLine();
-
-            // Outputs something like:
-            'en,en-US'
+        .. literalinclude:: message/003.php
 
         두 번째 매개 변수로 필터값을 전달하여 헤더를 필터링할 수 있습니다.
         
-        ::
-
-            $message->header('Document-URI', FILTER_SANITIZE_URL);
+        .. literalinclude:: message/004.php
 
     .. php:method:: hasHeader($name)
 
@@ -135,12 +109,7 @@ Class Reference
         이 메소드를 사용하면 헤더에 여러 개의 값이 있을 때 헤더 값의 문자열을 쉽게 얻을 수 있습니다.
         여러 개의 값은 적절하게 연결됩니다.
         
-        ::
-
-            echo $message->getHeaderLine('Accept-Language');
-
-            // Outputs:
-            en, en-US
+        .. literalinclude:: message/005.php
 
     .. php:method:: setHeader([$name[, $value]])
                 :noindex:
@@ -153,9 +122,7 @@ Class Reference
         단일 헤더의 값을 설정합니다. ``$name``\ 은 대소문자를 구분하지 않는 헤더 이름입니다.
         컬렉션에 헤더가 없으면 생성됩니다. ``$value``\ 는 문자열 또는 문자열 배열일 수 있습니다.
         
-        ::
-
-            $message->setHeader('Host', 'codeigniter.com');
+        .. literalinclude:: message/006.php
 
     .. php:method:: removeHeader([$name])
 
@@ -165,9 +132,7 @@ Class Reference
 
         메시지에서 헤더를 제거합니다. ``$name``\ 은 대소문자를 구분하지 않는 헤더 이름입니다.
         
-        ::
-
-            $message->remove('Host');
+        .. literalinclude:: message/007.php
 
     .. php:method:: appendHeader([$name[, $value]]))
 
@@ -179,9 +144,8 @@ Class Reference
         기존 헤더에 값을 추가합니다.
         헤더는 단일 문자열 대신 값의 배열이어야 합니다.
         문자열이면 ``LogicException``\ 이 발생합니다.
-        ::
 
-            $message->appendHeader('Accept-Language', 'en-US; q=0.8');
+        .. literalinclude:: message/008.php
 
     .. php:method:: prependHeader($name, $value)
 
@@ -193,9 +157,7 @@ Class Reference
         기존 헤더 앞에 값을 추가합니다. 헤더는 단일 문자열 대신 값의 배열이어야 합니다.
         문자열이면 LogicException이 발생합니다.
 
-        ::
-
-            $message->prependHeader('Accept-Language', 'en,');
+        .. literalinclude:: message/009.php
 
     .. php:method:: getProtocolVersion()
 
@@ -211,9 +173,7 @@ Class Reference
         :returns: Message 인스턴스
         :rtype: CodeIgniter\\HTTP\\Message
 
-        HTTP 프로토콜 버전을 설정합니다. 사용 가능한 값은 ``1.0``, ``1.1``.
+        HTTP 프로토콜 버전을 설정합니다. 사용 가능한 값은 ``1.0``, ``1.1``, ``2.0``.
 
-        ::
-
-            $message->setProtocolVersion('1.1');
+        .. literalinclude:: message/010.php
 

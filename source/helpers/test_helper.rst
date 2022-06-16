@@ -13,9 +13,7 @@ Test 헬퍼
 
 이 헬퍼는 다음 코드를 사용하여 로드됩니다.
 
-::
-
-    helper('test');
+.. literalinclude:: test_helper/001.php
 
 사용 가능한 함수
 ===================
@@ -31,11 +29,4 @@ Test 헬퍼
 
     ``CodeIgniter\Test\Fabricator``\ 를 사용하여 만들어진 임의의 항목을 데이터베이스에 추가합니다.
 
-    Usage example::
-
-        public function testUserAccess()
-        {
-            $user = fake('App\Models\UserModel');
-            
-            $this->assertTrue($this->userHasAccess($user));
-        }
+    .. literalinclude:: test_helper/002.php

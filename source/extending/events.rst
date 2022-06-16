@@ -8,6 +8,10 @@ CodeIgniter가 실행될 때 특정 실행 프로세스를 따릅니다.
 이벤트는 *publish/subscribe* 패턴에서 작동하며, 여기서 스크립트 실행중 이벤트가 트리거됩니다.
 다른 스크립트는 Events 클래스에 등록하여 해당 이벤트가 트리거될 때 조치를 수행할 것임을 알리는 방식으로 해당 이벤트를 "구독"할 수 있습니다.
 
+.. contents::
+    :local:
+    :depth: 2
+
 이벤트 활성화
 =================
 
@@ -17,36 +21,16 @@ CodeIgniter가 실행될 때 특정 실행 프로세스를 따릅니다.
 =================
 
 대부분의 이벤트는 **app/Config/Events.php** 파일에 정의되어 있습니다.
-Events 클래스의 ``on()`` 메소드로 이벤트에 액션을 구독할 수 있습니다.
+``Events`` 클래스의 ``on()`` 메소드로 이벤트에 액션을 구독할 수 있습니다.
 첫 번째 매개 변수는 구독할 이벤트의 이름입니다. 
 두 번째 매개 변수는 해당 이벤트가 트리거될 때 실행될 호출 가능(callable)입니다.
 
-::
+.. literalinclude:: events/001.php
 
-	use CodeIgniter\Events\Events;
-
-	Events::on('pre_system', ['MyClass', 'MyFunction']);
-
-이 예에서 **pre_controller** 이벤트가 실행될 때마다 ``MyClass`` 인스턴스가 생성되고 ``MyFunction`` 메소드가 실행됩니다.
+이 예에서 ``pre_system`` 이벤트가 실행될 때마다 ``MyClass`` 인스턴스가 생성되고 ``MyFunction`` 메소드가 실행됩니다.
 두 번째 매개 변수는 PHP가 인식하는 `호출 가능(callable) <https://www.php.net/manual/en/function.is-callable.php>`_ 의 *모든* 형식일 수 있습니다.
 
-::
-
-	// Call a standalone function
-	Events::on('pre_system', 'some_function');
-
-	// Call on an instance method
-	$user = new User();
-	Events::on('pre_system', [$user, 'some_method']);
-
-	// Call on a static method
-	Events::on('pre_system', 'SomeClass::someMethod');
-
-	// Use a Closure
-	Events::on('pre_system', function (...$params)
-	{
-		. . .
-	});
+.. literalinclude:: events/002.php
 
 우선 순위 설정
 ------------------
@@ -55,20 +39,16 @@ Events 클래스의 ``on()`` 메소드로 이벤트에 액션을 구독할 수 �
 우선 순위 값은 ``on()`` 메소드의 세 번째 매개 변수로 전달하면 됩니다. 
 우선 순위는 낮은 값이 먼저 실행되며 값이 1이면 우선 순위가 가장 높습니다.
 
-::
-
-    Events::on('post_controller_constructor', 'some_function', 25);
+.. literalinclude:: events/003.php
 
 우선 순위가 동일한 구독자는 정의된 순서대로 실행됩니다.
 
-값에 유용한 범위를 설정하는 세 개의 상수가 정의되어 있습니다.
+v4.2.0부터 값에 유용한 범위를 설정하는 세 개의 클래스 상수가 정의되어 있습니다.
 이것을 꼭 사용할 필요는 없지만 가독성을 도울 수 있습니다.
 
-::
+.. literalinclude:: events/004.php
 
-	define('EVENT_PRIORITY_LOW', 200);
-	define('EVENT_PRIORITY_NORMAL', 100);
-	define('EVENT_PRIORITY_HIGH', 10);
+.. note:: 상수 ``EVENT_PRIORITY_LOW``, ``EVENT_PRIORITY_NORMAL``, ``EVENT_PRIORITY_HIGH``\ 는 더 이상 사용되지 않으며, 관련 상수 정의는 ``app/Config/Constants.php`` 파일로 이동합니다.
 
 정렬되면 모든 구독자가 순서대로 실행됩니다.
 구독자가 부울(bool) false 값을 반환하면 구독자의 실행이 중지됩니다.
@@ -80,20 +60,12 @@ Events 클래스의 ``on()`` 메소드로 이벤트에 액션을 구독할 수 �
 이벤트 라이브러리를 사용하면 자신의 코드로 이벤트를 간단하게 만들 수 있습니다. 
 이 기능을 사용하려면 **Events** 클래스에서 이벤트 이름으로 ``trigger()`` 메소드를 호출하면됩니다.
 
-::
-
-	\CodeIgniter\Events\Events::trigger('some_event');
+.. literalinclude:: events/005.php
 
 게시할 때 매개 변수를 추가하여 임의의 인수를 구독자에게 전달할 수 있습니다. 
 구독자에게 정의된 것과 동일한 순서로 인수가 지정됩니다
 
-::
-
-	\CodeIgniter\Events\Events::trigger('some_events', $foo, $bar, $baz);
-
-	Events::on('some_event', function ($foo, $bar, $baz) {
-		...
-	});
+.. literalinclude:: events/006.php
 
 이벤트 시뮬레이션
 ====================
@@ -103,15 +75,11 @@ Events 클래스의 ``on()`` 메소드로 이벤트에 액션을 구독할 수 �
 **true**\ 인 경우 트리거 메소드는 모든 이벤트를 건너 뜁니다. 
 그러나 다른 모든 것은 정상적으로 작동합니다.
 
-::
-
-    Events::simulate(true);
+.. literalinclude:: events/007.php
 
 false를 전달하여 시뮬레이션을 중지할 수 있습니다
 
-::
-
-    Events::simulate(false);
+.. literalinclude:: events/008.php
 
 이벤트 포인트
 =================

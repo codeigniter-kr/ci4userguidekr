@@ -13,9 +13,7 @@ XML 헬퍼에는 XML 데이터 작업을 지원하는 기능이 포함되어 있
 
 이 헬퍼는 다음 코드를 사용하여 로드됩니다.
 
-::
-
-    helper('xml');
+.. literalinclude:: xml_helper/001.php
 
 사용 가능한 함수
 ===================
@@ -36,13 +34,9 @@ XML 헬퍼에는 XML 데이터 작업을 지원하는 기능이 포함되어 있
       - 작은 따옴표와 큰 따옴표: ' "
       - 대시: -
 
-    이 함수는 기존 번호 문자 엔티티의 일부인 경우 앰퍼샌드를 무시합니다.(예: &#123;)
+    이 함수는 기존 번호 문자 엔티티의 일부인 경우 앰퍼샌드(&)를 무시합니다.(예: &#123;)
 
-    ::
-
-        $string = '<p>Here is a paragraph & an entity (&#123;).</p>';
-        $string = xml_convert($string);
-        echo $string;
+    .. literalinclude:: xml_helper/002.php
 
     outputs:
 

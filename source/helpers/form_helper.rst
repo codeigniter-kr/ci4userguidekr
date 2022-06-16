@@ -8,18 +8,12 @@ The Form Helper file contains functions that assist in working with forms.
     :local:
     :depth: 2
 
-.. raw:: html
-
-  <div class="custom-index container"></div>
-
 헬퍼 로드
 ===================
 
 이 헬퍼는 다음 코드를 사용하여 로드됩니다.
 
-::
-
-    helper('form');
+.. literalinclude:: form_helper/001.php
 
 이스케이프 필드 값
 =====================
@@ -29,11 +23,7 @@ The Form Helper file contains functions that assist in working with forms.
 
 다음 예를 살펴보십시오.
 
-::
-
-    $string = 'Here is a string containing "quoted" text.';
-
-    <input type="text" name="myfield" value="<?= $string ?>" />
+.. literalinclude:: form_helper/002.php
 
 위의 문자열에는 따옴표 세트가 포함되어 있으므로 폼이 중단됩니다.
 :php:func:`esc ()` 함수는 HTML 특수 문자를 변환하여 안전하게 폼을 사용할 수 있도록 합니다.
@@ -63,9 +53,7 @@ The Form Helper file contains functions that assist in working with forms.
 
     HTML을 직접 하드 코딩하는 대신 이 태그를 사용하면, 사이트의 URL이 변경될 때 별도의 URL변경이 필요하지 않습니다.
 
-    Here's a simple example::
-
-        echo form_open('email/send');
+    .. literalinclude:: form_helper/003.php
 
     위의 예는 기본 URL과 "email/send" URI 세그먼트를 가리키는 폼을 작성합니다.
 
@@ -75,9 +63,7 @@ The Form Helper file contains functions that assist in working with forms.
 
     다음과 같이 {locale}\ 을 추가할 수 있습니다
     
-    ::
-
-        echo form_open('{locale}/email/send');
+    .. literalinclude:: form_helper/004.php
 
     위의 예에서는 기본 URL과 "email/send" URI 세그먼트가 있는 현재 요청 로케일(locale)을 가리키는 양식(form)을 만듭니다.
 
@@ -89,16 +75,11 @@ The Form Helper file contains functions that assist in working with forms.
 
         아래와 같이 두 번째 매개 변수에 연관 배열을 전달하여 속성을 추가할 수 있습니다.
 
-        ::
-
-            $attributes = ['class' => 'email', 'id' => 'myform'];
-            echo form_open('email/send', $attributes);
+        .. literalinclude:: form_helper/005.php
 
         또는 두 번째 매개 변수를 문자열로 지정할 수 있습니다.
         
-        ::
-
-            echo form_open('email/send', 'class="email" id="myform"');
+        .. literalinclude:: form_helper/006.php
 
         위의 예제는 이와 비슷한 형식을 만듭니다.
 
@@ -109,9 +90,7 @@ The Form Helper file contains functions that assist in working with forms.
         CSRF 필터가 켜져 있으면 `form_open()` 은 폼의 시작 부분에 CSRF 필드를 생성합니다.
         csrf_id를 $attribute 배열중 하나로 전달하여 이 필드의 ID를 지정할 수 있습니다.
 
-        ::
-
-            form_open('/u/sign-up', ['csrf_id' => 'my-id']);
+        .. literalinclude:: form_helper/007.php
 
         다음과 같이 표시됩니다.
 
@@ -126,10 +105,7 @@ The Form Helper file contains functions that assist in working with forms.
 
         다음과 같이 연관 배열을 세 번째 매개 변수에 전달하여 숨겨진 필드를 추가할 수 있습니다.
         
-        ::
-
-            $hidden = ['username' => 'Joe', 'member_id' => '234'];
-            echo form_open('email/send', '', $hidden);
+        .. literalinclude:: form_helper/008.php
 
         잘못된 값을 전달하여 두 번째 매개 변수를 건너뛸 수 있습니다.
 
@@ -160,69 +136,19 @@ The Form Helper file contains functions that assist in working with forms.
 
     숨겨진 입력 필드를 생성합니다. 하나의 필드를 만들기 위해 이름/값 문자열을 사용할 수 있습니다
 
-    ::
-
-        form_hidden('username', 'johndoe');
-        // Would produce: <input type="hidden" name="username" value="johndoe" />
+    .. literalinclude:: form_helper/009.php
 
     ... 또는 연관 배열을 사용하여 여러개 필드를 만들 수 있습니다
     
-    ::
-
-        $data = [
-            'name'	=> 'John Doe',
-            'email'	=> 'john@example.com',
-            'url'	=> 'http://example.com',
-        ];
-
-        echo form_hidden($data);
-
-        /*
-            Would produce:
-            <input type="hidden" name="name" value="John Doe" />
-            <input type="hidden" name="email" value="john@example.com" />
-            <input type="hidden" name="url" value="http://example.com" />
-        */
+    .. literalinclude:: form_helper/010.php
 
     값 배열에 연관 배열을 전달할 수도 있습니다.
     
-    ::
-
-        $data = [
-            'name'	=> 'John Doe',
-            'email'	=> 'john@example.com',
-            'url'	=> 'http://example.com',
-        ];
-
-        echo form_hidden('my_array', $data);
-
-        /*
-            Would produce:
-
-            <input type="hidden" name="my_array[name]" value="John Doe" />
-            <input type="hidden" name="my_array[email]" value="john@example.com" />
-            <input type="hidden" name="my_array[url]" value="http://example.com" />
-        */
+    .. literalinclude:: form_helper/011.php
 
     추가 속성으로 숨겨진 입력 필드를 만들려면
     
-    ::
-
-        $data = [
-            'type'	=> 'hidden',
-            'name'	=> 'email',
-            'id'	=> 'hiddenemail',
-            'value'	=> 'john@example.com',
-            'class'	=> 'hiddenemail',
-        ];
-
-        echo form_input($data);
-
-        /*
-            Would produce:
-
-            <input type="hidden" name="email" value="john@example.com" id="hiddenemail" class="hiddenemail" />
-        */
+    .. literalinclude:: form_helper/012.php
 
 .. php:function:: form_input([$data = ''[, $value = ''[, $extra = ''[, $type = 'text']]]])
 
@@ -235,56 +161,23 @@ The Form Helper file contains functions that assist in working with forms.
 
     표준 텍스트 입력 필드를 생성합니다. 첫 번째, 두 번째 매개 변수에 필드 이름과 값을 전달합니다.
 
-    ::
-
-        echo form_input('username', 'johndoe');
+    .. literalinclude:: form_helper/013.php
 
     또는 양식에 포함할 데이터가 들어 있는 연관 배열을 전달할 수 있습니다.
     
-    ::
-
-        $data = [
-            'name'      => 'username',
-            'id'        => 'username',
-            'value'     => 'johndoe',
-            'maxlength' => '100',
-            'size'      => '50',
-            'style'     => 'width:50%',
-        ];
-
-        echo form_input($data);
-
-        /*
-            Would produce:
-
-            <input type="text" name="username" value="johndoe" id="username" maxlength="100" size="50" style="width:50%" />
-        */
+    .. literalinclude:: form_helper/014.php
 
     JavaScript와 같은 일부 데이터를 폼에 추가하려면 문자열로 세 번째 매개 변수에 전달합니다.
     
-    ::
-
-        $js = 'onClick="some_function ()"';
-        echo form_input('username', 'johndoe', $js);
+    .. literalinclude:: form_helper/015.php
 
     또는 배열로 전달합니다.
     
-    ::
-
-        $js = ['onClick' => 'some_function ();'];
-        echo form_input('username', 'johndoe', $js);
+    .. literalinclude:: form_helper/016.php
 
     HTML5 입력 필드의 확장된 입력 유형은 네 번째 매개 변수로 전달합니다.
 
-    ::
-
-        echo form_input('email', 'joe@example.com', ['placeholder' => 'Email Address...'], 'email');
-
-        /*
-            Would produce:
-
-            <input type="email" name="email" value="joe@example.com" placeholder="Email Address..." />
-        */
+    .. literalinclude:: form_helper/017.php
 
 .. php:function:: form_password([$data = ''[, $value = ''[, $extra = '']]])
 
@@ -331,58 +224,15 @@ The Form Helper file contains functions that assist in working with forms.
     필드 이름을 첫 번째 매개 변수로 연관 옵션 배열을 두 번째 매개 변수로 선택하려는 값은 세 번째 매개 변수로 전달합니다.
     세 번째 매개 변수를 통해 여러 항목의 배열을 전달할 수 있으며, 헬퍼가 여러(multiple) 항목을 선택(select)합니다.
 
-    Example::
-
-        $options = [
-            'small'  => 'Small Shirt',
-            'med'    => 'Medium Shirt',
-            'large'  => 'Large Shirt',
-            'xlarge' => 'Extra Large Shirt',
-        ];
-
-        $shirts_on_sale = ['small', 'large'];
-        echo form_dropdown('shirts', $options, 'large');
-
-        /*
-            Would produce:
-
-            <select name="shirts">
-                <option value="small">Small Shirt</option>
-                <option value="med">Medium Shirt</option>
-                <option value="large" selected="selected">Large Shirt</option>
-                <option value="xlarge">Extra Large Shirt</option>
-            </select>
-        */
-
-        echo form_dropdown('shirts', $options, $shirts_on_sale);
-
-        /*
-            Would produce:
-
-            <select name="shirts" multiple="multiple">
-                <option value="small" selected="selected">Small Shirt</option>
-                <option value="med">Medium Shirt</option>
-                <option value="large" selected="selected">Large Shirt</option>
-                <option value="xlarge">Extra Large Shirt</option>
-            </select>
-        */
+    .. literalinclude:: form_helper/018.php
 
     <select> 태그의 id 속성 또는 JavaScript와 같은 추가 데이터를 포함하도록 하려면 네 번째 매개 변수에서 문자열로 전달합니다.
 
-    ::
-
-        $js = 'id="shirts" onChange="some_function ();"';
-        echo form_dropdown('shirts', $options, 'large', $js);
+    .. literalinclude:: form_helper/019.php
 
     또는 배열로 전달할 수 있습니다.
     
-    ::
-
-        $js = [
-            'id'       => 'shirts',
-            'onChange' => 'some_function ();'
-        ];
-        echo form_dropdown('shirts', $options, 'large', $js);
+    .. literalinclude:: form_helper/020.php
 
     ``$options``\ 로 전달된 배열이 다차원 배열이면 ``form_dropdown()``\ 은 배열 키를 레이블로 하여 <optgroup>을 생성합니다.
 
@@ -409,42 +259,11 @@ The Form Helper file contains functions that assist in working with forms.
 
     fieldset/legend 필드를 생성합니다.
 
-    ::
-
-        echo form_fieldset('Address Information');
-        echo "<p>fieldset content here</p>\n";
-        echo form_fieldset_close();
-
-        /*
-            Produces:
-
-                <fieldset>
-                    <legend>Address Information</legend>
-                                    <p>form content here</p>
-                </fieldset>
-        */
+    .. literalinclude:: form_helper/021.php
 
     다른 기능과 마찬가지로 추가 속성을 설정하려는 경우 두 번째 매개 변수에 연관 배열을 전달합니다.
     
-    ::
-
-        $attributes = [
-            'id'	=> 'address_info',
-            'class'	=> 'address_info'
-        ];
-
-        echo form_fieldset('Address Information', $attributes);
-        echo "<p>fieldset content here</p>\n";
-        echo form_fieldset_close();
-
-        /*
-            Produces:
-
-            <fieldset id="address_info" class="address_info">
-                <legend>Address Information</legend>
-                <p>form content here</p>
-            </fieldset>
-        */
+    .. literalinclude:: form_helper/022.php
 
 .. php:function:: form_fieldset_close([$extra = ''])
 
@@ -455,11 +274,7 @@ The Form Helper file contains functions that assist in working with forms.
     닫는 </fieldset> 태그를 생성합니다. 
     이 기능을 사용하는 유일한 장점은 태그 아래에 추가될 데이터를 전달할 수 있다는 것입니다.
 
-    ::
-
-        $string = '</div></div>';
-        echo form_fieldset_close($string);
-        // Would produce: </fieldset></div></div>
+    .. literalinclude:: form_helper/023.php
 
 .. php:function:: form_checkbox([$data = ''[, $value = ''[, $checked = false[, $extra = '']]]])
 
@@ -472,41 +287,21 @@ The Form Helper file contains functions that assist in working with forms.
 
     checkbox 필드를 생성합니다.
     
-    ::
-
-        echo form_checkbox('newsletter', 'accept', true);
-        // Would produce:  <input type="checkbox" name="newsletter" value="accept" checked="checked" />
+    .. literalinclude:: form_helper/024.php
 
     세 번째 매개 변수에는 checkbox를 선택해야 하는지 여부를 결정하는 부울 true/false가 포함됩니다.
 
     이 헬퍼의 다른 폼 함수와 마찬가지로 속성 배열을 함수에 전달할 수 있습니다.
     
-    ::
-
-        $data = [
-            'name'    => 'newsletter',
-            'id'      => 'newsletter',
-            'value'   => 'accept',
-            'checked' => true,
-            'style'   => 'margin:10px'
-        ];
-
-        echo form_checkbox($data);
-        // Would produce: <input type="checkbox" name="newsletter" id="newsletter" value="accept" checked="checked" style="margin:10px" />
+    .. literalinclude:: form_helper/025.php
 
     또한 다른 함수와 마찬가지로 태그에 JavaScript와 같은 추가 데이터를 포함 시키려면 네 번째 매개 변수에서 문자열로 전달합니다
 
-    ::
-
-        $js = 'onClick="some_function ()"';
-        echo form_checkbox('newsletter', 'accept', true, $js);
+    .. literalinclude:: form_helper/026.php
 
     또는 배열로 전달할 수 있습니다
 
-    ::
-
-        $js = ['onClick' => 'some_function ();'];
-        echo form_checkbox('newsletter', 'accept', true, $js);
+    .. literalinclude:: form_helper/027.php
 
 .. php:function:: form_radio([$data = ''[, $value = ''[, $checked = false[, $extra = '']]]])
 
@@ -529,22 +324,11 @@ The Form Helper file contains functions that assist in working with forms.
 
     <label>을 생성합니다. 
     
-    ::
-
-        echo form_label('What is your Name', 'username');
-        // Would produce:  <label for="username">What is your Name</label>
+    .. literalinclude:: form_helper/028.php
 
     다른 함수와 마찬가지로 추가 속성을 설정하려면 세 번째 매개 변수에 연관 배열을 제출합니다.
 
-    ::
-
-        $attributes = [
-            'class' => 'mycustomclass',
-            'style' => 'color: #000;'
-        ];
-
-        echo form_label('What is your Name', 'username', $attributes);
-        // Would produce:  <label for="username" class="mycustomclass" style="color: #000;">What is your Name</label>
+    .. literalinclude:: form_helper/029.php
 
 .. php:function:: form_submit([$data = ''[, $value = ''[, $extra = '']]])
 
@@ -556,10 +340,7 @@ The Form Helper file contains functions that assist in working with forms.
 
     표준 submit 버튼을 생성합니다.
     
-    ::
-
-        echo form_submit('mysubmit', 'Submit Post!');
-        // Would produce:  <input type="submit" name="mysubmit" value="Submit Post!" />
+    .. literalinclude:: form_helper/030.php
 
     다른 함수와 마찬가지로 고유한 속성은 첫 번째 매개 변수에 연관 배열로 제출합니다.
     세 번째 매개 변수를 사용하면 JavaScript와 같은 추가 데이터를 양식에 추가할 수 있습니다.
@@ -586,32 +367,15 @@ The Form Helper file contains functions that assist in working with forms.
     표준 버튼 엘리먼트를 생성합니다. 
     첫 번째와 두 번째 매개 변수에 버튼 이름과 내용만 최소한으로 전달할 수 있습니다.
 
-    ::
-
-        echo form_button('name','content');
-        // Would produce: <button name="name" type="button">Content</button>
+    .. literalinclude:: form_helper/031.php
 
     또는 폼에 포함하려는 데이터가 포함된 연관 배열을 전달할 수 있습니다.
     
-    ::
-
-        $data = [
-            'name'    => 'button',
-            'id'      => 'button',
-            'value'   => 'true',
-            'type'    => 'reset',
-            'content' => 'Reset'
-        ];
-
-        echo form_button($data);
-        // Would produce: <button name="button" id="button" value="true" type="reset">Reset</button>
+    .. literalinclude:: form_helper/032.php
 
     폼에 JavaScript와 같은 일부 추가 데이터를 포함 시키려면 세 번째 매개 변수에서 문자열로 전달합니다.
 
-    ::
-
-        $js = 'onClick="some_function ()"';
-        echo form_button('mybutton', 'Click Me', $js);
+    .. literalinclude:: form_helper/033.php
 
 .. php:function:: form_close([$extra = ''])
 
@@ -622,11 +386,7 @@ The Form Helper file contains functions that assist in working with forms.
     닫는 </form> 태그를 생성합니다.
     이 기능을 사용하는 유일한 장점은 태그 아래에 추가될 데이터를 전달할 수 있다는 것입니다.
 
-    ::
-
-        $string = '</div></div>';
-        echo form_close($string);
-        // Would produce:  </form> </div></div>
+    .. literalinclude:: form_helper/034.php
 
 .. php:function:: set_value($field[, $default = ''[, $html_escape = true]])
 
@@ -699,6 +459,3 @@ The Form Helper file contains functions that assist in working with forms.
 
         <input type="radio" name="myradio" value="1" <?= set_radio('myradio', '1', true); ?> />
         <input type="radio" name="myradio" value="2" <?= set_radio('myradio', '2'); ?> />
-
-    .. note:: 폼 유효성 검사 클래스를 사용하는 경우 ``set_*()`` 함수가 작동하려면 항상 비어있는 경우에도 필드에 대한 규칙을 지정해야합니다.
-        폼 유효성 검사 개체를 정의하면 ``set _*()``\ 에 대한 컨트롤이 일반 헬퍼 함수 대신 클래스의 메소드로 전달되기 때문입니다.

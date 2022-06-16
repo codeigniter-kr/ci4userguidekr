@@ -15,25 +15,11 @@ CodeIgniter는 가장 널리 사용되는 빠르고 동적인 캐싱 형태에 �
 
 다음 예는 컨트롤러내의 일반적인 사용 패턴을 보여줍니다.
 
-::
-
-    if ( ! $foo = cache('foo')) {
-        echo 'Saving to the cache!<br />';
-        $foo = 'foobarbaz!';
-
-        // Save into the cache for 5 minutes
-        cache()->save('foo', $foo, 300);
-    }
-
-    echo $foo;
+.. literalinclude:: caching/001.php
 
 Services 클래스를 통해 캐시 엔진 인스턴스를 직접 가져올 수 있습니다.
 
-::
-
-    $cache = \Config\Services::cache();
-
-    $foo = $cache->get('foo');
+.. literalinclude:: caching/002.php
 
 =====================
 캐시 구성
@@ -94,9 +80,7 @@ Class Reference
 
     Example
     
-    ::
-
-        $foo = $cache->get('my_cached_item');
+    .. literalinclude:: caching/003.php
 
 .. php:method:: remember(string $key, int $ttl, Closure $callback)
 
@@ -122,9 +106,9 @@ Class Reference
     항목을 캐시 저장소에 저장합니다.
     저장에 실패하면 false를 리턴합니다.
 
-    Example::
+    Example
 
-        $cache->save('cache_item_id', 'data_to_cache');
+    .. literalinclude:: caching/004.php
 
 .. note:: ``$raw`` 매개 변수는 Memcache의 ``increment()``\ 와 ``decrement()`` 사용시만 사용됩니다.
 
@@ -138,9 +122,9 @@ Class Reference
     캐시 저장소에서 특정 항목을 삭제합니다.
     항목 삭제에 실패하면 false를 리턴합니다.
 
-    Example::
-
-        $cache->delete('cache_item_id');
+    Example
+    
+    .. literalinclude:: caching/005.php
 
 . php:method:: deleteMatching($pattern): integer
 
@@ -154,10 +138,9 @@ Class Reference
     .. important:: 이 메소드는 file, Redis, Predis 핸들러에만 구현됩니다.
             제한으로 인해 Memcached와 Wincache 핸들러에 구현할 수 없습니다.
 
-    Example::
+    Example
 
-        $cache->deleteMatching('prefix_*'); // deletes all items of which keys start with "prefix_"
-        $cache->deleteMatching('*_suffix'); // deletes all items of which keys end with "_suffix"
+    .. literalinclude:: caching/006.php
 
     glob 스타일 구문에 대한 자세한 내용은  `Glob (programming) <https://en.wikipedia.org/wiki/Glob_(programming)#Syntax>`_\ 을 참조하십시오.
 
@@ -171,11 +154,9 @@ Class Reference
 
     저장된 값의 증분을 수행합니다.
 
-    Example::
-
-        // 'iterator' has a value of 2
-        $cache->increment('iterator'); // 'iterator' is now 3
-        $cache->increment('iterator', 3); // 'iterator' is now 6
+    Example
+    
+    .. literalinclude:: caching/007.php
 
 .. php:method:: decrement($key[, $offset = 1]): mixed
     :noindex:
@@ -187,11 +168,9 @@ Class Reference
 
     저장된 값의 감소를 수행합니다.
 
-    Example::
-
-        // 'iterator' has a value of 6
-        $cache->decrement('iterator'); // 'iterator' is now 5
-        $cache->decrement('iterator', 2); // 'iterator' is now 3
+    Example
+    
+    .. literalinclude:: caching/008.php
 
 .. php:method:: clean()
 
@@ -201,9 +180,9 @@ Class Reference
     전체 캐시를 '삭제' 합니다. 
     캐시 파일 삭제에 실패하면 false를 리턴합니다.
 
-    Example::
-
-            $cache->clean();
+    Example
+    
+    .. literalinclude:: caching/009.php
 
 .. php:method:: getCacheInfo()
 
@@ -212,9 +191,9 @@ Class Reference
 
     전체 캐시에 대한 정보를 리턴합니다.
 
-    Example::
-
-        var_dump($cache->⠀getCacheInfo());
+    Example
+    
+    .. literalinclude:: caching/010.php
 
 .. note:: 리턴된 정보 및 데이터 구조는 사용중인 어댑터에 따라 다릅니다.
 
@@ -226,9 +205,9 @@ Class Reference
 
     캐시의 특정 항목에 대한 자세한 정보를 리턴합니다.
 
-    Example::
-
-        var_dump($cache->getMetadata('my_cached_item'));
+    Example
+    
+    .. literalinclude:: caching/011.php
 
 .. note:: 리턴된 정보 및 데이터 구조는 사용중인 어댑터에 따라 다릅며, 일부 어댑터(File, Memcached, Wincache)는 누락된 항목에 대해 여전히 ``false``\ 를 반환합니다.
 
@@ -242,9 +221,9 @@ Class Reference
     이 메소드는 핸들러 메소드에 유효한 키인지 확인하는 데 사용됩니다. 
     문자열이 아닌 문자, 잘못된 문자 및 빈 문자열에 대해 ``InvalidArgumentException`` 예외가 발생합니다.
 
-    Example::
-
-        $prefixedKey = BaseHandler::validateKey($key, $prefix)
+    Example
+    
+    .. literalinclude:: caching/012.php
 
 *******
 Drivers
@@ -264,14 +243,7 @@ Memcached 캐싱
 
 캐시 구성 파일에 Memcached 서버를 지정할 수 있습니다. 
 
-::
-
-    public $memcached = [
-        'host'   => '127.0.0.1',
-        'port'   => 11211,
-        'weight' => 1,
-        'raw'    => false,
-    ];
+.. literalinclude:: caching/013.php
 
 Memcached에 대한 자세한 내용은 다음을 참조하십시오.
 `https://www.php.net/memcached <https://www.php.net/memcached>`_.
@@ -294,15 +266,7 @@ Redis는 LRU 캐시 모드에서 작동할 수 있는 메모리 key-value 저장
 
 캐시 구성 파일에 저장된 redis 서버 연결 구성 옵션입니다.
 
-::
-
-    public $redis = [
-        'host'     => '127.0.0.1',
-        'password' => null,
-        'port'     => 6379,
-        'timeout'  => 0,
-        'database' => 0,
-    ];
+.. literalinclude:: caching/014.php
 
 Redis에 대한 자세한 내용은 다음을 참조하십시오.
 `https://redis.io <https://redis.io>`_.

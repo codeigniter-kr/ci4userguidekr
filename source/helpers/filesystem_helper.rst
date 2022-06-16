@@ -8,35 +8,28 @@ Filesystem 헬퍼
     :local:
     :depth: 2
 
-.. raw:: html
-
-  <div class="custom-index container"></div>
 
 헬퍼 로드
 ===================
 
 이 헬퍼는 다음 코드를 사용하여 로드됩니다.
 
-::
-
-    helper('filesystem');
+.. literalinclude:: filesystem_helper/001.php
 
 사용 가능한 함수
 ===================
 
 사용 가능한 함수는 다음과 같습니다.
 
-.. php:function:: directory_map($source_dir[, $directory_depth = 0[, $hidden = false]])
+.. php:function:: directory_map($sourceDir[, $directoryDepth = 0[, $hidden = false]])
 
-    :param	string  $source_dir: 소스 디렉토리의 경로
-    :param	int	    $directory_depth: 탐색할 디렉토리의 깊이 (0 = 완전 재귀, 1 = 현재 디렉토리 등)
+    :param	string  $sourceDir: 소스 디렉토리의 경로
+    :param	int	    $directoryDepth: 탐색할 디렉토리의 깊이 (0 = 완전 재귀, 1 = 현재 디렉토리 등)
     :param	bool	$hidden: 숨겨진 경로 포함 여부
     :returns:	파일의 배열
     :rtype:	array
 
-    Examples::
-
-        $map = directory_map('./mydirectory/');
+    .. literalinclude:: filesystem_helper/002.php
 
     .. note:: 경로는 index.php 파일을 기준으로 합니다.
 
@@ -44,16 +37,12 @@ Filesystem 헬퍼
     재귀 깊이를 제어하려면 두 번째 매개 변수 (정수)를 사용하면됩니다. 
     깊이 1은 최상위 디렉토리만 매핑합니다.
 
-    ::
-
-        $map = directory_map('./mydirectory/', 1);
+    .. literalinclude:: filesystem_helper/003.php
 
     기본적으로 숨김 파일은 반환된 배열에 포함되지 않으며 숨김 디렉토리는 건너뜁니다. 
     이 동작을 재정의하려면 세 번째 매개 변수를 true(부울)로 설정할 수 있습니다.
 
-    ::
-
-        $map = directory_map('./mydirectory/', false, true);
+    .. literalinclude:: filesystem_helper/004.php
 
     각 폴더 이름은 배열 색인이며 포함된 파일은 숫자로 색인됩니다.
     다음은 일반적인 배열의 예입니다.
@@ -97,13 +86,7 @@ Filesystem 헬퍼
 
     원본 디렉터리의 파일 및 디렉터리를 대상 디렉터리로 재귀적으로 복사합니다. 즉, 내용을 "미러링" 합니다.
 
-    Example::
-
-        try {     
-            directory_mirror($uploadedImages, FCPATH . 'images/');
-        } catch (Throwable $e) {     
-            echo 'Failed to export uploads!';
-        }
+    .. literalinclude:: filesystem_helper/005.php
 
     선택적으로 세 번째 매개 변수를 통해 덮어쓰기 동작을 변경할 수 있습니다.
 
@@ -117,20 +100,11 @@ Filesystem 헬퍼
 
     경로에 지정된 파일에 데이터를 씁니다. 파일이 존재하지 않으면 함수가 파일을 작성합니다.
 
-    Example::
-
-        $data = 'Some file data';
-        if ( ! write_file('./path/to/file.php', $data)) {     
-            echo 'Unable to write the file';
-        } else {     
-            echo 'File written!';
-        }
+    .. literalinclude:: filesystem_helper/006.php
 
     세번째 파라미터를 통해 쓰기 모드를 선택적으로 설정할 수 있습니다
     
-    ::
-
-        write_file('./path/to/file.php', $data, 'r+');
+    .. literalinclude:: filesystem_helper/007.php
 
     기본 모드는 'wb'입니다. 모드 옵션에 대해서는 `PHP 사용자 안내서 <https://www.php.net/manual/en/function.fopen.php>`_\ 를 참조하십시오.
 
@@ -151,37 +125,32 @@ Filesystem 헬퍼
 
     제공된 경로에 포함된 모든 파일을 삭제합니다.
 
-    Example::
-
-        delete_files('./path/to/directory/');
+    .. literalinclude:: filesystem_helper/008.php
 
     두 번째 매개 변수가 true로 설정되면 제공된 루트 경로에 포함된 모든 디렉토리도 삭제됩니다.
 
-    Example::
-
-        delete_files('./path/to/directory/', true);
+    .. literalinclude:: filesystem_helper/009.php
 
     .. note:: 파일을 삭제하려면 시스템에서 파일을 쓸 수 있거나 소유해야합니다.
 
-.. php:function:: get_filenames($source_dir[, $include_path = false])
+.. php:function:: get_filenames($sourceDir[, $includePath = false[, $hidden = false[, $includeDir = true]]])
 
-    :param	string	$source_dir: 디렉토리 경로
-    :param	bool|null	$include_path: 파일 이름의 일부로 경로를 포함할지 여부; 경로가 없을때 ``false``, $source_dir인 경우 ``null``, 전체 경로일때 ``true``
+    :param	string	$sourceDir: 디렉토리 경로
+    :param	bool|null	$includePath: 파일 이름의 일부로 경로를 포함할지 여부; 경로가 없을때 ``false``, ``$sourceDir``\ 인 경우 ``null``, 전체 경로일때 ``true``
     :param	bool	$hidden: 숨겨진 파일 포함 여부 (마침표(.)로 시작하는 파일)
+    :param  bool    $includeDir: 배열 출력에 디렉토리를 포함할지 여부
     :returns:	파일 이름의 배열
     :rtype:	array
 
     서버 경로를 입력으로 사용하고 여기에 포함된 모든 파일의 이름이 포함된 배열을 반환합니다.
     상대 경로의 경우 두 번째 매개 변수를 'relative'\ 로 설정하거나, 전체 파일 경로를 비어 있지 않은 다른 값으로 설정하여 파일 이름에 선택적으로 파일 경로를 추가할 수 있습니다.
 
-    Example::
+    .. literalinclude:: filesystem_helper/010.php
 
-        $controllers = get_filenames(APPPATH.'controllers/');
+.. php:function:: get_dir_file_info($sourceDir[, $topLevelOnly = true])
 
-.. php:function:: get_dir_file_info($source_dir, $top_level_only)
-
-    :param	string	$source_dir: 디렉토리 경로
-    :param	bool	$top_level_only: 지정된 디렉토리의 하위 디렉토리 제외 여부 
+    :param	string	$sourceDir: 디렉토리 경로
+    :param	bool	$topLevelOnly: 지정된 디렉토리의 하위 디렉토리 제외 여부 
     :returns:	제공된 디렉토리의 내용에 대한 정보를 포함하는 배열
     :rtype:	array
 
@@ -189,21 +158,19 @@ Filesystem 헬퍼
     지정된 경로에 포함된 하위 폴더는 두 번째 매개 변수를 false로 전달한 경우에만 읽힙니다. 
     이는 많은 주의를 기울여 하는 작업이 될 수 있기 때문입니다.
 
-    Example::
+    .. literalinclude:: filesystem_helper/011.php
 
-        $models_info = get_dir_file_info(APPPATH.'models/');
-
-.. php:function:: get_file_info($file[, $returned_values = ['name', 'server_path', 'size', 'date']])
+.. php:function:: get_file_info($file[, $returnedValues = ['name', 'server_path', 'size', 'date']])
 
     :param	string	        $file: 파일 경로
-    :param	array|string    $returned_values: 배열 또는 쉼표로 구분된 문자열로 전달하기 위해 반환할 정보 유형
+    :param	array|string    $returnedValues: 배열 또는 쉼표로 구분된 문자열로 전달하기 위해 반환할 정보 유형
     :returns:	지정된 파일에 대한 정보가 포함된 배열, 실패시 false
     :rtype:	array
 
     파일 및 경로가 제공되면 파일의 *name*, *path*, *size*, *date modified* 정보 속성을 (선택적으로) 반환합니다.
     두 번째 매개 변수를 사용하면 반환할 정보를 명시적으로 선언할 수 있습니다.
 
-    유효한 ``$returned_values`` 옵션: `name`, `size`, `date`, `readable`, `writeable`, `executable`, `fileperms`.
+    유효한 ``$returnedValues`` 옵션: ``name``, ``size``, ``date``, ``readable``, ``writeable``, ``executable``, ``fileperms``.
 
 .. php:function:: symbolic_permissions($perms)
 
@@ -213,9 +180,7 @@ Filesystem 헬퍼
 
     숫자 사용 권한(예: ``fileperms()``\ 에 의해 반환된)을 사용하여 파일 사용 권한의 표준 기호를 반환합니다.
 
-    ::
-
-        echo symbolic_permissions(fileperms('./index.php'));  // -rw-r--r--
+    .. literalinclude:: filesystem_helper/012.php
 
 .. php:function:: octal_permissions($perms)
 
@@ -225,9 +190,7 @@ Filesystem 헬퍼
 
     숫자 사용 권한(예: ``fileperms()``\ 에 의해 반환된)을 사용하여 파일 권한의 8진수 표기법를 반환합니다.
 
-    ::
-
-        echo octal_permissions(fileperms('./index.php')); // 644
+    .. literalinclude:: filesystem_helper/013.php
 
 .. php:function:: same_file($file1, $file2)
 
@@ -238,31 +201,15 @@ Filesystem 헬퍼
 
     두 파일을 비교하여 동일한지 확인합니다.(MD5 해시 기준)
 
-    ::
+    .. literalinclude:: filesystem_helper/014.php
 
-        echo same_file($newFile, $oldFile) ? 'Same!' : 'Different!';
-
-.. php:function:: set_realpath($path[, $check_existence = false])
+.. php:function:: set_realpath($path[, $checkExistence = false])
 
     :param	string	$path: 경로
-    :param	bool	$check_existence: 경로가 실제로 존재하는지 확인
+    :param	bool	$checkExistence: 경로가 실제로 존재하는지 확인
     :returns:	절대 경로
     :rtype:	string
 
     이 기능은 심볼릭 링크나 상대 디렉터리 구조가 없는 서버 경로를 반환합니다. 경로를 확인할 수 없는 경우 선택적 두 번째 인수로 인해 오류가 트리거됩니다.
 
-    Examples::
-
-        $file = '/etc/php5/apache2/php.ini';
-        echo set_realpath($file); // Prints '/etc/php5/apache2/php.ini'
-
-        $non_existent_file = '/path/to/non-exist-file.txt';
-        echo set_realpath($non_existent_file, true);	// Shows an error, as the path cannot be resolved
-        echo set_realpath($non_existent_file, false);	// Prints '/path/to/non-exist-file.txt'
-
-        $directory = '/etc/php5';
-        echo set_realpath($directory);	// Prints '/etc/php5/'
-
-        $non_existent_directory = '/path/to/nowhere';
-        echo set_realpath($non_existent_directory, true);	// Shows an error, as the path cannot be resolved
-        echo set_realpath($non_existent_directory, false);	// Prints '/path/to/nowhere'
+    .. literalinclude:: filesystem_helper/015.php

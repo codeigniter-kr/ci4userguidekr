@@ -2,6 +2,16 @@
 4.0.4에서 4.0.5로 업그레이드
 #############################
 
+설치 방법에 해당하는 업그레이드 지침을 참조하십시오.
+
+- :ref:`Composer Installation App Starter Upgrading <app-starter-upgrading>`
+- :ref:`Composer Installation Adding CodeIgniter4 to an Existing Project Upgrading <adding-codeigniter4-upgrading>`
+- :ref:`Manual Installation Upgrading <installing-manual-upgrading>`
+
+.. contents::
+    :local:
+    :depth: 2
+
 **Cookie SameSite 지원**
 
 쿠키 SameSite 속성에 대한 설정이 CodeIgniter 4.0.5에 도입되었습니다.

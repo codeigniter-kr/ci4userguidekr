@@ -27,17 +27,7 @@
 ``if``, ``for``, ``foreach``, ``while``\ 과 같은 제어 구조를 단순화된 형식으로도 작성할 수 있습니다.
 다음은 ``foreach``\ 를 사용하는 예입니다.
 
-::
-
-	<ul>
-
-	<?php foreach ($todo as $item): ?>
-
-		<li><?= $item ?></li>
-
-	<?php endforeach ?>
-
-	</ul>
+.. literalinclude:: alternative_php/001.php
 
 중괄호가 없습니다. 대신 종료 중괄호가 ``endforeach``\ 로 바뀝니다.
 Each of the control structures listed above has a similar closing syntax: ``endif``, ``endfor``, ``endforeach``, and ``endwhile``
@@ -47,18 +37,4 @@ Each of the control structures listed above has a similar closing syntax: ``endi
 
 다음은 ``if``/``elseif``/``else``\ 를 사용하는 다른 예입니다. 콜론(:)에 주목
 
-::
-
-	<?php if ($username === 'sally'): ?>
-
-		<h3>Hi Sally</h3>
-
-	<?php elseif ($username === 'joe'): ?>
-
-		<h3>Hi Joe</h3>
-
-	<?php else: ?>
-
-		<h3>Hi unknown user</h3>
-
-	<?php endif ?>
+.. literalinclude:: alternative_php/002.php

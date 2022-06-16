@@ -33,13 +33,7 @@ Acme라는 회사 이름으로 폴더를 만들어 모든 모듈을 그 안에 �
 
 **app/Config/Autoload.php**\ 를 열고 **Acme** 네임스페이스를 ``psr4`` 배열 속성에 추가합니다.
 
-::
-
-    public $psr4 = [
-        APP_NAMESPACE => APPPATH, // For custom namespace
-        'Config'      => APPPATH . 'Config',
-        'Acme'        => ROOTPATH . 'acme',
-    ]
+.. literalinclude:: modules/001.php
 
 이제 이 설정으로 ``Acme`` 네임스페이스를 통해 **acme** 폴더 내의 모든 파일에 액세스할 수 있습니다. 
 이 작업만으로도 모듈이 작동하는 데 필요한 작업의 80%를 처리할 수 있으므로, 네임스페이스에 익숙해져야 하며, 모듈 사용에 익숙해져야 합니다. 
@@ -74,13 +68,7 @@ Non-class 파일 자동로드
 
 CodeIgniter는 자동 로드하고자 하는 파일에 대한 경로 목록을 ``app/Config/Autoload.php``\ 파일의 ``$files`` 속성에 포함하면, 클래스를 자동 로드하는 방법으로 *비클래스* 파일을 자동으로 로드할 수 있습니다. 
 
-::
-
-    public $files = [
-        'path/to/my/functions.php',
-        'path/to/my/constants.php',
-        'path/to/my/bootstrap.php',
-    ];
+.. literalinclude:: modules/002.php
 
 ======================
 자동 검색(Discovery)
@@ -100,13 +88,7 @@ CodeIgniter는 자동 로드하고자 하는 파일에 대한 경로 목록을 `
 **Blog** 네임스페이스에 자동 검색 기능을 적용하려면 작은 조정 하나를 수행해야 합니다.
 네임스페이스 내의 각 "모듈"을 완전히 정의해야 하므로 **Acme**\ 를 **Acme\\Blog**\ 로 변경해야 합니다.
 
-::
-
-    public $psr4 = [
-        APP_NAMESPACE => APPPATH, // For custom namespace
-        'Config'      => APPPATH . 'Config',
-        'Acme\Blog'   => ROOTPATH . 'acme/Blog', // Change
-    ];
+.. literalinclude:: modules/003.php
 
 모듈 폴더 경로가 정의되면 검색 프로세스는 해당 경로에서 검색 가능한 항목을 찾습니다. 
 예시된 경로 파일은 **/acme/Blog/Config/Routes.php**\ 에서 찾아야 합니다.
@@ -131,9 +113,7 @@ Composer를 통해 설치된 패키지도 PSR-4 네임스페이스를 사용한�
 
 파일을 찾을 때 Composer의 패키지를 검사하지 않으려면 ``Config\Modules.php``\ 의 ``$discoverInComposer`` 변수를 수정하여 이 기능를 끌 수 있습니다.
 
-::
-
-    public $discoverInComposer = false;
+.. literalinclude:: modules/004.php
 
 ==================
 파일 작업
@@ -163,36 +143,25 @@ Filters
 
 모듈의 **Config/Filters.php** 파일에서 사용하는 필터의 별칭(aliase)을 정의해야 합니다.
 
-::
-
-    $filters->aliases['menus'] = MenusFilter::class;
+.. literalinclude:: modules/005.php
 
 컨트롤러
 ===========
 
  **app/Controllers** 디렉토리 외부에 작성된 컨트롤러는 URI 감지를 통해 자동으로 라우팅할 수 없으므로 Routes 파일에서 지정해야 합니다.
 
-::
-
-    // Routes.php
-    $routes->get('blog', 'Acme\Blog\Controllers\Blog::index');
+.. literalinclude:: modules/006.php
 
 **group** 라우팅 기능을 사용하면 여기에 필요한 입력양을 줄일수 있습니다.
 
-::
-
-    $routes->group('blog', ['namespace' => 'Acme\Blog\Controllers'], function ($routes) {
-        $routes->get('/', 'Blog::index');
-    });
+.. literalinclude:: modules/007.php
 
 구성 파일
 ============
 
 구성 파일은 특별한 변경이 필요하지 않습니다. 네임스페이스와 클래스를 ``new`` 명령을 사용하여 로드합니다.
 
-::
-
-    $config = new \Acme\Blog\Config\Blog();
+.. literalinclude:: modules/008.php
 
 구성 파일은 항상 사용 가능한 **config()** 기능을 사용할 때마다 자동으로 감지됩니다.
 
@@ -224,9 +193,7 @@ CLI를 통하여 호출하는 경우 이중 백 슬래시(\\\\)를 사용해야 
 
 ``helper()`` 메소드를 사용하여 **Helpers** 디렉토리 내에 있는 헬퍼를 자동으로 찾을 수 있습니다.
 
-::
-
-    helper('blog');
+.. literalinclude:: modules/009.php
 
 언어(Language) 파일
 ======================
@@ -238,24 +205,18 @@ CLI를 통하여 호출하는 경우 이중 백 슬래시(\\\\)를 사용해야 
 
 라이브러리는 항상 정규화된 클래스 이름으로 인스턴스화되므로 특별한 액세스 방법을 제공하지 않습니다.
 
-::
-
-    $lib = new \Acme\Blog\Libraries\BlogLib();
+.. literalinclude:: modules/010.php
 
 모델
 ======
 
 모델은 항상 정규화된 클래스 이름으로 인스턴스화되므로 특별한 액세스 방법을 제공하지 않습니다.
 
-::
-
-    $model = new \Acme\Blog\Models\PostModel();
+.. literalinclude:: modules/011.php
 
 뷰
 =====
 
 :doc:`뷰 </outgoing/views>` 문서에 설명된대로 클래스 네임스페이스를 사용하여 뷰를 로드 할 수 있습니다.
 
-::
-
-    echo view('Acme\Blog\Views\index');
+.. literalinclude:: modules/012.php

@@ -19,11 +19,9 @@ Class Reference
 
         현재 사용자의 IP 주소를 반환합니다. IP 주소가 유효하지 않은 경우 메소드는 '0.0.0.0'을 리턴합니다.
         
-        ::
+        .. literalinclude:: request/001.php
 
-            echo $request->getIPAddress();
-
-        .. important:: 이 메소드는 ``App->proxyIPs``\ 에 허용하도록 설정된 IP 주소에 대해 ``HTTP_X_FORWARDED_FOR``, ``HTTP_CLIENT_IP``, ``HTTP_X_CLIENT_IP`` 또는 ``HTTP_X_CLUSTER_CLIENT_IP`` 주소를 반환합니다.
+        .. important:: 이 메소드는 ``App->proxyIPs``\ 에 허용하도록 설정된 IP 주소에 대해 ``HTTP_X_FORWARDED_FOR``, ``HTTP_CLIENT_IP``, ``HTTP_X_CLIENT_IP``, ``HTTP_X_CLUSTER_CLIENT_IP`` 주소를 반환합니다.
 
     .. php:method:: isValidIP($ip[, $which = ''])
 
@@ -38,13 +36,7 @@ Class Reference
 
         .. note:: 위의 $request->getIPAddress() 메소드는 IP 주소를 자동으로 검증합니다.
 
-        ::
-
-            if ( ! $request->isValidIP($ip)) {
-                echo 'Not Valid';
-            } else {
-                echo 'Valid';
-            }
+        .. literalinclude:: request/002.php
 
         IP 형식을 지정하기 위해 'ipv4' 또는 'ipv6'의 선택적 두 번째 매개 변수를 사용합니다. 지정하지 않으면 두 형식을 모두 확인합니다.
 
@@ -58,11 +50,7 @@ Class Reference
 
         설정 옵션에 따라 대문자 또는 소문자로 ``$_SERVER['REQUEST_METHOD']``\ 를 반환합니다.
 
-        ::
-
-            echo $request->getMethod(true); // Outputs: POST
-            echo $request->getMethod(false); // Outputs: post
-            echo $request->getMethod(); // Outputs: post
+        .. literalinclude:: request/003.php
 
     .. php:method:: setMethod($method)
 
@@ -81,15 +69,11 @@ Class Reference
 
         이 메소드는 :doc:`IncomingRequest Class </incoming/incomingrequest>`\ 의 ``post()``, ``get()`` 및 ``cookie()`` 메소드와 동일하며 getServer 데이터(``$_SERVER``)만 가져옵니다.
         
-        ::
-
-            $request->getServer('some_data');
+        .. literalinclude:: request/004.php
 
         ``$_SERVER``\ 의 여러개의 값을 배열을 받고싶다면, 필요한 모든 키를 배열로 전달하십시오.
         
-        ::
-
-            $require->getServer(['SERVER_PROTOCOL', 'REQUEST_URI']);
+        .. literalinclude:: request/005.php
 
     .. php:method:: getEnv([$index = null[, $filter = null[, $flags = null]]])
 
@@ -101,14 +85,11 @@ Class Reference
 
         이 메소드는 :doc:`IncomingRequest Class </incoming/incomingrequest>`\ 의 ``post()``, ``get()`` 및 ``cookie()`` 메소드와 동일하며 getServer 데이터(``$_ENV``)만 가져옵니다.
         
-        ::
-
-            $request->getEnv('some_data');
+        .. literalinclude:: request/006.php
 
         ``$_ENV``\ 의 여러개의 값을 배열을 받고싶다면, 필요한 모든 키를 배열로 전달하십시오.
-        ::
-
-            $require->getEnv(['CI_ENVIRONMENT', 'S3_BUCKET']);
+        
+        .. literalinclude:: request/007.php
 
     .. php:method:: setGlobal($method, $value)
 

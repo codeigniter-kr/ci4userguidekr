@@ -35,19 +35,11 @@
 
 CodeIgniter의 모든 서비스와 마찬가지로 ``Config\Services``\ 를 통해 로드할 수 있습니다
 
-::
-
-    $encrypter = \Config\Services::encrypter();
+.. literalinclude:: encryption/001.php
 
 암호화 키를 설정했다고 가정하면 (참조 :ref:`configuration`) 데이터 암호화 및 암호 해독은 간단합니다 - 적절한 문자열을 ``encrypt()`` 또는 ``decrypt()`` 메소드에 전달하십시오.
 
-::
-
-	$plainText = 'This is a plain-text message!';
-	$ciphertext = $encrypter->encrypt($plainText);
-
-	// Outputs: This is a plain-text message!
-	echo $encrypter->decrypt($ciphertext);
+.. literalinclude:: encryption/002.php
 
 이걸로 끝입니다! 
 암호화 라이브러리는 전체 프로세스를 암호로 안전하게 보호하는데 필요한 모든 것을 수행합니다.
@@ -72,13 +64,7 @@ digest     메시지 다이제스트 알고리즘 (``SHA512``)
 자신의 구성 객체를 ``Services`` 호출에 전달하여 구성 파일의 설정을 바꿀 수 있습니다.
 ``$config`` 변수는 ``Config\Encryption`` 클래스의 인스턴스여야 합니다.
 
-::
-
-	$config         = new \Config\Encryption();
-    $config->key    = 'aBigsecret_ofAtleast32Characters';
-    $config->driver = 'OpenSSL';
-
-    $encrypter = \Config\Services::encrypter($config);
+.. literalinclude:: encryption/003.php
 
 기본 행동
 ================
@@ -98,43 +84,24 @@ AES-256의 경우 길이는 256 비트 또는 32 바이트 (문자)입니다.
 키는 가능한 랜덤해야 하며 일반 텍스트 문자열이거나 해시 함수의 출력이 아니어야 합니다.
 적절한 키를 만들려면 암호화 라이브러리의 ``createKey()`` 메소드를 사용하십시오.
 
-::
-
-	// $key will be assigned a 32-byte (256-bit) random key
-	public $key = \CodeIgniter\Encryption\Encryption::createKey(32);
-
-	// for the SodiumHandler, you can use either:
-	$key = sodium_crypto_secretbox_keygen();
-	$key = \CodeIgniter\Encryption\Encryption::createKey(SODIUM_CRYPTO_SECRETBOX_KEYBYTES);
+.. literalinclude:: encryption/004.php
 
 키는 ``app/Config/Encryption.php``\ 에 저장되거나, 직접 저장 메커니즘을 설계하고 암호화/암호 해독시 동적으로 키를 전달할 수 있습니다.
 
 ``app/Config/Encryption.php``\ 에 키를 저장하려면 파일을 열고 다음을 설정하십시오.
 
-::
-
-	$key = 'YOUR KEY';
+.. literalinclude:: encryption/005.php
 
 인코딩 키 또는 결과
 ------------------------
 
 ``createKey()`` 메소드는 처리하기 어려운 이진 데이터를 출력하므로 (복사-붙여 넣기로 인해 손상 될 수 있음) ``bin2hex()`` 또는 ``base64_encode``\ 으로 키를 문자열로 전환하여 작업합니다.
 
-::
-
-	// Get a hex-encoded representation of the key:
-	$encoded = bin2hex(\CodeIgniter\Encryption\Encryption::createKey(32));
-
-	// Put the same value with hex2bin(),
-	// so that it is still passed as binary to the library:
-	$key = hex2bin('your-hex-encoded-key');
+.. literalinclude:: encryption/006.php
 
 암호화 결과에 동일한 기술이 유용할 수 있습니다.
 
-::
-
-	// Encrypt some text & make the results text
-	$encoded = base64_encode($encrypter->encrypt($plaintext));
+.. literalinclude:: encryption/007.php
 
 Using Prefixes in Storing Keys
 ------------------------------
@@ -142,13 +109,7 @@ Using Prefixes in Storing Keys
 암호화 키를 저장할 때 두 가지 특수 접두사 ``hex2bin:``\ 와 ``base64:``\ 를 활용할 수 있습니다.
 접두사가 키 값 바로 앞에 있으면 ``Encryption``\ 는 지능적으로 키를 구문 분석하여 이에 해당하는 바이너리 문자열을 라이브러리에 전달합니다.
 
-::
-
-	// 암호화할 때 다음과 같이 사용할 수 있습니다.
-	public $key = 'hex2bin:<your-hex-encoded-key>'
-
-	// 또는
-	public $key = 'base64:<your-base64-encoded-key>'
+.. literalinclude:: encryption/008.php
 
 ``.env`` 파일에서도 이 접두사를 사용할 수 있습니다!
 
@@ -220,13 +181,7 @@ Sodium은 XSalsa20, MAC의 경우 Poly1305를 사용하여 암호화하고, 엔�
 
 :ref:`usage`\ 에 설명된대로 ``Services`` 를 사용하는 대신 (또는 그에 추가하여) ``Encrypter``\ 를 직접 만들거나 기존 인스턴스의 설정을 변경할 수 있습니다.
 
-::
-
-    // create an Encryption instance
-    $encryption = new \CodeIgniter\Encryption\Encryption();
-
-    // reconfigure an instance with different settings
-    $encrypter = $encryption->initialize($config);
+.. literalinclude:: encryption/009.php
 
 ``$config``\ 는 ``Config\Encryption`` 클래스의 인스턴스여야 합니다.
 
@@ -254,9 +209,7 @@ Class Reference
 
 		다른 설정을 사용하도록 라이브러리를 초기화(구성)합니다.
 
-		::
-
-			$encrypter = $encryption->initialize(['cipher' => '3des']);
+		.. literalinclude:: encryption/010.php
 
 		자세한 정보는 :ref:`configuration` 섹션을 참조하십시오.
 
@@ -277,13 +230,7 @@ Class Reference
 
 		SodiumHandler를 사용중이고 런타임에 다른 ``blockSize``\ 를 전달하려면 ``$params`` 배열의 ``blockSize``\ 키를 통하여 전달합십시오.
 
-		::
-
-			$ciphertext = $encrypter->encrypt('My secret message');
-			$ciphertext = $encrypter->encrypt('My secret message', ['key' => 'New secret key']);
-			$ciphertext = $encrypter->encrypt('My secret message', ['key' => 'New secret key', 'blockSize' => 32]);
-			$ciphertext = $encrypter->encrypt('My secret message', 'New secret key');
-			$ciphertext = $encrypter->encrypt('My secret message', ['blockSize' => 32]);
+		.. literalinclude:: encryption/011.php
 
 	.. php:method:: decrypt($data[, $params = null])
 
@@ -300,10 +247,4 @@ Class Reference
 
 		SodiumHandler를 사용중이고 런타임에 다른 ``blockSize``\ 를 전달하려면 ``$params`` 배열의 ``blockSize``\ 키를 통하여 전달합십시오.
 
-		::
-
-			echo $encrypter->decrypt($ciphertext);
-			echo $encrypter->decrypt($ciphertext, ['key' => 'New secret key']);
-			echo $encrypter->decrypt($ciphertext, ['key' => 'New secret key', 'blockSize' => 32]);
-			echo $encrypter->decrypt($ciphertext, 'New secret key');
-			echo $encrypter->decrypt($ciphertext, ['blockSize' => 32]);
+		.. literalinclude:: encryption/012.php

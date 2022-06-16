@@ -15,15 +15,11 @@ Forge 클래스 초기화
 
 다음과 같이 Forge 클래스를 로드합니다.
 
-::
-
-	$forge = \Config\Database::forge();
+.. literalinclude:: forge/001.php
 
 관리하려는 데이터베이스가 기본 데이터베이스가 아닌 경우 다른 데이터베이스 그룹 이름을 DB Forge 로더에 전달할 수 있습니다.
 
-::
-
-	$this->myforge = \Config\Database::forge('other_db');
+.. literalinclude:: forge/002.php
 
 위의 예처럼 매개 변수로 연결할 다른 데이터베이스 그룹의 이름을 전달합니다.
 
@@ -31,35 +27,25 @@ Forge 클래스 초기화
 데이터베이스 생성 및 삭제
 *******************************
 
-**$forge->createDatabase('db_name')**
+$forge->createDatabase('db_name')
+=================================
 
 첫 번째 매개 변수로 지정된 데이터베이스를 생성합니다.
 성공 또는 실패에 따라 true/false를 반환합니다.
 
-::
-
-	if ($forge->createDatabase('my_db')) {
-		echo 'Database created!';
-	}
+.. literalinclude:: forge/003.php
 
 두 번째 매개 변수를 true로 설정하면 ``IF EXISTS``\ 문을 추가하거나, 데이터베이스를 작성하기 전에 데이터베이스가 존재하는지 점검합니다. (DBMS에 따라 다름)
 
-::
+.. literalinclude:: forge/004.php
 
-	$forge->createDatabase('my_db', true);
-	// gives CREATE DATABASE IF NOT EXISTS `my_db`
-	// or will check if a database exists
-
-**$forge->dropDatabase('db_name')**
+$forge->dropDatabase('db_name')
+===============================
 
 첫 번째 매개 변수로 지정된 데이터베이스를 삭제합니다.
 성공 또는 실패에 따라 true/false를 반환합니다.
 
-::
-
-	if ($forge->dropDatabase('my_db')) {
-		echo 'Database deleted!';
-	}
+.. literalinclude:: forge/005.php
 
 명령줄에서 데이터베이스 만들기
 ======================================
@@ -102,15 +88,7 @@ CodeIgniter는 이를 위한 메커니즘을 제공합니다.
 배열 내에 필드의 데이터 유형과 관련된 ``type`` 키를 포함해야 합니다.
 예를 들면 INT, VARCHAR, TEXT 등입니다. 많은 데이터 유형(예 : VARCHAR)에 ``constraint`` 키가 필요합니다.
 
-::
-
-	$fields = [
-		'users' => [
-			'type'       => 'VARCHAR',
-			'constraint' => 100,
-		],
-	];
-	// will translate to "users VARCHAR(100)" when the field is added.
+.. literalinclude:: forge/006.php
 
 또한 다음 키/값을 사용할 수 있습니다:
 
@@ -120,50 +98,32 @@ CodeIgniter는 이를 위한 메커니즘을 제공합니다.
 -  ``auto_increment``/true : 필드에 auto_increment 플래그를 생성합니다. 필드 유형은 정수와 같이 이를 지원하는 유형이어야합니다.
 -  ``unique``/true : 필드 정의를 위한 고유 키를 생성합니다.
 
-::
-
-	$fields = [
-		'id'          => [
-			'type'           => 'INT',
-			'constraint'     => 5,
-			'unsigned'       => true,
-			'auto_increment' => true
-		],
-		'title'       => [
-			'type'           => 'VARCHAR',
-			'constraint'     => '100',
-			'unique'         => true,
-		],
-		'author'      => [
-			'type'           =>'VARCHAR',
-			'constraint'     => 100,
-			'default'        => 'King of Town',
-		],
-		'description' => [
-			'type'           => 'TEXT',
-			'null'           => true,
-		],
-		'status'      => [
-			'type'           => 'ENUM',
-			'constraint'     => ['publish', 'pending', 'draft'],
-			'default'        => 'pending',
-		],
-	];
+.. literalinclude:: forge/007.php
 
 필드가 정의 된 후 ``$forge->addField($ fields)``\ 를 사용하여 추가하고 ``createTable()`` 메소드를 호출합니다.
 
-**$forge->addField()**
+$forge->addField()
+------------------
 
 필드 추가 메소드는 위의 배열을 승인합니다.
+
+.. _forge-addfield-default-value-rawsql:
+
+원시(raw) SQL 문자열을 기본값으로 사용
+---------------------------------------
+
+v4.2.0부터 ``$forge->addField()``\ 는 원시(raw) SQL 문자열을 표현하는 ``CodeIgniter\Database\RawSql`` 인스턴스를 허용합니다.
+
+.. literalinclude:: forge/027.php
+
+.. warning:: ``RawSql``\ 을 사용할 때 데이터를 수동으로 이스케이프해야 합니다. 그렇게 하지 않으면 SQL 주입이 발생할 수 있습니다.
 
 문자열을 필드로 전달
 -------------------------
 
 필드 생성 방법을 정확히 알고 있다면 ``addField()``\ 를 사용하여 필드 정의에 문자열을 전달할 수 있습니다.
 
-::
-
-	$forge->addField("label varchar(100) NOT null DEFAULT 'default label'");
+.. literalinclude:: forge/008.php
 
 .. note:: 문자열을 필드로 전달한 후에는 해당 필드에서 ``addKey()`` 호출을 수행 할 수 없습니다.
 
@@ -175,10 +135,7 @@ id 필드 만들기
 id 필드는 만들때 특별한 예외가 적용됩니다.
 유형이 id 인 필드는 자동으로 INT(9) auto_incrementing Primary 키로 할당됩니다.
 
-::
-
-	$forge->addField('id');
-	// gives `id` INT(9) NOT null AUTO_INCREMENT
+.. literalinclude:: forge/009.php
 
 키 추가
 ===========
@@ -191,33 +148,11 @@ id 필드는 만들때 특별한 예외가 적용됩니다.
 기본 키가 아닌 경우 여러 컬럼을 혼합하여 키를 만들 때는 배열로 보내야 합니다.
 아래 샘플 출력은 MySQL 용입니다.
 
-::
-
-	$forge->addKey('blog_id', true);
-	// gives PRIMARY KEY `blog_id` (`blog_id`)
-
-	$forge->addKey('blog_id', true);
-	$forge->addKey('site_id', true);
-	// gives PRIMARY KEY `blog_id_site_id` (`blog_id`, `site_id`)
-
-	$forge->addKey('blog_name');
-	// gives KEY `blog_name` (`blog_name`)
-
-	$forge->addKey(['blog_name', 'blog_label']);
-	// gives KEY `blog_name_blog_label` (`blog_name`, `blog_label`)
-
-	$forge->addKey(['blog_id', 'uri'], false, true);
-	// gives UNIQUE KEY `blog_id_uri` (`blog_id`, `uri`)
+.. literalinclude:: forge/010.php
 
 코드를 보다 객관적으로 만들려면 특정 메소드로 기본 및 고유 키를 추가할 수 있습니다
 
-::
-
-	$forge->addPrimaryKey('blog_id');
-	// gives PRIMARY KEY `blog_id` (`blog_id`)
-
-	$forge->addUniqueKey(['blog_id', 'uri']);
-	// gives UNIQUE KEY `blog_id_uri` (`blog_id`, `uri`)
+.. literalinclude:: forge/011.php
 
 .. _adding-foreign-keys:
 
@@ -226,40 +161,22 @@ id 필드는 만들때 특별한 예외가 적용됩니다.
 
 외래 키는 테이블 전체에서 관계 및 작업을 시행하는 데 도움이됩니다. 외래 키를 지원하는 테이블의 경우 forge에서 직접 추가 할 수 있습니다
 
-::
-
-    $forge->addForeignKey('users_id', 'users', 'id');
-    // gives CONSTRAINT `TABLENAME_users_foreign` FOREIGN KEY(`users_id`) REFERENCES `users`(`id`)
-
-    $forge->addForeignKey(['users_id', 'users_name'], 'users', ['id', 'name']);
-    // gives CONSTRAINT `TABLENAME_users_foreign` FOREIGN KEY(`users_id`, `users_name`) REFERENCES `users`(`id`, `name`)
+.. literalinclude:: forge/012.php
 
 구속 조건의 "on delete" 및 "on update" 속성에 대해 원하는 작업을 지정할 수 있습니다.
 
-::
-
-    $forge->addForeignKey('users_id', 'users', 'id', 'CASCADE', 'CASCADE');
-    // gives CONSTRAINT `TABLENAME_users_foreign` FOREIGN KEY(`users_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
-
-    $forge->addForeignKey(['users_id', 'users_name'], 'users', ['id', 'name'], 'CASCADE', 'CASCADE');
-    // gives CONSTRAINT `TABLENAME_users_foreign` FOREIGN KEY(`users_id`, `users_name`) REFERENCES `users`(`id`, `name`) ON DELETE CASCADE ON UPDATE CASCADE
+.. literalinclude:: forge/013.php
 
 테이블 만들기
 ==================
 
 필드와 키가 선언되면 다음과 같이 새 테이블을 만들 수 있습니다.
 
-::
-
-	$forge->createTable('table_name');
-	// gives CREATE TABLE table_name
+.. literalinclude:: forge/014.php
 
 선택적으로 두 번째 매개 변수를 true로 설정하면 ``IF NOT EXISTS``\ 절이 정의에 추가됩니다.
 
-::
-
-	$forge->createTable('table_name', true);
-	// gives CREATE TABLE IF NOT EXISTS table_name
+.. literalinclude:: forge/016.php
 
 MySQL의 ``ENGINE``\ 과 같은 선택적 테이블 속성을 전달할 수 있습니다.
 
@@ -276,51 +193,33 @@ MySQL의 ``ENGINE``\ 과 같은 선택적 테이블 속성을 전달할 수 있�
 
 ``DROP TABLE``\ 문을 실행하고 옵션으로 ``IF EXISTS``\ 절을 추가합니다.
 
-::
-
-	// Produces: DROP TABLE `table_name`
-	$forge->dropTable('table_name');
-
-	// Produces: DROP TABLE IF EXISTS `table_name`
-	$forge->dropTable('table_name', true);
+.. literalinclude:: forge/017.php
 
 세 번째 매개 변수를 설정하여 ``CASCADE`` 옵션을 추가할 수 있습니다. 
 이 옵션이 true로 설정되면 일부 드라이버에서 외부 키가 있는 테이블을 제거할 수 있습니다.
 
-::
+.. literalinclude:: forge/018.php
 
-	// Produces: DROP TABLE `table_name` CASCADE
-	$forge->dropTable('table_name', false, true);
-
-외래 키 삭제
-======================
+외래 키(Foreign Key) 삭제
+==========================
 
 DROP FOREIGN KEY문을 실행합니다.
 
-::
-
-	// Produces: ALTER TABLE 'tablename' DROP FOREIGN KEY 'users_foreign'
-	$forge->dropForeignKey('tablename', 'users_foreign');
+.. literalinclude:: forge/019.php
 
 키 삭제
 ======================
 
 DROP KEY 문을 실행합니다.
 
-::
-
-    // Produces: DROP INDEX `users_index` ON `tablename`
-    $forge->dropKey('tablename','users_index');
+.. literalinclude:: forge/020.php
 
 테이블 이름 바꾸기
 ===========================
 
 TABLE rename 문을 실행합니다.
 
-::
-
-	$forge->renameTable('old_table_name', 'new_table_name');
-	// gives ALTER TABLE old_table_name RENAME TO new_table_name
+.. literalinclude:: forge/021.php
 
 ****************
 테이블 수정
@@ -329,70 +228,43 @@ TABLE rename 문을 실행합니다.
 테이블에 컬럼 추가
 ==========================
 
-**$forge->addColumn()**
+$forge->addColumn()
+-------------------
 
 ``addColumn()`` 메소드는 기존 테이블을 수정하는데 사용됩니다.
 위와 동일한 필드 배열을 허용하며 추가 필드를 무제한으로 사용할 수 있습니다.
 
-::
-
-	$fields = [
-		'preferences' => ['type' => 'TEXT']
-	];
-	$forge->addColumn('table_name', $fields);
-	// Executes: ALTER TABLE table_name ADD preferences TEXT
+.. literalinclude:: forge/022.php
 
 MySQL 또는 CUBIRD를 사용하는 경우 ``AFTER`` 및 ``FIRST`` 절을 활용하여 새 컬럼을 배치할 수 있습니다.
 
-::
-
-	// 새 컬럼을 `another_field` 컬럼뒤에 배치합니다.
-	$fields = [
-		'preferences' => ['type' => 'TEXT', 'after' => 'another_field']
-	];
-
-	// 테이블의 시작 부분에 컬럼을 배치합니다.
-	$fields = [
-		'preferences' => ['type' => 'TEXT', 'first' => true]
-	];
+.. literalinclude:: forge/023.php
 
 테이블의 컬럼 삭제
 ==============================
 
-**$forge->dropColumn()**
+$forge->dropColumn()
+--------------------
 
 테이블에서 단일 컬럼을 제거할 때
 
-::
-
-	$forge->dropColumn('table_name', 'column_to_drop'); // 단일 컬럼 삭제
+.. literalinclude:: forge/024.php
 
 테이블에서 여러 컬럼을 제거할 때
 
-::
-
-    $forge->dropColumn('table_name', 'column_1,column_2'); // 쉼표로 구분
-    $forge->dropColumn('table_name', ['column_1', 'column_2']); // 배열로 전달
+.. literalinclude:: forge/025.php
 
 
 테이블의 컬럼 수정
 =============================
 
-**$forge->modifyColumn()**
+$forge->modifyColumn()
+----------------------
 
 이 메소드는 ``addColumn()``\ 과 사용법이 동일하지만 새 컬럼을 추가하는 대신 기존 컬럼을 변경합니다.
 필드 정의(define) 배열에 "name" 키를 추가하면 이름을 변경할 수 있습니다.
 
-::
-
-	$fields = [
-		'old_name' => [
-			'name' => 'new_name',
-			'type' => 'TEXT',
-		],
-	];
-	$forge->modifyColumn('table_name', $fields);
-	// gives ALTER TABLE `table_name` CHANGE old_name new_name TEXT
+.. literalinclude:: forge/026.php
 
 ***************
 Class Reference
@@ -422,8 +294,8 @@ Class Reference
 		:param    string|string[]    $fieldName: 키 필드 또는 필드 배열 이름
 		:param    string    $tableName: 상위 테이블의 이름
 		:param    string|string[]    $tableField: 상위 테이블 필드 또는 필드 배열의 이름
-		:param    string    $onUpdate: “on update”시 원하는 작업
-		:param    string    $onDelete: “on delete”시 원하는 작업
+		:param    string    $onUpdate: "on update"시 원하는 작업
+		:param    string    $onDelete: "on delete"시 원하는 작업
 		:returns:    \CodeIgniter\Database\Forge instance (method chaining)
 		:rtype:    \CodeIgniter\Database\Forge
 

@@ -38,9 +38,7 @@ MVC 프레임워크에서는 컨트롤러가 교통경찰 역할을 하므로 �
 
 특정 뷰 파일을 로드하고 표시하려면 다음 기능을 사용하십시오.
 
-::
-
-	echo view('name');
+.. literalinclude:: views/001.php
 
 *name*\ 은 뷰 파일의 이름입니다.
 
@@ -48,19 +46,7 @@ MVC 프레임워크에서는 컨트롤러가 교통경찰 역할을 하므로 �
 
 이제 ``Blog.php``\ 라는 컨트롤러 파일을 열고 echo view 부분을 수정합니다.
 
-::
-
-	<?php 
-	
-	namespace App\Controllers;
-
-	class Blog extends \CodeIgniter\Controller
-	{
-		public function index()
-		{
-			echo view('blog_view');
-		}
-	}
+.. literalinclude:: views/002.php
 
 다음과 비슷한 URL을 사용하여 사이트를 방문하면 새로운 뷰가 표시됩니다.
 
@@ -78,26 +64,7 @@ CodeIgniter는 컨트롤러에서 ``view()``\를 여러 호출하여도 똑똑�
 예를 들자면 머리글, 메뉴, 내용, 바닥글 뷰를 조합하여 출력하기 원할 수 있습니다. 
 다음과 같이하면 됩니다.
 
-::
-
-	<?php 
-	
-	namespace App\Controllers;
-
-	class Page extends \CodeIgniter\Controller
-	{
-		public function index()
-		{
-			$data = [
-				'page_title' => 'Your title',
-			];
-
-			echo view('header');
-			echo view('menu');
-			echo view('content', $data);
-			echo view('footer');
-		}
-	}
+.. literalinclude:: views/003.php
 
 위의 예에서는 "동적으로 추가 된 데이터"\ 를 사용하고 있습니다. 이에 대한 부분은 아래에서 설명하고 있습니다.
 
@@ -107,9 +74,7 @@ CodeIgniter는 컨트롤러에서 ``view()``\를 여러 호출하여도 똑똑�
 계층별의 조직화를 선호한다면 뷰 파일을 하위 디렉토리에 저장할 수 있습니다.
 이렇게한 경우 뷰를 로드하려면 디렉토리 이름을 포함시켜야 합니다.
 
-::
-
-	echo view('directory_name/file_name');
+.. literalinclude:: views/004.php
 
 네임스페이스 뷰
 ================
@@ -120,9 +85,7 @@ PHP는 네임스페이스에 클래스가 아닌 파일 로드를 지원하지 �
 :doc:`오토로더 </concepts/autoloader>`\ 에 PSR-4 매핑 설정이 있는 ``Blog`` 디렉토리가 있다면, 뷰 파일도 ``Example\Blog``\ 처럼 네임스페이스를 붙여 불러올 수 있습니다.
 다음은 네임스페이스를 뷰 이름앞에 추가하여 **example/blog/Views** 디렉토리에서 **blog_view.php** 파일을 로드하는 예입니다.
 
-::
-
-    echo view('Example\Blog\Views\BlogView');
+.. literalinclude:: views/005.php
 
 .. _caching-views:
 
@@ -131,18 +94,12 @@ PHP는 네임스페이스에 클래스가 아닌 파일 로드를 지원하지 �
 
 ``view`` 명령의 세 번째 매개 변수에 ``cache`` 옵션을 전달하여 뷰를 캐시(cache)할 수 있습니다.
 
-::
-
-    // Cache the view for 60 seconds
-    echo view('file_name', $data, ['cache' => 60]);
+.. literalinclude:: views/006.php
 
 기본적으로 뷰는 뷰 파일과 동일한 이름을 사용하여 캐시됩니다.
 ``cache_name`` 옵션과 사용하려는 캐시 ID를 전달하여 이를 바꿀수 있습니다.
 
-::
-
-    // Cache the view for 60 seconds
-    echo view('file_name', $data, ['cache' => 60, 'cache_name' => 'my_cached_view']);
+.. literalinclude:: views/007.php
 
 뷰에 동적 데이터 추가
 ===============================
@@ -150,34 +107,11 @@ PHP는 네임스페이스에 클래스가 아닌 파일 로드를 지원하지 �
 뷰 함수의 두 번째 매개 변수에 배열을 통해 컨트롤러에서 뷰로 데이터를 전달할 수 있습니다.
 다음 예를 보십시오.
 
-::
-
-	$data = [
-		'title'   => 'My title',
-		'heading' => 'My Heading',
-		'message' => 'My Message',
-	];
-
-	echo view('blog_view', $data);
+.. literalinclude:: views/008.php
 
 컨트롤러 파일에 시도해 봅시다. 컨트롤러 파일을 열고 아래 코드를 추가하십시오.
 
-::
-
-	<?php 
-	
-	namespace App\Controllers;
-
-	class Blog extends \CodeIgniter\Controller
-	{
-		public function index()
-		{
-			$data['title']   = "My Real Title";
-			$data['heading'] = "My Real Heading";
-
-			echo view('blog_view', $data);
-		}
-	}
+.. literalinclude:: views/009.php
 
 이제 뷰 파일을 열고 데이터의 아래와 같이 텍스트를 배열 키에 해당하는 변수로 변경하십시오.
 
@@ -194,22 +128,18 @@ PHP는 네임스페이스에 클래스가 아닌 파일 로드를 지원하지 �
 
 그런 다음 사용중인 URL에서 페이지를 로드하면 변수가 바뀐것을 볼 수 있습니다.
 
-전달된 데이터는 호출된 `view`\ 에 대해 한 번만 사용 가능합니다.
-단일 요청에서 `view` 함수를 여러번 호출한다면 각 뷰 호출에 데이터를 전달해야 합니다.
-이렇게 하면 모든 데이터가 다른 뷰로 "전달"되지 않아 문제가 발생할 수 있습니다.
-`view` 함수의 세 번째 매개 변수 `$option` 배열에 `saveData` 옵션을 사용하여 데이터를 유지할 수 있습니다.
+saveData 옵션
+-------------------
 
-::
+전달된 데이터는 ``view()``\ 에 대한 후속 호출을 위해 유지됩니다.
+단일 요청에서 함수를 여러 번 호출하면 각 ``view()``\ 에 원하는 데이터를 전달할 필요가 없습니다.
 
-	$data = [
-		'title'   => 'My title',
-		'heading' => 'My Heading',
-		'message' => 'My Message',
-	];
+그러나 이로 인해 데이터가 다른 뷰로 "유입"\ 되어 잠재적으로 문제가 발생하는 것을 방지할 수 없습니다.
+한 번 호출한 후 데이터를 정리하려는 경우 세 번째 매개변수의 ``$option`` 배열에 ``saveData`` 옵션을 전달합니다.
 
-	echo view('blog_view', $data, ['saveData' => true]);
+.. literalinclude:: views/010.php
 
-**app/Config/Views.php** 의 ``$saveData``\ 를 ``true``\ 로 설정하면 옵션을 별도로 설정하지 않아도 뷰(view) 함수가 데이터를 유지합니다.
+``view()`` 함수 호출 후 옵션 지정 없이 기본적으로 데이터를 지우도록 하려면 **app/Config/Views.php**\ 에서 ``$saveData``\ 를 **false**\ 로 설정합니다.
 
 루프(Loop) 만들기
 ======================
@@ -220,46 +150,8 @@ PHP는 네임스페이스에 클래스가 아닌 파일 로드를 지원하지 �
 
 다음은 간단한 예입니다. 다음을 컨트롤러에 추가하십시오.
 
-::
-
-	<?php 
-	
-	namespace App\Controllers;
-
-	class Blog extends \CodeIgniter\Controller
-	{
-		public function index()
-		{
-			$data = [
-				'todo_list' => ['Clean House', 'Call Mom', 'Run Errands'],
-				'title'     => 'My Real Title',
-				'heading'   => 'My Real Heading',
-			];
-
-			echo view('blog_view', $data);
-		}
-	}
+.. literalinclude:: views/011.php
 
 이제 뷰 파일을 열고 루프를 만듭니다.
 
-::
-
-	<html>
-	<head>
-		<title><?= esc($title) ?></title>
-	</head>
-	<body>
-		<h1><?= esc($heading) ?></h1>
-
-		<h3>My Todo List</h3>
-
-		<ul>
-		<?php foreach ($todo_list as $item): ?>
-
-			<li><?= esc($item) ?></li>
-
-		<?php endforeach ?>
-		</ul>
-
-	</body>
-	</html>
+.. literalinclude:: views/012.php

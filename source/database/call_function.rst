@@ -14,9 +14,7 @@ $db->callFunction();
 이 함수는 CodeIgniter에서 기본적으로 **지원하지 않습니다**.
 다음과 같이 할 수 있습니다.
 
-::
-
-    $db->callFunction('get_client_info');
+.. literalinclude:: call_function/001.php
 
 첫 번째 매개 변수에 mysql\_ 접두사를 **붙이지 않고** 함수 이름을 제공해야합니다.
 접두사는 현재 사용중인 데이터베이스 드라이버에 따라 자동으로 추가됩니다.
@@ -25,21 +23,13 @@ $db->callFunction();
 
 함수 호출에 필요한 매개 변수는 두 번째 매개 변수에 추가합니다.
 
-::
-
-    $db->callFunction('some_function', $param1, $param2, etc..);
+.. literalinclude:: call_function/002.php
 
 종종 데이터베이스 연결(connect) ID 또는 데이터베이스 결과 ID를 제공해야합니다. 
 연결 ID는 다음과 같이 액세스할 수 있습니다.
 
-::
-
-    $db->connID;
+.. literalinclude:: call_function/003.php
 
 결과(result) 객체내에서 결과 ID에 액세스하려면 다음과 같이 하십시오.
 
-::
-
-    $query = $db->query("SOME QUERY");
-
-    $query->resultID;
+.. literalinclude:: call_function/004.php

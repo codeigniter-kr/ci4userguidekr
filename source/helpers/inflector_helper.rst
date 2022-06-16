@@ -13,9 +13,7 @@ Inflector 헬퍼에는 **영어** 단어를 복수, 단수, camel 등으로 변�
 
 이 헬퍼는 다음 코드를 사용하여 로드됩니다.
 
-::
-
-    helper('inflector');
+.. literalinclude:: inflector_helper/001.php
 
 사용 가능한 함수
 ===================
@@ -30,9 +28,7 @@ Inflector 헬퍼에는 **영어** 단어를 복수, 단수, camel 등으로 변�
 
     복수형 단어를 단수형으로 바꿉니다.
     
-    ::
-
-        echo singular('dogs'); // Prints 'dog'
+    .. literalinclude:: inflector_helper/002.php
 
 .. php:function:: plural($string)
 
@@ -42,9 +38,7 @@ Inflector 헬퍼에는 **영어** 단어를 복수, 단수, camel 등으로 변�
 
     단수형 단어를 복수형으로 바꿉니다.
     
-    ::
-
-        echo plural('dog'); // Prints 'dogs'
+    .. literalinclude:: inflector_helper/003.php
 
 .. php:function:: counted($count, $string)
 
@@ -55,9 +49,7 @@ Inflector 헬퍼에는 **영어** 단어를 복수, 단수, camel 등으로 변�
 
     단어와 그 수를 구문으로 변경합니다.
     
-    ::
-
-        echo counted(3, 'dog'); // Prints '3 dogs'
+    .. literalinclude:: inflector_helper/004.php
 
 .. php:function:: camelize($string)
 
@@ -67,9 +59,7 @@ Inflector 헬퍼에는 **영어** 단어를 복수, 단수, camel 등으로 변�
 
     공백이나 밑줄로 구분된 단어 문자열을 Camel case 문자열로 변경합니다.
     
-    ::
-
-        echo camelize('my_dog_spot'); // Prints 'myDogSpot'
+    .. literalinclude:: inflector_helper/005.php
 
 .. php:function:: pascalize($string)
 
@@ -80,9 +70,7 @@ Inflector 헬퍼에는 **영어** 단어를 복수, 단수, camel 등으로 변�
     공백 또는 밑줄로 구분된 문자열을 Pascal case 문자열로 변경합니다. 
     첫 번째 문자가 대문자로 표시되는 Camel case 문자열입니다.
 
-    ::
-
-        echo pascalize('my_dog_spot'); // Prints 'MyDogSpot'
+    .. literalinclude:: inflector_helper/006.php
 
 .. php:function:: underscore($string)
 
@@ -92,9 +80,7 @@ Inflector 헬퍼에는 **영어** 단어를 복수, 단수, camel 등으로 변�
 
     여러 단어를 구분하는 공백을 밑줄로 표시합니다.
     
-    ::
-
-        echo underscore('my dog spot'); // Prints 'my_dog_spot'
+    .. literalinclude:: inflector_helper/007.php
 
 .. php:function:: humanize($string[, $separator = '_'])
 
@@ -105,15 +91,11 @@ Inflector 헬퍼에는 **영어** 단어를 복수, 단수, camel 등으로 변�
 
     여러 단어를 구분하는 밑줄을 공백으로 표시합니다. 각 단어의 첫 글자는 대문자입니다.
 
-    Example::
-
-        echo humanize('my_dog_spot'); // Prints 'My Dog Spot'
+    .. literalinclude:: inflector_helper/008.php
 
     밑줄 대신 대시(-)를 사용할 수 있습니다.
     
-    ::
-
-        echo humanize('my-dog-spot', '-'); // Prints 'My Dog Spot'
+    .. literalinclude:: inflector_helper/009.php
 
 .. php:function:: is_pluralizable($word)
 
@@ -123,9 +105,7 @@ Inflector 헬퍼에는 **영어** 단어를 복수, 단수, camel 등으로 변�
 
     주어진 단어가 복수형인지 확인합니다.
     
-    ::
-
-        is_pluralizable('equipment'); // Returns false
+    .. literalinclude:: inflector_helper/010.php
 
 .. php:function:: dasherize($string)
 
@@ -135,9 +115,7 @@ Inflector 헬퍼에는 **영어** 단어를 복수, 단수, camel 등으로 변�
 
     문자열에서 밑줄을 대시로 바꿉니다.
     
-    ::
-
-        dasherize('hello_world'); // Returns 'hello-world'
+    .. literalinclude:: inflector_helper/011.php
 
 .. php:function:: ordinal($integer)
 
@@ -147,9 +125,7 @@ Inflector 헬퍼에는 **영어** 단어를 복수, 단수, camel 등으로 변�
 
     1st, 2nd, 3rd, 4th등 위치를 나타 내기 위해 숫자에 추가해야 하는 접미사를 반환합니다.
     
-    Example::
-
-        ordinal(1); // Returns 'st'
+    .. literalinclude:: inflector_helper/012.php
 
 .. php:function:: ordinalize($integer)
 
@@ -159,6 +135,4 @@ Inflector 헬퍼에는 **영어** 단어를 복수, 단수, camel 등으로 변�
 
     숫자를 1st, 2nd, 3rd, 4th등 위치를 나타내는 서수 문자열로 바꿉니다.
 
-    ::
-
-        ordinalize(1); // Returns '1st'
+    .. literalinclude:: inflector_helper/013.php

@@ -13,9 +13,7 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
 
 이 헬퍼는 다음 코드를 사용하여 로드됩니다.
 
-::
-
-    helper('text');
+.. literalinclude:: text_helper/001.php
 
 사용 가능한 함수
 ===================
@@ -43,9 +41,7 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
     - **sha1**: ``sha1()``\ 을 기반으로 암호화 된 난수 (고정 길이 40)
     - **crypto**: ``random_bytes()``\ 를 기반으로 하는 임의의 문자열
 
-    ::
-
-        echo random_string('alnum', 16);
+    .. literalinclude:: text_helper/002.php
 
 .. php:function:: increment_string($str[, $separator = '_'[, $first = 1]])
 
@@ -58,11 +54,7 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
     숫자를 추가하거나 늘리면 문자열이 증가합니다.
     "사본" 파일을 만들거나 고유한 제목 또는 슬러그가 있는 데이터베이스 내용을 복제하는 데 유용합니다.
 
-    ::
-
-        echo increment_string('file', '_'); // "file_1"
-        echo increment_string('file', '-', 2); // "file-2"
-        echo increment_string('file_4'); // "file_5"
+    .. literalinclude:: text_helper/003.php
 
 .. php:function:: alternator($args)
 
@@ -72,19 +64,11 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
 
     루프를 순환할 때 둘 이상의 항목을 번갈아 사용할 수 있습니다.
     
-    ::
-
-        for ($i = 0; $i < 10; $i++) {     
-            echo alternator('string one', 'string two');
-        }
+    .. literalinclude:: text_helper/004.php
 
     원하는만큼 매개 변수를 추가할 수 있으며 루프를 반복할 때마다 다음 항목이 리턴됩니다.
 
-    ::
-
-        for ($i = 0; $i < 10; $i++) {     
-            echo alternator('one', 'two', 'three', 'four', 'five');
-        }
+    .. literalinclude:: text_helper/005.php
 
     .. note:: 이 함수에 대해 여러 개의 개별 호출을 사용하려면 인수없이 함수를 호출하여 다시 초기화하십시오.
 
@@ -96,10 +80,7 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
 
     URL 프로토콜 접두사에 있는 것을 제외하고 문자열의 이중 슬래시를 단일 슬래시로 변환합니다. (예 : http&#58;//).
 
-    ::
-
-        $string = "http://example.com//index.php";
-        echo reduce_double_slashes($string); // results in "http://example.com/index.php"
+    .. literalinclude:: text_helper/006.php
 
 .. php:function:: strip_slashes($data)
 
@@ -109,23 +90,11 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
 
     문자열 배열에서 슬래시를 제거합니다.
 
-    ::
-
-        $str = [
-            'question' => "Is your name O\'reilly?",
-            'answer'   => "No, my name is O\'connor."
-        ];
-
-        $str = strip_slashes($str);
+    .. literalinclude:: text_helper/007.php
 
     위 실행 결과는 다음 배열을 반환합니다
     
-    ::
-
-        [
-            'question' => "Is your name O'reilly?",
-            'answer'   => "No, my name is O'connor."
-        ];
+    .. literalinclude:: text_helper/008.php
 
     .. note:: 이것은 ``stripslashes()``\ 의 별칭이며, 호환성을 위해 문자열 입력도 받아들이고 처리합니다.
 
@@ -139,17 +108,11 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
 
     서로 직접적으로 발생하는 특정 문자의 여러 인스턴스를 줄입니다.
     
-    ::
-
-        $string = "Fred, Bill,, Joe, Jimmy";
-        $string = reduce_multiples($string, ","); //results in "Fred, Bill, Joe, Jimmy"
+    .. literalinclude:: text_helper/009.php
 
     세 번째 매개 변수가 true로 설정되면 문자열의 시작과 끝에 있는 문자가 제거됩니다.
     
-    ::
-
-        $string = ",Fred, Bill,, Joe, Jimmy,";
-        $string = reduce_multiples($string, ", ", true); // results in "Fred, Bill, Joe, Jimmy"
+    .. literalinclude:: text_helper/010.php
 
 .. php:function:: quotes_to_entities($str)
 
@@ -159,10 +122,7 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
 
     문자열에서 작은 따옴표와 큰 따옴표를 해당 HTML 엔터티로 변환합니다.
 
-    ::
-
-        $string = "Joe's \"dinner\"";
-        $string = quotes_to_entities($string); //results in "Joe&#39;s &quot;dinner&quot;"
+    .. literalinclude:: text_helper/011.php
 
 .. php:function:: strip_quotes($str)
 
@@ -172,10 +132,7 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
 
     문자열에서 작은 따옴표와 큰 따옴표를 제거합니다.
 
-    ::
-
-        $string = "Joe's \"dinner\"";
-        $string = strip_quotes($string); //results in "Joes dinner"
+    .. literalinclude:: text_helper/012.php
 
 .. php:function:: word_limiter($str[, $limit = 100[, $end_char = '&#8230;']])
 
@@ -187,11 +144,7 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
 
     문자열을 지정된 *단어* 수 만큼 자릅니다.
     
-    ::
-
-        $string = "Here is a nice text string consisting of eleven words.";
-        $string = word_limiter($string, 4);
-        // Returns:  Here is a nice
+    .. literalinclude:: text_helper/013.php
 
     세 번째 매개 변수는 문자열에 추가된 선택적 접미사입니다. 기본적으로 줄임표가 추가됩니다.
 
@@ -206,11 +159,7 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
     지정된 *문자 수*\ 만큼 문자열을 자릅니다.
     단어의 무결성을 유지하므로 문자 수가 사용자가 지정한 것보다 약간 많거나 적을 수 있습니다.
 
-    ::
-
-        $string = "Here is a nice text string consisting of eleven words.";
-        $string = character_limiter($string, 20);
-        // Returns:  Here is a nice text string
+    .. literalinclude:: text_helper/014.php
 
     세 번째 매개 변수는 선언되지 않은 경우 이 헬퍼가 줄임표를 사용하는 경우 문자열에 추가된 선택적 접미사입니다.
 
@@ -225,9 +174,7 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
     ASCII 값을 웹 페이지에서 사용할 때 문제를 일으킬 수 있는 상위 ASCII 및 MS Word 문자를 포함하는 ASCII 값을 브라우저 설정에 관계없이 일관성있게 표시하거나, 데이터베이스에 안정적으로 저장할 수 있도록 문자 엔티티로 변환합니다.
     서버의 지원되는 문자 집합에 약간의 의존성이 있으므로 모든 경우에 100% 신뢰할 수는 없지만 대부분의 경우 일반 범위를 벗어난 문자(예 : 악센트 부호가 있는 문자)를 정확하게 식별합니다.
 
-    ::
-
-        $string = ascii_to_entities($string);
+    .. literalinclude:: text_helper/015.php
 
 .. php:function:: entities_to_ascii($str[, $all = true])
 
@@ -248,9 +195,7 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
     상위 ASCII 문자를 하위 ASCII 문자로 음역합니다.
     URL과 같이 표준 ASCII 문자만 안전하게 사용하는 경우 영어 이외의 문자를 사용해야 하는 경우에 유용합니다.
 
-    ::
-
-        $string = convert_accented_characters($string);
+    .. literalinclude:: text_helper/016.php
 
     .. note:: 이 함수는 컴패니언 구성 파일 `app/Config/ForeignCharacters.php`\ 를 사용하여 음역을 위한 배열을 정의합니다.	
 
@@ -267,10 +212,7 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
     두 번째는 허용하지 않는 단어 배열을 포함합니다. 
     세 번째 (선택적) 매개 변수는 단어의 대체 값을 포함합니다. 지정하지 않으면 파운드 기호(####)로 대체됩니다.
 
-    ::
-
-        $disallowed = ['darn', 'shucks', 'golly', 'phooey'];
-        $string     = word_censor($string, $disallowed, 'Beep!');
+    .. literalinclude:: text_helper/017.php
 
 .. php:function:: highlight_code($str)
 
@@ -280,9 +222,7 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
 
     코드 문자열(PHP, HTML 등)을 채색합니다.
 
-    ::
-
-        $string = highlight_code($string);
+    .. literalinclude:: text_helper/018.php
 
     이 함수는 PHP의 ``highlight_string()`` 함수를 사용하므로 사용되는 색상은 php.ini 파일에 지정된 색상입니다.
 
@@ -299,10 +239,7 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
     첫 번째 매개 변수는 원래 문자열을 포함하고 두 번째 매개 변수는 강조 표시하려는 구를 포함합니다.
     세 번째 및 네 번째 매개 변수에는 구문을 래핑하려는 시작/닫기 HTML 태그가 포함됩니다.
 
-    ::
-
-        $string = "Here is a nice text string about nothing in particular.";
-        echo highlight_phrase($string, "nice text", '<span style="color:#990000;">', '</span>');
+    .. literalinclude:: text_helper/019.php
 
     위 코드의 출력
     
@@ -329,18 +266,7 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
 
     완전한 단어를 유지하면서 지정된 *문자* 수로 텍스트를 줄 바꿈합니다.
 
-    ::
-
-        $string = "Here is a simple string of text that will help us demonstrate this function.";
-        echo word_wrap($string, 25);
-
-        // Would produce:
-        // Here is a simple string
-        // of text that will help us
-        // demonstrate this
-        // function.
-
-        Excessively long words will be split, but URLs will not be.
+    .. literalinclude:: text_helper/020.php
 
 .. php:function:: ellipsize($str, $max_length[, $position = 1[, $ellipsis = '&hellip;']])
 
@@ -359,10 +285,7 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
     네 번째 파라미터(선택 사항)는 생략 부호입니다. 
     기본값으로 ``&hellip;``\ 이 삽입됩니다.
 
-    ::
-
-        $str = 'this_string_is_entirely_too_long_and_might_break_my_design.jpg';
-        echo ellipsize($str, 32, .5);
+    .. literalinclude:: text_helper/021.php
 
     ::
 
@@ -383,18 +306,7 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
     세 번째 매개 변수는 중앙 구 앞뒤로 계산할 문자 수입니다.
     문구가 전달되지 않으면 발췌 부분에 줄임표가 있는 첫 $radius 문자가 포함됩니다.
 
-    ::
-
-        $text = 'Ut vel faucibus odio. Quisque quis congue libero. Etiam gravida
-        eros lorem, eget porttitor augue dignissim tincidunt. In eget risus eget
-        mauris faucibus molestie vitae ultricies odio. Vestibulum id ultricies diam.
-        Curabitur non mauris lectus. Phasellus eu sodales sem. Integer dictum purus
-        ac enim hendrerit gravida. Donec ac magna vel nunc tincidunt molestie sed
-        vitae nisl. Cras sed auctor mauris, non dictum tortor. Nulla vel scelerisque
-        arcu. Cras ac ipsum sit amet augue laoreet laoreet. Aenean a risus lacus.
-        Sed ut tortor diam.';
-
-        echo excerpt($str, 'Donec');
+    .. literalinclude:: text_helper/022.php
 
     ::
 

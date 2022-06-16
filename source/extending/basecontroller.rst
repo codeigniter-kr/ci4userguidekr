@@ -5,17 +5,11 @@
 CodeIgniter의 핵심 컨트롤러는 변경해서는 안되지만 기본 클래스 확장은 **app/Controllers/BaseController.php**\ 에서 제공됩니다.
 새로운 컨트롤러는 ``BaseController``\ 를 확장하여 미리 로드된 구성 요소와 제공하는 추가 기능을 활용해야합니다.
 
-::
+.. literalinclude:: basecontroller/001.php
 
-	<?php 
-	
-	namespace App\Controllers;
-	
-	use CodeIgniter\Controller;
-	
-	class Home extends BaseController {
-		// ...
-	}
+.. contents::
+    :local:
+    :depth: 2
 
 사전로드 구성 요소
 =====================
@@ -24,27 +18,17 @@ CodeIgniter의 핵심 컨트롤러는 변경해서는 안되지만 기본 클래
 사전 정의된 ``$helpers`` 배열에 헬퍼를 추가해야 합니다.
 다음 예는 HTML 및 텍스트 헬퍼를 사용할 수 있게 합니다.
 
-::
-
-	protected $helpers = ['html', 'text'];
+.. literalinclude:: basecontroller/002.php
 
 로드할 다른 구성 요소나 처리할 데이터는 생성자 ``initController()``\ 에 추가해야 합니다.
 예를 들어, 프로젝트가 세션 라이브러리를 많이 사용한다면 여기에서 시작할 수 있습니다
 
-::
-
-	public function initController(...)
-	{
-		// Do Not Edit This Line
-		parent::initController($request, $response, $logger);
-		
-		$this->session = \Config\Services::session();
-	}
+.. literalinclude:: basecontroller/003.php
 
 추가 메소드
 ==================
 
-베이스(base) 컨트롤러는 라우팅할 수 없습니다.(시스템 구성이 이를 404 페이지 찾을 수 없음으로 라우팅함)
+베이스(base) 컨트롤러는 라우팅할 수 없습니다.
 추가된 보안 수단으로, 새로운 생성된 **모든** 메소드는 ``protected``\ 나 ``private``\ 으로 선언하고 ``BaseController``\ 를 확장하여 생성한 컨트롤러를 통해서만 액세스합니다.
 
 다른 옵션
@@ -57,9 +41,4 @@ CodeIgniter의 핵심 컨트롤러는 변경해서는 안되지만 기본 클래
 
 ``BaseController``\ 를 사용하지 않다면 시스템 컨트롤러인 ``\CodeIgniter\Controller``\ 를 확장하도록 하여 ``BaseController``\ 를 무시할 수 있습니다
 
-::
-
-	class Home extends \CodeIgniter\Controller
-	{
-	
-	}
+.. literalinclude:: basecontroller/004.php

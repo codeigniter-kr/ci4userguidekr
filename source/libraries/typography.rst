@@ -14,9 +14,7 @@
 
 CodeIgniter의 다른 서비스와 마찬가지로 ``Config\Services``\ 를 통해 로드할 수 있지만, 일반적으로 수동으로 로드할 필요는 없습니다.
 
-::
-
-    $typography = \Config\Services::typography();
+.. literalinclude:: typography/001.php
 
 **************************
 사용 가능한 정적 함수
@@ -33,9 +31,9 @@ CodeIgniter의 다른 서비스와 마찬가지로 ``Config\Services``\ 를 통�
 
 	텍스트를 변형하여 의미론적으로 정확한 HTML을 만듭니다.
 
-	Usage example::
+	Usage example
 
-		$string = $typography->autoTypography($string);
+	.. literalinclude:: typography/002.php
 
 	.. note:: Typographic 형식은 특히 많은 콘텐츠를 포맷하는 경우 프로세서를 많이 사용할 수 있습니다. 
 		이 기능을 사용하기로 했다면 :doc:`caching <../general/caching>` 페이지를 고려하십시오.
@@ -48,9 +46,9 @@ CodeIgniter의 다른 서비스와 마찬가지로 ``Config\Services``\ 를 통�
 
 	이 함수는 주로 큰 따옴표(")와 작은 따옴표(')를 중괄호로 변환하지만 em-dashes, 이중 공백(double spaces), 앰퍼샌드(&)도 변환합니다.
 
-	Usage example::
+	Usage example
 
-		$string = $typography->formatCharacters($string);
+	.. literalinclude:: typography/003.php
 
 **nl2brExceptPre()**
 
@@ -63,6 +61,6 @@ CodeIgniter의 다른 서비스와 마찬가지로 ``Config\Services``\ 를 통�
 	줄 바꿈이 ``<pre>`` 태그내에 나타나지 않으면 개행을 ``<br />`` 태그로 변환합니다.
 	이 함수는 ``<pre>`` 태그를 무시한다는 점을 제외하면 PHP 네이티브 ``nl2br()`` 함수와 동일합니다.
 
-	Usage example::
+	Usage example
 
-		$string = $typography->nl2brExceptPre($string);
+	.. literalinclude:: typography/004.php

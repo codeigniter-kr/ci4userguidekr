@@ -33,9 +33,7 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
 
     세그먼트는 선택적으로 문자열 또는 배열로 함수에 전달됩니다.
 
-    ::
-
-        echo site_url('news/local/123');
+    .. literalinclude:: url_helper/001.php
 
     위의 예는 다음과 같은 것을 반환합니다.
     
@@ -45,10 +43,7 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
 
     다음은 배열로 전달된 세그먼트의 예입니다.
     
-    ::
-
-        $segments = ['news', 'local', '123'];
-        echo site_url($segments);
+    .. literalinclude:: url_helper/002.php
 
     다른 구성 환경 설정을 포함하는 다른 사이트에 대한 URL을 생성하는 경우 대체 구성이 유용합니다.
     이 함수는 프레임워크 자체 단위 테스트에 사용됩니다.
@@ -62,17 +57,13 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
 
     구성 파일에 지정된 사이트 base URL을 반환합니다.
     
-    ::
-
-        echo base_url();
+    .. literalinclude:: url_helper/003.php
 
     이 함수는 *indexPage*\ 를 추가하지 않고 :php:func:`site_url()`\ 과 같은 것을 반환합니다.
 
     또한 :php:func:`site_url()`\ 과 같이 세그먼트를 문자열 또는 배열로 제공할 수 있습니다.
     
-    ::
-
-        echo base_url('blog/post/123');
+    .. literalinclude:: url_helper/004.php
 
     위의 예는 다음과 같은 것을 반환합니다.
 
@@ -81,9 +72,7 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
 
     이것은 :php:func:`site_url()`\ 과 달리 이미지나 스타일 시트와 같은 파일에 문자열을 제공할 때 유용합니다.
     
-    ::
-
-        echo base_url('images/icons/edit.png');
+    .. literalinclude:: url_helper/005.php
 
     위의 예는 다음과 같은 것을 반환합니다.
 
@@ -99,10 +88,11 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
     :rtype:   string|URI
 
     현재 보고있는 페이지의 전체 URL(세그먼트 포함)을 반환합니다.
+    그러나 보안상의 이유로 ``Config\App`` 설정을 기반으로 생성되며 브라우저 URL과 일치하지 않습니다.
 
     .. note:: 이 함수를 호출하는 것은 ``site_url(uri_string());``\ 을 수행하는 것과 같습니다
 
-    .. important:: **4.1.2** 이전 버전에는 버그가 있어 ``App:$indexPage``\ 의 구성을 무시했습니다.
+        .. literalinclude:: url_helper/006.php
 
 .. php:function:: previous_url([$returnObject = false])
 
@@ -112,9 +102,9 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
 
     사용자가 이전에 방문한 페이지의 전체 URL (세그먼트 포함)을 반환합니다.
 
-    HTTP_REFERER 시스템 변수를 맹목적으로 신뢰하는 보안 문제로 인해 CodeIgniter는 사용 가능한 경우 이전에 방문한 페이지를 세션에 저장합니다.
-    이를 통해 우리는 항상 알려진 신뢰할 수 있는 출처를 사용합니다.
-    세션이 로드되지 않았거나 사용할 수 없는 경우 안전한 HTTP_REFERER 버전이 사용됩니다.
+    .. note:: HTTP_REFERER 시스템 변수를 맹목적으로 신뢰하는 보안 문제로 인해 CodeIgniter는 사용 가능한 경우 이전에 방문한 페이지를 세션에 저장합니다.
+        이를 통해 우리는 항상 알려진 신뢰할 수 있는 출처를 사용합니다.
+        세션이 로드되지 않았거나 사용할 수 없는 경우 안전한 HTTP_REFERER 버전이 사용됩니다.
 
 .. php:function:: uri_string([$relative = false])
 
@@ -151,9 +141,7 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
 
     구성 파일에 지정된 사이트 **indexPage**\ 를 반환합니다.
 
-    ::
-
-        echo index_page();
+    .. literalinclude:: url_helper/007.php
 
     :php:func:`site_url()`\ 과 마찬가지로 대체 구성을 지정할 수 있습니다.
     다른 구성 환경 설정을 포함하는 다른 사이트에 대한 URL을 생성하는 경우 대체 구성이 유용합니다.
@@ -183,16 +171,7 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
     세 번째 매개 변수에는 링크에 추가하려는 속성 목록이 포함될 수 있습니다.
     속성은 간단한 문자열 또는 연관 배열일 수 있습니다.
 
-    ::
-
-        echo anchor('news/local/123', 'My News', 'title='News title'');
-        // Prints: <a href='http://example.com/index.php/news/local/123' title='News title'>My News</a>
-
-        echo anchor('news/local/123', 'My News', ['title' => 'The best news!']);
-        // Prints: <a href='http://example.com/index.php/news/local/123' title='The best news!'>My News</a>
-
-        echo anchor('', 'Click here');
-        // Prints: <a href='http://example.com/index.php'>Click here</a>
+    .. literalinclude:: url_helper/008.php
 
     :php:func:`site_url()`\ 과 마찬가지로 대체 구성을 지정할 수 있습니다.
     다른 구성 환경 설정을 포함하는 다른 사이트에 대한 URL을 생성하는 경우 대체 구성이 유용합니다.
@@ -213,27 +192,12 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
     세 번째 매개 변수에서 JavaScript 창 속성을 지정하여 창을 여는 방법을 제어할 수 있습니다.
     세 번째 매개 변수가 설정되어 있지 않으면 브라우저 설정으로 새 창을 엽니다.
 
-    ::
-
-        $atts = [
-            'width'       => 800,
-            'height'      => 600,
-            'scrollbars'  => 'yes',
-            'status'      => 'yes',
-            'resizable'   => 'yes',
-            'screenx'     => 0,
-            'screeny'     => 0,
-            'window_name' => '_blank',
-        ];
-
-        echo anchor_popup('news/local/123', 'Click Me!', $atts);
+    .. literalinclude:: url_helper/009.php
 
     .. note:: 위의 속성은 기능 기본값이므로 필요한 것과 다른 속성만 설정하면 됩니다.
         함수가 모든 기본값을 사용하도록 하려면 세 번째 매개 변수에 빈 배열을 전달하십시오.
         
-        ::
-
-            echo anchor_popup('news/local/123', 'Click Me!', []);
+        .. literalinclude:: url_helper/010.php
 
     .. note:: **window_name**\ 은 실제로 속성이 아니라 자바 스크립트 `window.open() <https://www.w3schools.com/jsref/met_win_open.asp>`_ 메소드에 대한 인수입니다. 이름 또는 창 타겟.
 
@@ -255,16 +219,11 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
 
     표준 HTML E-mail 링크를 만듭니다.
     
-    ::
-
-        echo mailto('me@my-site.com', 'Click Here to Contact Me');
+    .. literalinclude:: url_helper/011.php
 
     위의 :php:func:`anchor()`\ 탭과 마찬가지로 세 번째 매개 변수를 사용하여 속성을 설정할 수 있습니다.
     
-    ::
-
-        $attributes = ['title' => 'Mail me'];
-        echo mailto('me@my-site.com', 'Contact Me', $attributes);
+    .. literalinclude:: url_helper/012.php
 
     .. note:: mailto 함수로 전달된 속성은 XSS 공격으로부터 보호하기 위해 자동으로 이스케이프됩니다.
 
@@ -288,28 +247,24 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
 
     문자열에 포함된 URL 및 전자 메일 주소를 링크로 자동 전환합니다.
     
-    ::
-
-        $string = auto_link($string);
+    .. literalinclude:: url_helper/013.php
 
     두 번째 매개 변수는 URL과 전자 메일 모두 또는 하나만 변환할 지 결정합니다.
     매개 변수가 지정되지 않은 경우 기본 작동은 둘 다입니다.
     이메일 링크는 :php:func:`safe_mailto()`\ 로 인코딩됩니다.
 
-    URL만 변환::
+    URL만 변환
+    
+    .. literalinclude:: url_helper/014.php
 
-        $string = auto_link($string, 'url');
+    이메일 주소만 변환
 
-    이메일 주소만 변환::
-
-        $string = auto_link($string, 'email');
+    .. literalinclude:: url_helper/015.php
 
     세 번째 파라미터는 링크가 새 창에 표시되는지 여부를 결정한다.
     값은 true 또는 false(부울).
 
-    ::
-
-        $string = auto_link($string, 'both', true);
+    .. literalinclude:: url_helper/016.php
 
     .. note:: 인식되는 URL은 'www' 또는 '://'로 시작하는 URL입니다.
 
@@ -324,30 +279,18 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
     문자열을 입력으로 받아서 사람에게 친숙한 URL 문자열을 만듭니다.
     URL에 항목 제목을 사용하려는 블로그가 있는 경우 유용합니다.
     
-    ::
-
-        $title     = "What's wrong with CSS?";
-        $url_title = url_title($title);
-        // Produces: Whats-wrong-with-CSS
+    .. literalinclude:: url_helper/017.php
 
     두 번째 매개 변수는 단어 분리 문자를 결정합니다.
     기본적으로 대시가 사용됩니다.
     기본 옵션은 **-** (대시) 또는 **_** (밑줄)입니다.
 
-    ::
-
-        $title     = "What's wrong with CSS?";
-        $url_title = url_title($title, 'underscore');
-        // Produces: Whats_wrong_with_CSS
+    .. literalinclude:: url_helper/018.php
 
     세 번째 파라미터는 소문자 강제 변환 여부를 결정합니다.
     기본적으로 변환하지 않습니다. 옵션은 부울 true/false.
 
-    ::
-
-        $title     = "What's wrong with CSS?";
-        $url_title = url_title($title, 'underscore', true);
-        // Produces: whats_wrong_with_css
+    .. literalinclude:: url_helper/019.php
 
 php:function:: mb_url_title($str[, $separator = '-'[, $lowercase = false]])
 
@@ -371,9 +314,7 @@ php:function:: mb_url_title($str[, $separator = '-'[, $lowercase = false]])
 
     URL 문자열을 이렇게 함수에 전달합니다.
     
-    ::
-
-        $url = prep_url('example.com');
+    .. literalinclude:: url_helper/020.php
 
 
 .. php:function:: url_to($controller[, ...$args])
@@ -383,23 +324,15 @@ php:function:: mb_url_title($str[, $separator = '-'[, $lowercase = false]])
     :returns: 절대 URL
     :rtype: string
 
+    .. note:: 이 함수를 사용하려면 **app/Config/routes.php**\ 에 controller/method로 정의된 경로가 필요합니다.
+
     앱의 컨트롤러 메소드에 대한 절대 URL을 빌드합니다.
     
-    Example
-    
-    ::
-
-        echo url_to('Home::index');
+    .. literalinclude:: url_helper/021.php
 
     라우트에 인수를 추가할 수 있습니다.
     
-    Example
-    
-    ::
-
-        echo url_to('Page::index', 'home');
-
-    The above example would return something like
+    .. literalinclude:: url_helper/022.php
 
     위의 예는 ``http://example.com/page/home``\ 과 같이 반환합니다.
 
@@ -413,15 +346,12 @@ php:function:: mb_url_title($str[, $separator = '-'[, $lowercase = false]])
 
     현재 URL의 경로를 지정된 경로와 비교하여 일치하는지 확인합니다.
     
-    ::
-
-        if (url_is('admin')) { ... }
+    .. literalinclude:: url_helper/023.php
 
     위의 예는 ``http://example.com/admin``\ 과 일치합니다. 
     "*" 와일드카드를 사용하여 URL의 다른 문자와 일치시킬 수 있습니다.
-    ::
-
-        if (url_is('admin*')) { ... }
+    
+    .. literalinclude:: url_helper/024.php
 
     이는 다음 중 하나와 일치합니다.
 

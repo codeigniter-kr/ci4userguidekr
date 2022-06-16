@@ -20,9 +20,7 @@ CodeIgniter에는 목차의 마지막 섹션에서 볼 수 있는 몇 가지 세
 
 세션에 액세스하고 초기화하려면
 
-::
-
-	$session = \Config\Services::session($config);
+.. literalinclude:: sessions/001.php
 
 ``$config`` 매개 변수는 선택 사항이며, 제공되지 않으면 서비스 레지스터가 기본 설정을 인스턴스화 합니다.
 
@@ -35,9 +33,7 @@ CodeIgniter에는 목차의 마지막 섹션에서 볼 수 있는 몇 가지 세
 또는 기본 구성 옵션을 사용하는 헬퍼 기능을 사용할 수 있습니다.
 이 버전은 읽기 쉽지만 구성 옵션이 없습니다.
 
-::
-
-	$session = session();
+.. literalinclude:: sessions/002.php
 
 세션은 어떻게 작동합니까?
 =============================
@@ -60,7 +56,7 @@ CodeIgniter에는 목차의 마지막 섹션에서 볼 수 있는 몇 가지 세
 AJAX 사용량이 많은 웹 사이트를 개발하지 않는다면 이 섹션을 건너 뛸 수 있습니다.
 그러나 세션으로 인해 성능 문제가 발생한다면, 이 메모를 참고 하십시오.
 
-이전 버전의 CodeIgniter의 세션은 잠금을 구현하지 않았으므로, 동일한 세션을 사용하는 두 개의 HTTP 요청이 동시에 실행될 수 있었습니다. - 보다 적절한 기술 용어를 사용하면 요청이 차단되지 않았습니다.
+CodeIgniter v2.x의 세션은 잠금을 구현하지 않았으므로, 동일한 세션을 사용하는 두 개의 HTTP 요청이 동시에 실행될 수 있었습니다. - 보다 적절한 기술 용어를 사용하면 요청이 차단되지 않았습니다.
 
 그러나 세션 컨텍스트에 대해 비차단 요청은 안전하지 않음을 의미하기도 합니다. 
 한 요청에서 세션 데이터(또는 세션 ID 재생성)를 수정하면 두 번째 동시 요청의 실행을 방해할 수 있기 때문입니다. 
@@ -75,9 +71,7 @@ AJAX 사용량이 많은 웹 사이트를 개발하지 않는다면 이 섹션�
 문제는 여전히 세션을 이미 처리했지만 더 이상 필요하지 않은 상태에서 열어두는 것 입니다.
 따라서 현재 요청이 더 이상 세션을 필요하지 않다면 세션을 아래와 같이 닫아주세요.
 
-::
-
-    session_write_close();
+.. literalinclude:: sessions/003.php
 
 세션 데이터란 무엇입니까?
 ============================
@@ -96,54 +90,30 @@ CodeIgniter는 PHP에서 제공하는 세션 핸들러 메커니즘을 사용하
 
 세션 배열의 모든 정보는 ``$_SESSION`` superglobal을 통해 사용할 수 있습니다
 
-::
-
-	$_SESSION['item']
+.. literalinclude:: sessions/004.php
 
 또는 기존의 접근자 메소드를 통해
 
-::
-
-	$session->get('item');
+.. literalinclude:: sessions/005.php
 
 또는 매직 게터(magic gatter)를 통해
 
-::
-
-	$session->item
+.. literalinclude:: sessions/006.php
 
 또는 세션 헬퍼 메소드를 통해서도
 
-::
-
-	session('item');
+.. literalinclude:: sessions/007.php
 
 여기서 ``item``\ 은 가져 오려는 항목에 해당하는 배열 키입니다.
 예를 들어, 이전에 저장된 'name' 항목을 ``$name`` 변수에 할당하려면 다음과 같이 합니다.
 
-::
-
-	$name = $_SESSION['name'];
-
-	// or:
-
-	$name = $session->name
-
-	// or:
-
-	$name = $session->get('name');
+.. literalinclude:: sessions/008.php
 
 .. note:: 액세스하려는 항목이 존재하지 않으면 ``get()`` 메소드는 null을 반환합니다.
 
 기존 사용자 데이터를 모두 검색하려면 항목 키를 생략하면 됩니다. (magic getter 는 단일 속성 값에 대해서만 작동합니다)
 
-::
-
-	$_SESSION
-
-	// or:
-
-	$session->get();
+.. literalinclude:: sessions/009.php
 
 세션 데이터 추가
 ===================
@@ -155,42 +125,24 @@ CodeIgniter는 PHP에서 제공하는 세션 핸들러 메커니즘을 사용하
 
 이전 userdata 메소드는 더 이상 사용되지 않지만, 새로운 세션 데이터를 포함하는 배열을 ``set()`` 메소드로 전달할 수 있습니다.
 
-::
-
-	$session->set($array);
+.. literalinclude:: sessions/010.php
 
 여기서 ``$array``\ 는 새 데이터를 포함하는 연관 배열입니다.
 여기에 예가 있습니다.
 
-::
-
-	$newdata = [
-		'username'  => 'johndoe',
-		'email'     => 'johndoe@some-site.com',
-		'logged_in' => true
-	];
-
-	$session->set($newdata);
+.. literalinclude:: sessions/011.php
 
 ``set()``\ 은 한 번에 하나의 값으로 세션 데이터를 추가하는 것도 지원합니다
 
-::
-
-	$session->set('some_name', 'some_value');
+.. literalinclude:: sessions/012.php
 
 세션 값이 존재하는지 확인하려면 ``isset()``\ 으로 확인하십시오.
 
-::
-
-	// returns false if the 'some_name' item doesn't exist or is null,
-	// true otherwise:
-	isset($_SESSION['some_name'])
+.. literalinclude:: sessions/013.php
 
 또는 ``has()``\ 를 호출 할 수도 있습니다.
 
-::
-
-	$session->has('some_name');
+.. literalinclude:: sessions/014.php
 
 세션 데이터에 새로운 값 제공
 =================================
@@ -198,32 +150,19 @@ CodeIgniter는 PHP에서 제공하는 세션 핸들러 메커니즘을 사용하
 push 메소드는 배열인 세션 값으로 새로운 값을 푸시하는 데 사용됩니다.
 예를 들어, 'hobbies' 키에 일련의 취미가 포함된 경우 다음과 같이 배열에 새로운 값을 추가할 수 있습니다
 
-::
-
-$session->push('hobbies', ['sport'=>'tennis']);
+.. literalinclude:: sessions/015.php
 
 세션 데이터 제거
 =====================
 
 다른 변수와 마찬가지로 ``$_SESSION``\ 의 값 설정 해제는 ``unset()``\ 을 통해 수행합니다.
 
-::
-
-	unset($_SESSION['some_name']);
-
-	// or multiple values:
-
-	unset(
-		$_SESSION['some_name'],
-		$_SESSION['another_name']
-	);
+.. literalinclude:: sessions/016.php
 
 또한 ``set()``\ 을 사용하여 세션에 정보를 추가할 수 있는 것처럼 세션 키를 ``remove()``\ 메소드에 전달하여 정보를 제거할 수 있습니다.
 예를 들어, 세션 데이터 배열에서 'some_name'\ 을 제거하려는 경우
 
-::
-
-	$session->remove('some_name');
+.. literalinclude:: sessions/017.php
 
 이 방법은 또한 설정 해제를 위해 일련의 항목 키를 허용합니다.
 
@@ -243,62 +182,44 @@ flashdata 변수는 CodeIgniter 세션 핸들러내에서 관리되는 일반 �
 
 기존 항목을 "flashdata"로 표시하려면
 
-::
-
-	$session->markAsFlashdata('item');
+.. literalinclude:: sessions/019.php
 
 여러 항목을 플래시 데이터로 표시하려면 키를 배열로 전달하면됩니다.
 
-::
-
-	$session->markAsFlashdata(['item', 'item2']);
+.. literalinclude:: sessions/020.php
 
 플래시 데이터를 추가하려면
 
-::
-
-	$_SESSION['item'] = 'value';
-	$session->markAsFlashdata('item');
+.. literalinclude:: sessions/021.php
 
 또는 ``setFlashdata()`` 메소드를 사용하여
 
-::
-
-	$session->setFlashdata('item', 'value');
+.. literalinclude:: sessions/022.php
 
 ``set()``\ 과 같은 방식으로 ``setFlashdata()``\ 에 배열을 전달할 수도 있습니다.
 
 플래시 데이터 변수를 읽는 것은 ``$_SESSION``\ 을 통해 일반 세션 데이터를 읽는 것과 같습니다.
 
-::
-
-	$_SESSION['item']
+.. literalinclude:: sessions/023.php
 
 .. important:: ``get()`` 메소드는 키로 단일 항목을 검색할 때 플래시 데이터 항목을 반환합니다. 그러나 세션에서 모든 사용자 데이터를 가져올 때 플래시 데이터를 반환하지 않습니다.
 
 ``getFlashdata()`` 메소드를 사용하면 "flashdata"\ 의 값만 가져올 수 있습니다
 
-::
-
-	$session->getFlashdata('item');
+.. literalinclude:: sessions/024.php
 
 모든 플래시 데이터가 있는 배열을 얻으려면 키 매개 변수를 생략하십시오.
 
-::
-
-	$session->getFlashdata();
+.. literalinclude:: sessions/025.php
 
 .. note:: ``getFlashdata()`` 메소드는 항목을 찾을 수 없는 경우 null을 리턴합니다.
 
 추가 요청을 통해 플래시 데이터 변수를 유지해야 하는 경우 ``keepFlashdata()`` 메소드를 사용하여 이를 수행 할 수 있습니다.
 단일 항목 또는 플래시 데이터 항목 배열을 전달하여 유지합니다.
 
-::
+.. literalinclude:: sessions/026.php
 
-	$session->keepFlashdata('item');
-	$session->keepFlashdata(['item1', 'item2', 'item3']);
-
-tempdata
+Tempdata
 ===============
 
 CodeIgniter는 특정 만료 시간을 가지는 세션 데이터 "tempdata"도 지원합니다. 
@@ -308,83 +229,49 @@ flashdata와 마찬가지로 tempdata 변수는 CodeIgniter 세션 처리기에 
 
 기존 항목을 "tempdata"로 전환하려면 해당 키와 만료 시간 (초)을 ``markAsTempdata()`` 메소드에 전달하면 됩니다.
 
-::
-
-	// 'item' will be erased after 300 seconds
-	$session->markAsTempdata('item', 300);
+.. literalinclude:: sessions/027.php
 
 모두 동일한 만료 시간을 원하는지 여부에 따라 두 가지 방법으로 여러 항목을 tempdata로 표시할 수 있습니다.
 
-::
-
-	// Both 'item' and 'item2' will expire after 300 seconds
-	$session->markAsTempdata(['item', 'item2'], 300);
-
-	// 'item' will be erased after 300 seconds, while 'item2'
-	// will do so after only 240 seconds
-	$session->markAsTempdata([
-		'item'	=> 300,
-		'item2'	=> 240
-	]);
+.. literalinclude:: sessions/028.php
 
 tempdata를 추가하려면
 
-::
-
-	$_SESSION['item'] = 'value';
-	$session->markAsTempdata('item', 300); // Expire in 5 minutes
+.. literalinclude:: sessions/029.php
 
 또는 ``setTempdata()`` 메소드를 사용하여
 
-::
-
-	$session->setTempdata('item', 'value', 300);
+.. literalinclude:: sessions/030.php
 
 ``set_tempdata()``\ 에 배열을 전달할 수 있습니다.
-::
 
-	$tempdata = ['newuser' => true, 'message' => 'Thanks for joining!'];
-	$session->setTempdata($tempdata, null, $expire);
+.. literalinclude:: sessions/031.php
 
 .. note:: 만료를 생략하거나 0으로 설정하면 기본 활성 시간 값인 300 초(5 분)가 사용됩니다.
 
 tempdata 변수를 읽으려면 ``$_SESSION`` 슈퍼 전역 배열을 통해 액세스할 수 있습니다
 
-::
+.. literalinclude:: sessions/032.php
 
-	$_SESSION['item']
-
-.. important:: The ``get()`` method WILL return tempdata items when retrieving a single item by key. It will not return tempdata when grabbing all userdata from the session, however.
-
-Or if you want to be sure that you're reading "tempdata" (and not any other kind), you can also use the ``getTempdata()`` method
-``get()`` 메소드는 키로 단일 항목을 검색할 때 tempdata 항목을 반환합니다. 
-그러나 세션에서 모든 사용자 데이터를 가져 오면 tempdata를 반환하지 않습니다.
+.. important:: ``get()`` 메소드는 키로 단일 항목을 검색할 때 tempdata 항목을 반환합니다. 그러나 세션에서 모든 사용자 데이터를 가져 오면 tempdata를 반환하지 않습니다.
 
 ``getTempdata()`` 메소드를 사용하여 "tempdata"\ 의 값만 가져올수 있습니다
 
-::
-
-	$session->getTempdata('item');
+.. literalinclude:: sessions/033.php
 
 물론 기존의 모든 tempdata를 검색하려는 경우
 
-::
-
-	$session->getTempdata();
+.. literalinclude:: sessions/034.php
 
 .. note:: ``getTempdata()`` 메소드는 항목을 찾을 수 없는 경우 null을 리턴합니다.
 
 만료되기 전에 tempdata 값을 제거해야 하는 경우 ``$_SESSION`` 배열에서 직접 설정을 해제 할 수 있습니다.
 
-::
-
-	unset($_SESSION['item']);
+.. literalinclude:: sessions/035.php
 
 그러나 이 특정 항목을 tempdata로 만드는 마커를 제거하지는 않으므로 (다음 HTTP 요청에서 무효화 됨) 동일한 요청에서 동일한 키를 재사용하려는 경우 ``removeTempdata()`` 메소드를 호출합니다.
 
-::
-
-	$session->removeTempdata('item');
+.. literalinclude:: sessions/036.php
 
 세션 파괴
 ====================
@@ -392,21 +279,13 @@ Or if you want to be sure that you're reading "tempdata" (and not any other kind
 현재 세션을 지우려면 (예 : 로그 아웃 중) PHP의 `session_destroy() <https://www.php.net/session_destroy>`_ 함수 또는 라이브러리의 ``destroy()`` 메소드를 사용하면됩니다.
 둘 다 정확히 같은 방식으로 작동합니다.
 
-::
-
-	session_destroy();
-
-	// or
-
-	$session->destroy();
+.. literalinclude:: sessions/037.php
 
 .. note:: 동일한 요청 중에 수행한 마지막 세션 관련 작업이어야 합니다. 모든 세션 데이터 (플래시 데이터 및 tmpdata 포함)는 영구적으로 삭제되며 세션을 삭제한 후 동일한 요청 중에 기능을 사용할 수 없습니다.
 
 ``stop()`` 메소드를 사용하여 이전 session_id와 모든 데이터를 삭제하고, 세션 ID가 포함된 쿠키를 삭제하여 세션을 완전히 종료할 수 있습니다
 
-::
-
-    $session->stop();
+.. literalinclude:: sessions/038.php
 
 세션 메타 데이터 액세스
 ==========================
@@ -468,10 +347,10 @@ Preference           Default         Description
 ==================== =============== ===========================================================================
 
 .. note::'cookieHTTPOnly' 설정은 세션에 영향을 미치지 않습니다.
-	대신 보안상의 이유로 HttpOnly 매개 변수가 항상 사용되며, 'cookiePrefix'설정은 완전히 무시됩니다.
+	대신 보안상의 이유로 HttpOnly 매개 변수가 항상 사용되며, ``Config\Cookie::$prefix`` 설정은 완전히 무시됩니다.
 
 세션 드라이버
-*************************
+**************
 
 이미 언급했듯이 세션 라이브러리는 다음 4가지개의 사용할 수 있는 핸들러 또는 스토리지 엔진을 제공합니다.
 
@@ -535,15 +414,12 @@ DatabaseHandler 드라이버
 
 그러나 몇 가지 조건을 충족해야합니다.
 
-   - 영구 연결(persistent connection)을 사용할 수 없습니다.
+	- 영구 연결(persistent connection)을 사용할 수 없습니다.
 
 'DatabaseHandler' 세션 드라이버를 사용하려면 세션 테이블을 만든 다음 이를 ``$sessionSavePath``\ 의 값으로 설정해야 합니다.
 예를 들어 테이블 이름으로 'ci_sessions'을 사용하려면 다음과 같이합니다.
 
-::
-
-	public $sessionDriver   = 'CodeIgniter\Session\Handlers\DatabaseHandler';
-	public $sessionSavePath = 'ci_sessions';
+.. literalinclude:: sessions/039.php
 
 물론 데이터베이스 테이블을 생성하십시오 ...
 
@@ -572,7 +448,7 @@ PostgreSQL
 
 	CREATE INDEX "ci_sessions_timestamp" ON "ci_sessions" ("timestamp");
 
-또한 *'sessionMatchIP' 설정에 따라 기본 키를 추가*\ 해야 합니다. 
+또한 **'sessionMatchIP' 설정에 따라 기본 키를 추가**\ 해야 합니다. 
 아래 예제는 MySQL과 PostgreSQL 모두에서 작동합니다.
 
 ::
@@ -588,15 +464,13 @@ PostgreSQL
 
 사용할 데이터베이스 그룹 이름을 **application\Config\App.php** 파일의 ``$sessionDBGroup``\ 에 지정할 수 있습니다.
 
-::
+.. literalinclude:: sessions/040.php
 
-  public $sessionDBGroup = 'groupName';
-
-직접 이 작업을 모두 수행하지 않으려면 cli에서 ``session:migration`` 명령을 사용하여 마이그레이션 파일을 생성하십시오.
+직접 이 작업을 모두 수행하지 않으려면 cli에서 ``make:migration --session`` 명령을 사용하여 마이그레이션 파일을 생성하십시오.
 
 ::
 
-  > php spark session:migration
+  > php spark make:migration --session
   > php spark migrate
 
 이 명령은 코드를 생성할 때 **sessionSavePath**\ 와 **sessionMatchIP** 설정을 고려합니다.
@@ -626,10 +500,7 @@ Redis는 고성능으로 인해 캐싱에 일반적으로 사용되는 스토리
 
 그러나 대부분의 경우, 간단한 ``host:port``\ 쌍만 있어도 충분합니다
 
-::
-
-	public $sessionDiver    = 'CodeIgniter\Session\Handlers\RedisHandler';
-	public $sessionSavePath = 'tcp://localhost:6379';
+.. literalinclude:: sessions/041.php
 
 MemcachedHandler 드라이버
 =================================
@@ -647,10 +518,7 @@ MemcachedHandler 드라이버
 
 ``$sessionSavePath`` 형식(format)은 ``host:port`` 쌍으로 매우 간단합니다.
 
-::
-
-	public $sessionDriver   = 'CodeIgniter\Session\Handlers\MemcachedHandler';
-	public $sessionSavePath = 'localhost:11211';
+.. literalinclude:: sessions/042.php
 
 보너스 팁
 --------------
@@ -659,8 +527,4 @@ MemcachedHandler 드라이버
 
 (여러 위험을 감수하고) 이 기능을 직접 시험해보고 싶다면 서버의 여러 경로를 쉼표(,)로 구분하여 작성합니다.
 
-::
-
-	// localhost will be given higher priority (5) here,
-	// compared to 192.0.2.1 with a weight of 1.
-	public $sessionSavePath = 'localhost:11211:5,192.0.2.1:11211:1';
+.. literalinclude:: sessions/043.php

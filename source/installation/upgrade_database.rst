@@ -5,13 +5,11 @@ Upgrade Database
     :local:
     :depth: 2
 
-
 Documentations
 ==============
 
 - `CodeIgniter 3.X 데이터베이스 문서 <http://codeigniter.com/userguide3/database/index.html>`_
 - :doc:`CodeIgniter 4.X 데이터베이스 문서 </database/index>`
-
 
 변경된 사항
 =====================
@@ -46,22 +44,12 @@ Upgrade Guide
 Code Example
 ============
 
-CodeIgniter Version 3.11
+CodeIgniter Version 3.x
 ------------------------
-::
 
-   $query = $this->db->select('title')
-                ->where('id', $id)
-                ->limit(10, 20)
-                ->get('mytable');
+.. literalinclude:: upgrade_database/ci3sample/001.php
 
 CodeIgniter Version 4.x
 -----------------------
-::
 
-    $builder = $db->table('mytable');
-
-    $query = $builder->select('title')
-                 ->where('id', $id)
-                 ->limit(10, 20)
-                 ->get();
+.. literalinclude:: upgrade_database/001.php

@@ -5,7 +5,7 @@
 마이그레이션은 체계적인 방식으로 데이터베이스를 변경할 수 있는 편리한 방법입니다.
 SQL을 직접 편집할 수 있지만 다른 개발자에게 실행해야 한다고 알려 주어야 하고, 배포할 때마다 프로덕션 시스템에 대해 어떤 변경 사항을 실행해야 하는지 추적해야 합니다.
 
-데이터베이스 테이블 **migration**\ 은 이미 실행된 마이그레이션을 추적합니다.
+데이터베이스 테이블 **migrations**\ 은 이미 실행된 마이그레이션을 추적합니다.
 마이그레이션이 제대로 수행되었는지 확인하고 ``$migration->latest()``\ 를 호출하면 데이터베이스를 최근 상태로 전환합니다. 
 ``$migration->setNamespace(null)->latest()``\ 를 사용하면 모든 네임스페이스에서 마이그레이션을 적용합니다.
 
@@ -18,82 +18,39 @@ SQL을 직접 편집할 수 있지만 다른 개발자에게 실행해야 한다
 ***************************
 
 각 마이그레이션은 수행된 방법에 따라 앞뒤로 숫자 순서에 따라 실행됩니다.
-각 마이그레이션은 마이그레이션이 생성될 때 타임스탬프를 사용하여 **YYYYMMDDHHIISS** 형식 (예 : **20121031100537**)으로 번호가 매겨집니다.
+각 마이그레이션은 마이그레이션이 생성될 때 타임스탬프를 사용하여 **YYYY-MM-DD-HHIISS** 형식 (예 : **2012-10-31-100537**)으로 번호가 매겨집니다.
 이렇게 하면 팀 환경에서 작업할 때 번호 충돌을 방지할 수 있습니다.
 
 마이그레이션 파일의 접두사 뒤에 밑줄과 마이그레이션을 설명하는 이름이 붙습니다.
-연도, 월 및 날짜는 대시, 밑줄로 구분하거나 전혀 구분하지 않을 수 있습니다:
+연도, 월 및 날짜는 대시, 밑줄로 구분하거나 전혀 구분하지 않을 수 있습니다.
 
-* 20121031100537_add_blog.php
-* 2012-10-31-100538_alter_blog_track_views.php
-* 2012_10_31_100539_alter_blog_add_translations.php
+* 2012-10-31-100538_AlterBlogTrackViews.php
+* 2012_10_31_100539_AlterBlogAddTranslations.php
+* 20121031100537_AddBlog.php
 
 *************************
 마이그레이션 만들기
 *************************
 
 아래는 블로그가 있는 새 사이트의 첫 번째 마이그레이션입니다.
-모든 마이그레이션은 **app/Database/Migrations/** 디렉토리에 있으며 이름은 *20121031100537_add_blog.php*\ 와 같습니다.
+모든 마이그레이션은 **app/Database/Migrations/** 디렉토리에 있으며 이름은 **2022-01-31-013057_AddBlog.php**\ 와 같습니다.
 
-::
-
-	<?php 
-	
-	namespace App\Database\Migrations;
-
-	use CodeIgniter\Database\Migration;
-
-	class AddBlog extends Migration
-	{
-
-		public function up()
-		{
-			$this->forge->addField([
-				'blog_id'          => [
-					'type'           => 'INT',
-					'constraint'     => 5,
-					'unsigned'       => true,
-					'auto_increment' => true,
-				],
-				'blog_title'       => [
-					'type'       => 'VARCHAR',
-					'constraint' => '100',
-				],
-				'blog_description' => [
-					'type' => 'TEXT',
-					'null' => true,
-				],
-			]);
-			$this->forge->addKey('blog_id', true);
-			$this->forge->createTable('blog');
-		}
-
-		public function down()
-		{
-			$this->forge->dropTable('blog');
-		}
-	}
+.. literalinclude:: migration/001.php
 
 데이터베이스 연결 및 데이터베이스 Forge 클래스는 각각 ``$this->db``\ 와 ``$this->forge``\ 를 통해 사용할 수 있습니다.
 
 커맨드 라인 호출을 사용하여 스켈레톤 마이그레이션 파일을 생성할 수 있으며, 이에 대한 자세한 내용은 아래를 참조하십시오.
+자세한 내용은 :ref:`command-line-tools`\ 의 **make:migration**\ 을 참조하세요.
 
-외래 키
-============
+.. note:: 마이그레이션 클래스는 PHP 클래스이므로 클래스 이름은 모든 마이그레이션 파일에서 유일(unique)해야 합니다.
+
+외래 키(Foreign Key)
+======================
 
 테이블에 외래 키가 포함되어 있으면 테이블과 컬럼을 삭제하려고 할 때 마이그레이션으로 인해 문제가 발생할 수 있습니다.
 마이그레이션을 실행하는 동안 외래 키 검사를 일시적으로 무시하려면 데이터베이스 연결에서 ``disableForeignKeyChecks()``\ 와 ``enableForeignKeyChecks ()`` 메소드를 사용하십시오.
 
-::
-
-	public function up()
-	{
-		$this->db->disableForeignKeyChecks()
-
-		// Migration rules would go here..
-
-		$this->db->enableForeignKeyChecks();
-	}
+.. literalinclude:: migration/002.php
 
 데이터베이스 그룹
 =======================
@@ -105,45 +62,21 @@ SQL을 직접 편집할 수 있지만 다른 개발자에게 실행해야 한다
 마이그레이션에서 ``$DBGroup`` 속성을 설정하여 적절한 그룹에 대해서만 마이그레이션을 실행할 수 있습니다.
 이 이름은 데이터베이스 그룹의 이름과 정확히 일치해야합니다.
 
-::
-
-	<?php 
-	
-	namespace App\Database\Migrations;
-
-	use CodeIgniter\Database\Migration;
-
-	class AddBlog extends Migration
-	{
-		protected $DBGroup = 'alternate_db_group';
-
-		public function up() {
-			// ...
-		}
-
-		public function down() {
-			// ...
-		}
-	}
+.. literalinclude:: migration/003.php
 
 네임스페이스
 ================
 
 마이그레이션 라이브러리는 디렉토리 이름과 일치하는 ``$psr4`` 속성을 사용하여 **app/Config/Autoload.php** 내에 정의하거나 Composer와 같은 외부 소스에서 로드한 모든 네임스페이스를 자동으로 스캔할 수 있습니다.
-Database/Migrations에서 찾은 모든 마이그레이션이 포함됩니다.
+**Database/Migrations**\ 에서 찾은 모든 마이그레이션이 포함됩니다.
 
 각 네임스페이스에는 고유한 버전 순서가 있으므로 다른 네임스페이스에 영향을 주지 않고 각 모듈(네임스페이스)을 업그레이드하고 다운그레이드할 수 있습니다.
 
 예를 들어, Autoload 구성 파일에 다음 네임스페이스가 정의되어 있다고 가정합니다.
 
-::
+.. literalinclude:: migration/004.php
 
-	$psr4 = [
-		'App'       => APPPATH,
-		'MyCompany' => ROOTPATH . 'MyCompany',
-	];
-
-**APPPATH/Database/Migrations** 와 ** ROOTPATH/MyCompany/Database/Migrations**\ 에 있는 모든 마이그레이션을 찾습니다.
+**APPPATH/Database/Migrations** 와 **ROOTPATH/MyCompany/Database/Migrations**\ 에 있는 모든 마이그레이션을 찾습니다.
 따라서 재사용 가능한 모듈식 코드 스위트에 마이그레이션을 간편하게 포함할 수 있습니다.
 
 *************
@@ -152,27 +85,9 @@ Database/Migrations에서 찾은 모든 마이그레이션이 포함됩니다.
 
 아래 예제에는 **app/Controllers/Migrate.php**\ 에 스키마를 업데이트하는 간단한 코드가 있습니다.
 
-::
+.. literalinclude:: migration/005.php
 
-	<?php 
-	
-	namespace App\Controllers;
-
-	class Migrate extends \CodeIgniter\Controller
-	{
-
-		public function index()
-		{
-			$migrate = \Config\Services::migrations();
-
-			try {
-				$migrate->latest();
-			} catch (\Throwable $e) {
-				// Do something with the error here...
-			}
-		}
-
-	}
+.. _command-line-tools:
 
 *******************
 Command-Line 툴
@@ -240,8 +155,13 @@ CodeIgniter는 마이그레이션 작업에 도움이되는 커맨드 라인에�
 ::
 
   > php spark migrate:status
-  Filename               Migrated On
-  First_migration.php    2016-04-25 04:44:22
+  +----------------------+-------------------+-----------------------+---------+---------------------+-------+
+  | Namespace            | Version           | Filename              | Group   | Migrated On         | Batch |
+  +----------------------+-------------------+-----------------------+---------+---------------------+-------+
+  | App                  | 2022-04-06-234508 | CreateCiSessionsTable | default | 2022-04-06 18:45:14 | 2     |
+  | CodeIgniter\Settings | 2021-07-04-041948 | CreateSettingsTable   | default | 2022-04-06 01:23:08 | 1     |
+  | CodeIgniter\Settings | 2021-11-14-143905 | AddContextColumn      | default | 2022-04-06 01:23:08 | 1     |
+  +----------------------+-------------------+-----------------------+---------+---------------------+-------+
 
 다음 옵션과 함께 (status)를 사용할 수 있습니다:
 
@@ -310,10 +230,7 @@ Class Reference
 
 		회기(Regress)를 사용하여 변경 사항을 배치별 이전 상태로 롤백할 수 있습니다.
 
-		::
-
-			$migration->regress(5);
-			$migration->regress(-1);
+		.. literalinclude:: migration/006.php
 
 	.. php:method:: force($path, $namespace, $group)
 
@@ -330,15 +247,15 @@ Class Reference
 
 	.. php:method:: setNamespace($namespace)
 
-	  :param  string  $namespace: 어플리케이션 네임스페이스
+	  :param  string|null  $namespace: 어플리케이션 네임스페이스. ``null``\ 은 모든 네임스페이스
 	  :returns:   MigrationRunner instance
 	  :rtype:     CodeIgniter\\Database\\MigrationRunner
 
 	  라이브러리에서 마이그레이션 파일을 찾아야 하는 네임스페이스를 설정합니다.
 	  
-	  ::
+	  .. literalinclude:: migration/007.php
 
-	    $migration->setNamespace($namespace)->latest();
+	  .. note:: ``null``\ 을 설정하면 모든 네임스페이스에서 마이그레이션 파일을 찾습니다.
 
 	.. php:method:: setGroup($group)
 
@@ -348,6 +265,4 @@ Class Reference
 
 	  라이브러리에서 마이그레이션 파일을 찾을 그룹을 설정합니다.
 	  
-	  ::
-
-	    $migration->setGroup($group)->latest();
+	  .. literalinclude:: migration/008.php

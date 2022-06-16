@@ -3,12 +3,12 @@
 #######
 
 CodeIgniter는 프레임워크와 어플리케이션을 최대한 간단하게 테스트할 수 있도록 개발되었습니다.
-``PHPUnit``\ 에 대한 지원이 내장되어 있으며 프레임워크는 어플리케이션의 모든 측면을 가능한 한 쉽게 테스트할 수 있는 편리한 헬퍼 메소드를 제공합니다.
+`PHPUnit <https://phpunit.de/>`__\ 에 대한 지원이 내장되어 있으며 프레임워크는 어플리케이션의 모든 측면을 가능한 한 쉽게 테스트할 수 있는 편리한 헬퍼 메소드를 제공합니다.
 
 
 .. contents::
     :local:
-    :depth: 2
+    :depth: 3
 
 ***************
 시스템 설정
@@ -39,10 +39,16 @@ Composer
 
     > ./vendor/bin/phpunit
 
+Windows를 사용한다면 다음 명령을 사용하십시오.
+
+::
+
+    > vendor\bin\phpunit
+
 Phar
 ----
 
-다른 방법은 `PHPUnit <https://phpunit.de/getting-started/phpunit-7.html>`__ 사이트에서 .phar 파일을 다운로드하는 것입니다.
+다른 방법은 `PHPUnit <https://phpunit.de/getting-started/phpunit-9.html>`__ 사이트에서 .phar 파일을 다운로드하는 것입니다.
 이것은 프로젝트 루트 내에 배치해야 하는 독립형 파일입니다.
 
 
@@ -68,40 +74,11 @@ Test 클래스
 
 새 라이브러리 **Foo**\ 를 테스트하려면 **tests/app/Libraries/FooTest.php**\ 에 새 파일을 만듭니다.
 
-::
+.. literalinclude:: overview/001.php
 
-    <?php
+모델 중 하나를 테스트하기 위해 **tests/app/Models/OneOfMyModelsTest.php**\ 에 다음과 같이 할 수 있습니다.
 
-    namespace App\Libraries;
-
-    use CodeIgniter\Test\CIUnitTestCase;
-
-    class FooTest extends CIUnitTestCase
-    {
-        public function testFooNotBar()
-        {
-            // ...
-        }
-    }
-
-모델 중 하나를 테스트하기 위해 ``tests/app/Models/OneOfMyModelsTest.php``\ 에 다음과 같이 할 수 있습니다.
-
-::
-
-    <?php
-
-    namespace App\Models;
-
-    use CodeIgniter\Test\CIUnitTestCase;
-
-    class OneOfMyModelsTest extends CIUnitTestCase
-    {
-        public function testFooNotBar()
-        {
-            // ...
-        }
-    }
-
+.. literalinclude:: overview/002.php
 
 테스트 스타일/요건에 맞는 디렉토리 구조를 만들 수 있습니다. 
 테스트 클래스의 이름을 지정할 때 **app** 디렉토리는 ``App`` 네임스페이스의 루트이므로 사용하는 모든 클래스는``App``\ 에 대해 올바른 네임스페이스를 가져야합니다.
@@ -120,46 +97,22 @@ PHPUnit의 ``TestCase``\ 는 준비 및 정리를 돕는 4가지 방법을 제�
 
     public static function setUpBeforeClass(): void
     public static function tearDownAfterClass(): void
-    public function setUp(): void
-    public function tearDown(): void
+
+    protected function setUp(): void
+    protected function tearDown(): void
 
 정적 메소드는 전체 테스트 케이스 전후에 실행되는 반면 로컬 메소드는 각 테스트 사이에 실행됩니다.
 이러한 특수 기능을 구현하는 경우 확장된 테스트 케이스가 스테이징을 방해하지 않도록 상위 기능도 함께 실행해야 합니다.
 
-::
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        helper('text');
-    }
+.. literalinclude:: overview/003.php
 
 이러한 메소드 외에도 ``CIUnitTestCase``\ 에는 설정 및 해체 중에 실행할 매개 변수가 없는 메소드에 대한 편리한 속성이 함께 제공됩니다.
 
-::
-
-    protected $setUpMethods = [
-        'mockEmail',
-        'mockSession',
-    ];
-    
-    protected $tearDownMethods = [];
+.. literalinclude:: overview/004.php
 
 기본적으로 침입(intrusive) 서비스를 흉내내어 처리할 수 있지만, 클래스가 이를 무시하거나 자체적으로 제공 할 수 있습니다.
 
-::
-
-    class OneOfMyModelsTest extends CIUnitTestCase
-    {
-        protected $tearDownMethods = [
-            'purgeRows',
-        ];
-        
-        protected function purgeRows()
-        {
-            $this->model->purgeDeleted()
-        }
-    }
+.. literalinclude:: overview/005.php
 
 Traits
 ------
@@ -168,109 +121,60 @@ Traits
 ``CIUnitTestCase``\ 는 어떤 등급의 특성(trait)도 감지하고 특성(trait) 자체의 이름을 따서 실행할 스테이징 방법을 찾을 것입니다.
 예를 들어 일부 테스트 케이스에 인증을 추가해야 하는 경우 로그인된 사용자를 위조하는 설정 방법을 사용하여 인증 특성(trait)을 생성할 수 있습니다.
 
-::
-
-	trait AuthTrait
-	{
-		protected setUpAuthTrait()
-		{
-			$user = $this->createFakeUser();
-			$this->logInUser($user);
-		}
-	...
-
-	class AuthenticationFeatureTest
-	{
-		use AuthTrait;
-	...
-
+.. literalinclude:: overview/006.php
 
 추가 어설션(Assertion)
 --------------------------
 
 ``CIUnitTestCase``\ 는 유용한 추가 단위 테스트 어설션을 제공합니다.
 
-**assertLogged($level, $expectedMessage)**
+assertLogged($level, $expectedMessage)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 실제로 기록될 것으로 예상되는 것
 
-::
+.. literalinclude:: overview/007.php
 
-        $config = new LoggerConfig();
-        $logger = new Logger($config);
-
-        ... do something that you expect a log entry from
-        $logger->log('error', "That's no moon");
-
-        $this->assertLogged('error', "That's no moon");
-
-**assertEventTriggered($eventName)**
+assertEventTriggered($eventName)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 실제로 트리거될 것으로 예상되는 이벤트
 
-::
+.. literalinclude:: overview/008.php
 
-    Events::on('foo', function ($arg) use(&$result) {
-        $result = $arg;
-    });
-
-    Events::trigger('foo', 'bar');
-
-    $this->assertEventTriggered('foo');
-
-**assertHeaderEmitted($header, $ignoreCase = false)**
+assertHeaderEmitted($header, $ignoreCase = false)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 헤더 또는 쿠키가 실제로 방출되었는지 확인
 
-::
+.. literalinclude:: overview/009.php
 
-    $response->setCookie('foo', 'bar');
+.. note: 테스트 케이스는 `PHPunit에서 별도의 프로세스로 실행 <https://phpunit.readthedocs.io/en/9.5/annotations.html#runinseparateprocess>`_\ 되어야 합니다.
 
-    ob_start();
-    $this->response->send();
-    $output = ob_get_clean(); // 실체를 확인하고 싶을 경우
-
-    $this->assertHeaderEmitted("Set-Cookie: foo=bar");
-
-Note: 테스트 케이스는 `PHPunit에서 별도의 프로세스로 실행 <https://phpunit.readthedocs.io/en/9.5/annotations.html#runinseparateprocess>`_\ 되어야 합니다.
-
-**assertHeaderNotEmitted($header, $ignoreCase = false)**
+assertHeaderNotEmitted($header, $ignoreCase = false)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 헤더 또는 쿠키가 방출되지 않았는지 확인
 
-::
+.. literalinclude:: overview/010.php
 
-    $response->setCookie('foo', 'bar');
+.. note: 테스트 케이스는 `PHPunit에서 별도의 프로세스로 실행 <https://phpunit.readthedocs.io/en/9.5/annotations.html#runinseparateprocess>`_\ 되어야 합니다.
 
-    ob_start();
-    $this->response->send();
-    $output = ob_get_clean(); // 실체를 확인하고 싶을 경우
-
-    $this->assertHeaderNotEmitted("Set-Cookie: banana");
-
-Note: 테스트 케이스는 `PHPunit에서 별도의 프로세스로 실행 <https://phpunit.readthedocs.io/en/9.5/annotations.html#runinseparateprocess>`_\ 되어야 합니다.
-
-**assertCloseEnough($expected, $actual, $message = '', $tolerance = 1)**
+assertCloseEnough($expected, $actual, $message = '', $tolerance = 1)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 확장된 실행 시간 테스트의 경우 예상 시간과 실제 시간의 절대 차이가 규정된 허용 오차 내에 있는지 테스트합니다.
 
-::
-
-    $timer = new Timer();
-    $timer->start('longjohn', strtotime('-11 minutes'));
-    $this->assertCloseEnough(11 * 60, $timer->getElapsedTime('longjohn'));
+.. literalinclude:: overview/011.php
 
 위의 테스트를 통해 실제 시간은 660 초 또는 661 초가 될 수 있습니다.
 
-**assertCloseEnoughString($expected, $actual, $message = '', $tolerance = 1)**
+assertCloseEnoughString($expected, $actual, $message = '', $tolerance = 1)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 확장된 실행 시간 테스트의 경우 문자열 형식의 예상 시간과 실제 시간의 절대 차이가 규정된 허용 오차내에 있는지 테스트합니다.
 
-::
-
-    $timer = new Timer();
-    $timer->start('longjohn', strtotime('-11 minutes'));
-    $this->assertCloseEnoughString(11 * 60, $timer->getElapsedTime('longjohn'));
+.. literalinclude:: overview/012.php
 
 위의 테스트를 통해 실제 시간은 660 초 또는 661 초가 될 수 있습니다.
 
@@ -280,54 +184,34 @@ Protected/Private 속성에 액세스
 
 테스트할 때 다음 setter 및 getter 메소드를 사용하여 테스트중인 클래스의 Protected/Private 메소드 및 특성에 액세스할 수 있습니다.
 
-**getPrivateMethodInvoker($instance, $method)**
+getPrivateMethodInvoker($instance, $method)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 클래스 외부에서 private 메소드를 호출할 수 있습니다. 
 이렇게 하면 호출할 수있는 함수를 반환합니다.
 첫 번째 매개 변수는 테스트할 클래스의 인스턴스입니다. 
 두 번째 매개 변수는 호출하려는 메소드의 이름입니다.
 
-::
+.. literalinclude:: overview/013.php
 
-    // Create an instance of the class to test
-    $obj = new Foo();
-
-    // Get the invoker for the 'privateMethod' method.
-    $method = $this->getPrivateMethodInvoker($obj, 'privateMethod');
-
-    // Test the results
-    $this->assertEquals('bar', $method('param1', 'param2'));
-
-**getPrivateProperty($instance, $property)**
+getPrivateProperty($instance, $property)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 클래스의 인스턴스에서 private/protected 클래스 속성 값을 검색합니다.
 첫 번째 매개 변수는 테스트할 클래스의 인스턴스입니다.
 두 번째 매개 변수는 속성 이름입니다.
 
-::
+.. literalinclude:: overview/014.php
 
-    // Create an instance of the class to test
-    $obj = new Foo();
-
-    // Test the value
-    $this->assertEquals('bar', $this->getPrivateProperty($obj, 'baz'));
-
-**setPrivateProperty($instance, $property, $value)**
+setPrivateProperty($instance, $property, $value)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 클래스 인스턴스 내에서 private/protected 속성에 값을 설정합니다.
 첫 번째 매개 변수는 테스트할 클래스의 인스턴스입니다.
 두 번째 매개 변수는 값을 설정할 속성의 이름입니다.
 세 번째 매개 변수는 설정할 값입니다.
 
-::
-
-    // Create an instance of the class to test
-    $obj = new Foo();
-
-    // Set the value
-    $this->setPrivateProperty($obj, 'baz', 'oops!');
-
-    // Do normal testing...
+.. literalinclude:: overview/015.php
 
 모의(Moking) 서비스
 =======================
@@ -336,32 +220,27 @@ Protected/Private 속성에 액세스
 이는 컨트롤러와 기타 통합 테스트를 테스트할 때 특히 그렇습니다.
 **Services** 클래스는 이를 단순화하는 다음 메소드를 제공합니다.
 
-**injectMock()**
+Services::injectMock()
+----------------------
 
 이 메소드를 사용하면 Services 클래스에서 리턴할 정확한 인스턴스를 정의할 수 있습니다.
 이를 사용하여 특정 방식으로 동작하도록 서비스의 속성을 설정하거나 서비스를 모의 클래스로 바꿀 수 있습니다.
 
-::
-
-    public function testSomething()
-    {
-        $curlrequest = $this->getMockBuilder('CodeIgniter\HTTP\CURLRequest')
-                            ->setMethods(['request'])
-                            ->getMock();
-        Services::injectMock('curlrequest', $curlrequest);
-
-        // Do normal testing here....
-    }
+.. literalinclude:: overview/016.php
 
 첫 번째 매개 변수는 교체할 서비스입니다. 
 이름은 Services 클래스의 함수 이름과 정확히 일치해야합니다.
 두 번째 매개 변수는 이를 대체할 인스턴스입니다.
 
-**reset()**
+Services::reset()
+-----------------
 
 서비스 클래스에서 모든 모의(mock) 클래스를 제거하여 원래 상태로 되돌립니다.
 
-**resetSingle(string $name)**
+``CIUnitTestCase``\ 가 제공하는 ``$this->resetServices()`` 메소드를 사용할 수도 있습니다.
+
+Services::resetSingle(string $name)
+-----------------------------------
 
 이름별로 단일 서비스에 대한 모의 및 공유 인스턴스를 제거합니다.
 
@@ -371,17 +250,9 @@ Protected/Private 속성에 액세스
 ==============================
 
 서비스와 마찬가지로 테스트 중에 ``Factory``\ 와 함께 사용될 미리 구성된 클래스 인스턴스를 제공해야 할 수도 있습니다.
-**Services**\ 와 같은 ``injectMock()`` 과 ``reset()`` 정적 메소드를 사용하지만 구성 요소 이름에 대해 선행 매개 변수를 추가로 사용합니다.
+**Services**\ 와 같은 ``Factories::injectMock()`` 과 ``Factories::reset()`` 정적 메소드를 사용하지만 구성 요소 이름에 대해 선행 매개 변수를 추가로 사용합니다.
 
-::
-
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $model = new MockUserModel();
-        Factories::injectMock('models', 'App\Models\UserModel', $model);
-    }
+.. literalinclude:: overview/017.php
         
 .. note:: 모든 구성 요소 팩토리는 각 테스트 사이에 기본적으로 재설정됩니다. 인스턴스를 유지해야하는 경우 테스트 케이스의 ``$setUpMethods``\ 를 수정합니다.
 
@@ -396,22 +267,5 @@ Protected/Private 속성에 액세스
 
 
 테스트 사례중 하나에서 이것을 보여주는 예제
-::
 
-    public function setUp()
-    {
-        CITestStreamFilter::$buffer = '';
-        $this->stream_filter = stream_filter_append(STDOUT, 'CITestStreamFilter');
-    }
-
-    public function tearDown()
-    {
-        stream_filter_remove($this->stream_filter);
-    }
-
-    public function testSomeOutput()
-    {
-        CLI::write('first.');
-        $expected = "first.\n";
-        $this->assertEquals($expected, CITestStreamFilter::$buffer);
-    }
+.. literalinclude:: overview/018.php

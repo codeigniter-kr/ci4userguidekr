@@ -20,12 +20,9 @@ CodeIgniter에서는 데이터베이스의 각 테이블이 클래스 파일일 
 *************************
 
 쿼리 빌더는 데이터베이스 연결의 ``table()`` 메소드를 통해 로드됩니다.
-그러면 쿼리의 ``FROM`` 부분이 설정되고 Query Builder 클래스의 새 인스턴스가 반환됩니다.
+그러면 쿼리의 **FROM** 부분이 설정되고 Query Builder 클래스의 새 인스턴스가 반환됩니다.
 
-::
-
-    $db      = \Config\Database::connect();
-    $builder = $db->table('users');
+.. literalinclude:: query_builder/001.php
 
 Query Builder는 특별히 클래스를 요청할 때만 메모리에 로드되므로 기본적으로 자원(resource)이 사용되지 않습니다.
 
@@ -35,969 +32,754 @@ Query Builder는 특별히 클래스를 요청할 때만 메모리에 로드되�
 
 다음 함수를 사용하면 SQL **SELECT** 문을 작성할 수 있습니다.
 
-``$builder->get()``
+Get
+===
+
+$builder->get()
+---------------
 
 select 쿼리를 실행하고 결과를 반환하며, 테이블에서 모든 레코드를 검색할 수 있습니다
 
-::
-
-    $builder = $db->table('mytable');
-    $query   = $builder->get();  // Produces: SELECT * FROM mytable
+.. literalinclude:: query_builder/002.php
 
 첫 번째와 두 번째 매개 변수를 사용하여 limit과 offset을 설정할 수 있습니다
 
-::
-
-    $query = $builder->get(10, 20);
-
-    // Executes: SELECT * FROM mytable LIMIT 20, 10
-    // (in MySQL. Other databases have slightly different syntax)
+.. literalinclude:: query_builder/003.php
 
 위 함수는 $query 라는 변수에 할당되어 있으며 결과를 표시하는데 사용할 수 있습니다.
 
-::
+.. literalinclude:: query_builder/004.php
 
-    $query = $builder->get();
+결과 생성에 대한 자세한 내용은 :doc:`getResult*() 함수 <results>` 페이지를 참조하십시오.
 
-    foreach ($query->getResult() as $row) {
-        echo $row->title;
-    }
-
-결과 생성에 대한 자세한 내용은 :doc:`결과(result) 함수 <results>` 페이지를 참조하십시오.
-
-**$builder->getCompiledSelect()**
+$builder->getCompiledSelect()
+-----------------------------
 
 ``$builder->get()``\ 처럼 select 쿼리를 컴파일하지만 쿼리를 *실행*\ 하지는 않습니다.
 이 메소드는 SQL 쿼리를 문자열로 반환합니다.
 
-Example::
-
-    $sql = $builder->getCompiledSelect();
-    echo $sql;
-
-    // Prints string: SELECT * FROM mytable
+.. literalinclude:: query_builder/005.php
 
 첫 번째 매개 변수를 사용하면 쿼리 빌더의 쿼리를 재설정할지 여부를 설정할 수 있습니다. (기본적으로 ``$builder->get()``\ 을 사용할 때와 같이 재설정됩니다)
 
-::
-
-    echo $builder->limit(10,20)->getCompiledSelect(false);
-
-    // Prints string: SELECT * FROM mytable LIMIT 20, 10
-    // (in MySQL. Other databases have slightly different syntax)
-
-    echo $builder->select('title, content, date')->getCompiledSelect();
-
-    // Prints string: SELECT title, content, date FROM mytable LIMIT 20, 10
+.. literalinclude:: query_builder/006.php
 
 위 예제에서 두 번째 쿼리가 ``$builder->from()``\ 을 사용하거나, 테이블 이름을 첫 번째 매개 변수에 전달하지 않았다는 것에 주목하십시오.
 이렇게 사용 가능한 이유는 ``$builder->get()``\ 을 사용하여 쿼리가 실행되지 않았기 때문이며, 값을 재설정해야 한다면 ``$builder->resetQuery()``\ 를 사용해야 합니다.
 
-**$builder->getWhere()**
+$builder->getWhere()
+--------------------
 
-db->where() 함수를 사용하는 대신 첫 번째 매개 변수에 "where"\ 절을 추가 할 수 있다는 점을 제외하고 ``get()`` 함수와 동일합니다.
+db->where() 함수를 사용하는 대신 첫 번째 매개 변수에 "where"\ 절을 추가 할 수 있다는 점을 제외하고 ``get()`` 메소드와 동일합니다.
 
-::
-
-    $query = $builder->getWhere(['id' => $id], $limit, $offset);
+.. literalinclude:: query_builder/007.php
 
 자세한 내용은 아래의 `where` 함수에 대해 읽으십시오.
 
-**$builder->select()**
+.. _query-builder-select:
 
-쿼리의 SELECT 부분을 쓸 수 있습니다
+Select
+======
 
-::
+$builder->select()
+------------------
 
-    $builder->select('title, content, date');
-    $query = $builder->get();
+쿼리의 **SELECT** 부분을 쓸 수 있습니다
 
-    // Executes: SELECT title, content, date FROM mytable
+.. literalinclude:: query_builder/008.php
 
-.. note:: 테이블에서 모든 (\*)를 선택하는 경우 이 기능을 사용할 필요가 없습니다. 생략하면 CodeIgniter는 모든 필드를 선택하고 'SELECT \*'를 자동으로 추가합니다.
+.. note:: 테이블에서 모두(``*``)를 선택하는 경우 이 방법을 사용할 필요가 없습니다. 생략하면 CodeIgniter는 모든 필드를 선택하고 자동으로 ``SELECT *``\ 를 추가한다고 가정합니다.
 
 ``$builder->select()``\ 는 두 번째 매개 변수를 옵션으로 허용하며, 이를 ``false``\ 로 설정하면 CodeIgniter는 필드 또는 테이블 이름을 보호하지 않습니다.
 필드의 자동 이스케이프가 필드를 손상시킬 수 있는 복합 선택문이 필요한 경우에 유용합니다.
 
-::
+.. literalinclude:: query_builder/009.php
 
-    $builder->select('(SELECT SUM(payments.amount) FROM payments WHERE payments.invoice_id=4) AS amount_paid', false);
-    $query = $builder->get();
+.. _query-builder-select-rawsql:
 
-**$builder->selectMax()**
+RawSql
+^^^^^^
+
+v4.2.0부터 ``$builder->select()``\ 는 원시(raw) SQL 문자열을 표현하는 ``CodeIgniter\Database\RawSql`` 인스턴스를 허용합니다.
+
+.. literalinclude:: query_builder/099.php
+
+.. warning:: ``RawSql``\ 을 사용할 때 데이터는 수동으로 이스케이프(escape)해야 합니다. 그렇지 않으면 SQL 주입(SQL injection)이 발생할 수 있습니다.
+
+$builder->selectMax()
+---------------------
 
 쿼리의 ``SELECT MAX(field)`` 부분을 작성합니다.
 옵션으로 두 번째 매개 변수에 결과 필드의 이름을 전달하여 바꿀 수 있습니다.
 
-::
+.. literalinclude:: query_builder/010.php
 
-    $builder->selectMax('age');
-    $query = $builder->get();
-	// Produces: SELECT MAX(age) as age FROM mytable
+$builder->selectMin()
+---------------------
 
-    $builder->selectMax('age', 'member_age');
-    $query = $builder->get();
-	// Produces: SELECT MAX(age) as member_age FROM mytable
+쿼리의 **SELECT MIN(field)** 부분을 작성합니다.
+``selectMax()``\ 와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 매개 변수를 옵션으로 제공합니다.
 
-**$builder->selectMin()**
+.. literalinclude:: query_builder/011.php
 
-쿼리의 "SELECT MIN(field)" 부분을 작성합니다.
-selectMax()와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 매개 변수를 옵션으로 제공합니다.
+$builder->selectAvg()
+---------------------
 
-::
+쿼리의 **SELECT AVG(field)** 부분을 작성합니다.
+``selectMax()``\ 와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 매개 변수를 옵션으로 제공합니다.
 
-    $builder->selectMin('age');
-    $query = $builder->get();
-	// Produces: SELECT MIN(age) as age FROM mytable
+.. literalinclude:: query_builder/012.php
 
-**$builder->selectAvg()**
+$builder->selectSum()
+---------------------
 
-쿼리의 "SELECT AVG(field)" 부분을 작성합니다.
-selectMax()와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 매개 변수를 옵션으로 제공합니다.
+쿼리의 **SELECT SUM(field)** 부분을 작성합니다.
+``selectMax()``\ 와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 매개 변수를 옵션으로 제공합니다.
 
-::
+.. literalinclude:: query_builder/013.php
 
-    $builder->selectAvg('age');
-    $query = $builder->get();
-	// Produces: SELECT AVG(age) as age FROM mytable
+$builder->selectCount()
+-----------------------
 
-**$builder->selectSum()**
-
-쿼리의 "SELECT SUM(field)" 부분을 작성합니다.
-selectMax()와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 매개 변수를 옵션으로 제공합니다.
-
-::
-
-    $builder->selectSum('age');
-    $query = $builder->get();
-	// Produces: SELECT SUM(age) as age FROM mytable
-
-**$builder->selectCount()**
-
-쿼리의 "SELECT COUNT(field)" 부분을 작성합니다.
-selectMax()와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 매개 변수를 옵션으로 제공합니다.
+쿼리의 **SELECT COUNT(field)** 부분을 작성합니다.
+``selectMax()``\ 와 마찬가지로 결과 필드의 이름을 바꾸는 두 번째 매개 변수를 옵션으로 제공합니다.
 
 
 .. note:: 이 메소드는 ``groupBy()``\ 와 함께 사용할 때 특히 유용합니다. 카운트 결과는 일반적으로 ``countAll()`` 또는 ``countAllResults()``\ 를 참조하십시오.
 
-::
+.. literalinclude:: query_builder/014.php
 
-    $builder->selectCount('age');
-    $query = $builder->get();
-	// Produces: SELECT COUNT(age) as age FROM mytable
+$builder->selectSubquery()
+--------------------------
 
-**$builder->from()**
+SELECT 섹션에 서브쿼리(subquery)를 추가합니다.
+
+.. literalinclude:: query_builder/015.php
+   :lines: 2-
+
+From
+====
+
+$builder->from()
+----------------
 
 쿼리의 FROM 부분을 작성합니다.
 
-::
+.. literalinclude:: query_builder/016.php
 
-    $builder = $db->table('users');
-    $builder->select('title, content, date');
-    $builder->from('mytable');
-    $query = $builder->get();
-	// Produces: SELECT title, content, date FROM mytable
+.. note:: 앞에서 설명한 것처럼 쿼리의 **FROM** 부분은 $db->table() 메소드에서 지정할 수 있습니다. ``from()``\ 에 대한 추가 호출은 쿼리의 FROM 부분에 더 많은 테이블을 추가합니다.
 
-.. note:: 앞에서 설명한 것처럼 쿼리의 FROM 부분은 $db->table() 함수에서 지정할 수 있습니다. from()에 대한 추가 호출은 쿼리의 FROM 부분에 더 많은 테이블을 추가합니다.
+.. _query-builder-from-subquery:
 
-**$builder->join()**
+Subqueries
+==========
 
-쿼리의 JOIN 부분을 작성합니다.
+$builder->fromSubquery()
+------------------------
 
-::
+Permits you to write part of a **FROM** query as a subquery.
 
-    $builder = db->table('blogs');
-    $builder->select('*');
-    $builder->join('comments', 'comments.id = blogs.id');
-    $query = $builder->get();
+This is where we add a subquery to an existing table:
+**FROM** 쿼리의 일부를 서브쿼리(subquery)로 작성할 수 있습니다.
 
-    // Produces:
-    // SELECT * FROM blogs JOIN comments ON comments.id = blogs.id
+기존 테이블에 서브쿼리를 추가합니다.
 
-하나의 쿼리에 여러 개의 조인이 필요한 경우 여러번 함수를 호출할 수 있습니다.
+.. literalinclude:: query_builder/017.php
 
-특정 유형의 JOIN이 필요한 경우 함수의 세 번째 매개 변수를 통해 지정할 수 있습니다.
+``$db->newQuery()`` 메서드를 사용하면 서브쿼리를 기본 테이블로 만듭니다.
+
+.. literalinclude:: query_builder/018.php
+
+Join
+====
+
+$builder->join()
+----------------
+
+쿼리의 **JOIN** 부분을 작성합니다.
+
+.. literalinclude:: query_builder/019.php
+
+하나의 쿼리에 여러 개의 조인이 필요한 경우 메소드를 여러번 호출할 수 있습니다.
+
+특정 유형의 **JOIN**\ 이 필요한 경우 함수의 세 번째 매개 변수를 통해 지정할 수 있습니다.
 제공 옵션 : ``left``, ``right``, ``outer``, ``inner``, ``left outer``, ``right outer``.
 
-::
+.. literalinclude:: query_builder/020.php
 
-    $builder->join('comments', 'comments.id = blogs.id', 'left');
-    // Produces: LEFT JOIN comments ON comments.id = blogs.id
+.. _query-builder-join-rawsql:
+
+RawSql
+^^^^^^
+
+v4.2.0부터 ``$builder->join()``\ 는 원시(raw) SQL 문자열을 표현하는 ``CodeIgniter\Database\RawSql`` 인스턴스를 허용합니다.
+
+.. literalinclude:: query_builder/102.php
+
+.. warning:: ``RawSql``\ 을 사용할 때 데이터는 수동으로 이스케이프(escape)해야 합니다. 그렇지 않으면 SQL 주입(SQL injection)이 발생할 수 있습니다.
 
 *************************
 특정 데이터 찾기
 *************************
 
-**$builder->where()**
+Where
+=====
 
-이 함수를 사용하면 네 가지 방법중 하나를 사용하여 **WHERE** 절을 설정할 수 있습니다:
+$builder->where()
+-----------------
 
-.. note:: 이 함수에 전달된 모든 값(사용자 지정 문자열은 제외됨)은 자동으로 이스케이프되어 안전한 쿼리를 생성합니다.
+이 메소드를 사용하면 네 가지 방법중 하나를 사용하여 **WHERE** 절을 설정할 수 있습니다:
+
+.. note:: 이 메소드에 전달된 모든 값(사용자 지정 문자열은 제외됨)은 자동으로 이스케이프되어 안전한 쿼리를 생성합니다.
 
 .. note:: ``$builder->where()``\ 는 세 번째 매개 변수를 옵션으로 허용하며, ``false``\ 로 설정하면 CodeIgniter는 필드 또는 테이블 이름을 보호하지 않습니다.
 
-#. **key/value 방법:**
+1. key/value 메소드
+^^^^^^^^^^^^^^^^^^^^
 
-    ::
-
-        $builder->where('name', $name);
-		// Produces: WHERE name = 'Joe'
+    .. literalinclude:: query_builder/021.php
 
     등호(=)가 추가되었습니다.
 
     여러 함수 호출을 사용하는 경우 AND와 함께 체인으로 연결됩니다:
 
-    ::
+    .. literalinclude:: query_builder/022.php
 
-        $builder->where('name', $name);
-        $builder->where('title', $title);
-        $builder->where('status', $status);
-        // WHERE name = 'Joe' AND title = 'boss' AND status = 'active'
-
-#. **사용자 key/value 방법:**
+2. 사용자정의 key/value 메소드
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     비교를 제어하기 위해 첫 번째 매개 변수에 연산자를 포함시킬 수 있습니다:
 
-    ::
+    .. literalinclude:: query_builder/023.php
 
-        $builder->where('name !=', $name);
-        $builder->where('id <', $id);
-		// Produces: WHERE name != 'Joe' AND id < 45
+3. 연관 배열 메소드
+^^^^^^^^^^^^^^^^^^^^
 
-#. **연관 배열 방법:**
+    .. literalinclude:: query_builder/024.php
 
-    ::
+    이 메소드를 사용하여 사용자 연산자를 포함시킬 수도 있습니다:
 
-        $array = ['name' => $name, 'title' => $title, 'status' => $status];
-        $builder->where($array);
-        // Produces: WHERE name = 'Joe' AND title = 'boss' AND status = 'active'
+    .. literalinclude:: query_builder/025.php
 
-    이 방법을 사용하여 사용자 연산자를 포함시킬 수도 있습니다:
-
-    ::
-
-        $array = ['name !=' => $name, 'id <' => $id, 'date >' => $date];
-        $builder->where($array);
-
-#. **맞춤 문자열:**
+4. 맞춤 문자열
+^^^^^^^^^^^^^^^
 
     비교절을 직접 작성할 수 있습니다
     
-    ::
-
-        $where = "name='Joe' AND status='boss' OR status='active'";
-        $builder->where($where);
+    .. literalinclude:: query_builder/026.php
 
     
     .. warning:: 문자열 내에 사용자 지정 데이터를 사용하는 경우 데이터를 수동으로 이스케이프해야 합니다.
-        그렇지 않으면 SQL 주입(SQL injections)이 발생할 수 있습니다.
+        그렇지 않으면 SQL 주입(SQL injection)이 발생할 수 있습니다.
 
-    ::
+    .. literalinclude:: query_builder/027.php
 
-        $name = $builder->db->escape('Joe');
-        $where = "name={$name} AND status='boss' OR status='active'";
-        $builder->where($where);
+.. _query-builder-where-rawsql:
+
+5. RawSql
+^^^^^^^^^
+
+    v4.2.0부터 ``$builder->where()``\ 는 원시(raw) SQL 문자열을 표현하는 ``CodeIgniter\Database\RawSql`` 인스턴스를 허용합니다.
+
+    .. literalinclude:: query_builder/100.php
+
+    .. warning:: ``RawSql``\ 을 사용할 때 데이터는 수동으로 이스케이프(escape)해야 합니다. 그렇지 않으면 SQL 주입(SQL injection)이 발생할 수 있습니다.
 
 .. _query-builder-where-subquery:
 
-#. **서브 쿼리:**
+6. Subqueries
+^^^^^^^^^^^^^
 
-    ::
+    .. literalinclude:: query_builder/028.php
 
-        // With closure
-        $builder->where('advance_amount <', function (BaseBuilder $builder) {
-            return $builder->select('MAX(advance_amount)', false)->from('orders')->where('id >', 2);
-        });
-        // Produces: WHERE "advance_amount" < (SELECT MAX(advance_amount) FROM "orders" WHERE "id" > 2)
+$builder->orWhere()
+-------------------
 
-        // With builder directly
-        $subQuery = $db->table('orders')->select('MAX(advance_amount)', false)->where('id >', 2)
-        $builder->where('advance_amount <', $subQuery);
+이 함수는 여러 인스턴스가 OR로 결합된다는 점을 제외하고 위의 메소드와 동일합니다.
 
-**$builder->orWhere()**
+.. literalinclude:: query_builder/029.php
 
-이 함수는 여러 인스턴스가 OR로 결합된다는 점을 제외하고 위의 함수와 동일합니다.
+$builder->whereIn()
+-------------------
 
-::
+**AND**\ 로 결합된 ``WHERE field IN ('item', 'item')`` SQL 쿼리를 생성합니다.
 
-    $builder->where('name !=', $name);
-    $builder->orWhere('id >', $id);
-	// Produces: WHERE name != 'Joe' OR id > 50
-
-**$builder->whereIn()**
-
-적절한 경우 AND로 결합된 ``WHERE field IN ('item', 'item')`` SQL 쿼리를 생성합니다.
-
-::
-
-    $names = ['Frank', 'Todd', 'James'];
-    $builder->whereIn('username', $names);
-    // Produces: WHERE username IN ('Frank', 'Todd', 'James')
+.. literalinclude:: query_builder/030.php
 
 값 배열 대신 서브 쿼리를 사용할 수 있습니다.
 
-::
+.. literalinclude:: query_builder/031.php
 
-    // With closure
-    $builder->whereIn('id', function (BaseBuilder $builder) {
-        return $builder->select('job_id')->from('users_jobs')->where('user_id', 3);
-    });
-    // Produces: WHERE "id" IN (SELECT "job_id" FROM "users_jobs" WHERE "user_id" = 3)
+$builder->orWhereIn()
+---------------------
 
-    // With builder directly
-    $subQuery = $db->table('users_jobs')->select('job_id')->where('user_id', 3);
-    $builder->whereIn('id', $subQuery);
+**OR**\ 로 결합된 ``WHERE field IN ('item', 'item')`` SQL 쿼리를 생성합니다.
 
-**$builder->orWhereIn()**
-
-적절한 경우 OR로 결합된 ``WHERE field IN ('item', 'item')`` SQL 쿼리를 생성합니다.
-
-::
-
-    $names = ['Frank', 'Todd', 'James'];
-    $builder->orWhereIn('username', $names);
-    // Produces: OR username IN ('Frank', 'Todd', 'James')
+.. literalinclude:: query_builder/032.php
 
 값 배열 대신 서브 쿼리를 사용할 수 있습니다.
 
-::
+.. literalinclude:: query_builder/033.php
 
-    // With closure
-    $builder->orWhereIn('id', function (BaseBuilder $builder) {
-        return $builder->select('job_id')->from('users_jobs')->where('user_id', 3);
-    });
+$builder->whereNotIn()
+----------------------
 
-    // Produces: OR "id" IN (SELECT "job_id" FROM "users_jobs" WHERE "user_id" = 3)
+**AND**\ 로 결합된 ``WHERE field NOT IN ('item', 'item')`` SQL 쿼리를 생성합니다.
 
-    // With builder directly
-        $subQuery = $db->table('users_jobs')->select('job_id')->where('user_id', 3);
-        $builder->orWhereIn('id', $subQuery);
-
-**$builder->whereNotIn()**
-
-적절한 경우 AND로 결합된 ``WHERE field NOT IN ('item', 'item')`` SQL 쿼리를 생성합니다.
-
-::
-
-    $names = ['Frank', 'Todd', 'James'];
-    $builder->whereNotIn('username', $names);
-    // Produces: WHERE username NOT IN ('Frank', 'Todd', 'James')
+.. literalinclude:: query_builder/034.php
 
 값 배열 대신 서브 쿼리를 사용할 수 있습니다.
 
-::
+.. literalinclude:: query_builder/035.php
 
-    // With closure
-    $builder->whereNotIn('id', function (BaseBuilder $builder) {
-        return $builder->select('job_id')->from('users_jobs')->where('user_id', 3);
-    });
+$builder->orWhereNotIn()
+------------------------
 
-    // Produces: WHERE "id" NOT IN (SELECT "job_id" FROM "users_jobs" WHERE "user_id" = 3)
+**OR**\ 로 결합된 ``WHERE field NOT IN ('item', 'item')`` SQL 쿼리를 생성합니다.
 
-    // With builder directly
-    $subQuery = $db->table('users_jobs')->select('job_id')->where('user_id', 3);
-    $builder->whereNotIn('id', $subQuery);
-
-**$builder->orWhereNotIn()**
-
-적절한 경우 OR로 결합된 ``WHERE field NOT IN ('item', 'item')`` SQL 쿼리를 생성합니다.
-
-::
-
-    $names = ['Frank', 'Todd', 'James'];
-    $builder->orWhereNotIn('username', $names);
-    // Produces: OR username NOT IN ('Frank', 'Todd', 'James')
+.. literalinclude:: query_builder/036.php
 
 값 배열 대신 서브 쿼리를 사용할 수 있습니다.
 
-::
-
-    // With closure
-    $builder->orWhereNotIn('id', function (BaseBuilder $builder) {
-        return $builder->select('job_id')->from('users_jobs')->where('user_id', 3);
-    });
-
-    // Produces: OR "id" NOT IN (SELECT "job_id" FROM "users_jobs" WHERE "user_id" = 3)
-
-    // With builder directly
-    $subQuery = $db->table('users_jobs')->select('job_id')->where('user_id', 3);
-    $builder->orWhereNotIn('id', $subQuery);
+.. literalinclude:: query_builder/037.php
 
 ************************
 유사한 데이터 찾기
 ************************
 
-**$builder->like()**
+Like
+====
+
+$builder->like()
+----------------
 
 이 메소드를 사용하면 검색에 유용한 **LIKE**\ 절을 생성할 수 있습니다.
 
 .. note:: 이 메소드에 전달된 모든 값은 자동으로 이스케이프됩니다.
 
-.. note:: 모든 ``like*`` 메소드의 변형은 메소드의 다섯 번째 매개 변수에 ``true``\ 를 전달하여 대소문자를 구분하지 않는 검색을 수행하도록 강제할 수 있습니다.
+.. note:: 모든 ``like*()`` 메소드의 변형은 메소드의 다섯 번째 매개 변수에 ``true``\ 를 전달하여 대소문자를 구분하지 않는 검색을 수행하도록 강제할 수 있습니다.
     그렇지 않으면 가능한 경우 플랫폼별 기능을 사용하여 값을 소문자로 만듭니다. (예 :``HAVING LOWER (column) LIKE '% search %'``).
     이를 위해서는 ``column`` 대신 ``LOWER(column)``\ 에 대해 인덱스를 작성해야 할 수 있습니다.
 
-#. **key/value 방법:**
+1. key/value 메소드
+^^^^^^^^^^^^^^^^^^^^
 
-    ::
+    .. literalinclude:: query_builder/038.php
 
-        $builder->like('title', 'match');
-        // Produces: WHERE `title` LIKE '%match%' ESCAPE '!'
+    메소드 호출을 여러번 하게되면 **AND**\ 와 함께 체인으로 연결됩니다.
 
-    메소드 호출을 여러번 하게되면 AND와 함께 체인으로 연결됩니다::
-
-        $builder->like('title', 'match');
-        $builder->like('body', 'match');
-        // WHERE `title` LIKE '%match%' ESCAPE '!' AND  `body` LIKE '%match%' ESCAPE '!'
+    .. literalinclude:: query_builder/039.php
 
     와일드카드(%)의 위치를 제어하려면 옵션으로 지정된 세 번째 인수를 사용합니다.
-    옵션은 'before', 'after', 'both'(기본값)입니다.
+    옵션 : ``before``, ``after``, ``both``\ (기본값)
 
-    ::
+    .. literalinclude:: query_builder/040.php
 
-        $builder->like('title', 'match', 'before');    // Produces: WHERE `title` LIKE '%match' ESCAPE '!'
-        $builder->like('title', 'match', 'after');    // Produces: WHERE `title` LIKE 'match%' ESCAPE '!'
-        $builder->like('title', 'match', 'both');    // Produces: WHERE `title` LIKE '%match%' ESCAPE '!'
+2. 연관 배열 메소드
+^^^^^^^^^^^^^^^^^^^^
 
-#. **연관 배열 방법:**
+    .. literalinclude:: query_builder/041.php
 
-    ::
+.. _query-builder-like-rawsql:
 
-        $array = ['title' => $match, 'page1' => $match, 'page2' => $match];
-        $builder->like($array);
-        // WHERE `title` LIKE '%match%' ESCAPE '!' AND  `page1` LIKE '%match%' ESCAPE '!' AND  `page2` LIKE '%match%' ESCAPE '!'
+3. RawSql
+^^^^^^^^^
 
-**$builder->orLike()**
+    v4.2.0부터 ``$builder->like()``\ 는 원시(raw) SQL 문자열을 표현하는 ``CodeIgniter\Database\RawSql`` 인스턴스를 허용합니다.
 
-이 메소드는 여러 인스턴스가 OR로 결합된다는 점을 제외하면 위의 메소드와 동일합니다.
+    .. literalinclude:: query_builder/101.php
 
-::
+    .. warning:: ``RawSql``\ 을 사용할 때 데이터는 수동으로 이스케이프(escape)해야 합니다. 그렇지 않으면 SQL 주입(SQL injection)이 발생할 수 있습니다.
 
-    $builder->like('title', 'match'); $builder->orLike('body', $match);
-    // WHERE `title` LIKE '%match%' ESCAPE '!' OR  `body` LIKE '%match%' ESCAPE '!'
+$builder->orLike()
+------------------
 
-**$builder->notLike()**
+이 메소드는 여러 인스턴스가 **OR**\ 로 결합된다는 점을 제외하면 위의 메소드와 동일합니다.
 
-이 메소드는 NOT LIKE문을 생성한다는 점을 제외하면 ``like()``\ 와 동일합니다.
+.. literalinclude:: query_builder/042.php
 
-::
+$builder->notLike()
+-------------------
 
-    $builder->notLike('title', 'match'); // WHERE `title` NOT LIKE '%match% ESCAPE '!'
+이 메소드는 **NOT LIKE**\ 문을 생성한다는 점을 제외하면 ``like()``\ 와 동일합니다.
 
-**$builder->orNotLike()**
+.. literalinclude:: query_builder/043.php
 
-이 메소드는 여러 인스턴스가 OR로 결합된다는 점을 제외하면 ``notLike()``\ 와 동일합니다.
+$builder->orNotLike()
+---------------------
 
-::
+이 메소드는 여러 인스턴스가 **OR**\ 로 결합된다는 점을 제외하면 ``notLike()``\ 와 동일합니다.
 
-    $builder->like('title', 'match');
-    $builder->orNotLike('body', 'match');
-    // WHERE `title` LIKE '%match% OR  `body` NOT LIKE '%match%' ESCAPE '!'
+.. literalinclude:: query_builder/044.php
 
-**$builder->groupBy()**
+$builder->groupBy()
+-------------------
 
-검색어의 GROUP BY 부분을 작성합니다.
+검색어의 **GROUP BY** 부분을 작성합니다.
 
-::
-
-    $builder->groupBy("title");
-	// Produces: GROUP BY title
+.. literalinclude:: query_builder/045.php
 
 여러 값의 배열을 전달할 수도 있습니다.
 
-::
+.. literalinclude:: query_builder/046.php
 
-    $builder->groupBy(["title", "date"]);
-	// Produces: GROUP BY title, date
-
-**$builder->distinct()**
+$builder->distinct()
+--------------------
 
 "DISTINCT" 키워드를 쿼리에 추가합니다.
 
-::
+.. literalinclude:: query_builder/047.php
 
-    $builder->distinct();
-    $builder->get();
-	// Produces: SELECT DISTINCT * FROM mytable
-
-**$builder->having()**
+$builder->having()
+------------------
 
 쿼리의 HAVING 부분을 작성합니다.
 가능한 구문은 2개이며, 인수는 1개 또는 2개입니다.
 
-::
-
-    $builder->having('user_id = 45'); // Produces: HAVING user_id = 45
-    $builder->having('user_id',  45); // Produces: HAVING user_id = 45
+.. literalinclude:: query_builder/048.php
 
 여러 값의 배열을 전달할 수도 있습니다.
 
-::
-
-    $builder->having(['title =' => 'My Title', 'id <' => $id]);
-    // Produces: HAVING title = 'My Title', id < 45
+.. literalinclude:: query_builder/049.php
 
 CodeIgniter는 기본적으로 쿼리를 이스케이프하여 데이터베이스에 전송합니다. 이스케이프되는 것을 방지하고 싶다면 옵션으로 지정된 세 번째 인수를 ``false``\ 로 설정하십시오.
 
-::
+.. literalinclude:: query_builder/050.php
 
-    $builder->having('user_id',  45); // Produces: HAVING `user_id` = 45 in some databases such as MySQL
-    $builder->having('user_id',  45, false); // Produces: HAVING user_id = 45
+$builder->orHaving()
+--------------------
 
-**$builder->orHaving()**
+``having()``\ 과 동일하며 여러 절을 **OR**\ 로 구분합니다.
 
-``having()``\ 과 동일하며 여러 절을 "OR"로 구분합니다.
+$builder->havingIn()
+--------------------
 
-**$builder->havingIn()**
+**AND**\ 로 결합된 ``HAVING field IN ( 'item', 'item')`` SQL쿼리를 생성합니다.
 
-적절한 경우 AND로 결합된 ``HAVING field IN ( 'item', 'item')`` SQL쿼리를 생성합니다.
-
-::
-
-    $groups = [1, 2, 3];
-    $builder->havingIn('group_id', $groups);
-    // Produces: HAVING group_id IN (1, 2, 3)
+.. literalinclude:: query_builder/051.php
 
 값 배열 대신 서브 쿼리를 사용할 수 있습니다.
 
-::
+.. literalinclude:: query_builder/052.php
 
-    // With closure
-    $builder->havingIn('id', function (BaseBuilder $builder) {
-        return $builder->select('user_id')->from('users_jobs')->where('group_id', 3);
-    });
-    // Produces: HAVING "id" IN (SELECT "user_id" FROM "users_jobs" WHERE "group_id" = 3)
+$builder->orHavingIn()
+----------------------
 
-    // With builder directly
-    $subQuery = $db->table('users_jobs')->select('user_id')->where('group_id', 3);
-    $builder->havingIn('id', $subQuery);
+**OR**\ 로 결합된 ``HAVING field IN ( 'item', 'item')`` SQL 쿼리를 생성합니다.
 
-**$builder->orHavingIn()**
-
-적절한 경우 OR로 결합된 ``HAVING field IN ( 'item', 'item')`` SQL 쿼리를 생성합니다.
-
-::
-
-    $groups = [1, 2, 3];
-    $builder->orHavingIn('group_id', $groups);
-    // Produces: OR group_id IN (1, 2, 3)
+.. literalinclude:: query_builder/053.php
 
 값 배열 대신 서브 쿼리를 사용할 수 있습니다.
 
-::
+.. literalinclude:: query_builder/054.php
 
-    //With closure
-    $builder->orHavingIn('id', function (BaseBuilder $builder) {
-        return $builder->select('user_id')->from('users_jobs')->where('group_id', 3);
-    });
+$builder->havingNotIn()
+-----------------------
 
-    // Produces: OR "id" IN (SELECT "user_id" FROM "users_jobs" WHERE "group_id" = 3)
+**AND**\ 로 결합된 ``HAVING field NOT IN ( 'item', 'item')`` SQL 쿼리를 생성합니다.
 
-    // With builder directly
-    $subQuery = $db->table('users_jobs')->select('user_id')->where('group_id', 3);
-    $builder->orHavingIn('id', $subQuery);
-
-**$builder->havingNotIn()**
-
-적절한 경우 AND로 결합된 ``HAVING field NOT IN ( 'item', 'item')`` SQL 쿼리를 생성합니다.
-
-::
-
-    $groups = [1, 2, 3];
-    $builder->havingNotIn('group_id', $groups);
-    // Produces: HAVING group_id NOT IN (1, 2, 3)
+.. literalinclude:: query_builder/055.php
 
 값 배열 대신 서브 쿼리를 사용할 수 있습니다.
 
-::
+.. literalinclude:: query_builder/056.php
 
-    //With closure
-    $builder->havingNotIn('id', function (BaseBuilder $builder) {
-        return $builder->select('user_id')->from('users_jobs')->where('group_id', 3);
-    });
+$builder->orHavingNotIn()
+-------------------------
 
-    // Produces: HAVING "id" NOT IN (SELECT "user_id" FROM "users_jobs" WHERE "group_id" = 3)
+**OR**\ 로 결합된 ``HAVING field NOT IN ( 'item', 'item')`` SQL 쿼리를 생성합니다.
 
-    // With builder directly
-    $subQuery = $db->table('users_jobs')->select('user_id')->where('group_id', 3);
-    $builder->havingNotIn('id', $subQuery);
-
-**$builder->orHavingNotIn()**
-
-적절한 경우 OR로 결합된 ``HAVING field NOT IN ( 'item', 'item')`` SQL 쿼리를 생성합니다.
-
-::
-
-    $groups = [1, 2, 3];
-    $builder->havingNotIn('group_id', $groups);
-    // Produces: OR group_id NOT IN (1, 2, 3)
+.. literalinclude:: query_builder/057.php
 
 값 배열 대신 서브 쿼리를 사용할 수 있습니다.
 
-::
+.. literalinclude:: query_builder/058.php
 
-    //With closure
-    $builder->orHavingNotIn('id', function (BaseBuilder $builder) {
-        return $builder->select('user_id')->from('users_jobs')->where('group_id', 3);
-    });
+$builder->havingLike()
+----------------------
 
-    // Produces: OR "id" NOT IN (SELECT "user_id" FROM "users_jobs" WHERE "group_id" = 3)
-
-    // With builder directly
-    $subQuery = $db->table('users_jobs')->select('user_id')->where('group_id', 3);
-    $builder->orHavingNotIn('id', $subQuery);
-
-**$builder->havingLike()**
-
-이 메소드를 사용하면 HAVING 부분 대해 **LIKE** 절을 생성할 수 있으며 검색에 유용합니다.
+이 메소드를 사용하면 **HAVING** 부분 대해 **LIKE** 절을 생성할 수 있으며 검색에 유용합니다.
 
 .. note:: 이 메소드에 전달 된 모든 값은 자동으로 이스케이프됩니다.
 
-.. note:: 모든 ``havingLike*`` 메소드의 변형은 메소드의 다섯 번째 매개 변수에 ``true``\ 를 전달하여 대소문자를 구분하지 않는 검색을 수행하도록 강제할 수 있습니다.
+.. note:: 모든 ``havingLike*()`` 메소드의 변형은 메소드의 다섯 번째 매개 변수에 ``true``\ 를 전달하여 대소문자를 구분하지 않는 검색을 수행하도록 강제할 수 있습니다.
     그렇지 않으면 가능한 경우 플랫폼별 기능을 사용하여 값을 소문자로 만듭니다. (예 :``HAVING LOWER (column) LIKE '% search %'``).
     이를 위해서는 ``column`` 대신 ``LOWER(column)``\ 에 대해 인덱스를 작성해야 할 수 있습니다.
 
-#. **key/value 방법:**
+1. key/value 메소드
+^^^^^^^^^^^^^^^^^^^^
 
-    ::
+    .. literalinclude:: query_builder/059.php
 
-        $builder->havingLike('title', 'match');
-        // Produces: HAVING `title` LIKE '%match%' ESCAPE '!'
+    메소드를 여러번 호출하는 경우 **AND**\ 와 함께 체인으로 연결됩니다.
 
-    메소드를 여러번 호출하는 경우 AND와 함께 체인으로 연결됩니다.
+    .. literalinclude:: query_builder/060.php
 
-    ::
+    와일드카드(**%**)의 위치를 제어하려면 옵션으로 지정된 세 번째 인수를 사용합니다.
+    옵션 : ``before``, ``after``, ``both``\ (기본값)
 
-        $builder->havingLike('title', 'match');
-        $builder->havingLike('body', 'match');
-        // HAVING `title` LIKE '%match%' ESCAPE '!' AND  `body` LIKE '%match% ESCAPE '!'
+    .. literalinclude:: query_builder/061.php
 
-    와일드카드(%)의 위치를 제어하려면 옵션으로 지정된 세 번째 인수를 사용합니다.
-    옵션은 'before', 'after', 'both'(기본값)입니다.
+2. 연관 배열 메소드
+^^^^^^^^^^^^^^^^^^^^
 
-    ::
+    .. literalinclude:: query_builder/062.php
 
-        $builder->havingLike('title', 'match', 'before');    // Produces: HAVING `title` LIKE '%match' ESCAPE '!'
-        $builder->havingLike('title', 'match', 'after');    // Produces: HAVING `title` LIKE 'match%' ESCAPE '!'
-        $builder->havingLike('title', 'match', 'both');    // Produces: HAVING `title` LIKE '%match%' ESCAPE '!'
+$builder->orHavingLike()
+------------------------
 
-#. **연관 배열 방법:**
+이 메소드는 여러 인스턴스가 **OR**\ 로 결합된다는 점을 제외하면 위의 메소드와 동일합니다.
 
-    ::
+.. literalinclude:: query_builder/063.php
 
-        $array = ['title' => $match, 'page1' => $match, 'page2' => $match];
-        $builder->havingLike($array);
-        // HAVING `title` LIKE '%match%' ESCAPE '!' AND  `page1` LIKE '%match%' ESCAPE '!' AND  `page2` LIKE '%match%' ESCAPE '!'
+$builder->notHavingLike()
+-------------------------
 
-**$builder->orHavingLike()**
+이 메소드는 **NOT LIKE**\ 문을 생성한다는 점을 제외하면 ``havingLike()``\ 와 동일합니다.
 
-이 메소드는 여러 인스턴스가 OR로 결합된다는 점을 제외하면 위의 메소드와 동일합니다.
+.. literalinclude:: query_builder/064.php
 
-::
+$builder->orNotHavingLike()
+---------------------------
 
-    $builder->havingLike('title', 'match'); $builder->orHavingLike('body', $match);
-    // HAVING `title` LIKE '%match%' ESCAPE '!' OR  `body` LIKE '%match%' ESCAPE '!'
+이 메소드는 여러 인스턴스가 **OR**\ 로 결합된다는 점을 제외하면 ``notHavingLike()``\ 와 동일합니다.
 
-**$builder->notHavingLike()**
+.. literalinclude:: query_builder/065.php
 
-이 메소드는 NOT LIKE문을 생성한다는 점을 제외하면 ``havingLike()``\ 와 동일합니다.
-
-::
-
-    $builder->notHavingLike('title', 'match');
-	// HAVING `title` NOT LIKE '%match% ESCAPE '!'
-
-**$builder->orNotHavingLike()**
-
-이 메소드는 여러 인스턴스가 OR로 결합된다는 점을 제외하면 ``notHavingLike()``\ 와 동일합니다.
-
-::
-
-    $builder->havingLike('title', 'match');
-    $builder->orNotHavingLike('body', 'match');
-    // HAVING `title` LIKE '%match% OR  `body` NOT LIKE '%match%' ESCAPE '!'
 
 ****************
 결과 정렬
 ****************
 
-**$builder->orderBy()**
+OrderBy
+=======
 
+$builder->orderBy()
+-------------------
 
-ORDER BY 절을 설정합니다.
+**ORDER BY** 절을 설정합니다.
 
 첫 번째 매개 변수에는 정렬하려는 열(column) 이름이 포함됩니다.
 
 두 번째 매개 변수를 사용하면 정렬 방향을 설정할 수 있습니다.
-값은 **ASC**, **DESC**, **RANDOM**.
+값은 ``ASC``, ``DESC``, ``RANDOM``
 
-::
-
-    $builder->orderBy('title', 'DESC');
-    // Produces: ORDER BY `title` DESC
+.. literalinclude:: query_builder/066.php
 
 첫 번째 매개 변수에 사용자 정의 문자열을 전달할 수도 있습니다
 
-::
-
-    $builder->orderBy('title DESC, name ASC');
-    // Produces: ORDER BY `title` DESC, `name` ASC
+.. literalinclude:: query_builder/067.php
 
 여러개의 필드가 필요한 경우 함수를 여러번 호출할 수 있습니다.
 
-::
-
-    $builder->orderBy('title', 'DESC');
-    $builder->orderBy('name', 'ASC');
-    // Produces: ORDER BY `title` DESC, `name` ASC
+.. literalinclude:: query_builder/068.php
 
 방향 옵션을 **RANDOM**\ 으로 할 때 숫자로 지정하지 않으면 첫 번째 매개 변수가 무시됩니다.
 
-::
-
-    $builder->orderBy('title', 'RANDOM');
-    // Produces: ORDER BY RAND()
-
-    $builder->orderBy(42, 'RANDOM');
-    // Produces: ORDER BY RAND(42)
-
-.. note:: 무작위 순서는 현재 Oracle에서 지원되지 않으며 대신 ASC로 기본 설정됩니다.
+.. literalinclude:: query_builder/069.php
 
 ******************************************
 결과 제한(Limit) 또는 카운팅(Counting)
 ******************************************
 
-**$builder->limit()**
+Limit
+=====
+
+$builder->limit()
+-----------------
 
 쿼리에서 반환하려는 행 수를 제한할 수 있습니다
 
-::
-
-    $builder->limit(10);  // Produces: LIMIT 10
+.. literalinclude:: query_builder/070.php
 
 두 번째 매개 변수를 사용하면 결과 오프셋을 설정할 수 있습니다.
 
-::
+.. literalinclude:: query_builder/071.php
 
-    $builder->limit(10, 20);
-	// Produces: LIMIT 20, 10 (in MySQL. Other databases have slightly different syntax)
-
-
-**$builder->countAllResults()**
+$builder->countAllResults()
+---------------------------
 
 쿼리 빌더를 통해 조건에 맞는 행의 갯수를 반환합니다.
 ``where()``, ``orWhere()``, ``like()``, ``orLike()``\ 등과 같은 쿼리 빌더 메소드를 허용합니다.
 
-::
-
-    echo $builder->countAllResults();  // Produces an integer, like 25
-    $builder->like('title', 'match');
-    $builder->from('my_table');
-    echo $builder->countAllResults(); // Produces an integer, like 17
+.. literalinclude:: query_builder/072.php
 
 그러나 이 메소드는 ``select()``에 전달했을 수 있는 모든 필드 값을 재설정합니다.
 유지하고 싶다면 첫 번째 매개 변수로 ``false``\ 를 전달합니다.
 
-::
+.. literalinclude:: query_builder/073.php
 
-    echo $builder->countAllResults(false); // Produces an integer, like 17
-
-**$builder->countAll()**
+$builder->countAll()
+--------------------
 
 특정 테이블의 모든 행의 갯수를 반환니다.
 
-::
+.. literalinclude:: query_builder/074.php
 
-    echo $builder->countAll(); // Produces an integer, like 25
-
-countAllResult 메소드와 마찬가지로 이 메소드도 ``select()``\ 에 전달되었을 수 있는 모든 필드 값을 재설정합니다.
+``countAllResult()`` 메소드와 마찬가지로 이 메소드도 ``select()``\ 에 전달되었을 수 있는 모든 필드 값을 재설정합니다.
 유지하고 싶다면 첫 번째 매개 변수로 ``false``\ 를 전달합니다.
+
+.. _query-builder-union:
+
+*************
+Union queries
+*************
+
+Union
+=====
+
+$builder->union()
+-----------------
+
+둘 이상의 SELECT 문의 결과 집합을 결합하는 데 사용됩니다. 고유한 결과만 반환합니다.
+
+.. literalinclude:: query_builder/103.php
+
+.. note:: DBMS(예: MSSQL 및 Oracle)의 올바른 작업을 위해 쿼리는 ``SELECT * FROM ( ... ) alias``\ 로 래핑됩니다. 기본 쿼리는 항상 ``uwrp0``\ 라는 별칭을 갖습니다. ``union()``을 통해 추가된 각 후속 쿼리에는 별칭 ``uwrpN+1``\ 이 부여 됩니다.
+
+모든 통합 쿼리는 ``union()`` 메서드가 호출된 순서에 관계없이 기본 쿼리 뒤에 추가됩니다.
+``limit()``, ``orderBy()`` 메소드는 ``union()`` 이후에 호출되더라도 기본 쿼리에 추가됩니다.
+
+경우에 따라 쿼리 결과의 레코드 수를 정렬하거나 제한해야 할 수도 있습니다.
+해결책은 ``$db->newQuery()``\ 를 통해 생성된 래퍼를 사용하는 것입니다.
+아래 예에서는 처음 5명의 사용자 + 마지막 5명의 사용자를 얻고 결과를 id로 정렬합니다.
+
+.. literalinclude:: query_builder/104.php
+
+$builder->unionAll()
+--------------------
+
+동작은 ``union()`` 메서드와 동일하지만 모든 결과가 반환됩니다.
 
 **************
 쿼리 그룹화
 **************
 
+Group
+=====
+
 쿼리 그룹화를 사용하면 WHERE절 그룹을 괄호로 묶어 그룹을 만들 수 있습니다.
 이를 이요하여 복잡한 WHERE절을 쿼리로 만들 수 있습니다. 
 중첩 그룹이 지원됩니다.
 
-::
-
-    $builder->select('*')->from('my_table')
-        ->groupStart()
-            ->where('a', 'a')
-            ->orGroupStart()
-                ->where('b', 'b')
-                ->where('c', 'c')
-            ->groupEnd()
-        ->groupEnd()
-        ->where('d', 'd')
-    ->get();
-
-    // Generates:
-    // SELECT * FROM (`my_table`) WHERE ( `a` = 'a' OR ( `b` = 'b' AND `c` = 'c' ) ) AND `d` = 'd'
+.. literalinclude:: query_builder/075.php
 
 .. note:: 그룹은 균형을 유지해야합니다. 모든 ``groupStart()``\ 가 ``groupEnd()``\ 와 쌍으로 일치하는지 확인하십시오.
 
-**$builder->groupStart()**
+$builder->groupStart()
+----------------------
 
-쿼리의 WHERE절에 여는 괄호를 추가하여 새 그룹을 시작합니다.
+쿼리의 **WHERE**\ 절에 여는 괄호를 추가하여 새 그룹을 시작합니다.
 
-**$builder->orGroupStart()**
+$builder->orGroupStart()
+------------------------
 
-쿼리의 WHERE절에 'OR' 접두사와 함께 여는 괄호를 추가하여 새 그룹을 시작합니다.
+쿼리의 **WHERE**\ 절에 **OR** 접두사와 함께 여는 괄호를 추가하여 새 그룹을 시작합니다.
 
-**$builder->notGroupStart()**
+$builder->notGroupStart()
+-------------------------
 
-쿼리의 WHERE절에 'NOT' 접두사와 함께 여는 괄호를 추가하여 새 그룹을 시작합니다.
+쿼리의 **WHERE**\ 절에 **NOT** 접두사와 함께 여는 괄호를 추가하여 새 그룹을 시작합니다.
 
-**$builder->orNotGroupStart()**
+$builder->orNotGroupStart()
+---------------------------
 
-쿼리의 WHERE절에 'OR NOT' 접두사와 함께 여는 괄호를 추가하여 새 그룹을 시작합니다.
+쿼리의 **WHERE**\ 절에 **OR NOT** 접두사와 함께 여는 괄호를 추가하여 새 그룹을 시작합니다.
 
-**$builder->groupEnd()**
+$builder->groupEnd()
+--------------------
 
-쿼리의 WHERE절에 닫는 괄호를 추가하여 현재 그룹을 종료합니다.
+쿼리의 **WHERE**\ 절에 닫는 괄호를 추가하여 현재 그룹을 종료합니다.
 
-**$builder->havingGroupStart()**
+$builder->havingGroupStart()
+----------------------------
 
-쿼리의 HAVING절에 여는 괄호를 추가하여 새 그룹을 시작합니다.
+쿼리의 **HAVING**\ 절에 여는 괄호를 추가하여 새 그룹을 시작합니다.
 
-**$builder->orHavingGroupStart()**
+$builder->orHavingGroupStart()
+------------------------------
 
-쿼리의 HAVING절에 'OR' 접두사와 함께 여는 괄호를 추가하여 새 그룹을 시작합니다.
+쿼리의 **HAVING**\ 절에 **OR** 접두사와 함께 여는 괄호를 추가하여 새 그룹을 시작합니다.
 
-**$builder->notHavingGroupStart()**
+$builder->notHavingGroupStart()
+-------------------------------
 
-쿼리의 HAVING절에 'NOT' 접두사와 함께 여는 괄호를 추가하여 새 그룹을 시작합니다.
+쿼리의 **HAVING**\ 절에 **NOT** 접두사와 함께 여는 괄호를 추가하여 새 그룹을 시작합니다.
 
-**$builder->orNotHavingGroupStart()**
+$builder->orNotHavingGroupStart()
+---------------------------------
 
-쿼리의 HAVING절에 'OR NOT' 접두사와 함께 여는 괄호를 추가하여 새 그룹을 시작합니다.
+쿼리의 **HAVING**\ 절에 **OR NOT** 접두사와 함께 여는 괄호를 추가하여 새 그룹을 시작합니다.
 
-**$builder->havingGroupEnd()**
+$builder->havingGroupEnd()
+--------------------------
 
-쿼리의 HAVING절에 닫는 괄호를 추가하여 현재 그룹을 종료합니다.
+쿼리의 **HAVING**\ 절에 닫는 괄호를 추가하여 현재 그룹을 종료합니다.
 
 ********************
 Inserting 데이타
 ********************
 
-**$builder->insert()**
+Insert
+======
+
+$builder->insert()
+------------------
 
 제공한 데이터를 기반으로 Insert 문자열을 생성하고 쿼리를 실행합니다.
-**배열** 또는 **객체(object)**\ 를 함수에 전달할 수 있습니다. 
+**배열** 또는 **객체(object)**\ 를 메소드에 전달할 수 있습니다. 
 다음은 배열을 사용하는 예입니다
 
-::
-
-    $data = [
-        'title' => 'My title',
-        'name'  => 'My Name',
-        'date'  => 'My date',
-    ];
-
-    $builder->insert($data);
-    // Produces: INSERT INTO mytable (title, name, date) VALUES ('My title', 'My name', 'My date')
+.. literalinclude:: query_builder/076.php
 
 첫 번째 매개 변수는 값의 연관 배열입니다.
 
 다음은 객체를 사용하는 예입니다
 
-::
-
-    class Myclass 
-    {
-        public $title   = 'My Title';
-        public $content = 'My Content';
-        public $date    = 'My Date';
-    }
-
-    $object = new Myclass;
-    $builder->insert($object);
-    // Produces: INSERT INTO mytable (title, content, date) VALUES ('My Title', 'My Content', 'My Date')
+.. literalinclude:: query_builder/077.php
 
 첫 번째 매개 변수는 객체입니다.
 
 .. note:: 모든 값은 자동으로 이스케이프됩니다.
 
-**$builder->ignore()**
+$builder->ignore()
+------------------
 
 제공한 데이터를 기반으로 인서트 무시 문자열(insert ignore string)을 생성하고 쿼리를 실행합니다.
 따라서 동일한 기본 키를 가진 항목이 이미 있으면 쿼리가 인서트(insert)되지 않습니다.
-선택적으로 **boolean**\ 을 함수에 전달할 수 있습니다.
+선택적으로 **boolean**\ 을 메소드에 전달할 수 있습니다.
 
 위 예제의 배열을 사용한 예제입니다.
 
-::
+.. literalinclude:: query_builder/078.php
 
-    $data = [
-        'title' => 'My title',
-        'name'  => 'My Name',
-        'date'  => 'My date',
-    ];
-
-    $builder->ignore(true)->insert($data);
-    // Produces: INSERT OR IGNORE INTO mytable (title, name, date) VALUES ('My title', 'My name', 'My date')
-
-
-**$builder->getCompiledInsert()**
+$builder->getCompiledInsert()
+-----------------------------
 
 ``$builder->insert()``\ 와 같이 Insert 쿼리를 컴파일하지만 쿼리를 *실행*\ 하지는 않습니다.
 이 메소드는 SQL 쿼리를 문자열로 반환합니다.
 
-Example::
-
-    $data = [
-        'title' => 'My title',
-        'name'  => 'My Name',
-        'date'  => 'My date',
-    ];
-
-    $sql = $builder->set($data)->getCompiledInsert();
-    echo $sql;
-
-    // Produces string: INSERT INTO mytable (`title`, `name`, `date`) VALUES ('My title', 'My name', 'My date')
+.. literalinclude:: query_builder/079.php
 
 첫 번째 매개 변수를 사용하면 쿼리 빌더의 쿼리를 재설정할 지 여부를 설정할 수 있습니다. (기본적으로 ``$builder->insert()``\ 와 같습니다)
 
-::
-
-    echo $builder->set('title', 'My Title')->getCompiledInsert(false);
-
-    // Produces string: INSERT INTO mytable (`title`) VALUES ('My Title')
-
-    echo $builder->set('content', 'My Content')->getCompiledInsert();
-
-    // Produces string: INSERT INTO mytable (`title`, `content`) VALUES ('My Title', 'My Content')
+.. literalinclude:: query_builder/080.php
 
 두 번째 쿼리가 작동한 이유는 ``$builder->resetQuery()``\ 를 사용하여 값을 재 설정하거나, 값을 재설정하는  ``$builder->insert()``\ 를 사용하여 쿼리가 실행되지 않았기 때문입니다.
 
 .. note:: 이 방법은 insertBatch() 에서는 작동하지 않습니다.
 
-**$builder->insertBatch()**
+insertBatch
+===========
+
+$builder->insertBatch()
+-----------------------
 
 제공한 데이터를 기반으로 Insert 문자열을 생성하고 쿼리를 실행합니다.
 **배열** 또는 **객체(object)**\ 를 함수에 전달할 수 있습니다. 
 다음은 배열을 사용하는 예입니다
 
-::
-
-    $data = [
-        [
-            'title' => 'My title',
-            'name'  => 'My Name',
-            'date'  => 'My date',
-        ],
-        [
-            'title' => 'Another title',
-            'name'  => 'Another Name',
-            'date'  => 'Another date',
-        ]
-    ];
-
-    $builder->insertBatch($data);
-    // Produces: INSERT INTO mytable (title, name, date) VALUES ('My title', 'My name', 'My date'),  ('Another title', 'Another name', 'Another date')
+.. literalinclude:: query_builder/081.php
 
 첫 번째 매개 변수는 값의 연관 배열입니다.
 
@@ -1007,183 +789,84 @@ Example::
 Updating 데이타
 *******************
 
-**$builder->replace()**
+Update
+======
+
+$builder->replace()
+-------------------
 
 이 메소드는 기본적으로 *PRIMARY* 와 *UNIQUE* 키를 기준으로 ``DELETE + INSERT``\ 에 대한 SQL 표준인 ``REPLACE``\ 문을 실행합니다.
 이것으로 당신은 ``select()``, ``update()``, ``delete()``, ``insert()``\ 의 조합으로 구성된 복잡한 논리를 구현할 필요가 없어집니다.
 
-::
-
-    $data = [
-        'title' => 'My title',
-        'name'  => 'My Name',
-        'date'  => 'My date',
-    ];
-
-    $builder->replace($data);
-
-    // Executes: REPLACE INTO mytable (title, name, date) VALUES ('My title', 'My name', 'My date')
+.. literalinclude:: query_builder/082.php
 
 위의 예에서 *title* 필드가 기본 키라고 가정하면 *title* 값으로 'My title'\ 이 포함된 행은 새 행 데이터로 대체되어 삭제됩니다.
 
 ``set()`` 메소드 사용도 허용되며 ``insert()``\ 와 마찬가지로 모든 필드가 자동으로 이스케이프됩니다.
 
-**$builder->set()**
+$builder->set()
+---------------
 
-이 기능을 사용하면 Insert 또는 Update 값을 설정할 수 있습니다.
+이 메소드를 사용하면 Insert 또는 Update 값을 설정할 수 있습니다.
 
-**데이터 배열을 직접 Insert 또는 Update\ 로 전달하는 대신 사용할 수 있습니다.**
+**데이터 배열을 직접 Insert() 또는 Update() 메소드로 전달하는 대신 사용할 수 있습니다.**
 
-::
-
-    $builder->set('name', $name);
-    $builder->insert();
-	// Produces: INSERT INTO mytable (`name`) VALUES ('{$name}')
+.. literalinclude:: query_builder/083.php
 
 여러번 사용하는 경우 Insert 또는 Update 수행 여부에 따라 올바르게 조립됩니다.
 
-::
+.. literalinclude:: query_builder/084.php
 
-    $builder->set('name', $name);
-    $builder->set('title', $title);
-    $builder->set('status', $status);
-    $builder->insert();
-
-**set()**\ 은 옵션으로 세 번째 매개 변수 (``$escape``)도 허용하며 이 값을 ``false``\ 로 설정하면 데이터가 이스케이프되지 않습니다.
+``set()``\ 은 옵션으로 세 번째 매개 변수 (``$escape``)도 허용하며 이 값을 ``false``\ 로 설정하면 데이터가 이스케이프되지 않습니다.
 차이점을 설명하기 위해 다음 예제는 이스케이프 매개 변수를 사용하거나 사용하지 않고 ``set()``\ 을 사용합니다.
 
-::
-
-    $builder->set('field', 'field+1', false);
-    $builder->where('id', 2);
-    $builder->update();
-	// gives UPDATE mytable SET field = field+1 WHERE `id` = 2
-
-    $builder->set('field', 'field+1');
-    $builder->where('id', 2);
-    $builder->update();
-	// gives UPDATE `mytable` SET `field` = 'field+1' WHERE `id` = 2
+.. literalinclude:: query_builder/085.php
 
 이 메소드에 연관 배열을 전달할 수 있습니다
 
-::
-
-    $array = [
-        'name'   => $name,
-        'title'  => $title,
-        'status' => $status,
-    ];
-
-    $builder->set($array);
-    $builder->insert();
+.. literalinclude:: query_builder/086.php
 
 또는 객체
 
-::
+.. literalinclude:: query_builder/087.php
 
-    class Myclass 
-    {
-        public $title   = 'My Title';
-        public $content = 'My Content';
-        public $date    = 'My Date';
-    }
-
-    $object = new Myclass;
-    $builder->set($object);
-    $builder->insert();
-
-**$builder->update()**
+$builder->update()
+------------------
 
 업데이트 문자열을 생성하고 제공한 데이터를 기반으로 쿼리를 실행합니다.
 **배열** 또는 **객체**\ 를 함수에 전달할 수 있습니다.
 다음은 배열을 사용하는 예입니다
 
-::
-
-    $data = [
-        'title' => $title,
-        'name'  => $name,
-        'date'  => $date,
-    ];
-
-    $builder->where('id', $id);
-    $builder->update($data);
-    // Produces:
-    //
-    //    UPDATE mytable
-    //    SET title = '{$title}', name = '{$name}', date = '{$date}'
-    //    WHERE id = $id
+.. literalinclude:: query_builder/088.php
 
 또는 객체를 제공할 수 있습니다.
 
-::
-
-    class Myclass 
-    {
-        public $title   = 'My Title';
-        public $content = 'My Content';
-        public $date    = 'My Date';
-    }
-
-    $object = new Myclass;
-    $builder->where('id', $id);
-    $builder->update($object);
-    // Produces:
-    //
-    // UPDATE `mytable`
-    // SET `title` = '{$title}', `name` = '{$name}', `date` = '{$date}'
-    // WHERE id = `$id`
+.. literalinclude:: query_builder/089.php
 
 .. note:: 모든 값은 자동으로 이스케이프됩니다.
 
-``$builder->where()`` 함수를 사용하면 WHERE절을 설정할 수 있습니다.
-선택적으로 이 정보를 문자열로 업데이트 함수에 직접 전달할 수 있습니다
+``$builder->where()`` 함수를 사용하면 **WHERE**\ 절을 설정할 수 있습니다.
+선택적으로 이 정보를 문자열로 ``update()`` 메소드에 직접 전달할 수 있습니다
 
-::
-
-    $builder->update($data, "id = 4");
+.. literalinclude:: query_builder/090.php
 
 또는 배열로
 
-::
-
-    $builder->update($data, ['id' => $id]);
+.. literalinclude:: query_builder/091.php
 
 업데이트를 수행할 때 위에서 설명한 ``$builder->set()`` 메소드를 사용할 수도 있습니다.
 
-**$builder->updateBatch()**
+UpdateBatch
+===========
+
+$builder->updateBatch()
+-----------------------
 
 업데이트 문자열을 생성하고 제공한 데이터를 기반으로 쿼리를 실행합니다.
-**배열** 또는 **객체**\ 를 함수에 전달할 수 있습니다.
+**배열** 또는 **객체**\ 를 메소드에 전달할 수 있습니다.
 다음은 배열을 사용하는 예입니다
 
-::
-
-    $data = [
-       [
-          'title' => 'My title' ,
-          'name'  => 'My Name 2' ,
-          'date'  => 'My date 2',
-       ],
-       [
-          'title' => 'Another title' ,
-          'name'  => 'Another Name 2' ,
-          'date'  => 'Another date 2',
-       ],
-    ];
-
-    $builder->updateBatch($data, 'title');
-
-    // Produces:
-    // UPDATE `mytable` SET `name` = CASE
-    // WHEN `title` = 'My title' THEN 'My Name 2'
-    // WHEN `title` = 'Another title' THEN 'Another Name 2'
-    // ELSE `name` END,
-    // `date` = CASE
-    // WHEN `title` = 'My title' THEN 'My date 2'
-    // WHEN `title` = 'Another title' THEN 'Another date 2'
-    // ELSE `date` END
-    // WHERE `title` IN ('My title','Another title')
+.. literalinclude:: query_builder/092.php
 
 첫 번째 매개 변수는 값의 연관 배열이고, 두 번째 매개 변수는 where절에 사용할 키입니다.
 
@@ -1191,9 +874,10 @@ Updating 데이타
 
 .. note:: ``affectedRows()``는 작동 방식이 달라 이 메소드에 대한 적절한 결과를 제공하지 않습니다. 대신 ``updateBatch()``\ 는 영향을 받는 행 수를 반환합니다.
 
-**$builder->getCompiledUpdate()**
+$builder->getCompiledUpdate()
+-----------------------------
 
-이것은 INSERT SQL 문자열대신 UPDATE SQL 문자열을 생성한다는 점을 제외하고 ``$builder->getCompiledInsert()``\ 와 동일한 방식으로 작동합니다.
+이것은 **INSERT** SQL 문자열대신 **UPDATE** SQL 문자열을 생성한다는 점을 제외하고 ``$builder->getCompiledInsert()``\ 와 동일한 방식으로 작동합니다.
 
 자세한 내용은 `$builder->getCompiledInsert()`\ 에 대한 설명서를 참조하십시오.
 
@@ -1203,69 +887,54 @@ Updating 데이타
 데이터 삭제(Deleting)
 **********************
 
-**$builder->delete()**
+Delete
+======
+
+$builder->delete()
+------------------
 
 DELETE SQL 문자열을 생성하고 쿼리를 실행합니다.
 
-::
-
-    $builder->delete(['id' => $id]);  // Produces: // DELETE FROM mytable  // WHERE id = $id
+.. literalinclude:: query_builder/093.php
 
 첫 번째 매개 변수는 where절입니다.
-함수의 첫 번째 매개 변수에 데이터를 전달하는 대신 ``where()`` 또는 ``or_where()`` 함수를 사용할 수 있습니다.
+함수의 첫 번째 매개 변수에 데이터를 전달하는 대신 ``where()`` 또는 ``orWhere()`` 메소드를 사용할 수 있습니다.
 
-::
+.. literalinclude:: query_builder/094.php
 
-    $builder->where('id', $id);
-    $builder->delete();
+테이블에서 모든 데이터를 삭제하려면 ``truncate()`` 함수 또는 ``emptyTable()`` 메소드를 사용합니다.
 
-    // Produces:
-    // DELETE FROM mytable
-    // WHERE id = $id
-
-테이블에서 모든 데이터를 삭제하려면 ``truncate()`` 함수 또는 ``emptyTable()`` 함수를 사용합니다.
-
-**$builder->emptyTable()**
+$builder->emptyTable()
+----------------------
 
 DELETE SQL 문자열을 생성하고 쿼리를 실행합니다.
 
-::
+.. literalinclude:: query_builder/095.php
 
-      $builder->emptyTable('mytable'); 
-	  // Produces: DELETE FROM mytable
-
-**$builder->truncate()**
+$builder->truncate()
+--------------------
 
 TRUNCATE SQL 문자열을 생성하고 쿼리를 실행합니다.
 
-::
+.. literalinclude:: query_builder/096.php
 
-    $builder->truncate();
+.. note:: TRUNCATE 명령을 사용할 수 없으면 ``truncate()``\ 가 "DELETE FROM table"\ 로 실행됩니다.
 
-    // Produce:
-    // TRUNCATE mytable
+$builder->getCompiledDelete()
+-----------------------------
 
-.. note:: TRUNCATE 명령을 사용할 수 없으면 truncate()가 "DELETE FROM table"\ 로 실행됩니다.
+이것은 **INSERT** SQL 문자열 대신 **DELETE** SQL 문자열을 생성한다는 점을 제외하고 ``$builder->getCompiledInsert()``\ 와 동일한 방식으로 작동합니다.
 
-**$builder->getCompiledDelete()**
-
-이것은 INSERT SQL 문자열 대신 DELETE SQL 문자열을 생성한다는 점을 제외하고 ``$builder->getCompiledInsert()``\ 와 동일한 방식으로 작동합니다.
-
-자세한 내용은 $builder->getCompiledInsert() 설명서를 참조하십시오.
+자세한 내용은 ``$builder->getCompiledInsert()`` 설명서를 참조하십시오.
 
 ***************************
 메소드 체이닝(Chaining)
 ***************************
 
-메소드 체인을 사용하면 여러 함수를 연결하여 구문을 단순화 할 수 있습니다.
+메소드 체인을 사용하면 여러 메소드를 연결하여 구문을 단순화 할 수 있습니다.
 다음 예제를 살펴보십시오.
 
-::
-
-    $query = $builder->select('title')
-             ->where('id', $id)
-             ->limit(10, 20)
-             ->get();
+.. literalinclude:: query_builder/097.php
 
 .. _ar-caching:
 
@@ -1273,28 +942,17 @@ TRUNCATE SQL 문자열을 생성하고 쿼리를 실행합니다.
 쿼리 빌더 재설정
 ***********************
 
-``$builder->resetQuery()``
+ResetQuery
+==========
+
+$builder->resetQuery()
+----------------------
 
 쿼리 빌더를 재 설정하면 ``$builder->get()`` 또는 ``$builder->insert()``\ 와 같은 메소드를 사용하여 쿼리를 실행하지 않고 쿼리를 새로 시작할 수 있습니다.
 
 이는 쿼리 빌더를 사용하여 SQL을 생성(ex. ``$builder->getCompiledSelect()``)한 후 다음 작업을 진행시 유용합니다.
 
-::
-
-    // Note that the second parameter of the ``get_compiled_select`` method is false
-    $sql = $builder->select(['field1','field2'])
-                   ->where('field3',5)
-                   ->getCompiledSelect(false);
-
-    // ...
-    // Do something crazy with the SQL code... like add it to a cron script for
-    // later execution or something...
-    // ...
-
-    $data = $builder->get()->getResultArray();
-
-    // Would execute and return an array of results of the following query:
-    // SELECT field1, field1 from mytable where field3 = 5;
+.. literalinclude:: query_builder/098.php
 
 ***************
 Class Reference
@@ -1357,7 +1015,7 @@ Class Reference
 
     .. php:method:: select([$select = '*'[, $escape = null]])
 
-        :param string $select: 쿼리의 SELECT 부분
+        :param array|RawSql|string $select: 쿼리의 SELECT 부분
         :param bool $escape: 값과 식별자를 이스케이프할지 여부
         :returns: ``BaseBuilder`` instance (method chaining)
         :rtype: ``BaseBuilder``
@@ -1409,6 +1067,15 @@ Class Reference
 
         쿼리에 SELECT COUNT(field)절을 추가합니다.
 
+    .. php:method:: selectSubquery(BaseBuilder $subquery, string $as)
+
+        :param string $subquery: BaseBuilder 인스턴스
+        :param string $as: 결과 값 이름의 별칭
+        :returns:   ``BaseBuilder`` instance (method chaining)
+        :rtype:     ``BaseBuilder``
+
+        선택 항목에 서브쿼리를 추가합니다.
+
     .. php:method:: distinct([$val = true])
 
         :param bool $val: "distinct" 플래그 설정 여부
@@ -1425,6 +1092,15 @@ Class Reference
         :rtype: ``BaseBuilder``
 
         쿼리의 FROM 절을 지정합니다.
+
+    .. php:method:: fromSubquery($from, $alias)
+
+        :param BaseBuilder $from: BaseBuilder class의 인스턴스
+        :param string      $alias: 서브쿼리 별칭
+        :returns:   ``BaseBuilder`` instance (method chaining)
+        :rtype:     ``BaseBuilder``
+
+        Specifies the ``FROM`` clause of a query using a subquery.
 
     .. php:method:: join($table, $cond[, $type = ''[, $escape = null]])
 
@@ -1449,7 +1125,7 @@ Class Reference
 
     .. php:method:: orWhere($key[, $value = null[, $escape = null]])
 
-        :param mixed $key: 비교할 필드 이름 또는 연관 배열
+        :param array|RawSql|string $key: 비교할 필드 이름 또는 연관 배열
         :param mixed $value: 단일 키인 경우 이 값과 비교
         :param bool $escape: 값과 식별자를 이스케이프할지 여부
         :returns: ``BaseBuilder`` instance
@@ -1534,7 +1210,7 @@ Class Reference
 
     .. php:method:: like($field[, $match = ''[, $side = 'both'[, $escape = null[, $insensitiveSearch = false]]]])
 
-        :param string $field: Field name
+        :param array|RawSql|string $field: Field name
         :param string $match: 일치할 텍스트 부분
         :param string $side: 와일드 카드(%)를 넣을 위치
         :param bool $escape: 값과 식별자를 이스케이프할지 여부
@@ -1757,6 +1433,22 @@ Class Reference
         :rtype: ``BaseBuilder``
 
         쿼리에 OFFSET절을 추가합니다.
+
+    .. php:method:: union($union)
+
+        :param BaseBulder|Closure $union: Union 쿼리
+        :returns:   ``BaseBuilder`` instance (method chaining)
+        :rtype:     ``BaseBuilder``
+
+        ``UNION``\ 절을 추가합니다.
+
+    .. php:method:: unionAll($union)
+
+        :param BaseBulder|Closure $union: Union 쿼리
+        :returns:   ``BaseBuilder`` instance (method chaining)
+        :rtype:     ``BaseBuilder``
+
+        ``UNION ALL``\ 절을 추가합니다.
 
     .. php:method:: set($key[, $value = ''[, $escape = null]])
 

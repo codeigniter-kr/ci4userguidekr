@@ -32,13 +32,13 @@ URL에 입력 한 내용에 관계없이 기본 페이지만 로드되는 경우
 시도한 후에도 여전히 작동하지 않으면 CodeIgniter가 URL에 물음표(?)를 추가하도록 해야 합니다.
 이렇게 하려면 **app/Config/App.php** 파일을 열고 아래 항목을 변경하십시오
 
-이전 ::
+이전 
 
-    public $indexPage = 'index.php';
+.. literalinclude:: troubleshooting/001.php
 
-이후 ::
+이후
 
-    public $indexPage = 'index.php?';
+.. literalinclude:: troubleshooting/002.php
 
 이 자습서는 모든 곳에서 404 오류를 제공합니다. :(
 ---------------------------------------------------

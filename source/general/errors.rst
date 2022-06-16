@@ -18,19 +18,11 @@ CodeIgniter는 프레임워크에서 제공하는 몇 가지 사용자 정의 �
 예외(exception)는 단순히 예외가 "발생(thrown)"\ 할 때 발생하는 이벤트입니다.
 아래와 같이하면 스크립트의 현재 흐름은 중단되고, 해당 오류 페이지를 표시하는 오류 처리기로 실행이 전송됩니다.
 
-::
-
-    throw new \Exception("Some message goes here");
+.. literalinclude:: errors/001.php
 
 예외를 던질 수 있는 메소드를 호출하는 경우 ``try/catch`` 블록을 사용하여 해당 예외를 포착할 수 있습니다.
 
-::
-
-    try {
-        $user = $userModel->find($id);
-    } catch (\Exception $e) {
-        die($e->getMessage());
-    }
+.. literalinclude:: errors/002.php
 
 ``$userModel``\ 에서 예외가 발생하면 예외가 포착되고 catch 블록 내의 코드가 실행됩니다.
 이 예제에서 스크립트는 실행을 중단하고 ``UserModel``\ 이 정의한 오류 메시지를 반영합니다.
@@ -39,21 +31,11 @@ CodeIgniter는 프레임워크에서 제공하는 몇 가지 사용자 정의 �
 ``UnknownFileException``\ 과 같은 특정 유형의 예외만 감시하려는 경우 catch 매개 변수에서 예외를 지정할 수 있습니다.
 발생된 예외의 하위 클래스가 아닌 다른 예외는 오류 처리기로 전달됩니다.
 
-::
-
-    catch (\CodeIgniter\UnknownFileException $e) {
-        // do something here...
-    }
+.. literalinclude:: errors/003.php
 
 이는 오류를 직접 처리하거나 스크립트가 끝나기 전에 필요한 뭔가를 정리하는데 유용할 수 있습니다.
 
-::
-
-    catch (\CodeIgniter\UnknownFileException $e) {
-        // do something here...
-
-        throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
-    }
+.. literalinclude:: errors/004.php
 
 구성
 =============
@@ -69,21 +51,11 @@ CodeIgniter는 프레임워크에서 제공하는 몇 가지 사용자 정의 �
 기본적으로 404 - Page Not Found 예외 이외의 모든 예외가 기록됩니다.
 ``Config\Exceptions``\ 의 **$log** 값을 설정하여 켜거나 끌 수 있습니다.
 
-::
-
-    class Exceptions
-    {
-        public $log = true;
-    }
+.. literalinclude:: errors/005.php
 
 다른 상태 코드에 대한 로깅을 무시하려면 동일한 파일에서 상태 코드를 무시하도록 설정할 수 있습니다.
 
-::
-
-    class Exceptions
-    {
-        public $ignoredCodes = [ 404 ];
-    }
+.. literalinclude:: errors/006.php
 
 .. note:: 현재 로그 설정이 모든 예외가 기록되는 **critical**\ 로 설정되지 않은 경우에도 예외에 대해 로깅이 발생하지 않을 수 있습니다.
 
@@ -96,14 +68,10 @@ PageNotFoundException
 ---------------------
 
 404, Page Not Found 오류를 알리는 데 사용됩니다.
-예외가 발생하면 시스템은 ``/app/views/errors/html/error_404.php``\ 에 있는 뷰를 보여줍니다.
-``Config/Routes.php``\ 에서 404 오류를 재정의하여 지정하면 표준 404 페이지 대신 호출됩니다.
+예외가 발생하면 시스템은 ``app/views/errors/html/error_404.php``\ 에 있는 뷰를 보여줍니다.
+``메ㅔ/Config/Routes.php``\ 에서 404 오류를 재정의하여 지정하면 표준 404 페이지 대신 호출됩니다.
 
-::
-
-    if (! $page = $pageModel->find($id)) {
-        throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-    }
+.. literalinclude:: errors/007.php
 
 404 페이지의 기본 메시지 대신 표시될 예외로 메시지를 전달할 수 있습니다.
 
@@ -112,9 +80,7 @@ ConfigException
 
 이 예외는 구성 클래스의 값이 유효하지 않거나, 구성 클래스가 올바른 유형이 아닌 경우에 사용해야 합니다.
 
-::
-
-    throw new \CodeIgniter\Exceptions\ConfigException();
+.. literalinclude:: errors/008.php
 
 HTTP 상태 코드는 500이고 종료 코드는 3입니다.
 
@@ -123,9 +89,7 @@ DatabaseException
 
 이 예외는 데이터베이스 연결을 작성할 수 없거나 일시적으로 유실 된 경우와 같은 데이터베이스 오류에 대해 발생합니다.
 
-::
-
-    throw new \CodeIgniter\Database\Exceptions\DatabaseException();
+.. literalinclude:: errors/009.php
 
 HTTP 상태 코드는 500이고 종료 코드는 8입니다.
 
@@ -135,12 +99,8 @@ RedirectException
 This exception is a special case allowing for overriding of all other response routing and forcing a redirect to a specific route or URL.
 이 예외는 다른 모든 응답 라우팅을 재정의하고 특정 경로 또는 URL로 리디렉션을 강제 적용할 수 있는 특수한 경우입니다.
 
-::
-
-    throw new \CodeIgniter\Router\Exceptions\RedirectException($route);
+.. literalinclude:: errors/010.php
 
 ``$route``\ 는 이름이 지정된 경로, 상대 URI 또는 전체 URL일 수 있습니다. 기본값("302", "임시 리디렉션") 대신 사용할 리디렉션 코드를 제공할 수도 있습니다.
 
-::
-
-    throw new \CodeIgniter\Router\Exceptions\RedirectException($route, 301);
+.. literalinclude:: errors/011.php

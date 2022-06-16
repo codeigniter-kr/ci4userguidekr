@@ -12,30 +12,7 @@
 시드 파일은 **app/Database/Seeds** 디렉토리에 저장해야합니다. 
 파일 이름은 클래스 이름과 일치해야합니다.
 
-::
-
-	<?php
-
-	namespace App\Database\Seeds;
-
-	use CodeIgniter\Database\Seeder;
-
-	class SimpleSeeder extends Seeder
-	{
-		public function run()
-		{
-			$data = [
-				'username' => 'darth',
-				'email'    => 'darth@theempire.com'
-			];
-
-			// Simple Queries
-			$this->db->query("INSERT INTO users (username, email) VALUES(:username:, :email:)", $data);
-
-			// Using Query Builder
-			$this->db->table('users')->insert($data);
-		}
-	}
+.. literalinclude:: seeds/001.php
 
 중첩 시더(Seeder)
 ====================
@@ -43,44 +20,19 @@
 시더는 **call()** 메소드를 사용하여 다른 시더를 호출할 수 있습니다. 
 이를 통해 중앙 시더를 쉽게 구성할 수 있으며, 작업을 별도의 시더 파일로 구성할 수 있습니다
 
-::
-
-	<?php
-
-	namespace App\Database\Seeds;
-
-	use CodeIgniter\Database\Seeder;
-
-	class TestSeeder extends Seeder
-	{
-		public function run()
-		{
-			$this->call('UserSeeder');
-			$this->call('CountrySeeder');
-			$this->call('JobSeeder');
-		}
-	}
+.. literalinclude:: seeds/002.php
 
 **call()** 메소드에서 정규화된 클래스 이름을 사용하여 오토로더가 찾을 수 있는 모든 위치에 시더를 유지할 수 있습니다. 
 모듈화된 코드 기반에 적합합니다.
 
-::
-
-	public function run()
-	{
-		$this->call('UserSeeder');
-		$this->call('My\Database\Seeds\CountrySeeder');
-	}
+.. literalinclude:: seeds/003.php
 
 시더 사용
 =============
 
 데이터베이스 구성 클래스를 통해 메인 시더의 사본을 얻을 수 있습니다
 
-::
-
-	$seeder = \Config\Database::seeder();
-	$seeder->call('TestSeeder');
+.. literalinclude:: seeds/004.php
 
 커맨드 라인 시딩
 --------------------

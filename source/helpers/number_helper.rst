@@ -13,9 +13,7 @@ Number 헬퍼 파일에는 로케일을 인식하는 방식으로 숫자 데이�
 
 이 헬퍼는 다음 코드를 사용하여 로드됩니다.
 
-::
-
-    helper('number');
+.. literalinclude:: number_helper/001.php
 
 상황이 잘못될 때
 ====================
@@ -37,31 +35,16 @@ PHP의 국제화 및 현지화 로직이 제공된 로케일 및 옵션에 대�
 
     크기에 따라 숫자를 바이트로 포맷하고 적절한 접미사를 추가합니다.
     
-    ::
-
-        echo number_to_size(456); // Returns 456 Bytes
-        echo number_to_size(4567); // Returns 4.5 KB
-        echo number_to_size(45678); // Returns 44.6 KB
-        echo number_to_size(456789); // Returns 447.8 KB
-        echo number_to_size(3456789); // Returns 3.3 MB
-        echo number_to_size(12345678912345); // Returns 1.8 GB
-        echo number_to_size(123456789123456789); // Returns 11,228.3 TB
+    .. literalinclude:: number_helper/002.php
 
     선택적인 두 번째 매개 변수를 사용하면 결과의 정밀도를 설정할 수 있습니다.
 
-    ::
-
-        echo number_to_size(45678, 2); // Returns 44.61 KB
+    .. literalinclude:: number_helper/003.php
 
     선택적 세 번째 매개 변수를 사용하면 숫자를 생성할 때 사용해야 하는 로케일을 지정할 수 있으며 형식에 영향을 줄 수 있습니다. 
     로케일을 지정하지 않으면 요청이 분석되고 헤더 또는 앱 기본값에서 적절한 로케일을 가져옵니다.
 
-    ::
-
-        // Generates 11.2 TB
-        echo number_to_size(12345678912345, 1, 'en_US');
-        // Generates 11,2 TB
-        echo number_to_size(12345678912345, 1, 'fr_FR');
+    .. literalinclude:: number_helper/004.php
 
     .. note:: 이 함수로 생성된 텍스트의 언어 파일 위치: *language/<your_lang>/Number.php*
 
@@ -75,24 +58,15 @@ PHP의 국제화 및 현지화 로직이 제공된 로케일 및 옵션에 대�
 
     수십 억까지의 숫자에 대해 숫자를 **123.4 trillion**\ 과 같이 사람이 읽을 수 있는 버전으로 변환합니다.
     
-    ::
-
-        echo number_to_amount(123456); // Returns 123 thousand
-        echo number_to_amount(123456789); // Returns 123 million
-        echo number_to_amount(1234567890123, 2); // Returns 1.23 trillion
-        echo number_to_amount('123,456,789,012', 2); // Returns 123.46 billion
+    .. literalinclude:: number_helper/005.php
 
     선택적인 두 번째 매개 변수를 사용하면 결과의 정밀도를 설정할 수 있습니다
     
-    ::
-
-        echo number_to_amount(45678, 2); // Returns 45.68 thousand
+    .. literalinclude:: number_helper/006.php
 
     선택적 세 번째 매개 변수를 사용하면 로케일을 지정할 수 있습니다.
     
-    ::
-
-        echo number_to_amount('123,456,789,012', 2, 'de_DE'); // Returns 123,46 billion
+    .. literalinclude:: number_helper/007.php
 
 .. php:function:: number_to_currency($num, $currency[, $locale = 0])
 
@@ -105,12 +79,7 @@ PHP의 국제화 및 현지화 로직이 제공된 로케일 및 옵션에 대�
 
     USD, EUR, GBP등과 같은 일반적인 통화 형식으로 숫자를 변환합니다.
 
-    ::
-
-        echo number_to_currency(1234.56, 'USD', 'en_US', 2);  // Returns $1,234.56
-        echo number_to_currency(1234.56, 'EUR', 'de_DE', 2);  // Returns 1.234,56 €
-        echo number_to_currency(1234.56, 'GBP', 'en_GB', 2);  // Returns £1,234.56
-        echo number_to_currency(1234.56, 'YEN', 'ja_JP', 2);  // Returns YEN 1,234.56
+    .. literalinclude:: number_helper/008.php
 
     로케일을 지정하지 않으면 요청 로케일이 사용됩니다.
 
@@ -122,11 +91,7 @@ PHP의 국제화 및 현지화 로직이 제공된 로케일 및 옵션에 대�
 
     숫자를 로마자로 변환
     
-    ::
-
-        echo number_to_roman(23);  // Returns XXIII
-        echo number_to_roman(324);  // Returns CCCXXIV
-        echo number_to_roman(2534);  // Returns MMDXXXIV
+    .. literalinclude:: number_helper/009.php
 
     이 기능은 1-3999 범위의 숫자만 처리합니다.
     해당 범위 밖의 값에 대해서는 null을 반환합니다.

@@ -75,7 +75,6 @@ CodeIgniter4 사용자 가이드
 
     dbmgmt/index
 
-
 *******************
 라이브러리 및 헬퍼
 *******************
@@ -114,3 +113,12 @@ CodeIgniter4 사용자 가이드
 
     license
     changelogs/index
+
+*****************
+공식 패키지
+*****************
+
+.. toctree::
+    :titlesonly:
+
+    libraries/official_packages

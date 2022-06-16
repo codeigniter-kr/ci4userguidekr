@@ -35,8 +35,10 @@ Validation changes
 Enhancements
 ************
 
+- PHP 8.1을 완벽하게 지원합니다.
 - 디버그 도구 모음의 데이터베이스 창에 쿼리가 호출된 위치가 표시됩니다. 전체 역추적도 표시합니다.
 - QueryBuilder의 :ref:`Subqueries <query-builder-where-subquery>`\ 는 BaseBuilder 클래스의 인스턴스가 될 수 있습니다.
+- Kint가 3.3에서 4.0으로 업데이트되었습니다.
 
 Changes
 *******

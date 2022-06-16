@@ -75,13 +75,17 @@ Apache는 여러 플랫폼과 함께 번들로 제공되지만, `Bitnami (https:
 .htaccess
 -------------------------------------------------------
 
-“mod_rewrite” 모듈은 “index.php”가 없는 URL을 활성화합니다. 사용자 가이드는 이를 가정하여 작성되었습니다.
+"mod_rewrite" 모듈은 "index.php"\ 가 없는 URL을 활성화합니다. 사용자 가이드는 이를 가정하여 작성되었습니다.
 
-기본 구성 파일에서 rewrite 모듈을 활성화(주석삭제)했는지 확인하십시오. eg. ``apache2/conf/httpd.conf``::
+기본 구성 파일에서 rewrite 모듈을 활성화(주석삭제)했는지 확인하십시오. eg. ``apache2/conf/httpd.conf``
+
+::
 
     LoadModule rewrite_module modules/mod_rewrite.so
 
-기본 문서 루트(default document root)의 <Directory> 요소중 "AllowOverride" 기능을 사용하도록 설정했는지 확인하십시오.::
+기본 문서 루트(default document root)의 <Directory> 요소중 "AllowOverride" 기능을 사용하도록 설정했는지 확인하십시오.
+
+::
 
     <Directory "/opt/lamp/apache2/htdocs">
         Options Indexes FollowSymLinks
@@ -92,16 +96,18 @@ Apache는 여러 플랫폼과 함께 번들로 제공되지만, `Bitnami (https:
 가상 호스팅(Virtual Hosting)
 -------------------------------------------------------
 
-“virtual hosting”을 사용하여 어플리케이션 실행 권장합니다.
+"virtual hosting"\ 을 사용하여 어플리케이션 실행 권장합니다.
 작업하는 각 앱에 대해 서로 다른 별칭을 설정할 수 있습니다.
 
 가상 호스팅 모듈이 기본 구성 파일에서 활성화(주석삭제)되었는지 확인하십시오. eg. ``apache2/conf/httpd.conf``::
 
     LoadModule vhost_alias_module modules/mod_vhost_alias.so
 
-호스트 별칭을 “hosts”  파일에 추가하십시오.
+호스트 별칭을 "hosts"  파일에 추가하십시오.
 유닉스 유형 플랫폼의 경우 ``/etc/hosts``, 윈도우즈의 경우 ``c:/Windows/System32/drivers/etc/hosts``\ 에 위치합니다.
-다음 줄을 추가 하십시오. 예를 들어 "myproject.local" 또는 "myproject.test"::
+다음 줄을 추가 하십시오. 예를 들어 "myproject.local" 또는 "myproject.test"
+
+::
 
     127.0.0.1 myproject.local
 
@@ -116,6 +122,78 @@ Apache는 여러 플랫폼과 함께 번들로 제공되지만, `Bitnami (https:
 
 프로젝트 폴더가 Apache 문서 루트의 하위 폴더가 아닌 경우, 파일에 대한 웹서버 액세스 권한을 부여하기 위해 
 <VirtualHost>에 중첩된 <Directory> 요소(element)가 필요할 수 있습니다.
+
+mod_userdir 사용(공유 호스트)
+--------------------------------
+
+공유 호스팅 환경의 일반적인 관행은 Apache 모듈 "mod_userdir"\ 을 사용하여 사용자별 가상 호스트를 자동으로 활성화하는 것입니다. 이러한 사용자별 디렉터리에서 CodeIgniter4를 실행하려면 추가 구성이 필요합니다.
+
+다음은 서버가 이미 mod_userdir이 구성되어 있다고 가정합니다. 이 모듈을 활성화하는 방법은 `Apache 문서 <https://httpd.apache.org/docs/2.4/howto/public_html.html>`_\ 에 있습니다.
+
+CodeIgniter4는 기본적으로 서버가 프레임워크 프론트 컨트롤러를 ``/public/index.php``\ 에서 찾을 것으로 예상하기 때문에 요청을 검색하기 위한 대안으로 이 위치를 지정해야 합니다. (CodeIgniter4가 사용자별 웹 디렉토리 내에 설치된 경우에도 마찬가지입니다.)
+
+기본 사용자 웹 디렉토리 ``~/public_html``\ 은 ``UserDir`` 지시문에 의해 지정되며 일반적으로 ``/apache2/mods-available/userdir.conf`` 또는 ``/apache2/conf/extra/httpd-userdir.conf``\ 에 있습니다. 
+
+::
+
+    UserDir public_html
+
+따라서 기본 서비스를 제공하기 전에 먼저 CodeIgniter의 공개 디렉토리를 찾도록 Apache를 구성해야 합니다.
+
+::
+
+    UserDir "public_html/public" "public_html"
+
+CodeIgniter public 디렉터리에 대한 옵션과 권한도 지정해야 합니다. ``userdir.conf``\ 는 다음과 같습니다.
+
+::
+
+    <IfModule mod_userdir.c>
+        UserDir "public_html/public" "public_html"
+        UserDir disabled root
+
+        <Directory /home/*/public_html>
+                AllowOverride All
+                Options MultiViews Indexes FollowSymLinks
+                <Limit GET POST OPTIONS>
+                        # Apache <= 2.2:
+                        # Order allow,deny
+                        # Allow from all
+
+                        # Apache >= 2.4:
+                        Require all granted
+                </Limit>
+                <LimitExcept GET POST OPTIONS>
+                        # Apache <= 2.2:
+                        # Order deny,allow
+                        # Deny from all
+
+                        # Apache >= 2.4:
+                        Require all denied
+                </LimitExcept>
+        </Directory>
+
+        <Directory /home/*/public_html/public>
+                AllowOverride All
+                Options MultiViews Indexes FollowSymLinks
+                <Limit GET POST OPTIONS>
+                        # Apache <= 2.2:
+                        # Order allow,deny
+                        # Allow from all
+
+                        # Apache >= 2.4:
+                        Require all granted
+                </Limit>
+                <LimitExcept GET POST OPTIONS>
+                        # Apache <= 2.2:
+                        # Order deny,allow
+                        # Deny from all
+
+                        # Apache >= 2.4:
+                        Require all denied
+                </LimitExcept>
+        </Directory>
+    </IfModule>
 
 테스트
 -------------------------------------------------------

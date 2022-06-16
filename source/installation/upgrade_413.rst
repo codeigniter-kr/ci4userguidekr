@@ -2,6 +2,16 @@
 Upgrading from 4.1.2 to 4.1.3
 #############################
 
+설치 방법에 해당하는 업그레이드 지침을 참조하십시오.
+
+- :ref:`Composer Installation App Starter Upgrading <app-starter-upgrading>`
+- :ref:`Composer Installation Adding CodeIgniter4 to an Existing Project Upgrading <adding-codeigniter4-upgrading>`
+- :ref:`Manual Installation Upgrading <installing-manual-upgrading>`
+
+.. contents::
+    :local:
+    :depth: 2
+
 **Cache TTL**
 
 **app/Config/Cache.php**: ``$ttl``.
