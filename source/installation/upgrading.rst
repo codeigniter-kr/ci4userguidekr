@@ -4,17 +4,20 @@
 
 업그레이드하려는 버전에 해당하는 업그레이드 정보를 읽으십시오.
 
+.. note:: 현재 실행 중인 CodeIgniter의 버전을 모르는 경우, :ref:`디버그 도구 모음 <the-debug-toolbar>`\ 에서 가져오거나 ``\CodeIgniter\CodeIgniter::CI_VERSION`` 상수를 echo로 출력합니다.
+
 .. toctree::
     :titlesonly:
 
-    4.1.7에서 4.1.8로 업그레이드 <upgrade_418>
-    4.1.6에서 4.1.7로 업그레이드 <upgrade_417>
-    4.1.5에서 4.1.6로 업그레이드 <upgrade_416>
-    4.1.4에서 4.1.5로 업그레이드 <upgrade_415>
-    4.1.3에서 4.1.4로 업그레이드 <upgrade_414>
-    4.1.2에서 4.1.3으로 업그레이드 <upgrade_413>
-    4.1.1에서 4.1.2로 업그레이드 <upgrade_412>
-    4.0.5에서 4.1.0 또는 4.1.1로 업그레이드 <upgrade_410>
-    4.0.4에서 4.0.5로 업그레이드 <upgrade_405>
-    4.0.x에서 4.0.4로 업그레이드 <upgrade_404>
-    3.x에서 4.x로 업그레이드 <upgrade_4xx>
+    upgrade_420
+    upgrade_418
+    upgrade_417
+    upgrade_416
+    upgrade_415
+    upgrade_414
+    upgrade_413
+    upgrade_412
+    upgrade_410
+    upgrade_405
+    upgrade_404
+    upgrade_4xx

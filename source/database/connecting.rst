@@ -8,18 +8,14 @@
 
 필요한 함수나 클래스 생성자에서 아래 코드를 추가하면 데이터베이스에 연결하여 해당 클래스에서 데이터베이스를 전역적으로 사용할 수 있도록 합니다.
 
-::
-
-    $db = \Config\Database::connect();
+.. literalinclude:: connecting/001.php
 
 위 함수의 첫 번째 매개 변수에 정보가 **없으면** 데이터베이스 기본 그룹에 연결됩니다.
 대부분의 사람들에게 이것은 선호되는 사용 방법입니다.
 
 위의 줄을 감싸는 메소드가 편의를 위해 제공됩니다.
 
-::
-
-    $db = db_connect();
+.. literalinclude:: connecting/002.php
 
 사용 가능한 매개 변수
 --------------------------
@@ -34,13 +30,9 @@
 
 이 함수의 첫 번째 매개 변수는 ** 선택적으로 ** 구성 파일의 특정 데이터베이스 그룹을 지정하는 데 사용됩니다.
 
-샘플: 
+샘플: 구성 파일의 특정 그룹을 선택하려면 아래와 같이 하십시오.
 
-구성 파일의 특정 그룹을 선택하려면 아래와 같이 하십시오.
-
-::
-
-    $db = \Config\Database::connect('group_name');
+.. literalinclude:: connecting/003.php
 
 여기서 ``group_name``\ 은 구성 파일의 연결 그룹 이름입니다.
 
@@ -50,26 +42,19 @@
 기본적으로 ``connect()`` 메소드는 매번 동일한 데이터베이스 연결 인스턴스를 반환합니다.
 동일한 데이터베이스에 대한 별도의 연결이 필요한 경우 두 번째 매개 변수를 ``false``\ 로 전송하십시오.
 
-::
-
-    $db = \Config\Database::connect('group_name', false);
+.. literalinclude:: connecting/004.php
 
 다중 데이터베이스 연결
 ================================
 
 둘 이상의 데이터베이스에 동시에 연결해야 하는 경우 다음과 같이합니다.
 
-::
-
-    $db1 = \Config\Database::connect('group_one');
-    $db2 = \Config\Database::connect('group_two');
+.. literalinclude:: connecting/005.php
 
 Note: ``group_one``\ 과 ``group_two``\ 라는 단어를 연결중인 특정 그룹 이름으로 변경하십시오.
 
 .. note:: 동일한 연결에서 다른 데이터베이스만 사용해야 할때는 별도의 데이터베이스 구성을 만들 필요가 없습니다.
-    다음과 같이하면 필요할 때 다른 데이터베이스로 전환할 수 있습니다::
-
-    $db->setDatabase($database2_name);
+    ``$db->setDatabase($database2_name);``\ 와 같이하면 필요할 때 다른 데이터베이스로 전환할 수 있습니다.
 
 사용자 설정으로 연결
 ===============================
@@ -77,28 +62,7 @@ Note: ``group_one``\ 과 ``group_two``\ 라는 단어를 연결중인 특정 그
 그룹 이름 대신 데이터베이스 설정 배열을 전달하여 사용자 지정 설정을 사용하는 연결을 얻을수 있습니다.
 전달된 배열은 그룹이 구성 파일에 정의된 형식과 같아야합니다.
 
-::
-
-    $custom = [
-        'DSN'      => '',
-        'hostname' => 'localhost',
-        'username' => '',
-        'password' => '',
-        'database' => '',
-        'DBDriver' => 'MySQLi',
-        'DBPrefix' => '',
-        'pConnect' => false,
-        'DBDebug'  => (ENVIRONMENT !== 'production'),
-        'charset'  => 'utf8',
-        'DBCollat' => 'utf8_general_ci',
-        'swapPre'  => '',
-        'encrypt'  => false,
-        'compress' => false,
-        'strictOn' => false,
-        'failover' => [],
-        'port'     => 3306,
-    ];
-    $db = \Config\Database::connect($custom);
+.. literalinclude:: connecting/006.php
 
 
 다시 연결 / 연결 유지
@@ -110,15 +74,11 @@ PHP로 오랜 시간이 걸리는 무거운 작업(예 : 이미지 처리)으로
 
 .. important:: MySQLi 데이터베이스 드라이버를 사용하는 경우 ``reconnect()`` 메소드는 서버에 핑(ping)을 하지 않고 연결을 닫은 다음 다시 연결합니다.
 
-::
-
-    $db->reconnect();
+.. literalinclude:: connecting/007.php
 
 수동 연결 종료
 ===============================
 
 CodeIgniter는 데이터베이스 연결을 지능적으로 처리하지만 연결을 명시적으로 닫을 수 있습니다.
 
-::
-
-    $db->close();
+.. literalinclude:: connecting/008.php

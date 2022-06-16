@@ -5,7 +5,6 @@ Upgrade View Parser
     :local:
     :depth: 2
 
-
 Documentations
 ==============
 
@@ -21,35 +20,17 @@ Documentations
 Upgrade Guide
 =============
 1. View Parser Library 사용시 ``$this->load->library('parser');``\ 를 ``$parser = service('parser');``\ 로 바꿉니다.
-2. 컨트롤러의 렌더 부분을 ``$this->parser->parse('blog_template', $data);``\ 에서 ``echo $parser->setData($data)->render('blog_template');``\ 로 변경해야 합니다.
+2. 컨트롤러의 렌더 부분을 ``$this->parser->parse('blog_template', $data);``\ 에서 ``return $parser->setData($data)->render('blog_template');``\ 로 변경해야 합니다.
 
 Code Example
 ============
 
 CodeIgniter Version 3.11
 ------------------------
-::
 
-    $this->load->library('parser');
-
-    $data = array(
-        'blog_title'   => 'My Blog Title',
-        'blog_heading' => 'My Blog Heading'
-    );
-
-    $this->parser
-        ->parse('blog_template', $data);
+.. literalinclude:: upgrade_view_parser/ci3sample/001.php
 
 CodeIgniter Version 4.x
 -----------------------
-::
 
-    $parser = service('parser');
-
-    $data = [
-        'blog_title'   => 'My Blog Title',
-        'blog_heading' => 'My Blog Heading'
-    ];
-
-    echo $parser->setData($data)
-        ->render('blog_template');
+.. literalinclude:: upgrade_view_parser/001.php

@@ -29,13 +29,7 @@ CodeIgniter는 널리 사용되는 데이터베이스 클래스 ADODB에서 사�
 
 트랜잭션을 사용하여 쿼리를 실행하려면 ``$this->db->transStart()``\ 과 ``$this->db->transComplete()`` 함수를 사용하십시오.
 
-::
-
-    $this->db->transStart();
-    $this->db->query('AN SQL QUERY...');
-    $this->db->query('ANOTHER QUERY...');
-    $this->db->query('AND YET ANOTHER QUERY...');
-    $this->db->transComplete();
+.. literalinclude:: transactions/001.php
 
 start/complete 함수사이에 원하는 쿼리를 실행할 수 있으며 주어진 쿼리의 성공 또는 실패에 따라 모두 커밋되거나 롤백됩니다.
 
@@ -48,9 +42,7 @@ CodeIgniter는 기본적으로 모든 트랜잭션을 엄격 모드로 실행합
 
 다음과 같이 엄격한 모드를 비활성화 할 수 있습니다
 
-::
-
-    $this->db->transStrict(false);
+.. literalinclude:: transactions/002.php
 
 오류 관리
 ===============
@@ -58,29 +50,14 @@ CodeIgniter는 기본적으로 모든 트랜잭션을 엄격 모드로 실행합
 Config/Database.php 파일에서 오류보고를 활성화 한 경우 커밋이 실패하면 표준 오류 메시지가 표시됩니다.
 오류보고가 꺼져 있으면 다음과 같이 자신의 오류를 관리 할 수 있습니다
 
-::
-
-    $this->db->transStart();
-    $this->db->query('AN SQL QUERY...');
-    $this->db->query('ANOTHER QUERY...');
-    $this->db->transComplete();
-
-    if ($this->db->transStatus() === false) {
-        // generate an error... or use the log_message() function to log your error
-    }
+.. literalinclude:: transactions/003.php
 
 트랜잭션 비활성화
 ======================
 
 트랜잭션은 기본적으로 활성화되어 있습니다. 트랜잭션을 비활성화하려면 ``$this->db->transOff()``\ 를 사용하면 됩니다.
 
-::
-
-    $this->db->transOff();
-
-    $this->db->transStart();
-    $this->db->query('AN SQL QUERY...');
-    $this->db->transComplete();
+.. literalinclude:: transactions/004.php
 
 트랜잭션이 비활성화되면 트랜잭션없이 쿼리를 실행할 때와 마찬가지로 쿼리가 자동 커밋됩니다.
 
@@ -90,29 +67,24 @@ Config/Database.php 파일에서 오류보고를 활성화 한 경우 커밋이 
 선택적으로 트랜잭션 시스템을 "테스트 모드"\ 로 설정하면 쿼리가 유효한 결과를 생성하더라도 쿼리가 롤백됩니다.
 테스트 모드를 사용하려면 ``$this->db->transStart()`` 함수의 첫 번째 매개 변수를 true로 설정하십시오.
 
-::
-
-    $this->db->transStart(true); // Query will be rolled back
-    $this->db->query('AN SQL QUERY...');
-    $this->db->transComplete();
+.. literalinclude:: transactions/005.php
 
 수동으로 트랜잭션 실행
 =============================
 
 트랜잭션을 수동으로 실행하려면 다음과 같이하십시오.
 
-::
-
-    $this->db->transBegin();
-
-    $this->db->query('AN SQL QUERY...');
-    $this->db->query('ANOTHER QUERY...');
-    $this->db->query('AND YET ANOTHER QUERY...');
-
-    if ($this->db->transStatus() === false) {
-        $this->db->transRollback();
-    } else {
-        $this->db->transCommit();
-    }
+.. literalinclude:: transactions/006.php
 
 .. note:: 수동 트랜잭션을 실행할 때는 ``$this->db->transStart()``\ 가 아니라 ``$this->db->transBegin()``\ 을 사용해야합니다.
+
+중첩 트랜잭션
+===================
+
+CodeIgniter에서 트랜잭션은 최상위 또는 최상위 트랜잭션 명령만 실행되는 방식으로 중첩될 수 있습니다.
+내부에 원하는 만큼 트랜잭션 블록을 ``transStart()``/``transComplete()`` 또는 ``transBegin()``/``transCommit()``/``transRollback()`` 쌍으로 포함할 수 있습니다.
+CodeIgniter는 트랜잭션 "깊이(depth)"를 추적하고 가장 바깥쪽 레이어(zero depth)에서 조치를 취합니다.
+
+.. literalinclude:: transactions/007.php
+
+.. note:: 구조가 훨씬 더 복잡한 경우 내부 트랜잭션이 데이터베이스의 가장 바깥쪽 계층에서 완전히 실행되도록 하여 의도하지 않은 커밋/롤백(commits/rollback)을 방지하는 것은 사용자의 책임입니다.

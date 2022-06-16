@@ -12,19 +12,9 @@ CodeIgniter는 URL 표준 접근 방식인 "query-string" 사용하지 않고 **
 
     example.com/news/article/my_article
 
-URI 세그먼트
-==============
+URL은 :doc:`URI 라우팅 </incoming/routing>` 기능을 사용하여 유연하게 정의할 수 있습니다.
 
-URL의 세그먼트는 Model-View-Controller 접근 방식에 따라 일반적으로::
-
-    example.com/class/method/ID
-
-1. 첫 번째 세그먼트는 호출해야 하는 컨트롤러 **클래스**\ 를 나타냅니다
-2. 두 번째 세그먼트는 호출해야 할 클래스 **메소드**\ 를 나타냅니다.
-3. 세 번째 세그먼트와 추가 세그먼트는 컨트롤러에 전달될 ID 및 변수를 나타냅니다.
-
-:doc:`URI 라이브러리 <../libraries/uri>` 및 :doc:`URL 헬퍼 <../helpers/url_helper>`\ 에는 URI 데이터로 쉽게 작업할 수 있는 기능이 있습니다.
-또한 더 많은 유연성을 위해 :doc:`URI 라우팅 </incoming/routing>` 기능을 사용하여 URL을 다시 매핑 할 수 있습니다.
+:doc:`URI 라이브러리 <../libraries/uri>` \ 와 :doc:`URL 도우미 <../helpers/url_helper>`\ 에는 URI 데이터로 쉽게 작업할 수 있는 함수가 포함되어 있습니다.
 
 index.php 제거
 ===========================

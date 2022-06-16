@@ -31,6 +31,8 @@ Entity 사용법
     password    - string
     created_at  - datetime
 
+.. important:: ``attributes``\ 은 내부 사용을 위한 예약어입니다. 컬럼명으로 사용하면 Entity가 제대로 동작하지 않습니다.
+
 Entity 클래스 만들기
 -------------------------
 
@@ -38,18 +40,7 @@ Entity 클래스 만들기
 이러한 클래스를 저장할 기본 위치는 없으며, 기존 디렉토리 구조와 맞지 않기 때문에 **app/Entities**\ 에 새 디렉토리를 작성합니다.
 **app/Entities/User.php**\ 에 엔티티를 작성하십시오.
 
-::
-
-    <?php 
-
-    namespace App\Entities;
-
-    use CodeIgniter\Entity\Entity;
-
-    class User extends Entity
-    {
-        // ...
-    }
+.. literalinclude:: entities/001.php
 
 간단하지만 이것은 당신이 해야 할 모든 것입니다. 우리는 잠시 후 이를 더 유용하게 사용할 것입니다.
 
@@ -58,23 +49,7 @@ Entity 클래스 만들기
 
 먼저 상호 작용을 위해 모델을 **app/Models/UserModel.php**\ 에 작성합니다.
 
-::
-
-    <?php 
-
-    namespace App\Models;
-
-    use CodeIgniter\Model;
-
-    class UserModel extends Model
-    {
-        protected $table         = 'users';
-        protected $allowedFields = [
-            'username', 'email', 'password',
-        ];
-        protected $returnType    = \App\Entities\User::class;
-        protected $useTimestamps = true;
-    }
+.. literalinclude:: entities/002.php
 
 모델의 모든 활동은 데이터베이스의 ``users`` 테이블을 사용합니다.
 ``$allowedFields`` 속성은 클래스 외부에서 변경하려는 모든 필드를 포함하도록 설정했습니다.
@@ -87,30 +62,12 @@ Entity 클래스 작업
 
 이제 모든 조각이 제자리에 배치되었으므로 다른 클래스와 마찬가지로 Entity 클래스로 작업합니다.
 
-::
-
-    $user = $userModel->find($id);
-
-    // Display
-    echo $user->username;
-    echo $user->email;
-
-    // Updating
-    unset($user->username);
-    if (! isset($user->username) {
-        $user->username = 'something new';
-    }
-
-    $userModel->save($user);
-
-    // Create
-    $user = new \App\Entities\User();
-    $user->username = 'foo';
-    $user->email    = 'foo@example.com';
-    $userModel->save($user);
+.. literalinclude:: entities/003.php
 
 ``User`` 클래스는 열에 대한 속성을 설정하지 않았지만 여전히 공용 속성인 것처럼 열에 액세스할 수 있습니다.
 기본 클래스 ``CodeIgniter\Entity\Entity``\ 는 데이터베이스에서 개체를 만들거나, 가져온 후 변경된 열을 추적하여 ``isset()`` 또는 ``unset()``\ 으로 속성을 확인하는 기능을 제공합니다. 
+
+.. note:: Entity 클래스는 데이터를 ``$attributes`` 속성에 저장합니다.
 
 User가 모델의 ``save()`` 메소드로 전달되면 자동으로 특성을 읽고 모델의 ``$allowedFields`` 속성에 나열된 열의 변경 사항을 저장합니다.
 또한 새 행을 만들거나 기존 행을 업데이트할지 여부도 알고 있습니다.
@@ -124,22 +81,11 @@ Entity 클래스는 키/값 쌍 배열을 클래스에 전달하여 클래스 �
 배열의 모든 속성은 Entity에 설정됩니다.
 그러나 모델을 통해 저장할 때 ``$allowedFields``\ 에 명시된 필드만 실제 데이터베이스에 저장되므로 필드가 잘못 저장되는 것에 대해 걱정할 필요가 없습니다.
 
-::
-
-    $data = $this->request->getPost();
-
-    $user = new \App\Entities\User();
-    $user->fill($data);
-    $userModel->save($user);
+.. literalinclude:: entities/004.php
 
 생성자를 통하여 데이터를 전달할 수도 있으며, 인스턴스화 중에는 `fill()` 메소드를 통해 데이터를 전달합니다.
 
-::
-
-    $data = $this->request->getPost();
-
-    $user = new \App\Entities\User($data);
-    $userModel->save($user);
+.. literalinclude:: entities/005.php
 
 대량 액세스 속성
 -------------------------
@@ -156,43 +102,7 @@ Entity 클래스는 ``toArray()``\ 와 ``toRawArray()`` 메소드를 통하여 �
 
 다음은 이를 사용하는 방법에 대한 몇 가지 예를 제공하기 위해 업데이트된 사용자 Entity입니다.
 
-::
-
-    <?php 
-
-    namespace App\Entities;
-
-    use CodeIgniter\Entity\Entity;
-    use CodeIgniter\I18n\Time;
-
-    class User extends Entity
-    {
-        public function setPassword(string $pass)
-        {
-            $this->attributes['password'] = password_hash($pass, PASSWORD_BCRYPT);
-
-            return $this;
-        }
-
-        public function setCreatedAt(string $dateString)
-        {
-            $this->attributes['created_at'] = new Time($dateString, 'UTC');
-
-            return $this;
-        }
-
-        public function getCreatedAt(string $format = 'Y-m-d H:i:s')
-        {
-            // Convert to CodeIgniter\I18n\Time object
-            $this->attributes['created_at'] = $this->mutateDate($this->attributes['created_at']);
-
-            $timezone = $this->timezone ?? app_timezone();
-
-            $this->attributes['created_at']->setTimezone($timezone);
-
-            return $this->attributes['created_at']->format($format);
-        }
-    }
+.. literalinclude:: entities/006.php
 
 가장 먼저 알아야 할 것은 우리가 추가 한 메소드의 이름입니다.
 각각의 클래스는 snake_case로 작성된 컬럼 이름을 ``set`` 또는 ``get`` 접두사가 붙은 PascalCase로 변환합니다. 
@@ -209,11 +119,7 @@ Entity 클래스는 ``toArray()``\ 와 ``toRawArray()`` 메소드를 통하여 �
 
 이 예제는 상당히 간단하지만 Entity 클래스를 사용하여 비즈니스 로직 적용과 사용하기 편리한 객체를 만드는 매우 유연한 방법을 제공합니다.
 
-::
-
-    // Auto-hash the password - both do the same thing
-    $user->password = 'my great password';
-    $user->setPassword('my great password');
+.. literalinclude:: entities/007.php
 
 데이타 매핑
 ================
@@ -224,25 +130,7 @@ Entity 클래스는 ``toArray()``\ 와 ``toRawArray()`` 메소드를 통하여 �
 
 다음 예처럼 어플리케이션 전체에서 사용되는 단순화된 사용자 Entity가 있다고 가정합니다.
 
-::
-
-    <?php 
-    
-    namespace App\Entities;
-
-    use CodeIgniter\Entity\Entity;
-
-    class User extends Entity
-    {
-        protected $attributes = [
-            'id'         => null,
-            'name'       => null, // Represents a username
-            'email'      => null,
-            'password'   => null,
-            'created_at' => null,
-            'updated_at' => null,
-        ];
-    }
+.. literalinclude:: entities/008.php
 
 상사가 당신에게 와서 더 이상 사용자 이름을 사용하지 않으니, 로그인을 위해 이메일을 사용하도록 지시합니다.
 그러나 어플리케이션을 약간 개인화하기 위해 이름 필드를 현재 사용 중인 사용자 이름이 아닌 사용자의 전체 이름을 나타내도록 변경해야 합니다.
@@ -252,29 +140,7 @@ Entity 클래스는 ``toArray()``\ 와 ``toRawArray()`` 메소드를 통하여 �
 첫 번째 방법은 클래스 속성을 ``$name``\ 에서 ``$full_name``\ 으로 수정하고, 어플리케이션 전체를 변경합니다.
 두 번째 방법은 데이터베이스의 ``full_name`` 컬럼을 ``$name`` 속성에 매핑하고 Entity 변경을 수행합니다.
 
-::
-
-    <?php 
-    
-    namespace App\Entities;
-
-    use CodeIgniter\Entity\Entity;
-
-    class User extends Entity
-    {
-        protected $attributes = [
-            'id'         => null,
-            'name'       => null,        // Represents a username
-            'email'      => null,
-            'password'   => null,
-            'created_at' => null,
-            'updated_at' => null,
-        ];
-
-        protected $datamap = [
-            'name' => 'full_name',
-        ],
-    }
+.. literalinclude:: entities/009.php
 
 새 데이터베이스 이름을 ``$datamap`` 배열에 추가하면 데이터베이스 컬럼에 액세스할 수 있는 클래스 속성을 클래스에 알릴 수 있습니다.
 배열의 키는 데이터베이스의 컬럼 이름이며, 배열의 값은 이를 맵핑할 클래스 속성입니다.
@@ -285,41 +151,21 @@ The value will still be accessible through the original ``$user->full_name``, al
 그러나 ``unset``\ 과 ``isset``\ 은 원래 이름인 ``full_name``\ 이 아닌 매핑된 속성 ``$name``\ 에서만 작동합니다.
 
 뮤테이터(Mutators)
-======================
+====================
 
 데이타 뮤테이터
--------------------
+-----------------
 
 기본적으로 Entity 클래스는 `created_at`, `updated_at`, `deleted_at` 이라는 필드를 데이터를 설정하거나 검색할 때마다 :doc:`Time </libraries/time>` 인스턴스로 변환합니다.
 Time 클래스는 변하지 않고, 지역화된 방식으로 많은 유용한 메소드를 제공합니다.
 
 ``$dates`` 속성에 이름을 추가하여 자동으로 변환할 특성을 정의할 수 있습니다
 
-::
-
-    <?php 
-    
-    namespace App\Entities;
-
-    use CodeIgniter\Entity\Entity;
-
-    class User extends Entity
-    {
-        protected $dates = ['created_at', 'updated_at', 'deleted_at'];
-    }
+.. literalinclude:: entities/010.php
 
 이제 이러한 속성중 하나가 설정되면 **app/Config/App.php**\ 에 설정된대로 어플리케이션의 현재 시간대를 사용하여 Time 인스턴스로 변환됩니다.
 
-::
-
-    $user = new \App\Entities\User();
-
-    // Converted to Time instance
-    $user->created_at = 'April 15, 2017 10:30:00';
-
-    // Can now use any Time methods:
-    echo $user->created_at->humanize();
-    echo $user->created_at->setTimezone('Europe/London')->toDateString();
+.. literalinclude:: entities/011.php
 
 속성 캐스팅
 ----------------
@@ -332,21 +178,7 @@ Time 클래스는 변하지 않고, 지역화된 방식으로 많은 유용한 �
 
 다음 예는 User Entity의 ``is_banned`` 속성을 boolean으로 캐스팅합니다.
 
-::
-
-    <?php 
-    
-    namespace App\Entities;
-
-    use CodeIgniter\Entity\Entity;
-
-    class User extends Entity
-    {
-        protected $casts = [
-            'is_banned' => 'boolean',
-            'is_banned_nullable' => '?boolean',
-        ],
-    }
+.. literalinclude:: entities/012.php
 
 Array/Json 캐스팅
 ------------------
@@ -365,32 +197,9 @@ Array/Json 캐스팅은 직렬화된 배열 또는 JSON을 저장하는 필드�
 
 속성이 값이 설정될 때마다
 
-::
+.. literalinclude:: entities/013.php
 
-    <?php 
-    
-    namespace App\Entities;
-
-    use CodeIgniter\Entity\Entity;
-
-    class User extends Entity
-    {
-        protected $casts = [
-            'options'        => 'array',
-            'options_object' => 'json',
-            'options_array'  => 'json-array',
-        ];
-    }
-
-::
-
-    $user    = $userModel->find(15);
-    $options = $user->options;
-
-    $options['foo'] = 'bar';
-
-    $user->options = $options;
-    $userModel->save($user);
+.. literalinclude:: entities/014.php
 
 CSV 캐스팅
 -----------
@@ -398,26 +207,11 @@ CSV 캐스팅
 단순한 값으로 구성된 단순 배열을 직렬화하거나, JSON 문자열로 인코딩하는 것이 원래 구조보다 더 복잡해 질수 있습니다. 
 대안으로 CSV(쉼표로 구분된 값)로 캐스팅하면 공간을 적게 사용하고 사람이 더 쉽게 읽을 수 있는 문자열이 만들어집니다.
 
-::
+.. literalinclude:: entities/015.php
 
-    <?php
-    
-    namespace App\Entities;
+데이터베이스에 "red,yellow,green"\ 로 저장됨
 
-    use CodeIgniter\Entity\Entity;
-
-    class Widget extends Entity
-    {
-        protected $casts = [
-            'colors' => 'csv',
-        ];
-    }
-
- 데이터베이스에 "red,yellow,green"\ 로 저장됨
-
-::
-
-    $widget->colors = ['red', 'yellow', 'green'];
+.. literalinclude:: entities/016.php
 
 .. note:: CSV로 캐스팅은 PHP의 내장 함수 ``implode``\ 와 ``explode`` 함수를 사용하며 모든 값이 쉼표가 없는 문자열이라고 가정합니다. 
     더 복잡한 데이터를 캐스팅하려면 ``array`` 또는 ``json``\ 을 사용합니다.
@@ -430,71 +224,16 @@ CSV 캐스팅
 처음에는 사용자 유형에 대한 처리기 클래스를 만들어야 합니다.
 클래스가 **app/Entities/Cast** 디렉토리에 위치한다고 가정합니다.
 
-::
-
-    <?php
-
-    namespace App\Entities\Cast;
-    
-    use CodeIgniter\Entity\Cast\BaseCast;
-
-    // The class must inherit the CodeIgniter\Entity\Cast\BaseCast class
-    class CastBase64 extends BaseCast
-    {
-        public static function get($value, array $params = [])
-        {
-            return base64_decode($value);
-        }
-
-        public static function set($value, array $params = [])
-        {
-            return base64_encode($value);
-        }
-    }
+.. literalinclude:: entities/017.php
 
 이제 등록해야 합니다.
 
-::
-
-    <?php
-
-    namespace App\Entities;
-
-    use CodeIgniter\Entity\Entity;
-
-    class MyEntity extends Entity
-    {
-        // Specifying the type for the field
-        protected $casts = [
-            'key' => 'base64',
-        ];
-
-        // Bind the type to the handler
-        protected $castHandlers = [
-            'base64' => \App\Entities\Cast\CastBase64::class,
-        ];
-    }
-
-    // ...
-
-    $entity->key = 'test'; // dGVzdA==
-    echo $entity->key; // test
+.. literalinclude:: entities/018.php
 
 
 값을 가져오거나 설정할 때 값을 변경할 필요가 없는 경우 메소드를 구현하지 마십시오.
 
-::
-
-    use CodeIgniter\Entity\Cast\BaseCast;
-    
-    class CastBase64 extends BaseCast
-    {
-        public static function get($value, array $params = [])
-        {
-            return base64_decode($value);
-        }
-    }
-
+.. literalinclude:: entities/019.php
 
 **Parameters**
 
@@ -503,37 +242,9 @@ CSV 캐스팅
 
 **type[param1, param2]**
 
-::
+.. literalinclude:: entities/020.php
 
-    // Defining a type with parameters
-    protected $casts = [
-        'some_attribute' => 'class[App\SomeClass, param2, param3]',
-    ];
-
-    // Bind the type to the handler
-    protected $castHandlers = [
-        'class' => 'SomeHandler',
-    ];
-
-::
-
-    use CodeIgniter\Entity\Cast\BaseCast;
-    
-    class SomeHandler extends BaseCas
-    {
-        public static function get($value, array $params = [])
-        {
-            var_dump($params);
-            // array(3) {
-            //   [0]=>
-            //   string(13) "App\SomeClass"
-            //   [1]=>
-            //   string(6) "param2"
-            //   [2]=>
-            //   string(6) "param3"
-            // }
-        }
-    }
+.. literalinclude:: entities/021.php
 
 .. note:: 캐스팅 유형이 nullable ``?bool``\ 로 표시되어 있고 전달 된 값이 null이 아닌 경우 값이 ``nullable``\ 인 매개 변수가 캐스팅 유형 처리기에 전달됩니다.
     캐스팅 유형에 사전 정의된 매개 변수가 있는 경우 목록 끝에 ``nullable``\ 이 추가됩니다.
@@ -543,16 +254,8 @@ CSV 캐스팅
 
 속성의 이름을 이용하여 엔티티 속성이 작성된 이후로 변경되었는지 확인할 수 있습니다.
 
-::
-
-    $user = new \App\Entities\User();
-    $user->hasChanged('name'); // false
-
-    $user->name = 'Fred';
-    $user->hasChanged('name'); // true
+.. literalinclude:: entities/022.php
 
 전체 엔티티의 변경 여부를 확인하고 싶다면 매개 변수를 생략하십시오.
 
-::
-
-    $user->hasChanged(); // true
+.. literalinclude:: entities/023.php

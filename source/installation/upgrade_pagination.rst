@@ -5,13 +5,11 @@ Upgrade Pagination
     :local:
     :depth: 2
 
-
 Documentations
 ==============
 
 - `CodeIgniter 3.X Pagination Class 문서 <http://codeigniter.com/userguide3/libraries/pagination.html>`_
 - :doc:`CodeIgniter 4.X Pagination 문서 </libraries/pagination>`
-
 
 변경된 사항
 =====================
@@ -34,31 +32,12 @@ Upgrade Guide
 Code Example
 ============
 
-CodeIgniter Version 3.11
+CodeIgniter Version 3.x
 ------------------------
-::
 
-    $this->load->library('pagination');
-    $config['base_url']    = base_url().'users/index/';
-    $config['total_rows']  = $this->db->count_all('users');
-    $config['per_page']    = 10;
-    $config['uri_segment'] = 3;
-    $config['attributes']  = array('class' => 'pagination-link');
-    $this->pagination->initialize($config);
-
-    $data['users'] = $this->user_model->get_users(FALSE, $config['per_page'], $offset);
-
-    $this->load->view('posts/index', $data);
+.. literalinclude:: upgrade_pagination/ci3sample/001.php
 
 CodeIgniter Version 4.x
 -----------------------
-::
 
-    $model = new \App\Models\UserModel();
-
-    $data = [
-        'users' => $model->paginate(10),
-        'pager' => $model->pager,
-    ];
-
-    echo view('users/index', $data);
+.. literalinclude:: upgrade_pagination/001.php

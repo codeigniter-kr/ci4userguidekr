@@ -1,65 +1,28 @@
 정적 페이지(Static pages)
-###############################################################################
+##########################
 
 .. note:: 이 튜터리얼은 CodeIgniter를 다운로드하고 개발 환경에 :doc:`프레임워크를 설치 <../installation/index>` 했다고 가정합니다.
 
 가장 먼저 할 일은 정적 페이지를 처리​​할 **controller**\ 를 설정하는 것입니다. 
 컨트롤러는 웹 어플리케이션의 접착제 역활을 하며, 작업 위임을 돕는 클래스입니다.
 
-
-예를 들어 다음과 같이 요청할 때
-
-::
-
-    http://example.com/news/latest/10
-
-"news"라는 컨트롤러가 있다고 상상할 수 있습니다.
-news에서 호출되는 메소드는 "latest" 입니다.
-news의 latest 메소드가 진행할 작업은 10개의 뉴스 항목을 가져와 페이지에 렌더링하는 것입니다.
-
-MVC에서 매우 자주 보게되는 URL 패턴을 살펴봅시다.
-
-::
-
-    http://example.com/[controller-class]/[controller-method]/[arguments]
-
-URL은 체계가 복잡해짐에 따라 변경될 수 있지만 지금은 이것이 우리가 알아야 할 전부입니다.
-
 첫 번째 컨트롤러 만들기
--------------------------------------------------------
+*************************
 
 **app/Controllers/Pages.php** 파일을 만들고 다음 코드를 입력합니다.
 
-::
-
-    <?php 
-    
-    namespace App\Controllers;
-
-    class Pages extends BaseController 
-    {
-        public function index()
-        {
-            return view('welcome_message');
-        }
-
-        public function view($page = 'home')
-        {
-            // ...
-        }
-    }
-
+.. literalinclude:: static_pages/001.php
 
 우리는 ``$Page``\ 라는 하나의 인수(argument)를 허용하는 ``view()`` 메소드가 있는 ``Pages`` 클래스를 작성했습니다.
 그리고 기본 컨트롤러인 **app/Controllers/Home.php**\ 와 동일한 ``index()`` 메소드(method)를 가지고 있습니다. 
 이 메소드는 CodeIgniter의 welcome 페이지를 보여줍니다.
 
 .. note:: 이 튜토리얼에서 언급되는 두 개의 ``view()`` 함수가 있습니다.
-    하나는 뷰를 표시하기 위한 ``echo view('welcome_message')``\ 와 ``public function view($page = 'home')``\ 로 생성된 클래스 메소드입니다.
+    하나는 뷰를 표시하기 위한 ``return view('welcome_message')``\ 와 ``public function view($page = 'home')``\ 로 생성된 클래스 메소드입니다.
     둘 다 *기술적으로는* 함수입니다. 그러나 클래스에서 함수를 만들면 메서드라고 부릅니다.
 
 ``Pages`` 클래스는 ``BaseController`` 클래스를 확장하고 있습니다.
-이는 새 Pages 클래스가 ``CodeIgniter\Controller`` 클래스에 정의된 메소드와 변수를 이용할 수 있다는 것을 의미합니다.
+이는 새 Pages 클래스가 ``CodeIgniter\Controller`` 클래스에 정의된 메소드와 속성을 이용할 수 있다는 것을 의미합니다.
 
 **컨트트롤러는 웹 어플리케이션에 대한 모든 요청의 중심**\ 이 될 것입니다.
 여느 php 클래스와 마찬가지로 컨트롤러내에서 ``$this``\ 라고 지칭합니다.
@@ -95,14 +58,8 @@ URL은 체계가 복잡해짐에 따라 변경될 수 있지만 지금은 이것
     XSS 공격을 방지하기 위해 CodeIgniter에서 제공하는 글로벌 기능입니다. 
     자세한 내용은 :doc:`여기 </general/common_functions>`\ 를 참조하십시오.
 
-
-.. warning:: 이 튜토리얼에는 두 개의 **view()** 함수가 있습니다. 
-    하나는 뷰를 표시하기 위한 ``public function view($page = 'home')``\ 와 ``echo view('welcome_message');``\ 로 만든 클래스 메소드입니다. 
-    둘 다 *기술적으로* 함수(function)입니다. 그러나 클래스에서 함수를 만들면 이를 메소드라고합니다.
-
-
 컨트롤러에 로직 추가
--------------------------------------------------------
+**********************
 
 앞서 우리는 ``view()`` 메소드를 컨트롤러에 추가했다. 이 메소드는 ``$Page``\ 라는 하나의 파라미터를 허용합니다.
 정적(static) 페이지 본문은 **app/Views/pages/** 디렉터리에 위치합니다.
@@ -114,21 +71,7 @@ URL은 체계가 복잡해짐에 따라 변경될 수 있지만 지금은 이것
 이 페이지를 로드하려면 요청된 페이지가 실제로 존재하는지 확인해야 합니다.
 다음 내용은 위에서 만들어진 ``Pages``\ 컨트롤러 ``view()`` 메소드의 본문이 됩니다.
 
-::
-
-    public function view($page = 'home')
-    {
-        if ( ! is_file(APPPATH.'/Views/pages/'.$page.'.php')) {
-            // Whoops, we don't have a page for that!
-            throw new \CodeIgniter\Exceptions\PageNotFoundException($page);
-        }
-
-        $data['title'] = ucfirst($page); // Capitalize the first letter
-
-        echo view('templates/header', $data);
-        echo view('pages/'.$page, $data);
-        echo view('templates/footer', $data);
-    }
+.. literalinclude:: static_pages/002.php
 
 이제 요청된 페이지가 존재하면 헤더와 푸터를 포함하여 본문이 로드되어 사용자에게 표시됩니다.
 요청된 페이지가 존재하지 않을 경우, "404 Page not found" 오류가 표시됩니다.
@@ -150,10 +93,41 @@ $title의 값은 메소드에서 정의되지만, 변수에 직접 값을 할당
     일치해야 하며 그렇지 않은 경우 대소문자를 구분하는 시스템에서 오류를 발생시킬 것입니다.
     :doc:`여기 </outgoing/views>`\ 에서 더 많은 정보를 읽어보세요.
 
-앱 실행(Running the App)
--------------------------------------------------------
+라우팅
+*******
 
-테스트 준비가 완료되었나요?
+컨트롤러를 만들었습니다. 
+다음은 라우팅 규칙을 설정하는 것입니다.
+라우팅은 URI를 컨트롤러의 메서드와 연결합니다.
+
+해볼까요? 
+라우팅 파일 **app/Config/Routes.php**\ 를 열고 "Route Definitions" 섹션을 찾으세요.
+
+주석 처리되지 않은 유일한 줄은
+
+.. literalinclude:: static_pages/003.php
+
+이 지시문은 지정되지 않은 요청에 대해 ``Home`` 컨트롤러 내의 ``index()`` 메소드로 처리하라고 합니다.
+
+'/'에 대한 **경로 지시문 뒤**\ 에 다음 행을 추가하십시오.
+
+.. literalinclude:: static_pages/004.php
+   :lines: 2-
+
+CodeIgniter는 라우팅 규칙을 위에서 아래로 읽고 요청과 첫 번째로 일치하는 규칙으로 라우팅합니다.
+각 규칙은 오른쪽의 슬래시로 구분된 컨트롤러와 메소드 이름에 매핑 된 왼쪽의  정규식입니다.
+요청이 들어 오면 CodeIgniter는 첫 번째 일치 항목을 찾고, 인수와 함께 적절한 컨트롤러와 메소드를 호출합니다.
+
+라우팅에 대한 자세한 내용은 :doc:`URI 라우팅 설명서 </incoming/routing>`\ 를 참조하십시오.
+
+여기에서 ``$routes`` 객체의 두 번째 규칙은 GET 요청을 URI 경로 ``/pages``\ 와 일치시키며 ``Pages`` 클래스의 ``index()`` 메서드를 매핑합니다.
+
+``$routes`` 객체의 세 번째 규칙은 와일드카드 문자열 ``(:any)``\ 를 사용하여 **어떤** URI 경로에 대한 GET 요청을 일치시키고 매개변수를 ``Pages`` 클래스의 ``view()`` 메서드에 전달합니다.
+
+앱 실행(Running the App)
+**************************
+
+테스트 준비가 되었나요?
 PHP의 내장 서버는 ``public`` 폴더에 있는 ``.htaccess`` 규칙(rule)을 제대로 처리하지 못하므로 URL에 "index.php/" 없이 앱을 실행할 수 없습니다. 
 CodeIgniter는 이를 위해 보완하는 자체 명령을 가지고 있습니다.
 
@@ -166,7 +140,18 @@ CodeIgniter는 이를 위해 보완하는 자체 명령을 가지고 있습니�
 포트 8080을 통하여 액세스할 수 있는 웹 서버를 시작됩니다.
 브라우저에서 ``localhost:8080``\ 을 입력하면 CodeIgniter Welcome 페이지가 나타나야 합니다.
 
-브라우저 몇 개의 URL을 입력하여 위에서 만든 `Pages` 컨트롤러가 어떻게 동작하는지 확인하십시오.
+이제 ``localhost:8080/home``\ 을 확인합시다. pages 컨트롤러의 ``view()`` 메소드로 올바르게 라우팅되었나요?
+멋지지 않나요?!?!
+
+다음과 같은지 보세요.:
+
+.. image:: ../images/tutorial1.png
+    :align: center
+
+.. note:: 경로를 수동으로 지정할 때는 Routes.php 파일에서 ``$routes->setAutoRoute(false);``\ 를 설정하여 자동 라우팅을 비활성화하는 것이 좋습니다.
+    이렇게 하면 정의한 경로만 액세스할 수 있습니다.
+
+이제 브라우저 몇 개의 URL을 입력하여 위에서 만든 ``Pages`` 컨트롤러가 어떻게 동작하는지 확인하십시오.
 
 .. table::
     :widths: 20 80
@@ -178,9 +163,6 @@ CodeIgniter는 이를 위해 보완하는 자체 명령을 가지고 있습니�
     |                                 | `Pages` 컨트롤러 내의 `index` 메소드의 결과인 CodeIgniter       |
     |                                 | "welcome" 페이지를 표시합니다.                                  |
     +---------------------------------+-----------------------------------------------------------------+
-    | localhost:8080/pages/index      | "index" 메소드에서 명시적으로 요청했기 때문에 CodeIgniter       |
-    |                                 | "welcome"\ 페이지 표시                                          |
-    +---------------------------------+-----------------------------------------------------------------+
     | localhost:8080/pages/view       | 위에서 만든 "home" 페이지.                                      |
     |                                 | ``view()`` 메소드의 "page" 매개 변수로 지정                     |
     +---------------------------------+-----------------------------------------------------------------+
@@ -191,50 +173,3 @@ CodeIgniter는 이를 위해 보완하는 자체 명령을 가지고 있습니�
     | localhost:8080/pages/view/shop  | `app/Views/pages/shop.php`\ 가 없기 때문에                      |
     |                                 | "404-File Not Found" 오류 페이지                                |
     +---------------------------------+-----------------------------------------------------------------+
-
-라우팅
--------------------------------------------------------
-
-컨트롤러가 작동합니다!
-
-사용자 지정 라우팅 규칙을 사용하면 URI를 모든 컨트롤러 및 메소드에 매핑하는 일반적인 규칙에서 벗어날 수 있습니다.
-
-::
-
-    http://example.com/[controller-class]/[controller-method]/[arguments]
-
-해볼까요? 
-라우팅 파일 **app/Config/Routes.php**\ 를 열고 "Route Definitions" 섹션을 찾으세요.
-
-주석 처리되지 않은 유일한 줄은
-
-::
-
-    $routes->get('/', 'Home::index');
-
-이 지시문은 지정되지 않은 요청에 대해 ``Home`` 컨트롤러 내의 ``index()`` 메소드로 처리하라고 합니다.
-
-'/'에 대한 **경로 지시문 뒤**\ 에 다음 행을 추가하십시오.
-
-::
-
-    $routes->get('(:any)', 'Pages::view/$1');
-
-
-CodeIgniter는 라우팅 규칙을 위에서 아래로 읽고 요청과 첫 번째로 일치하는 규칙으로 라우팅합니다.
-각 규칙은 오른쪽의 슬래시로 구분된 컨트롤러와 메소드 이름에 매핑 된 왼쪽의  정규식입니다.
-요청이 들어 오면 CodeIgniter는 첫 번째 일치 항목을 찾고, 인수와 함께 적절한 컨트롤러와 메소드를 호출합니다.
-
-라우팅에 대한 자세한 내용은 :doc:`URI 라우팅 설명서 </incoming/routing>`\ 를 참조하십시오.
-여기서 ``$routes`` 배열의 두 번째 규칙은 와일드카드 문자열 ``(:any)``\ 를 사용한 요청과 일치하며, 매개변수를 ``Pages`` 클래스의 ``view()`` 메소드에 전달합니다.
-
-이제 ``localhost:8080/home``\ 을 확인합시다. pages 컨트롤러의 ``view()`` 메소드로 올바르게 라우팅되었나요?
-멋지지 않나요?!?!
-
-다음과 같은지 보세요.:
-
-.. image:: ../images/tutorial1.png
-    :align: center
-
-.. note:: 경로를 수동으로 지정할 때는 Routes.php 파일에서 ``$routes->setAutoRoute(false);``\ 를 설정하여 자동 라우팅을 비활성화하는 것이 좋습니다.
-    이렇게 하면 정의한 경로만 액세스할 수 있습니다.

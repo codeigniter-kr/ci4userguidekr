@@ -24,10 +24,7 @@ Throttler는 `Token Bucket <https://en.wikipedia.org/wiki/Token_bucket>`_ 알고
 Throttler에 대한 첫 번째 호출은 다음과 같습니다.
 첫 번째 매개 변수는 버킷 이름이고, 두 번째 매개 변수는 버킷이 보유하는 토큰 수이며, 세 번째 매개 변수는 버킷을 채우는 데 걸리는 시간입니다.
 
-::
-
-    $throttler = \Config\Services::throttler();
-    $throttler->check($name, 60, MINUTE);
+.. literalinclude:: throttler/001.php
 
 여기서는 좀 더 읽기 쉽도록 :doc:`global constants </general/common_functions>`\ 중 하나를 사용하고 있습니다.
 버킷은 1분에 60개의 동작 또는 1초에 1개의 동작을 허용합니다.
@@ -51,51 +48,7 @@ Code
 
 **app/Filters/Throttle.php**\ 에 Throttler 필터를 직접 만들 수 있습니다.
 
-:: 
-
-    <?php namespace App\Filters;
-
-    use CodeIgniter\Filters\FilterInterface;
-    use CodeIgniter\HTTP\RequestInterface;
-    use CodeIgniter\HTTP\ResponseInterface;
-    use Config\Services;
-
-    class Throttle implements FilterInterface
-    {
-        /**
-         * This is a demo implementation of using the Throttler class
-         * to implement rate limiting for your application.
-         *
-         * @param array|null $arguments
-         *
-         * @return mixed
-         */
-        public function before(RequestInterface $request, $arguments = null)
-        {
-            $throttler = Services::throttler();
-
-            // Restrict an IP address to no more
-            // than 1 request per second across the entire site.
-            if ($throttler->check(md5($request->getIPAddress()), 60, MINUTE) === false)
-            {
-                return Services::response()->setStatusCode(429);
-            }
-        }
-
-        //--------------------------------------------------------------------
-
-        /**
-         * We don't have anything to do here.
-         *
-         * @param array|null $arguments
-         *
-         * @return mixed
-         */
-        public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
-        {
-            // ...
-        }
-    }
+.. literalinclude:: throttler/002.php
 
 실행될 때 이 메소드는 먼저 스로틀러 인스턴스를 가져옵니다.
 그런 다음 IP 주소를 버킷 이름으로 사용하여 초당 하나의 요청으로 제한하도록 설정합니다.
@@ -109,20 +62,14 @@ Code
 많은 웹 어플리케이션에서는 POST 요청에만 적용하는 것이 가장 적합하지만, API는 사용자의 모든 요청을 제한하고자 할 수 있습니다.
 수신 요청에 이를 적용하려면 먼저 필터에 별명(alias)을 **/app/Config/Filters.php**\ 에 추가해야 합니다.
 
-::
-
-	public $aliases = [
-		...
-		'throttle' => \App\Filters\Throttle::class,
-	];
+.. literalinclude:: throttler/003.php
 
 그런 다음, 사이트의 모든 POST 요청에 대해 필터를 적용합니다.
 
-::
+.. literalinclude:: throttler/004.php
 
-    public $methods = [
-        'post' => ['throttle', 'CSRF'],
-    ];
+.. Warning:: ``$methods`` 필터를 사용하는 경우 자동 라우팅을 사용하면 모든 HTTP 메서드가 컨트롤러에 액세스할 수 있으며 예상하지 못한 방법으로 컨트롤러에 액세스하면 필터를 우회할 수 있습니다.
+    이를 방지하기 위해서는 `자동 라우팅 비활성화 <use-defined-routes-only>`\ 를 참고하여 설정합니다.
 
 이제 설정이 끝났습니다. 사이트의 모든 POST 요청은 속도가 제한됩니다.
 

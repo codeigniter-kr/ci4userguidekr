@@ -14,9 +14,7 @@
 
 퍼블리셔 인스턴스는 소스 및 대상에 한정되므로 이 라이브러리는 ``Services``\ 를 통해 사용할 수 없고, 직접 인스턴스화하거나 확장(extended)해야 합니다.
 
-::
-
-    $publisher = new \CodeIgniter\Publisher\Publisher();
+.. literalinclude:: publisher/001.php
 
 *****************
 컨셉 및 사용법
@@ -38,45 +36,16 @@ On Demand
 
 클래스의 새 인스턴스를 인스턴스화하여 ``Publisher``\ 에 직접 액세스합니다.
 
-::
-
-    $publisher = new \CodeIgniter\Publisher\Publisher();
+.. literalinclude:: publisher/002.php
 
 ``Publisher``\ 는 기본적으로 필요한 자원을 프로젝트의 ``ROOTPATH``\ 에서 ``FCPATH``\ 로 가져와 웹에서 액세스할 수 있게 합니다.
 생성자에 새 소스 및 대상을 전달할 수 있습니다.
 
-::
-
-    use CodeIgniter\Publisher\Publisher;
-    
-    $vendorPublisher = new Publisher(ROOTPATH . 'vendor');
-    $filterPublisher = new Publisher('/path/to/module/Filters', APPPATH . 'Filters');
-
-    // Once the source and destination are set you may start adding relative input files
-    $frameworkPublisher = new Publisher(ROOTPATH . 'vendor/codeigniter4/codeigniter4');
-
-    // All "path" commands are relative to $source
-    $frameworkPublisher->addPath('app/Config/Cookie.php');
-
-    // You may also add from outside the source, but the files will not be merged into subdirectories
-    $frameworkPublisher->addFiles([
-        '/opt/mail/susan',
-        '/opt/mail/ubuntu',
-    ]);
-    $frameworkPublisher->addDirectory(SUPPORTPATH . 'Images');
+.. literalinclude:: publisher/003.php
 
 모든 파일이 준비되면 출력 명령(**copy()** 또는 **merge()**)중 하나를 사용하여 준비된 파일을 대상으로 가져갑니다.
 
-::
-
-    // Place all files into $destination
-    $frameworkPublisher->copy();
-
-    // Place all files into $destination, overwriting existing files
-    $frameworkPublisher->copy(true);
-
-    // Place files into their relative $destination directories, overwriting and saving the boolean result
-    $result = $frameworkPublisher->merge(true);
+.. literalinclude:: publisher/004.php
 
 사용 가능한 메소드에 대한 전체 설명은 :ref:`reference`\ 를 참조하십시오.
 
@@ -86,26 +55,11 @@ On Demand
 응용 프로그램 배포 또는 유지 관리의 일부로 포함된 일반 게시 작업이 있을 수 있습니다.
 ``Publisher``\ 는 강력한 ``Autoloader``\ 를 활용하여 게시 준비가 된 모든 하위 클래스를 찾습니다.
 
-::
-
-    use CodeIgniter\CLI\CLI;
-    use CodeIgniter\Publisher\Publisher;
-    
-    foreach (Publisher::discover() as $publisher)
-    {
-        $result = $publisher->publish();
-
-        if ($result === false)
-        {
-            CLI::error(get_class($publisher) . ' failed to publish!', 'red');
-        }
-    }
+.. literalinclude:: publisher/005.php
 
 기본적으로 ``discover()``\ 는 모든 네임스페이스에서 "Publishers" 디렉토리를 검색하지만 다른 디렉토리를 지정할 수 있으며 발견된 모든 하위 클래스를 반환합니다.
 
-::
-
-    $memePublishers = Publisher::discover('CatGIFs');
+.. literalinclude:: publisher/006.php
 
 대부분의 경우 검색을 직접 처리할 필요가 없습니다. 제공된 "publish" 명령을 사용하십시오.
 
@@ -123,8 +77,8 @@ On Demand
 
 * 웹 자산(assets): css, scss, js, map
 * 실행할 수 없는 웹 파일: htm, html, xml, json, webmanifest
-* 폰트: tff, eot, woff
-* 이미지: gif, jpg, jpeg, tiff, png, webp, bmp, ico, svg
+* 폰트: tff, eot, woff, woff2
+* 이미지: gif, jpg, jpeg, tif, tiff, png, webp, bmp, ico, svg
 
 프로젝트의 보안을 추가하거나 조정해야 하는 경우 ``Config\Publisher``\ 의 ``$restrictions`` 속성을 변경하세요.
 
@@ -141,41 +95,13 @@ Examples
 오늘의 사진에 대한 피드가 있지만 프로젝트의 탐색 가능한 위치에서 **public/images/daily_photo.jpg**\ 로 실제 파일을 가져와야 합니다.
 매일 실행하도록 :doc:`Custom Command </cli/cli_commands>`\ 를 설정하여 이를 처리할 수 있습니다.
 
-::
-
-    <?php
-
-    namespace App\Commands;
-
-    use CodeIgniter\CLI\BaseCommand;
-    use CodeIgniter\Publisher\Publisher;
-    use Throwable;
-
-    class DailyPhoto extends BaseCommand
-    {
-        protected $group       = 'Publication';
-        protected $name        = 'publish:daily';
-        protected $description = 'Publishes the latest daily photo to the homepage.';
-
-        public function run(array $params)
-        {
-            $publisher = new Publisher('/path/to/photos/', FCPATH . 'assets/images');
-
-            try {
-                $publisher->addPath('daily_photo.jpg')->copy(true); // `true` to enable overwrites
-            } catch (Throwable $e) {
-                $this->showError($e);
-            }
-        }
-    }
+.. literalinclude:: publisher/007.php
 
 이제 ``spark publish:daily``\ 를 실행하면 홈페이지의 이미지가 최신 상태로 유지됩니다.
 사진을 외부 API에서 가져온 경우에는 어떻게 됩니까?
 ``addPath()`` 대신 ``addUri()``\ 을 사용하여 원격 리소스를 다운로드하고 대신 게시할 수 있습니다.
 
-::
-
-    $publisher->addUri('https://example.com/feeds/daily_photo.jpg')->copy(true);
+.. literalinclude:: publisher/008.php
 
 자산(Asset) 종속성 예
 ==========================
@@ -184,53 +110,7 @@ Examples
 프로젝트에서 ``Publisher``\ 를 확장하여 프론트엔드 자산을 동기화하도록 프로젝트에서 발행물 정의를 생성할 수 있습니다.
 **app/Publishers/BootstrapPublisher.php**\ 는 다음과 같습니다.
 
-::
-
-    <?php
-    
-    namespace App\Publishers;
-
-    use CodeIgniter\Publisher\Publisher;
-
-    class BootstrapPublisher extends Publisher
-    {
-        /**
-         * Tell Publisher where to get the files.
-         * Since we will use Composer to download
-         * them we point to the "vendor" directory.
-         *
-         * @var string
-         */
-        protected $source = 'vendor/twbs/bootstrap/';
-
-        /**
-         * FCPATH is always the default destination,
-         * but we may want them to go in a sub-folder
-         * to keep things organized.
-         *
-         * @var string
-         */
-        protected $destination = FCPATH . 'bootstrap';
-
-        /**
-         * Use the "publish" method to indicate that this
-         * class is ready to be discovered and automated.
-         *
-         * @return boolean
-         */
-        public function publish(): bool
-        {
-            return $this
-                // Add all the files relative to $source
-                ->addPath('dist')
-
-                // Indicate we only want the minimized versions
-                ->retainPattern('*.min.*')
-
-                // Merge-and-replace to retain the original directory structure
-                ->merge(true);
-        }
-    }
+.. literalinclude:: publisher/009.php
 
 이제 Composer를 통해 종속성을 추가하고 ``spark publish``\ 를 호출하여 게시를 실행합니다.
 
@@ -270,50 +150,7 @@ Examples
 
 널리 사용되는 인증 모듈을 사용하는 개발자가 마이그레이션, 컨트롤러 및 모델의 기본 동작을 확장할 수 있도록 허용하려고 합니다. 이러한 구성요소를 응용 프로그램에 주입하여 사용할 수 있도록 고유한 모듈 "publish" 명령을 만들 수 있습니다.
 
-::
-
-    <?php
-
-    namespace Math\Auth\Commands;
-
-    use CodeIgniter\CLI\BaseCommand;
-    use CodeIgniter\Publisher\Publisher;
-    use Throwable;
-
-    class AuthPublish extends BaseCommand
-    {
-        protected $group       = 'Auth';
-        protected $name        = 'auth:publish';
-        protected $description = 'Publish Auth components into the current application.';
-
-        public function run(array $params)
-        {
-            // Use the Autoloader to figure out the module path
-            $source = service('autoloader')->getNamespace('Math\\Auth');
-
-            $publisher = new Publisher($source, APPATH);
-
-            try {
-                // Add only the desired components
-                $publisher->addPaths([
-                    'Controllers',
-                    'Database/Migrations',
-                    'Models',
-                ])->merge(false); // Be careful not to overwrite anything
-            } catch (Throwable $e) {
-                $this->showError($e);
-                return;
-            }
-
-            // If publication succeeded then update namespaces
-            foreach ($publisher->getPublished() as $file) {
-                // Replace the namespace
-                $contents = file_get_contents($file);
-                $contents = str_replace('namespace Math\\Auth', 'namespace ' . APP_NAMESPACE, $contents);
-                file_put_contents($file, $contents);
-            }
-        }
-    }
+.. literalinclude:: publisher/010.php
 
 이제 모듈 사용자가 ``php spark auth:publish``\ 를 실행하면 프로젝트에 다음이 추가됩니다.
 
@@ -390,16 +227,7 @@ Library Reference
 성공 또는 실패를 반환하고 ``getPublished()``\ 와 ``getErrors()``\ 를 사용하여 문제를 해결합니다.
 이름이 중복되어 충돌한 예입니다.
 
-::
-
-    $publisher = new Publisher('/home/source', '/home/destination');
-    $publisher->addPaths([
-        'pencil/lead.png',
-        'metal/lead.png',
-    ]);
-
-    // This is bad! Only one file will remain at /home/destination/lead.png
-    $publisher->copy(true);
+.. literalinclude:: publisher/011.php
 
 **merge(bool $replace = true): bool**
 
@@ -409,13 +237,6 @@ Library Reference
 디렉토리가 병합되기 때문에 대상의 다른 파일에는 영향을 미치지 않습니다.
 성공 또는 실패를 반환하고 ``getPublished()``\ 와 ``getErrors()``\ 를 사용하여 문제를 해결합니다.
 
-Example::
+Example
 
-    $publisher = new Publisher('/home/source', '/home/destination');
-    $publisher->addPaths([
-        'pencil/lead.png',
-        'metal/lead.png',
-    ]);
-
-    // Results in "/home/destination/pencil/lead.png" and "/home/destination/metal/lead.png"
-    $publisher->merge();
+.. literalinclude:: publisher/012.php

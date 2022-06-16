@@ -28,25 +28,25 @@ Kint는 기본적으로 **development** 와 **testing** :doc:`환경 </general/e
 Kint 사용
 =============
 
-**d()**
+d()
+---
 
 ``d()`` 메소드는 화면에 유일한 매개 변수로 전달된 내용에 대해 알고 있는 모든 데이터를 덤프하고 스크립트가 계속 실행되도록 합니다.
 
-::
+.. literalinclude:: debugging/001.php
 
-    d($_SERVER);
-
-**dd()**
+dd()
+----
 
 이 메소드는 ``dies()``\ 이며 다른 코드는 이 요청에서 실행되지 않는다는 점을 제외하고는 ``d()``\ 와 동일합니다.
 
-**trace()**
+
+trace()
+-------
 
 이것은 Kint의 고유한 기능으로 현재 실행 지점에 역 추적을 제공합니다.
 
-::
-
-    trace();
+.. literalinclude:: debugging/002.php
 
 자세한 내용은 `Kint's page <https://kint-php.github.io/kint//>`_\ 를 참조하십시오.
 
@@ -79,18 +79,7 @@ Kint 사용
 CodeIgniter에는 이름에서 알 수 있듯이 툴바에 표시할 데이터를 수집하는 여러 수집기가 제공되며, 툴바를 쉽게 사용자 정의할 수 있습니다.
 표시되는 수집기를 확인하려면, 어플리케이션 구성 파일 **app/Config/Toolbar.php**\ 를 살펴보십시오.
 
-::
-
-    public $collectors = [
-        \CodeIgniter\Debug\Toolbar\Collectors\Timers::class,
-        \CodeIgniter\Debug\Toolbar\Collectors\Database::class,
-        \CodeIgniter\Debug\Toolbar\Collectors\Logs::class,
-        \CodeIgniter\Debug\Toolbar\Collectors\Views::class,
-        \CodeIgniter\Debug\Toolbar\Collectors\Cache::class,
-        \CodeIgniter\Debug\Toolbar\Collectors\Files::class,
-        \CodeIgniter\Debug\Toolbar\Collectors\Routes::class,
-        \CodeIgniter\Debug\Toolbar\Collectors\Events::class,
-    ];
+.. literalinclude:: debugging/003.php
 
 표시하고 싶지 않은 수집기를 주석 처리하십시오.
 정규화된 클래스 이름을 제공하여 사용자 정의 수집기를 추가하십시오.
@@ -123,24 +112,7 @@ CodeIgniter와 함께 제공되는 수집기:
 오토로더가 찾을 수 있도록 완전한(full) 네임스페이스의 ``CodeIgniter\Debug\Toolbar\Collectors\BaseCollector``\ 를 확장하는 새 클래스를 작성합니다.
 여기에는 재정의할 수있는 여러 가지 메소드가 제공되며 수집기 작동 방식에 따라 올바르게 설정해야하는 4가지 필수 클래스 속성이 있습니다.
 
-::
-
-    <?php 
-    
-    namespace MyNamespace;
-
-    use CodeIgniter\Debug\Toolbar\Collectors\BaseCollector;
-
-    class MyCollector extends BaseCollector
-    {
-        protected $hasTimeline = false;
-
-        protected $hasTabContent = false;
-
-        protected $hasVarData = false;
-
-        protected $title = '';
-    }
+.. literalinclude:: debugging/004.php
 
 **$hasTimeline** 툴바의 타임 라인에 정보를 표시하려는 수집기에 대해 ``true``\ 로 설정합니다.
 이값이 true라면, 표시할 데이터를 포맷하고 반환하기 위해 ``formatTimelineData()`` 메소드를 구현해야 합니다.
@@ -182,14 +154,7 @@ HTML 문자열을 반환해야 합니다.
 ``formatTimelineData()`` 메소드는 타임 라인에서 이를 사용하여 올바르게 정렬하고, 올바른 정보를 표시할 수있는 형식의 배열 배열을 반환해야 합니다. 
 내부 배열에는 다음 정보가 포함되어야 합니다.
 
-::
-
-    $data[] = [
-        'name'      => '',     // Name displayed on the left of the timeline
-        'component' => '',     // Name of the Component listed in the middle of timeline
-        'start'     => 0.00,   // start time, like microtime(true)
-        'duration'  => 0.00,   // duration, like mircrotime(true) - microtime(true)
-    ];
+.. literalinclude:: debugging/005.php
 
 Vars 제공
 --------------
@@ -202,15 +167,4 @@ Vars 탭에 데이터를 추가하려면 다음을 수행합니다.
 ``getVarData()`` 메소드는 표시할 키/값 쌍의 배열을 포함하는 배열을 반환해야 합니다.
 외부 배열 키의 이름은 Vars 탭의 섹션 이름입니다.
 
-::
-
-    $data = [
-        'section 1' => [
-            'foo' => 'bar',
-            'bar' => 'baz',
-        ],
-        'section 2' => [
-            'foo' => 'bar',
-            'bar' => 'baz',
-        ],
-     ];
+.. literalinclude:: debugging/006.php

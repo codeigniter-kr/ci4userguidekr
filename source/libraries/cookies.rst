@@ -26,81 +26,18 @@ To help you efficiently use cookies across browsers with your request and respon
 
 새로운 ``Cookie`` 개체를 만드는 네 가지 방법을 제공합니다.
 
-::
-
-    use CodeIgniter\Cookie\Cookie;
-    use DateTime;
-
-    // Using the constructor
-    $cookie = new Cookie(
-        'remember_token',
-        'f699c7fd18a8e082d0228932f3acd40e1ef5ef92efcedda32842a211d62f0aa6',
-        [
-            'expires'  => new DateTime('+2 hours'),
-            'prefix'   => '__Secure-',
-            'path'     => '/',
-            'domain'   => '',
-            'secure'   => true,
-            'httponly' => true,
-            'raw'      => false,
-            'samesite' => Cookie::SAMESITE_LAX,
-        ]
-    );
-
-    // Supplying a Set-Cookie header string
-    $cookie = Cookie::fromHeaderString(
-        'remember_token=f699c7fd18a8e082d0228932f3acd40e1ef5ef92efcedda32842a211d62f0aa6; Path=/; Secure; HttpOnly; SameSite=Lax',
-        false, // raw
-    );
-
-    // Using the fluent builder interface
-    $cookie = (new Cookie('remember_token'))
-        ->withValue('f699c7fd18a8e082d0228932f3acd40e1ef5ef92efcedda32842a211d62f0aa6')
-        ->withPrefix('__Secure-')
-        ->withExpires(new DateTime('+2 hours'))
-        ->withPath('/')
-        ->withDomain('')
-        ->withSecure(true)
-        ->withHTTPOnly(true)
-        ->withSameSite(Cookie::SAMESITE_LAX);
-
-    // Using the global function `cookie` which implicitly calls `new Cookie()`
-    $cookie = cookie('remember_token', 'f699c7fd18a8e082d0228932f3acd40e1ef5ef92efcedda32842a211d62f0aa6');
+.. literalinclude:: cookies/001.php
 
 ``Cookie`` 개체를 구성할 때는 ``name`` 속성만 입력하면 됩니다. 다른 모든 항목은 선택 사항입니다.
 선택적 속성을 수정하지 않으면 해당 값은 ``Cookie`` 클래스에 저장된 기본값으로 채워집니다.
 현재 클래스에 저장된 기본값을 재정의하려면 ``Config\Cookie`` 인스턴스나 정적 메소드 ``Cookie::setDefaults()``\ 에  기본값 배열을 전달합니다.
 
-::
-
-    use CodeIgniter\Cookie\Cookie;
-    use Config\Cookie as CookieConfig;
-
-    // pass in an Config\Cookie instance before constructing a Cookie class
-    Cookie::setDefaults(new CookieConfig());
-    $cookie = new Cookie('login_token');
-
-    // pass in an array of defaults
-    $myDefaults = [
-        'expires'  => 0,
-        'samesite' => Cookie::SAMESITE_STRICT,
-    ];
-    Cookie::setDefaults($myDefaults);
-    $cookie = new Cookie('login_token');
+.. literalinclude:: cookies/002.php
 
 ``Config\Cookie`` 인스턴스 또는 ``Cookie::setDefaults()``\ 로 배열을 전달하면 기본값을 덮어쓰고 새 기본값이 전달될 때까지 유지됩니다.
 이 동작을 원하지 않고 제한된 시간 동안만 기본값을 변경하려는 경우 이전 기본값 배열을 반환하는 ``Cookie::setDefaults()`` 반환을 이용할 수 있습니다.
 
-::
-
-    use CodeIgniter\Cookie\Cookie;
-    use Config\Cookie as CookieConfig;
-
-    $oldDefaults = Cookie::setDefaults(new CookieConfig());
-    $cookie = new Cookie('my_token', 'muffins');
-
-    // return the old defaults
-    Cookie::setDefaults($oldDefaults);
+.. literalinclude:: cookies/003.php
 
 *****************************
 쿠키의 속성에 액세스
@@ -108,48 +45,7 @@ To help you efficiently use cookies across browsers with your request and respon
 
 일단 인스턴스화되면, 당신은 ``Cookie``\ 의 속성 중 하나를 사용하여 쉽게 접근할 수 있습니다.
 
-::
-
-    use CodeIgniter\Cookie\Cookie;
-    use DateTime;
-    use DateTimeZone;
-
-    $cookie = new Cookie(
-        'remember_token',
-        'f699c7fd18a8e082d0228932f3acd40e1ef5ef92efcedda32842a211d62f0aa6',
-        [
-            'expires'  => new DateTime('2025-02-14 00:00:00', new DateTimeZone('UTC')),
-            'prefix'   => '__Secure-',
-            'path'     => '/',
-            'domain'   => '',
-            'secure'   => true,
-            'httponly' => true,
-            'raw'      => false,
-            'samesite' => Cookie::SAMESITE_LAX,
-        ]
-    );
-
-    $cookie->getName(); // 'remember_token'
-    $cookie->getPrefix(); // '__Secure-'
-    $cookie->getPrefixedName(); // '__Secure-remember_token'
-    $cookie->getExpiresTimestamp(); // Unix timestamp
-    $cookie->getExpiresString(); // 'Fri, 14-Feb-2025 00:00:00 GMT'
-    $cookie->isExpired(); // false
-    $cookie->getMaxAge(); // the difference from time() to expires
-    $cookie->isRaw(); // false
-    $cookie->isSecure(); // true
-    $cookie->getPath(); // '/'
-    $cookie->getDomain(); // ''
-    $cookie->isHTTPOnly(); // true
-    $cookie->getSameSite(); // 'Lax'
-
-    // additional getter
-    $cookie->getId(); // '__Secure-remember_token;;/'
-
-    // when using `setcookie()`'s alternative signature on PHP 7.3+
-    // you can easily use the `getOptions()` method to supply the
-    // $options parameter
-    $cookie->getOptions();
+.. literalinclude:: cookies/004.php
 
 *****************
 불변 쿠키
@@ -160,18 +56,7 @@ To help you efficiently use cookies across browsers with your request and respon
 수정 내용은 **항상** 새 인스턴스를 반환합니다.
 이 새 인스턴스를 사용하려면 해당 인스턴스를 유지해야 합니다.
 
-::
-
-    use CodeIgniter\Cookie\Cookie;
-
-    $cookie = new Cookie('login_token', 'admin');
-    $cookie->getName(); // 'login_token'
-
-    $cookie->withName('remember_token');
-    $cookie->getName(); // 'login_token'
-
-    $new = $cookie->withName('remember_token');
-    $new->getName(); // 'remember_token'
+.. literalinclude:: cookies/005.php
 
 ***************
 쿠키 속성 검증
@@ -227,131 +112,48 @@ SameSite를 빈 문자열로 설정하고 기본 SameSite도 빈 문자열인 �
 SameSite 속성을 쓸 때 ``Cookie`` 클래스는 모든 값을 대소문자를 구분하지 않고 받아들입니다.
 번거롭지 않게 클래스의 상수를 활용하는 방법도 있습니다.
 
-::
+.. literalinclude:: cookies/006.php
 
-    use CodeIgniter\Cookie\Cookie;
-
-    Cookie::SAMESITE_LAX; // 'lax'
-    Cookie::SAMESITE_STRICT; // 'strict'
-    Cookie::SAMESITE_NONE; // 'none'
-
-**********************
-쿠키 저장소 사용
-**********************
+*************************
+쿠키 저장소(Store) 사용
+*************************
 
 ``CookieStore`` 클래스는 ``Cookie`` 개체의 불변의 컬렉션을 나타냅니다.
 ``CookieStore`` 인스턴스는 현재 `Response`` 개체에서 액세스할 수 있습니다.
 
-::
-
-    use Config\Services;
-
-    $cookieStore = Services::response()->getCookieStore();
+.. literalinclude:: cookies/007.php
 
 CodeIgniter는 새로운 ``CookieStore`` 인스턴스를 만드는 세 가지 다른 방법을 제공합니다.
 
-::
-
-    use CodeIgniter\Cookie\Cookie;
-    use CodeIgniter\Cookie\CookieStore;
-
-    // Passing an array of `Cookie` objects in the constructor
-    $store = new CookieStore([
-        new Cookie('login_token'),
-        new Cookie('remember_token'),
-    ]);
-
-    // Passing an array of `Set-Cookie` header strings
-    $store = CookieStore::fromCookieHeaders([
-        'remember_token=me; Path=/; SameSite=Lax',
-        'login_token=admin; Path=/; SameSite=Lax',
-    ]);
-
-    // using the global `cookies` function
-    $store = cookies([new Cookie('login_token')], false);
-
-    // retrieving the `CookieStore` instance saved in our current `Response` object
-    $store = cookies();
+.. literalinclude:: cookies/008.php
 
 .. note:: 전역 ``cookies()`` 함수를 사용할 때, 전달된 ``Cookie`` 배열은 두 번째 인수인 ``$getGlobal`\ 이 ``false``\ 로 설정된 경우에만 고려됩니다.
 
-스토어에서 쿠키 확인
+저장소에서 쿠키 확인
 =========================
 
 ``CookieStore`` 인스턴스에 ``Cookie`` 개체가 있는지 확인하려면 여러 가지 방법을 사용할 수 있습니다.
 
-::
+.. literalinclude:: cookies/009.php
 
-    use CodeIgniter\Cookie\Cookie;
-    use CodeIgniter\Cookie\CookieStore;
-    use Config\Services;
-
-    // check if cookie is in the current cookie collection
-    $store = new CookieStore([
-        new Cookie('login_token'),
-        new Cookie('remember_token'),
-    ]);
-    $store->has('login_token');
-
-    // check if cookie is in the current Response's cookie collection
-    cookies()->has('login_token');
-    Services::response()->hasCookie('remember_token');
-
-    // using the cookie helper to check the current Response
-    // not available to v4.1.1 and lower
-    helper('cookie');
-    has_cookie('login_token');
-
-스토어에서 쿠키 받기
+저장소에서 쿠키 받기
 ========================
 
 쿠키 컬렉션에서 ``Cookie`` 인스턴스를 검색하는 것은 매우 쉽습니다.
 
-::
-
-    use CodeIgniter\Cookie\Cookie;
-    use CodeIgniter\Cookie\CookieStore;
-    use Config\Services;
-
-    // getting cookie in the current cookie collection
-    $store = new CookieStore([
-        new Cookie('login_token'),
-        new Cookie('remember_token'),
-    ]);
-    $store->get('login_token');
-
-    // getting cookie in the current Response's cookie collection
-    cookies()->get('login_token');
-    Services::response()->getCookie('remember_token');
-
-    // using the cookie helper to get cookie from the Response's cookie collection
-    helper('cookie');
-    get_cookie('remember_token');
+.. literalinclude:: cookies/010.php
 
 ``CookieStore``\ 에서 잘못된 이름으로 직접 ``Cookie`` 인스턴스를 받으면 ``CookieException`` 예외를 발생시킵니다.
 
-::
-
-    // throws CookieException
-    $store->get('unknown_cookie');
+.. literalinclude:: cookies/011.php
 
 ``Response``\ 의 쿠키 컬렉션에서 잘못된 이름으로 ``Cookie`` 인스턴스를 가져오면 ``null``\ 로 반환됩니다.
 
-::
-
-    cookies()->get('unknown_cookie'); // null
+.. literalinclude:: cookies/012.php
 
 ``Response``\ 에서 쿠키를 가져올 때 인수가 제공되지 않으면 저장 중인 ``Cookie`` 개체가 모두 표시됩니다.
 
-::
-
-    cookies()->get(); // array of Cookie objects
-
-    // alternatively, you can use the display method
-    cookies()->display();
-
-    // or even from the Response
-    Services::response()->getCookies();
+.. literalinclude:: cookies/013.php
 
 .. note:: ``get_cookie()`` 헬퍼 함수는 ``Response``\ 가 아닌 ``Request`` 개체에서 쿠키를 가져옵니다.
     이 함수는 쿠키가 설정되어 있으면 `$_COOKIE` 배열을 확인한 후 바로 가져옵니다.
@@ -363,22 +165,7 @@ CodeIgniter는 새로운 ``CookieStore`` 인스턴스를 만드는 세 가지 �
 수정 작업을 하려면 수정된 인스턴스를 저장해야 합니다.
 원래 인스턴스는 변경되지 않은 상태로 유지됩니다.
 
-::
-
-    use CodeIgniter\Cookie\Cookie;
-    use CodeIgniter\Cookie\CookieStore;
-    use Config\Services;
-
-    $store = new CookieStore([
-        new Cookie('login_token'),
-        new Cookie('remember_token'),
-    ]);
-
-    // adding a new Cookie instance
-    $new = $store->put(new Cookie('admin_token', 'yes'));
-
-    // removing a Cookie instance
-    $new = $store->remove('login_token');
+.. literalinclude:: cookies/014.php
 
 .. note:: 스토어에서 쿠키를 제거하면 브라우저에서 쿠키가 삭제되지 **않습니다**.
         *브라우저에서 쿠키를 삭제*\ 하려면 동일한 이름의 빈 값 쿠키를 저장소에 넣어야합니다.
@@ -386,17 +173,7 @@ CodeIgniter는 새로운 ``CookieStore`` 인스턴스를 만드는 세 가지 �
 ``Response`` 개체에 저장 중인 쿠키와 상호 작용할 때 쿠키 컬렉션의 불변성을 걱정하지 않고 안전하게 쿠키를 추가하거나 삭제할 수 있습니다.
 ``Response`` 개체는 인스턴스를 수정된 인스턴스로 바꿉니다.
 
-::
-
-    use Config\Services;
-
-    Services::response()->setCookie('admin_token', 'yes');
-    Services::response()->deleteCookie('login_token');
-
-    // using the cookie helper
-    helper('cookie');
-    set_cookie('admin_token', 'yes');
-    delete_cookie('login_token');
+.. literalinclude:: cookies/015.php
 
 스토어 내 쿠키 발송
 ============================
@@ -405,17 +182,7 @@ CodeIgniter는 새로운 ``CookieStore`` 인스턴스를 만드는 세 가지 �
 그러나 쿠키를 수동으로 보내야 하는 경우에는 ``dispatch`` 메소드를 사용해야 합니다.
 다른 헤더를 보낼 때와 마찬가지로 ``headers_sent()`` 값을 확인하여 헤더를 아직 전송되지 않았는지 확인해야 합니다.
 
-::
-
-    use CodeIgniter\Cookie\Cookie;
-    use CodeIgniter\Cookie\CookieStore;
-
-    $store = new CookieStore([
-        new Cookie('login_token'),
-        new Cookie('remember_token'),
-    ]);
-
-    $store->dispatch(); // After dispatch, the collection is now empty.
+.. literalinclude:: cookies/016.php
 
 **********************
 쿠키 개인화

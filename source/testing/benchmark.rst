@@ -23,30 +23,17 @@ Timer 클래스는 항상 활성화되어 있으며, 프레임워크가 호출�
 ``start()`` 메소드는 타이머의 이름을 단일 매개 변수로 사용합니다.
 타이머 이름은 모든 문자열을 사용할 수 있으며, 어떤 측정값이 어떤 것인지 알기 위해 참조용으로 사용됩니다
 
-::
-
-    $benchmark = \Config\Services::timer();
-    $benchmark->start('render view');
+.. literalinclude:: benchmark/001.php
 
 ``stop()`` 메소드는 중지하려는 타이머의 이름을 유일한 매개 변수로 사용합니다.
 
-::
-
-    $benchmark->stop('render view');
-
-The name is not case-sensitive, but otherwise must match the name you gave it when you started the timer.
+.. literalinclude:: benchmark/002.php
 
 이름은 대소문자를 구분하지 않지만 타이머를 시작할 때 지정한 이름과 일치해야합니다.
 
 :doc:`전역 함수 </general/common_functions>` ``timer()``\ 를 사용하여 타이머를 시작하고 중지할 수 있습니다
 
-::
-
-    // Start the timer
-    timer('render view');
-    // Stop a running timer,
-    // if one of this name has been started
-    timer('render view');
+.. literalinclude:: benchmark/003.php
 
 벤치마킹 포인트 보기
 =============================
@@ -55,25 +42,12 @@ The name is not case-sensitive, but otherwise must match the name you gave it wh
 그러나 자동으로 표시하지는 않습니다.
 ``getTimers()`` 메소드를 호출하여 모든 타이머를 검색할 수 있으며, 시작, 종료 및 지속 시간을 포함한 일련의 벤치 마크 정보를 리턴합니다.
 
-::
+.. literalinclude:: benchmark/004.php
 
-    $timers = $benchmark->getTimers();
-
-    // Timers =
-    [
-        'render view'  => [
-            'start'    => 1234567890,
-            'end'      => 1345678920,
-            'duration' => 15.4315, // number of seconds
-        ]
-    ]
-
-유일한 매개 변수로 표시할 소수 자릿수를 전달하여 계산된 지속 시간의 정밀도를 변경할 수 있습니다.
+단일 매개 변수로 표시할 소수 자릿수를 전달하여 계산된 지속 시간의 정밀도를 변경할 수 있습니다.
 기본값은 소수점 4자리입니다
 
-::
-
-    $timers = $benchmark->getTimers(6);
+.. literalinclude:: benchmark/005.php
 
 타이머는 자동으로 :doc:`디버그 툴바 </testing/debugging>`\ 에 표시됩니다.
 
@@ -82,10 +56,7 @@ The name is not case-sensitive, but otherwise must match the name you gave it wh
 
 ``getTimers()`` 메소드는 프로젝트의 모든 타이머에 대한 원시 데이터를 제공하지만 ``getElapsedTime()`` 메소드를 사용하여 단일 타이머의 지속 시간을 초 단위로 검색할 수 있습니다. 첫 번째 매개 변수는 표시 할 타이머의 이름입니다. 두 번째는 표시 할 소수 자릿수입니다.(기본값은 4)
 
-::
-
-    echo timer()->getElapsedTime('render view');
-    // Displays: 0.0234
+.. literalinclude:: benchmark/006.php
 
 ==================
 Iterator 사용
@@ -104,21 +75,7 @@ Creating Tasks To Run
 첫 번째 매개 변수는 이 테스트를 참조하려는 이름입니다. 
 두 번째 매개 변수는 클로저입니다.
 
-::
-
-    $iterator = new \CodeIgniter\Benchmark\Iterator();
-
-    // Add a new task
-    $iterator->add('single_concat', function () {
-            $str = 'Some basic'.'little'.'string concatenation test.';
-        }
-    );
-
-    // Add another task
-    $iterator->add('double', function ($a = 'little') {
-            $str = "Some basic {$little} string test.";
-        }
-    );
+.. literalinclude:: benchmark/007.php
 
 작업 실행
 =================
@@ -127,15 +84,9 @@ Creating Tasks To Run
 기본적으로 각 작업을 1000번 실행합니다. 이것은 대부분의 간단한 테스트에 충분합니다.
 테스트를 그보다 더 많이 실행해야 하는 경우 숫자를 첫 번째 매개 변수로 전달합니다
 
-::
-
-    // Run the tests 3000 times.
-    $iterator->run(3000);
+.. literalinclude:: benchmark/008.php
 
 실행되면 테스트 결과가 포함된 HTML 테이블이 반환됩니다.
 결과를 표시하지 않으려면 두 번째 매개 변수에 false를 전달하면됩니다.
 
-::
-
-    // Don't display the results.
-    $iterator->run(1000, false);
+.. literalinclude:: benchmark/009.php

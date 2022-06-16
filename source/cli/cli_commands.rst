@@ -10,74 +10,6 @@
     :local:
     :depth: 2
 
-****************
-CLI 명령 실행
-****************
-
-명령은 루트 디렉토리의 커맨드 라인에서 실행됩니다.
-**/app** 과 **/system** 디렉토리를 보유하는 것은 동일합니다.
-CLI 명령을 실행하는데 사용되는 사용자 정의 스크립트 **spark**\ 가 제공됩니다.
-
-::
-
-    > php spark
-
-명령을 지정하지 않고 호출하면 사용 가능한 명령 목록을 제공하는 간단한 도움말 페이지가 표시됩니다.
-명령 이름을 첫 번째 인수로 전달하여 해당 명령을 실행합니다.
-
-::
-
-    > php spark migrate
-
-일부 명령은 추가 인수를 사용하며, 명령 뒤에 공백으로 구분하여 기술합니다.
-
-::
-
-    > php spark db:seed DevUserSeeder
-
-헤더 출력을 억제하기 위해 ``--no-header``\ 을 전달하여 결과를 구문 분석할 수 있습니다.
-
-::
-
-    > php spark cache:clear --no-header
-
-CodeIgniter가 제공하는 모든 명령에 대해 필요한 인수를 제공하지 않으면 올바르게 실행하는 데 필요한 정보를 묻는 메시지가 표시됩니다.
-
-::
-
-    > php spark migrate:version
-    > Version?
-
-CLI 명령 호출
-==================
-
-자신의 코드내에서 CLI 명령을 호출할 수 있습니다. 
-이런 작업은 주로 cronjob 작업을 위해 컨트롤러 내에서 ``command()`` 함수를 사용하여 수행됩니다.
-별도의 로드 없이 언제든 사용 가능합니다. 
-
-
-::
-
-    echo command('migrate:create TestMigration');
-
-CLI 명령 문자열과 매개 변수를 명령줄에서 실행하는 것과 동일하게 ``command()`` 함수에 전달합니다.
-
-명령줄에서 실행되지 않으면 실행된 명령의 모든 출력이 캡처됩니다. 
-실행된 CLI 명령의 모든 출력은 캡처되어 반환되므로 표시 여부를 선택할 수 있습니다.
-
-********************
-도움말 명령 사용
-********************
-
-help 명령을 사용하여 CLI 명령에 대한 도움말을 얻을 수 있습니다.
-
-::
-
-    > php spark help db:seed
-
-**list** 명령을 사용하여 범주별로 정렬된 사용 가능한 명령 및 설명 목록을 가져올 수 있으며, 
-``spark list --simple``\ 을 사용하여 사용 가능한 모든 명령의 원시 목록을 알파벳 순으로 정렬할 수 있습니다.
-
 *********************
 새로운 명령 만들기
 *********************
@@ -101,7 +33,7 @@ CLI 명령에 나열되고 명령 도움말 기능을 추가하려면 다음 특
 
 명령은 **Commands** 디렉토리에 저장해야 합니다.
 그러나 해당 디렉토리는 :doc:`오토로더 </concepts/autoloader>`\ 가 있는 위치에 있을 수 있으며,
-**/app/Comms** 또는 **Acme/andss**\ 와 같이 특정 프로젝트 개발에 사용 가능하도록 명령을 보관하는 디렉토리에 있을 수 있습니다.
+**app/Comms** 또는 **Acme/andss**\ 와 같이 특정 프로젝트 개발에 사용 가능하도록 명령을 보관하는 디렉토리에 있을 수 있습니다.
 
 .. note:: 명령이 실행될 때 전체 CodeIgniter cli 환경이 로드되어 환경 정보, 경로 정보를 가져오며 Controller 작성시 사용할 도구를 사용할 수 있습니다.
 
@@ -109,28 +41,9 @@ CLI 명령에 나열되고 명령 도움말 기능을 추가하려면 다음 특
 ==================
 
 데모 목적으로 어플리케이션 자체에 대한 기본 정보를 보고하는 예제 명령을 살펴 보겠습니다.
-**/app/Commands/AppInfo.php**\ 에 다음 코드를 작성하여 새 파일을 생성하십시오.
+**app/Commands/AppInfo.php**\ 에 다음 코드를 작성하여 새 파일을 생성하십시오.
 
-::
-
-    <?php 
-    
-    namespace App\Commands;
-
-    use CodeIgniter\CLI\BaseCommand;
-    use CodeIgniter\CLI\CLI;
-
-    class AppInfo extends BaseCommand
-    {
-        protected $group       = 'demo';
-        protected $name        = 'app:info';
-        protected $description = 'Displays basic application information.';
-
-        public function run(array $params)
-        {
-            // ...
-        }
-    }
+.. literalinclude:: cli_commands/002.php
 
 **list** 명령을 실행하면 새 명령이 ``demo`` 그룹 아래에 표시됩니다.
 이를 살펴보면 이 명령이 어떻게 작동하는지 알 수 있을 것입니다.
@@ -156,26 +69,16 @@ CLI 문자열이 아래와 같다면
 
 **foo**\ 는 명령이고 ``$params`` 배열은
 
-::
-
-    $params = ['bar', 'baz'];
+.. literalinclude:: cli_commands/003.php
 
 이것도 :doc:`CLI </cli/cli_library>` 라이브러리를 통해 액세스할 수 있지만 문자열에서 이미 명령이 제거되었습니다.
 이 매개 변수는 스크립트 동작 방식을 사용자 정의할 때 사용할 수 있습니다.
 
-데모 명령의 ``run`` 메소드는 다음과 같습니다.
+데모 명령의 ``run()`` 메소드는 다음과 같습니다.
 
-::
+.. literalinclude:: cli_commands/004.php
 
-    public function run(array $params)
-    {
-        CLI::write('PHP Version: '. CLI::color(phpversion(), 'yellow'));
-        CLI::write('CI Version: '. CLI::color(\CodeIgniter\CodeIgniter::CI_VERSION, 'yellow'));
-        CLI::write('APPPATH: '. CLI::color(APPPATH, 'yellow'));
-        CLI::write('SYSTEMPATH: '. CLI::color(SYSTEMPATH, 'yellow'));
-        CLI::write('ROOTPATH: '. CLI::color(ROOTPATH, 'yellow'));
-        CLI::write('Included files: '. CLI::color(count(get_included_files()), 'yellow'));
-    }
+:doc:`CLI Library </cli/cli_library>` 페이지에서 더 자세한 정보를 확인하세요.
 
 ***********
 기본 명령
@@ -193,10 +96,7 @@ CLI 문자열이 아래와 같다면
 
         이 메소드를 사용하면 현재 명령을 실행하는 동안 다른 명령을 실행할 수 있습니다
         
-        ::
-
-            $this->call('command_one');
-            $this->call('command_two', $params);
+        .. literalinclude:: cli_commands/005.php
 
     .. php:method:: showError(Throwable $e)
 
@@ -204,13 +104,7 @@ CLI 문자열이 아래와 같다면
 
         CLI에 일관성 있고 명확한 오류 출력을 유지하는 편리한 메소드
         
-        ::
-
-            try {
-                . . .
-            } catch (\Exception $e) {
-                $this->showError($e);
-            }
+        .. literalinclude:: cli_commands/006.php
 
     .. php:method:: showHelp()
 
@@ -225,14 +119,4 @@ CLI 문자열이 아래와 같다면
         $key => $value 배열 출력에 대한 패딩을 계산하는 메소드.
         패딩은 CLI에서 테이블을 출력할 때 사용할 수 있습니다
         
-        ::
-
-            $pad = $this->getPad($this->options, 6);
-
-            foreach ($this->options as $option => $description){
-                CLI::write($tab . CLI::color(str_pad($option, $pad), 'green') . $description, 'yellow');
-            }
-
-            // Output will be
-            -n                  Set migration namespace
-            -r                  override file
+        .. literalinclude:: cli_commands/007.php

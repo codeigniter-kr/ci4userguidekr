@@ -31,9 +31,7 @@ CodeIgniter는 어플리케이션을 다른 언어로 지역화하는데 도움�
 
 모든 사이트에는 기본 language/locale이 있으며, **Config/App.php**\ 에서 설정할 수 있습니다.
 
-::
-
-    public $defaultLocale = 'en';
+.. literalinclude:: localization/001.php
 
 값은 어플리케이션이 텍스트 문자열 및 기타 형식을 관리하는데 사용하는 모든 문자열입니다.
 `BCP 47 <http://www.rfc-editor.org/rfc/bcp/bcp47.txt>`_ 언어 코드를 사용하는 것이 좋습니다.
@@ -59,17 +57,13 @@ CodeIgniter는 어플리케이션을 다른 언어로 지역화하는데 도움�
 Config/App에서 두 개의 추가 설정을 설정하여 컨텐츠 협상이 자동으로 수행되도록 설정할 수 있습니다.
 첫 번째 값은 Request 클래스에 로케일을 협상하고 싶다고 알려주므로 간단히 true로 설정하십시오.
 
-::
-
-    public $negotiateLocale = true;
+.. literalinclude:: localization/002.php
 
 이 기능이 활성화되면 시스템은 ``$supportLocales``\ 에 정의한 로케일 배열을 기반으로 올바른 언어를 자동으로 협상합니다.
 지원하는 언어와 요청한 언어가 일치하지 않으면 ``$supportedLocales``\ 의 첫 번째 항목이 사용됩니다.
 다음 예에서 일치하는 항목이 없으면 **en** 로케일이 사용됩니다.
 
-::
-
-    public $supportedLocales = ['en', 'es', 'fr-FR'];
+.. literalinclude:: localization/003.php
 
 경로(route)에 배치
 -----------------------
@@ -78,9 +72,7 @@ Config/App에서 두 개의 추가 설정을 설정하여 컨텐츠 협상이 �
 자리 표시자 ``{locale}``\ 은 경로에 세그먼트로 배치할 수 있습니다.
 존재하는 경우 일치하는 세그먼트의 내용이 로케일이 됩니다.
 
-::
-
-    $routes->get('{locale}/books', 'App\Books::index');
+.. literalinclude:: localization/004.php
 
 이 예에서 사용자가 ``http://example.com/fr/books``\ 를 방문할 때 유효한 로케일로 구성된 경우 로케일이 ``fr``\ 로 설정됩니다.
 
@@ -92,25 +84,11 @@ Config/App에서 두 개의 추가 설정을 설정하여 컨텐츠 협상이 �
 현재 로케일은 ``getLocale()`` 메소드를 통해 ``IncomingRequest`` 오브젝트에서 검색할 수 있습니다.
 컨트롤러가 ``CodeIgniter\Controller``\ 를 확장하는 경우 ``$this->request``\ 를 통해 사용할 수 있습니다
 
-::
-
-    <?php 
-    
-    namespace App\Controllers;
-
-    class UserController extends \CodeIgniter\Controller
-    {
-        public function index()
-        {
-            $locale = $this->request->getLocale();
-        }
-    }
+.. literalinclude:: localization/005.php
 
 또는 :doc:`서비스 클래스 </concepts/services>`\ 를 사용하여 현재 요청을 검색할 수 있습니다.
 
-::
-
-    $locale = service('request')->getLocale();
+.. literalinclude:: localization/006.php
 
 *********************
 언어 지역화
@@ -126,32 +104,13 @@ Config/App에서 두 개의 추가 설정을 설정하여 컨텐츠 협상이 �
 
 파일 내에서 배열을 반환합니다. 배열의 각 요소에는 언어 키와 반환 할 문자열이 있습니다.
 
-::
-
-    'languageKey' => 'The actual message to be shown.'
+.. literalinclude:: localization/007.php
 
 또한 중첩된 정의(define)를 지원합니다.
 
-::
+.. literalinclude:: localization/008.php
 
-    'languageKey' => [
-        'nested' => [
-            'key' => 'The actual message to be shown.',
-        ],
-    ],
-
-::
-
-    return [
-        'errorEmailMissing'    => 'You must submit an email address',
-        'errorURLMissing'      => 'You must submit a URL',
-        'errorUsernameMissing' => 'You must submit a username',
-        'nested'               => [
-            'error' => [
-                'message'      => 'A specific error message',
-            ],
-        ],
-    ];
+.. literalinclude:: localization/009.php
 
 기본 사용법
 ==============
@@ -159,15 +118,11 @@ Config/App에서 두 개의 추가 설정을 설정하여 컨텐츠 협상이 �
 ``lang()`` 헬퍼 함수를 사용하면 파일 이름과 언어 키를 마침표(.)로 구분된 첫 번째 매개 변수로 전달하여 모든 언어 파일에서 텍스트를 검색할 수 있습니다.
 예를 들어 ``Errors`` 언어 파일에서 ``errorEmailMissing`` 문자열을 로드하려면 다음과 같이합니다.
 
-::
-
-    echo lang('Errors.errorEmailMissing');
+.. literalinclude:: localization/010.php
 
 중첩하여 정의한 경우 다음과 같이합니다.
 
-::
-
-    echo lang('Errors.nested.error.message');
+.. literalinclude:: localization/011.php
 
 요청된 언어 키가 현재 로케일의 파일에 없으면 문자열이 변경되지 않고 키가 다시 전달됩니다.
 이 예에서 정의된 키가 없으면 'Errors.errorEmailMissing'\ 이나 'Errors.nested.error.message'\ 을 반환합니다.
@@ -182,31 +137,15 @@ Config/App에서 두 개의 추가 설정을 설정하여 컨텐츠 협상이 �
 ``lang()`` 함수의 두 번째 매개 변수로 언어 문자열의 자리 표시자를 바꾸는 값 배열을 전달할 수 있습니다.
 이것은 매우 간단한 숫자 변환과 서식을 허용합니다.
 
-::
-
-    // The language file, Tests.php:
-    return [
-        'apples'      => 'I have {0, number} apples.',
-        'men'         => 'The top {1, number} men out-performed the remaining {0, number}',
-        'namedApples' => 'I have {number_apples, number, integer} apples.',
-    ];
-
-    // Displays "I have 3 apples."
-    echo lang('Tests.apples', [ 3 ]);
+.. literalinclude:: localization/012.php
 
 자리 표시자의 첫 번째 항목이 숫자인 경우 배열의 항목 색인에 해당합니다.
 
-::
-
-    // Displays "The top 23 men out-performed the remaining 20"
-    echo lang('Tests.men', [20, 23]);
+.. literalinclude:: localization/013.php
 
 원하는 경우 이름이 지정된 키를 사용하여 작업을 쉽게할 수 있습니다.
 
-::
-
-    // Displays "I have 3 apples."
-    echo lang('Tests.namedApples', ['number_apples' => 3]);
+.. literalinclude:: localization/014.php
 
 분명히, 당신은 단순히 숫자 교체 이상을 할 수 있습니다.
 기본 라이브러리에 대한 `공식 ICU 문서 <https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classMessageFormat.html#details>`_\ 에 따르면 다음 유형의 데이터를 대체할 수 있습니다:
@@ -220,46 +159,7 @@ Config/App에서 두 개의 추가 설정을 설정하여 컨텐츠 협상이 �
 
 다음은 몇 가지 예입니다
 
-::
-
-    // The language file, Tests.php
-    return [
-        'shortTime'  => 'The time is now {0, time, short}.',
-        'mediumTime' => 'The time is now {0, time, medium}.',
-        'longTime'   => 'The time is now {0, time, long}.',
-        'fullTime'   => 'The time is now {0, time, full}.',
-        'shortDate'  => 'The date is now {0, date, short}.',
-        'mediumDate' => 'The date is now {0, date, medium}.',
-        'longDate'   => 'The date is now {0, date, long}.',
-        'fullDate'   => 'The date is now {0, date, full}.',
-        'spelledOut' => '34 is {0, spellout}',
-        'ordinal'    => 'The ordinal is {0, ordinal}',
-        'duration'   => 'It has been {0, duration}',
-    ];
-
-    // Displays "The time is now 11:18 PM"
-    echo lang('Tests.shortTime', [time()]);
-    // Displays "The time is now 11:18:50 PM"
-    echo lang('Tests.mediumTime', [time()]);
-    // Displays "The time is now 11:19:09 PM CDT"
-    echo lang('Tests.longTime', [time()]);
-    // Displays "The time is now 11:19:26 PM Central Daylight Time"
-    echo lang('Tests.fullTime', [time()]);
-
-    // Displays "The date is now 8/14/16"
-    echo lang('Tests.shortDate', [time()]);
-    // Displays "The date is now Aug 14, 2016"
-    echo lang('Tests.mediumDate', [time()]);
-    // Displays "The date is now August 14, 2016"
-    echo lang('Tests.longDate', [time()]);
-    // Displays "The date is now Sunday, August 14, 2016"
-    echo lang('Tests.fullDate', [time()]);
-
-    // Displays "34 is thirty-four"
-    echo lang('Tests.spelledOut', [34]);
-
-    // Displays "It has been 408,676:24:35"
-    echo lang('Tests.ordinal', [time()]);
+.. literalinclude:: localization/015.php
 
 조건부 교체, 복수화 등의 기능에 대한 더 나은 아이디어를 얻으려면 ``MessageFormatter`` 클래스와 기본 ICU 형식을 읽어야합니다.
 이전에 제공된 두 링크 모두 사용 가능한 옵션에 대한 훌륭한 아이디어를 제공합니다.
@@ -269,38 +169,14 @@ Config/App에서 두 개의 추가 설정을 설정하여 컨텐츠 협상이 �
 
 매개 변수를 대체할 때 사용할 다른 로케일을 지정하기 위해 로케일을 ``lang()`` 메소드의 세 번째 매개 변수로 전달할 수 있습니다.
 
-::
-
-    // Displays "The time is now 23:21:28 GMT-5"
-    echo lang('Test.longTime', [time()], 'ru-RU');
-
-    // Displays "£7.41"
-    echo lang('{price, number, currency}', ['price' => 7.41], 'en-GB');
-    // Displays "$7.41"
-    echo lang('{price, number, currency}', ['price' => 7.41], 'en-US');
+.. literalinclude:: localization/016.php
 
 중첩 배열
 -------------
 
 언어 파일에 중첩 배열을 사용하여 목록 등을 쉽게 사용할 수 있습니다.
 
-::
-
-    // Language/en/Fruit.php
-
-    return [
-        'list' => [
-            'Apples',
-            'Bananas',
-            'Grapes',
-            'Lemons',
-            'Oranges',
-            'Strawberries',
-        ],
-    ];
-
-    // Displays "Apples, Bananas, Grapes, Lemons, Oranges, Strawberries"
-    echo implode(', ', lang('Fruit.list'));
+.. literalinclude:: localization/017.php
 
 언어 대체
 =================

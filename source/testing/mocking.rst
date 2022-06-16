@@ -13,11 +13,9 @@ Mocking System 클래스
 Cache
 =====
 
-유일한 매개변수 ``CacheFactory``\ 를 사용하여 ``mock()`` 메소드로 캐시를 흉내(mocking)낼 수 있습니다.
+단일 매개변수 ``CacheFactory``\ 를 사용하여 ``mock()`` 메소드로 캐시를 흉내(mocking)낼 수 있습니다.
 
-::
-
-    $mock = mock(CodeIgniter\Cache\CacheFactory::class);
+.. literalinclude:: mocking/001.php
 
 이는 직접 사용할 수 있는 ``CodeIgniter\Test\Mock\MockCache``\ 의 인스턴스를 반환하지만, 서비스 클래스에 모의(mock)도 삽입하므로 코드 내의 모든 호출 ``service('cache')`` 또는 ``Config\Services::cache()``\ 는 해당 위치에 모의 클래스를 사용합니다.
 
@@ -29,24 +27,11 @@ Cache
 캐시 핸들러에 ``bypass()`` 메소드를 사용하여 캐시를 수행하지 않도록 지시할 수 있습니다.
 이렇게 하면 더미 핸들러를 사용하여 에뮬레이트되며 테스트를 위해 캐시된 데이터에 의존하지 않습니다.
 
-::
-
-    $mock = mock(CodeIgniter\Cache\CacheFactory::class);
-    // Never cache any items during this test.
-    $mock->bypass();
+.. literalinclude:: mocking/002.php
 
 사용 가능 어설션
 --------------------
 
 다음과 같은 새로운 어설션을 테스트 중에 사용할 수 있습니다.
 
-::
-
-    $mock = mock(CodeIgniter\Cache\CacheFactory::class);
-
-    // Assert that a cached item named $key exists
-    $mock->assertHas($key);
-    // Assert that a cached item named $key exists with a value of $value
-    $mock->assertHasValue($key, $value);
-    // Assert that a cached item named $key does NOT exist
-    $mock->assertMissing($key);
+.. literalinclude:: mocking/003.php

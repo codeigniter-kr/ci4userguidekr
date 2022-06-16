@@ -30,31 +30,16 @@
 코드 예
 ============
 
-CodeIgniter Version 3.11
+CodeIgniter Version 3.x
 ------------------------
 
-Path: **application/models**::
+Path: **application/models**
 
-    <?php
-
-    defined('BASEPATH') OR exit('No direct script access allowed');
-
-    $siteName  = 'My Great Site';
-    $siteEmail = 'webmaster@example.com';
+.. literalinclude:: upgrade_configuration/ci3sample/001.php
 
 CodeIgniter Version 4.x
 -----------------------
 
-Path: **app/Config**::
+Path: **app/Config**
 
-    <?php
-
-    namespace Config;
-
-    use CodeIgniter\Config\BaseConfig;
-
-    class CustomClass extends BaseConfig
-    {
-        public $siteName  = 'My Great Site';
-        public $siteEmail = 'webmaster@example.com';
-    }
+.. literalinclude:: upgrade_configuration/001.php

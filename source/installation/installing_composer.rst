@@ -180,7 +180,6 @@ App Starter 저장소에는 현재 안정 릴리스와 프레임워크의 최신
 - app, public, writable (``--prefer-source`` 옵션 사용 시)
 - vendor/codeigniter4/framework/system
 
-
 번역된 시스템 메시지 설치
 ============================
 

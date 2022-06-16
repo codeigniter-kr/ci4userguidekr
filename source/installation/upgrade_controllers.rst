@@ -15,7 +15,7 @@
 =====================
 
 - CodeIgniter4에 네임스페이스가 추가되었으므로 컨트롤러를 지원 네임스페이스로 변경해야 합니다.
-- 사용자가 만든 기본 컨트롤러의 일부가 아니라면 (CI "마법"을 호출하기 위해) 컨트롤러는 더 이상 생성자를 사용하지 않습니다.
+- 사용자가 만든 기본 컨트롤러의 일부가 아니라면 (CI `magic`\ 을 호출하기 위해) 컨트롤러는 더 이상 생성자를 사용하지 않습니다.
 - CI는 사용자가 작업할 수 있도록 요청 및 응답 개체를 제공하며, CI3 방식보다 더 강력합니다.
 - 사용자 정의 컨트롤러 (CI3의 ``MY_Controller``)를 원한다면, 원하는 위치에 컨트롤러를 만든 다음 BaseController를 상속받아 확장하도록 합니다.
 
@@ -33,34 +33,16 @@
 코드 예
 ============
 
-CodeIgniter Version 3.11
+CodeIgniter Version 3.x
 ------------------------
 
-Path: **application/controllers**::
+Path: **application/controllers**
 
-    <?php
-
-    class Helloworld extends CI_Controller
-    {
-        public function index($name)
-        {
-            echo "Hello $name! ";
-        }
-    }
+.. literalinclude:: upgrade_controllers/ci3sample/001.php
 
 CodeIgniter Version 4.x
 -----------------------
 
-Path: **app/Controllers**::
+Path: **app/Controllers**
 
-    <?php
-
-    namespace App\Controllers;
-
-    class Helloworld extends BaseController
-    {
-        public function index($name)
-        {
-            echo 'Hello ' . esc($name) . '!';
-        }
-    }
+.. literalinclude:: upgrade_controllers/001.php

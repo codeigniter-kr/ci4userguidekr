@@ -7,7 +7,7 @@ CodeIgniter 구성 파일은 필요한 설정이 공용 속성인 단순 클래�
 
 다른 많은 프레임워크와 달리 CodeIgniter 구성 가능한 항목은 단일 파일에 포함되어 있지 않습니다. 
 대신 구성 가능한 항목이 필요한 각 클래스는 이를 사용하는 사용하는 클래스와 이름이 같은 구성 파일을 가집니다. 
-어플리케이션 구성 파일은 **/app/Config** 폴더에 있습니다.
+어플리케이션 구성 파일은 **app/Config** 폴더에 있습니다.
 
 
 .. contents::
@@ -15,40 +15,23 @@ CodeIgniter 구성 파일은 필요한 설정이 공용 속성인 단순 클래�
     :depth: 2
 
 구성 파일을 사용하여 작업
-=========================
+*************************
 
 여러 가지 방법으로 클래스의 구성 파일에 액세스할 수 있습니다.
 
 - ``new`` 키워드를 사용하여 인스턴스를 만듭니다.
 
-::
-
-    // 수동으로 새 구성 개체를 만듭니다.
-    $config = new \Config\Pager();
+  .. literalinclude:: configuration/001.php
 
 - ``config()`` 함수를 사용합니다.
 
-::
-
-    // config() 함수로 공유 인스턴스 가져 오기
-    $config = config('Pager');
-
-    // 네임스페이스가 있는 config 클래스에 액세스합니다.
-    $config = config('Config\\Pager');
-    $config = config(\Config\Pager::class);
-
-    // config() 함수를 사용하여 새 객체 생성
-    $config = config('Pager', false);
+  .. literalinclude:: configuration/002.php
 
 모든 구성(config) 개체 속성은 공용(public)이므로 다른 속성과 마찬가지로 설정에 액세스할 수 있습니다.
 
-::
+.. literalinclude:: configuration/003.php
 
-    $config = config('Pager');
-    // 클래스 속성으로 설정에 액세스합니다.
-    $pageSize = $config->perPage;
-
-네임스페이스가 제공되지 않으면 **/app/Config/**\ 와 정의된 모든 네임스페이스에서 파일을 찾습니다. 
+네임스페이스가 제공되지 않으면 **app/Config/**\ 와 정의된 모든 네임스페이스에서 파일을 찾습니다. 
 
 CodeIgniter와 함께 제공되는 모든 구성(config) 파일의 네임스페이스는 ``Config``\ 입니다.
 어플리케이션에서 이 네임스페이스를 사용하면 파일을 찾는 위치를 정확히 알 수 있으므로 최상의 성능을 제공합니다.
@@ -57,35 +40,22 @@ CodeIgniter와 함께 제공되는 모든 구성(config) 파일의 네임스페�
 이렇게 하면 개발 중에 쉽게 액세스할 수 있도록 **/app** 아래에 유지하면서 프로덕션 서버의 구성 파일을 웹에서 액세스할 수 없는 폴더에 배치할 수 있습니다.
 
 구성 파일 만들기
-============================
+*****************
 
 새 구성이 필요한 경우 먼저 원하는 위치에 새 파일을 생성합니다. 
-대부분의 경우 권장하는 기본 파일 위치는 **/app/Config***\ 입니다.  
+대부분의 경우 권장하는 기본 파일 위치는 **app/Config**\ 입니다.  
 클래스는 적절한 네임스페이스를 사용해야 하며 환경별로 설정을 상속 받을 수 있도록 "CodeIgniter\Config\BaseConfig"\ 를 확장해야 합니다.
 
 클래스를 정의하고 설정을 나타내는 공용 속성으로 채웁니다.
 
-::
-
-    <?php 
-    
-    namespace Config;
-
-    use CodeIgniter\Config\BaseConfig;
-
-    class CustomClass extends BaseConfig
-    {
-        public $siteName  = 'My Great Site';
-        public $siteEmail = 'webmaster@example.com';
-
-    }
+.. literalinclude:: configuration/004.php
 
 환경 변수
-==========
+**********
 
-오늘날의 어플리케이션 설정을 위한 모범 사례 중 하나는 환경 변수를 사용하는 것입니다. 
-이를 사용하는 한 가지 이유는 환경 변수가 코드를 변경하지 않고 배포 환경에 따라 구성이 쉽게 변경 될 수 있기 때문입니다.
-구성은 배포 전반에 걸쳐 크게 변경될 수 있지만 코드는 변경되지 않습니다. 
+어플리케이션 설정을 위한 모범 사례중 하나는 환경 변수를 사용하는 것입니다. 
+이를 사용하는 한 가지 이유는 환경 변수가 코드를 변경하지 않고 배포 환경에 따라 구성이 쉽게 변경될 수 있기 때문입니다.
+구성은 배포 전반에 걸쳐 크게 변경될 수 있지만 코드는 변경되지 않습니다.
 예를 들어 개발자의 로컬 시스템 및 프로덕션 서버와 같은 여러 환경에서는 일반적으로 특정 설정에 대해 서로 다른 구성 값이 필요합니다.
 
 암호, API 키 또는 개인 데이터와 같은 기타 중요한 데이터에도 환경 변수를 사용해야 합니다.
@@ -96,7 +66,7 @@ CodeIgniter와 함께 제공되는 모든 구성(config) 파일의 네임스페�
 CodeIgniter를 사용하면 ``dotenv`` 파일을 사용하여 환경 변수를 간단하고 쉽게 설정할 수 있습니다. 
 이 용어는 "env" 앞에 점으로 시작하는 파일 이름에서 유래되었습니다.
 
-CodeIgniter는 **.env**\ 가 ``system``, ``app`` 디렉토리와 함께 프로젝트의 루트에 있을 것으로 예상합니다.
+CodeIgniter는 **.env**\ 가 ``app`` 디렉토리와 함께 프로젝트의 루트에 있을 것으로 예상합니다.
 CodeIgniter와 함께 배포된 템플릿 파일 **env**\ 가 프로젝트 루트에 있습니다 (**.**\ 으로 시작하지 않습니다).
 비어 있거나 더미 또는 기본값이 할당된 프로젝트에서 사용할 수 있는 많은 변수 모음이 있습니다. 
 이 템플릿 파일의 이름을 **.env**\ 로 변경하거나 **.env**\ 로 복사본을 만들어 어플리케이션의 시작 부분으로 사용할 수 있습니다.
@@ -116,11 +86,7 @@ CodeIgniter와 함께 배포된 템플릿 파일 **env**\ 가 프로젝트 루�
 환경에 변수가 이미 있는 경우 이 변수를 덮어쓰지 않습니다. 
 로드된 환경 변수는 ``getenv()``, ``$_SERVER`` 또는 ``$_ENV``\ 중 하나를 사용하여 액세스합니다.
 
-::
-
-    $s3_bucket = getenv('S3_BUCKET');
-    $s3_bucket = $_ENV['S3_BUCKET'];
-    $s3_bucket = $_SERVER['S3_BUCKET'];
+.. literalinclude:: configuration/005.php
 
 .. warning:: **.env** 파일의 설정이 환경 변수에 추가됩니다. 그 부작용으로, (디버깅 또는 기타 유효한 이유로) ``var_dump($_ENV)`` 또는 ``phpinfo()``\ 를 사용하면 **중요한 보안 관련 데이터가 공개적으로 노출**\ 됩니다.
 
@@ -158,6 +124,20 @@ CodeIgniter와 함께 배포된 템플릿 파일 **env**\ 가 프로젝트 루�
     backend.db = admin
     BackEnd.db = admin
 
+.. _env-var-namespace-separator:
+
+네임스페이스 구분 기호
+-----------------------
+
+Docker, CloudFormation과 같은 일부 환경에서는 ``.``\ 이 있는 변수 이름을 허용하지 않습니다.
+이러한 경우를 위해 v4.1.5부터 ``_``\ 를 구분 기호로 사용할 수 있습니다.
+
+::
+
+    // namespaced variables with underscore
+    app_forceGlobalSecureRequests = true
+    app_CSPEnabled = true
+
 구성 클래스 및 환경 변수
 =========================
 
@@ -173,7 +153,6 @@ CodeIgniter와 함께 배포된 템플릿 파일 **env**\ 가 프로젝트 루�
     Config\App.forceGlobalSecureRequests  = true
     Config\App.CSPEnabled = true
 
-
 .. note:: 네임스페이스 접두사와 속성 이름은 대소문자를 구분합니다. 
     구성 클래스 파일에 정의된 대로 전체 네임스페이스와 속성 이름은 정확히 일치해야 합니다.
 
@@ -185,15 +164,14 @@ CodeIgniter와 함께 배포된 템플릿 파일 **env**\ 가 프로젝트 루�
     app.forceGlobalSecureRequests  = true    
     app.CSPEnabled = true
 
-.. note:: *short prefix*\ 를 사용할 때 속성 이름은 여전히 클래스 정의 이름과 정확히 일치해야 합니다.
-
-일부 환경에서는 점이 있는 변수 이름을 허용하지 않습니다. 이 경우 분리자로 ``_``\ 를 사용할 수 있습니다.
+v4.1.5부터 ``_``\ 를 사용할 수 있습니다.
 
 ::
 
     app_forceGlobalSecureRequests = true
     app_CSPEnabled = true
 
+.. note:: *짧은 접두사(short prefix)*\ 를 사용할 때 속성 이름은 여전히 클래스 정의 이름과 정확히 일치해야 합니다.
 
 데이터를 대체하는 환경 변수
 ============================
@@ -224,10 +202,7 @@ CodeIgniter와 함께 배포된 템플릿 파일 **env**\ 가 프로젝트 루�
 
 이것이 SimpleConfig 구성 오브젝트를 참조하는 경우 위 예제는 다음과 같이 처리됩니다.
 
-::
-
-    $address['city']    = "Berlin";
-    $address['country'] = "Germany";
+.. literalinclude:: configuration/006.php
 
 ``$address`` 속성의 다른 요소는 변경되지 않습니다.
 
@@ -249,7 +224,7 @@ CodeIgniter와 함께 배포된 템플릿 파일 **env**\ 가 프로젝트 루�
 환경에 특정되거나 암호, API 키와 같은 중요한 세부 정보와 노출되어서는 안 되는 기타 정보만 포함해야 합니다.
 그러나 배포간에 변경되는 것은 허용됩니다.
 
-각 환경의 **.env** 파일을 프로젝트의 루트 폴더에 배치합니다. 대부분 설정 파일의 위치는 ``system``, ``app`` 디렉토리와 동일한 위치입니다. 
+각 환경의 **.env** 파일을 프로젝트의 루트 폴더에 배치합니다. 대부분 설정 파일의 위치는 ``app`` 디렉토리와 동일한 위치입니다. 
 
 버전 관리 시스템으로 **.env** 파일을 관리하지 마십시오.
 저장소가 공개되면 모든 사용자가 중요한 정보가 노출됩니다.
@@ -274,34 +249,18 @@ CodeIgniter와 함께 배포된 템플릿 파일 **env**\ 가 프로젝트 루�
 예를 들어, 제3자 모듈은 개발이 이미 구성한 내용을 덮어쓰지 않고 ``Pager``\ 에 추가 템플릿을 제공할 수 있습니다.
 **src/Config/Registrar.php**\ 에는 단일 ``Pager()`` 메소드(대/소문자 구분에 주의)를 사용하는 ``Registrar`` 클래스가 있을 것입니다.
 
-::
-
-	class Registrar
-	{
-		public static function Pager(): array
-		{
-			return [
-				'templates' => [
-					'module_pager' => 'MyModule\Views\Pager',
-				],
-			];
-		}
-	}
+.. literalinclude:: configuration/007.php
 
 레지스터 메소드는 항상 대상 구성 파일의 속성에 해당하는 키를 사용하여 배열을 반환해야 합니다.
 기존 값이 병합되고 레지스터 속성에는 덮어쓰기 우선 순위가 있습니다.
 
 명시적(Explicit) 레지스터
----------------------------
+===========================
 
 구성 파일은 레지스터 수를 명시적으로 지정할 수 있습니다.
 "레지스터(registrars)"를 지정하려면 ``$registrators``\ 의 속성을 구성 파일에 추가하고, 후보 레지스터(registrars)의 이름을 배열로 추가하면 됩니다.
 
-::
-
-    public static $registrars = [
-        SupportingPackageRegistrar::class
-    ];
+.. literalinclude:: configuration/008.php
 
 
 이렇게 식별된 클래스가 "레지스터(registrars)"로 작동하려면 구성 클래스와 이름이 같은 정적 함수를 가지고 있어야 하며 속성 연관 배열을 반환해야 합니다.
@@ -311,39 +270,13 @@ CodeIgniter와 함께 배포된 템플릿 파일 **env**\ 가 프로젝트 루�
 
 구성 클래스 설정 예
 
-::
-
-    <?php namespace App\Config;
-
-    use CodeIgniter\Config\BaseConfig;
-
-    class MySalesConfig extends BaseConfig
-    {
-        public $target            = 100;
-        public $campaign          = "Winter Wonderland";
-        public static $registrars = [
-            '\App\Models\RegionalSales';
-        ];
-    }
+.. literalinclude:: configuration/009.php
 
 ... RegionalSales 모델 클래스가 다음과 같을때
 
-::
-
-    <?php namespace App\Models;
-
-    class RegionalSales
-    {
-        public static function MySalesConfig()
-        {
-            return ['target' => 45, 'actual' => 72];
-        }
-    }
+.. literalinclude:: configuration/010.php
 
 위의 예에서 ``MySalesConfig``\ 가 인스턴스화되면 선언된 두 개의 속성중 ``$target`` 속성의 값은 ``RegionalSales``\ 를 "레지스터(registrar)"로 처리하여 재정의됩니다.
 재정의된 속성의 결과는 다음과 같습니다.
 
-::
-
-    $target   = 45;
-    $campaign = "Winter Wonderland";
+.. literalinclude:: configuration/011.php

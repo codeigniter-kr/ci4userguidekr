@@ -16,33 +16,7 @@ HTTP 기능 테스트
 기능 테스트에서는 모든 테스트 클래스가 ``CodeIgniter\Test\DatabaseTestTrait`` \과 ``CodeIgniter\Test\FeatureTestTrait`` 특성(trait)을 사용해야 합니다.
 이러한 테스트 도구는 적절한 데이터베이스 스테이징에 의존하기 때문에 자체 메서드를 구현하는 경우 항상 ``parent::setUp()``\ 과 ``parent::tearDown()``\ 이 호출되도록 해야 합니다.
 
-::
-
-    <?php 
-    
-    namespace App;
-
-    use CodeIgniter\Test\DatabaseTestTrait;
-    use CodeIgniter\Test\FeatureTestTrait;
-
-    class TestFoo extends CIUnitTestCase
-    {
-    	use DatabaseTestTrait, FeatureTestTrait;
-
-        protected function setUp(): void
-        {
-            parent::setUp();
-
-			$this->myClassMethod();
-        }
-
-        protected function tearDown(): void
-        {
-            parent::tearDown();
-
-			$this->anotherClassMethod();
-        }
-    }
+.. literalinclude:: feature/001.php
 
 페이지 요청
 =================
@@ -54,27 +28,11 @@ HTTP 기능 테스트
 세 번째 매개 변수는 사용중인 HTTP 동사에 대한 수퍼 글로벌 변수를 채우는데 사용되는 배열입니다.
 따라서 **GET** 메소드는 **$_GET** 변수가 채워지고 **post** 메소드는 **$_POST** 배열이 채워집니다.
 
-::
-
-    // Get a simple page
-    $result = $this->call('get', '/');
-
-    // Submit a form
-    $result = $this->call('post', 'contact'), [
-        'name'  => 'Fred Flintstone',
-        'email' => 'flintyfred@example.com',
-    ]);
+.. literalinclude:: feature/002.php
 
 타이핑을 쉽고 더 명확하게 하기 위해 각 HTTP 동사에 대한 속기 방법이 있습니다.
 
-::
-
-    $this->get($path, $params);
-    $this->post($path, $params);
-    $this->put($path, $params);
-    $this->patch($path, $params);
-    $this->delete($path, $params);
-    $this->options($path, $params);
+.. literalinclude:: feature/003.php
 
 .. note:: ``$params`` 배열은 모든 HTTP 동사에 대해 의미가 없지만 일관성을 위해 포함됩니다.
 
@@ -84,13 +42,7 @@ HTTP 기능 테스트
 "routes" 배열을 ``withRoutes()`` 메소드에 전달하여 사용자 지정 경로 모음을 사용할 수 있습니다.
 이것은 시스템의 기존 경로를 무시합니다
 
-::
-
-    $routes = [
-        ['get', 'users', 'UserController::list'],
-     ];
-
-    $result = $this->withRoutes($routes)->get('users');
+.. literalinclude:: feature/004.php
 
 각 "routes"는 HTTP동사 (또는 "all"), 일치할 URI,  라우팅 대상을 포함하는 3요소 배열입니다.
 
@@ -102,32 +54,14 @@ HTTP 기능 테스트
 ``$_SESSION`` 변수에 존재해야 하는 값을 키/값 쌍의 배열을 사용하거나  ``null``\ 을 전달하여 현재 ``$ _SESSION``\ 을 사용할 수 있습니다.
 인증 등을 테스트할 때 편리합니다.
 
-::
-
-    $values = [
-        'logged_in' => 123,
-    ];
-
-    $result = $this->withSession($values)->get('admin');
-
-    // Or...
-
-    $_SESSION['logged_in'] = 123;
-
-    $result = $this->withSession()->get('admin');
+.. literalinclude:: feature/005.php
 
 헤더 설정
 ---------------
 
 ``withHeaders()`` 메소드를 사용하여 헤더 값을 설정할 수 있으며, 호출할 때 헤더로 전달될 키/값 쌍의 배열이 필요합니다.
 
-::
-
-    $headers = [
-        'CONTENT_TYPE' => 'application/json',
-    ];
-
-    $result = $this->withHeaders($headers)->post('users');
+.. literalinclude:: feature/006.php
 
 이벤트 우회
 ----------------
@@ -136,9 +70,7 @@ HTTP 기능 테스트
 특히 이메일을 보내는데 사용되는 이벤트. 
 ``skipEvents()`` 메소드로 이벤트 처리를 건너 뛰도록 시스템에 지시할 수 있습니다
 
-::
-
-    $result = $this->skipEvents()->post('users', $userInfo);
+.. literalinclude:: feature/007.php
 
 request 형식 설정
 -----------------------
@@ -148,13 +80,7 @@ request 형식 설정
 이에 따라 요청에 대한 `Content-Type` 헤더도 설정됩니다.
 이 기능은 컨트롤러가 예상하는 형식으로 요청을 설정할 수 있도록 JSON 또는 XML API를 테스트할 때 유용합니다.
 
-::
-
-    // 기능 테스트에 다음이 포함된 경우:
-    $result = $this->withBodyFormat('json')->post('users', $userInfo);
-
-    // 컨트롤러는 다음과 같이 전달된 매개 변수를 가져올 수 있습니다.
-    $userInfo = $this->request->getJson();
+.. literalinclude:: feature/008.php
 
 본문 설정
 ----------------

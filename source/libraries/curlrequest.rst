@@ -23,19 +23,14 @@ CURLRequest 설정
 공유 옵션
 ===============
 
-Due to historical reasons, by default, the CURLRequest shares all the options between requests.
-If you send more than one request with an instance of the class, this behavior may cause an error request with unnecessary headers.
-
-You can change the behavior by editing the following config parameter value in **app/Config/CURLRequest.php** to ``false``
-
 역사적인 이유로 CURLRequest는 기본적으로 요청 간의 모든 옵션을 공유합니다.
-클래스의 인스턴스와 함께 2개 이상의 요청을 보내는 경우 이로 인해 불필요한 헤더가 포함된 오류 요청이 발생할 수 있습니다.
+클래스의 인스턴스와 함께 2개 이상의 요청을 보내는 경우 이로 인해 불필요한 헤더(header)와 바디(body)가 포함된 오류 요청이 발생할 수 있습니다.
 
 **app/Config/CURLRequest.php** 파일의 다음 매개별수 값을 ``false``\ 로 설정하여 공유 여부를 변경할 수 있습니다.
 
-::
+.. literalinclude:: curlrequest/001.php
 
-    public $shareOptions = false;
+.. note:: v4.2.0 이전에는 버그로 인해 ``$shareOptions``\ 가 false인 경우에도 요청 본문이 재설정되지 않았습니다.
 
 *******************
 라이브러리 로드
@@ -45,20 +40,12 @@ You can change the behavior by editing the following config parameter value in *
 
 서비스 클래스를 통하여 로드하려면 ``curlrequest()`` 메소드를 호출하십시오.
 
-::
-
-	$client = \Config\Services::curlrequest();
+.. literalinclude:: curlrequest/002.php
 
 cURL이 요청을 처리하는 방법을 수정하기 위해 기본 옵션 배열을 첫 번째 매개 변수로 전달할 수 있습니다.
 옵션은 이 문서의 뒷부분에서 설명합니다
 
-::
-
-	$options = [
-		'baseURI' => 'http://example.com/api/v1/',
-		'timeout'  => 3,
-	];
-	$client = \Config\Services::curlrequest($options);
+.. literalinclude:: curlrequest/003.php
 
 .. note:: ``$shareOptions``\ 가 `false`\ 이면 클래스 생성자에 전달된 기본 옵션이 모든 요청에 사용됩니다. 다른 옵션은 요청 전송 후 재설정됩니다.
 
@@ -68,14 +55,7 @@ cURL이 요청을 처리하는 방법을 수정하기 위해 기본 옵션 배�
 세 번째 매개 변수는 Response 객체입니다.
 네 번째 매개 변수는 기본값 ``$options`` 배열입니다.
 
-::
-
-	$client = new \CodeIgniter\HTTP\CURLRequest(
-		new \Config\App(),
-		new \CodeIgniter\HTTP\URI(),
-		new \CodeIgniter\HTTP\Response(new \Config\App()),
-		$options
-	);
+.. literalinclude:: curlrequest/004.php
 
 ************************
 라이브러리 작업
@@ -84,43 +64,24 @@ cURL이 요청을 처리하는 방법을 수정하기 위해 기본 옵션 배�
 CURL 요청 작업은 통신을 처리하기 위해 요청(request)을 작성하고 :doc:`응답(response) 객체 </outgoing/response>`\ 를 얻는 문제입니다.
 그 후 정보 처리 방법을 완전히 제어할 수 있습니다.
 
-요청 만들기
-===============
+요청(request) 만들기
+=====================
 
 대부분의 통신은``request()`` 메소드를 통해 이루어지며, 이 메소드는 요청을 시작한 다음 Response 인스턴스를 리턴합니다.
 HTTP 메소드, url 및 옵션 배열을 매개 변수로 사용합니다.
 
-::
-
-	$client = \Config\Services::curlrequest();
-
-	$response = $client->request('GET', 'https://api.github.com/user', [
-        'auth' => ['user', 'pass'],
-    ]);
+.. literalinclude:: curlrequest/005.php
 
 .. note:: ``$shareOptions``\ 가 `false`\ 이면 메서드에 전달된 옵션이 요청에 사용됩니다. 요청을 전송하면 삭제됩니다. 옵션을 모든 요청에 사용하려면 생성자의 옵션을 전달합니다.
 
 응답은 ``CodeIgniter\HTTP\Response``\ 의 인스턴스이므로 모든 일반 정보를 사용할 수 있습니다
 
-::
-
-	echo $response->getStatusCode();
-	echo $response->getBody();
-	echo $response->getHeader('Content-Type');
-	$language = $response->negotiateLanguage(['en', 'fr']);
+.. literalinclude:: curlrequest/006.php
 
 ``request()`` 메소드가 가장 유연하지만 다음 단축 메소드를 사용할 수도 있습니다.
 각각 URL을 첫 번째 매개 변수로 사용하고 옵션 배열을 두 번째 매개 변수로 사용합니다.
 
-::
-
-    $client->get('http://example.com');
-    $client->delete('http://example.com');
-    $client->head('http://example.com');
-    $client->options('http://example.com');
-    $client->patch('http://example.com');
-    $client->put('http://example.com');
-    $client->post('http://example.com');
+.. literalinclude:: curlrequest/007.php
 
 Base URI
 --------
@@ -129,17 +90,7 @@ Base URI
 이를 통해 기본 URI를 설정한 다음 상대 URL을 사용하여 해당 클라이언트와의 모든 요청을 할 수 있습니다.
 API로 작업할 때 특히 유용합니다
 
-::
-
-	$client = \Config\Services::curlrequest([
-		'baseURI' => 'https://example.com/api/v1/',
-	]);
-
-	// GET http:example.com/api/v1/photos
-	$client->get('photos');
-
-	// GET http:example.com/api/v1/photos/13
-	$client->delete('photos/13');
+.. literalinclude:: curlrequest/008.php
 
 상대 URI가 ``request()`` 메소드 또는 임의의 단축키 메소드에 제공되면, `RFC 2986, section 2 <http://tools.ietf.org/html/rfc3986#section-5.2>`_\ 에 설명된 규칙에 따라 baseURI와 결합됩니다. 
 다음은 조합에 대한 몇 가지 예입니다.
@@ -163,37 +114,20 @@ API로 작업할 때 특히 유용합니다
 
 응답의 상태 코드 및 이유를 확인할 수 있습니다.
 
-::
-
-	$code   = $response->getStatusCode(); // 200
-	$reason = $response->getReason(); // OK
+.. literalinclude:: curlrequest/009.php
 
 응답에서 헤더를 검색할 수 있습니다
 
-::
-
-	// Get a header line
-	echo $response->getHeaderLine('Content-Type');
-
-	// Get all headers
-	foreach ($response->getHeaders() as $name => $value) {
-		echo $name .': '. $response->getHeaderLine($name) ."\n";
-	}
+.. literalinclude:: curlrequest/010.php
 
 ``getBody()`` 메소드를 사용하여 본문을 검색할 수 있습니다.
 
-::
-
-	$body = $response->getBody();
+.. literalinclude:: curlrequest/011.php
 
 본문은 원격 getServer에서 제공하는 원시 본문입니다.
 컨텐츠 유형에 형식이 필요한 경우 스크립트가 해당 형식을 처리하는지 확인해야 합니다.
 
-::
-
-	if (strpos($response->getHeader('content-type'), 'application/json') !== false) {
-		$body = json_decode($body);
-	}
+.. literalinclude:: curlrequest/012.php
 
 **********************
 요청(Request) 옵션
@@ -209,29 +143,15 @@ allow_redirects
 
 값을 ``false``\ 로 설정하면 리디렉션을 따르지 않습니다.
 
-::
-
-	$client->request('GET', 'http://example.com', ['allow_redirects' => false]);
+.. literalinclude:: curlrequest/013.php
 
 ``true``\ 로 설정하면 기본 설정이 요청에 적용됩니다.
 
-::
-
-	$client->request('GET', 'http://example.com', ['allow_redirects' => true]);
-
-	// Sets the following defaults:
-	'max'       => 5, // Maximum number of redirects to follow before stopping
-	'strict'    => true, // Ensure POST requests stay POST requests through redirects
-	'protocols' => ['http', 'https'] // Restrict redirects to one or more protocols
+.. literalinclude:: curlrequest/014.php
 
 ``allow_redirects`` 옵션 값을 배열로 전달하여 기본값 대신 새 설정을 지정할 수 있습니다.
 
-::
-
-	$client->request('GET', 'http://example.com', ['allow_redirects' => [
-		'max'       => 10,
-		'protocols' => ['https'] // Force HTTPS domains only.
-	]]);
+.. literalinclude:: curlrequest/015.php
 
 .. note:: PHP가 safe_mode에 있거나 open_basedir이 활성화되어 있으면 다음 리디렉션이 작동하지 않습니다.
 
@@ -243,9 +163,7 @@ auth
 값은 첫 번째 요소가 사용자 이름이고 두 번째 요소는 암호인 배열입니다.
 세 번째 요소는 사용할 인증 유형으로 ``basic`` 또는 ``digest``\ 여야 합니다.
 
-::
-
-	$client->request('GET', 'http://example.com', ['auth' => ['username', 'password', 'digest']]);
+.. literalinclude:: curlrequest/016.php
 
 body
 ====
@@ -253,17 +171,13 @@ body
 PUT 또는 POST와 같이 요청을 지원하는 요청 유형에 대한 요청 본문을 설정하는 방법에는 두 가지가 있습니다.
 첫 번째 방법은 ``setBody()`` 메소드를 사용하는 것입니다
 
-::
-
-	$client->setBody($body)->request('put', 'http://example.com');
+.. literalinclude:: curlrequest/017.php
 
 두 번째 방법은 ``body`` 옵션을 전달하는 것입니다. 
 이는 Guzzle API 호환성을 유지하기 위해 제공되며, 이전 예제와 동일한 방식으로 작동합니다.
 값은 문자열이어야 합니다
 
-::
-
-	$client->request('put', 'http://example.com', ['body' => $body]);
+.. literalinclude:: curlrequest/018.php
 
 cert
 ====
@@ -271,9 +185,7 @@ cert
 PEM 형식의 클라이언트측 인증서의 위치를 지정하려면 ``cert`` 옵션으로 파일의 전체 경로가 포함된 문자열을 전달하십시오.
 비밀번호가 필요한 경우 첫 번째 요소를 인증서의 경로, 두 번째 요소는 비밀번호인 배열을 설정하십시오.
 
-::
-
-    $client->request('get', '/', ['cert' => ['/path/getServer.pem', 'password']);
+.. literalinclude:: curlrequest/019.php
 
 connect_timeout
 ===============
@@ -282,9 +194,7 @@ connect_timeout
 이 값을 수정해야 하는 경우 ``connect_timeout`` 옵션을 사용하여 시간을 초 단위로 전달하면 됩니다.
 무기한 대기하게 만들려면 0을 전달합니다
 
-::
-
-	$response->request('GET', 'http://example.com', ['connect_timeout' => 0]);
+.. literalinclude:: curlrequest/020.php
 
 cookie
 ======
@@ -292,9 +202,7 @@ cookie
 쿠키를 사용하고 싶다면 CURL이 쿠키 값을 읽고, 저장할 때 사용할 파일 이름을 지정합니다.
 이는 CURL_COOKIEJAR 및 CURL_COOKIEFILE 옵션을 사용하여 수행됩니다.
 
-::
-
-	$response->request('GET', 'http://example.com', ['cookie' => WRITEPATH . 'CookieSaver.txt']);
+.. literalinclude:: curlrequest/021.php
 
 debug
 =====
@@ -304,25 +212,18 @@ debug
 따라서 ``spark serve``\ 를 통해 내장 서버를 실행하면 콘솔에 출력이 표시됩니다.
 그렇지 않으면 출력이 서버의 오류 로그에 기록됩니다.
 
-::
-
-	$response->request('GET', 'http://example.com', ['debug' => true]);
+.. literalinclude:: curlrequest/034.php
 
 debug의 값으로 파일 이름을 전달하면 출력을 파일에 저장됩니다.
 
-::
-
-	$response->request('GET', 'http://example.com', ['debug' => '/usr/local/curl_log.txt']);
+.. literalinclude:: curlrequest/022.php
 
 delay
 =====
 
 요청을 보내기 전에 몇 밀리 초 동안 일시 중지할 수 있습니다
 
-::
-
-	// Delay for 2 seconds
-	$response->request('GET', 'http://example.com', ['delay' => 2000]);
+.. literalinclude:: curlrequest/023.php
 
 form_params
 ===========
@@ -330,14 +231,7 @@ form_params
 ``form_params`` 옵션에 연관 배열을 전달하여 ``application/x-www-form-urlencoded`` POST 요청에 폼(form) 데이터를 보낼 수 있습니다.
 ``Content-Type`` 헤더를 설정하지 않은 경우 ``application/x-www-form-urlencoded``\ 가 기본으로 설정됩니다
 
-::
-
-	$client->request('POST', '/post', [
-		'form_params' => [
-			'foo' => 'bar',
-			'baz' => ['hi', 'there'],
-		],
-	]);
+.. literalinclude:: curlrequest/024.php
 
 .. note:: ``form_params``\ 는 ``multipart`` 옵션과 함께 사용할 수 없습니다. 둘 중 하나를 사용해야 합니다. ``application/x-www-form-urlencoded`` 요청에는 ``form_params``\ 를 사용하고 ``multipart/form-data`` 요청에는 ``multipart``\ 를 사용하십시오.
 
@@ -349,15 +243,7 @@ headers
 ``setHeader()`` 메소드를 사용하여 요청에 필요한 헤더를 설정할 수 있지만, 옵션으로 헤더의 연관 배열을 전달할 수 있습니다.
 각 키는 헤더의 이름이며, 각 값은 헤더 필드 값을 나타내는 문자열 또는 문자열 배열입니다.
 
-::
-
-	$client->request('get', '/', [
-		'headers' => [
-			'User-Agent' => 'testing/1.0',
-			'Accept'     => 'application/json',
-			'X-Foo'      => ['Bar', 'Baz'],
-		],
-	]);
+.. literalinclude:: curlrequest/025.php
 
 헤더가 생성자로 전달되면 나중에 추가 헤더 배열 또는 ``setHeader()`` 호출로 재정의되는 기본값으로 처리됩니다.
 
@@ -367,14 +253,7 @@ http_errors
 기본적으로 리턴된 HTTP 코드가 400 이상이면 CURLRequest가 실패합니다.
 대신 ``http_errors``\ 를 ``false``\ 로 설정하면 오류 내용을 반환합니다
 
-::
-
-    $client->request('GET', '/status/500');
-    // Will fail verbosely
-
-    $res = $client->request('GET', '/status/500', ['http_errors' => false]);
-    echo $res->getStatusCode();
-    // 500
+.. literalinclude:: curlrequest/026.php
 
 json
 ====
@@ -383,9 +262,7 @@ json
 ``application/json`` Content-Type 헤더가 추가되어 이미 설정된 Content-Type을 덮어 씁니다.
 이 옵션에 제공된 데이터는 ``json_encode()``\ 가 허용하는 모든 값입니다.
 
-::
-
-	$response = $client->request('PUT', '/put', ['json' => ['foo' => 'bar']]);
+.. literalinclude:: curlrequest/027.php
 
 .. note:: 이 옵션은 ``json_encode()`` 함수 또는 Content-Type 헤더를 사용자 정의할 수 없습니다. 이 기능이 필요한 경우 데이터를 수동으로 인코딩하여 CURLRequest의 ``setBody()`` 메소드를 통해 전달하고 ``setHeader()`` 메소드로 Content-Type 헤더를 설정해야 합니다.
 
@@ -397,12 +274,7 @@ POST 요청을 통해 파일 및 기타 데이터를 보내야 할 경우 `CURLF
 보다 안전한 사용을 위해 파일 이름 앞에 `@`\ 를 붙여 파일을 업로드하는 기존 방법이 비활성화되었습니다.
 보내려는 모든 파일은 ``CURLFile``\ 의 인스턴스로 전달되어야 합니다.
 
-::
-
-	$post_data = [
-		'foo'      => 'bar',
-		'userfile' => new \CURLFile('/path/to/file.txt'),
-	];
+.. literalinclude:: curlrequest/028.php
 
 .. note:: ``multipart``\ 는 ``form_params`` 옵션과 함께 사용할 수 없습니다. 하나만 사용할 수 있습니다. ``application/x-www-form-urlencoded`` 요청에는 ``form_params``\ 를 사용하고 ``multipart/form-data``\ 요청에는 ``multipart``\ 를 사용하십시오.
 
@@ -411,10 +283,7 @@ query
 
 ``query`` 옵션으로 연관 배열을 전달하여 쿼리 문자열 변수로 보낼 데이터를 전달할 수 있습니다.
 
-::
-
-	// Send a GET request to /get?foo=bar
-	$client->request('GET', '/get', ['query' => ['foo' => 'bar']]);
+.. literalinclude:: curlrequest/029.php
 
 timeout
 =======
@@ -423,18 +292,14 @@ timeout
 값은 함수를 실행하려는 시간(초)이어야 합니다.
 무기한 대기하려면 0을 사용합니다.
 
-::
-
-	$response->request('GET', 'http://example.com', ['timeout' => 5]);
+.. literalinclude:: curlrequest/030.php
 
 user_agent
 ==========
 
 요청에 대한 사용자 에이전트를 지정할 수 있습니다.
 
-::
-
-	$response->request('GET', 'http://example.com', ['user_agent' => 'CodeIgniter Framework v4']);
+.. literalinclude:: curlrequest/031.php
 
 verify
 ======
@@ -445,24 +310,11 @@ verify
 사용자 지정 인증서로 확인할 수 있도록 CA 번들 경로가 포함된 문자열을 값으로 설정할 수 있습니다.
 기본값은 ``true``\ 입니다.
 
-::
-
-	// Use the system's CA bundle (this is the default setting)
-	$client->request('GET', '/', ['verify' => true]);
-
-	// Use a custom SSL certificate on disk.
-	$client->request('GET', '/', ['verify' => '/path/to/cert.pem']);
-
-	// Disable validation entirely. (Insecure!)
-	$client->request('GET', '/', ['verify' => false]);
+.. literalinclude:: curlrequest/032.php
 
 version
 =======
 
 HTTP 프로토콜을 사용하도록 설정하려면 버전 번호를 사용하여 문자열 또는 실수(float)을 전달합니다 (일반적으로 1.0 또는 1.1, 2.0은 현재 지원되지 않습니다).
 
-::
-
-	// Force HTTP/1.0
-	$client->request('GET', '/', ['version' => 1.0]);
-
+.. literalinclude:: curlrequest/033.php

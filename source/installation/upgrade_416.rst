@@ -46,7 +46,7 @@ Breaking Enhancements
 Project Files
 *************
 
-프로젝트 공간에 있는 수많은 파일(루트, 앱, 공용, 쓰기 가능)이 업데이트를 받았습니다.
+프로젝트 공간에 있는 수많은 파일(root, app, public, writable)이 업데이트를 받았습니다.
 이러한 파일은 **시스템** 범위를 벗어났기 때문에 사용자의 개입 없이는 변경되지 않습니다.
 프로젝트 공간의 변경 사항을 병합하는 데 도움이 되는 타사 CodeIgniter 모듈은 `Packagist <https://packagist.org/explore/?query=codeigniter4%20updates>`_\ 에서 찾을 수 있습니다.
 

@@ -7,44 +7,83 @@
     :depth: 2
 
 소개
-============
+************
 
-``서비스(Services)``\ 와 마찬가지로 ``팩토리(Factories)``\ 도 클래스 간에 객체 인스턴스를 전달할 필요 없이 코드를 간결하면서도 최적의 상태로 유지하도록 도와주는 자동 로딩의 확장입니다.
+팩토리란 무엇입니까?
+=====================
+
+:doc:`./services`\ 와 마찬가지로 **팩토리(Factories)**\ 도 클래스 간에 객체 인스턴스를 전달할 필요 없이 코드를 간결하면서도 최적의 상태로 유지하도록 도와주는 자동 로딩의 확장입니다.
+
 가장 간단한 방법으로, 팩토리는 클래스 인스턴스를 만들고 어디에서나 액세스할 수 있는 일반적인 방법을 제공합니다.
 이는 객체 상태를 재사용하고 앱 전체에 여러 인스턴스를로드하여 메모리로드를 줄일 수있는 좋은 방법입니다.
 이렇게 하면 개체를 재사용하여 여러 인스턴스가 앱에 로드되지 않도록하여 메모리 로드를 줄일 수 있습니다.
 
-펙토리는 모든 항목을 로드할 수 있지만, 가장 좋은 예는 공통 데이터를 처리하거나 전송할 때 사용되는 클래스입니다.
+펙토리는 모든 클래스(class)를 로드할 수 있지만, 가장 좋은 예는 공통 데이터를 처리하거나 전송할 때 사용되는 클래스입니다.
 프레임워크는 ``Config`` 클래스를 사용할 때 올바른 구성이 로드되도록 하기 위해 내부적으로 팩토리를 사용합니다.
 
+서비스와의 차이점
+=========================
+
+팩토리는 인스턴스화할 구체적인 클래스 이름을 필요로하며 반환할 인스턴스의 클래스를 변경할 수 없고, 인스턴스를 생성하는 코드도 없습니다.
+
+따라서 팩토리는 많은 종속성이 필요한 복잡한 인스턴스를 생성하는데 적합하지 않습니다.
+
+반면 서비스는 인스턴스를 생성하는 코드가 있으므로, 다른 서비스나 클래스 인스턴스가 필요한 복잡한 인스턴스를 생성할 수 있습니다.
+서비스를 받을 때 서비스에는 클래스 이름이 아닌 서비스 이름이 필요하므로, 클라이언트 코드를 변경하지 않고도 반환된 인스턴스를 변경할 수 있습니다.
+
+Example
+=======
+
 ``Models``\ 를 예로 들어 보겟습니다.
-팩토리 클래스의 매직 정적 메소드인 ``Factories::models()``\ 를 사용하여 ``Models``\ 의 특정 팩토리에 액세스할 수 있습니다.
-네임스페이스와 폴더가 공통 경로 구조를 갖기 때문에 팩토리는 모델 파일과 클래스가 **Models** \ 내에 있음을 알고 있으므로 축약형 기본 이름으로 모델을 요청할 수 있습니다.
+팩토리 클래스의 매직 정적 메소드인 ``Factories::models()``\ 를 사용하여 모델의 특정 팩토리에 액세스할 수 있습니다.
 
-::
+기본적으로 팩토리는 먼저 매직 정적 메서드 이름에 해당하는 경로를 ``App`` 네임스페이스에서 검색합니다.
+``Factories::models()``\ 는 **Models/** 경로를 검색합니다.
 
-    use CodeIgniter\Config\Factories;
+다음 코드는 ``App\Models\UserModel``\ 이 있는 경우 인스턴스가 반환됩니다.
 
-    $users = Factories::models('UserModel');
+.. literalinclude:: factories/001.php
 
 또는 특정 클래스를 요청할 수도 있습니다.
 
-::
+.. literalinclude:: factories/002.php
 
-    $widgets = Factories::models('Some\Namespace\Models\WidgetModel');
+``Blog\Models\UserModel``\ 만 있는 경우 인스턴스가 반환됩니다.
+그러나 ``App\Models\UserModel``\ 과 ``Blog\Models\UserModel``\ 이 모두 있는 경우 ``App\Models\UserModel``\ 의 인스턴스가 반환됩니다.
 
-다음 코드의 어느 위치에서나 동일한 클래스를 요청할 때 ``Factories``\ 는 이전과 같은 인스턴스를 다시 가져옵니다.
+``Blog\Models\UserModel``\ 을 얻으려면 ``preferApp`` 옵션을 비활성화해야 합니다.
 
-::
+.. literalinclude:: factories/010.php
 
-    class SomeOtherClass
-    {
-        $widgets = Factories::models('WidgetModel');
-        // ...
-    }
+자세한 내용은 :ref:`factories-options`\ 를 참조하세요.
+
+다음은 코드의 어느 곳에서나 동일한 클래스를 요청할 때 팩토리는 이전과 같이 인스턴스를 다시 얻을 수 있는지 확인합니다.
+
+.. literalinclude:: factories/003.php
+
+편의 함수
+*********************
+
+어디서든 항상 사용할 수 있는 Factory에 대한 두 가지 단축 함수가 제공됩니다.
+
+config()
+========
+
+첫 번째는 Config 클래스의 새 인스턴스를 반환하는 ``config()``\ 입니다. 
+유일한 필수 매개변수는 클래스 이름입니다.
+
+.. literalinclude:: factories/008.php
+
+model()
+=======
+
+두 번째 함수인 ``model()``\ 은 Model 클래스의 새 인스턴스를 반환합니다. 
+유일한 필수 매개변수는 클래스 이름입니다.
+
+.. literalinclude:: factories/009.php
 
 팩토리 파라메터
-==================
+******************
 
 ``Factories``\ 는 두 번째 매개변수로 옵션 값의 배열(아래 설명)을 사용합니다.
 이러한 지시문은 각 구성 요소에 대해 구성된 기본 옵션을 재정의합니다.
@@ -52,17 +91,14 @@
 동시에 전달된 모든 매개 변수가 클래스 생성자에 전달되므로 클래스 인스턴스를 쉽게 구성할 수 있습니다.
 아래 예는 앱이 인증을 위해 별도의 데이터베이스를 사용하고, 사용자 레코드에 액세스하려는 시도가 항상 해당 연결을 통과하는지 확인합니다.
 
-::
-
-    $conn  = db_connect('AuthDatabase');
-    $users = Factories::models('UserModel', [], $conn);
+.. literalinclude:: factories/004.php
 
 이제 ``UserModel``\ 이 ``Factories``\ 에서 로드될 때마다 대체 데이터베이스 연결을 사용하는 클래스 인스턴스를 반환하게 됩니다.
 
 .. _factories-options:
 
 팩토리 옵션
-==================
+******************
 
 기본 동작은 모든 구성 요소에서 작동하지 않을 수 있습니다.
 구성 요소 이름과 해당 경로가 일치하지 않거나, 특정 클래스로 인스턴스를 제한해야 하는 경우가 좋은 예입니다.
@@ -79,53 +115,37 @@ preferApp  boolean        App 네임스페이스의 기본 이름이 동일한 �
 ========== ============== ==================================================================================================================== ===================================================
 
 팩토리 동작
-==================
+******************
 
 옵션은 세 가지 방법 중 하나로 적용할 수 있습니다.(우선순위가 높은순으로 나열)
 
-* 구성 요소 속성이 있는 ``Factory`` 구성 파일
-* 정적 메서드 ``Factories::setOptions``
+* 구성 요소의 이름과 일치하는 속성이 있는 구성 클래스 ``Config\Factory``
+* 정적 메서드 ``Factories::setOptions()``
 * 매개 변수를 사용하여 호출시 직접 옵션을 전달
 
 구성
---------------
+==============
 
 기본 구성 요소 옵션을 설정하려면 **app/Config/Factory.php**\ 에 구성 요소 이름과 일치하는 배열 속성으로 옵션을 제공합니다.
-아래 예는 앱에서 사용하는 모든 필터가 유효한 프레임워크 인스턴스인지 확인하는 것으로 **Factories.php** 파일은 다음과 같이 보일 수 있습니다.
+예를 들어, 팩토리별로 **Filters**\ 를 생성하려는 경우 구성 요소 이름은 ``filters``가 됩니다.
+그리고 각 필터가 CodeIgniter의 ``FilterInterface``\ 를 구현하는 클래스의 인스턴스인지 확인하려면 **app/Config/Factory.php** 파일이 다음과 같을 수 있습니다.
 
-::
+.. literalinclude:: factories/005.php
 
-    <?php 
-    
-    namespace Config;
-
-    use CodeIgniter\Config\Factory as BaseFactory;
-    use CodeIgniter\Filters\FilterInterface;
-
-    class Factories extends BaseFactory
-    {
-        public $filters = [
-            'instanceOf' => FilterInterface::class,
-        ];
-    }
+이제 ``Factories::filters('SomeFilter')``\ 와 같은 코드로 필터를 생성할 수 있으며 반환된 인스턴스는 CodeIgniter의 필터가 될 것입니다.
 
 이렇게 하면 네임스페이스에 관련 없는 "Filters" 경로가 있는 타사 모듈과 충돌을 방지할 수 있습니다.
 
 setOptions 메소드
------------------
+=================
 
 ``Factories`` 클래스는 런타임 옵션 구성을 허용하는 정적 메소드가 있습니다. 
 ``setOptions()`` 메소드를 사용하여 원하는 옵션 배열을 제공하면, 기본값과 병합되고 다음 호출을 위해 옵션이 저장됩니다.
 
-::
-
-    Factories::setOptions('filters', [
-        'instanceOf' => FilterInterface::class,
-        'prefersApp' => false,
-    ]);
+.. literalinclude:: factories/006.php
 
 파라메터 옵션
------------------
+=================
 
 ``Factories``\ 의 매직 정적 호출은 옵션 값의 배열을 두 번째 매개 변수로 삼습니다.
 이러한 지시문은 각 구성 요소에 대해 구성된 저장된 옵션을 재정의하며, 호출시 필요한 항목을 정확하게 얻기 위해 사용할 수 있습니다.
@@ -133,7 +153,6 @@ setOptions 메소드
 
 기본적으로 ``Factories``\ 는 구성 요소의 공유 인스턴스를 찾으려고 합니다.
 매직 정적 호출에 두 번째 매개 변수를 추가하면 해당 호출에 대하여 새 인스턴스를 반환할지 아니면 공유 인스턴스를 반환할지 제어할 수 있습니다.
-::
 
-    $users = Factories::models('UserModel', ['getShared' => true]); // Default; 항상 동일한 인스턴스
-    $other = Factories::models('UserModel', ['getShared' => false]); // 항상 새 인스턴스를 만듭니다.
+.. literalinclude:: factories/007.php
+   :lines: 2-

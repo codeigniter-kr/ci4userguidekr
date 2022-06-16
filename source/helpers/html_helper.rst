@@ -13,9 +13,7 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
 
 이 헬퍼는 다음 코드를 사용하여 로드됩니다.
 
-::
-
-    helper('html');
+.. literalinclude:: html_helper/001.php
 
 사용 가능한 함수
 ===================
@@ -32,36 +30,17 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
 
     HTML ``<img />`` 태그를 만들 수 있습니다. 첫 번째 매개 변수는 이미지 소스를 포함합니다.
 
-    ::
-
-        echo img('images/picture.jpg');
-        // <img src="http://site.com/images/picture.jpg" />
+    .. literalinclude:: html_helper/002.php
 
     *src*\ 에 생성된 주소에 ``$config['indexPage']``\ 로 지정된 페이지가 추가되어야 하는 경우에 해당하는 선택적 두 번째 매개 변수(true/false 값)가 있습니다.
     미디어 컨트롤러를 사용하는 경우 유용합니다.
 
-    ::
-
-        echo img('images/picture.jpg', true);
-        // <img src="http://site.com/index.php/images/picture.jpg" alt="" />
+    .. literalinclude:: html_helper/003.php
 
     또한 모든 속성과 값을 완벽하게 제어하기 위한 연관 배열을 첫 번째 매개 변수로 전달할 수 있습니다.
     *alt* 속성이 제공되지 않으면 CodeIgniter는 빈 문자열을 생성합니다.
 
-    ::
-
-        $imageProperties = [
-            'src'    => 'images/picture.jpg',
-            'alt'    => 'Me, demonstrating how to eat 4 slices of pizza at one time',
-            'class'  => 'post_images',
-            'width'  => '200',
-            'height' => '200',
-            'title'  => 'That was quite a night',
-            'rel'    => 'lightbox',
-        ];
-
-        img($imageProperties);
-        // <img src="http://site.com/index.php/images/picture.jpg" alt="Me, demonstrating how to eat 4 slices of pizza at one time" class="post_images" width="200" height="200" title="That was quite a night" rel="lightbox" />
+    .. literalinclude:: html_helper/004.php
 
 .. php:function:: img_data([$src = ''[, $indexPage = false[, $attributes = '']]])
 
@@ -72,16 +51,11 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
 
     "data:" 프로토콜을 사용하여 이미지에서 src-ready 문자열을 생성합니다.
 
-    ::
-
-        $src = img_data('public/images/picture.jpg'); // data:image/jpg;base64,R0lGODl...
-        echo img($src);
+    .. literalinclude:: html_helper/005.php
 
     두 번째 매개 변수 MIME 유형을 지정할 수 있습니다. 지정하지 않으면 MIME 구성을 사용하여 추측합니다.
 
-    ::
-
-        $src = img_data('path/img_without_extension', 'image/png'); // data:image/png;base64,HT5A822...
+    .. literalinclude:: html_helper/006.php
 
     ``$path``\ 가 존재해야하며 ``data:`` 프로토콜에서 지원하는 읽을 수 있는 이미지 형식이어야 합니다.
     이 기능은 매우 큰 파일에는 권장되지 않지만 웹 액세스가 (예: **public/**) 불가능한 앱에서 이미지를 편리하게 제공할 수 있습니다.
@@ -101,40 +75,21 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
     HTML ``<link />`` 태그를 만들 수 있습니다.    
     스타일 시트 링크 및 기타 링크에 유용합니다.
 
-    필수 매개 변수는 *href* 이며 선택적 매개 변수는 *rel*, *type*, *title*, *media*, *indexPage* 입니다.
+    필수 매개 변수는 *href* 이며 선택적 매개 변수는 *rel*, *type*, *title*, *media*, *indexPage* 입니다.
 
-    *indexPage*\ 는 *href*\ 가 생성한 주소에 ``$config['indexPage']``\ 로 지정된 페이지를 추가해야 하는지 여부를 지정하는 부울 값입니다.
+    *indexPage*\ 는 *href*\ 가 생성한 주소에 ``$config['indexPage']``\ 로 지정된 페이지를 추가해야 하는지 여부를 지정하는 부울 값입니다.
 
-    ::
+    .. literalinclude:: html_helper/007.php
 
-        echo link_tag('css/mystyles.css');
-        // <link href="http://site.com/css/mystyles.css" rel="stylesheet" type="text/css" />
-
-    ::
-
-        echo link_tag('favicon.ico', 'shortcut icon', 'image/ico');
-        // <link href="http://site.com/favicon.ico" rel="shortcut icon" type="image/ico" />
-
-        echo link_tag('feed', 'alternate', 'application/rss+xml', 'My RSS Feed');
-        // <link href="http://site.com/feed" rel="alternate" type="application/rss+xml" title="My RSS Feed" />
+    .. literalinclude:: html_helper/008.php
 
     또한 ``link_tag()`` 함수에 모든 속성과 값을 연관 배열로 전달할 수 있습니다
     
-    ::
-
-        $link = [
-            'href'  => 'css/printer.css',
-            'rel'   => 'stylesheet',
-            'type'  => 'text/css',
-            'media' => 'print',
-        ];
-
-        echo link_tag($link);
-        // <link href="http://site.com/css/printer.css" rel="stylesheet" type="text/css" media="print" />
+    .. literalinclude:: html_helper/009.php
 
 .. php:function:: script_tag([$src = ''[, $indexPage = false]])
 
-    :param  mixed  $src: JavaScript 파일의 소스 이름
+    :param  mixed   $src: JavaScript 파일의 소스 URL 또는 속성을 지정하는 연관 배열
     :param  bool    $indexPage: ``$src``\ 를 라우팅된 URI 문자열로 취급할 지 여부
     :returns:   HTML script 태그
     :rtype: string
@@ -142,21 +97,13 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
     HTML ``<script></script>`` 태그를 만듭니다. 
     필수 매개 변수는 *src* 이며 선택적 매개 변수는 * indexPage * 입니다.
 
-    *indexPage*\ 는 *src*\ 가 생성한 주소에 ``$config['indexPage']``\ 로 지정된 페이지를 추가해야 하는지 여부를 지정하는 부울 값입니다.
+    *indexPage*\ 는 *src*\ 가 생성한 주소에 ``$config['indexPage']``\ 로 지정된 페이지를 추가해야 하는지 여부를 지정하는 부울 값입니다.
 
-    ::
-
-        echo script_tag('js/mystyles.js');
-        // <script src="http://site.com/js/mystyles.js" type="text/javascript"></script>
+    .. literalinclude:: html_helper/010.php
 
     또한 ``script_tag()`` 함수에 모든 속성과 값을 연관 배열로 전달할 수 있습니다
     
-    ::
-
-        $script = ['src'  => 'js/printer.js'];
-
-        echo script_tag($script);
-        // <script src="http://site.com/js/printer.js" type="text/javascript"></script>
+    .. literalinclude:: html_helper/011.php
 
 .. php:function:: ul($list[, $attributes = ''])
 
@@ -167,21 +114,7 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
 
     단순 또는 다차원 배열에서 정렬되지 않은 HTML 목록을 생성합니다.
     
-    ::
-
-        $list = [
-            'red',
-            'blue',
-            'green',
-            'yellow',
-        ];
-
-        $attributes = [
-            'class' => 'boldlist',
-            'id'    => 'mylist',
-        ];
-
-        echo ul($list, $attributes);
+    .. literalinclude:: html_helper/012.php
 
     위의 코드는 아래 HTML을 생성합니다.
 
@@ -196,46 +129,9 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
 
     다음은 다차원 배열을 사용하는 더 복잡한 예입니다.
     
-    ::
+    .. literalinclude:: html_helper/013.php
 
-        $attributes = [
-            'class' => 'boldlist',
-            'id'    => 'mylist',
-        ];
-
-        $list = [
-            'colors' => [
-                'red',
-                'blue',
-                'green',
-            ],
-            'shapes' => [
-                'round',
-                'square',
-                'circles' => [
-                    'ellipse',
-                    'oval',
-                    'sphere',
-                ]
-            ],
-            'moods'  => [
-                'happy',
-                'upset'   => [
-                    'defeated' => [
-                        'dejected',
-                        'disheartened',
-                        'depressed',
-                    ],
-                    'annoyed',
-                    'cross',
-                    'angry',
-                ]
-            ]
-        ];
-
-        echo ul($list, $attributes);
-
-    위의 코드는 아래의 HTML을 생성합니다 :
+    위의 코드는 아래의 HTML을 생성합니다.
 
     .. code-block:: html
 
@@ -302,32 +198,7 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
 
     단순 또는 소스 배열에서 HTML 비디오 요소를 생성합니다.
     
-    ::
-
-        $tracks = [
-            track('subtitles_no.vtt', 'subtitles', 'no', 'Norwegian No'),
-            track('subtitles_yes.vtt', 'subtitles', 'yes', 'Norwegian Yes')
-        ];
-
-        echo video('test.mp4', 'Your browser does not support the video tag.', 'controls');
-
-        echo video(
-            'http://www.codeigniter.com/test.mp4',
-            'Your browser does not support the video tag.',
-            'controls',
-            $tracks
-        );
-
-        echo video([
-              source('movie.mp4', 'video/mp4', 'class="test"'),
-              source('movie.ogg', 'video/ogg'),
-              source('movie.mov', 'video/quicktime'),
-              source('movie.ogv', 'video/ogv; codecs=dirac, speex')
-            ],
-            'Your browser does not support the video tag.',
-            'class="test" controls',
-            $tracks
-         );
+    .. literalinclude:: html_helper/014.php
 
     위의 코드는 아래의 HTML을 생성합니다.
 
@@ -375,12 +246,9 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
 
     HTML ``<source />`` 태그를 만듭니다.
 
-    첫 번째 매개 변수는 소스를 포함합니다.
+    첫 번째 매개 변수는 소스를 포함합니다.
     
-    ::
-
-        echo source('movie.mp4', 'video/mp4', 'class="test"');
-        // <source src="movie.mp4" type="video/mp4" class="test" />
+    .. literalinclude:: html_helper/015.php
 
 .. php:function:: embed($src = ''[, $type = false[, $attributes = ''[, $indexPage = false]]])
 
@@ -394,10 +262,7 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
     HTML ``<embed />`` 태그를 만듭니다.
     첫 번째 매개 변수에는 소스를 포함합니다.
     
-    ::
-
-        echo embed('movie.mov', 'video/quicktime', 'class="test"');
-        // <embed src="movie.mov" type="video/quicktime" class="test"/>
+    . literalinclude:: html_helper/016.php
 
 .. php:function:: object($data = ''[, $type = false[, $attributes = '']])
 
@@ -411,19 +276,7 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
     HTML ``<object />`` 태그를 만듭니다. 
     첫 번째 파라미터는 object 데이터를 포함합니다.
 
-    ::
-
-        echo object('movie.swf', 'application/x-shockwave-flash', 'class="test"');
-
-        echo object(
-            'movie.swf',
-            'application/x-shockwave-flash',
-            'class="test"',
-            [
-                param('foo', 'bar', 'ref', 'class="test"'),
-                param('hello', 'world', 'ref', 'class="test"')
-            ]
-        );
+    .. literalinclude:: html_helper/017.php
 
     위의 코드는 아래의 HTML을 생성합니다.
 
@@ -446,10 +299,7 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
 
     HTML ``<param />`` 태그를 만듭니다. 첫 번째 매개 변수는 param 소스를 포함합니다.
     
-    ::
-
-        echo param('movie.mov', 'video/quicktime', 'class="test"');
-        // <param src="movie.mov" type="video/quicktime" class="test"/>
+    .. literalinclude:: html_helper/018.php
 
 .. php:function:: track($name = ''[, $type = false[, $attributes = '']])
 
@@ -462,10 +312,7 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
     시간이 지정된 트랙을 지정하기 위해 트랙 요소를 생성합니다.
     트랙은 WebVTT 형식으로 포맷됩니다. 
     
-    ::
-
-        echo track('subtitles_no.vtt', 'subtitles', 'no', 'Norwegian No');
-        // <track src="subtitles_no.vtt" kind="subtitles" srclang="no" label="Norwegian No" />
+    .. literalinclude:: html_helper/019.php
 
 .. php:function:: doctype([$type = 'html5'])
 
@@ -476,13 +323,7 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
     문서 유형(DocType) 선언 또는 DTD를 생성하는데 도움을 줍니다.
     HTML 5가 기본적으로 사용되지만 많은 문서 유형을 사용할 수 있습니다.
 
-    Example::
-
-        echo doctype();
-        // <!DOCTYPE html>
-
-        echo doctype('html4-trans');
-        // <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    .. literalinclude:: html_helper/020.php
 
     다음은 사전 정의된 doctype 선택 목록입니다.
     이 정보는 `application/Config/DocTypes.php`\ 에 있으며, ``.env`` 설정을 통하여 오버라이드될 수 있습니다.

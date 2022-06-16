@@ -20,45 +20,21 @@ CodeIgniter를 사용하면 리소스 경로(Resource route)와 `ResourceControl
 새 리소스를 만들고, 기존 리소스를 업데이트하고, 해당 리소스를 모두 나열하고, 단일 리소스를 표시하고, 단일 리소스를 삭제합니다.
 첫 번째 매개 변수는 리소스명입니다
 
-::
-
-    $routes->resource('photos');
-
-    // Equivalent to the following:
-    $routes->get('photos/new',             'Photos::new');
-    $routes->post('photos',                'Photos::create');
-    $routes->get('photos',                 'Photos::index');
-    $routes->get('photos/(:segment)',      'Photos::show/$1');
-    $routes->get('photos/(:segment)/edit', 'Photos::edit/$1');
-    $routes->put('photos/(:segment)',      'Photos::update/$1');
-    $routes->patch('photos/(:segment)',    'Photos::update/$1');
-    $routes->delete('photos/(:segment)',   'Photos::delete/$1');
+:.. literalinclude:: restful/001.php
 
 .. important:: 위의 순서는 명확성을 위한 것이며, RouteCollection에서 경로가 생성되는 실제 순서는 적절한 경로 확인을 보장합니다.
 
 두 번째 매개 변수는 생성된 경로를 수정하는데 사용할 수 있는 옵션 배열입니다. 
 이 경로는 더 많은 메소드가 허용되는 API 사용을 목표로하고 있지만 ``websafe`` 옵션을 전달하여 HTML 폼에서 작동하는 업데이트 및 삭제 메소드를 생성할 수 있습니다.
 
-
-::
-
-    $routes->resource('photos', ['websafe' => 1]);
-
-    // The following equivalent routes are created:
-    $routes->post('photos/(:segment)/delete', 'Photos::delete/$1');
-    $routes->post('photos/(:segment)',        'Photos::update/$1');
+.. literalinclude:: restful/002.php
 
 사용된 컨트롤러 변경
 --------------------------
 
 컨트롤러 이름과 함께 ``controller`` 옵션을 전달하여 사용해야 하는 컨트롤러를 지정할 수 있습니다.
 
-::
-
-    $routes->resource('photos', ['controller' =>'App\Gallery']);
-
-    // Would create routes like:
-    $routes->get('photos', 'App\Gallery::index');
+.. literalinclude:: restful/003.php
 
 사용된 자리 표시자(Placeholder) 변경
 ----------------------------------------
@@ -66,12 +42,7 @@ CodeIgniter를 사용하면 리소스 경로(Resource route)와 `ResourceControl
 기본적으로 ``(:segment)`` 자리 표시자는 리소스 ID가 필요할 때 사용됩니다.
 ``placeholder`` 옵션과 함께 문자열을 전달하여 이를 변경할 수 있습니다.
 
-::
-
-    $routes->resource('photos', ['placeholder' => '(:num)']);
-
-    // Generates routes like:
-    $routes->get('photos/(:num)', 'Photos::show/$1');
+.. literalinclude:: restful/004.php
 
 생성 경로 제한
 ---------------------
@@ -80,15 +51,11 @@ CodeIgniter를 사용하면 리소스 경로(Resource route)와 `ResourceControl
 이것은 메소드 이름 **배열** 또는 **쉼표로 구분된 목록**\ 이어야 합니다.
 이 메소드들 중 하나와 일치하는 경로만 생성되고 나머지는 무시됩니다.
 
-::
-
-    $routes->resource('photos', ['only' => ['index', 'show']]);
+.. literalinclude:: restful/005.php
 
 ``except`` 옵션을 사용하여 사용하지 않는 경로를 제거할 수 있습니다. 이는 메소드 이름 **배열** 또는 **쉼표로 구분된 목록**\ 이어야 합니다. 이 옵션은 ``only`` 다음에 실행됩니다.
 
-::
-
-    $routes->resource('photos', ['except' => 'new,edit']);
+.. literalinclude:: restful/006.php
 
 유효한 메소드: ``index``, ``show``, ``create``, ``update``, ``new``, ``edit``, ``delete``.
 
@@ -99,32 +66,11 @@ ResourceController
 
 ``modelName``\ 과 ``format`` 속성(propertie)을 재정의하여 확장한 다음 처리하려는 메소드를 구현하십시오.
 
-::
-
-    <?php 
-    
-    namespace App\Controllers;
-
-    use CodeIgniter\RESTful\ResourceController;
-
-    class Photos extends ResourceController
-    {
-        protected $modelName = 'App\Models\Photos';
-        protected $format    = 'json';
-    
-        public function index()
-        {
-            return $this->respond($this->model->findAll());
-        }
-
-        // ...
-    }
+.. literalinclude:: restful/007.php
 
 이것에 대한 라우팅은
 
-::
-
-    $routes->resource('photos');
+.. literalinclude:: restful/008.php
 
 프리젠터(presenter) 경로
 ============================================================
@@ -135,31 +81,14 @@ ResourceController
 프레젠테이션은 기존 컨트롤러로 처리할 수 있으므로 필요하지 않습니다.
 사용법은 resosurce 라우팅과 유사합니다.
 
-::
+.. literalinclude:: restful/009.php
 
-    $routes->presenter('photos');
-
-    // Equivalent to the following:
-    $routes->get('photos/new',                'Photos::new');
-    $routes->post('photos/create',            'Photos::create');
-    $routes->post('photos',                   'Photos::create');   // alias
-    $routes->get('photos',                    'Photos::index');
-    $routes->get('photos/show/(:segment)',    'Photos::show/$1');
-    $routes->get('photos/(:segment)',         'Photos::show/$1');  // alias
-    $routes->get('photos/edit/(:segment)',    'Photos::edit/$1');
-    $routes->post('photos/update/(:segment)', 'Photos::update/$1');
-    $routes->get('photos/remove/(:segment)',  'Photos::remove/$1');
-    $routes->post('photos/delete/(:segment)', 'Photos::delete/$1');
-
-.. important:: 위의 순서는 명확성을 위한 것이며, RouteCollection에서 경로가 생성되는 실제 순서는 적절한 경로 확인을 보장합니다.
+.. note:: 위의 순서는 명확성을 위한 것이며, RouteCollection에서 경로가 생성되는 실제 순서는 적절한 경로 확인을 보장합니다.
 
 리소스와 프리젠터 컨트롤러 대해 'photos'\ 에 대한 경로는 없습니다.
 사례를 들어 구별해야합니다.
 
-::
-
-    $routes->resource('api/photo');
-    $routes->presenter('admin/photos');
+.. literalinclude:: restful/010.php
 
 
 두 번째 매개 변수는 생성된 경로를 수정하는데 사용할 수 있는 옵션 배열입니다.
@@ -169,24 +98,14 @@ ResourceController
 
 사용할 컨트롤러 이름과 함께 ``controller`` 옵션을 전달하여 사용할 컨트롤러를 지정할 수 있습니다.
 
-::
-
-    $routes->presenter('photos', ['controller' =>'App\Gallery']);
-
-    // Would create routes like:
-    $routes->get('photos', 'App\Gallery::index');
+.. literalinclude:: restful/011.php
 
 사용된 자리 표시자 변경
 ---------------------------
 
 기본적으로 ``(:segment)`` 자리 표시자는 리소스 ID가 필요할 때 사용됩니다. 사용할 새 문자열과 함께 ``placeholder`` 옵션을 전달하면 이 항목을 변경할 수 있습니다.
 
-::
-
-    $routes->presenter('photos', ['placeholder' => '(:num)']);
-
-    // Generates routes like:
-    $routes->get('photos/(:num)', 'Photos::show/$1');
+.. literalinclude:: restful/012.php
 
 경로(Route) 제한
 --------------------------
@@ -194,16 +113,12 @@ ResourceController
 ``only`` 옵션에 메소드 이름으로 된 **배열** 또는 **쉼표로 구분된 목록**\ 을 전달하여 생성된 경로를 제한할 수 있습니다.
 메소드 중 일치하는 경로만 접근할 수 있으며, 나머지는 무시됩니다.
 
-::
-
-    $routes->presenter('photos', ['only' => ['index', 'show']]);
+.. literalinclude:: restful/013.php
 
 ``except`` 옵션에  메소드 이름으로 된 **배열** 또는 **쉼표로 구분된 목록**\ 을 전달하여 사용하지 않는 경로를 제거할 수 있습니다.
 이 옵션은 ``only`` 이 후에 실행됩니다.
 
-::
-
-    $routes->presenter('photos', ['except' => 'new,edit']);
+.. literalinclude:: restful/014.php
 
 유효한 메소드: ``index``, ``show``, ``new``, ``create``, ``edit``, ``update``, ``remove``, ``delete``.
 
@@ -214,32 +129,11 @@ ResourcePresenter
 
 ``modelName`` 속성을 재정의하여 확장한 다음 처리하려는 메소드를 구현하십시오.
 
-::
-
-    <?php 
-    
-    namespace App\Controllers;
-
-    use CodeIgniter\RESTful\ResourcePresenter;
-
-    class Photos extends ResourcePresenter
-    {
-
-        protected $modelName = 'App\Models\Photos';
-
-        public function index()
-        {
-            return view('templates/list', $this->model->findAll());
-        }
-
-        // ...
-    }
+.. literalinclude:: restful/015.php
 
 이것에 대한 경로는
 
-::
-
-    $routes->presenter('photos');
+.. literalinclude:: restful/016.php
 
 리센터(resenter)/컨트롤러 비교
 ==================================

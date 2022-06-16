@@ -7,36 +7,23 @@ CodeIgniter 모델 사용
     :depth: 2
 
 모델
-========
+******
 
-데이터베이스 **테이블**\ 과 상호 작용(레코드 찾기, 업데이트, 삭제등)하는 많은 표준 메소드가 기본 제공됩니다.
+CodeIgniter의 모델은 데이터베이스에서 **단일 테이블** 작업을 보다 편리하게 만들기 위해 일반적으로 사용하는 편리한 기능과 추가 기능을 제공합니다.
+
+레코드 찾기, 레코드 업데이트, 레코드 삭제 등을 포함하여 데이터베이스 테이블과 상호 작용하는 데 필요한 많은 표준 방법에 대한 도우미 메서드와 함께 기본 제공됩니다.
 
 모델에 액세스하기
-==================
+******************
 
 모델은 일반적으로 ``app/Models`` 디렉토리에 저장되며, ``namespace App\Models``\ 와 같이 디렉토리 내의 위치와 일치하는 네임스페이스를 가집니다.
 
 새 인스턴스를 만들거나 ``model()`` 헬퍼 함수를 사용하여 클래스 내 모델에 액세스할 수 있습니다.
 
-::
-
-    // 새 클래스를 수동으로 생성
-    $userModel = new \App\Models\UserModel();
-
-    // 모델 헬퍼 함수로 새 클래스 생성
-    $userModel = model('App\Models\UserModel', false);
-
-    // 모델의 공유 인스턴스 생성
-    $userModel = model('App\Models\UserModel');
-
-    // custom DB 연결
-    // 네임스페이스가 제공되지 않으면 시스템이 알고 있는 
-    // 모든 네임스페이스를 검색하여 UserModel 클래스를 찾습니다.
-    $db = db_connect('custom');
-    $userModel = model('UserModel', true, $db);
+.. literalinclude:: model/001.php
 
 CodeIgniter 모델
-===================
+*******************
 
 CodeIgniter는 다음과 같은 몇 가지 유용한 기능을 제공하는 모델 클래스를 제공합니다:
 
@@ -49,132 +36,72 @@ CodeIgniter는 다음과 같은 몇 가지 유용한 기능을 제공하는 모�
 이 클래스는 자체 모델을 구축할 수있는 견고한 기반을 제공하므로 어플리케이션의 모델 계층을 신속하게 구축할 수 있습니다.
 
 모델 만들기
-===================
+*************
 
 CodeIgniter의 모델을 활용하려면 ``CodeIgniter\Model``\ 을 확장하는 새로운 모델 클래스를 만들면됩니다.
 
-::
-
-    <?php 
-    
-    namespace App\Models;
-
-    use CodeIgniter\Model;
-
-    class UserModel extends Model
-    {
-        // ...
-    }
+.. literalinclude:: model/002.php
 
 이렇게 작성된 클래스는 데이터베이스 연결, 쿼리 빌더 등 여러 가지 편리한 추가 메소드를 제공합니다.
 
 모델에 추가 설정이 필요한 경우 모델의 생성자 직후에 실행되는 ``initialize()`` 메소드를 확장할 수 있습니다.
 이렇게 하면 생성자 매개 변수를 반복하지 않고 추가 단계를 수행할 수 있습니다(예: 다른 모델 확장).
 
-::
-
-    <?php
-
-    namespace App\Models;
-
-    use Modules\Authentication\Models\UserAuthModel;
-
-    class UserModel extends UserAuthModel
-    {
-    	/**
-    	 * Called during initialization. Appends
-    	 * our custom field to the module's model.
-    	 */
-        protected function initialize()
-        {
-        	$this->allowedFields[] = 'middlename';
-        }
-    }
+.. literalinclude:: model/003.php
 
 
 데이터베이스 연결
---------------------------
+===================
 
 클래스가 처음 인스턴스화될 때 데이터베이스 연결 인스턴스가 생성자에 전달되지 않으면 구성에서 설정한대로 기본 데이터베이스 그룹에 자동으로 연결됩니다.
 ``$DBGroup`` 속성을 클래스에 추가하여 모델별로 사용되는 그룹을 수정할 수 있습니다.
 이는 모델 내에서 ``$this->db``\ 에 대한 참조가 적절한 DB에 연결되도록 합니다.
 
-::
-
-    <?php 
-    
-    namespace App\Models;
-
-    use CodeIgniter\Model;
-
-    class UserModel extends Model
-    {
-        protected $DBGroup = 'group_name';
-    }
+.. literalinclude:: model/004.php
 
 "group_name"을 데이터베이스 구성 파일에 정의된 데이터베이스 그룹 이름으로 바꾸십시오.
 
 모델 구성
-----------------------
+===========
 
 모델 클래스에는 클래스의 메소드가 원활하게 작동하도록 설정할 수 있는 몇 가지 구성 옵션이 있습니다.
 처음 두 개는 모든 CRUD 메소드에서 사용할 테이블과 필요한 레코드를 찾는 방법을 결정하는데 사용됩니다.
 
-::
+.. literalinclude:: model/005.php
 
-    <?php namespace App\Models;
-
-    use CodeIgniter\Model;
-
-    class UserModel extends Model
-    {
-        protected $table      = 'users';
-        protected $primaryKey = 'id';
-
-        protected $useAutoIncrement = true;
-
-        protected $returnType = 'array';
-        protected $useSoftDeletes = true;
-
-        protected $allowedFields = ['name', 'email'];
-
-        protected $useTimestamps = false;
-        protected $createdField  = 'created_at';
-        protected $updatedField  = 'updated_at';
-        protected $deletedField  = 'deleted_at';
-
-        protected $validationRules    = [];
-        protected $validationMessages = [];
-        protected $skipValidation     = false;
-    }
-
-**$table**
+$table
+------
 
 모델을 통하여 조작하고자 하는 데이터베이스 테이블을 지정합니다.
 이것은 내장 CRUD 메소드에만 적용되며 모델을 통한 쿼리에서 이 테이블만 사용하도록 제한하지 않습니다.
 
-**$primaryKey**
+$primaryKey
+-----------
 
 테이블에서 레코드를 고유하게 식별하는 열(column)의 이름입니다.
 반드시 데이터베이스에 지정된 기본(primary) 키와 일치 할 필요는 없으며, ``find()``\ 와 같은 메소드에서 지정된 값과 일치하는 열을 찾을때 사용합니다.
 
 .. note:: 모든 기능이 예상대로 작동하려면 모든 모델에 기본 키가 지정되어 있어야 합니다.
 
-**$useAutoIncrement**
+$useAutoIncrement
+-----------------
 
 테이블이 자동 증가(auto-increment) 기능을 사용할지 여부를 ``$primaryKey``\ 에 지정합니다.
 ``false``\ 로 설정하면 테이블의 모든 레코드에 대해 기본 키 값을 제공해야 합니다.
 이 기능은 1:1 관계를 구현하거나 모델에 UUID를 사용하려는 경우에 유용합니다.
+기본 값은 ``true``\ 입니다.
 
 .. note:: 만약 ``$AutoIncrement``\ 를 ``false``\ 로 설정했다면, 반드시 데이터베이스의 기본 키를 ``unique``\ 로 설정해야 모델의 모든 기능이 이전과 동일하게 작동합니다.
 
-**$returnType**
+$returnType
+-----------
 
 모델의 CRUD 메소드는 Result 객체 대신 결과 데이터를 자동으로 반환합니다.
 이 설정을 통해 반환되는 데이터 유형을 정의할 수 있습니다.
 유효한 값은 **array** (기본 값), **object** 또는 Result 오브젝트의 ``getCustomResultObject()`` 메소드와 함께 사용할 수 있는 **정규화된 클래스명**\ 입니다.
 
-**$useSoftDeletes**
+$useSoftDeletes
+---------------
 
 ``true``\ 이면 ``delete()`` 메소드 호출은 실제로 행을 삭제하는 대신 데이터베이스의 ``deleted_at`` 필드를 설정합니다.
 이를 통해 데이터가 다른 곳에서 참조될 때 데이터를 보존하거나 복원할 수있는 개체의 "휴지통"\ 을 유지하거나 단순히 보안 추적의 일부로 보존할 수 있습니다.
@@ -183,80 +110,96 @@ CodeIgniter의 모델을 활용하려면 ``CodeIgniter\Model``\ 을 확장하는
 모델의 ``$dateFormat`` 설정에 따라 데이터베이스에 타입이 DATETIME 또는 INTEGER인 ``deleted_at`` 필드가 필요합니다.
 기본 필드 이름은 ``deleted_at``\ 이지만 이 이름은 ``$deletedField`` 속성을 사용하여 원하는 이름으로 수정할 수 있습니다.
 
-**$allowedFields**
+$allowedFields
+--------------
 
 이 배열은 ``save()``, ``insert()``, ``update()`` 메소드를 통하여 설정할 수 있는 필드 이름입니다.
 여기에 명시되지 않은 필드명은 삭제됩니다. 
 이렇게 하면 양식(Form)에서 입력된 모든 데이터를 모델에 모두 입력되는 것을 방지하여 대량 할당 취약점이 발생하지 않도록 보호할 수 있습니다.
 
-**$useTimestamps**
+.. note:: ``$primaryKey`` 필드는 허용된 필드(allowed field)가 되어서는 안 됩니다.
+
+$useTimestamps
+--------------
 
 이 값은 현재 날짜가 모든 INSERT 및 UPDATE에 자동으로 추가되는지 여부를 결정합니다.
 ``true``\ 이면 ``$dateFormat``\ 에 지정된 형식으로 현재 시간을 설정합니다.
 이를 위해서 테이블에 적절한 데이터 유형의 **created_at**\ 와 **updated_at** 라는 열(column)이 있어야 합니다.
 
-**$createdField**
+$createdField
+-------------
 
 데이터 레코드 작성 타임스탬프를 유지하기 위해 사용하는 데이터베이스 필드를 지정합니다.
 업데이트가 되지않도록 하려면 비워 두십시오. (``$useTimestamps``\ 가 활성화된 경우에도)
 
-**$updatedField**
+$updatedField
+-------------
 
 데이터 레코드 업데이트 타임스탬프를 유지하기 위해 사용할 데이터베이스 필드를 지정합니다.
 업데이트가 되지않도록 하려면 비워 두십시오 (``$useTimestamps``\ 가 활성화된 경우에도)
 
-**$dateFormat**
+$dateFormat
+-----------
 
 ``$useTimestamps``, ``$useSoftDeletes``\ 와 함께 작동하여 올바른 유형의 날짜 값이 데이터베이스에 INSERT되도록 합니다.
 기본적으로 DATETIME 값을 작성하지만 옵션을 통해 수정할 수 있으며, 유효한 옵션은 ``'datetime'``, ``'date'``, ``'int'`` (PHP 타임 스탬프)입니다.
 **useSoftDeletes** 또는 **useTimestamps**\ 에 유효하지 않거나 잘못된 dateFormat을 사용하면 예외가 발생합니다.
 
-**$validationRules**
+$validationRules
+----------------
 
 :ref:`validation-array`\ 에 설명 된대로 유효성 검사 규칙 배열을 포함하거나 동일한 섹션에 설명 된대로 유효성 검사 그룹의 이름을 포함하는 문자열을 포함합니다.
 아래에 자세히 설명되어 있습니다.
 
-**$validationMessages**
+$validationMessages
+-------------------
 
 :ref:`validation-custom-errors`\ 에 설명 된 바와 같이, 유효성 검증 중에 사용해야하는 사용자 정의 오류 메시지 배열을 포함합니다.
 아래에 자세히 설명되어 있습니다.
 
-**$skipValidation**
+$skipValidation
+---------------
 
 모든 **inserts**\ 와 **updates**\ 의 유효성 검사를 하지 않을지 여부입니다.
 기본값은 ``false``\ 이며 데이터의 유효성 검사를 항상 시도합니다.
 
 이 속성은 주로 ``skipValidation()`` 메소드에 의해 사용되지만, 모델이 유효성을 검사하지 않도록 ``true``\ 로 변경될 수 있습니다.
 
-**$beforeInsert**
-**$afterInsert**
-**$beforeUpdate**
-**$afterUpdate**
-**$afterFind**
-**$afterDelete**
+$beforeInsert
+-------------
+$afterInsert
+------------
+$beforeUpdate
+-------------
+$afterUpdate
+------------
+$afterFind
+----------
+$afterDelete
+------------
 
 이 속성들은 콜백 메소드를 지정할 때 사용되며, 콜백은 속성 이름이 뜻하는 시점에 호출됩니다.
 
 
-**$allowCallbacks**
+$allowCallbacks
+---------------
 
 위에서 정의한 콜백을 사용할지 여부를 결정합니다.
 
 데이터 작업
-=================
+*****************
 
 데이터 찾기
-----------------
+============
 
 ``find()``, ``insert()``, ``update()``, ``delete()`` 등을 포함하여 테이블에서 기본 CRUD 작업을 수행하기 위한 여러 함수가 제공됩니다.
 
-**find()**
+find()
+------
 
 첫 번째 매개 변수로 전달된 값과 기본 키가 일치하는 단일 행(row)을 리턴합니다.
 
-::
-
-    $user = $userModel->find($user_id);
+.. literalinclude:: model/007.php
 
 값은 ``$returnType``\ 에 지정된 형식으로 반환됩니다.
 
@@ -268,141 +211,87 @@ CodeIgniter의 모델을 활용하려면 ``CodeIgniter\Model``\ 을 확장하는
 
 매개 변수를 전달하지 않으면, ``findAll()``\ 처럼 작동하여 모델의 테이블에 있는 모든 행을 리턴합니다.
 
-**findColumn()**
+findColumn()
+------------
 
- null 또는 인덱스화된 열(column)의 값 배열을 반환합니다.
+null 또는 인덱스화된 열(column)의 값 배열을 반환합니다.
  
- ::
+.. literalinclude:: model/008.php
 
-     $user = $userModel->findColumn($column_name);
+``$column_name``\ 은 단일 열의 이름이어야 합니다. 그렇지 않으면 ``DataException``\ 이 발생합니다.
 
- ``$column_name``\ 은 단일 열의 이름이어야 합니다. 그렇지 않으면 ``DataException``\ 이 발생합니다.
+findAll()
+---------
 
-**findAll()**
+모든 결과를 반환
 
-모든 결과를 반환::
-
-    $users = $userModel->findAll();
+.. literalinclude:: model/009.php
 
 이 메소드를 호출하기 전에 필요에 따라 쿼리 빌더의 메소드를 추가하여 수정할 수 있습니다.
 
-::
-
-    $users = $userModel->where('active', 1)
-                       ->findAll();
+.. literalinclude:: model/010.php
 
 limit 및 offset 값을 각각 첫 번째와 두 번째 매개 변수로 전달할 수 있습니다.
 
-::
+.. literalinclude:: model/011.php
 
-    $users = $userModel->findAll($limit, $offset);
-
-**first()**
+first()
+-------
 
 결과 집합의 첫 번째 행을 반환합니다.
 쿼리 빌더와 함께 사용하는 것이 가장 좋습니다.
 
-::
+.. literalinclude:: model/012.php
 
-    $user = $userModel->where('deleted', 0)
-                      ->first();
-
-**withDeleted()**
+withDeleted()
+-------------
 
 ``$useSoftDeletes``\ 가 ``true``\ 이면 **find*()** 메소드는 'deleted_at IS NOT null'\ 인 행을 반환하지 않습니다.
 이를 일시적으로 무시하려면 **find*()** 메소드를 호출하기 전에 ``withDeleted()`` 메소드를 사용합니다.
 
-::
+.. literalinclude:: model/013.php
 
-    // Only gets non-deleted rows (deleted = 0)
-    $activeUsers = $userModel->findAll();
-
-    // Gets all rows
-    $allUsers = $userModel->withDeleted()->findAll();
-
-**onlyDeleted()**
+onlyDeleted()
+-------------
 
 withDeleted()는 삭제된 행과 삭제되지 않은 행을 모두 리턴하지만, 이 메소드는 find* 메소드를 수정하여 소프트 삭제된 행만 리턴합니다.
 
-::
-
-    $deletedUsers = $userModel->onlyDeleted()->findAll();
+.. literalinclude:: model/014.php
 
 데이터 저장
----------------
+============
 
-**insert()**
+insert()
+--------
 
 전달된 데이터의 연관 배열을 이용하여, 데이터베이스에 새로운 데이터 행을 작성합니다.
 배열의 키는 ``$table``\ 의 열(column) 이름과 일치해야 하며 배열의 값은 해당 키에 저장할 값입니다.
 
-::
+.. literalinclude:: model/015.php
 
-    $data = [
-        'username' => 'darth',
-        'email'    => 'd.vader@theempire.com',
-    ];
-
-    $userModel->insert($data);
-
-**update()**
+update()
+--------
 
 데이터베이스의 기존 레코드를 업데이트합니다. 첫 번째 매개 변수는 업데이트할 레코드의 ``$primaryKey``\ 입니다.
 두 번째 매개 변수는 이 메소드에 전달될 데이터의 연관 배열입니다.
 배열의 키는 ``$table``\ 의 열(column) 이름과 일치해야 하며 배열의 값은 해당 키에 저장할 값입니다.
 
-::
-
-    $data = [
-        'username' => 'darth',
-        'email'    => 'd.vader@theempire.com',
-    ];
-
-    $userModel->update($id, $data);
+.. literalinclude:: model/016.php
 
 기본(primary) 키 배열을 첫 번째 매개 변수로 전달하여 한 번의 호출로 여러 레코드를 업데이트할 수 있습니다.
 
-::
-
-    $data = [
-        'active' => 1,
-    ];
-
-    $userModel->update([1, 2, 3], $data);
+.. literalinclude:: model/017.php
 
 유효성 검사, 이벤트 등의 추가 이점을 갖는 쿼리 빌더의 업데이트 명령을 수행하려면, 매개 변수를 비운채 사용하십시오.
 
-::
+.. literalinclude:: model/018.php
 
-    $userModel
-        ->whereIn('id', [1,2,3])
-        ->set(['active' => 1])
-        ->update();
-
-**save()**
+save()
+------
 
 ``$primaryKey`` 값과 일치하는 배열 키가 존재하는지의 여부에 따라 레코드 INSERT 또는 UPDATE를 자동으로 처리하는 ``insert()``\ 와 ``update()`` 메서드를 둘러싼 래퍼입니다.
 
-::
-
-    // Defined as a model property
-    $primaryKey = 'id';
-
-    // Does an insert()
-    $data = [
-        'username' => 'darth',
-        'email'    => 'd.vader@theempire.com',
-    ];
-
-    $userModel->save($data);
-
-    // Performs an update, since the primary key, 'id', is found.
-    $data = [
-        'id'       => 3,
-        'username' => 'darth',
-        'email'    => 'd.vader@theempire.com',
-    ];
-    $userModel->save($data);
+.. literalinclude:: model/019.php
 
 save 메소드는 단순하지 않은 오브젝트를 인식하고 공용 및 보호된 값을 배열로 가져 와서 적절한 insert 또는 update 메소드로 전달하여 사용자 정의 클래스 결과 오브젝트에 대한 작업을 훨씬 간단하게 만들수 있습니다. 
 이를 통해 매우 깨끗한 방식으로 Entity 클래스를 사용할 수 있습니다.
@@ -411,98 +300,49 @@ save 메소드는 단순하지 않은 오브젝트를 인식하고 공용 및 �
 데이터베이스에 저장되는 방법에 대해 전혀 알지 못합니다.
 간단하게는 다음과 같이 보일 수 있습니다.
 
-::
-
-    namespace App\Entities;
-
-    class Job
-    {
-        protected $id;
-        protected $name;
-        protected $description;
-
-        public function __get($key)
-        {
-            if (property_exists($this, $key)) {
-                return $this->$key;
-            }
-        }
-
-        public function __set($key, $value)
-        {
-            if (property_exists($this, $key)) {
-                $this->$key = $value;
-            }
-        }
-    }
+.. literalinclude:: model/020.php
 
 이 작업을 수행하는 간단한 모델은 다음과 같습니다.
 
-::
-
-    use CodeIgniter\Model;
-
-    class JobModel extends Model
-    {
-        protected $table = 'jobs';
-        protected $returnType = '\App\Entities\Job';
-        protected $allowedFields = [
-            'name', 'description'
-        ];
-    }
+.. literalinclude:: model/021.php
 
 다음 모델은 ``jobs`` 테이블의 데이터로 작동하며 모든 결과를 ``App\Entities\Job`` 인스턴스로 반환합니다.
 해당 레코드를 데이터베이스에 유지해야 하는 경우 사용자 정의 메소드를 작성하거나 모델의 ``save()`` 메소드를 사용하여 클래스를 검사하고 public과 private 특성을 가져 와서 데이터베이스에 저장해야 합니다.
 
-::
-
-    // Retrieve a Job instance
-    $job = $model->find(15);
-
-    // Make some changes
-    $job->name = "Foobar";
-
-    // Save the changes
-    $model->save($job);
+.. literalinclude:: model/022.php
 
 .. note:: 엔터티를 많이 사용하는 경우를 위해 CodeIgniter는 엔터티 개발을 보다 간단하게 해주는 몇 가지 편리한 기능을 제공하는 내장된 Entity 클래스를 제공합니다.
 
 데이타 삭제
--------------
+=============
 
-**delete()**
+delete()
+--------
 
 첫 번째 매개 변수로 제공된 기본 키 값을 사용하여 모델 테이블에서 일치하는 레코드를 삭제합니다.
 
-::
-
-    $userModel->delete(12);
+.. literalinclude:: model/023.php
 
 모델의 ``$useSoftDeletes`` 값이 true인 경우 ``deleted_at``\ 를 현재 날짜 및 시간으로 설정하여 행을 업데이트합니다.
 두 번째 매개 변수를 true로 설정하여 영구적으로 삭제할 수 있습니다.
 
 첫 번째 매개 변수로 기본 키 배열을 전달하여 한 번에 여러 레코드를 삭제할 수 있습니다
 
-::
-
-    $userModel->delete([1,2,3]);
+.. literalinclude:: model/024.php
 
 매개 변수가 전달되지 않으면 쿼리 빌더의 delete 메소드처럼 작동하며 where 메소드 호출이 필요합니다.
 
-::
+.. literalinclude:: model/025.php
 
-    $userModel->where('id', 12)->delete();
-
-**purgeDeleted()**
+purgeDeleted()
+--------------
 
 'deleted_at IS NOT null'\ 이 있는 모든 행을 데이터베이스 테이블에서 영구적으로 제거합니다.
 
-::
-
-    $userModel->purgeDeleted();
+.. literalinclude:: model/026.php
 
 데이터 검증
----------------
+===============
 
 많은 사람들에게 모델의 데이터 유효성 검사는 코드를 복제하지 않고 데이터를 단일 표준으로 유지하는데 선호되는 방법입니다.
 Model 클래스는 ``insert()``, ``update()``, ``save()`` 메소드를 사용하여 데이터베이스에 저장하기 전에 모든 데이터를 자동으로 검증하는 방법을 제공합니다.
@@ -510,23 +350,7 @@ Model 클래스는 ``insert()``, ``update()``, ``save()`` 메소드를 사용하
 첫 번째 단계는 적용 할 필드와 규칙으로 ``$validationRules`` 클래스 속성을 채우는 것입니다.
 사용하려는 사용자 지정 오류 메시지가 있으면 ``$validationMessages`` 배열에 넣으십시오.
 
-::
-
-    class UserModel extends Model
-    {
-        protected $validationRules    = [
-            'username'     => 'required|alpha_numeric_space|min_length[3]',
-            'email'        => 'required|valid_email|is_unique[users.email]',
-            'password'     => 'required|min_length[8]',
-            'pass_confirm' => 'required_with[password]|matches[password]',
-        ];
-
-        protected $validationMessages = [
-            'email'        => [
-                'is_unique' => 'Sorry. That email has already been taken. Please choose another.',
-            ],
-        ];
-    }
+.. literalinclude:: model/027.php
 
 기능별로 유효성 검사 규칙을 필드로 설정하는 다른 방법
 
@@ -539,12 +363,7 @@ Model 클래스는 ``insert()``, ``update()``, ``save()`` 메소드를 사용하
 
     사용예
     
-    ::
-
-        $fieldName = 'username';
-        $fieldRules = 'required|alpha_numeric_space|min_length[3]';
-        
-        $model->setValidationRule($fieldName, $fieldRules);
+    .. literalinclude:: model/028.php
 
 .. php:function:: setValidationRules($validationRules)
 
@@ -554,18 +373,7 @@ Model 클래스는 ``insert()``, ``update()``, ``save()`` 메소드를 사용하
 
     사용예
     
-    ::
-
-        $validationRules = [
-            'username' => 'required|alpha_numeric_space|min_length[3]',
-            'email' => [
-                'rules'  => 'required|valid_email|is_unique[users.email]',
-                'errors' => [
-                    'required' => 'We really need your email.',
-                ],
-            ],
-        ];
-        $model->setValidationRules($validationRules);
+    .. literalinclude:: model/029.php
 
 기능별로 유효성 검사 메시지를 필드로 설정하는 다른 방법은,
 
@@ -576,13 +384,7 @@ Model 클래스는 ``insert()``, ``update()``, ``save()`` 메소드를 사용하
 
     이 함수는 오류 메시지를 설정합니다.
 
-    ::
-
-            $fieldName = 'name';
-            $fieldValidationMessage = array(
-                            'required'   => 'Your name is required here',
-                    );
-            $model->setValidationMessage($fieldName, $fieldValidationMessage);
+    .. literalinclude:: model/030.php
 
 .. php:function:: setValidationMessages($fieldMessages)
 
@@ -590,187 +392,125 @@ Model 클래스는 ``insert()``, ``update()``, ``save()`` 메소드를 사용하
 
     이 함수는 필드 메시지를 설정합니다.
 
-    ::
-
-            $fieldValidationMessage = array(
-                    'name' => array(
-                            'required'   => 'Your baby name is missing.',
-                            'min_length' => 'Too short, man!',
-                    ),
-            );
-            $model->setValidationMessages($fieldValidationMessage);
+    .. literalinclude:: model/031.php
 
 이제 ``insert()``, ``update()``, ``save()`` 메소드를 호출할 때마다 데이터의 유효성이 검사됩니다.
 실패하면 모델은 **false**\ 를 반환합니다. ``errors()`` 메소드를 사용하여 유효성 검사 오류를 검색할 수 있습니다
 
-::
-
-    if ($model->save($data) === false) {
-        return view('updateUser', ['errors' => $model->errors()];
-    }
+.. literalinclude:: model/032.php
 
 위와 같이 하면 필드 이름과 관련 오류가 있는 배열을 반환하는데, 양식(form) 맨 위에 모든 오류를 표시하거나 개별적으로 표시하는 데 사용할 수 있습니다.
 
-::
-
-    <?php if (! empty($errors)): ?>
-        <div class="alert alert-danger">
-        <?php foreach ($errors as $field => $error): ?>
-            <p><?= $error ?></p>
-        <?php endforeach ?>
-        </div>
-    <?php endif ?>
+.. literalinclude:: model/033.php
 
 유효성 검사 구성 파일 내에서 규칙 및 오류 메시지를 구성하려는 경우 이를 수행하고 ``$validationRules``\ 를 만든 유효성 검사 규칙 그룹의 이름으로 설정하면 됩니다.
 
-::
-
-    class UserModel extends Model
-    {
-        protected $validationRules = 'users';
-    }
+.. literalinclude:: model/034.php
 
 유효성 검사 규칙 검색
----------------------------
+===========================
 
 ``validationRules`` 속성에 액세스하여 모델의 유효성 검사 규칙을 검색할 수 있습니다.
 
-::
-
-    $rules = $model->validationRules;
+.. literalinclude:: model/035.php
 
 옵션을 사용하여 접근자 메서드를 직접 호출하여 해당 규칙의 하위 집합만 검색 할 수도 있습니다.
 
-::
-
-    $rules = $model->getValidationRules($options);
+.. literalinclude:: model/036.php
 
 ``$options`` 매개 변수는 하나의 요소를 가진 연관 배열이며, 키는 ``'except'`` 또는 ``'only'``\ 이며, 값은 해당 필드 이름의 배열입니다.
 
-::
-
-    // get the rules for all but the "username" field
-    $rules = $model->getValidationRules(['except' => ['username']]);
-    // get the rules for only the "city" and "state" fields
-    $rules = $model->getValidationRules(['only' => ['city', 'state']]);
+.. literalinclude:: model/037.php
 
 유효성 검사 자리 표시자
------------------------
+========================
 
 이 모델은 전달된 데이터를 기반으로 규칙의 일부를 바꾸는 간단한 방법을 제공합니다.
 이것은 명확하지 않은 것처럼 들리지만 특히 ``is_unique`` 유효성 검사 규칙을 사용하면 편리합니다.
 자리 표시자는 단순히 중괄호로 묶인 ``$data``\ 로 전달된 필드(또는 배열 키)의 이름이며, 일치하는 필드의 **값**\ 으로 대체됩니다. 
 다음 예를 확인하세요.
 
-::
+.. literalinclude:: model/038.php
 
-    protected $validationRules = [
-        'email' => 'required|valid_email|is_unique[users.email,id,{id}]'
-    ];
 
 이 규칙 집합에서 전자 메일 주소는 자리 표시자의 값과 일치하는 ID를 가진 행을 제외하고 데이터베이스에서 고유(unique)해야 합니다.
 POST 데이터가 다음과 같다고 가정합니다.
 
-::
-
-    $_POST = [
-        'id' => 4,
-        'email' => 'foo@example.com'
-    ]
+.. literalinclude:: model/039.php
 
 ``{id}`` 자리 표시자는 숫자 **4**\ 로 대체되어 이 규칙이 수정됩니다.
 
-::
-
-    protected $validationRules = [
-        'email' => 'required|valid_email|is_unique[users.email,id,4]'
-    ];
+.. literalinclude:: model/040.php
 
 따라서 이메일이 고유하다는 것을 확인할 때 ``id=4``\ 인 데이터베이스의 행은 무시됩니다.
 
 전달된 동적 키가 양식(form) 데이터와 충돌하지 않도록 주의한다면 런타임에 더 많은 동적 규칙을 작성하는 데 사용할 수 있습니다.
 
 필드 보호
------------------
+=================
 
 대량 할당 공격으로 부터 보호하려면 Model 클래스의 ``$allowedFields`` 클래스 속성에 INSERT 및 UPDATE중 변경 가능한 모든 필드 이름을 명시해야 합니다.
 제공된 모든 데이터중 명시되지 않은 데이터는 데이터베이스에 도달하기 전에 제거됩니다.
 타임스탬프 또는 기본 키가 변경되지 않도록 하는 데 유용합니다.
 
-::
-
-    protected $allowedFields = ['name', 'email', 'address'];
+.. literalinclude:: model/041.php
 
 테스트, 마이그레이션 또는 시드 중 보호된 요소를 변경하기를 원할 때가 있습니다.
 이럴 때 보호 기능을 켜거나 끌 수 있습니다
 
-::
-
-    $model->protect(false)
-          ->insert($data)
-          ->protect(true);
+.. literalinclude:: model/042.php
 
 쿼리 빌더 사용
---------------------------
+==========================
 
 해당 모델의 데이터베이스 연결이 필요할 때 쿼리 빌더 공유 인스턴스에 액세스할 수 있습니다.
 
-::
-
-    $builder = $userModel->builder();
+.. literalinclude:: model/043.php
 
 빌더는 모델의 ``$table``\ 로 설정되어 있습니다.
 다른 테이블에 액세스해야 하는 경우 매개 변수로 전달할 수 있지만 공유 인스턴스는 반환되지 않습니다.
 
-::
+.. literalinclude:: model/044.php
 
-    $groupBuilder = $userModel->builder('groups');
 
 동일한 체인 호출에서 쿼리 빌더 메소드와 Model의 CRUD 메소드를 함께 사용할 수 있습니다.
 
-::
+.. literalinclude:: model/045.php
 
-    $users = $userModel->where('status', 'active')
-               ->orderBy('last_login', 'asc')
-               ->findAll();
+.. important:: 모델은 쿼리 빌더에 대한 완벽한 인터페이스를 제공하지 않습니다.
+    모델과 쿼리 빌더는 목적이 다른 별도의 클래스입니다.
+    동일한 데이터를 반환할 것으로 기대해서는 안 됩니다.
+    예를 들어, compiledInsert()를 가져와야 하는 경우 빌더 인스턴스에서 직접 수행해야 합니다.
 
 .. note:: 모델의 데이터베이스 연결에 완벽하게 액세스할 수도 있습니다.
 
-        ::
-
-            $user_name = $userModel->escape($name);
+        .. literalinclude:: model/046.php
 
 런타임 리턴 유형 변경
-----------------------------
+===========================
 
 **find*()** 메소드를 클래스 ``$returnType`` 속성으로 사용하여 데이터가 리턴되는 형식을 지정할 수 있습니다.
 그러나 지정한 형식과 다른 형식으로 데이터를 다시 원할 수도 있습니다.
-모델은이를 수행할 수 있는 메소드를 제공합니다.
+모델은 이를 수행할 수 있는 메소드를 제공합니다.
 
 .. note:: 이 메소드는 다음 **find*()** 메소드 호출에 대한 리턴 유형만 변경합니다. 그 후에는 기본값으로 재설정됩니다.
 
-**asArray()**
+asArray()
+---------
 
 **find*()** 메소드의 데이터를 연관 배열로 리턴합니다.
 
-::
+.. literalinclude:: model/047.php
 
-    $users = $userModel->asArray()->where('status', 'active')->findAll();
-
-**asObject()**
+asObject()
+----------
 
 **find*()** 메소드의 데이터를 표준 객체 또는 사용자 정의 클래스 인스턴스로 반환합니다.
 
-::
-
-    // Return as standard objects
-    $users = $userModel->asObject()->where('status', 'active')->findAll();
-
-    // Return as custom class instances
-    $users = $userModel->asObject('User')->where('status', 'active')->findAll();
+.. literalinclude:: model/048.php
 
 많은 양의 데이터 처리
---------------------------------
+================================
 
 많은 양의 데이터를 처리해야 할 때 메모리가 부족해질 위험이 있습니다.
 이를 방지하기 위해 chunk() 메소드를 사용하여 작업을 수행하면 작은 크기의 데이터 청크를 얻을 수 있습니다.
@@ -779,22 +519,17 @@ POST 데이터가 다음과 같다고 가정합니다.
 
 이 방법은 크론 작업, 데이터 내보내기(export) 또는 기타 대규모 작업에 적합합니다.
 
-::
-
-    $userModel->chunk(100, function ($data) {
-        // do something.
-        // $data is a single row of data.
-    });
+.. literalinclude:: model/049.php
 
 모델 이벤트
-================
+************
 
 모델 실행시 호출 가능한 콜백 메소드를 지정할 수 있는 몇 가지 이벤트 포인트가 있습니다.
 이를 이용하여 데이터를 정규화하거나, 암호를 해시하고 관련 엔터티를 저장하는 작업등을 수행할 수 있습니다.
 모델 실행의 다음 이벤트 포인트(``$beforeInsert``, ``$afterInsert``, ``$beforeUpdate``, ``$afterUpdate``, ``$afterFind``, ``$afterDelete``)는 각 클래스 속성을 통해 영향을 받을 수 있습니다.
 
 콜백 정의
------------
+============
 
 사용할 모델에 먼저 새 클래스 메소드를 작성하고 콜백을 지정하십시오.
 이 클래스는 ``$data`` 배열을 매개 변수로 받습니다.
@@ -803,47 +538,27 @@ insert* 또는 update* 메소드의 경우 데이터베이스에 삽입되는 �
 기본 배열에는 메소드에 전달된 다른 값도 포함됩니다.
 다른 콜백이 정보를 전달받을 수 있도록 호출된 콜백 메소드는 $data 배열을 리턴해야 합니다.
 
-::
-
-    protected function hashPassword(array $data)
-    {
-        if (! isset($data['data']['password'])) {
-            return $data;
-        }
-
-        $data['data']['password_hash'] = password_hash($data['data']['password'], PASSWORD_DEFAULT);
-        unset($data['data']['password']);
-
-        return $data;
-    }
+.. literalinclude:: model/050.php
 
 콜백 지정
---------------
+============
 
 적절한 클래스 속성(``$beforeInsert``, ``$afterUpdate`` 등)에 메소드 이름을 추가하여 콜백이 호출되는 시기를 지정합니다.
 단일 이벤트에 여러 개의 콜백을 추가할 수 있으며 지정된 순서대로 처리됩니다.
 여러 이벤트에서 동일한 콜백을 사용할 수도 있습니다
 
-::
-
-    protected $beforeInsert = ['hashPassword'];
-    protected $beforeUpdate = ['hashPassword'];
+.. literalinclude:: model/051.php
 
 또한 각 모델은 ``$allowCallbacks`` 속성을 설정하여 클래스 전체에 콜백을 허용(기본값)하거나 거부할 수 있습니다.
 
-::
-
-    protected $allowCallbacks = false;
+.. literalinclude:: model/052.php
 
 ``allowCallbacks()`` 메서드를 호출하는 단일 모델에 대해 이 설정을 일시적으로 변경할 수도 있습니다.
 
-::
-
-    $model->allowCallbacks(false)->find(1); // No callbacks triggered
-    $model->find(1); // Callbacks subject to original property value
+.. literalinclude:: model/053.php
 
 이벤트 매개 변수
----------------------
+=================
 
 각 콜백에 전달되는 데이터는 약간씩 다릅니다.
 다음은 각 이벤트의 ``$data`` 매개 변수에 전달되는 세부 정보입니다.
@@ -876,49 +591,18 @@ afterDelete       **id** = 삭제되는 행의 기본 키
 ================ =========================================================================================================
 
 Modifying Find* Data
---------------------
+====================
 
 ``beforeFind``\ 와 ``afterFind`` 메소드는 모델의 정상적인 응답을 대체하기 위해 수정된 데이터 셑을 반환할 수 있습니다.
 ``afterFind``\ 의 경우 반환 배열에서 ``data``\ 에 대한 변경 내용은 호출 컨텍스트로 자동 전달됩니다.
 ``beforeFind``\ 가 검색 워크플로우를 가로 채기전 또 다른 부울 값 ``returnData``\ 도 반환합니다.
 
-::
-
-    protected $beforeFind = ['checkCache'];
-    // ...
-    protected function checkCache(array $data)
-    {
-        // 요청한 항목이 캐시에 있는지 확인
-        if (isset($data['id']) && $item = $this->getCachedItem($data['id']])) {
-            $data['data']       = $item;
-            $data['returnData'] = true;
-
-            return $data;
-        }
-
-        // ...
-    }
+.. literalinclude:: model/054.php
 
 사용자 정의 모델 만들기
-=======================
+************************
 
 DB에 연결되어 있다면 어플리케이션에 대한 모델을 작성하기 위해 특수한 클래스를 확장하지 않아도 됩니다.
 DB연결을 통해 CodeIgniter의 모델이 제공하는 기능을 무시하고 사용자가 원하는 방법으로 모델을 만들 수 있습니다.
 
-::
-
-    <?php 
-    
-    namespace App\Models;
-
-    use CodeIgniter\Database\ConnectionInterface;
-
-    class UserModel
-    {
-        protected $db;
-
-        public function __construct(ConnectionInterface &$db)
-        {
-            $this->db = &$db;
-        }
-    }
+.. literalinclude:: model/055.php

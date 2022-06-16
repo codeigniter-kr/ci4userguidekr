@@ -5,7 +5,6 @@ Upgrade Validations
     :local:
     :depth: 2
 
-
 Documentations of Library
 =========================
 
@@ -35,20 +34,16 @@ Upgrade Guide
 
 3. 컨트롤러에서 유효성 검사 규칙을 배열로 설정하여 변경합니다.
 
-::
-
-    $isValid = $this->validate([
-        'name'  => 'required|min_length[3]',
-        'email' => 'required|valid_email',
-        'phone' => 'required|numeric|max_length[10]'
-    ]);
+   .. literalinclude:: upgrade_validations/001.php
 
 Code Example
 ============
 
-CodeIgniter Version 3.11
+CodeIgniter Version 3.x
 ------------------------
-Path: **application/views**::
+Path: **application/views**
+
+::
 
     <html>
     <head>
@@ -79,34 +74,15 @@ Path: **application/views**::
     </body>
     </html>
 
-Path: **application/controllers/**::
+Path: **application/controllers/**
 
-    <?php
-
-    class Form extends CI_Controller {
-
-        public function index()
-        {
-            $this->load->helper(array('form', 'url'));
-
-            $this->load->library('form_validation');
-
-            // Set validation rules
-
-            if ($this->form_validation->run() == FALSE)
-            {
-                    $this->load->view('myform');
-            }
-            else
-            {
-                    $this->load->view('formsuccess');
-            }
-        }
-    }
+.. literalinclude:: upgrade_validations/ci3sample/002.php
 
 CodeIgniter Version 4.x
 -----------------------
-Path: **app/Views**::
+Path: **app/Views**
+
+::
 
     <html>
     <head>
@@ -137,28 +113,6 @@ Path: **app/Views**::
     </body>
     </html>
 
-Path: **app/Controllers/**::
+Path: **app/Controllers/**
 
-    <?php
-
-    namespace App\Controllers;
-
-    use CodeIgniter\Controller;
-
-    class Form extends Controller
-    {
-        public function index()
-        {
-            helper(['form', 'url']);
-
-            if (! $this->validate([
-                // Validation rules
-            ])) {
-                echo view('myform', [
-                    'validation' => $this->validator,
-                ]);
-            } else {
-                echo view('formsuccess');
-            }
-        }
-    }
+.. literalinclude:: upgrade_validations/002.php

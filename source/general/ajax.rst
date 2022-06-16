@@ -27,7 +27,6 @@ Fetch API
         }
     });
 
-
 jQuery
 ======
 
@@ -42,7 +41,6 @@ jQuery
         headers: {'X-Requested-With': 'XMLHttpRequest'}
     });  
 
-
 VueJS
 =====
 
@@ -51,7 +49,6 @@ VueJS에서 Axios를 사용한다면 다음 코드를 ``created`` 함수에 추�
 .. code-block:: javascript
 
     axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
 
 React
 =====

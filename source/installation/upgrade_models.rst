@@ -37,39 +37,18 @@ CI4의 새 모델에는 많은 기능을 제공하는 기본 메소드가 있습
 코드 예
 ============
 
-CodeIgniter Version 3.11
+CodeIgniter Version 3.x
 ------------------------
 
-Path: **application/models**::
+Path: **application/models**
 
-    <?php
-
-    class User_contact extends CI_Model
-    {
-        public function insert($name, $address, $email)
-        {
-            $this->db->insert('user_contacts', array(
-                'name'    => $name,
-                'address' => $address,
-                'email'   => $email,
-            ));
-        }
-    }
+.. literalinclude:: upgrade_models/ci3sample/001.php
 
 CodeIgniter Version 4.x
 -----------------------
 
-Path: **app/Models**::
+Path: **app/Models**
 
-    <?php
-
-    namespace App\Models;
-
-    use CodeIgniter\Model;
-
-    class UserContact extends Model
-    {
-        // insert() method already implemented in parent
-    }
+.. literalinclude:: upgrade_models/001.php
 
 데이터를 삽입을 위해 CI4 이후 부터는 모델에 ``insert()`` 메소드가 기본 제공되므로 ``$model->insert()`` 메서드를 구현하지 않고 직접 호출하면 됩니다.

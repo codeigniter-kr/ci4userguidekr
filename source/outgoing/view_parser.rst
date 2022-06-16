@@ -39,21 +39,16 @@
 
 파서 클래스를 로드하는 가장 간단한 방법은 서비스를 통하는 것입니다.
 
-::
-
-	$parser = \Config\Services::parser();
+.. literalinclude:: view_parser/001.php
 
 ``Parser`` 클래스를 기본 렌더러로 사용하지 않는다면 직접 인스턴스화할 수 있습니다
 
-::
+.. literalinclude:: view_parser/002.php
 
-	$parser = new \CodeIgniter\View\Parser();
+로드가 완료되면 제공하는 세 가지 표준 렌더링 방법중 하나를 사용할 수 있습니다 : ``render()``, ``setVar()``, ``setData()``. 
+``setDelimiters()`` 메소드를 통해 구분자를 직접 지정할 수도 있습니다.
 
-로드가 완료되면 제공하는 세 가지 표준 렌더링 방법중 하나를 사용할 수 있습니다 : ``render(viewpath, options, save)``, ``setVar(name, value, context)``, ``setData(data, context)``. 
-``setDelimiters(left, right)`` 메소드를 통해 구분자를 직접 지정할 수도 있습니다.
-
-``Parser``\ 를 사용한 뷰 템플릿은 일반적인 뷰 PHP 스크립트와 달리 파서에서만 처리됩니다.
-뷰 템플릿에 포함된 PHP 코드는 파서에 의해 무시되며 대체 코드만 수행됩니다.
+.. important:: ``Parser``\ 를 사용한 뷰 템플릿은 일반적인 뷰 PHP 스크립트와 달리 파서에서만 처리됩니다. 뷰 템플릿에 포함된 PHP 코드는 파서에 의해 무시되며 대체 코드만 수행됩니다.
 
 .. note:: 이것의 목적: PHP 코드가 없는 뷰 파일.
 
@@ -78,15 +73,7 @@ Parser 클래스는 내부적으로 연관 배열을 사용하여 ``render()``\ 
 
 ``render()`` 메소드를 사용하여 다음과 같이 간단한 템플릿을 구문 분석(또는 렌더링)할 수 있습니다.
 
-::
-
-	$data = [
-		'blog_title'   => 'My Blog Title',
-		'blog_heading' => 'My Blog Heading',
-	];
-
-	echo $parser->setData($data)
-	             ->render('blog_template');
+.. literalinclude:: view_parser/003.php
 
 뷰 파라미터는 템플릿에서 교체할 데이터의 연관 배열로 ``setData()``\ 에 전달됩니다.
 위 예제에서 템플릿은 두 개의 변수를 포함합니다: ``{blog_title}``\ 과 ``{blog_heading}``
@@ -102,15 +89,10 @@ Parser 클래스는 내부적으로 연관 배열을 사용하여 ``render()``\ 
 
 -   ``cache`` - 뷰 결과를 저장하는 시간(초); renderString()은 무시
 -   ``cache_name`` - 캐시된 뷰 결과를 저장/검색하는데 사용되는 ID; 기본적으로 viewpath; renderString()은 무시
--   ``saveData`` - 후속 호출에 대해 뷰 데이터 매개 변수를 유지해야 하는 경우 true, 기본 값은 **false**
+-   ``saveData`` - 후속 호출에 대해 뷰 데이터 매개 변수를 유지해야 하는 경우 true, 기본 값은 **true**
 -	``cascadeData`` - 의사 변수 설정을 중첩된 대체로 전달해야 하는 경우 true; 기본 값은 **true**
 
-::
-
-	echo $parser->render('blog_template', [
-		'cache'      => HOUR,
-		'cache_name' => 'something_unique',
-	]);
+.. literalinclude:: view_parser/004.php
 
 ***********************
 대체 변형
@@ -121,14 +103,7 @@ Parser 클래스는 내부적으로 연관 배열을 사용하여 ``render()``\ 
 
 파서가 수행하는 **단순 치환**\ 은 아래 예에서와 같이 해당 데이터 매개 변수에 스칼라 또는 문자열 값이 있는 의사 변수의 일대일 대체입니다.
 
-::
-
-	$template = '<head><title>{blog_title}</title></head>';
-	$data     = ['blog_title' => 'My ramblings'];
-
-	echo $parser->setData($data)->renderString($template);
-
-	// Result: <head><title>My ramblings</title></head>
+.. literalinclude:: view_parser/005.php
 
 ``Parser``\ 는 중첩된 대체 또는 루프에 사용되는 "변수 쌍"\ 과 조건부 대체를 위한 고급 구성으로 대체를 훨씬 더 많이 수행합니다.
 
@@ -170,40 +145,14 @@ Parser 클래스는 내부적으로 연관 배열을 사용하여 ``render()``\ 
 변수 쌍 구문 분석은 단일 변수를 구문 분석하기 위해 위에 표시된 동일한 코드를 사용하지만 데이터에 다차원 배열을 추가합니다.
 아래 예제를 고려하십시오
 
-::
-
-	$data = [
-		'blog_title'   => 'My Blog Title',
-		'blog_heading' => 'My Blog Heading',
-		'blog_entries' => [
-			['title' => 'Title 1', 'body' => 'Body 1'],
-			['title' => 'Title 2', 'body' => 'Body 2'],
-			['title' => 'Title 3', 'body' => 'Body 3'],
-			['title' => 'Title 4', 'body' => 'Body 4'],
-			['title' => 'Title 5', 'body' => 'Body 5'],
-		],
-	];
-
-	echo $parser->setData($data)
-	             ->render('blog_template');
+.. literalinclude:: view_parser/006.php
 
 의사 변수 ``blog_entries``\ 의 값은 일련의 연관 배열입니다.
 외부 레벨은 중첩된 "행"\ 과 관련된 키를 가지고 있지 않습니다.
 
 데이터가 다차원 배열인 결과를 데이터베이스에서 얻고 싶다면 ``getResultArray()`` 메소드를 사용하면 됩니다.
 
-::
-
-	$query = $db->query("SELECT * FROM blog");
-
-	$data = [
-		'blog_title'   => 'My Blog Title',
-		'blog_heading' => 'My Blog Heading',
-		'blog_entries' => $query->getResultArray(),
-	];
-
-	echo $parser->setData($data)
-	            ->render('blog_template');
+.. literalinclude:: view_parser/007.php
 
 반복하려는 배열에 배열 대신 객체라면 파서는 먼저 객체에서 ``asArray()`` 메소드를 찾습니다.
 ``asArray()`` 메소드가 존재한다면 해당 메소드를 호출하여 얻은 결과 배열을 위에서 설명한대로 반복합니다.
@@ -216,18 +165,7 @@ Parser 클래스는 내부적으로 연관 배열을 사용하여 ``render()``\ 
 
 의사 변수의 값이 데이터베이스의 레코드와 같은 연관 배열인 경우 중첩 대체가 발생합니다.
 
-::
-
-	$data = [
-		'blog_title'   => 'My Blog Title',
-		'blog_heading' => 'My Blog Heading',
-		'blog_entry'   => [
-			'title' => 'Title 1', 'body' => 'Body 1',
-		],
-	];
-
-	echo $parser->setData($data)
-	            ->render('blog_template');
+.. literalinclude:: view_parser/008.php
 
 의사 변수 ``blog_entry``\ 의 값은 연관 배열이며 각 키/값 쌍은 해당 변수의 루프안에 노출됩니다.
 
@@ -267,39 +205,16 @@ Parser 클래스는 내부적으로 연관 배열을 사용하여 ``render()``\ 
 
 다음 예제는 계단식의 영향을 받지 않습니다.
 
-::
-
-	$template = '{name} lives in {location}{city} on {planet}{/location}.';
-
-	$data = [
-		'name'     => 'George',
-		'location' => ['city' => 'Red City', 'planet' => 'Mars'],
-	];
-
-	echo $parser->setData($data)->renderString($template);
-	// Result: George lives in Red City on Mars.
+.. literalinclude:: view_parser/009.php
 
 이 예는 계단식 배열에 따라 다른 결과를 제공합니다
 
-::
-
-	$template = '{location}{name} lives in {city} on {planet}{/location}.';
-
-	$data = [
-		'name'     => 'George',
-		'location' => ['city' => 'Red City', 'planet' => 'Mars'],
-	];
-
-	echo $parser->setData($data)->renderString($template, ['cascadeData'=>false]);
-	// Result: {name} lives in Red City on Mars.
-
-	echo $parser->setData($data)->renderString($template, ['cascadeData'=>true]);
-	// Result: George lives in Red City on Mars.
+.. literalinclude:: view_parser/010.php
 
 파싱 방지
 ==================
 
-파싱되지 않아야 하는 페이지 부분을 ``{noparse}{/noparse}`` 태그 쌍을 사용하여 지정할 수 있습니다.
+파싱되지 않아야 하는 페이지 부분을 ``{noparse}`` ``{/noparse}`` 태그 쌍을 사용하여 지정할 수 있습니다.
 이 섹션의 모든 내용은 변수 대체, 루핑등이 발생하지 않고 그대로 유지됩니다.
 
 ::
@@ -322,11 +237,7 @@ Parser 클래스는 내부적으로 연관 배열을 사용하여 ``render()``\ 
 
 이 블록은 파싱할 때 다음과 같이 변환됩니다.
 
-::
-
-	<?php if ($role=='admin'): ?>
-		<h1>Welcome, Admin!</h1>
-	<?php endif ?>
+.. literalinclude:: view_parser/011.php
 
 if 문에 사용된 모든 변수는 이전과 같은 이름으로 설정되어 있어야 합니다.
 그 외 나머지는 표준 PHP 조건부와 동일하게 취급되며 모든 표준 PHP 규칙이 여기에 적용됩니다.
@@ -343,6 +254,35 @@ if 문에 사용된 모든 변수는 이전과 같은 이름으로 설정되어 
 	{endif}
 
 .. warning:: 백그라운드에서 ``eval()``\ 을 사용하여 조건부 구문을 분석하므로 조건부에서 사용되는 사용자 데이터를 주의하여 관리해야합니다. 그렇지 않으면 보안 위험에 따라 어플리케이션 코드가 노출될 수 있습니다.
+
+조건부 구분 기호 변경
+-----------------------
+
+템플릿에 다음과 같은 JavaScript 코드가 있는 경우 조건부로 해석될 수 있는 문자열이 있기 때문에 구문 분석기가 구문 오류를 발생시킵니다.
+
+::
+
+    <script type="text/javascript">
+        var f = function() {
+            if (hasAlert) {
+                alert('{message}');
+            }
+        }
+    </script>
+
+다음은 잘못된 해석을 피하기 위해 ``setConditionalDelimiters()`` 메소드를 사용하여 구분 기호를 조건부로 변경할 수 있습니다.
+
+.. literalinclude:: view_parser/027.php
+
+다음은 템플릿에 코드를 작성합니다.
+
+::
+
+    {% if $role=='admin' %}
+        <h1>Welcome, Admin</h1>
+    {% else %}
+        <h1>Welcome, User</h1>
+    {% endif %}
 
 이스케이프 데이터
 ====================
@@ -369,7 +309,7 @@ CodeIgniter의 ``esc()`` 메소드는 HTML ``attr``, ``css``\ 등을 위해 ``ht
 
 단일 변수 대체는 표시되는 방식을 수정하기 위해 하나 이상의 필터가 적용될 수 있습니다.
 이것들은 출력을 대폭 변경하기 위한 것이 아니라 동일한 변수 데이터를 재사용하지만 다른 프리젠테이션으로 재사용할 수 있는 방법을 제공합니다.
-위에서 설명한 **esc** 필터가 한 예입니다.
+위에서 설명한 ``esc`` 필터가 좋은 예입니다.
 날짜는 다른 일반적인 사용 사례로, 동일한 페이지의 여러 섹션에서 동일한 데이터를 다르게 형식화해야 할 수도 있습니다.
 
 필터는 의사 변수 이름 뒤에 오는 명령이며 파이프 기호(``|``)로 구분됩니다.
@@ -465,24 +405,15 @@ upper                              Displays the string in all uppercase.        
 **app/Config/View.php**\ 의 ``$filters`` 배열에 새 항목을 추가하여 자신만의 필터를 쉽게 만들 수 있습니다.
 각 키는 뷰에서 필터로 호출될 이름이며 값은 호출 가능해야 합니다.
 
-::
+.. literalinclude:: view_parser/012.php
 
-	public $filters = [
-		'abs'        => '\CodeIgniter\View\Filters::abs',
-		'capitalize' => '\CodeIgniter\View\Filters::capitalize',
-	];
-
-PHP 함수 필터
+PHP 네이티브 함수 필터
 -------------------------------
 
 **app/Config/View.php**\ 의 ``$filters`` 새 항목을 추가하여 PHP 함수를 필터로 사용할 수 있습니다.
 각 키는 뷰에서 호출되는 고유 PHP 함수명 이며, 그 값은 PHP 함수입니다.
 
-::
-
-	public $filters = [
-		'str_repeat' => '\str_repeat',
-	];
+.. literalinclude:: view_parser/013.php
 
 파서 플러그인
 ==============
@@ -510,7 +441,7 @@ PHP를 호출할 수 있으므로 구현하기 매우 간단합니다.
 
 ::
 
-	{+ foo bar=2 baz="x y" }
+	{+ foo bar=2 baz="x y" +}
 
 매개 변수는 단일 값일 수도 있습니다.
 
@@ -535,62 +466,32 @@ lang               language string           Alias for the lang helper function.
 validation_errors  fieldname(optional)       Returns either error string for the field    {+ validation_errors +} , {+ validation_errors field="email" +}
                                              (if specified) or all validation errors.
 route              route name                Alias for the route_to helper function.      {+ route "login" +}
+csp_script_nonce                             Alias for the csp_script_nonce helper        {+ csp_script_nonce +}
+                                             function.
+csp_style_nonce                              Alias for the csp_style_nonce helper         {+ csp_style_nonce +}
+                                             function.
 ================== ========================= ============================================ ================================================================
 
 플러그인 등록
 --------------------
 
-새 플러그인을 등록하려면 **app/Config/View.php**\ 의 **$plugins** 배열에 추가하면 됩니다.
+새 플러그인을 등록하려면 **app/Config/View.php**\ 의 ``$plugins`` 배열에 추가하면 됩니다.
 키는 템플릿 파일에서 사용되는 플러그인의 이름입니다.
-값은 정적 클래스 메소드, 클로저와 같이 호출 가능해야 합니다.
+값은 정적 클래스 메소드와 같이 호출 가능해야 합니다.
 
-::
+.. literalinclude:: view_parser/014.php
 
-	public $plugins = [
-		'foo'	=> '\Some\Class::methodName',
-		'bar'	=> function ($str, array $params=[]) {
-			return $str;
-		},
-	];
+클로저를 사용할 수도 있지만 구성 파일의 생성자에서만 정의할 수 있습니다.
 
-사용중인 모든 클로저는 구성 파일의 생성자에서 정의해야합니다.
-
-::
-
-    class View extends \CodeIgniter\Config\View
-    {
-        public $plugins = [];
-
-        public function __construct()
-        {
-            $this->plugins['bar'] = function (array $params=[]) {
-                return $params[0] ?? '';
-            };
-
-            parent::__construct();
-        }
-    }
+.. literalinclude:: view_parser/015.php
 
 호출 가능 항목이 단독으로 있는 경우, 열기/닫기 태그가 아닌 단일 태그로 취급되며, 플러그인의 반환 값으로 대체됩니다.
 
-::
-
-	public $plugins = [
-		'foo'	=> '\Some\Class::methodName'
-	];
-
-	// Tag is replaced by the return value of Some\Class::methodName static function.
-	{+ foo +}
+.. literalinclude:: view_parser/016.php
 
 호출 가능 항목이 배열로 래핑된 경우 태그 사이의 모든 컨텐츠를 조작할 수 있는 열기/닫기 태그 쌍으로 처리됩니다.
 
-::
-
-	public $plugins = [
-		'foo' => ['\Some\Class::methodName']
-	];
-
-	{+ foo +} inner content {+ /foo +}
+.. literalinclude:: view_parser/017.php
 
 ***********
 사용법 노트
@@ -598,52 +499,15 @@ route              route name                Alias for the route_to helper funct
 
 템플릿에서 참조되지 않은 대체 매개 변수를 포함하면 무시됩니다.
 
-::
-
-	$template = 'Hello, {firstname} {lastname}';
-	$data = [
-		'title' => 'Mr',
-		'firstname' => 'John',
-		'lastname' => 'Doe'
-	];
-	echo $parser->setData($data)
-	             ->renderString($template);
-
-	// Result: Hello, John Doe
+.. literalinclude:: view_parser/018.php
 
 템플릿에서 참조되는 대체 매개 변수를 포함하지 않으면 유사 변수 그대로 결과에 표시됩니다.
 
-::
-
-	$template = 'Hello, {firstname} {initials} {lastname}';
-	$data = [
-		'title'     => 'Mr',
-		'firstname' => 'John',
-		'lastname'  => 'Doe',
-	];
-	echo $parser->setData($data)
-	             ->renderString($template);
-
-	// Result: Hello, John {initials} Doe
+.. literalinclude:: view_parser/019.php
 
 배열이 예상 될 때(예 : 변수 쌍에 대해) 문자열 대체 매개 변수를 제공하면, 여는 변수 쌍 태그에 대한 대체가 수행되지만 닫는 변수 쌍 태그가 올바르게 렌더링되지 않습니다.
 
-::
-
-	$template = 'Hello, {firstname} {lastname} ({degrees}{degree} {/degrees})';
-	$data = [
-		'degrees'   => 'Mr',
-		'firstname' => 'John',
-		'lastname'  => 'Doe',
-		'titles'    => [
-			['degree' => 'BSc'],
-			['degree' => 'PhD'],
-		],
-	];
-	echo $parser->setData($data)
-	            ->renderString($template);
-
-	// Result: Hello, John Doe (Mr{degree} {/degrees})
+.. literalinclude:: view_parser/020.php
 
 뷰 조각(Fragment)
 =====================
@@ -663,8 +527,7 @@ route              route name                Alias for the route_to helper funct
 			['title' => 'Second Link', 'link' => '/second'],
 		]
 	];
-	echo $parser->setData($data)
-	            ->renderString($template);
+	echo $parser->setData($data)->renderString($template);
 
 Result::
 
@@ -673,25 +536,9 @@ Result::
 		<li><a href="/second">Second Link</a></li>
 	</ul>
 
-뷰 조각을 사용하여 컨트롤러에서 루프를 제어하는 예::
+뷰 조각을 사용하여 컨트롤러에서 루프를 제어하는 예
 
-	$temp = '';
-	$template1 = '<li><a href="{link}">{title}</a></li>';
-	$data1 = [
-		['title' => 'First Link', 'link' => '/first'],
-		['title' => 'Second Link', 'link' => '/second'],
-	];
-
-	foreach ($data1 as $menuItem) {
-		$temp .= $parser->setData($menuItem)->renderString($template1);
-	}
-
-	$template2 = '<ul>{menuitems}</ul>';
-	$data = [
-		'menuitems' => $temp,
-	];
-	echo $parser->setData($data)
-	            ->renderString($template2);
+.. literalinclude:: view_parser/021.php
 
 Result::
 
@@ -714,9 +561,9 @@ Class Reference
 		:returns: 선택된 뷰의 렌더링 된 텍스트
 		:rtype: string
 
-    		파일 이름과 설정된 데이터를 기반으로 출력을 빌드합니다::
+		파일 이름과 설정된 데이터를 기반으로 출력을 빌드합니다.
 
-			echo $parser->render('myview');
+		.. literalinclude:: view_parser/022.php
 
         지원되는 옵션:
 
@@ -737,9 +584,9 @@ Class Reference
 		:returns: 선택된 뷰의 렌더링 된 텍스트
 		:rtype: string
 
-    		제공된 템플릿 소스와 설정된 데이터를 기반으로 출력을 빌드합니다::
+		제공된 템플릿 소스와 설정된 데이터를 기반으로 출력을 빌드합니다.
 
-			echo $parser->renderString('{myview}');
+		.. literalinclude:: view_parser/023.php
 
        지원되는 옵션은 render()와 동일함
 
@@ -750,11 +597,9 @@ Class Reference
 		:returns: 메소드 체이닝을 위한 Renderer 객체
 		:rtype: CodeIgniter\\View\\RendererInterface.
 
-    		한 번에 여러 개의 뷰 데이터를 설정합니다.
-			
-			::
-
-			$renderer->setData(['name' => 'George', 'position' => 'Boss']);
+		한 번에 여러 개의 뷰 데이터를 설정합니다.
+		
+		.. literalinclude:: view_parser/024.php
 
         지원되는 이스케이프 컨텍스트: ``html``, ``css``, ``js``, ``url``, ``attr``, ``raw``.
 		'raw'\ 면 이스케이프가 발생하지 않습니다.
@@ -762,16 +607,14 @@ Class Reference
 	.. php:method:: setVar($name[, $value=null[, $context = null]])
 
 		:param  string  $name: 뷰 데이터 변수명
-    		:param  mixed   $value: 뷰 데이터의 값
-    		:param  string  $context: 데이터 이스케이프에 사용할 컨텍스트
-    		:returns: 메소드 체이닝을 위한 Renderer 객체
-    		:rtype: CodeIgniter\\View\\RendererInterface.
+		:param  mixed   $value: 뷰 데이터의 값
+		:param  string  $context: 데이터 이스케이프에 사용할 컨텍스트
+		:returns: 메소드 체이닝을 위한 Renderer 객체
+		:rtype: CodeIgniter\\View\\RendererInterface.
 
-    		한 개의 뷰 데이터를 설정합니다
-			
-			::
-
-			$renderer->setVar('name','Joe','html');
+		한 개의 뷰 데이터를 설정합니다
+		
+		.. literalinclude:: view_parser/025.php
 
         지원되는 이스케이프 컨텍스트: ``html``, ``css``, ``js``, ``url``, ``attr``, ``raw``.
 		'raw'\ 면 이스케이프가 발생하지 않습니다.
@@ -779,12 +622,21 @@ Class Reference
 	.. php:method:: setDelimiters($leftDelimiter = '{', $rightDelimiter = '}')
 
 		:param  string  $leftDelimiter: 대체 필드의 왼쪽 분리 문자
-    		:param  string  $rightDelimiter: 대체 필드의 오른족쪽 분리 문자
-    		:returns: 메소드 체이닝을 위한 Renderer 객체
-    		:rtype: CodeIgniter\\View\\RendererInterface.
+		:param  string  $rightDelimiter: 대체 필드의 오른족쪽 분리 문자
+		:returns: 메소드 체이닝을 위한 Renderer 객체
+		:rtype: CodeIgniter\\View\\RendererInterface.
 
-    		대체 필드 구분자를 재정의합니다.
-			
-			::
+		대체 필드 구분자를 재정의합니다.
+		
+		.. literalinclude:: view_parser/026.php
 
-			$renderer->setDelimiters('[',']');
+    .. php:method:: setConditionalDelimiters($leftDelimiter = '{', $rightDelimiter = '}')
+
+        :param  string  $leftDelimiter: 조건부 구분 왼쪽 기호
+        :param  string  $rightDelimiter: 조건부 구분 오른쪽 기호
+        :returns: 메소드 체이닝을 위한 Renderer 객체
+        :rtype: CodeIgniter\\View\\RendererInterface.
+
+        조건부 구분 기호 재정의.		
+
+        .. literalinclude:: view_parser/027.php

@@ -14,18 +14,14 @@ CodeIgniter는 이를 처리할 수 있는 ``Negotiator`` 클래스를 제공합
 
 Service 클래스를 통해 클래스 인스턴스를 수동으로 로드할 수 있습니다.
 
-::
-
-    $negotiator = \Config\Services::negotiator();
+.. literalinclude:: content_negotiation/001.php
 
 요청 인스턴스를 가져와 자동으로 Negotiator 클래스를 삽입합니다.
 
 이 클래스는 로드할 필요없이 요청(reqest)의 ``IncomingRequest`` 인스턴스를 통해 액세스 할 수 있습니다.
 클래스의 메소드를 직접 액세스할 수는 없지만 ``negotiate()`` 메소드를 통해 모든 메소드에 쉽게 액세스할 수 있습니다
 
-::
-
-    $request->negotiate('media', ['foo', 'bar']);
+.. literalinclude:: content_negotiation/002.php
 
 이렇게 액세스할 때 첫 번째 매개 변수는 일치시키려는 컨텐츠 유형이고, 두 번째 매개 변수는 지원되는 값의 배열입니다.
 
@@ -52,28 +48,14 @@ Media
 서버는 이제 어떤 유형의 컨텐츠를 제공할 수 있는지 목록을 제공해야 합니다.
 아래 예는 API가 HTML, JSON 또는 XML로 데이터를 반환하며, 선호하는 순서(JSON, HTML, XML)대로 제공합니다.
 
-::
-
-    $supported = [
-        'application/json',
-        'text/html',
-        'application/xml',
-    ];
-
-    $format = $request->negotiate('media', $supported);
-    // or
-    $format = $negotiate->media($supported);
+.. literalinclude:: content_negotiation/003.php
 
 위의 경우 클라이언트와 서버 모두 데이터를 JSON으로 형식화하는데 동의하므로 협상 메소드에서 'json'이 반환됩니다.
 기본적으로 일치하는 항목이 없으면 ``$supported`` 배열의 첫 번째 요소가 반환됩니다.
 그러나 때에 따라 형식을 엄격하게 일치시켜야 할 수도 있습니다.
 ``true``\ 를 최종 값으로 전달하면 일치하는 항목이 없을때 빈 문자열이 반환됩니다.
 
-::
-
-    $format = $request->negotiate('media', $supported, true);
-    // or
-    $format = $negotiate->media($supported, true);
+.. literalinclude:: content_negotiation/004.php
 
 Language
 ========
@@ -90,16 +72,7 @@ Language
 이 예에서 브라우저는 영어와 두 번째로 프랑스어를 선호합니다.
 당신의 웹 사이트가 영어와 독일어를 지원한다면
 
-::
-
-    $supported = [
-        'en',
-        'de',
-    ];
-
-    $lang = $request->negotiate('language', $supported);
-    // or
-    $lang = $negotiate->language($supported);
+.. literalinclude:: content_negotiation/005.php
 
 이 예는 협상 결과로 'en'이 반환됩니다.
 일치하는 것이 없으면 ``$supported`` 배열의 첫 번째 요소를 반환하므로 선호하는 언어를 첫 번째로 설정합니다.
@@ -117,11 +90,7 @@ Encoding
 웹 서버는 사용할 수있는 압축 유형을 정의합니다.
 Apache와 같은 일부 웹 서버는 **gzip**\ 만 지원합니다.
 
-::
-
-    $type = $request->negotiate('encoding', ['gzip']);
-    // or
-    $type = $negotiate->encoding(['gzip']);
+.. literalinclude:: content_negotiation/006.php
 
 `Wikipedia <https://en.wikipedia.org/wiki/HTTP_compression>`_\ 에서 더 많은 것을 보십시오.
 
@@ -137,9 +106,5 @@ Character Set
 
 일치하는 항목이 없으면 기본적으로 **utf-8**\ 이 반환됩니다.
 
-::
-
-    $charset = $request->negotiate('charset', ['utf-8']);
-    // or
-    $charset = $negotiate->charset(['utf-8']);
+.. literalinclude:: content_negotiation/007.php
 

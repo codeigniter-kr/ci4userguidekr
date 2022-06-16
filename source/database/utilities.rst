@@ -12,23 +12,13 @@
 결과를 XML로 변환
 *******************
 
-**getXMLFromResult()**
+getXMLFromResult()
+==================
 
-이 메소드는 데이터베이스 결과를 xml로 리턴합니다. 
+이 메소드는 데이터베이스 결과를 xml로 리턴합니다.
 다음과 같이 하십시오.
 
-::
-
-    $model = new class extends \CodeIgniter\Model {
-        protected $table      = 'foo';
-        protected $primaryKey = 'id';
-    };
-    $db = \Closure::bind(function ($model) {
-        return $model->db;
-    }, null, $model)($model);
-
-    $util = (new \CodeIgniter\Database\Database())->loadUtils($db);
-    echo $util->getXMLFromResult($model->get());
+.. literalinclude:: utilities/001.php
 
 다음과 같은 XML 결과를 얻을 수 있습니다.
 

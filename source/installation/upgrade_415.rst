@@ -2,6 +2,12 @@
 Upgrading from 4.1.4 to 4.1.5
 #############################
 
+설치 방법에 해당하는 업그레이드 지침을 참조하십시오.
+
+- :ref:`Composer Installation App Starter Upgrading <app-starter-upgrading>`
+- :ref:`Composer Installation Adding CodeIgniter4 to an Existing Project Upgrading <adding-codeigniter4-upgrading>`
+- :ref:`Manual Installation Upgrading <installing-manual-upgrading>`
+
 .. contents::
     :local:
     :depth: 2
@@ -41,14 +47,13 @@ CSRF 필터를 적용하면 버그 수정으로 인해 CSRF 보호는 **POST**\ 
 
 이전 버전과 동일한 동작을 원한다면 **app/Config/Filters.php**\ 에서 CSRF 필터를 다음과 같이 설정합니다.
 
-::
-
-    public $methods = [
-        'get'  => ['csrf'],
-        'post' => ['csrf'],
-    ];
+.. literalinclude:: upgrade_415/001.php
 
 **GET** 메소드 보호는 ``form_open()``\ 에 의한 CSRF 필드 자동 생성을 사용하는 경우에만 필요합니다.
+
+.. Warning:: 일반적으로 ``$methods`` 필터를 사용하는 경우  :ref:`disable auto-routing <use-defined-routes-only>`\ 을 수행해야 합니다.
+    자동 라우팅은 모든 HTTP 메서드가 컨트롤러에 액세스할 수 있도록 허용하기 때문입니다.
+    예상하지 못한 방법으로 컨트롤러에 액세스하면 필터를 우회할 수 있습니다.
 
 CURLRequest 헤더 변경
 -------------------------

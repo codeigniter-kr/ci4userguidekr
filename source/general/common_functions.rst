@@ -9,7 +9,6 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
     :local:
     :depth: 2
 
-
 ================
 전역 함수
 ================
@@ -26,10 +25,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
     $key가 제공되지 않으면 캐시 엔진 인스턴스를 반환합니다.
     $key가 제공되면 현재 캐시에 저장된 $key의 값을 반환하거나 값이 없으면 null을 반환합니다.
 
-    Examples::
-
-        $foo = cache('foo');
-        $cache = cache();
+    .. literalinclude:: common_functions/001.php
 
 .. php:function:: cookie(string $name[, string $value = ''[, array $options = []]])
 
@@ -117,20 +113,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
     제출된 양식(form)의 "이전 입력 데이터"에 액세스하는 간단한 방법을 제공합니다.
 
-    Example::
-
-        // in controller, checking form submittal
-        if (! $model->save($user))
-        {
-            // 'withInput' is what specifies "old data"
-            // should be saved.
-            return redirect()->back()->withInput();
-        }
-
-        // In the view
-        <input type="email" name="email" value="<?= old('email') ?>">
-        // Or with arrays
-        <input type="email" name="user[email]" value="<?= old('user.email') ?>">
+    .. literalinclude:: common_functions/002.php
 
 .. note:: :doc:`폼(form) 헬퍼 </helpers/form_helper>`\ 를 사용하는 경우 이 기능이 내장되어 있습니다. 폼 헬퍼를 사용하지 않는 경우에만 이 기능을 사용하십시오.
 
@@ -152,15 +135,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
     타이머(Timer) 클래스에 빠르게 액세스할 수있는 편리한 메소드입니다. 벤치 마크 지점의 이름을 매개 변수로 전달할 수 있습니다.
     이 시점부터 타이밍이 시작되거나 이 이름의 타이머가 이미 실행중인 경우 타이밍이 중지됩니다.
 
-    Example::
-
-        // Get an instance
-        $timer = timer();
-
-        // Set timer start and stop points
-        timer('controller_loading');    // Will start the timer
-        . . .
-        timer('controller_loading');    // Will stop the running timer
+    .. literalinclude:: common_functions/003.php
 
 .. php:function:: view($name [, $data [, $options ]])
 
@@ -181,11 +156,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
     ``$option`` 배열은 Twig 같은 타사(third-party) 라이브러리와 통합을 용이하게 하기 위해 제공됩니다.
 
-    Example::
-
-        $data = ['user' => $user];
-
-        echo view('user_profile', $data);
+    .. literalinclude:: common_functions/004.php
 
     자세한 내용은 :doc:`뷰 </outgoing/views>` 페이지를 참조하십시오.
 
@@ -212,6 +183,21 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
     어플리케이션이 날짜를 표시하도록 설정된 시간대를 반환합니다.
 
+.. php:function:: csp_script_nonce ()
+
+    :returns: 스크립트 태그에 대한 CSP nonce 속성입니다.
+    :rtype: string
+
+    스크립트 태그의 nonce 속성을 반환합니다. 예: ``nonce="Eskdikejidojdk978Ad8jf"``.
+    See :ref:`content-security-policy`.
+
+.. php:function:: csp_style_nonce ()
+
+    :returns: 스타일 태그에 대한 CSP nonce 속성입니다.
+    :rtype: string
+
+    스타일 태그의 nonce 속성을 반환합니다. 예: ``nonce="Eskdikejidojdk978Ad8jf"``.
+    See :ref:`content-security-policy`.
 
 .. php:function:: csrf_token()
 
@@ -304,35 +290,15 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
     쉽게 리디렉션을 만들수 있는 RedirectResponse 인스턴스를 반환합니다.
     
-    ::
+    .. literalinclude:: common_functions/005.php
 
-        // Go back to the previous page
-        return redirect()->back();
-
-        // Go to specific URI
-        return redirect()->to('/admin');
-
-        // Go to a named URI
-        return redirect()->route('named_route');
-
-        // Keep the old input values upon redirect so they can be used by the `old()` function
-        return redirect()->back()->withInput();
-
-        // Set a flash message
-        return redirect()->back()->with('foo', 'message');
-
-        // Copies all cookies from global response instance
-        return redirect()->back()->withCookies();
-
-        // Copies all headers from the global response instance
-        return redirect()->back()->withHeaders();
+    .. note:: ``redirect()->back()``\ 은 브라우저의 "back" 버튼과 다릅니다.
+        세션을 사용할 수 있을 때 방문자는 "세션중 마지막으로 본 페이지"로 이동합니다.
+        세션이 로드되지 않았거나 사용할 수 없는 경우 삭제된 HTTP_REFERER 버전이 사용됩니다.
 
     함수에 인수를 전달할 때 상대/전체 URI(relative/full URI)가 아닌 네임드/리버스 경로(named/reverse-routed)로 처리되며 ``redirect()->route()``\ 를 사용하는 것과 동일하게 처리됩니다.
 
-    ::
-
-        // Go to a named/reverse-routed URI
-        return redirect('named_route');
+    .. literalinclude:: common_functions/006.php
 
 .. php:function:: remove_invisible_characters($str[, $urlEncoded = true])
 
@@ -343,15 +309,14 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
     이 함수는 "Java\\0script"와 같은 문자열에서 null 문자를 제거 합니다.
 
-    Example::
-
-        remove_invisible_characters('Java\\0script');
-        // Returns: 'Javascript'
+    .. literalinclude:: common_functions/007.php
 
 .. php:function:: route_to( $method [, ...$params] )
 
     :param   string   $method: 명명된 라우트의 별명 또는 일치하는 컨트롤러/메소드의 이름입니다.
     :param   mixed   $params: 경로에서 일치시키기 위해 전달될 하나 이상의 매개 변수
+
+    .. note:: 이 함수를 사용하려면 **app/Config/routes.php**\ 에 컨트롤러/메서드로 정의된 경로가 필요합니다.
 
     명명된 라우트 별칭 또는 ``controller::method`` 조합에 따라 도메인 이름(**baseUrl**\ 이 아님)과 관련된 URI를 생성합니다.
     매개 변수가 제공된 경우 적용합니다.
@@ -368,10 +333,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
     시스템에 정의 된 모든 :doc:`서비스 <../concepts/services>`\ 에 쉽게 액세스 할 수 있습니다.
     서비스 클래스의 공유 인스턴스가 반환되므로, 여러번 호출하더라도 인스턴스는 하나만 생성됩니다.
 
-    Example::
-
-        $logger = service('logger');
-        $renderer = service('renderer', APPPATH.'views/');
+    .. literalinclude:: common_functions/008.php
 
 .. php:function:: single_service( $name [, ...$params] )
 

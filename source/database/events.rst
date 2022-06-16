@@ -20,13 +20,4 @@
 이를 사용하여 모든 쿼리를 STDOUT으로 표시하거나, 파일에 로깅하거나, 자동으로 쿼리 분석을 수행하는 도구를 작성하여 잠재적으로 누락 된 인덱스, 느린 쿼리 등을 발견할 수 있습니다. 
 사용 예는 다음과 같습니다.
 
-::
-
-    // In Config\Events.php
-    Events::on('DBQuery', 'CodeIgniter\Debug\Toolbar\Collectors\Database::collect');
-
-    // Collect the queries so something can be done with them later.
-    public static function collect(CodeIgniter\Database\Query $query)
-    {
-        static::$queries[] = $query;
-    }
+.. literalinclude:: events/001.php

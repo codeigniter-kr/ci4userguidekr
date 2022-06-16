@@ -15,19 +15,14 @@
 
 쿼리를 제출하려면 **query** 함수를 사용하십시오.
 
-::
-
-    $db = db_connect();
-    $db->query('YOUR QUERY HERE');
+.. literalinclude:: queries/001.php
 
 query() 함수는 "읽기" 유형의 쿼리가 실행될 때 데이터베이스 결과 **object**\ 를 반환합니다.
 이 쿼리는 :doc:`결과를 보여줍니다 <results>`.
 "쓰기" 유형 쿼리가 실행되면 성공 또는 실패에 따라 true 또는 false만 반환합니다.
 데이터를 검색할 때 일반적으로 다음과 같이 고유 변수에 쿼리를 할당합니다
 
-::
-
-    $query = $db->query('YOUR QUERY HERE');
+.. literalinclude:: queries/002.php
 
 단순화된 쿼리
 ==================
@@ -40,13 +35,7 @@ query() 함수는 "읽기" 유형의 쿼리가 실행될 때 데이터베이스 
 데이터베이스 드라이버의 "execute" 함수가 리턴하는 모든 것을 리턴합니다.
 이는 일반적으로 INSERT, DELETE 또는 UPDATE문 (실제로 사용해야 하는것)과 같은 쓰기 유형 쿼리의 성공 또는 실패와 페치 가능한 결과가 있는 쿼리의 성공시 리소스/객체에 대한 true/false입니다.
 
-::
-
-    if ($db->simpleQuery('YOUR QUERY')) {
-        echo "Success!";
-    } else {
-        echo "Query failed!";
-    }
+.. literalinclude:: queries/003.php
 
 .. note:: PostgreSQL의 ``pg_exec()`` 함수는 쓰기 유형 쿼리에서도 성공시 항상 리소스를 반환합니다.
     부울(boolean) 값을 찾고 있다면 주의하십시오.
@@ -57,16 +46,11 @@ query() 함수는 "읽기" 유형의 쿼리가 실행될 때 데이터베이스 
 
 데이터베이스 접두사를 구성하고 네이티브 SQL 쿼리에 사용하기 위해 테이블 이름 앞에 접두사를 추가하고 싶다면 다음과 같이 하십시오.
 
-::
-
-    $db->prefixTable('tablename'); // outputs prefix_tablename
+.. literalinclude:: queries/004.php
 
 새로운 연결을 만들지 않고 프로그래밍 방식으로 접두사를 변경하려면 다음 메소드를 사용할 수 있습니다
 
-::
-
-    $db->setPrefix('newprefix_');
-    $db->prefixTable('tablename'); // outputs newprefix_tablename
+.. literalinclude:: queries/006.php
 
 다음 메소드로 언제든지 현재 사용중인 접두사를 얻을 수 있습니다
 
@@ -80,18 +64,14 @@ query() 함수는 "읽기" 유형의 쿼리가 실행될 때 데이터베이스 
 
 데이터베이스의 테이블명과 필드명은 보호하는 것이 좋습니다.(예 : MySQL의 백틱) **쿼리 빌더의 쿼리는 자동으로 보호되지만** 식별자를 수동으로 보호해야 하는 경우 다음 메소드를 사용하십시오.
 
-::
-
-    $db->protectIdentifiers('table_name');
+.. literalinclude:: queries/007.php
 
 .. important:: 쿼리 빌더는 피드를 제공하는 필드와 테이블명을 올바르게 인용하기 위해 최선을 다하지만, 임의의 사용자 입력과 함께 작동하도록 설계되지 않았으므로 손상된 사용자 데이터는 공급하지 마십시오.
 
-이 함수는 또한 데이터베이스 구성 파일에 접두사가 지정되어 있으면 지정된 접두사를 테이블에 추가할 수 있습니다.
-접두사 세트를 활성화하려면 두 번째 매개 변수에 true(부울)를 전달하십시오. 
+이 함수는 또한 데이터베이스 구성 파일에 접두사가 지정되어 있으면 지정된 **테이블 접두사**\ 를 테이블에 추가할 수 있습니다.
+접두사 세트를 활성화하려면 두 번째 매개 변수에 ``true``\ (부울)를 전달하십시오. 
 
-::
-
-    $db->protectIdentifiers('table_name', true);
+.. literalinclude:: queries/008.php
 
 ****************
 이스케이프 쿼리
@@ -100,32 +80,33 @@ query() 함수는 "읽기" 유형의 쿼리가 실행될 때 데이터베이스 
 데이터베이스에 데이터를 제출하기 전에 데이터를 이스케이프 처리하는 것이 좋습니다. 
 CodeIgniter에는 이를 수행하는 데 도움이 되는 세 가지 방법이 있습니다:
 
-#. **$db->escape()** 함수는 문자열 데이터만 이스케이프할 수 있도록 데이터 유형을 결정합니다. 
-   또한 데이터 주위에 작은 따옴표를 자동으로 추가하므로 별도의 추가 작업이 필요하지 않습니다.
+1. $db->escape()
+================
 
-   ::
+함수는 문자열 데이터만 이스케이프할 수 있도록 데이터 유형을 결정합니다. 
+또한 데이터 주위에 작은 따옴표를 자동으로 추가하므로 별도의 추가 작업이 필요하지 않습니다.
 
-    $sql = "INSERT INTO table (title) VALUES(".$db->escape($title).")";
+.. literalinclude:: queries/009.php
 
-#. **$db->escapeString()** 함수는 유형에 관계없이 전달된 데이터를 이스케이프합니다. 
-   대부분 이 기능보다는 위의 기능을 사용합니다. 
-   다음과 같은 기능을 사용하십시오.
+2. $db->escapeString()
+======================
 
-   ::
+함수는 유형에 관계없이 전달된 데이터를 이스케이프합니다. 
+대부분 이 기능보다는 위의 기능을 사용합니다. 
+다음과 같이 사용합니다.
 
-    $sql = "INSERT INTO table (title) VALUES('".$db->escapeString($title)."')";
+.. literalinclude:: queries/010.php
 
-#. **$db->escapeLikeString()** 함수는 문자열에서 LIKE 와일드 카드('%', '\ _')도 올바르게 이스케이프합니다. 
-   LIKE 조건에서 문자열을 사용하는 경우 이 메소드를 사용해야 합니다.
+3. $db->escapeLikeString()
+==========================
 
-   ::
+함수는 문자열에서 LIKE 와일드 카드('%', '\ _')도 올바르게 이스케이프합니다. 
+LIKE 조건에서 문자열을 사용하는 경우 이 메소드를 사용해야 합니다.
 
-        $search = '20% raise';
-        $sql = "SELECT id FROM table WHERE column LIKE '%" .
-        $db->escapeLikeString($search)."%' ESCAPE '!'";
+.. literalinclude:: queries/011.php
 
-.. important:: ``escapeLikeString()`` 메소드는 '!'(느낌표)는 *LIKE* 조건에 대한 특수 문자를 이스케이프합니다.
-    이 메소드는 따옴표로 묶은 부분 문자열을 이스케이프 처리하기 때문에 자동으로 ``ESCAPE '!'`` 조건을 추가 할 수 없으므로 수동으로 수행해야 합니다.
+.. important:: ``escapeLikeString()`` 메소드는 ``!``\ 를 *LIKE* 조건에 대한 특수 문자로 이스케이프합니다.
+    이 메소드는 따옴표로 묶은 부분 문자열을 이스케이프 처리하기 때문에 ``ESCAPE '!'`` 조건을 추가하려면 수동으로 수행해야 합니다.
 
 **************
 쿼리 바인딩
@@ -134,21 +115,17 @@ CodeIgniter에는 이를 수행하는 데 도움이 되는 세 가지 방법이 
 바인딩을 사용하면 시스템에서 쿼리를 조합하여 쿼리 구문을 단순화할 수 있습니다. 
 다음 예를 고려하십시오
 
-::
-
-    $sql = "SELECT * FROM some_table WHERE id = ? AND status = ? AND author = ?";
-    $db->query($sql, [3, 'live', 'Rick']);
+.. literalinclude:: queries/012.php
 
 쿼리의 물음표는 쿼리 함수의 두 번째 매개 변수 배열의 값으로 자동 대체됩니다.
 
 바인딩은 또한 배열과도 함께 작동하며 IN 세트로 변환됩니다.
 
+.. literalinclude:: queries/013.php
+
+결과 쿼리는
+
 ::
-
-    $sql = "SELECT * FROM some_table WHERE id IN ? AND status = ? AND author = ?";
-    $db->query($sql, [[3, 6], 'live', 'Rick']);
-
-결과 쿼리는::
 
     SELECT * FROM some_table WHERE id IN (3,6) AND status = 'live' AND author = 'Rick'
 
@@ -161,14 +138,7 @@ CodeIgniter에는 이를 수행하는 데 도움이 되는 세 가지 방법이 
 
 바인딩된 값의 위치를 표시하기 위해 물음표를 사용하는 대신 바인딩의 이름을 지정하여 전달된 값의 키가 쿼리의 자리 표시자와 일치하도록 할 수 있습니다
 
-::
-
-        $sql = "SELECT * FROM some_table WHERE id = :id: AND status = :status: AND author = :name:";
-        $db->query($sql, [
-                'id'     => 3,
-                'status' => 'live',
-                'name'   => 'Rick',
-        ]);
+.. literalinclude:: queries/014.php
 
 .. note:: 쿼리의 각 이름은 콜론(:)으로 묶어야합니다.
 
@@ -176,16 +146,13 @@ CodeIgniter에는 이를 수행하는 데 도움이 되는 세 가지 방법이 
 오류 처리
 ***************
 
-**$db->error();**
+$db->error()
+============
 
 마지막으로 발생한 오류를 가져와야 하는 경우 error() 메소드는 해당 코드와 메시지가 포함된 배열을 반환합니다. 
 다음은 간단한 예입니다
 
-::
-
-    if ( ! $db->simpleQuery('SELECT `example_field` FROM `example_table`')) {
-        $error = $db->error(); // Has keys 'code' and 'message'
-    }
+.. literalinclude:: queries/015.php
 
 ************************
 Prepared 쿼리
@@ -207,41 +174,15 @@ Codeigniter의 쿼리 빌더와 데이터베이스 연결은 전달된 데이터
 쿼리 빌더를 사용하여 쿼리를 실행하면 쉽게 처리할 수 있습니다. 
 쿼리는 값이 적용되거나 실제로 실행되지 않으므로, 어떤 값인지는 중요하지 않습니다. 
 
-::
-
-    $pQuery = $db->prepare(function ($db)
-    {
-        return $db->table('user')
-            ->insert([
-                'name'    => 'x',
-                'email'   => 'y',
-                'country' => 'US'
-            ]);
-    });
+.. literalinclude:: queries/016.php
 
 쿼리 빌더를 사용하지 않는 경우 물음표를 사용하여 수동으로 ``PreparedQuery`` 객체를 만들 수 있습니다.
 
-::
-
-    use CodeIgniter\Database\Query;
-
-    $pQuery = $db->prepare(function ($db) {
-        $sql = "INSERT INTO user (name, email, country) VALUES (?, ?, ?)";
-
-        return (new Query($db))->setQuery($sql);
-    });
+.. literalinclude:: queries/017.php
 
 데이터베이스 준비(prepare) 명령문에 옵션 배열을 전달할 필요가 있을때, 두 번째 매개 변수에 해당 배열을 전달할 수 있습니다.
 
-::
-
-    use CodeIgniter\Database\Query;
-
-    $pQuery = $db->prepare(function ($db) {
-        $sql = "INSERT INTO user (name, email, country) VALUES (?, ?, ?)";
-
-        return (new Query($db))->setQuery($sql);
-    }, $options);
+.. literalinclude:: queries/018.php
 
 쿼리 실행
 ===================
@@ -249,25 +190,7 @@ Codeigniter의 쿼리 빌더와 데이터베이스 연결은 전달된 데이터
 준비(prepare)된 쿼리가 있으면 ``execute()`` 메소드를 사용하여 쿼리를 실행합니다.
 전달하는 매개 변수 수는 쿼리의 자리 표시자 수와 일치해야 하며, 자리 표시자가 원래 검색어에 표시되는 순서와 동일한 순서로 전달되어야 합니다.
 
-::
-
-    // Prepare the Query
-    $pQuery = $db->prepare(function ($db) {
-        return $db->table('user')
-                  ->insert([
-                        'name'    => 'x',
-                        'email'   => 'y',
-                        'country' => 'US'
-                  ]);
-    });
-
-    // Collect the Data
-    $name    = 'John Doe';
-    $email   = 'j.doe@example.com';
-    $country = 'US';
-
-    // Run the Query
-    $results = $pQuery->execute($name, $email, $country);
+.. literalinclude:: queries/019.php
 
 실행 결과로 표준 :doc:`result set </database/results>`\ 를 반환합니다.
 
@@ -276,24 +199,25 @@ Codeigniter의 쿼리 빌더와 데이터베이스 연결은 전달된 데이터
 
 이 두 가지 기본 메소드 외에도 준비된 쿼리 개체에는 다음과 같은 메소드가 있습니다:
 
-**close()**
+close()
+-------
 
 PHP는 데이터베이스로 모든 열린 명령문을 닫는 작업을 꽤 잘 수행하지만 준비(prepare)된 명령문을 완료하면 항상 닫는 것이 좋습니다.
 
-::
+.. literalinclude:: queries/020.php
 
-    $pQuery->close();
-
-**getQueryString()**
+getQueryString()
+----------------
 
 준비된 쿼리를 문자열로 반환합니다.
 
-**hasError()**
+hasError()
+----------
 
-마지막 execute() 호출에서 오류가 발생한 경우 부울 true / false를 리턴합니다.
+마지막 execute() 호출에서 오류가 발생한 경우 부울 true/false를 리턴합니다.
 
-**getErrorCode()**
-**getErrorMessage()**
+getErrorCode() getErrorMessage()
+--------------------------------
 
 오류가 발생하면 이 메소드를 사용하여 오류 코드와 문자열을 검색할 수 있습니다.
 
@@ -304,14 +228,12 @@ PHP는 데이터베이스로 모든 열린 명령문을 닫는 작업을 꽤 잘
 내부적으로 모든 쿼리는 ``CodeIgniter\Database\Query``\ 의 인스턴스로 처리 및 저장됩니다.
 이 클래스는 매개 변수 바인딩, 쿼리 준비, 쿼리 성능 데이터 저장을 합니다.
 
-**getLastQuery()**
+getLastQuery()
+==============
 
-마지막 Query 객체만 검색해야 하는 경우 getLastQuery() 메소드를 사용하십시오.
+마지막 Query 객체만 검색해야 하는 경우 ``getLastQuery()`` 메소드를 사용하십시오.
 
-::
-
-    $query = $db->getLastQuery();
-    echo (string) $query;
+.. literalinclude:: queries/021.php
 
 쿼리 클래스
 ===============
@@ -319,72 +241,58 @@ PHP는 데이터베이스로 모든 열린 명령문을 닫는 작업을 꽤 잘
 각 쿼리 개체는 쿼리 자체에 대한 몇 가지 정보를 저장합니다.
 이것은 부분적으로 타임 라인 기능에서 사용하지만 사용자도 사용할 수 있습니다.
 
-**getQuery()**
+getQuery()
+----------
 
 모든 처리가 수행 된 후 최종 쿼리를 반환합니다.
 데이터베이스로 전송된 실제 쿼리입니다.
 
-::
-
-    $sql = $query->getQuery();
+.. literalinclude:: queries/022.php
 
 Query 객체를 문자열로 캐스팅하여 동일한 값을 얻을수 있습니다.
 
-::
+.. literalinclude:: queries/023.php
 
-    $sql = (string) $query;
-
-**getOriginalQuery()**
+getOriginalQuery()
+------------------
 
 오브젝트에 전달된 SQL을 리턴합니다.
 여기에는 바인드가 없거나 접두사가 바뀌지 않습니다.
 
-::
+.. literalinclude:: queries/024.php
 
-    $sql = $query->getOriginalQuery();
-
-**hasError()**
+hasError()
+----------
 
 쿼리를 실행하는 동안 오류가 발생하면 이 메소드는 true를 리턴합니다.
 
-::
+.. literalinclude:: queries/025.php
 
-    if ($query->hasError()) {
-        echo 'Code: ' . $query->getErrorCode();
-        echo 'Error: ' . $query->getErrorMessage();
-    }
-
-**isWriteType()**
+isWriteType()
+-------------
 
 쿼리가 쓰기 유형 쿼리인 것으로 확인된 경우 true를 리턴합니다.(i.e. INSERT, UPDATE, DELETE, etc)
 
-::
+.. literalinclude:: queries/026.php
 
-    if ($query->isWriteType()) {
-        ... do something
-    }
-
-**swapPrefix()**
+swapPrefix()
+------------
 
 최종 SQL에서 하나의 테이블 접두사를 다른 값으로 대체합니다.
 첫 번째 매개 변수는 바꾸려는 원래 접두사이고, 두 번째 매개 변수는 바꾸려는 값입니다.
 
-::
+.. literalinclude:: queries/027.php
 
-    $sql = $query->swapPrefix('ci3_', 'ci4_');
-
-**getStartTime()**
+getStartTime()
+--------------
 
 쿼리가 마이크로초 단위로 실행된 시간을 가져옵니다.
 
-::
+.. literalinclude:: queries/028.php
 
-    $microtime = $query->getStartTime();
-
-**getDuration()**
+getDuration()
+-------------
 
 쿼리 지속 시간을 마이크로초 단위로 반환합니다.
 
-::
-
-    $microtime = $query->getDuration();
+.. literalinclude:: queries/029.php

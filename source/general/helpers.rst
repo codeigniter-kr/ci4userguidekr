@@ -25,23 +25,17 @@ CodeIgniter는 기본적으로 헬퍼 파일을 로드(load)하지 않으므로 
 
 다음 메소드를 사용하여 헬퍼 파일을 매우 간단하게 로드합니다.
 
-::
-
-    helper('name');
+.. literalinclude:: helpers/001.php
 
 여기서 ``name``\ 은 "**.php**" 파일 확장자 부분 또는 "**_helper**" 부분이 없는 "헬퍼"\ 파일의 이름입니다.
 
 예를 들어, **Cookie 헬퍼**\ 를 사용하기 위해 **cookie_helper.php** 파일을 로드하려면 다음과 같이 하십시오.
 
-::
-
-    helper('cookie');
+.. literalinclude:: helpers/002.php
 
 한 번에 둘 이상의 헬퍼를 로드해야 하는 경우 파일 이름 배열을 전달하면 모든 파일이 로드됩니다.
 
-::
-
-    helper(['cookie', 'date']);
+.. literalinclude:: helpers/003.php
 
 헬퍼를 사용하기 위해 컨트롤러 메소드(또는 좋지는 않지만 뷰 파일 내에서도)의 어느 위치에서도 로드할 수 있습니다.
 모든 함수에서 자동으로 사용 가능하도록 헬퍼를 컨트롤러 생성자(_construct)에서 로드하거나, 필요한 특정 함수에서도 헬퍼를 로드할 수 있습니다.
@@ -63,9 +57,7 @@ Autoloader 구성 파일의 PSR-4 섹션에 네임스페이스를 설정하면 *
 따라서 블로그 모듈의 헬퍼 파일을 **/Modules/Blog/Helpers/**\ 에 넣습니다. **blog_helper** 파일은 **/Modules/Blog/Helpers/blog_helper.php**\ 에 있습니다.
 컨트롤러 내에서 다음 메소드를 사용하여 헬퍼를 로드할 수 있습니다.
 
-::
-
-    helper('Example\Blog\blog');
+.. literalinclude:: helpers/004.php
 
 .. note:: 이러한 방식으로 로드된 파일내의 함수는 실제로 네임스페이스가 아닙니다.
         네임스페이스는 단순히 파일을 찾기 위한 방법으로 사용됩니다.
@@ -77,9 +69,7 @@ Autoloader 구성 파일의 PSR-4 섹션에 네임스페이스를 설정하면 *
 
 예를 들어, 뷰 파일 중 하나에서 ``anchor()`` 함수를 ​​사용하여 링크를 만들려면 다음과 같이 합니다.
 
-::
-
-    <?= anchor('blog/comments', 'Click Here');?>
+.. literalinclude:: helpers/005.php
 
 여기서 ``Click Here``\ 는 링크의 이름이고 ``blog/comments``\ 은 링크하려는 컨트롤러/메소드의 URI입니다.
 
@@ -94,31 +84,7 @@ Autoloader 구성 파일의 PSR-4 섹션에 네임스페이스를 설정하면 *
 
 예를 들어 네이티브 **Array Helper**\ 를 확장하려면 **app/Helpers/array_helper.php**\ 라는 파일을 만들고 함수를 추가하거나 재정의합니다.
 
-::
-
-    // any_in_array() is not in the Array Helper, so it defines a new function
-    function any_in_array($needle, $haystack)
-    {
-        $needle = is_array($needle) ? $needle : [$needle];
-
-        foreach ($needle as $item) {
-            if (in_array($item, $haystack))
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    // random_element() is included in Array Helper, so it overrides the native function
-    function random_element($array)
-    {
-        shuffle($array);
-
-        return array_pop($array);
-    }
-
+.. literalinclude:: helpers/006.php
 
 ``helper()`` 메소드는 **app/Config/Autoload.php**\ 에 정의된 모든 PSR-4 네임스페이스를 검색하여 동일한 이름과 일치하는 모든 헬퍼를 로드합니다.
 이를 통해 모듈의 헬퍼와 이 어플리케이션을 위해 특별히 만든 헬퍼를 로드할 수 있습니다.

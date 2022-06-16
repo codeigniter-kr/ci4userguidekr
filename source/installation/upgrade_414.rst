@@ -2,6 +2,16 @@
 Upgrading from 4.1.3 to 4.1.4
 #############################
 
+설치 방법에 해당하는 업그레이드 지침을 참조하십시오.
+
+- :ref:`Composer Installation App Starter Upgrading <app-starter-upgrading>`
+- :ref:`Composer Installation Adding CodeIgniter4 to an Existing Project Upgrading <adding-codeigniter4-upgrading>`
+- :ref:`Manual Installation Upgrading <installing-manual-upgrading>`
+
+.. contents::
+    :local:
+    :depth: 2
+
 이번 릴리스는 코드 스타일에 집중하였습니다.
 모든 변경 사항(아래에 명시된 변경 사항 제외)은 새로운 `CodeIgniter Coding Standard <https://github.com/CodeIgniter/coding-standard>`_ (based on PSR-12)\ 에 코드를 맞추기 위한 것 입니다..
 
@@ -35,7 +45,6 @@ Upgrading from 4.1.3 to 4.1.4
 * ``CodeIgniter\Images\Handlers\ImageMagickHandler::_flip()``
 * ``CodeIgniter\Test\Mock\MockIncomingRequest::detectURI()``
 * ``CodeIgniter\Test\Mock\MockSecurity.php::sendCookie()``
-
 
 Project Files
 =============
