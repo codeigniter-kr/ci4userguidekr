@@ -19,7 +19,7 @@ Let's try it: Hello World!
 
 .. literalinclude:: cli_controllers/001.php
 
-.. note:: :ref:`auto-routing-improved`\ 를 사용한다면 메소드 이름을 ``cli_message()``\ 로 변경하십시오.
+.. note:: :ref:`auto-routing-improved`\ 를 사용한다면 메소드 이름을 ``cliMessage()``\ 로 변경하십시오.
 
 파일을 **app/Controllers/** 디렉터리에 저장합니다.
 

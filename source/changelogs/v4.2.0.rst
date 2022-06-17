@@ -9,30 +9,52 @@ Release Date: June 3, 2022
     :local:
     :depth: 2
 
+Highlights
+**********
+
+- PHP 버전의 최소 요구 사항을 7.4로 업데이트합니다.
+- **오라클 데이터베이스용 OCI8 드라이버** (*기여자* `ytetsuro <https://github.com/ytetsuro>`_). 'Database'_\ 를 참조하세요.
+- **개선된 자동 라우팅**\ (선택)(*기여자* `kenjis <https://github.com/kenjis>`_). `New Improved Auto Routing`_\ 을 참조하세요.
+- 쿼리 빌더 **서브 쿼리**\ 와 **UNION** 지원(*기여자* `Andrey Pyzhikov <https://github.com/iRedds>`_). 'Database'_\ 를 참조하세요.
+
+New Contributors
+================
+
+* `@fdomgjoni99 <https://github.com/fdomgjoni99>`_ made their first contribution in `#5608 <https://github.com/codeigniter4/CodeIgniter4/pull/5608>`_
+* `@Nudasoft <https://github.com/Nudasoft>`_ made their first contribution in `#5715 <https://github.com/codeigniter4/CodeIgniter4/pull/5715>`_
+* `@beganovich <https://github.com/beganovich>`_ made their first contribution in `#5823 <https://github.com/codeigniter4/CodeIgniter4/pull/5823>`_
+* `@tcgumus <https://github.com/tcgumus>`_ made their first contribution in `#5851 <https://github.com/codeigniter4/CodeIgniter4/pull/5851>`_
+* `@michaelrk02 <https://github.com/michaelrk02>`_ made their first contribution in `#5878 <https://github.com/codeigniter4/CodeIgniter4/pull/5878>`_
+* `@datamweb <https://github.com/datamweb>`_ made their first contribution in `#5894 <https://github.com/codeigniter4/CodeIgniter4/pull/5894>`_
+* `@xlii-chl <https://github.com/xlii-chl>`_ made their first contribution in `#5884 <https://github.com/codeigniter4/CodeIgniter4/pull/5884>`_
+* `@valmorflores <https://github.com/valmorflores>`_ made their first contribution in `#6051 <https://github.com/codeigniter4/CodeIgniter4/pull/6051>`_
+* `@tearoom6 <https://github.com/tearoom6>`_ made their first contribution in `#6012 <https://github.com/codeigniter4/CodeIgniter4/pull/6012>`_
+* `@lonnie-vault <https://github.com/lonnie-vault>`_ made their first contribution in `#6060 <https://github.com/codeigniter4/CodeIgniter4/pull/6060>`_
+
 BREAKING
 ********
 
 Method Signature Changes
 ========================
 
-- The method signature of ``CodeIgniter\Database\BaseBuilder::join()`` and ``CodeIgniter\Database\*\Builder::join()`` have been changed.
-- The method signature of ``Validation::setRule()`` has been changed. The ``string`` typehint on the ``$rules`` parameter was removed. Extending classes should likewise remove the parameter so as not to break LSP.
-- The method signature of ``CodeIgniter\CLI\CommandRunner::_remap()`` has been changed to fix a bug.
-- The default parameter values for ``Service::reset()`` and ``CIUnitTestCase::resetServices()`` have been changed from ``false`` to ``true``. This is to eliminate unexpected problems during testing, such as ``lang()`` not getting translated messages.
+- ``CodeIgniter\Database\BaseBuilder::join()``\ 와 ``CodeIgniter\Database\*\Builder::join()``\ 의 메소드 서명이 변경되었습니다.
+- ``Validation::setRule()``\ 의 메소드 서명이 변경되었습니다. ``$rules`` 매개변수에 대한 ``string`` 유형 힌트가 제거되었습니다. 클래스를 확장할 때도 LSP가 깨지지 않도록 매개변수를 제거해야 합니다.
+- 버그를 수정하기 위해 ``CodeIgniter\CLI\CommandRunner::_remap()``\ 의 메서드 서명이 변경되었습니다.
+- ``Service::reset()``\ 와 ``CIUnitTestCase::resetServices()``의 기본 매개변수 값이 ``false``\ 에서 ``true``\ 로 변경되었습니다. 이것은 번역된 메시지를 받지 못하는 ``lang()``\ 과 같은 테스트 중에 예기치 않은 문제를 제거하기 위한 것입니다.
 
 Behavior Changes
 ================
 
-- The ``CodeIgniter\CodeIgniter`` class has a new property ``$context`` and it must have the correct context at runtime. So the following files have been changed:
+- ``CodeIgniter\CodeIgniter`` 클래스에 ``$context`` 속성이 새로 추가되었으며 런타임 시 올바른 컨텍스트가 있어야 합니다. 따라서 다음 파일이 변경되었습니다.
     - ``public/index.php``
     - ``spark``
-- The ``system/bootstrap.php`` file has been modified to easily implement `Preloading <https://www.php.net/manual/en/opcache.preloading.php>`_. Returning a ``CodeIgniter`` instance and loading ``.env`` file have been moved to ``index.php`` and ``spark``.
-- The ``CodeIgniter\Autoloader\Autoloader::initialize()`` has changed the behavior to fix a bug. It used to use Composer classmap only when ``$modules->discoverInComposer`` is true. Now it always uses the Composer classmap if Composer is available.
-- The color code output by :ref:`CLI::color() <cli-library-color>` has been changed to fix a bug.
-- To prevent unexpected access from the web browser, if a controller is added to a cli route (``$routes->cli()``), all methods of that controller are no longer accessible via auto-routing.
-- There is a possible backward compatibility break for those users extending the History Collector and they should probably update ``History::setFiles()`` method.
-- The :php:func:`dot_array_search`'s unexpected behavior has been fixed. Now ``dot_array_search('foo.bar.baz', ['foo' => ['bar' => 23]])`` returns ``null``. The previous versions returned ``23``.
-- The ``CodeIgniter::storePreviousURL()`` has been changed to store only the URLs whose Content-Type was ``text/html``. It also affects the behavior of :php:func:`previous_url` and :php:func:`redirect()->back() <redirect>`.
+- ``system/bootstrap.php`` 파일이 `Preloading <https://www.php.net/manual/en/opcache.preloading.php>`_\ 를 쉽게 구현할 수 있도록 수정되었습니다. ``CodeIgniter`` 인스턴스를 반환하고 ``.env`` 파일을 로드하는 것이 ``index.php``\ 와 ``spark``\ 로 이동되었습니다.
+- ``CodeIgniter\Autoloader\Autoloader::initialize()``\ 는 버그를 수정하기 위해 동작을 변경했습니다. ``$modules->discoverInComposer``\ 가 true인 경우에만 Composer 클래스맵을 사용했습니다. 이제 Composer를 사용할 수 있는 경우 항상 Composer 클래스맵을 사용합니다.
+- 버그를 수정하기 위해 :ref:`CLI::color() <cli-library-color>`\ 의 색상 코드 출력이 변경되었습니다.
+- 웹 브라우저에서 예기치 않은 액세스를 방지하기 위해 컨트롤러가 cli 경로(``$routes->cli()``)에 추가되면 해당 컨트롤러의 모든 메서드는 더 이상 자동 라우팅을 통해 액세스할 수 없습니다.
+- History Collector를 확장하는 사용자에게는 이전 버전과의 호환성이 깨질 수 있으며 ``History::setFiles()`` 메소드 동작을 확인후 업데이트해야 합니다.
+- :php:func:`dot_array_search`\ 의 예기치 않은 동작이 수정되었습니다. 이제 ``dot_array_search('foo.bar.baz', ['foo' => ['bar' => 23]])``\ 는 ``null``\ 을 반환합니다. 이전 버전은 ``23``\ 을 반환했습니다.
+- ``CodeIgniter::storePreviousURL()``\ 이 Content-Type이 ``text/html``\ 인 URL만 저장하도록 변경되었습니다. 또한 :php:func:`previous_url`\ 와 :php:func:`redirect()->back() <redirect>`\ 의 동작에도 영향을 줍니다.
 
 Enhancements
 ************
@@ -40,83 +62,83 @@ Enhancements
 New Improved Auto Routing
 =========================
 
-Added an optional new more secure auto router. These are the changes from the legacy auto-routing:
+보다 안전한 새 자동 라우터(선택 사항)를 추가했습니다. 레거시 자동 라우팅의 변경 사항은 다음과 같습니다.
 
-- A controller method needs HTTP verb prefix like ``getIndex()``, ``postCreate()``.
-    - Developers always know the HTTP method, so requests by an unexpected HTTP method does not pass.
-- The Default Controller (``Home`` by default) and the Default Method (``index`` by default) must be omitted in the URI.
-    - It restricts one-to-one correspondence between controller methods and URIs.
-    - E.g. by default, you can access ``/``, but ``/home`` and ``/home/index`` will be 404.
-- It checks method parameter count.
-    - If there are more parameters in the URI than the method parameters, it results in 404.
-- It does not support ``_remap()`` method.
-    - It restricts one-to-one correspondence between controller methods and URIs.
-- Can't access controllers in Defined Routes.
-    - It completely separates controllers accessible via **Auto Routes** from those accessible via **Defined Routes**.
+- 컨트롤러 메소드에는 ``getIndex()``, ``postCreate()``\ 와 같은 HTTP 동사 접두사가 필요합니다.
+    - 개발자는 항상 HTTP 방식을 알고 있으므로 예상치 못한 HTTP 방식의 요청은 통과하지 않습니다.
+- 기본 컨트롤러(기본적으로 ``Home``)와 기본 메서드(기본적으로 ``index``)는 URI에서 생략되어야 합니다.
+    - 컨트롤러 메서드와 URI 간의 일대일 대응을 제한합니다.
+    - 예. 기본적으로 ``/``에 액세스할 수 있지만 ``/home``\ 와 ``/home/index``\ 는 404 오류입니다.
+- 메소드 파라미터 개수를 확인합니다.
+    - URI에 메소드 매개변수보다 매개변수가 더 많으면 404 오류가 됩니다.
+- ``_remap()`` 메서드를 지원하지 않습니다.
+    - 컨트롤러 메서드와 URI 간의 일대일 대응을 제한합니다.
+- 정의된 경로의 컨트롤러에 액세스할 수 없습니다.
+    - **Auto Routes**\ 를 통해 액세스할 수 있는 컨트롤러와 **Defined Routes**\ 를 통해 액세스할 수 있는 컨트롤러를 완전히 분리합니다.
 
-See :ref:`auto-routing-improved` for the details.
+자세한 내용은 ref:`auto-routing-improved`\ 를 참조하세요.
 
 Database
 ========
 
-- Added new OCI8 driver for database.
-    - It can access Oracle Database and supports SQL and PL/SQL statements.
-- QueryBuilder
-    - Added Subqueries in the FROM section. See :ref:`query-builder-from-subquery`.
-    - Added Subqueries in the SELECT section. See :ref:`query-builder-select`.
-    - The ``BaseBuilder::buildSubquery()`` method can take an optional third argument ``string $alias``.
-    - Union queries. See :ref:`query-builder-union`.
-- Raw SQL string support
-    - Added the class ``CodeIgniter\Database\RawSql`` which expresses raw SQL strings.
-    - :ref:`select() <query-builder-select-rawsql>`, :ref:`where() <query-builder-where-rawsql>`, :ref:`like() <query-builder-like-rawsql>`, :ref:`join() <query-builder-join-rawsql>` accept the ``CodeIgniter\Database\RawSql`` instance.
-    - ``DBForge::addField()`` default value raw SQL string support. See :ref:`forge-addfield-default-value-rawsql`.
+- 데이터베이스용 새 OCI8 드라이버가 추가되었습니다.
+     - Oracle Database에 접근이 가능하며 SQL\ 과 PL/SQL 문을 지원합니다.
+- 쿼리빌더
+     - FROM 섹션에 하위 쿼리를 추가했습니다. :ref:`query-builder-from-subquery`\ 를 참조하세요.
+     - SELECT 섹션에 하위 쿼리를 추가했습니다. :ref:`query-builder-select`\ 를 참조하십시오.
+     - ``BaseBuilder::buildSubquery()`` 메소드는 선택적 세 번째 인수 ``string $alias``\ 를 사용할 수 있습니다.
+     - 연합 쿼리. :ref:`query-builder-union`\ 을 참조하세요.
+- 원시 SQL 문자열 지원
+     - 원시 SQL 문자열을 표현하는 ``CodeIgniter\Database\RawSql`` 클래스를 추가했습니다.
+     - :ref:`select() <query-builder-select-rawsql>`, :ref:`where() <query-builder-where-rawsql>`, :ref:`like() <query-builder-like-rawsql>`, :ref:`join() <query-builder-join-rawsql>`\ 은 ``CodeIgniter\Database\RawSql`` 인스턴스를 허용합니다.
+     - ``DBForge::addField()`` 기본값 원시 SQL 문자열 지원. :ref:`forge-addfield-default-value-rawsql`.
 
 Helpers and Functions
 =====================
 
-- HTML helper ``script_tag()`` now uses ``null`` values to write boolean attributes in minimized form: ``<script src="..." defer />``. See the sample code for :php:func:`script_tag`.
-- Added 4th parameter ``$includeDir`` to ``get_filenames()``. See :php:func:`get_filenames`.
-- Exception information logged through ``log_message()`` has now improved. It now includes the file and line where the exception originated. It also does not truncate the message anymore.
-    - The log format has also changed. If users are depending on the log format in their apps, the new log format is "<1-based count> <cleaned filepath>(<line>): <class><function><args>"
+- HTML 도우미 ``script_tag()``\ 는 이제 ``null`` 값을 사용하여 부울 속성을 최소화된 형식으로 작성합니다. ``<script src="..." defer />``. :php:func:`script_tag`\ 의 샘플 코드를 참조하세요.
+- ``get_filenames()``\ 에 네 번째 매개변수 ``$includeDir``\ 을 추가했습니다. :php:func:`get_filenames`\ 를 참조하세요.
+- ``log_message()``\ 를 통해 기록되는 예외 정보가 개선되었습니다. 이제 예외가 발생한 파일과 줄이 포함됩니다. 또한 더 이상 메시지를 자르지 않습니다.
+     - 로그 형식도 변경되었습니다. 사용자가 앱의 로그 형식에 의존하는 경우 새 로그 형식은 "<1-based count> <cleaned filepath>(<line>): <class><function><args>"
 
 Commands
 ========
 
-- Added ``spark db:table`` command. See :doc:`../dbmgmt/db_commands` for the details.
-    - You can now see the names of all the tables in the database you are currently connected in the terminal.
-        - ``spark db:table --show``
-    - Or you can see the field names and the records of a table.
-        - ``spark db:table my_table``
-        - ``spark db:table my_table --limit-rows 50 --limit-field-value 20 --desc``
-    - Or you can see metadata like the column type, max length of a table.
-        - ``spark db:table my_table --metadata``
-- The ``spark routes`` command now shows closure routes, auto routes, and filters. See :ref:`URI Routing <spark-routes>`.
+- ``spark db:table`` 명령이 추가되었습니다. 자세한 내용은 :doc:`../dbmgmt/db_commands`\ 를 참조하세요.
+     - 이제 터미널에서 현재 연결되어 있는 데이터베이스의 모든 테이블 이름을 볼 수 있습니다.
+         - ``spark db:table --show``
+     - 테이블의 필드 이름과 레코드를 볼 수 있습니다.
+         - ``spark db:table my_table``
+         - ``spark db:table my_table --limit-rows 50 --limit-field-value 20 --desc``
+     - 컬럼 유형, 테이블의 최대 길이와 같은 메타데이터를 볼 수 있습니다.
+         - ``spark db:table my_table --metadata``
+- ``spark routes`` 명령은 이제 폐쇄 경로, 자동 경로 및 필터를 표시합니다. :ref:`URI 라우팅 <spark-routes>`\ 를 참조하세요.
 
 Others
 ======
 
-- Content Security Policy (CSP) enhancements
-    - Added the configs ``$scriptNonceTag`` and ``$styleNonceTag`` in  ``Config\ContentSecurityPolicy`` to customize the CSP placeholders (``{csp-script-nonce}`` and ``{csp-style-nonce}``)
-    - Added the config ``$autoNonce`` in ``Config\ContentSecurityPolicy`` to disable the CSP placeholder replacement
-    - Added the functions ``csp_script_nonce()`` and ``csp_style_nonce()`` to get nonce attributes
-    - See :ref:`content-security-policy` for details.
-- New :doc:`../outgoing/view_decorators` allow modifying the generated HTML prior to caching.
-- Added Validation Strict Rules. See :ref:`validation-traditional-and-strict-rules`.
-- Added support for webp files to **app/Config/Mimes.php**.
-- ``RouteCollection::addRedirect()`` can now use placeholders. See :ref:`redirecting-routes` for details.
-- Debugbar enhancements
-    - Debug toolbar is now using ``microtime()`` instead of ``time()``.
-- Added a sample file for `Preloading <https://www.php.net/manual/en/opcache.preloading.php>`_. See **preload.php**.
+- 콘텐츠 보안 정책(CSP) 향상
+    - CSP 자리 표시자 (``{csp-script-nonce}``\ 와 ``{csp-style-nonce}``) 사용을 위해 ``Config\ContentSecurityPolicy``\ 에 ``$scriptNonceTag``\ 와 ``$styleNonceTag`` 구성을 추가했습니다.
+    - CSP 자리 표시자 교체를 비활성화하기 위해 ``Config\ContentSecurityPolicy``\ 에 ``$autoNonce`` 구성을 추가했습니다.
+    - nonce 속성을 얻기 위해 ``csp_script_nonce()``\ 와 ``csp_style_nonce()`` 함수를 추가했습니다.
+    - 자세한 내용은 :ref:`content-security-policy`\ 를 참조하세요.
+- 새로운 :doc:`../outgoing/view_decorators`\ 는 캐싱 전에 생성된 HTML을 수정할 수 있습니다.
+- 검증 엄격한 규칙을 추가했습니다. :ref:`validation-traditional-and-strict-rules`\ 를 참조하세요.
+- **app/Config/Mimes.php**\ 에 webp 파일에 대한 지원이 추가되었습니다.
+- ``RouteCollection::addRedirect()``\ 는 이제 자리 표시자를 사용할 수 있습니다. 자세한 내용은 :ref:`redirecting-routes`\ 를 참조하세요.
+- 디버그바 개선 사항
+    - 디버그 도구 모음은 이제 ``time()`` 대신 ``microtime()``\ 을 사용합니다.
+- `Preloading <https://www.php.net/manual/en/opcache.preloading.php>`_\ 에 대한 샘플 파일을 추가했습니다. **preload.php**\ 를 참조하세요.
 
 Changes
 *******
 
-- Update minimal PHP requirement to 7.4.
-- The current version of Content Security Policy (CSP) outputs one nonce for script and one for style tags. The previous version outputted one nonce for each tag.
-- The process of sending cookies has been moved to the ``Response`` class. Now the ``Session`` class doesn't send cookies, set them to the Response.
-- Validation. Changed generation of errors when using fields with a wildcard (*). Now the error key contains the full path. See :ref:`validation-getting-all-errors`.
-- ``Validation::getError()`` when using a wildcard will return all found errors matching the mask as a string.
-- To make the default configuration more secure, auto-routing has been changed to disabled by default.
+- 최소 PHP 요구 사항을 7.4로 업데이트합니다.
+- CSP(콘텐츠 보안 정책)의 현재 버전은 스크립트에 대해 하나의 nonce를 출력하고 스타일 태그에 대해 하나를 출력합니다. 이전 버전은 각 태그에 대해 하나의 nonce를 출력했습니다.
+- 쿠키를 보내는 과정이 ``Response`` 클래스로 옮겨졌습니다. 이제 ``Session`` 클래스는 쿠키를 보내지 않고 응답으로 설정합니다.
+- 검증(Validation). 와일드카드(*)가 있는 필드를 사용할 때 오류 생성이 변경되었습니다. 이제 오류 키에 전체 경로가 포함됩니다. :ref:`validation-getting-all-errors`\ 를 참조하십시오.
+- 와일드카드를 사용할 때 ``Validation::getError()``\ 는 마스크와 일치하는 모든 발견된 오류를 문자열로 반환합니다.
+- 기본 구성을 보다 안전하게 하기 위해 자동 라우팅(auto-routing)이 기본적으로 비활성화로 변경되었습니다.
 
 Deprecations
 ************
@@ -131,6 +153,7 @@ Deprecations
 
 Bugs Fixed
 **********
-- The SQLSRV driver ignores the port value from the config.
 
-See the repo's `CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_ for a complete list of bugs fixed.
+- SQLSRV 드라이버는 구성에서 포트 값을 무시합니다.
+
+수정된 전체 버그 목록은 리포지토리의 `CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_\ 를 참조하세요.

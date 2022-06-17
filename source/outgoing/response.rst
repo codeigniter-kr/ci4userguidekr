@@ -348,7 +348,7 @@ Class Reference
         :param int $expire: 쿠키 만료 시간(초)
         :param string $domain: 쿠키 domain
         :param string $path: 쿠키 path
-        :param string $prefix: 쿠키명 prefix
+        :param string $prefix: 쿠키명 prefix. ``''``\ 로 설정하면 **app/Config/Cookie.php**\ 의 기본값이 사용됩니다.
         :param bool $secure: HTTPS를 통해서만 쿠키를 전송할지 여부
         :param bool $httponly: HTTP 요청에 대해서만 쿠키에 액세스 할 수 있는지 여부 (no JavaScript)
         :param string $samesite: SameSite 쿠키 매개 변수의 값. ``''``\ 로 설정하면 쿠키에 SameSite 속성이 설정되지 않습니다. ``null``\ 로 설정하면 **app/Config/Cookie.php** 값이 사용됩니다.
