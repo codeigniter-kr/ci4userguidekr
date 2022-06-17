@@ -9,7 +9,7 @@
 데코레이터 만들기
 *******************
 
-자신의 뷰 데코레이터를 만들려면 ``CodeIgniter\Views\ViewDecoratorInterface``\ 를 구현(implement)하는 새 클래스를 만들어야 합니다.
+자신의 뷰 데코레이터를 만들려면 ``CodeIgniter\View\ViewDecoratorInterface``\ 를 구현(implement)하는 새 클래스를 만들어야 합니다.
 이렇게 하려면 생성된 HTML 문자열을 가져와서 수정을 수행하고 결과 HTML을 반환하는 단일 메서드가 필요합니다.
 
 .. literalinclude:: view_decorators/001.php

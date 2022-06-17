@@ -101,24 +101,16 @@ PHPUnit의 ``TestCase``\ 는 준비 및 정리를 돕는 4가지 방법을 제�
     protected function setUp(): void
     protected function tearDown(): void
 
-정적 메소드는 전체 테스트 케이스 전후에 실행되는 반면 로컬 메소드는 각 테스트 사이에 실행됩니다.
+정적 메소드 ``setUpBeforeClass()``\ 와 ``tearDownAfterClass()``\ 는 전체 테스트 케이스 전후에 실행되는 반면, 보호된 메소드 ``setUp()``\ 와 ``tearDown()``\ 은 각 테스트 사이에 실행됩니다. .
 이러한 특수 기능을 구현하는 경우 확장된 테스트 케이스가 스테이징을 방해하지 않도록 상위 기능도 함께 실행해야 합니다.
 
 .. literalinclude:: overview/003.php
-
-이러한 메소드 외에도 ``CIUnitTestCase``\ 에는 설정 및 해체 중에 실행할 매개 변수가 없는 메소드에 대한 편리한 속성이 함께 제공됩니다.
-
-.. literalinclude:: overview/004.php
-
-기본적으로 침입(intrusive) 서비스를 흉내내어 처리할 수 있지만, 클래스가 이를 무시하거나 자체적으로 제공 할 수 있습니다.
-
-.. literalinclude:: overview/005.php
 
 Traits
 ------
 
 테스트를 강화하는 일반적인 방법은 특성(trait)을 사용하여 여러 테스트 사례에서 스테이징을 통합하는 것입니다.
-``CIUnitTestCase``\ 는 어떤 등급의 특성(trait)도 감지하고 특성(trait) 자체의 이름을 따서 실행할 스테이징 방법을 찾을 것입니다.
+``CIUnitTestCase``\ 는 어떤 등급의 특성(trait)도 감지하고 특성(trait) 자체의 이름을 따서 실행할 스테이징 방법을 찾을 것입니다. (i.e. `setUp{NameOfTrait}()`\ 와 `tearDown{NameOfTrait}()`)
 예를 들어 일부 테스트 케이스에 인증을 추가해야 하는 경우 로그인된 사용자를 위조하는 설정 방법을 사용하여 인증 특성(trait)을 생성할 수 있습니다.
 
 .. literalinclude:: overview/006.php

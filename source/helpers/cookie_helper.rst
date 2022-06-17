@@ -27,7 +27,7 @@
     :param	int	$expire: 만료까지의 시간 (초)
     :param	string	$domain: 쿠키 도메인 (일반적으로 .yourdomain.com)
     :param	string	$path: 쿠키 경로
-    :param	string	$prefix: 쿠키 이름 접두사
+    :param	string	$prefix: 쿠키 이름 접두사. ``''``\ 인 경우 **app/Config/Cookie.php**\ 의 기본값이 사용됩니다.
     :param	bool	$secure: HTTPS를 통해서만 쿠키를 보낼지 여부
     :param	bool	$httpOnly: JavaScript에서 쿠키를 숨길 지 여부
     :param  string    $sameSite: SameSite 쿠키 매개변수의 값입니다. ``null``\ 인 경우 **app/Config/Cookie.php**\ 의 기본값이 사용됩니다.
@@ -36,18 +36,20 @@
     브라우저 쿠키를 설정하기 위한 보다 친근한 구문을 제공합니다.
     이 함수는 :php:func:`Response::setCookie() <setCookie>`\ 의 별칭이므로, 사용법에 대한 설명은 :doc:`Response 라이브러리 </outgoing/response>`\ 를 참조하십시오.
 
-.. php:function:: get_cookie($index[, $xssClean = false])
+.. php:function:: get_cookie($index[, $xssClean = false[, $prefix = '']])
 
     :param	string	$index: 쿠키 이름
     :param	bool	$xssClean: 반환된 값에 XSS 필터링을 적용할지 여부
+    :param	string	$prefix: 쿠키 이름 접두사. ``''``\ 로 설정하면 **app/Config/Cookie.php**\ 의 기본값이 사용됩니다. ``null``\ 로 설정하면 접두사 없음
     :returns:	쿠키 값 또는 찾지 못한 경우 null
     :rtype:	mixed
 
-    브라우저 쿠키를 얻기 위해 보다 친근한 구문을 제공합니다.
-    사용법에 대한 자세한 설명은 :doc:`IncomingRequest Library </incoming/incomingrequest>`\ 를 참조하십시오.
-    이 함수는 **app/Config/Cookie.php** 파일의 ``Config\Cookie::$prefix`` 설정에 따라 접두사가 설정됩니다.
+    .. note:: v4.2.1부터 세 번째 매개변수 ``$prefix``\ 가 도입되었으며 버그 수정으로 인해 동작이 약간 변경되었습니다. 자세한 내용은 :ref:`업그레이드 <upgrade-421-get_cookie>`\ 를 참조하세요.
 
-.. warning:: XSS 필터링을 사용하는 것은 나쁜 습관입니다. XSS 공격을 완벽하게 차단하지는 않습니다. 뷰(view)에서 올바른 ``$context``\ 와 함께 ``esc()``\ 를 사용하는 것이 좋습니다.
+    이 헬퍼 함수는 브라우저 쿠키를 얻기 위한 보다 친숙한 구문을 제공합니다.
+    이 함수는 **app/Config/Cookie.php** 파일에 설정된 ``Config\Cookie::$prefix``\ 를 추가한다는 점을 제외하고는 ``IncomingRequest::getCookie()``\ 와 매우 유사하게 작동하므로 자세한 사용법은 :doc:`IncomingRequest 라이브러리 </incoming/incomingrequest>`\ 를 참조하십시오.
+
+    .. warning:: XSS 필터링을 사용하는 것은 나쁜 습관입니다. XSS 공격을 완벽하게 차단하지는 않습니다. 뷰(view)에서 올바른 ``$context``\ 와 함께 ``esc()``\ 를 사용하는 것이 좋습니다.
 
 .. php:function:: delete_cookie($name[, $domain = ''[, $path = '/'[, $prefix = '']]])
 

@@ -46,6 +46,12 @@ Application Structure
 - **app** 폴더는 CI3의 **application**\ 폴더와 매우 유사하지만, 이름이 일부 변경되고, 하위 폴더의 일부가 **writable** 폴더로 이동되었습니다.
 - 프레임워크 구성 요소를 확장하는 메커니즘이 다르기 때문에 더 이상 중첩된 **application/core** 폴더는 없습니다 (아래 참조).
 
+Routing
+=======
+
+- 자동 라우팅(Auto Routing)은 기본적으로 비활성화되어 있습니다. 자동 라우팅을 CI3와 같은 방식으로 사용하려면 :ref:`auto-routing`\ 을 활성화해야 합니다.
+- CI4에는 새로운 더 안전한 옵션인 :ref:`auto-routing-improved`\ 도 있습니다.
+
 Model, View and Controller
 ==========================
 
