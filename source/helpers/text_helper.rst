@@ -41,6 +41,9 @@ Text 헬퍼에는 텍스트 작업을 지원하는 기능이 포함되어 있습
     - **sha1**: ``sha1()``\ 을 기반으로 암호화 된 난수 (고정 길이 40)
     - **crypto**: ``random_bytes()``\ 를 기반으로 하는 임의의 문자열
 
+    .. note:: **crypto**\ 를 사용하는 경우 두 번째 매개변수에 짝수를 설정해야 합니다.
+        v4.2.2부터 홀수를 설정하면 ``InvalidArgumentException``\ 이 발생합니다.
+
     .. literalinclude:: text_helper/002.php
 
 .. php:function:: increment_string($str[, $separator = '_'[, $first = 1]])

@@ -64,8 +64,8 @@ $builder->getCompiledSelect()
 
 .. literalinclude:: query_builder/006.php
 
-위 예제에서 두 번째 쿼리가 ``$builder->from()``\ 을 사용하거나, 테이블 이름을 첫 번째 매개 변수에 전달하지 않았다는 것에 주목하십시오.
-이렇게 사용 가능한 이유는 ``$builder->get()``\ 을 사용하여 쿼리가 실행되지 않았기 때문이며, 값을 재설정해야 한다면 ``$builder->resetQuery()``\ 를 사용해야 합니다.
+위의 예에서 주목해야 할 핵심은 두 번째 쿼리는 ``limit(10, 20)``\ 을 사용하지 않았지만 생성된 SQL 쿼리에는 ``LIMIT 20, 10``\ 이 있다는 것입니다.
+그 이유는 첫 번째 매개변수가 ``false``\ 로 설정되어 있기 때문입니다.
 
 $builder->getWhere()
 --------------------
@@ -767,7 +767,7 @@ $builder->getCompiledInsert()
 
 .. literalinclude:: query_builder/080.php
 
-두 번째 쿼리가 작동한 이유는 ``$builder->resetQuery()``\ 를 사용하여 값을 재 설정하거나, 값을 재설정하는  ``$builder->insert()``\ 를 사용하여 쿼리가 실행되지 않았기 때문입니다.
+두 번째 쿼리가 작동한 이유는 첫 번째 매개변수가 ``false``\ 로 설정되었기 때문입니다.
 
 .. note:: 이 방법은 insertBatch() 에서는 작동하지 않습니다.
 

@@ -59,7 +59,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
     데이터베이스 설정, API 키 등과 같이 환경 자체에 특정한 값을 설정하기 위해 **.env** 파일과 함께 사용하면 특히 유용합니다.
 
-.. php:function:: esc($data[, $context = 'html' [, $encoding]])
+.. php:function:: esc($data[, $context = 'html'[, $encoding]])
 
     :param   string|array   $data: 이스케이프할 정보(문자열)
     :param   string   $context: escaping context. 기본값은 'html'
@@ -83,7 +83,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
     자세한 내용은 :doc:`helpers` 페이지를 참조하십시오.
 
-.. php:function:: lang($line[, $args[, $locale ]])
+.. php:function:: lang($line[, $args[, $locale]])
 
     :param string $line: 검색 할 텍스트
     :param array  $args: 자리표시자(placeholders)를 대체 할 데이터 배열
@@ -93,7 +93,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
     자세한 내용은 :doc:`Localization </outgoing/localization>` 페이지를 참조하십시오.
 
-.. php:function:: model($name [, $getShared = true [, &$conn = null ]])
+.. php:function:: model($name[, $getShared = true[, &$conn = null ]])
 
     :param string                   $name:
     :param boolean                  $getShared:
@@ -103,7 +103,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
     모델 인스턴스를 얻는 간단한 방법
 
-.. php:function:: old( $key[, $default = null, [, $escape = 'html' ]] )
+.. php:function:: old($key[, $default = null,[, $escape = 'html']])
 
     :param string $key: 확인할 이전 양식 데이터의 이름
     :param mixed  $default: $key가 존재하지 않으면 반환 할 기본값
@@ -117,7 +117,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
 .. note:: :doc:`폼(form) 헬퍼 </helpers/form_helper>`\ 를 사용하는 경우 이 기능이 내장되어 있습니다. 폼 헬퍼를 사용하지 않는 경우에만 이 기능을 사용하십시오.
 
-.. php:function:: session( [$key] )
+.. php:function:: session([$key])
 
     :param string $key: 확인할 세션 항목의 이름
     :returns: $key가 없는 경우 Session 객체의 인스턴스, 세션에서 찾은 $key 값 또는 null
@@ -126,7 +126,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
     세션 클래스에 액세스하고 저장된 값을 검색하는 편리한 방법을 제공합니다.
     자세한 내용은 :doc:`세션 </libraries/sessions>` 페이지를 참조하십시오.
 
-.. php:function:: timer( [$name] )
+.. php:function:: timer([$name])
 
     :param string $name: 벤치 마크 포인트의 이름.
     :returns: 타이머 인스턴스
@@ -137,7 +137,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
     .. literalinclude:: common_functions/003.php
 
-.. php:function:: view($name [, $data [, $options ]])
+.. php:function:: view($name [, $data[, $options ]])
 
     :param   string   $name: 로드할 파일 이름
     :param   array    $data: 뷰 내에서 사용할 수있는 키/값 쌍의 배열
@@ -160,7 +160,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
     자세한 내용은 :doc:`뷰 </outgoing/views>` 페이지를 참조하십시오.
 
-.. php:function:: view_cell($library [, $params = null [, $ttl = 0 [, $cacheName = null]]])
+.. php:function:: view_cell($library[, $params = null[, $ttl = 0[, $cacheName = null]]])
 
     :param string      $library:
     :param null        $params:
@@ -183,7 +183,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
     어플리케이션이 날짜를 표시하도록 설정된 시간대를 반환합니다.
 
-.. php:function:: csp_script_nonce ()
+.. php:function:: csp_script_nonce()
 
     :returns: 스크립트 태그에 대한 CSP nonce 속성입니다.
     :rtype: string
@@ -191,7 +191,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
     스크립트 태그의 nonce 속성을 반환합니다. 예: ``nonce="Eskdikejidojdk978Ad8jf"``.
     See :ref:`content-security-policy`.
 
-.. php:function:: csp_style_nonce ()
+.. php:function:: csp_style_nonce()
 
     :returns: 스타일 태그에 대한 CSP nonce 속성입니다.
     :rtype: string
@@ -242,7 +242,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
         <meta name="{csrf_header}" content="{csrf_hash}">
 
-.. php:function:: force_https( $duration = 31536000 [, $request = null [, $response = null]] )
+.. php:function:: force_https($duration = 31536000[, $request = null[, $response = null]])
 
     :param  int  $duration: 브라우저가 이 리소스에 대한 링크를 HTTPS로 변환해야 하는 시간(초)
     :param  RequestInterface $request: 요청(request) 개체의 인스턴스
@@ -253,13 +253,13 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
     그렇지 않은 경우 사용자는 HTTPS를 통해 현재 URI로 다시 리디렉션됩니다.
     HTTP Strict Transport Security 헤더를 설정하여 최신 브라우저가 HTTP 요청을 $duration에 대한 HTTPS 요청으로 자동 수정하도록 지시합니다.
 
-.. php:function:: function_usable( $function_name )
+.. php:function:: function_usable($function_name)
 
     :param string $function_name: 함수 확인
     :returns: 함수가 존재하여 호출해도 안전한 경우 true, 그렇지 않으면 false
     :rtype: bool
 
-.. php:function:: is_really_writable ( $file )
+.. php:function:: is_really_writable ($file)
 
     :param string $file: 확인할 파일명
     :returns: 파일에 쓸 수 있으면 true, 그렇지 않으면 false
@@ -270,7 +270,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
     :returns: true(커맨드 라인(command line)에서 스크립트를 실행중인 경우) 또는 false(아닌 경우)
     :rtype: bool
 
-.. php:function:: log_message ($level, $message [, $context])
+.. php:function:: log_message($level, $message[, $context])
 
     :param   string   $level: 심각도 수준
     :param   string   $message: 기록 될 메시지
@@ -284,9 +284,13 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
     컨텍스트는 메시지 문자열에서 값을 대체하는데 사용될 수 있습니다. 자세한 내용은 :doc:`로깅 정보 <logging>` 페이지를 참조하십시오.
 
-.. php:function:: redirect( string $route )
+.. php:function:: redirect(string $route)
 
     :param  string  $route: 사용자를 리디렉션할 역방향 경로(reverse-route) 또는 명명된 경로입니다.
+    :rtype: RedirectResponse
+
+    .. important:: 이 함수를 사용할 때 ``RedirectResponse``\ 의 인스턴스는 :doc:`Controller <../incoming/controllers>`\ 나 :doc:`Controller Filter <../incoming/filters>` 메서드에서 반환되어야 합니다.
+        반환하는 것을 잊은 경우 리디렉션이 발생하지 않습니다.
 
     쉽게 리디렉션을 만들수 있는 RedirectResponse 인스턴스를 반환합니다.
     
@@ -311,19 +315,23 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
     .. literalinclude:: common_functions/007.php
 
-.. php:function:: route_to( $method [, ...$params] )
+.. php:function:: route_to($method [, ...$params])
 
     :param   string   $method: 명명된 라우트의 별명 또는 일치하는 컨트롤러/메소드의 이름입니다.
-    :param   mixed   $params: 경로에서 일치시키기 위해 전달될 하나 이상의 매개 변수
+    :param   int|string   $params: 라우트와 일치시키기 위해 전달할 하나 이상의 매개변수입니다.
 
     .. note:: 이 함수를 사용하려면 **app/Config/routes.php**\ 에 컨트롤러/메서드로 정의된 경로가 필요합니다.
 
-    명명된 라우트 별칭 또는 ``controller::method`` 조합에 따라 도메인 이름(**baseUrl**\ 이 아님)과 관련된 URI를 생성합니다.
-    매개 변수가 제공된 경우 적용합니다.
+    명명된 라우트 별칭 또는 ``controller::method`` 조합을 기반으로 경로를 생성합니다. 매개변수를 적용합니다.
 
-    자세한 내용은 :doc:`/incoming/routing` 페이지를 참조하십시오.
+    .. literalinclude:: common_functions/009.php
 
-.. php:function:: service( $name [, ...$params] )
+    .. literalinclude:: common_functions/010.php
+
+    .. note:: ``route_to()``\ 는 사이트의 전체 URI 경로가 아닌 경로를 반환합니다.
+        **baseURL**\ 에 하위 폴더가 포함된 경우 반환 값은 연결할 URI와 동일하지 않습니다. 이런 경우에는 :php:func:`url_to`\ 를 사용하세요.
+
+.. php:function:: service($name[, ...$params])
 
     :param   string   $name: 로드 할 서비스의 이름
     :param   mixed    $params: 서비스 메소드에 전달할 하나 이상의 매개 변수
@@ -335,7 +343,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
     .. literalinclude:: common_functions/008.php
 
-.. php:function:: single_service( $name [, ...$params] )
+.. php:function:: single_service($name[, ...$params])
 
     :param   string   $name: 로드 할 서비스의 이름
     :param   mixed    $params: 서비스 메소드에 전달할 하나 이상의 매개 변수

@@ -50,7 +50,7 @@ CodeIgniter의 데이터 검증 접근 방식을 설명하기 전에 이상적�
 폼(Form)
 =========
 
-에디터를 사용하여 **Signup.php**\ 라는 폼을 만듭니다.
+에디터를 사용하여 **signup.php**\ 라는 폼을 만듭니다.
 여기에 이 코드를 넣고 **app/Views/** 폴더에 저장합니다.
 
 ::
@@ -65,21 +65,21 @@ CodeIgniter의 데이터 검증 접근 방식을 설명하기 전에 이상적�
 
         <?= form_open('form') ?>
 
-        <h5>Username</h5>
-        <input type="text" name="username" value="" size="50" />
+            <h5>Username</h5>
+            <input type="text" name="username" value="<?= set_value('username') ?>" size="50">
 
-        <h5>Password</h5>
-        <input type="text" name="password" value="" size="50" />
+            <h5>Password</h5>
+            <input type="text" name="password" value="<?= set_value('password') ?>" size="50">
 
-        <h5>Password Confirm</h5>
-        <input type="text" name="passconf" value="" size="50" />
+            <h5>Password Confirm</h5>
+            <input type="text" name="passconf" value="<?= set_value('passconf') ?>" size="50">
 
-        <h5>Email Address</h5>
-        <input type="text" name="email" value="" size="50" />
+            <h5>Email Address</h5>
+            <input type="text" name="email" value="<?= set_value('email') ?>" size="50">
 
-        <div><input type="submit" value="Submit" /></div>
+            <div><input type="submit" value="Submit"></div>
 
-        </form>
+        <?= form_close() ?>
 
     </body>
     </html>
@@ -88,7 +88,7 @@ CodeIgniter의 데이터 검증 접근 방식을 설명하기 전에 이상적�
 ============
 
 
-에디터를 사용하여 **Success.php**\ 라는 폼을 작성합니다.
+에디터를 사용하여 **success.php**\ 라는 폼을 작성합니다.
 여기에 이 코드를 넣고 **app/Views/** 폴더에 저장합니다.
 
 ::
@@ -114,6 +114,14 @@ CodeIgniter의 데이터 검증 접근 방식을 설명하기 전에 이상적�
 
 .. literalinclude:: validation/001.php
 
+라우트
+==========
+
+**app/Config/Routes.php**\ 에 컨트롤러에 대한 경로를 추가합니다.
+
+.. literalinclude:: validation/039.php
+   :lines: 2-
+
 Try it!
 =======
 
@@ -137,9 +145,12 @@ Try it!
 
 위 페이지에 대해 몇 가지 사항을 알 수 있습니다.
 
-폼(**Signup.php**)은 몇 가지 예외가 있는 표준 웹폼입니다.
+signup.php
+----------
 
-#. :doc:`폼 헬퍼 </helpers/form_helper>`\ 를 사용하여 폼 열기를 만듭니다. 기술적으로는 필요하지 않습니다. 
+폼(**signup.php**)은 몇 가지 예외가 있는 표준 웹폼입니다.
+
+#. :doc:`폼 헬퍼 </helpers/form_helper>`\ 를 사용하여 폼 열기와 닫기를 만듭니다. 기술적으로는 필요하지 않습니다. 
    표준 HTML을 사용하여 양식을 작성할 수 있습니다. 
    그러나 헬퍼를 사용하면 구성 파일의 URL을 기반으로 action URL이 생성된다는 이점이 있습니다. 
    이렇게 하면 URL이 변경될 때 어플리케이션의 이식성이 향상됩니다.
@@ -152,10 +163,16 @@ Try it!
     이 함수는 검증에서 보낸 모든 오류 메시지를 반환합니다.
     메시지가 없으면 빈 문자열을 반환합니다.
 
-컨트롤러(**Form.php**)에는 ``index()`` 메소드가 있습니다.
-이 메소드는 컨트롤러가 제공하는 ``validate()`` 메소드를 사용하고 뷰 파일에서 사용하는 폼 헬퍼 및 URL 헬퍼를 로드합니다.
-검증 루틴도 실행합니다.
-검증 성공 여부에 따라 폼 또는 성공 페이지를 표시합니다.
+Form.php
+--------
+
+컨트롤러(**Form.php**)에는 ``$helpers``\ 라는 속성이 하나 있습니다.
+view 파일에서 사용하는 form 헬퍼를 로드합니다.
+
+컨트롤러에는 ``index()``\ 라는 메소드가 있습니다.
+이 메소드는 POST가 아닌 요청이 올 때 폼을 표시하기 위해 **signup** 뷰(view)를 반환합니다.
+POST 요청에 대해 컨트롤러에서 제공하는 ``validate()`` 메소드를 사용하여 유효성 검사 루틴을 실행합니다.
+유효성 검사가 성공했는지 여부에 따라 폼 또는 성공(success) 페이지가 표시됩니다.
 
 검증 룰 추가
 =============
@@ -163,6 +180,7 @@ Try it!
 컨트롤러(**Form.php**)에 유효성 검사 규칙을 추가합니다. 
 
 .. literalinclude:: validation/002.php
+   :lines: 2-
 
 폼을 제출할 경우 성공 또는 오류 메시지가 있는 폼을 볼 수 있습니다.
 

@@ -47,6 +47,8 @@ before 필터에서 반환하면 실행이 중지되지 않고 현재 ``$request
 ``응답(Response)`` 인스턴스가 리턴되면 응답이 클라이언트로 전송되고 컨트롤러 실행이 중지됩니다.
 API 요청에 대한 속도 제한을 구현하는데 유용하며, 이에 대한 예는 :doc:`Throttler </libraries/throttler>`\ 를 참조하십시오.
 
+.. _after-filters:
+
 사후(After) 필터
 ====================
 
@@ -157,6 +159,8 @@ InvalidChars
 
 - 잘못된 UTF-8 문자
 - 줄 바꿈 및 탭 코드를 제외한 제어 문자
+
+.. _secureheaders:
 
 SecureHeaders
 =============

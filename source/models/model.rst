@@ -30,7 +30,7 @@ CodeIgniter는 다음과 같은 몇 가지 유용한 기능을 제공하는 모�
 - 자동 데이터베이스 연결
 - 기본적인 CRUD 메소드
 - 모델내 검증(validation)
-- 자동 페이지네이션(pagination)
+- :ref:`자동 페이지네이션(pagination) <paginating-with-models>`
 - 등등...
 
 이 클래스는 자체 모델을 구축할 수있는 견고한 기반을 제공하므로 어플리케이션의 모델 계층을 신속하게 구축할 수 있습니다.

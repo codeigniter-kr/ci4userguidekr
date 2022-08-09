@@ -295,7 +295,7 @@ tempdata 변수를 읽으려면 ``$_SESSION`` 슈퍼 전역 배열을 통해 액
 이 항목들은 세션의 작동 방식에 대한 세부 사항을 위한 것이지만 이제는 새로운 구현에 더 이상 필요하지 않습니다.
 그러나 어플리케이션이 이러한 값에 의존한다면, 다음과 같은 방법으로 액세스할 수 있습니다.
 
-  - session_id: ``session_id()``
+  - session_id: ``$session->session_id`` 또는 ``session_id()`` (PHP 내장 함수)
   - ip_address: ``$_SERVER['REMOTE_ADDR']``
   - user_agent: ``$_SERVER['HTTP_USER_AGENT']`` (unused by sessions)
   - last_activity: Depends on the storage, no straightforward way. Sorry!

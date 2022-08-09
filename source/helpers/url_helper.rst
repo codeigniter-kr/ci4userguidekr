@@ -319,8 +319,8 @@ php:function:: mb_url_title($str[, $separator = '-'[, $lowercase = false]])
 
 .. php:function:: url_to($controller[, ...$args])
 
-    :param  string  $controller: 컨트롤러 클래스와 메소드
-    :param  mixed   ...$args: 경로(route)에 주입할 추가 인수
+    :param  string  $controller: 명명된 경로 또는 Controller::method
+    :param  mixed   ...$args: 라우트에 전달할 하나 이상의 매개변수
     :returns: 절대 URL
     :rtype: string
 
@@ -334,10 +334,9 @@ php:function:: mb_url_title($str[, $separator = '-'[, $lowercase = false]])
     
     .. literalinclude:: url_helper/022.php
 
-    위의 예는 ``http://example.com/page/home``\ 과 같이 반환합니다.
-
     뷰에 링크를 넣은 후 경로를 변경할 때 유용합니다.
-
+    
+    자세한 내용은 :ref:`reverse-routing` 또는 :ref:`using-named-routes`\ 를 참조하세요.
 
 .. php:function:: url_is($path)
 
