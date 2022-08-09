@@ -133,8 +133,8 @@ Entity 클래스는 ``toArray()``\ 와 ``toRawArray()`` 메소드를 통하여 �
 .. literalinclude:: entities/008.php
 
 상사가 당신에게 와서 더 이상 사용자 이름을 사용하지 않으니, 로그인을 위해 이메일을 사용하도록 지시합니다.
-그러나 어플리케이션을 약간 개인화하기 위해 이름 필드를 현재 사용 중인 사용자 이름이 아닌 사용자의 전체 이름을 나타내도록 변경해야 합니다.
-데이터베이스에서 문제를 정리하기 위해 마이그레이션을 수행하여 `name` 필드를 `full_name` 필드로 변경합니다.
+그러나 어플리케이션을 약간 개인화하기 위해 ``name`` 필드를 현재 사용 중인 사용자 이름이 아닌 사용자의 전체 이름을 나타내도록 변경해야 합니다.
+데이터베이스에서 문제를 정리하기 위해 마이그레이션을 수행하여 ``name`` 필드를 ``full_name`` 필드로 변경합니다.
 
 이를 위해 User 클래스를 수정하는 방법은 두 가지가 있습니다.
 첫 번째 방법은 클래스 속성을 ``$name``\ 에서 ``$full_name``\ 으로 수정하고, 어플리케이션 전체를 변경합니다.
@@ -149,6 +149,9 @@ Entity 클래스는 ``toArray()``\ 와 ``toRawArray()`` 메소드를 통하여 �
 The value will still be accessible through the original ``$user->full_name``, also, as this is needed for the model to get the data back out and save it to the database. 
 모델이 데이터를 가져 와서 데이터베이스에 저장하는데 필요하기 때문에 ``$user->full_name``\ 을 통해 값에 계속 액세스할 수 있습니다.
 그러나 ``unset``\ 과 ``isset``\ 은 원래 이름인 ``full_name``\ 이 아닌 매핑된 속성 ``$name``\ 에서만 작동합니다.
+
+.. note:: 데이터 매핑을 사용할 때 데이터베이스 열 이름에 대해 ``set*()``\ 와 ``get*()`` 메소드를 정의해야 합니다.
+    이 예에서는 ``setFullName()``\ 와 ``getFullName()``\ 을 정의해야 합니다.
 
 뮤테이터(Mutators)
 ====================

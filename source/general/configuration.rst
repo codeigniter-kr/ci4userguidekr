@@ -276,7 +276,7 @@ v4.1.5부터 ``_``\ 를 사용할 수 있습니다.
 
 .. literalinclude:: configuration/010.php
 
-위의 예에서 ``MySalesConfig``\ 가 인스턴스화되면 선언된 두 개의 속성중 ``$target`` 속성의 값은 ``RegionalSales``\ 를 "레지스터(registrar)"로 처리하여 재정의됩니다.
+위의 예에서 ``MySalesConfig``\ 가 인스턴스화되면 선언된 세 개의 속성중 ``$target`` 속성의 값은 ``RegionalSales``\ 를 "레지스터(registrar)"로 처리하여 재정의됩니다.
 재정의된 속성의 결과는 다음과 같습니다.
 
 .. literalinclude:: configuration/011.php

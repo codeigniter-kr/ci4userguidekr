@@ -40,7 +40,10 @@ CodeIgniter 프레임워크의 탐색을 즐기세요.
 	conclusion
 
 시작 및 실행
-**********************
+************
+
+CodeIgnier 설치
+===============
 
 사이트에서 수동으로 릴리스를 다운로드할 수 있지만, 이 튜토리얼은 Composer를 통해 AppStarter 패키지를 설치하는 방법을 사용합니다.
 명령줄에서 다음을 입력합니다.
@@ -50,6 +53,11 @@ CodeIgniter 프레임워크의 탐색을 즐기세요.
     > composer create-project codeigniter4/appstarter ci-news
 
 ``vendor`` 폴더에 CodeIgniter가 설치되고 어플리케이션 코드가 포함된 ``ci-news`` 라는 새 폴더가 생성됩니다.
+
+.. _setting-development-mode:
+
+Development Mode 설정
+=====================
 
 기본적으로 CodeIgniter는 ``production`` 모드에서 시작됩니다.
 이 모드는 라이브 설정이 잘못되었을 때 사이트를 좀 더 안전하게 유지하기 위한 안전 모드입니다.
@@ -62,6 +70,9 @@ CodeIgniter 프레임워크의 탐색을 즐기세요.
 ::
 
     CI_ENVIRONMENT = development
+
+Development Server 실행
+=======================
 
 이제 브라우저에서 어플리케이션을 볼 차례입니다.
 Apache, Nginx 등과 같은 웹 서버를 통해 서비스를 제공할 수 있지만, CodeIgniter에는 PHP의 내장 서버를 활용하여 개발 컴퓨터에서 빠르게 실행되도록 하는 간단한 명령이 포함되어 있습니다.

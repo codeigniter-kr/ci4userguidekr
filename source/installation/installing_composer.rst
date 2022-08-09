@@ -7,9 +7,8 @@ Composer로 설치
 
 Composer는 CodeIgniter4를 시스템에 여러 가지 방법으로 설치하여 사용할 수 있게해 줍니다.
 
-처음 두 가지는 CodeIgniter4를 사용하여 새로운 웹앱을 작성할 수 있는 골격(skeleton) 프로젝트를 만드는 방법을 설명합니다.
-
-세 번째 방법은 기존 웹 앱에 CodeIgniter4를 추가합니다.
+첫 번째 기술은 CodeIgniter4를 사용하여 새 웹앱의 기반으로 사용할 수 있는 스켈레톤(skeleton) 프로젝트를 만드는 방법을 설명합니다.
+두 번째 기술을 사용하면 CodeIgniter4를 기존 웹앱에 추가할 수 있습니다.
 
 .. note:: 만약 당신이 코드를 저장하거나 다른 사람들과 협업하기 위해 Git 저장소를 사용한다면, ``vendor`` 폴더는 일반적으로 "git ignored"\ 에 추가됩니다. 
           이 경우 레파지토리(repository)에 있는 새 시스템으로 업그레이드 하고 싶다면 ``composer update``\ 를 실행하십시오.
@@ -22,8 +21,8 @@ Composer는 CodeIgniter4를 시스템에 여러 가지 방법으로 설치하여
 
 이 설치 방법은 새로운 CodeIgniter4 기반 프로젝트를 시작하고자 하는 개발자에게 적합합니다.
 
-설치 및 설정(setup)
-------------------------
+설치
+----
 
 프로젝트 루트(root) 폴더에서 다음과 같이 입력합니다.
 
@@ -35,6 +34,10 @@ Composer는 CodeIgniter4를 시스템에 여러 가지 방법으로 설치하여
 
 "project-root"\ 를 생략하면 "appstarter" 폴더가 생성되며, 이 폴더의 이름은 바꿀 수 있습니다.
 
+.. note:: CodeIgniter 자동 로더(autoloader)는 특정 운영 체제의 파일 이름에 잘못된 특수 문자를 허용하지 않습니다.
+    사용할 수 있는 기호는 ``/``, ``_``, ``.``, ``:``, ``\``\ 과 공백(space)입니다.
+    따라서 ``(``, ``)`` 등과 같은 특수 문자가 포함된 폴더에 CodeIgniter를 설치하면 CodeIgniter가 작동하지 않습니다.
+
 phpunit과 관련된 composer 종속성이 필요하지 않다면 위 명령에 ``---no-dev`` 옵션을 추가합니다.
 
 ``---no-dev`` 옵션이 추가된 경우 composer는 프레임워크에 필요한 세 가지 신뢰할 수 있는 의존성 패키지만 설치합니다.
@@ -45,7 +48,11 @@ phpunit과 관련된 composer 종속성이 필요하지 않다면 위 명령에 
 
     composer create-project codeigniter4/appstarter --no-dev
 
-설치 후에는 "업그레이드" 섹션의 단계를 따르십시오.
+Initial Configuration
+---------------------
+
+설치 후 몇 가지 초기 구성이 필요합니다.
+자세한 내용은 :ref:`initial-configuration`\ 을 참조하세요.
 
 .. _app-starter-upgrading:
 
@@ -126,6 +133,9 @@ App Starter 저장소에는 현재 안정 릴리스와 프레임워크의 최신
 
 "수동 설치"\ 에 설명된 것과 동일한 CodeIgniter4 프레임워크를 Composer를 사용하여 기존 프로젝트에 추가할 수도 있습니다.
 
+Installation
+------------
+
 앱은 ``app`` 폴더 안에서 개발하고, 웹 루트(root)는 ``public`` 폴더를 지정하십시오.
 
 프로젝트 루트(root)에서 다음 명령어를 입력하십시오.
@@ -141,15 +151,16 @@ App Starter 저장소에는 현재 안정 릴리스와 프레임워크의 최신
 
 ``app``, ``public``, ``writable`` 폴더를 ``vendor/codeigniter4/framework``\ 에서 프로젝트 루트(root)로 복사
 
-``env``, ``phpunit.xml.dist`` 및 ``spark`` 파일을 ``vendor/codeigniter4/framework``\ 에서 프로젝트 루트로 복사
+``env``, ``phpunit.xml.dist``, ``spark`` 파일을 ``vendor/codeigniter4/framework``\ 에서 프로젝트 루트로 복사
 
 ``vendor/codeigniter/framework``\ 를 참조하기 위해 ``app/Config/Paths.php``\ 의 $systemDirectory 변수의 경로를 수정하십시오.
 ``app/Config/Paths.php`` 파일의 ``$systemDirectory`` 변수를 컴포저의 vendor 경로로 조정합니다.
 
-::
+Initial Configuration
+---------------------
 
-    // app/Config/Paths.php
-    $systemDirectory = ROOTPATH . '/vendor/codeigniter4/framework/system';
+몇 가지 초기 구성이 필요합니다.
+자세한 내용은 :ref:`initial-configuration`\ 을 참조하세요.
 
 .. _adding-codeigniter4-upgrading:
 

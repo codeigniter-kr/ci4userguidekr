@@ -174,7 +174,7 @@ id 필드는 만들때 특별한 예외가 적용됩니다.
 
 .. literalinclude:: forge/014.php
 
-선택적으로 두 번째 매개 변수를 true로 설정하면 ``IF NOT EXISTS``\ 절이 정의에 추가됩니다.
+두 번째 매개변수를 true로 설정하면 테이블이 존재하지 않는 경우에만 테이블을 생성합니다.
 
 .. literalinclude:: forge/016.php
 

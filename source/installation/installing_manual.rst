@@ -19,32 +19,38 @@
 `최신 버전 <https://github.com/CodeIgniter4/framework/releases/latest>`_\ 을 다운로드하고 프로젝트 
 루트(root)에 압축을 풀어주십시오.
 
-설정
-----------
+.. note:: CodeIgniter 자동 로더(autoloader)는 특정 운영 체제의 파일 이름에 잘못된 특수 문자를 허용하지 않습니다.
+    사용할 수 있는 기호는 ``/``, ``_``, ``.``, ``:``, ``\``\ 과 공백(space)입니다.
+    따라서 ``(``, ``)`` 등과 같은 특수 문자가 포함된 폴더에 CodeIgniter를 설치하면 CodeIgniter가 작동하지 않습니다.
 
-없음
+
+Initial Configuration
+=====================
+
+설치 후 몇 가지 초기 구성이 필요합니다.
+자세한 내용은 :ref:`initial-configuration`\ 을 참조하세요.
 
 .. _installing-manual-upgrading:
 
 업그레이드
---------------
+==========
 
 프레임워크의 새 사본을 다운로드한 다음 ``sysstem`` 폴더를 교체합니다.
 
 :doc:`업그레이드 지침 <upgrading>`\ 을 읽고 변경 사항 및 개선 사항을 확인하십시오.
 
 장점
----------
+=====
 
 Download and run
 
 단점
----------
+=====
 
 프레임워크 업데이트 시 병합 충돌이 있을수 있습니다.
 
 구조
-----------
+=====
 
 설정 후 프로젝트의 폴더:
 

@@ -11,20 +11,24 @@ CodeIgniter 4 앱은 웹 서버에서 호스팅하거나 가상화, CodeIgniter�
 CodeIgniter를 처음 사용하는 경우 사용자 가이드의 :doc:`Getting Started </intro/index>`\ 을 
 참조하여 동적 PHP 어플리케이션을 구축하는 방법에 대해 알아보십시오. 해피 코딩!
 
-초기 구성 및 설정
-=================================================
+.. _initial-configuration:
 
-#. 텍스트 편집기로 **app/Config/App.php** 파일을 열고 기본(base) URL을 설정하십시오.
-   좀 더 유연하게 작성하고 싶다면 ``.env`` 파일의 **app.baseURL="http://example.com/"** 
+초기 구성 및 설정
+==================
+
+#. 텍스트 편집기로 **app/Config/App.php** 파일을 열고 기본(base) URL을 ``$baseURL``\ 로 설정하십시오.
+   좀 더 유연하게 작성하고 싶다면 ``.env`` 파일의 **app.baseURL = "http://example.com/"** 
    항목에 설정해도 됩니다.
    (항상 기본 URL에 슬래시를 추가합니다!)
 #. 데이터베이스를 사용하려면 **app/Config/Database.php** 파일에  데이터베이스 정보를 설정하십시오.
    ``.env`` 파일에 설정해도 됩니다.
+#. 프로덕션(production) 서버가 아니면 **.env** 파일의 ``CI_ENVIRONMENT``\ 를 ``development``\ 로 설정하여 제공된 디버깅 도구를 활용하세요.
+   자세한 내용은 :ref:`setting-development-mode`\ 를 참조하세요.
 
-production 환경(environment)에서 취해야 할 한 가지 추가 조치는 PHP 오류 보고 및 기타 개발 전용 기능을 비활성화하는 것입니다.
-이것은 CodeIgniter의 :doc:`environments page </general/environments>`\ 에 자세히 설명된 ``ENVIRONMENT`` 상수로 설정할 수 있습니다.
-기본적으로 어플리케이션은 "production" 환경을 사용하여 실행됩니다.
-제공된 디버깅 도구를 사용하려면 환경을 "development"\ 로 설정해야 합니다.
+.. important:: 프로덕션(production) 환경에서는 오류 표시 및 기타 개발 전용 기능을 비활성화해야 합니다.
+        CodeIgniter에서는 환경을 "production"으로 설정하여 이를 수행할 수 있습니다. 
+        기본적으로 애플리케이션은 "production" 환경을 사용하여 실행됩니다. 
+        :ref:`environment-constant`\ 를 참조하십시오.
 
 .. note:: 웹 서버(예: Apache 또는 Nginx)를 사용하여 사이트를 실행할때는 
     프로젝트 내의 ``writable`` 폴더에 대한 사용 권한을 수정하여 웹 서버에서 쓰기 가능하도록 해야 합니다.
@@ -93,8 +97,13 @@ Apache는 여러 플랫폼과 함께 번들로 제공되지만, `Bitnami (https:
         Require all granted
     </Directory>
 
+index.php 제거
+--------------
+
+:ref:`CodeIgniter URLs <urls-remove-index-php-apache>`\ 를 참조하세요.
+
 가상 호스팅(Virtual Hosting)
--------------------------------------------------------
+----------------------------
 
 "virtual hosting"\ 을 사용하여 어플리케이션 실행 권장합니다.
 작업하는 각 앱에 대해 서로 다른 별칭을 설정할 수 있습니다.
@@ -195,17 +204,26 @@ CodeIgniter public 디렉터리에 대한 옵션과 권한도 지정해야 합�
         </Directory>
     </IfModule>
 
+환경 설정
+---------
+
+:ref:`Handling Multiple Environments <environment-apache>`\ 를 참조하세요.
+
 테스트
--------------------------------------------------------
+------
 
 위의 구성을 따른다면 브라우저에서 ``http://myproject.local``\ 로 웹앱에 액세스하게 됩니다.
 
 구성을 변경할 때마다 Apache를 다시 시작해야 합니다.
 
 Nginx를 사용한 호스트
-=================================================
+=====================
+
 Nginx는 웹 호스팅에 두 번째로 널리 사용되는 HTTP 서버입니다.
 아래의 구성은 Ubuntu Server에서 PHP 7.3 FPM (unix sockets)을 사용한 예제입니다.
+
+default.conf
+------------
 
 이 구성을 사용하면 "index.php"\ 가 없는 URL을 활성화하고 ".php"\ 로 끝나는 URL에 CodeIgniter의 "404-File Not Found"\ 를 보여줍니다.
 
@@ -243,36 +261,10 @@ Nginx는 웹 호스팅에 두 번째로 널리 사용되는 HTTP 서버입니다
     }
 
 
-Vagrant를 사용한 호스트
-=================================================
+환경 설정
+---------
 
-가상화는 개발환경이 실제 동작하는 환경과 다를 경우 웹 어플리케이션을 실제와 가깝게 테스트할 수 있는 좋은 방법입니다.
-두 가지(개발과 실제) 모두 동일한 플랫폼을 사용한다 하더라도 가상화는 테스트를 위한 격리된 환경을 제공합니다.
-
-제공되는 코드베이스에는 ``VagrantFile.dist``\ 가 포함되어 있습니다.
-이 파일을 ``VagrantFile``\ 로 복사하여 사용자 시스템(특정 데이터베이스, 캐싱 엔진)에 맞게 조정합니다.
-
-구성
--------------------------------------------------------
-
-`VirtualBox <https://www.virtualbox.org/wiki/Downloads>`_ 및 `Vagrant <https://www.vagrantup.com/downloads.html>`_\ 를 설치했다고 가정합니다.
-
-Vagrant 구성 파일(config file)은 시스템에 `ubuntu/bionic64 Vagrant box <https://app.vagrantup.com/ubuntu/boxes/bionic64>`_ 설정이 있다고 가정함
-
-::
-
-    vagrant box add ubuntu/bionic64
-
-테스트
--------------------------------------------------------
-
-설정이 완료되면 다음 명령을 사용하여 VM 내부에서 웹앱을 시작할 수 있습니다.
-
-::
-
-    vagrant up
-
-웹앱은 ``http://localhost:8080``\ 에 액세스 할 수 있으며, 빌드에 대한 코드 커버리지 보고서는 ``http://localhost:8081``\ 에 있고 사용자 안내서는 ``http://localhost:8082``.
+:ref:`Handling Multiple Environments <environment-nginx>`\ 를 참조하세요.
 
 
 앱 부트스트랩

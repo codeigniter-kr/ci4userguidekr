@@ -2,7 +2,7 @@
 설치하기(Installation)
 ######################
 
-CodeIgniter4는 다양한 방법으로 설치할 수 있습니다.: 수동 설치, `Composer <https://getcomposer.org>`_\ 설치, `Git <https://git-scm.com/>`_\ 설치. 
+CodeIgniter는 수동 다운로드 또는 `Composer <https://getcomposer.org>`_\ 를 사용하는 두 가지 설치 방법을 지원합니다.
 당신은 어떤 방법을 선호하나요?
 
 - CodeIgniter를 쉽게 최신 상태로 유지하기 때문에 Composer 설치를 권장합니다.
@@ -20,8 +20,8 @@ CodeIgniter4를 설치하고 실행 할 수 있지만, `사용자 가이드 <htt
     installing_composer
     installing_manual
     running
+    troubleshooting
     ../changelogs/index
     upgrading
-    troubleshooting
     repositories
 

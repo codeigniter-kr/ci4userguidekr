@@ -172,38 +172,54 @@ Library Reference
 지원하는 메소드
 ================
 
-**[static] discover(string $directory = 'Publishers'): Publisher[]**
+[static] discover(string $directory = 'Publishers'): Publisher[]
+----------------------------------------------------------------
 
 지정된 네임스페이스 디렉터리에 있는 모든 게시자를 검색하여 반환합니다.
 예를 들어 **app/Publishers/FrameworkPublisher.php**\ 와 **myModule/src/Publishers/AssetPublisher.php**\ 가 모두 존재하고 ``Publisher``\ 의 확장인 경우 ``Publisher::discover()``\ 는 각각의 인스턴스를 반환합니다.
 
-**publish(): bool**
+publish(): bool
+---------------
 
 전체 입력-프로세스-출력 체인을 처리합니다. 
 기본적으로 이것은 ``addPath($source)``\ 와 ``merge(true)``\ 를 호출하는 것과 동일하지만 일반적으로 자식 클래스는 자체 구현을 제공합니다.
 ``publish()``\ 는 ``spark publish``\ 를 실행할 때 검색된 모든 게시자에서 호출됩니다.
 성공 또는 실패를 반환합니다.
 
-**getScratch(): string**
+getScratch(): string
+--------------------
 
 임시 작업공간을 반환하고 필요한 경우 작성합니다.
 일부 작업에서는 중간 스토리지를 사용하여 파일 및 변경 사항을 스테이징하고, 이를 통해 사용 가능한 임시 쓰기 가능 디렉토리로 이동할 수 있습니다.
 
-**getErrors(): array<string, Throwable>**
+getErrors(): array<string, Throwable>
+-------------------------------------
 
 마지막 쓰기 작업에서 발생한 오류를 반환합니다. 
 배열 키는 오류를 발생시킨 파일이며 값은 발견된 실행 파일입니다.
 오류 메시지를 가져오려면 Drowable에서 ``getMessage()``\ 를 사용하십시오.
 
-**addPath(string $path, bool $recursive = true)** /
-**addPaths(array $path, bool $recursive = true)**
+addPath(string $path, bool $recursive = true)
+---------------------------------------------
+
+상대 경로로 표시된 모든 파일을 추가합니다.
+경로는 ``$source``\ 와 관련된 실제 파일 또는 디렉토리에 대한 참조입니다. 
+상대 경로가 디렉토리로 확인되면 ``$recursive``\ 는 하위 디렉토리를 포함합니다.
+
+addPaths(array $path, bool $recursive = true)
+---------------------------------------------
 
 상대 경로로 표시된 모든 파일을 추가합니다.
 경로는 ``$source``\ 와 관련된 실제 파일 또는 디렉토리에 대한 참조입니다.
 상대 경로가 디렉토리로 확인되면 ``$recursive``\ 는 하위 디렉토리를 포함합니다.
 
-**addUri(string $uri)** /
-**addUris(array $uris)**
+addUri(string $uri)
+-------------------
+
+``CURLRequest``\ 를 사용하여 URI의 내용을 스크래치 작업 공간으로 다운로드한 다음 결과 파일을 목록에 추가합니다.
+
+addUris(array $uris)
+--------------------
 
 ``CURLRequest``\ 를 사용하여 URI의 내용을 스크래치 작업 공간으로 다운로드한 다음 결과 파일을 목록에 추가합니다.
 
@@ -211,15 +227,17 @@ Library Reference
      일부 원격 파일은 제대로 처리하기 위해 사용자 지정 요청이 필요할 수 있습니다.
 
 파일 출력
-================
+=========
 
-**wipe()**
+wipe()
+------
 
 ``$destination``\ 의 모든 파일, 디렉토리 및 하위 디렉토리를 제거합니다.
 
 .. important:: 현명하게 사용하십시오.
 
-**copy(bool $replace = true): bool**
+copy(bool $replace = true): bool
+--------------------------------
 
 모든 파일을 ``$destination``\ 에 복사합니다.
 이것은 디렉토리 구조를 다시 생성하지 않으므로 현재 목록의 모든 파일은 동일한 대상 디렉토리에 있게 됩니다.
@@ -229,7 +247,8 @@ Library Reference
 
 .. literalinclude:: publisher/011.php
 
-**merge(bool $replace = true): bool**
+merge(bool $replace = true): bool
+---------------------------------
 
 모든 파일을 적절한 상대 하위 디렉토리의 ``$destination``\ 에 복사합니다.
 ``$source``\ 와 일치하는 모든 파일은 ``$destination``\ 의 해당 디렉토리에 배치되어 "mirror" 또는 "rsync" 작업을 효과적으로 수행합니다.

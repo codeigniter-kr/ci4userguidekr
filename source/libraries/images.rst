@@ -36,7 +36,7 @@ CodeIgniter의 다른 클래스와 마찬가지로 이미지 클래스는 Servic
 
 ImageMagick 라이브러리를 사용하는 경우 **app/Config/Images.php**\ 에서 서버의 라이브러리 경로를 설정해야 합니다.
 
-.. note:: ImageMagick 핸들러는 서버에 imagick 확장을 로드할 필요가 없습니다. 스크립트가 라이브러리에 액세스하고 서버에서 ``exec()``\ 를 실행할 수 있다면 작동합니다.
+.. note:: ImageMagick 핸들러에는 imagick 확장(extension)이 필요합니다.
 
 *******************
 이미지 처리

@@ -16,6 +16,21 @@ CodeIgniter4에는 컨트롤러, 모델, 엔티티 등을 쉽게 생성 할 수�
 내장된 모든 생성기는 ``Generators`` 네임스페이스 아래에 위치하며, ``php spark list``\ 를 사용하여 나열할 수 있습니다.
 특정 생성기에 대한 전체 설명 및 사용 정보를 보려면 다음 명령을 사용합니다.
 
+.. note:: 생성된 코드가 하위 폴더에 있어야 합니까?
+    예를 들어, 메인 ``Controllers`` 폴더의 ``Admin`` 하위 폴더에 상주할 컨트롤러 클래스를 생성하려면 다음과 같이 하위 폴더를 클래스 이름 앞에 추가하면 됩니다. ``php spark make:controller admin/login``.
+    이 명령은 네임스페이스가 ``App\Controllers\Admin``\ 인 ``Controllers/Admin`` 하위 폴더에 ``Login`` 컨트롤러를 생성합니다.
+
+.. note:: 모듈 작업? 
+    코드 생성은 루트 네임스페이스를 기본값 ``APP_NAMESPACE``\ 로 설정합니다.
+    모듈 네임스페이스의 다른 곳에 생성된 코드가 필요한 경우 명령에서 ``--namespace`` 옵션을 설정해야 합니다. (예: ``php spark make:model blog --namespace Acme\Blog``)
+
+.. warning:: ``--namespace`` 옵션을 설정할 때 제공된 네임스페이스가 ``Config\Autoload``\ 의 ``$psr4`` 배열에 정의되었거나 작곡가 자동 로드 파일에 정의된 유효한 네임스페이스인지 확인하십시오.
+    그렇지 않으면 코드 생성이 중단됩니다.
+
+.. warning:: 마이그레이션 파일을 생성하기 위해 ``migrate:create``\ 를 사용하는 것은 더 이상 사용되지 않습니다. 향후 릴리스에서 제거될 예정입니다.
+    대신 ``make:migration``\ 을 사용하세요.
+    또한 더 이상 사용되지 않는 ``session:migration`` 대신 ``make:migration --session``\ 을 사용하세요.
+
 ::
 
     > php spark help <generator_command>
@@ -51,6 +66,10 @@ Options:
 * ``--namespace``: 루트(root) 네임스페이스 설정. 기본값은 상수 ``APP_NAMESPACE``\ 의 값.
 * ``--suffix``: 접미사를 생성된 클래스 이름에 추가합니다.
 * ``--force``: 기존 파일을 덮어 쓰려면 이 플래그를 설정합니다.
+
+.. note:: ``--suffix``\ 를 사용하면 생성된 컨트롤러 이름은 ``ProductController``\ 와 같습니다.
+    이는 :ref:`Auto Routing <controller-auto-routing-improved>`\ 를 사용할 때 컨트롤러 명명 규칙을 위반합니다.(컨트롤러 클래스 이름은 대문자로 시작해야 하며 첫 번째 문자만 대문자일 수 있음)
+    따라서 ``--suffix``\ 는 :ref:`Defined Routes <defined-route-routing>`\ 을 사용할 때 사용할 수 있습니다.
 
 make:config
 -----------
@@ -227,21 +246,6 @@ Options:
 * ``--namespace``: root namespace. 기본 값은 ``APP_NAMESPACE``.
 * ``--suffix``: 생성된 클래스 이름에 구성 요소 접미사 추가.
 * ``--force``: 기존 파일을 덮어쓰도록 설정.
-
-.. note:: 하위 폴더에 생성된 코드를 저장하고 싶나요?
-    메인 ``Controllers`` 폴더의 ``Admin`` 하위 폴더에 컨트롤러 클래스를 만들고 싶다면, 클래스 이름 앞에 ``php spark make:controller admin/login``\ 와 같이 하위 폴더를 추가하면 됩니다.
-    이 명령은 ``App\Controllers\Admin`` 네임 스페이스를 사용하여 ``Controllers/Admin`` 하위 폴더에 ``Login`` 컨트롤러를 생성합니다.
-
-.. note:: 모듈 작업을 하고 있습니까? 
-    코드 생성시 루트 네임스페이스는 기본값인 상수 ``APP_NAMESPACE``\ 의 값으로 설정됩니다.
-    다른 위치의 모듈 네임스페이스에 생성된 코드가 있어야 한다면 ``--namespace`` 옵션을 사용하여 설정해야 합니다. ex> ``php spark make:model blog -namespace Acme\Blog``
-
-.. warning:: ``--namespace`` 옵션을 설정할 때 제공된 네임스페이스가 ``Config\Autoload``\ 의 ``$psr4`` 배열에 정의되거나 
-    composer autoload 파일에 정의된 유효한 네임스페이스인지 확인하십시오.
-    정의되지 않은 경우 코드 생성이 중단됩니다.
-
-.. warning:: 마이그레이션 파일을 만들기 위해 ``migrate:create``\ 는 이후 릴리스에서 제거되어 더 이상 사용되지 않습니다.
-    대신 ``make:migration``\ 을 사용하십시오. ``session:migration``\ 은  ``make:migration --session``\ 을 사용하십시오.
 
 ****************************************
 스캐폴딩 코드 세트

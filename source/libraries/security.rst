@@ -98,6 +98,8 @@ Token Randomization
 
 .. literalinclude:: security/004.php
 
+.. note:: v4.2.3부터 ``Security::generateHash()`` 메소드를 사용하여 수동으로 CSRF 토큰을 재생성할 수 있습니다.
+
 실패 시 리디렉션
 ======================
 
@@ -177,7 +179,8 @@ CSRF 토큰을 확인하는 순서는 다음과 같습니다.
 Security 클래스의 대부분의 메소드를 직접 사용할 필요는 없습니다.
 다음은 CSRF 보호와 관련이 없는 유용한 메소드입니다.
 
-**sanitizeFilename()**
+sanitizeFilename()
+==================
 
 디렉토리 탐색 시도 및 기타 보안 위협을 방지하기 위해 파일 이름을 삭제하려고 시도합니다. 
 이는 사용자 입력을 통해 제공된 파일에 특히 유용합니다. 
