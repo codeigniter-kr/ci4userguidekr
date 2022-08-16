@@ -1,7 +1,7 @@
 Version 4.2.4
 #############
 
-Release Date: Unreleased
+Release Date: August 13, 2022
 
 **4.2.4 release of CodeIgniter4**
 
@@ -9,27 +9,4 @@ Release Date: Unreleased
     :local:
     :depth: 2
 
-BREAKING
-********
-
-none.
-
-Enhancements
-************
-
-none.
-
-Changes
-*******
-
-none.
-
-Deprecations
-************
-
-none.
-
-Bugs Fixed
-**********
-
-수정된 전체 버그 목록은 `CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_\ 를 참조하세요.
+**다운로드 오류를 수정하기 위한 핫픽스 릴리스; 다른 내용은 변경되지 않습니다.**
