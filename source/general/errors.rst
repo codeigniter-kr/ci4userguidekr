@@ -69,7 +69,7 @@ PageNotFoundException
 
 404, Page Not Found 오류를 알리는 데 사용됩니다.
 예외가 발생하면 시스템은 ``app/views/errors/html/error_404.php``\ 에 있는 뷰를 보여줍니다.
-``메ㅔ/Config/Routes.php``\ 에서 404 오류를 재정의하여 지정하면 표준 404 페이지 대신 호출됩니다.
+``app/Config/Routes.php``\ 에서 404 오류를 재정의하여 지정하면 표준 404 페이지 대신 호출됩니다.
 
 .. literalinclude:: errors/007.php
 
