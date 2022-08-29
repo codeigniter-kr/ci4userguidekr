@@ -10,7 +10,9 @@
 Class Reference
 ===============
 
-.. php:class:: CodeIgniter\\HTTP\\Request
+.. php:namespace:: CodeIgniter\HTTP
+
+.. php:class:: Request
 
     .. php:method:: getIPAddress()
 

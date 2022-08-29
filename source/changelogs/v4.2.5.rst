@@ -12,12 +12,14 @@ Release Date: Unreleased
 BREAKING
 ********
 
-none.
+- ``BaseConnection::tableExists()`` 메소드의 서명이 변경되었습니다. 캐시 데이터를 사용할지 여부를 지시하는 두 번째 선택적 매개변수 ``$cached``\ 가 추가되었습니다. 기본값은 ``true``\ 이며 캐시 데이터를 사용합니다.
+- 추상 메소드 ``BaseBuilder::_listTables()`` 서명이 변경되었습니다. 테이블 이름을 제공하면 해당 테이블만 나열하는 SQL이 생성하는 두 번째 선택적 매개변수 ``$tableName``\ 이 추가되었습니다.
+- ``Validation::processRules()``\ 와 ``Validation::getErrorMessage()`` 메소드의 서명이 변경되었습니다. 이 두 메소드 모두 새로운 ``$originalField`` 매개변수를 추가합니다.
 
 Enhancements
 ************
 
-none.
+- Kint가 4.2.0으로 업데이트되었습니다.
 
 Changes
 *******
@@ -31,5 +33,7 @@ none.
 
 Bugs Fixed
 **********
+
+- 메인 쿼리에서 서브 쿼리를 사용할 경우 테이블 별칭(alias)에 접두어가 추가됩니다.
 
 수정된 전체 버그 목록은 `CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_\ 를 참조하세요.

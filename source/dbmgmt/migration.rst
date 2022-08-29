@@ -209,7 +209,9 @@ Preference                 Default                Options                    Des
 Class Reference
 ***************
 
-.. php:class:: CodeIgniter\\Database\\MigrationRunner
+.. php:namespace:: CodeIgniter\Database
+
+.. php:class:: MigrationRunner
 
 	.. php:method:: findMigrations()
 

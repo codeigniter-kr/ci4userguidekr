@@ -189,7 +189,9 @@ Sodium은 XSalsa20, MAC의 경우 Poly1305를 사용하여 암호화하고, 엔�
 Class Reference
 ***************
 
-.. php:class:: CodeIgniter\\Encryption\\Encryption
+.. php:namespace:: CodeIgniter\Encryption
+
+.. php:class:: Encryption
 
 	.. php:staticmethod:: createKey([$length = 32])
 

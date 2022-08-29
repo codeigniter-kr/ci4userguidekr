@@ -96,167 +96,171 @@ cache:info
 Class Reference
 ***************
 
-.. php:method:: isSupported()
+.. php:namespace:: CodeIgniter\Cache
 
-    :returns: 지원되는 경우 ``true``, 지원하지 않는 경우 ``false``
-    :rtype: bool
+.. php:class:: CacheInterface
 
-.. php:method::  get($key): mixed
-    :noindex:
+    .. php:method:: isSupported()
 
-    :param string $key: 캐시 아이템 이름
-    :returns: 항목 값 또는 찾지 못한 경우 ``null``
-    :rtype: mixed
+        :returns: 지원되는 경우 ``true``, 지원하지 않는 경우 ``false``
+        :rtype: bool
 
-    이 메소드는 캐시 저장소에서 항목을 가져 오려고 시도합니다.
-    항목이 존재하지 않으면 null을 리턴합니다.
+    .. php:method::  get($key): mixed
+        :noindex:
 
-    Example
-    
-    .. literalinclude:: caching/003.php
+        :param string $key: 캐시 아이템 이름
+        :returns: 항목 값 또는 찾지 못한 경우 ``null``
+        :rtype: mixed
 
-.. php:method:: remember(string $key, int $ttl, Closure $callback)
+        이 메소드는 캐시 저장소에서 항목을 가져 오려고 시도합니다.
+        항목이 존재하지 않으면 null을 리턴합니다.
 
-    :param string $key: 캐시 아이템 이름
-    :param int $ttl: 유효시간, 초
-    :param Closure $callback: 캐시 항목이 null을 반환할 때 호출할 콜백
-    :returns: 캐시 항목의 값
-    :rtype: mixed
-    
-    캐시에서 항목을 가져옵니다.
-    ``null``\ 이 반환된 경우 콜백을 호출하고 결과를 저장합니다.
-    어느 쪽이든 값을 반환합니다.
+        Example
+        
+        .. literalinclude:: caching/003.php
 
-.. php:method:: save(string $key, $data[, int $ttl = 60[, $raw = false]])
+    .. php:method:: remember(string $key, int $ttl, Closure $callback)
 
-    :param string $key: 캐시 아이템 이름
-    :param mixed $data: 저장할 데이터
-    :param int $ttl: 유효시간, 초 (기본값 60)
-    :param bool $raw: 원시(raw) 값을 저장할지 여부
-    :returns: 성공하면 ``true``, 실패하면 ``false``
-    :rtype: bool
+        :param string $key: 캐시 아이템 이름
+        :param int $ttl: 유효시간, 초
+        :param Closure $callback: 캐시 항목이 null을 반환할 때 호출할 콜백
+        :returns: 캐시 항목의 값
+        :rtype: mixed
+        
+        캐시에서 항목을 가져옵니다.
+        ``null``\ 이 반환된 경우 콜백을 호출하고 결과를 저장합니다.
+        어느 쪽이든 값을 반환합니다.
 
-    항목을 캐시 저장소에 저장합니다.
-    저장에 실패하면 false를 리턴합니다.
+    .. php:method:: save(string $key, $data[, int $ttl = 60[, $raw = false]])
 
-    Example
+        :param string $key: 캐시 아이템 이름
+        :param mixed $data: 저장할 데이터
+        :param int $ttl: 유효시간, 초 (기본값 60)
+        :param bool $raw: 원시(raw) 값을 저장할지 여부
+        :returns: 성공하면 ``true``, 실패하면 ``false``
+        :rtype: bool
 
-    .. literalinclude:: caching/004.php
+        항목을 캐시 저장소에 저장합니다.
+        저장에 실패하면 false를 리턴합니다.
 
-    .. note:: ``$raw`` 매개 변수는 Memcache의 ``increment()``\ 와 ``decrement()`` 사용시만 사용됩니다.
+        Example
 
-.. php:method:: delete($key): bool
-    :noindex:
+        .. literalinclude:: caching/004.php
 
-    :param string $key: 캐시된 항목의 이름
-    :returns: 성공하면 ``true``, 실패하면 ``false``
-    :rtype: bool
+        .. note:: ``$raw`` 매개 변수는 Memcache의 ``increment()``\ 와 ``decrement()`` 사용시만 사용됩니다.
 
-    캐시 저장소에서 특정 항목을 삭제합니다.
-    항목 삭제에 실패하면 false를 리턴합니다.
+    .. php:method:: delete($key): bool
+        :noindex:
 
-    Example
-    
-    .. literalinclude:: caching/005.php
+        :param string $key: 캐시된 항목의 이름
+        :returns: 성공하면 ``true``, 실패하면 ``false``
+        :rtype: bool
 
-. php:method:: deleteMatching($pattern): integer
+        캐시 저장소에서 특정 항목을 삭제합니다.
+        항목 삭제에 실패하면 false를 리턴합니다.
 
-    :param string $pattern: 캐시된 항목 키와 일치하는 glob-style 패턴
-    :returns: 삭제된 항목 수
-    :rtype: integer
+        Example
+        
+        .. literalinclude:: caching/005.php
 
-    이 메서드는 glob-style 패턴과 키를 일치시켜 캐시 저장소에서 여러 항목을 한 번에 삭제합니다. 
-    삭제된 총 항목 수가 반환됩니다.
+    .. php:method:: deleteMatching($pattern): integer
 
-    .. important:: 이 메소드는 file, Redis, Predis 핸들러에만 구현됩니다.
-            제한으로 인해 Memcached와 Wincache 핸들러에 구현할 수 없습니다.
+        :param string $pattern: 캐시된 항목 키와 일치하는 glob-style 패턴
+        :returns: 삭제된 항목 수
+        :rtype: integer
 
-    Example
+        이 메서드는 glob-style 패턴과 키를 일치시켜 캐시 저장소에서 여러 항목을 한 번에 삭제합니다. 
+        삭제된 총 항목 수가 반환됩니다.
 
-    .. literalinclude:: caching/006.php
+        .. important:: 이 메소드는 file, Redis, Predis 핸들러에만 구현됩니다.
+                제한으로 인해 Memcached와 Wincache 핸들러에 구현할 수 없습니다.
 
-    glob 스타일 구문에 대한 자세한 내용은  `Glob (programming) <https://en.wikipedia.org/wiki/Glob_(programming)#Syntax>`_\ 을 참조하십시오.
+        Example
 
-.. php:method:: increment($key[, $offset = 1]): mixed
-    :noindex:
+        .. literalinclude:: caching/006.php
 
-    :param string $key: Cache ID
-    :param int $offset: 추가할 단계/값
-    :returns: 성공시 새로운 값, 실패시 ``false``
-    :rtype: mixed
+        glob 스타일 구문에 대한 자세한 내용은  `Glob (programming) <https://en.wikipedia.org/wiki/Glob_(programming)#Syntax>`_\ 을 참조하십시오.
 
-    저장된 값의 증분을 수행합니다.
+    .. php:method:: increment($key[, $offset = 1]): mixed
+        :noindex:
 
-    Example
-    
-    .. literalinclude:: caching/007.php
+        :param string $key: Cache ID
+        :param int $offset: 추가할 단계/값
+        :returns: 성공시 새로운 값, 실패시 ``false``
+        :rtype: mixed
 
-.. php:method:: decrement($key[, $offset = 1]): mixed
-    :noindex:
+        저장된 값의 증분을 수행합니다.
 
-    :param string $key: Cache ID
-    :param int $offset: 줄일 단계/값
-    :returns: 성공시 새로운 값, 실패시 ``false``
-    :rtype: mixed
+        Example
+        
+        .. literalinclude:: caching/007.php
 
-    저장된 값의 감소를 수행합니다.
+    .. php:method:: decrement($key[, $offset = 1]): mixed
+        :noindex:
 
-    Example
-    
-    .. literalinclude:: caching/008.php
+        :param string $key: Cache ID
+        :param int $offset: 줄일 단계/값
+        :returns: 성공시 새로운 값, 실패시 ``false``
+        :rtype: mixed
 
-.. php:method:: clean()
+        저장된 값의 감소를 수행합니다.
 
-    :returns: 성공하면 ``true``, 실패하면 ``false``
-    :rtype: bool
+        Example
+        
+        .. literalinclude:: caching/008.php
 
-    전체 캐시를 '삭제' 합니다. 
-    캐시 파일 삭제에 실패하면 false를 리턴합니다.
+    .. php:method:: clean()
 
-    Example
-    
-    .. literalinclude:: caching/009.php
+        :returns: 성공하면 ``true``, 실패하면 ``false``
+        :rtype: bool
 
-.. php:method:: getCacheInfo()
+        전체 캐시를 '삭제' 합니다. 
+        캐시 파일 삭제에 실패하면 false를 리턴합니다.
 
-    :returns: 전체 캐시 데이터베이스에 대한 정보
-    :rtype: mixed
+        Example
+        
+        .. literalinclude:: caching/009.php
 
-    전체 캐시에 대한 정보를 리턴합니다.
+    .. php:method:: getCacheInfo()
 
-    Example
-    
-    .. literalinclude:: caching/010.php
+        :returns: 전체 캐시 데이터베이스에 대한 정보
+        :rtype: mixed
 
-    .. note:: 리턴된 정보 및 데이터 구조는 사용중인 어댑터에 따라 다릅니다.
+        전체 캐시에 대한 정보를 리턴합니다.
 
-.. php:method:: getMetadata($key)
+        Example
+        
+        .. literalinclude:: caching/010.php
 
-    :param string $key: 캐시 아이템 이름
-    :returns: 캐시된 항목의 메타 데이터, 누락된 항목인 경우 ``null``, 기간 만료된 항목인 경우 ``expire`` 키가 있는 배열 (``null``\ 인 경우 기간 만료가 아님).
-    :rtype: array|null
+        .. note:: 리턴된 정보 및 데이터 구조는 사용중인 어댑터에 따라 다릅니다.
 
-    캐시의 특정 항목에 대한 자세한 정보를 리턴합니다.
+    .. php:method:: getMetadata($key)
 
-    Example
-    
-    .. literalinclude:: caching/011.php
+        :param string $key: 캐시 아이템 이름
+        :returns: 캐시된 항목의 메타 데이터, 누락된 항목인 경우 ``null``, 기간 만료된 항목인 경우 ``expire`` 키가 있는 배열 (``null``\ 인 경우 기간 만료가 아님).
+        :rtype: array|null
 
-    .. note:: 리턴된 정보 및 데이터 구조는 사용중인 어댑터에 따라 다릅며, 일부 어댑터(File, Memcached, Wincache)는 누락된 항목에 대해 여전히 ``false``\ 를 반환합니다.
+        캐시의 특정 항목에 대한 자세한 정보를 리턴합니다.
 
-.. php:staticmethod:: validateKey(string $key, string $prefix)
+        Example
+        
+        .. literalinclude:: caching/011.php
 
-    :param string $key: 잠재적 캐시 키
-    :param string $prefix: 선택적 접두사
-    :returns: 확인되고 접두사가 붙은 키입니다. 키가 캐시 드라이버의 최대 키 길이를 초과할 경우 해시(hash)가 됩니다.
-    :rtype: string
+        .. note:: 리턴된 정보 및 데이터 구조는 사용중인 어댑터에 따라 다릅며, 일부 어댑터(File, Memcached, Wincache)는 누락된 항목에 대해 여전히 ``false``\ 를 반환합니다.
 
-    이 메소드는 핸들러 메소드에 유효한 키인지 확인하는 데 사용됩니다. 
-    문자열이 아닌 문자, 잘못된 문자 및 빈 문자열에 대해 ``InvalidArgumentException`` 예외가 발생합니다.
+    .. php:staticmethod:: validateKey(string $key, string $prefix)
 
-    Example
-    
-    .. literalinclude:: caching/012.php
+        :param string $key: 잠재적 캐시 키
+        :param string $prefix: 선택적 접두사
+        :returns: 확인되고 접두사가 붙은 키입니다. 키가 캐시 드라이버의 최대 키 길이를 초과할 경우 해시(hash)가 됩니다.
+        :rtype: string
+
+        이 메소드는 핸들러 메소드에 유효한 키인지 확인하는 데 사용됩니다. 
+        문자열이 아닌 문자, 잘못된 문자 및 빈 문자열에 대해 ``InvalidArgumentException`` 예외가 발생합니다.
+
+        Example
+        
+        .. literalinclude:: caching/012.php
 
 *******
 Drivers

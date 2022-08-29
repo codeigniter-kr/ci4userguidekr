@@ -14,11 +14,28 @@
 
 컨트롤러는 HTTP 요청을 처리하는 간단한 클래스 파일입니다. :doc:`URI Routing <routing>`\ 은 URI를 컨트롤러와 연결합니다.
 
+생성하는 모든 컨트롤러는 ``BaseController`` 클래스를 확장해야 합니다.
+이 클래스는 모든 컨트롤러에서 사용할 수 있는 몇 가지 기능을 제공합니다.
+
+생성자(Constructor)
+*******************
+
+CodeIgniter의 컨트롤러에는 특별한 생성자 ``initController()``\ 가 있습니다.
+PHP의 생성자 ``__construct()`` 실행 후 프레임워크에 의해 호출됩니다.
+
+``initController()``\ 를 재정의할 때 ``parent::initController($request, $response, $logger);``\ 를 추가하는 것을 잊지 마십시오.
+
+.. literalinclude:: controllers/023.php
+
+.. important:: 생성자에서 ``return``을 사용할 수 없습니다. 따라서 ``return redirect()->to('route');``\ 는 작동하지 않습니다.
+
+``initController()`` 메소드는 다음 세 가지 속성을 설정합니다.
+
+
 포함된 속성
 *******************
 
-생성하는 모든 컨트롤러는 ``CodeIgniter\Controller`` 클래스를 확장해야 합니다.
-이 클래스는 모든 컨트롤러에서 사용할 수 있는 몇 가지 기능을 제공합니다.
+CodeIgniter의 컨트롤러는 다음 3가지 속성을 제공합니다.
 
 **Request Object**
 
@@ -85,8 +102,8 @@ $this->validateData()
 
 .. literalinclude:: controllers/006.php
 
-비공개 메소드
-***************
+메소드 보호
+*************
 
 특정 메서드를 공개하지 않고 숨기고 싶은 메소드는 ``private`` 또는 ``protected``로 선언합니다.
 그러면 URL 요청에 의해 접근하는 것을 방지할 수 있습니다. 
@@ -94,11 +111,13 @@ $this->validateData()
 
 .. literalinclude:: controllers/007.php
 
-다음 URL을 사용하여 액세스하려고 할 때 작동하지 않습니다.
+메소드에 대한 경로(``helloworld/utility``)를 정의합니다. 다음 URL을 사용하여 액세스하려고 하면 작동하지 않습니다.
 
 ::
 
-    example.com/index.php/helloworld/utility/
+    example.com/index.php/helloworld/utility
+
+자동 라우팅(Auto-routing)도 작동하지 않습니다.
 
 .. _controller-auto-routing-improved:
 

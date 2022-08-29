@@ -551,7 +551,9 @@ Result::
 Class Reference
 ***************
 
-.. php:class:: CodeIgniter\\View\\Parser
+.. php:namespace:: CodeIgniter\View
+
+.. php:class:: Parser
 
 	.. php:method:: render($view[, $options[, $saveData = false]])
 

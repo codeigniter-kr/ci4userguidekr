@@ -136,7 +136,9 @@ CodeIgniter는 다음과 같이 메시지의 일부에서 단어 줄 바꿈을 �
 Class Reference
 ***************
 
-.. php:class:: CodeIgniter\\Email\\Email
+.. php:namespace:: CodeIgniter\Email
+
+.. php:class:: Email
 
 	.. php:method:: setFrom($from[, $name = ''[, $returnPath = null]])
 

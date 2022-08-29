@@ -31,10 +31,13 @@ Test 데이터베이스 설정
 
 ::
 
-    database.tests.dbdriver = 'MySQLi';
-    database.tests.username = 'root';
-    database.tests.password = '';
-    database.tests.database = '';
+    database.tests.hostname = localhost
+    database.tests.database = ci4_test
+    database.tests.username = root
+    database.tests.password = root
+    database.tests.DBDriver = MySQLi
+    database.tests.DBPrefix =
+    database.tests.port = 3306
 
 마이그레이션과 시드
 ====================

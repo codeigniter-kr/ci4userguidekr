@@ -34,7 +34,7 @@
     :rtype:	void
 
     브라우저 쿠키를 설정하기 위한 보다 친근한 구문을 제공합니다.
-    이 함수는 :php:func:`Response::setCookie() <setCookie>`\ 의 별칭이므로, 사용법에 대한 설명은 :doc:`Response 라이브러리 </outgoing/response>`\ 를 참조하십시오.
+    이 함수는 :php:meth:`CodeIgniter\\HTTP\\Response::setCookie()`\ 의 별칭이므로, 사용법에 대한 설명은 :doc:`Response 라이브러리 </outgoing/response>`\ 를 참조하십시오.
 
 .. php:function:: get_cookie($index[, $xssClean = false[, $prefix = '']])
 

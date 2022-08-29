@@ -26,7 +26,9 @@ PNG 파일을 표시할 수 없는 브라우저는 GIF 또는 JPEG 이미지를 
 Class Reference
 ***************
 
-.. php:class:: CodeIgniter\\HTTP\\Message
+.. php:namespace:: CodeIgniter\HTTP
+
+.. php:class:: Message
 
     .. php:method:: getBody()
 

@@ -210,7 +210,9 @@ Setting              Options/ Types                        Default   Description
 Class Reference
 ***************
 
-.. php:class:: CodeIgniter\\HTTP\\Cookie\\Cookie
+.. php:namespace:: CodeIgniter\HTTP\Cookie
+
+.. php:class:: Cookie
 
     .. php:staticmethod:: setDefaults([$config = []])
 
@@ -367,7 +369,7 @@ Class Reference
         :rtype: array
         :returns: 쿠키 인스턴스의 배열 표현을 반환합니다.
 
-.. php:class:: CodeIgniter\\HTTP\\Cookie\\CookieStore
+.. php:class:: CookieStore
 
     .. php:staticmethod:: fromCookieHeaders(array $headers[, bool $raw = false])
 

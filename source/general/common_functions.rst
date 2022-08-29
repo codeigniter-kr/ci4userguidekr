@@ -329,7 +329,7 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
     .. literalinclude:: common_functions/010.php
 
     .. note:: ``route_to()``\ 는 사이트의 전체 URI 경로가 아닌 경로를 반환합니다.
-        **baseURL**\ 에 하위 폴더가 포함된 경우 반환 값은 연결할 URI와 동일하지 않습니다. 이런 경우에는 :php:func:`url_to`\ 를 사용하세요.
+        **baseURL**\ 에 하위 폴더가 포함된 경우 반환 값은 연결할 URI와 동일하지 않습니다. 이런 경우에는 :php:func:`url_to()`\ 를 사용하세요.
 
 .. php:function:: service($name[, ...$params])
 

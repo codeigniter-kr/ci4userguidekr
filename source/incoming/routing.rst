@@ -309,7 +309,7 @@ HTTP 동사 기반 라우트 메소드로 생성된 모든 라우트는 CLI에�
 .. literalinclude:: routing/032.php
 
 .. note::CLI를 통해 컨트롤러를 호출하는 대신 CLI 스크립트에 Spark 명령을 사용하는 것이 좋습니다.
-    자세한 내용은 :doc:`../cli/spark_commands` 페이지를 참조하십시오.
+    자세한 내용은 :doc:`../cli/cli_commands` 페이지를 참조하십시오.
 
 .. warning:: :ref:`auto-routing`\ 을 활성화하고 명령 파일이 **app/Controllers**\ 에 있으면 HTTP를 통한 자동 라우팅으로 CLI 명령에 액세스할 수 있습니다.
 
@@ -418,8 +418,17 @@ HTTP 동사 기반 라우트 메소드로 생성된 모든 라우트는 CLI에�
 
 .. _routing-priority:
 
-경로 처리 대기열
-----------------------
+경로(Route) 우선 순위
+*********************
+
+경로는 정의된 순서대로 라우팅 테이블에 등록되며, URI에 액세스할 때 일치하는 첫 번째 경로가 실행됩니다.
+
+.. note:: 경로(URI 경로)가 다른 핸들러로 두 번 이상 정의된 경우 첫 번째 정의된 경로만 등록됩니다.
+
+:ref:`spark route <spark-routes>` 명령을 실행하여 라우팅 테이블에 등록된 경로를 확인할 수 있습니다.
+
+경로 우선 순위 변경
+=======================
 
 모듈로 작업할 때 어플리케이션의 경로에 와일드카드가 포함되어 있으면 모듈 경로가 올바르게 처리되지 않습니다.
 ``priority`` 옵션을 사용하여 경로 처리의 우선순위를 낮추면 이 문제를 해결할 수 있습니다. 
@@ -670,7 +679,7 @@ Model-View-Controller 접근 방식을 따르는 URL의 세그먼트는 일반�
 경로 확인
 *****************
 
-CodeIgniter는 모든 경로를 표시하는 :doc:`command </cli/cli_commands>`\ 가 있습니다.
+CodeIgniter는 모든 경로를 표시하는 :doc:`command </cli/spark_commands>`\ 가 있습니다.
 
 .. _spark-routes:
 

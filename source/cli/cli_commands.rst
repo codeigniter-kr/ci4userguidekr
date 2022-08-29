@@ -87,7 +87,9 @@ CLI 문자열이 아래와 같다면
 모든 명령이 확장해야 하는 ``BaseCommand`` 클래스에는 고유한 명령을 작성할 때 유용한 유틸리티 메소드가 있습니다.
 또한 **$this->logger**\ 를 통해 사용 가능한 :doc:`Logger </general/logging>`\ 도 있습니다.
 
-.. php:class:: CodeIgniter\\CLI\\BaseCommand
+.. php:namespace:: CodeIgniter\CLI
+
+.. php:class:: BaseCommand
 
     .. php:method:: call(string $command[, array $params = []])
 

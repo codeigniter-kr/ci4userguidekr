@@ -65,21 +65,6 @@ Initial Configuration
 
     > composer update 
 
-시스템에 속하지 않는 디렉토리(app, public 등)를 최신 프레임워크 소스 구조와 비교하려면 ``--prefer-source`` 옵션으로 업데이트합니다.
-
-::
-
-    > composer update codeigniter4/framework --prefer-source
-
-``--prefer-source`` 옵션으로 최신 프레임워크 소스 구조를 가져올때 자동 업데이트가 되지 않으면 이전 코드를 다음과 같이 제거할 수 있습니다.
-
-::
-
-    rm -rf vendor/codeigniter4/framework && composer update codeigniter4/framework --prefer-source
-
-
-프로젝트를 만들 때 ``--no-dev`` 옵션을 사용했다면 ``composer update --no-dev``\ 를 입력합니다.
-
 :doc:`업그레이드 지침 <upgrading>`\ 을 읽고 변경 사항 및 개선 사항을 확인하십시오.
 
 장점
@@ -100,7 +85,6 @@ Initial Configuration
 
 - app, public, tests, writable 
 - vendor/codeigniter4/framework/system
-- vendor/codeigniter4/framework/app & public (``--prefer-source`` 옵션 사용 시 업데이트 후 확인이 필요합니다.)
 
 Latest Dev
 =================
@@ -115,7 +99,7 @@ App Starter 저장소에는 현재 안정 릴리스와 프레임워크의 최신
 
 ::
 
-    php builds developmen
+    > php builds developmen
 
 위의 명령은 **composer.json**\ 을 업데이트하여 작업 저장소의 ``develop`` 브렌치(branch)를 가리키고 구성 및 XML 파일의 해당 경로를 업데이트합니다.
 
@@ -123,7 +107,7 @@ App Starter 저장소에는 현재 안정 릴리스와 프레임워크의 최신
 
 ::
 
-    php builds release
+    > php builds release
 
 
 ``builds`` 명령을 사용한 후에는 반드시 ``composer update``\ 를 실행하여 vendor 폴더를 최신 빌드와 동기화해야 합니다.
@@ -142,19 +126,16 @@ Installation
 
 ::
 
-    > composer require codeigniter4/framework --prefer-sourc
+    > composer require codeigniter4/framework
 
-앞서 설명한 두 가지 composer 설치 방법과 마찬가지로, phpunit 관련 패키지가 필요 없다면 ``composer require`` 명령에 ``---no-dev`` 옵션을 추가하십시오.
+앞서 설명한 composer 설치 방법과 마찬가지로, ``composer require`` 명령에 ``---no-dev`` 옵션을 추가하여 phpunit 관련 패키지 설치를 생략할 수 있습니다.
 
 설정(Setup)
 ----------------
 
-``app``, ``public``, ``writable`` 폴더를 ``vendor/codeigniter4/framework``\ 에서 프로젝트 루트(root)로 복사
-
-``env``, ``phpunit.xml.dist``, ``spark`` 파일을 ``vendor/codeigniter4/framework``\ 에서 프로젝트 루트로 복사
-
-``vendor/codeigniter/framework``\ 를 참조하기 위해 ``app/Config/Paths.php``\ 의 $systemDirectory 변수의 경로를 수정하십시오.
-``app/Config/Paths.php`` 파일의 ``$systemDirectory`` 변수를 컴포저의 vendor 경로로 조정합니다.
+    1. ``app``, ``public``, ``tests``, ``writable`` 폴더를 ``vendor/codeigniter4/framework``\ 에서 프로젝트 루트(root)로 복사
+    2. ``env``, ``phpunit.xml.dist``, ``spark`` 파일을 ``vendor/codeigniter4/framework``\ 에서 프로젝트 루트로 복사
+    3. **app/Config/Paths.php**\ 의 ``$systemDirectory`` 속성을 조정하여 공급업체를 참조(예: ``ROOTPATH . '/vendor/codeigniter4/framework/system'``)합니다.
 
 Initial Configuration
 ---------------------
@@ -169,7 +150,7 @@ Initial Configuration
 
 새 릴리즈가 있을 때마다 프로젝트 루트의 커맨드 라인에서 다음 명령을 입력하십시오.::
 
-    > composer update --prefer-source
+    > composer update
 
 :doc:`업그레이드 지침 <upgrading>`\ 을 읽고 변경 사항 및 개선 사항을 확인하십시오.
 
@@ -188,7 +169,7 @@ Initial Configuration
 
 설정 후 프로젝트의 폴더:
 
-- app, public, writable (``--prefer-source`` 옵션 사용 시)
+- app, public, tests, writable
 - vendor/codeigniter4/framework/system
 
 번역된 시스템 메시지 설치
