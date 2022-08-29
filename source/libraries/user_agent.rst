@@ -38,7 +38,9 @@ User Agent 클래스가 초기화되면 사이트를 탐색하는 User Agent가 
 Class Reference
 ***************
 
-.. php:class:: CodeIgniter\\HTTP\\UserAgent
+.. php:namespace:: CodeIgniter\HTTP
+
+.. php:class:: UserAgent
 
 	.. php:method:: isBrowser([$key = null])
 

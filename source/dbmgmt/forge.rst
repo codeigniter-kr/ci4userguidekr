@@ -270,7 +270,9 @@ $forge->modifyColumn()
 Class Reference
 ***************
 
-.. php:class:: \CodeIgniter\Database\Forge
+.. php:namespace:: CodeIgniter\Database
+
+.. php:class:: Forge
 
 	.. php:method:: addColumn($table[, $field = []])
 

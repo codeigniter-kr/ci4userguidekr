@@ -1,0 +1,37 @@
+Version 4.2.6
+#############
+
+Release Date: Unreleased
+
+**4.2.6 release of CodeIgniter4**
+
+.. contents::
+    :local:
+    :depth: 2
+
+BREAKING
+********
+
+none.
+
+Enhancements
+************
+
+none.
+
+Changes
+*******
+
+none.
+
+Deprecations
+************
+
+none.
+
+Bugs Fixed
+**********
+
+none.
+
+수정된 전체 버그 목록은 `CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_\ 를 참조하세요.

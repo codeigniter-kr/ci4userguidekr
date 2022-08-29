@@ -5,7 +5,7 @@
 기본적으로 CodeIgniter를 사용하여 하나의 어플리케이션만 관리한다면 **app** 디렉토리에 빌드됩니다.
 그러나 단일 CodeIgniter를 공유하는 여러 어플리케이션 세트를 보유하거나, 어플리케이션 디렉토리의 이름을 바꾸거나 재배치할 수도 있습니다.
 
-.. important:: CodeIgniter v4.1.9 또는 이전 버전을 설치했다면 ``/composer.json``\ 파일의 ``autoload.psr-4``\ 에 ``App\\``\ 과 ``Config\\`` 네임스페이스가 있는 경우 다음과 같이 이 줄을 제거하고 ``composer dump-autolod``\ 를 실행해야 합니다.
+.. important:: CodeIgniter v4.1.9 또는 이전 버전을 설치했다면 ``/composer.json``\ 파일의 ``autoload.psr-4``\ 에 ``App\\``\ 과 ``Config\\`` 네임스페이스가 있는 경우 다음과 같이 이 줄을 제거하고 ``composer dump-autoload``\ 를 실행해야 합니다.
 
     .. code-block:: text
 
@@ -36,12 +36,12 @@
 
 **Paths** 구성 파일을 찾을 수 있도록 프로젝트 루트의 두 개의 파일을 수정해야 합니다.
 
-- **/spark** 파일의 35번째 행, 커맨드 라인(command line) 앱 실행에 사용됩니다.
+- **/spark** 커맨드 라인(command line) 앱 실행에 사용됩니다.
 
   .. literalinclude:: managing_apps/002.php
 
 
-- **/public/index.php** 파일의 20번째 행, webapp의 프론트 컨트롤러입니다.
+- **/public/index.php** webapp의 프론트 컨트롤러입니다.
 
   .. literalinclude:: managing_apps/003.php
 

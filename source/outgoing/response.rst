@@ -228,7 +228,9 @@ Class Reference
 * :meth:`CodeIgniter\\HTTP\\Message::negotiateLanguage`
 * :meth:`CodeIgniter\\HTTP\\Message::negotiateLanguage`
 
-.. php:class:: CodeIgniter\\HTTP\\Response
+.. php:namespace:: CodeIgniter\HTTP
+
+.. php:class:: Response
 
     .. php:method:: getStatusCode()
 

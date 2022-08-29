@@ -98,7 +98,9 @@ PHP 코드에서 배열을 적절하게 처리하는 것은 사용자의 책임�
 Class Reference
 ***************
 
-.. php:class:: CodeIgniter\\View\\View
+.. php:namespace:: CodeIgniter\View
+
+.. php:class:: View
 
     .. php:method:: render($view[, $options[, $saveData = false]])
         :noindex:

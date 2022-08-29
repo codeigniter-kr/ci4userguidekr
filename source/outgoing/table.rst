@@ -65,6 +65,8 @@ Examples
 Class Reference
 ***************
 
+.. php:namespace:: CodeIgniter\View
+
 .. php:class:: Table
 
 	.. attribute:: $function = null

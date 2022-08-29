@@ -54,7 +54,7 @@ Download and run
 
 설정 후 프로젝트의 폴더:
 
-- app, public, system, writable 
+- app, public, tests, writable, system
 
 번역 파일 설치
 ===================

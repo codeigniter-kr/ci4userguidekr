@@ -54,8 +54,8 @@ Behavior Changes
 - 버그를 수정하기 위해 :ref:`CLI::color() <cli-library-color>`\ 의 색상 코드 출력이 변경되었습니다.
 - 웹 브라우저에서 예기치 않은 액세스를 방지하기 위해 컨트롤러가 cli 경로(``$routes->cli()``)에 추가되면 해당 컨트롤러의 모든 메서드는 더 이상 자동 라우팅을 통해 액세스할 수 없습니다.
 - History Collector를 확장하는 사용자에게는 이전 버전과의 호환성이 깨질 수 있으며 ``History::setFiles()`` 메소드 동작을 확인후 업데이트해야 합니다.
-- :php:func:`dot_array_search`\ 의 예기치 않은 동작이 수정되었습니다. 이제 ``dot_array_search('foo.bar.baz', ['foo' => ['bar' => 23]])``\ 는 ``null``\ 을 반환합니다. 이전 버전은 ``23``\ 을 반환했습니다.
-- ``CodeIgniter::storePreviousURL()``\ 이 Content-Type이 ``text/html``\ 인 URL만 저장하도록 변경되었습니다. 또한 :php:func:`previous_url`\ 와 :php:func:`redirect()->back() <redirect>`\ 의 동작에도 영향을 줍니다.
+- :php:func:`dot_array_search()`\ 의 예기치 않은 동작이 수정되었습니다. 이제 ``dot_array_search('foo.bar.baz', ['foo' => ['bar' => 23]])``\ 는 ``null``\ 을 반환합니다. 이전 버전은 ``23``\ 을 반환했습니다.
+- ``CodeIgniter::storePreviousURL()``\ 이 Content-Type이 ``text/html``\ 인 URL만 저장하도록 변경되었습니다. 또한 :php:func:`previous_url()`\ 와 :php:func:`redirect()->back() <redirect>`\ 의 동작에도 영향을 줍니다.
 
 Enhancements
 ************
@@ -97,8 +97,8 @@ Database
 Helpers and Functions
 =====================
 
-- HTML 도우미 ``script_tag()``\ 는 이제 ``null`` 값을 사용하여 부울 속성을 최소화된 형식으로 작성합니다. ``<script src="..." defer />``. :php:func:`script_tag`\ 의 샘플 코드를 참조하세요.
-- ``get_filenames()``\ 에 네 번째 매개변수 ``$includeDir``\ 을 추가했습니다. :php:func:`get_filenames`\ 를 참조하세요.
+- HTML 도우미 ``script_tag()``\ 는 이제 ``null`` 값을 사용하여 부울 속성을 최소화된 형식으로 작성합니다. ``<script src="..." defer />``. :php:func:`script_tag()`\ 의 샘플 코드를 참조하세요.
+- ``get_filenames()``\ 에 네 번째 매개변수 ``$includeDir``\ 을 추가했습니다. :php:func:`get_filenames()`\ 를 참조하세요.
 - ``log_message()``\ 를 통해 기록되는 예외 정보가 개선되었습니다. 이제 예외가 발생한 파일과 줄이 포함됩니다. 또한 더 이상 메시지를 자르지 않습니다.
      - 로그 형식도 변경되었습니다. 사용자가 앱의 로그 형식에 의존하는 경우 새 로그 형식은 "<1-based count> <cleaned filepath>(<line>): <class><function><args>"
 

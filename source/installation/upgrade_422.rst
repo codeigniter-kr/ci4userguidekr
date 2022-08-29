@@ -26,9 +26,9 @@ Web Page Caching Bug Fix
 Others
 ======
 
-- ``Forge::createTable()`` 메소드는 더 이상 ``CREATE TABLE IF NOT EXISTS``\ 를 실행하지 않습니다. ``$db->tableExists($table)``\ 에 테이블이 없으면 ``CREATE TABLE``\ 이 실행됩니다.
+- ``Forge::createTable()`` 메소드는 더 이상 ``CREATE TABLE IF NOT EXISTS``\ 를 실행하지 않습니다. `$ifNotExists`\ 가 true일 때 ``$db->tableExists($table)``\ 에 테이블이 없으면 ``CREATE TABLE``\ 이 실행됩니다.
 - ``Forge::_createTable()``\ 의 두 번째 매개변수 ``$ifNotExists``\ 는 더 이상 사용되지 않으며 향후 릴리스에서 제거됩니다.
-- :php:func:`random_string`을 첫 번째 매개변수 ``'crypto'``\ 와 함께 사용할 때 두 번째 매개변수 ``$len``\ 을 홀수로 설정하면 ``InvalidArgumentException``\ 이 발생합니다. 매개변수를 짝수로 변경합니다.
+- :php:func:`random_string()`을 첫 번째 매개변수 ``'crypto'``\ 와 함께 사용할 때 두 번째 매개변수 ``$len``\ 을 홀수로 설정하면 ``InvalidArgumentException``\ 이 발생합니다. 매개변수를 짝수로 변경합니다.
 
 Breaking Enhancements
 *********************

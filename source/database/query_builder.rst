@@ -960,7 +960,9 @@ $builder->resetQuery()
 Class Reference
 ***************
 
-.. php:class:: CodeIgniter\\Database\\BaseBuilder
+.. php:namespace:: CodeIgniter\Database
+
+.. php:class:: BaseBuilder
 
     .. php:method:: db()
 
