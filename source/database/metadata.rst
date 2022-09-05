@@ -93,8 +93,8 @@ $db->getFieldData()
 -  name - 컬럼명
 -  type - 컬럼 타입(type)
 -  max_length - 컬럼의 최대 길이
--  primary_key - 열이 기본 키인 경우 정수 ``1``\ (여러 개의 기본 키가 있는 경우에도 정수 ``1``), 그렇지 않으면 정수 ``0``
--  nullable - 열이 nullable이면 부울 ``true``, 그렇지 않으면 부울 ``false``
+-  primary_key - 열이 기본 키인 경우 정수 ``1``\ (여러 개의 기본 키가 있는 경우에도 정수 ``1``), 그렇지 않으면 정수 ``0`` (이 필드는 MySQL과 SQLite3에서만 사용할 수 있습니다.)
+-  nullable - 열이 nullable이면 부울 ``true``, 그렇지 않으면 부울 ``false`` (이 필드는 SQL Server에서 사용할 수 없습니다)
 -  default - 기본 값
 
 테이블의 인덱스 정보

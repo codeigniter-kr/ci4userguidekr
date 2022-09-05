@@ -210,7 +210,7 @@ Setting              Options/ Types                        Default   Description
 Class Reference
 ***************
 
-.. php:namespace:: CodeIgniter\HTTP\Cookie
+.. php:namespace:: CodeIgniter\Cookie
 
 .. php:class:: Cookie
 
@@ -312,6 +312,8 @@ Class Reference
         브라우저에서 만료되는 새 쿠키를 만듭니다.
 
     .. php:method:: withNeverExpiring()
+
+        .. important:: 이 메소드는 더 이상 사용되지 않습니다.
 
         :param string $name:
         :rtype: ``Cookie``

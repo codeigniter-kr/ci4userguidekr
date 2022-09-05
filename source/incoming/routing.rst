@@ -46,6 +46,23 @@ You can supply multiple verbs that a route should match by passing them in as an
 
 .. literalinclude:: routing/004.php
 
+컨트롤러의 네임스페이스
+========================
+
+컨트롤러 이름이 ``\``\ 로 시작하지 않으면 :ref:`routing-default-namespace`\ 가 앞에 추가됩니다.
+
+.. literalinclude:: routing/063.php
+
+시작 부분에 ``\``\ 를 넣으면 정규화된 클래스 이름으로 처리됩니다.
+
+.. literalinclude:: routing/064.php
+
+``namespace`` 옵션으로 네임스페이스를 지정할 수 있습니다.
+
+.. literalinclude:: routing/038.php
+
+자세한 내용은 :ref:`assigning-namespace`\ 를 참조하세요.
+
 자리 표시자(Placeholder)
 ===========================
 
@@ -372,7 +389,7 @@ HTTP 동사 기반 라우트 메소드로 생성된 모든 라우트는 CLI에�
 네임스페이스 할당
 ---------------------
 
-기본 네임스페이스가 컨트롤러(아래 참조) 앞에 추가되지만, ``namespace`` 옵션을 사용하여 다른 네임스페이스를 지정할 수도 있습니다.
+:ref:`routing-default-namespace`\ 가 컨트롤러 앞에 추가되지만 ``namespace`` 옵션을 사용하여 다른 네임스페이스를 지정할 수도 있습니다. 
 값은 수정하려는 네임스페이스여야 합니다.
 
 .. literalinclude:: routing/038.php
@@ -451,6 +468,8 @@ HTTP 동사 기반 라우트 메소드로 생성된 모든 라우트는 CLI에�
 
 RoutesCollection 클래스는 모든 경로에 영향을 주는 몇 가지 옵션을 제공하며 어플리케이션의 요구에 맞게 수정할 수 있습니다.
 이 옵션들은 `/app/Config/Routes.php` 상단에 있습니다.
+
+.. _routing-default-namespace:
 
 기본 네임스페이스
 =================
