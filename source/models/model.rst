@@ -342,8 +342,11 @@ purgeDeleted()
 
 .. literalinclude:: model/026.php
 
+모델 내 검증
+=============
+
 데이터 검증
-===============
+---------------
 
 많은 사람들에게 모델의 데이터 유효성 검사는 코드를 복제하지 않고 데이터를 단일 표준으로 유지하는데 선호되는 방법입니다.
 Model 클래스는 ``insert()``, ``update()``, ``save()`` 메소드를 사용하여 데이터베이스에 저장하기 전에 모든 데이터를 자동으로 검증하는 방법을 제공합니다.
@@ -355,7 +358,11 @@ Model 클래스는 ``insert()``, ``update()``, ``save()`` 메소드를 사용하
 
 기능별로 유효성 검사 규칙을 필드로 설정하는 다른 방법
 
-.. php:function:: setValidationRule($field, $fieldRules)
+.. php:namespace:: CodeIgniter
+
+.. php:class:: Model
+
+.. php:method:: setValidationRule($field, $fieldRules)
 
     :param  string  $field:
     :param  array   $fieldRules:
@@ -366,7 +373,7 @@ Model 클래스는 ``insert()``, ``update()``, ``save()`` 메소드를 사용하
     
     .. literalinclude:: model/028.php
 
-.. php:function:: setValidationRules($validationRules)
+.. php:method:: setValidationRules($validationRules)
 
     :param  array   $validationRules:
 
@@ -378,7 +385,7 @@ Model 클래스는 ``insert()``, ``update()``, ``save()`` 메소드를 사용하
 
 기능별로 유효성 검사 메시지를 필드로 설정하는 다른 방법은,
 
-.. php:function:: setValidationMessage($field, $fieldMessages)
+.. php:method:: setValidationMessage($field, $fieldMessages)
 
     :param    string    $field
     :param    array    $fieldMessages
@@ -387,7 +394,7 @@ Model 클래스는 ``insert()``, ``update()``, ``save()`` 메소드를 사용하
 
     .. literalinclude:: model/030.php
 
-.. php:function:: setValidationMessages($fieldMessages)
+.. php:method:: setValidationMessages($fieldMessages)
 
     :param    array    $fieldMessages
 
@@ -409,7 +416,7 @@ Model 클래스는 ``insert()``, ``update()``, ``save()`` 메소드를 사용하
 .. literalinclude:: model/034.php
 
 유효성 검사 규칙 검색
-===========================
+---------------------------
 
 ``validationRules`` 속성에 액세스하여 모델의 유효성 검사 규칙을 검색할 수 있습니다.
 
@@ -424,7 +431,7 @@ Model 클래스는 ``insert()``, ``update()``, ``save()`` 메소드를 사용하
 .. literalinclude:: model/037.php
 
 유효성 검사 자리 표시자
-========================
+------------------------
 
 이 모델은 전달된 데이터를 기반으로 규칙의 일부를 바꾸는 간단한 방법을 제공합니다.
 이것은 명확하지 않은 것처럼 들리지만 특히 ``is_unique`` 유효성 검사 규칙을 사용하면 편리합니다.

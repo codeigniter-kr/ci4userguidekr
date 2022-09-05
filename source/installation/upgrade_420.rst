@@ -39,6 +39,24 @@ Config/Constants.php
 상수 ``EVENT_PRIORITY_LOW``, ``EVENT_PRIORITY_NORMAL``, ``EVENT_PRIORITY_HIGH``\ 는 더 이상 사용되지 않으며 정의는 ``app/Config/Constants.php``\ 로 이동합니다.
 이러한 상수를 사용하는 경우 ``app/Config/Constants.php``\ 에서 정의하거나 새로운 클래스 상수인 ``CodeIgniter\Events\Events::PRIORITY_LOW``, ``CodeIgniter\Events\Events::PRIORITY_NORMAL``, ``CodeIgniter\Events\Events::PRIORITY_HIGH``\ 를 사용하십시오.
 
+composer.json
+=============
+
+Composer를 사용하여 CodeIgniter v4.1.9 또는 이전 버전을 설치했다면 ``/composer.json``\ 의 ``autoload.psr-4``\ 의 ``App\\``\ 과 ``Config\\`` 네임스페이스가 있는 줄을 제거하고 ``composer dump-autoload``\ 를 실행해야 합니다.
+
+.. code-block:: text
+
+    {
+        ...
+        "autoload": {
+            "psr-4": {
+                "App\\": "app",             <-- Remove this line
+                "Config\\": "app/Config"    <-- Remove this line
+            }
+        },
+        ...
+    }
+
 Breaking Changes
 ****************
 

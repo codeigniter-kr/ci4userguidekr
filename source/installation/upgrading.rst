@@ -13,6 +13,7 @@
 
     backward_compatibility_notes
 
+    upgrade_426
     upgrade_425
     upgrade_423
     upgrade_422
