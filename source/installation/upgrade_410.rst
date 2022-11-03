@@ -17,4 +17,4 @@ Breaking Changes
 
 **Legacy Autoloading**
 
-``Autoloader::loadLegacy()`` 메소드는 원래 CodeIgniter v4로 전환하기 위한 것이었습니다. 4.1.0부터 이 지원이 제거되었습니다. 모든 클래스는 네임스페이스여야 합니다.
+``Autoloader::loadLegacy()`` 메소드는 원래 CodeIgniter v4로 전환하기 위한 것이었습니다. 4.1.0 버전부터 이 지원이 제거되었습니다. 모든 클래스는 네임스페이스여야 합니다.

@@ -27,7 +27,7 @@ CodeIgniter 4 오픈 소스 프로젝트는 `GitHub organization <https://github
 +------------------+--------------+-----------------------------------------------------------------+
 | shield           | developers   | Authentication and Authorization Library for CodeIgniter 4      |
 +------------------+--------------+-----------------------------------------------------------------+
-| tasks            | developers   | Task Scheduler for CodeIgnter 4                                 |
+| tasks            | developers   | Task Scheduler for CodeIgniter 4                                |
 +------------------+--------------+-----------------------------------------------------------------+
 | cache            | developers   | PSR-6 and PSR-16 Cache Adapters for CodeIgniter 4               |
 +------------------+--------------+-----------------------------------------------------------------+

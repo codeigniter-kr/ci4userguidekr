@@ -272,9 +272,7 @@ Class Reference
         :returns: response 인스턴스.
         :rtype: CodeIgniter\HTTP\Response
 
-        응답에 사용될 날짜를 설정합니다. The ``$date``\ 는 ``DateTime``\ 의 인스턴스여야 합니다  
-        
-        .. literalinclude:: response/018.php
+        응답에 사용될 날짜를 설정합니다. The ``$date``\ 는 ``DateTime``\ 의 인스턴스여야 합니다. 
 
     .. php:method:: setContentType($mime[, $charset='UTF-8'])
 
@@ -351,11 +349,12 @@ Class Reference
         :param string $domain: 쿠키 domain
         :param string $path: 쿠키 path
         :param string $prefix: 쿠키명 prefix. ``''``\ 로 설정하면 **app/Config/Cookie.php**\ 의 기본값이 사용됩니다.
-        :param bool $secure: HTTPS를 통해서만 쿠키를 전송할지 여부
-        :param bool $httponly: HTTP 요청에 대해서만 쿠키에 액세스 할 수 있는지 여부 (no JavaScript)
+        :param bool $secure: HTTPS를 통해서만 쿠키를 전송할지 여부. ``null``\ 로 설정하면 **app/Config/Cookie.php**\ 의 기본값이 사용됩니다.
+        :param bool $httponly: HTTP 요청에 대해서만 쿠키에 액세스 할 수 있는지 여부 (no JavaScript). ``null``\ 로 설정하면 **app/Config/Cookie.php**\ 의 기본값이 사용됩니다.
         :param string $samesite: SameSite 쿠키 매개 변수의 값. ``''``\ 로 설정하면 쿠키에 SameSite 속성이 설정되지 않습니다. ``null``\ 로 설정하면 **app/Config/Cookie.php** 값이 사용됩니다.
-
         :rtype: void
+
+        .. note:: v4.2.7 이전 버전에서는 버그로 인해 ``$secure``\ 와 ``$httponly``\ 의 기본값이 ``false``\ 였으며 **app/Config/Cookie.php**\ 의 기본 값은 사용되지 않았습니다.
 
         지정한 값이 포함된 쿠키를 설정합니다.
         이 메소드로 쿠키를 설정 정보를 전달할 때 연관 배열과 개별 매개 변수(Discrete Parameters) 두 가지 방법을 사용할 수 있습니다.

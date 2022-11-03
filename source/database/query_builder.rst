@@ -11,9 +11,34 @@ CodeIgniter에서는 데이터베이스의 각 테이블이 클래스 파일일 
 단순성을 넘어서, Query Builder 기능을 사용하면 각 데이터베이스 어댑터별 조회 구문이 생성되는 이점이 있어 특정 데이터베이스에 종속되지 않는 어플리케이션을 작성할 수 있다는 것입니다.
 또한 값이 시스템에 의해 자동으로 이스케이프되므로 보다 안전한 쿼리가 가능합니다.
 
+.. note:: CodeIgniter는 데이터베이스, 테이블, 열(column) 이름에서 점(``.``)을 지원하지 않습니다.
+
 .. contents::
     :local:
     :depth: 2
+
+************************
+SQL Injection 보호
+************************
+
+쿼리 빌더를 사용하여 SQL 문을 매우 안전하게 생성할 수 있습니다.
+그러나 전달되는 모든 데이터에 대해 SQL 주입을 방지하도록 설계되지는 않았습니다.
+
+쿼리 빌더에 전달되는 인수는 다음과 같습니다.
+
+    1. 필드(또는 테이블) 이름과 같은 **식별자(identifiers)**
+    2. **값(values)**
+    3. **SQL 문자열**\ 의 일부
+
+쿼리 빌더는 기본적으로 모든 **값(values)**\ 을 이스케이프합니다.
+
+또한 기본적으로 **SQL 문자열**\ 에 포함된 **식별자(identifiers)**\ 와 **식별자(identifiers)**\ 를 적절하게 보호하려고 시도합니다.
+이는 많은 사용 사례에서 잘 작동하도록 구현되어 있지만, 모든 공격을 차단하도록 설계된 것은 아닙니다.
+따라서 적절한 유효성 검사 없이 사용자 입력을 입력해서는 안 됩니다.
+
+또한 많은 메소드에는 이스케이프를 비활성화하도록 설정할 수 있는 ``$escape`` 매개변수가 있습니다.
+``$escape``가 false로 설정되면 쿼리 빌더에서 보호를 제공하지 않으므로 쿼리 빌더에 전달하기 전에 사용자가 직접 제대로 이스케이프되거나 보호되는지 확인해야 합니다.
+원시 SQL 문을 지정하는 ``RawSql``\ 을 사용할 때도 마찬가지입니다.
 
 *************************
 쿼리 빌더 로드
@@ -104,7 +129,7 @@ v4.2.0부터 ``$builder->select()``\ 는 원시(raw) SQL 문자열을 표현하�
 
 .. literalinclude:: query_builder/099.php
 
-.. warning:: ``RawSql``\ 을 사용할 때 데이터는 수동으로 이스케이프(escape)해야 합니다. 그렇지 않으면 SQL 주입(SQL injection)이 발생할 수 있습니다.
+.. warning:: ``RawSql``\ 을 사용할 때 값과 식별자(identifier)는 수동으로 이스케이프(escape)해야 합니다. 그렇지 않으면 SQL 주입(SQL injection)이 발생할 수 있습니다.
 
 $builder->selectMax()
 ---------------------
@@ -216,7 +241,7 @@ v4.2.0부터 ``$builder->join()``\ 는 원시(raw) SQL 문자열을 표현하는
 
 .. literalinclude:: query_builder/102.php
 
-.. warning:: ``RawSql``\ 을 사용할 때 데이터는 수동으로 이스케이프(escape)해야 합니다. 그렇지 않으면 SQL 주입(SQL injection)이 발생할 수 있습니다.
+.. warning:: ``RawSql``\ 을 사용할 때 값과 식별자(identifier)는 수동으로 이스케이프(escape)해야 합니다. 그렇지 않으면 SQL 주입(SQL injection)이 발생할 수 있습니다.
 
 *************************
 특정 데이터 찾기
@@ -269,7 +294,7 @@ $builder->where()
     .. literalinclude:: query_builder/026.php
 
     
-    .. warning:: 문자열 내에 사용자 지정 데이터를 사용하는 경우 데이터를 수동으로 이스케이프해야 합니다.
+    .. warning:: 문자열 내에 사용자 지정 데이터를 사용하는 경우 값과 식별자(identifier)를 수동으로 이스케이프해야 합니다.
         그렇지 않으면 SQL 주입(SQL injection)이 발생할 수 있습니다.
 
     .. literalinclude:: query_builder/027.php
@@ -283,7 +308,7 @@ $builder->where()
 
     .. literalinclude:: query_builder/100.php
 
-    .. warning:: ``RawSql``\ 을 사용할 때 데이터는 수동으로 이스케이프(escape)해야 합니다. 그렇지 않으면 SQL 주입(SQL injection)이 발생할 수 있습니다.
+    .. warning:: ``RawSql``\ 을 사용할 때 값과 식별자(identifier)는 수동으로 이스케이프(escape)해야 합니다. 그렇지 않으면 SQL 주입(SQL injection)이 발생할 수 있습니다.
 
 .. _query-builder-where-subquery:
 
@@ -389,7 +414,7 @@ $builder->like()
 
     .. literalinclude:: query_builder/101.php
 
-    .. warning:: ``RawSql``\ 을 사용할 때 데이터는 수동으로 이스케이프(escape)해야 합니다. 그렇지 않으면 SQL 주입(SQL injection)이 발생할 수 있습니다.
+    .. warning:: ``RawSql``\ 을 사용할 때 값과 식별자(identifier)는 수동으로 이스케이프(escape)해야 합니다. 그렇지 않으면 SQL 주입(SQL injection)이 발생할 수 있습니다.
 
 $builder->orLike()
 ------------------
@@ -442,7 +467,7 @@ $builder->having()
 
 .. literalinclude:: query_builder/049.php
 
-CodeIgniter는 기본적으로 쿼리를 이스케이프하여 데이터베이스에 전송합니다. 이스케이프되는 것을 방지하고 싶다면 옵션으로 지정된 세 번째 인수를 ``false``\ 로 설정하십시오.
+CodeIgniter는 기본적으로 값(value)을 이스케이프하여 데이터베이스에 전송합니다. 이스케이프되는 것을 방지하고 싶다면 옵션으로 지정된 세 번째 인수를 ``false``\ 로 설정하십시오.
 
 .. literalinclude:: query_builder/050.php
 
@@ -804,7 +829,7 @@ $builder->replace()
 
 위의 예에서 *title* 필드가 기본 키라고 가정하면 *title* 값으로 'My title'\ 이 포함된 행은 새 행 데이터로 대체되어 삭제됩니다.
 
-``set()`` 메소드 사용도 허용되며 ``insert()``\ 와 마찬가지로 모든 필드가 자동으로 이스케이프됩니다.
+``set()`` 메소드 사용도 허용되며 ``insert()``\ 와 마찬가지로 모든 값(value)은 자동으로 이스케이프됩니다.
 
 $builder->set()
 ---------------
@@ -819,7 +844,7 @@ $builder->set()
 
 .. literalinclude:: query_builder/084.php
 
-``set()``\ 은 옵션으로 세 번째 매개 변수 (``$escape``)도 허용하며 이 값을 ``false``\ 로 설정하면 데이터가 이스케이프되지 않습니다.
+``set()``\ 은 옵션으로 세 번째 매개 변수 (``$escape``)도 허용하며 이 값을 ``false``\ 로 설정하면 값(value)은 이스케이프되지 않습니다.
 차이점을 설명하기 위해 다음 예제는 이스케이프 매개 변수를 사용하거나 사용하지 않고 ``set()``\ 을 사용합니다.
 
 .. literalinclude:: query_builder/085.php

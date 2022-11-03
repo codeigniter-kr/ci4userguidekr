@@ -310,26 +310,32 @@ Class Reference
         :param  string  $index: 찾을 변수/키의 이름
         :param  int     $filter: 적용할 필터 유형, 필터 목록은 `여기 <https://www.php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
         :param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <https://www.php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
-        :returns:   제공된 매개 변수가 없는 경우 ``$_POST``, 있으면 검색된 POST 값 또는 ``null``
+        :returns:   제공된 매개 변수가 없는 경우 $_POST\ 와 $_GET\ 의 결합(충돌 시 POST 값 선택), 그렇지 않으면 POST 값을 찾고, 아무 것도 없으면 GET 값을 찾고, 값이 없으면 null을 반환합니다.
         :rtype: mixed|null
 
-        이 방법은 ``getPost()``, ``getGet()``\ 와 거의 같은 방식으로 작용하며, 2개의 메소드를 결합한 것입니다.
+        이 메소드는 ``getPost()``, ``getGet()``\ 와 거의 같은 방식으로 작용하며, 2개의 메소드를 결합한 것입니다.
         POST에서 먼저 검색하여 발견되지 않으면 GET에서 검색합니다.
         
         .. literalinclude:: incomingrequest/032.php
+
+        인덱스를 지정하지 않으면 POST 및 GET 스트림을 결합하여 반환합니다.
+        이름이 충돌한 경우 POST 데이터가 선택됩니다.
 
     .. php:method:: getGetPost([$index = null[, $filter = null[, $flags = null]]])
 
         :param  string  $index: 찾을 변수/키의 이름
         :param  int     $filter: 적용할 필터 유형, 필터 목록은 `여기 <https://www.php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
         :param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <https://www.php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
-        :returns:   제공된 매개 변수가 없는 경우 ``$_POST``, 있으면 검색된 POST 값 또는 ``null``
+        :returns:   제공된 매개 변수가 없는 경우 $_GET\ 관 $_POST 결합(충돌 시 GET 값 선택), 그렇지 않으면 GET 값을 찾고, 아무 것도 없으면 POST 값을 찾고, 값이 없으면 null을 반환합니다.
         :rtype: mixed|null
 
-        이 방법은 ``getPost()``, ``getGet()``\ 와 거의 같은 방식으로 작용하며, 2개의 메소드를 결합한 것입니다.
-        GET에서 먼저 검색하여 발견되지 않으면 POST에서 검색합니다.
+        이 메소드는 ``getPost()``, ``getGet()``\ 와 거의 같은 방식으로 작용하며, 2개의 메소드를 결합한 것입니다.
+        GET\ 관 POST 스트림 모두를 통해 데이터를 검색하고, 먼저 GET에서 찾은 다음 POST에서 찾습니다.
         
         .. literalinclude:: incomingrequest/033.php
+
+        인덱스를 지정하지 않으면 GET 및 POST 스트림을 결합하여 반환합니다.
+        이름이 충돌한 경우 GET 데이터가 선택됩니다.
 
     .. php:method:: getCookie([$index = null[, $filter = null[, $flags = null]]])
 

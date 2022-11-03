@@ -56,3 +56,14 @@ React
 .. code-block:: javascript
 
     axios.get("your url", {headers: {'Content-Type': 'application/json'}});
+
+htmx
+====
+
+`ajax-header <https://htmx.org/extensions/ajax-header/>`_ 확장을 사용합니다.
+
+.. code-block:: html
+
+    <body hx-ext="ajax-header">
+    ...
+    </body>

@@ -146,6 +146,8 @@ toLocalizedString()
 
 .. literalinclude:: time/015.php
 
+.. _time-todatetimestring:
+
 toDateTimeString()
 ===================
 

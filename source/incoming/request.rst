@@ -27,7 +27,7 @@ Class Reference
 
     .. php:method:: isValidIP($ip[, $which = ''])
 
-        .. important:: 이 메소드는 더 이상 사용되지 않습니다.
+        .. important:: 이 메소드는 더 이상 사용되지 않습니다. 향후 릴리스에서 제거됩니다.
 
         :param    string    $ip: IP address
         :param    string    $which: IP protocol ('ipv4' or 'ipv6')
@@ -44,7 +44,7 @@ Class Reference
 
     .. php:method:: getMethod([$upper = false])
 
-        .. important:: 매개변수 ``$upper``\ 는 더 이상 사용되지 않습니다.
+        .. important:: 매개변수 ``$upper``\ 는 더 이상 사용되지 않습니다. 향후 릴리스에서 제거됩니다.
 
         :param    bool    $upper: 요청 메소드 이름을 대문자 또는 소문자로 반환할지 여부
         :returns: HTTP 요청 방법(request method)

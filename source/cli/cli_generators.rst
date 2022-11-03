@@ -27,7 +27,7 @@ CodeIgniter4에는 컨트롤러, 모델, 엔티티 등을 쉽게 생성 할 수�
 .. warning:: ``--namespace`` 옵션을 설정할 때 제공된 네임스페이스가 ``Config\Autoload``\ 의 ``$psr4`` 배열에 정의되었거나 작곡가 자동 로드 파일에 정의된 유효한 네임스페이스인지 확인하십시오.
     그렇지 않으면 코드 생성이 중단됩니다.
 
-.. warning:: 마이그레이션 파일을 생성하기 위해 ``migrate:create``\ 를 사용하는 것은 더 이상 사용되지 않습니다. 향후 릴리스에서 제거될 예정입니다.
+.. important:: 마이그레이션 파일을 생성하기 위해 ``migrate:create``\ 를 사용하는 것은 더 이상 사용되지 않습니다. 향후 릴리스에서 제거될 예정입니다.
     대신 ``make:migration``\ 을 사용하세요.
     또한 더 이상 사용되지 않는 ``session:migration`` 대신 ``make:migration --session``\ 을 사용하세요.
 

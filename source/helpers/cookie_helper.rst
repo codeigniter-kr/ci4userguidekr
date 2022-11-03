@@ -24,14 +24,16 @@
 
     :param	mixed	$name: 이 함수에 사용 가능한 모든 매개 변수의 쿠키 이름 *또는* 연관 배열
     :param	string	$value: 쿠키 값
-    :param	int	$expire: 만료까지의 시간 (초)
+    :param	int	    $expire: 만료까지의 시간 (초)
     :param	string	$domain: 쿠키 도메인 (일반적으로 .yourdomain.com)
     :param	string	$path: 쿠키 경로
     :param	string	$prefix: 쿠키 이름 접두사. ``''``\ 인 경우 **app/Config/Cookie.php**\ 의 기본값이 사용됩니다.
-    :param	bool	$secure: HTTPS를 통해서만 쿠키를 보낼지 여부
-    :param	bool	$httpOnly: JavaScript에서 쿠키를 숨길 지 여부
-    :param  string    $sameSite: SameSite 쿠키 매개변수의 값입니다. ``null``\ 인 경우 **app/Config/Cookie.php**\ 의 기본값이 사용됩니다.
+    :param	bool	$secure: HTTPS를 통해서만 쿠키를 보낼지 여부.  ``null``\ 인 경우 **app/Config/Cookie.php**\ 의 기본값이 사용됩니다.
+    :param	bool	$httpOnly: JavaScript에서 쿠키를 숨길 지 여부.  ``null``\ 인 경우 **app/Config/Cookie.php**\ 의 기본값이 사용됩니다.
+    :param  string  $sameSite: SameSite 쿠키 매개변수의 값입니다. ``null``\ 인 경우 **app/Config/Cookie.php**\ 의 기본값이 사용됩니다.
     :rtype:	void
+
+    .. note:: v4.2.7 이전 버전은 버그로 인해 ``$secure``\ 와 ``$httpOnly``\ 의 기본값이 ``false``\ 였으며 **app/Config/Cookie.php**\ 의 기본 값이 사용되지 않았습니다.
 
     브라우저 쿠키를 설정하기 위한 보다 친근한 구문을 제공합니다.
     이 함수는 :php:meth:`CodeIgniter\\HTTP\\Response::setCookie()`\ 의 별칭이므로, 사용법에 대한 설명은 :doc:`Response 라이브러리 </outgoing/response>`\ 를 참조하십시오.

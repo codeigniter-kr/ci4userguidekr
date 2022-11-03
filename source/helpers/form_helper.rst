@@ -48,7 +48,7 @@ The Form Helper file contains functions that assist in working with forms.
     :returns:	HTML 폼 태그
     :rtype:	string
 
-    **환경 설정에서 빌드한 기본 URL**\ 을 사용하여 여는 폼 태그를 만듭니다.
+    ``Config\App::$baseURL``\ 로 **빌드된** 사이트 URL을 사용하여 여는 폼 태그를 만듭니다.
     선택적으로 폼 속성과 숨겨진 입력 필드를 추가할 수 있으며, 구성 파일의 문자 세트 값을 기반으로 `accept-charset` 속성을 추가합니다.
 
     HTML을 직접 하드 코딩하는 대신 이 태그를 사용하면, 사이트의 URL이 변경될 때 별도의 URL변경이 필요하지 않습니다.
@@ -61,7 +61,7 @@ The Form Helper file contains functions that assist in working with forms.
 
         <form method="post" accept-charset="utf-8" action="http://example.com/index.php/email/send">
 
-    다음과 같이 {locale}\ 을 추가할 수 있습니다
+    다음과 같이 ``{locale}``\ 을 추가할 수 있습니다
     
     .. literalinclude:: form_helper/004.php
 
@@ -87,7 +87,7 @@ The Form Helper file contains functions that assist in working with forms.
 
             <form method="post" accept-charset="utf-8" action="http://example.com/index.php/email/send" class="email" id="myform">
 
-        CSRF 필터가 켜져 있으면 `form_open()` 은 폼의 시작 부분에 CSRF 필드를 생성합니다.
+        CSRF 필터가 켜져 있으면 ``form_open()`` 은 폼의 시작 부분에 CSRF 필드를 생성합니다.
         csrf_id를 $attribute 배열중 하나로 전달하여 이 필드의 ID를 지정할 수 있습니다.
 
         .. literalinclude:: form_helper/007.php
@@ -166,6 +166,10 @@ The Form Helper file contains functions that assist in working with forms.
     또는 양식에 포함할 데이터가 들어 있는 연관 배열을 전달할 수 있습니다.
     
     .. literalinclude:: form_helper/014.php
+
+    부울 속성을 원하면 부울 값(``true``/``false``)\ 을 전달하세요. 이 경우 부울 값은 중요하지 않습니다.
+
+    .. literalinclude:: form_helper/035.php
 
     JavaScript와 같은 일부 데이터를 폼에 추가하려면 문자열로 세 번째 매개 변수에 전달합니다.
     
@@ -271,7 +275,7 @@ The Form Helper file contains functions that assist in working with forms.
     :returns:	HTML 필드 셋 닫기 태그
     :rtype:	string
 
-    닫는 </fieldset> 태그를 생성합니다. 
+    닫는 ``</fieldset>`` 태그를 생성합니다. 
     이 기능을 사용하는 유일한 장점은 태그 아래에 추가될 데이터를 전달할 수 있다는 것입니다.
 
     .. literalinclude:: form_helper/023.php
@@ -383,7 +387,7 @@ The Form Helper file contains functions that assist in working with forms.
     :returns:	HTML form 닫는 태그
     :rtype:	string
 
-    닫는 </form> 태그를 생성합니다.
+    닫는 ``</form>`` 태그를 생성합니다.
     이 기능을 사용하는 유일한 장점은 태그 아래에 추가될 데이터를 전달할 수 있다는 것입니다.
 
     .. literalinclude:: form_helper/034.php

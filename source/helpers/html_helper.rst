@@ -146,10 +146,10 @@ HTML 헬퍼 파일에는 HTML 작업을 지원하는 함수가 포함되어 있�
             <li>shapes
                 <ul>
                     <li>round</li>
-                    <li>suare</li>
+                    <li>square</li>
                     <li>circles
                         <ul>
-                            <li>elipse</li>
+                            <li>ellipse</li>
                             <li>oval</li>
                             <li>sphere</li>
                         </ul>

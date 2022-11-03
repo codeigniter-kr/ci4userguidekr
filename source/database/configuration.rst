@@ -101,6 +101,8 @@ defaultGroup
 **username**            데이터베이스에 연결하는데 사용되는 사용자 이름
 **password**            데이터베이스에 연결하는데 사용되는 비밀번호
 **database**            연결하려는 데이터베이스의 이름
+
+                        .. note:: CodeIgniter는 데이터베이스, 테이블, 열(column) 이름에서 점(``.``)을 지원하지 않습니다.
 **DBDriver**            데이터베이스 유형(``MySQLi``, ``Postgres`` 등), 드라이버 이름과 일치해야 합니다.
 **DBPrefix**            :doc:`쿼리 빌더 <query_builder>` 쿼리를 실행할 때 테이블 이름에 추가될 선택적 테이블 접두사, 이를 통해 설치된 여러개의 CodeIgniter가 하나의 데이터베이스를 공유할 수 있습니다.
 **pConnect**            true/false (boolean) - 지속적 연결 사용 여부

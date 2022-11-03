@@ -38,11 +38,14 @@ GET 요청이 예상되면 ``get()`` 메서드를 사용합니다.
 
 .. literalinclude:: routing/002.php
 
-You can use any standard HTTP verb (GET, POST, PUT, DELETE, etc):
+HTTP 동사(verbs)
+================
+
+모든 표준 HTTP 동사(GET, POST, PUT, DELETE, OPTIONS, etc)를 사용할 수 있습니다.
 
 .. literalinclude:: routing/003.php
 
-You can supply multiple verbs that a route should match by passing them in as an array to the ``match()`` method:
+``match()`` 메소드에 배열로 전달하여 경로가 일치해야 하는 여러 동사를 제공할 수 있습니다.
 
 .. literalinclude:: routing/004.php
 
@@ -203,14 +206,6 @@ v4.2.0부터 배열 호출 가능 구문(array callable syntax)을 사용하여 
 
 .. literalinclude:: routing/020.php
 
-다중 경로 매핑
-=======================
-
-한 번에 여러 경로에 대해 매핑하려면 ``add()`` 메소드보다 ``map()`` 메소드를 사용하는것이 편리합니다.
-추가해야 할 각 경로에 대해 ``add()`` 메소드를 여러번 호출하는 대신 배열로 경로(route)를 정의한 다음 이를 ``map()`` 메소드에 매개 변수로 전달할 수 있습니다.
-
-.. literalinclude:: routing/021.php
-
 .. _redirecting-routes:
 
 라우트 리디렉션
@@ -225,7 +220,7 @@ v4.2.0부터 배열 호출 가능 구문(array callable syntax)을 사용하여 
 
 .. literalinclude:: routing/022.php
 
-.. note:: v4.2.0부터 ``addRedirect()`` 자리 표시자를 사용할 수 있습니다.
+.. note:: v4.2.0 부터 ``addRedirect()`` 자리 표시자를 사용할 수 있습니다.
 
 페이지 로드중 요청(request) 경로가 리디렉션 경로와 일치하면 컨트롤러를 로드하기 전에 사용자는 새 페이지로 리디렉션됩니다.
 
@@ -306,14 +301,22 @@ v4.2.0부터 배열 호출 가능 구문(array callable syntax)을 사용하여 
 모든(any) HTTP 동사(verbs)가 있는 경로(route)
 ==============================================
 
+.. warning:: ``add()`` 방식이 편리하지만, 위에서 설명한 HTTP 동사 기반 경로를 사용하는 것이 더 안전합니다.
+    :doc:`CSRF 보호 </libraries/security>`\ 는 **GET** 요청에 대해 보호하지 않으므로, ``add()`` 메소드에 지정된 URI가 GET 메소드로 액세스 가능한 경우 CSRF 보호가 작동하지 않습니다.
+
 모든 HTTP 동사에 대해 ``add()`` 메소드를 사용하여 경로(route)를 정의할 수 있습니다.
 
 .. literalinclude:: routing/031.php
 
-.. warning:: ``add()`` 방식이 편리하지만, 위에서 설명한 HTTP 동사 기반 경로를 사용하는 것이 더 안전합니다.
-    :doc:`CSRF 보호 </libraries/security>`\ 는 **GET** 요청에 대해 보호하지 않으므로, ``add()`` 메소드에 지정된 URI가 GET 메소드로 액세스 가능한 경우 CSRF 보호가 작동하지 않습니다.
-
 .. note:: HTTP 동사 기반 경로를 사용하면 현재 요청 방법과 일치하는 경로만 저장되므로, 검색할 일치 항목 경로가 줄어들어 성능이 약간 향상됩니다.
+
+다중 경로 매핑
+=======================
+
+한 번에 여러 경로에 대해 매핑하려면 ``add()`` 메소드보다 ``map()`` 메소드를 사용하는것이 편리합니다.
+추가해야 할 각 경로에 대해 ``add()`` 메소드를 여러번 호출하는 대신 배열로 경로(route)를 정의한 다음 이를 ``map()`` 메소드에 매개 변수로 전달할 수 있습니다.
+
+.. literalinclude:: routing/021.php
 
 .. _command-line-only-routes:
 
@@ -517,7 +520,7 @@ v4.2.0부터 자동 라우팅은 기본적으로 비활성화됩니다.
 .. literalinclude:: routing/051.php
 
 .. note:: ``set404Override()`` 메소드는 응답 상태 코드를 ``404``\ 로 변경하지 않습니다.
-    컨트롤러에서 설정시 상태 코드를 설정하지 않으면 기본 상태 코드 ``200``\ 이 반환됩니다. 상태 코드를 설정하는 방법에 대한 정보는 :php:func:`Response::setStatusCode() <setStatusCode>`\ 를 참조하십시오.
+    컨트롤러에서 설정시 상태 코드를 설정하지 않으면 기본 상태 코드 ``200``\ 이 반환됩니다. 상태 코드를 설정하는 방법에 대한 정보는 :php:meth:`CodeIgniter\\HTTP\\Response::setStatusCode()`\ 를 참조하십시오.
 
 우선순위에 따른 경로 처리
 ============================
