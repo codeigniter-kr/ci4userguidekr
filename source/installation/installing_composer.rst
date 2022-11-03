@@ -128,8 +128,6 @@ Installation
 
     > composer require codeigniter4/framework
 
-앞서 설명한 composer 설치 방법과 마찬가지로, ``composer require`` 명령에 ``---no-dev`` 옵션을 추가하여 phpunit 관련 패키지 설치를 생략할 수 있습니다.
-
 설정(Setup)
 ----------------
 

@@ -77,7 +77,7 @@ config()
 model()
 =======
 
-두 번째 함수인 ``model()``\ 은 Model 클래스의 새 인스턴스를 반환합니다. 
+두 번째 함수인 :php:func:`model()`\ 은 Model 클래스의 새 인스턴스를 반환합니다. 
 유일한 필수 매개변수는 클래스 이름입니다.
 
 .. literalinclude:: factories/009.php

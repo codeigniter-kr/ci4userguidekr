@@ -568,7 +568,7 @@ POST 데이터에 다음이 있다고 가정합니다.
 
 분석법이 매개 변수와 함께 작동해야 하는 경우 함수에는 최소 세 개의 매개 변수가 필요합니다.
 유효성 검증할 문자열, 매개 변수 문자열, 폼에서 제출한 모든 데이터가 있는 배열.
-``$data`` 배열은 결과를 기반으로 제출된 다른 필드의 값을 확인해야 하는 ``require_with``\ 와 같은 규칙에 특히 유용합니다.
+``$data`` 배열은 결과를 기반으로 제출된 다른 필드의 값을 확인해야 하는 ``required_with``\ 와 같은 규칙에 특히 유용합니다.
 
 .. literalinclude:: validation/037.php
 
@@ -583,6 +583,11 @@ POST 데이터에 다음이 있다고 가정합니다.
     "ignore_value"\ 전후에는 공백이 있을 수 없습니다.
 
 .. literalinclude:: validation/038.php
+
+일반 사용 규칙
+=====================
+
+다음은 사용할 수 있는 모든 기본 규칙의 목록입니다.
 
 ======================= =========== =============================================================================================== ===================================================
 Rule                    Parameter   Description                                                                                     Example
@@ -623,7 +628,7 @@ numeric                 No          필드에 숫자 이외의 문자가 포함�
 regex_match             Yes         필드가 정규식과 일치하지 않으면 실패합니다.                                                     regex_match[/regex/]
 permit_empty            No          필드가 빈 배열, 빈 문자열, null, false를 받을 수 있도록 합니다.
 required                No          필드가 빈 배열, 빈 문자열, null, false이면 실패합니다.
-required_with           Yes         다른 필수 필드중 하나라도 데이터에 있으면 이 필드가 필요합니다.                                 required_with[field1,field2]
+required_with           Yes         이 필드는 다른 필드가 ``required`` 검사를 통과하지 못한 경우 필수입니다.                        required_with[field1,field2]
 required_without        Yes         이 필드는 다른 모든 필드가 데이터에 있지만 필수는 아닌 경우 필수입니다.                         required_without[field1,field2]
 string                  No          요소가 문자열임을 확인하는 alpha* 규칙에 대한 일반적인 대안
 timezone                No          필드가 ``timezone_identifiers_list`` 시간대와 일치하지 않으면 실패
@@ -649,6 +654,9 @@ valid_cc_number         Yes         신용 카드 번호가 지정된 공급자�
                                     TD Canada Trust Access Card (tdtrust), Scotiabank Scotia Card (scotia), BMO ABM Card (bmoabm),
                                     HSBC Canada Card (hsbc)
 ======================= =========== =============================================================================================== ===================================================
+
+.. note:: 부울을 반환하고 최소한 하나의 매개변수인 필드 데이터가 유효성을 검사하도록 허용하는 모든 기본 PHP 함수를 사용할 수도 있습니다.
+    유효성 검사 라이브러리는 유효성을 검사하기 위해 **데이터를 변경하지 않습니다**.
 
 .. _rules-for-file-uploads:
 
@@ -679,12 +687,9 @@ max_size                Yes         업로드된 파일이 max_size[field_name, 
 max_dims                Yes         업로드된 이미지의 최대 너비와 높이가 값을 초과하면 실패합니다.  첫 번째 매개 변수는             max_dims[field_name,300,150]
                                     필드 이름입니다. 두 번째는 너비이고 세 번째는 높이입니다.
                                     파일을 이미지로 결정할 수없는 경우에도 실패합니다.
-mime_in                 Yes         파일의 MIME 유형이 매개 변수에 나열된 유형이 아닌 경우 실패합니다.                              mime_in[field_name,image/png,image/jpg]
+mime_in                 Yes         파일의 MIME 유형이 매개 변수에 나열된 유형이 아닌 경우 실패합니다.                              mime_in[field_name,image/png,image/jpeg]
 ext_in                  Yes         파일 확장자가 매개 변수에 나열된 확장자가 아니면 실패합니다.                                    ext_in[field_name,png,jpg,gif]
 is_image                Yes         파일이 MIME 유형에 따라 이미지라고 판단할 수 없으면 실패합니다.                                 is_image[field_name]
 ======================= =========== =============================================================================================== ========================================
 
 파일 검증 규칙은 단일/다중 파일 업로드 모두에 적용됩니다.
-
-.. note:: 유효성 검사에 부울을 반환하고 하나 이상의 매개 변수인 필드 데이터를 허용하는 기본 PHP 함수를 사용할 수 있습니다.
-    유효성 검사 라이브러리는 ** 검증할 데이터를 변경하지 않습니다.**

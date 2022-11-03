@@ -18,6 +18,11 @@ BREAKING
 - 페이지 캐싱 사용 시 필터가 실행되기 전에 페이지가 캐싱되는 버그가 수정되었습니다. 이제 응답 헤더를 추가하거나 애프터 필터에서 응답 본문을 변경하면 올바르게 캐시됩니다.
 - 버그 수정으로 인해 :php:func:`random_string()`\ 를 첫 번째 매개변수 ``'crypto'``\ 와 함께 사용할 때 두 번째 매개변수 ``$len``\ 이 홀수인 경우 ``InvalidArgumentException``\ 이 발생합니다.
 
+Message Changes
+***************
+
+- ``Language/en/HTTP.php``\ 의 ``invalidRoute`` 메시지 수정.
+
 Changes
 *******
 

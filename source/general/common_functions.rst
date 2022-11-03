@@ -95,11 +95,11 @@ CodeIgniter는 전역적으로 정의되어 있으며, 언제든지 사용할 �
 
 .. php:function:: model($name[, $getShared = true[, &$conn = null ]])
 
-    :param string                   $name:
-    :param boolean                  $getShared:
-    :param ConnectionInterface|null $conn:
-    :returns: Model instance
-    :rtype: mixed
+    :param string                   $name: model 클래스명.
+    :param boolean                  $getShared: 공유 인스턴스를 반환 여부.
+    :param ConnectionInterface|null $conn: DB 연결.
+    :returns: 모델 인스턴스를 가져오는 더 간단한 방법
+    :rtype: object
 
     모델 인스턴스를 얻는 간단한 방법
 

@@ -48,7 +48,7 @@ v4.2.0부터 값에 유용한 범위를 설정하는 세 개의 클래스 상수
 
 .. literalinclude:: events/004.php
 
-.. note:: 상수 ``EVENT_PRIORITY_LOW``, ``EVENT_PRIORITY_NORMAL``, ``EVENT_PRIORITY_HIGH``\ 는 더 이상 사용되지 않으며, 관련 상수 정의는 ``app/Config/Constants.php`` 파일로 이동합니다.
+.. important:: 상수 ``EVENT_PRIORITY_LOW``, ``EVENT_PRIORITY_NORMAL``, ``EVENT_PRIORITY_HIGH``\ 는 더 이상 사용되지 않으며, 관련 상수 정의는 ``app/Config/Constants.php`` 파일로 이동합니다.
 
 정렬되면 모든 구독자가 순서대로 실행됩니다.
 구독자가 부울(bool) false 값을 반환하면 구독자의 실행이 중지됩니다.

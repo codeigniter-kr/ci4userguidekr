@@ -44,6 +44,15 @@ URL에 입력 한 내용에 관계없이 기본 페이지만 로드되는 경우
 
 .. literalinclude:: troubleshooting/002.php
 
+No input file specified
+-----------------------
+
+"No input file specified"\ 이 표시되면 다음과 같이 재작성 규칙을 변경해 보십시오. (``index.php`` 다음에 ``?``\ 를 추가)
+
+.. code-block:: apache
+
+    RewriteRule ^([\s\S]*)$ index.php?/$1 [L,NC,QSA]
+
 이 자습서는 모든 곳에서 404 오류를 제공합니다. :(
 ---------------------------------------------------
 

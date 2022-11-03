@@ -1,0 +1,45 @@
+Version 4.2.8
+#############
+
+Release Date: October 30, 2022
+
+**4.2.8 release of CodeIgniter4**
+
+.. contents::
+    :local:
+    :depth: 2
+
+BREAKING
+********
+
+none.
+
+Enhancements
+************
+
+none.
+
+Message Changes
+***************
+
+none.
+
+Changes
+*******
+
+none.
+
+Deprecations
+************
+
+- ``CodeIgniter::handleRequest()`` 세 번째 매개 변수 ``$returnResponse``\ 는 더 이상 사용되지 않습니다.
+
+Bugs Fixed
+**********
+
+- ``CodeIgniter\HTTP\IncomingRequest::getPostGet()``\ 와 ``CodeIgniter\HTTP\IncomingRequest::getGetPost()`` 메소드가 ``index``\ 가 ``null``\ 로 설정되었을때 다른 스트림에서 값을 반환하지 않는 버그 수정
+- 컨텍스트에서 ``CodeIgniter\Database\Postgre::replace()``\ 를 여러 번 호출할 때 ``binds``\ 가 제대로 정리되지 않는 버그 수정
+- ``CodeIgniter\Database\SQLSRV\PreparedQuery::_getResult()``\ 가 리소스 대신 bool 값을 반환하는 버그 수정
+- 오류 처리기에서 콜백이 오류 수준을 처리할 수 없는 경우 PHP의 표준 오류 처리기에 오류를 전달하지 않는 버그 수정
+
+수정된 전체 버그 목록은 `CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_\ 를 참조하세요.

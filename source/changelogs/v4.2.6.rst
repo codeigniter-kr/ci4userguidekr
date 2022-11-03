@@ -33,6 +33,6 @@ Bugs Fixed
 **********
 
 많은 버그가 수정되었지만 특히:
-- CLI에서 유효성 검사를 사용할 때 AssertionError가 발생함 `https://github.com/codeigniter4/CodeIgniter4/pull/6452`
+- CLI에서 유효성 검사를 사용할 때 AssertionError가 발생함 `#6452 <https://github.com/codeigniter4/CodeIgniter4/pull/6452>`_
 
 수정된 전체 버그 목록은 `CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_\ 를 참조하세요.

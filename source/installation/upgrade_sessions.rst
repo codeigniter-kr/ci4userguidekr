@@ -23,7 +23,7 @@ Upgrade Guide
     - 세션 데이터에 액세스하는 CI3 구문 ``$this->session->name`` 대신 ``$session->item`` 또는 ``$session->get('item')`` 구문을 사용합니다.
     - 데이터를 설정하려면 ``$this->session->set_userdata($array);`` 대신 ``$session->set($array);``\ 를 사용합니다.
     - 데이터를 제거하려면 ``$session->remove('some_name');`` 대신 ``unset($_SESSION['some_name']);`` 또는 ``$session->remove('some_name');``\ 를 사용합니다.
-    - 세션 데이터를 다음 요청에만 사용할 수 있는 flasdata로 표시하려면 ``$this->session->mark_as_flash('item');`` 대신 ``$session->markAsFlashdata('item');``\ 를 사용합니다.
+    - 세션 데이터를 다음 요청에만 사용할 수 있는 flashdata로 표시하려면 ``$this->session->mark_as_flash('item');`` 대신 ``$session->markAsFlashdata('item');``\ 를 사용합니다.
 
 Code Example
 ============

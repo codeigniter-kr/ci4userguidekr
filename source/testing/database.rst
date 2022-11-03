@@ -145,6 +145,8 @@ grabFromDatabase($table, $column, $criteria)
 행이 ``$criteria``\ 와 일치하는 지정된 테이블에서 ``$column``\ 의 값을 반환합니다.
 둘 이상의 행이 발견되면 첫 번째 행만 반환합니다.
 
+.. literalinclude:: database/006.php
+
 Assertions
 ==========
 

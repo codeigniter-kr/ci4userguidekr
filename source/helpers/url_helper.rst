@@ -94,6 +94,8 @@ URL 헬퍼에는 URL 작업을 지원하는 기능이 포함되어 있습니다.
 
         .. literalinclude:: url_helper/006.php
 
+.. important:: v4.1.2 이전 버전에서 이 함수는 ``App::$indexPage``\ 의 구성을 무시하는 버그가 있었습니다.
+
 .. php:function:: previous_url([$returnObject = false])
 
     :param boolean $returnObject: 문자열 대신 URI 인스턴스를 반환하려면 True.
