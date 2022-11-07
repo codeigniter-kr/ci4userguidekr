@@ -1,0 +1,17 @@
+Version 4.2.10
+##############
+
+Release Date: November 5, 2022
+
+**4.2.10 release of CodeIgniter4**
+
+.. contents::
+    :local:
+    :depth: 2
+
+Bugs Fixed
+**********
+
+- 세션의 잘못된 PHPDoc유형 수정.
+
+수정된 전체 버그 목록은 `CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_\ 를 참조하세요.
