@@ -1,0 +1,19 @@
+Version 4.2.9
+#############
+
+Release Date: October 30, 2022
+
+**4.2.9 release of CodeIgniter4**
+
+.. contents::
+    :local:
+    :depth: 2
+
+**4.2.8에서 PHPUnit 오류를 수정하기 위한 핫픽스 릴리스; 다른 내용은 변경되지 않습니다.**
+
+Bugs Fixed
+**********
+
+- PHPUnit을 실행할 때 `PHP Fatal error:  Trait "Nexus\PHPUnit\Extension\Expeditable" not found`\ 을 유발하는 버그 수정.
+
+수정된 전체 버그 목록은 `CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_\ 를 참조하세요.

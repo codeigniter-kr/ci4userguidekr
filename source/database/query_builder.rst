@@ -37,7 +37,7 @@ SQL Injection 보호
 따라서 적절한 유효성 검사 없이 사용자 입력을 입력해서는 안 됩니다.
 
 또한 많은 메소드에는 이스케이프를 비활성화하도록 설정할 수 있는 ``$escape`` 매개변수가 있습니다.
-``$escape``가 false로 설정되면 쿼리 빌더에서 보호를 제공하지 않으므로 쿼리 빌더에 전달하기 전에 사용자가 직접 제대로 이스케이프되거나 보호되는지 확인해야 합니다.
+``$escape``\ 가 false로 설정되면 쿼리 빌더에서 보호를 제공하지 않으므로 쿼리 빌더에 전달하기 전에 사용자가 직접 제대로 이스케이프되거나 보호되는지 확인해야 합니다.
 원시 SQL 문을 지정하는 ``RawSql``\ 을 사용할 때도 마찬가지입니다.
 
 *************************
@@ -282,7 +282,7 @@ $builder->where()
 
     .. literalinclude:: query_builder/024.php
 
-    이 메소드를 사용하여 사용자 연산자를 포함시킬 수도 있습니다:
+    이 메소드를 사용하여 사용자 연산자를 포함시킬 수도 있습니다:``RawSql``\
 
     .. literalinclude:: query_builder/025.php
 
@@ -629,7 +629,7 @@ $builder->countAllResults()
 
 .. literalinclude:: query_builder/072.php
 
-그러나 이 메소드는 ``select()``에 전달했을 수 있는 모든 필드 값을 재설정합니다.
+그러나 이 메소드는 ``select()``\ 에 전달했을 수 있는 모든 필드 값을 재설정합니다.
 유지하고 싶다면 첫 번째 매개 변수로 ``false``\ 를 전달합니다.
 
 .. literalinclude:: query_builder/073.php
@@ -660,7 +660,7 @@ $builder->union()
 
 .. literalinclude:: query_builder/103.php
 
-.. note:: DBMS(예: MSSQL 및 Oracle)의 올바른 작업을 위해 쿼리는 ``SELECT * FROM ( ... ) alias``\ 로 래핑됩니다. 기본 쿼리는 항상 ``uwrp0``\ 라는 별칭을 갖습니다. ``union()``을 통해 추가된 각 후속 쿼리에는 별칭 ``uwrpN+1``\ 이 부여 됩니다.
+.. note:: DBMS(예: MSSQL 및 Oracle)의 올바른 작업을 위해 쿼리는 ``SELECT * FROM ( ... ) alias``\ 로 래핑됩니다. 기본 쿼리는 항상 ``uwrp0``\ 라는 별칭을 갖습니다. ``union()``\ 을 통해 추가된 각 후속 쿼리에는 별칭 ``uwrpN+1``\ 이 부여 됩니다.
 
 모든 통합 쿼리는 ``union()`` 메서드가 호출된 순서에 관계없이 기본 쿼리 뒤에 추가됩니다.
 ``limit()``, ``orderBy()`` 메소드는 ``union()`` 이후에 호출되더라도 기본 쿼리에 추가됩니다.
@@ -899,7 +899,7 @@ $builder->updateBatch()
 
 .. note:: 모든 값은 자동으로 이스케이프됩니다.
 
-.. note:: ``affectedRows()``는 작동 방식이 달라 이 메소드에 대한 적절한 결과를 제공하지 않습니다. 대신 ``updateBatch()``\ 는 영향을 받는 행 수를 반환합니다.
+.. note:: ``affectedRows()``\ 는 작동 방식이 달라 이 메소드에 대한 적절한 결과를 제공하지 않습니다. 대신 ``updateBatch()``\ 는 영향을 받는 행 수를 반환합니다.
 
 $builder->getCompiledUpdate()
 -----------------------------
