@@ -68,8 +68,8 @@ Code
 
 .. literalinclude:: throttler/004.php
 
-.. Warning:: ``$methods`` 필터를 사용하는 경우 자동 라우팅을 사용하면 모든 HTTP 메서드가 컨트롤러에 액세스할 수 있으며 예상하지 못한 방법으로 컨트롤러에 액세스하면 필터를 우회할 수 있습니다.
-    이를 방지하기 위해서는 `자동 라우팅 비활성화 <use-defined-routes-only>`\ 를 참고하여 설정합니다.
+.. Warning:: :ref:`auto-routing-legacy`\ 가 컨트롤러에 접근할 수 있는 모든 HTTP 메소드를 허용하기 때문에 ``$methods`` 필터를 사용할 경우, :ref:`Auto Routing (Legacy) <use-defined-routes-only>`\ 을 사용하지 않도록 설정해야 합니다.
+    활성화되어 있는 상태에서는 예상하지 못한 방법으로 컨트롤러에 액세스하여 필터를 우회할 수 있습니다.
 
 이제 설정이 끝났습니다. 사이트의 모든 POST 요청은 속도가 제한됩니다.
 

@@ -1,16 +1,20 @@
 뉴스 섹션
 ############
 
+.. contents::
+    :local:
+    :depth: 2
+
 이전 섹션에서는 정적 페이지(static page)를 참조하는 클래스를 작성하여 프레임워크의 몇 가지 기본 개념을 살펴 보고 사용자 정의 라우팅 규칙을 추가하여 URI를 정리했습니다.
 이제 동적(dinamic) 컨텐츠를 소개하고 데이터베이스를 사용할 차례입니다.
 
 작업할 데이터베이스 생성
 **************************
 
-먼저, CodeIgniter 설치시 :doc:`요구사항 </intro/requirements>`\ 에 요약 된대로 적절한 데이터베이스를 설정했다고 가정합니다.
+먼저, CodeIgniter 설치시 :ref:`requirements <requirements-supported-databases>`\ 에 요약 된대로 적절한 데이터베이스를 설정했다고 가정합니다.
 이 튜토리얼에서는 MySQL 데이터베이스에 대한 SQL을 제공하며, 데이터베이스 명령을 실행하기에 적합한 클라이언트(mysql, MySQL Workbench 또는 phpMyAdmin)가 있다고 가정합니다.
 
-이 섹션을 진행하기 위해서는 데이터베이스를 만든 다음 CodeIgniter를 구성하여 사용해야 합니다.
+이 섹션을 진행하기 위해서는 데이터베이스 ``ci4tutorial``\ 를 만든 다음 CodeIgniter를 구성하여 사용해야 합니다.
 
 데이터베이스 클라이언트를 사용하여 데이터베이스에 연결하고 아래의 SQL(MySQL)을 실행하십시오.
 
@@ -71,7 +75,7 @@ CodeIgniter를 설치할 때 생성한 로컬 구성 파일 ``.env``\ 를 열어
 이렇게 하면 ``$this->db`` 객체를 통해 데이터베이스 클래스를 사용할 수 있게 됩니다.
 
 데이터베이스와 모델이 설정되었으므로 데이터베이스에서 모든 게시물을 가져올 방법이 필요합니다.
-CodeIgniter 포함된 데이터베이스 추상화 계층 - :doc:`Query Builder <../database/query_builder>` - 는 ``CodeIgnite\Model``\ 에 사용됩니다.
+CodeIgniter 포함된 데이터베이스 추상화 계층 - :doc:`Query Builder <../database/query_builder>` - 는 ``CodeIgniter\Mode``\ 에 사용됩니다.
 이를 통해 한 번 작성된 쿼리는 :doc:`지원되는 모든 데이터베이스 시스템 <../intro/requirements>`\ 에서 작동할 수 있습니다.
 Model 클래스를 사용하면 Query Builder로 쉽게 작업 할 수 있으며 데이터 작업을 보다 간단하게 수행할 수 있는 추가 도구도 제공됩니다.
 다음 코드를 모델에 추가하십시오.

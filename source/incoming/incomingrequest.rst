@@ -9,7 +9,7 @@ IncomingRequest 클래스는 브라우저와 같은 클라이언트의 HTTP 요�
     :depth: 2
 
 Accessing the Request
------------------------
+*********************
 
 클래스가 ``CodeIgniter\Controller``\ 를 상속 받았다면 클래스의 request 속성을 통해 요청(request) 클래스 인스턴스에 엑세스할 수 있습니다.
 
@@ -24,7 +24,7 @@ Accessing the Request
 .. literalinclude:: incomingrequest/003.php
 
 요청 유형 결정
-----------------
+**************
 
 요청은 AJAX 요청 또는 커맨드 라인에서의 요청등 여러 유형을 포함할 수 있으며, ``isAJAX()``\ 와 ``isCLI()`` 메소드로 확인할 수 있습니다
 
@@ -37,7 +37,11 @@ Accessing the Request
 
 .. literalinclude:: incomingrequest/005.php
 
-이 메소드는 기본적으로 소문자(예 : 'get', 'post', 등)로 값을 반환합니다.
+이 메소드는 기본적으로 소문자(예 : ``get``, ``post``, 등)로 값을 반환합니다.
+
+.. note:: 반환값을 소문자로 변환하는 기능은 사용이 중지되었습니다.
+    이것은 앞으로의 버전에서 제거될 것이고, 이 방법은 PSR-7에 적합합니다.
+
 ``strtoupper()``\ 함수를 이용하여 대문자로 변환할 수 있습니다.
 
 ::
@@ -53,9 +57,12 @@ Accessing the Request
 -----------
 
 요청(Request) 객체를 통해 ``$_SERVER``, ``$_GET``, ``$_POST``, ``$_ENV``\ 에서 입력을 검색할 수 있습니다.
-데이터는 자동으로 필터링되지 않으며 요청에 전달 된대로 입력 데이터를 리턴합니다.
-전역 변수($_POST['something'])를 직접 액세스하는 대신 이러한 메소드를 사용하는 것의 주된 장점은 항목이 존재하지 않으면 null을 리턴하고 데이터를 필터링할 수 있다는 것입니다.
-다음과 같이 항목이 먼저 존재하는지 테스트하지 않고도 편리하게 데이터를 사용할 수 있습니다.
+데이터는 자동으로 필터링되지 않고, 요청으로 전달된 원래 입력 데이터를 그대로 반환합니다.
+
+.. note:: 전역 변수를 사용하는 것은 좋은 전략이 아닙니다. 일반적으로 피하고, Request 객체의 메소드를 사용할 것을 권장합니다.
+
+(``$_POST['something']``)\ 처럼 직접 접근하는 것 대신 요청(Request) 객체를 사용하는 것의 주요 장점은, 항목이 존재하지 않을 경우 null을 반환하고, 데이터를 필터링할 수 있고, 항목이 존재하는지 여부를 체크할 필요 없이 쉽게 데이터를 사용할 수 있습니다. 
+일반적으로 아래와 같은 코드를 작성할 수 있습니다.
 
 .. literalinclude:: incomingrequest/007.php
 
@@ -63,20 +70,32 @@ CodeIgniter의 내장 메소드를 사용하면 간단히 수행 할 수 있습�
 
 .. literalinclude:: incomingrequest/008.php
 
-``getVar()`` 메소드는 ``$_REQUEST``\ 에서 데이터를 가져 오므로 ``$_GET``, ``$POST``, ``$_COOKIE``\ 의 모든 데이터를 반환합니다.
-이 방법이 편리하지만, 더욱 구체적인 방법을 사용해야 할 수도 있습니다:
+.. _incomingrequest-getting-data:
+
+데이터 얻기
+============
+
+``getVar()`` 메소드는 ``$_REQUEST``\ 에서 데이터를 가져오기 때문에, ``$_GET``, ``$POST``, ``$_COOKIE``\ 에 전달된 데이터(php.ini의 `request-order <https://www.php.net/manual/en/ini.core.php#ini.request-order>`_\ 에 따라 다름)를 반환합니다.
+
+.. note:: 요청 헤더 ``Content-Type``\ 이 ``application/json``\ 으로 설정되어 있는 경우, ``getVar()`` 메소드는 ``$_REQUEST`` 데이터 대신 JSON 데이터를 반환합니다.
+
+이것은 편리하지만, 종종 더 정확한 메소드(예: POST 데이터를 얻기 위해서는 post() 메소드, GET 데이터를 얻기 위해서는 get() 메소드)를 사용해야 할 수도 있습니다.
 
 * ``$request->getGet()``
 * ``$request->getPost()``
-* ``$request->getServer()``
 * ``$request->getCookie()``
+* ``$request->getServer()``
+* ``$request->getEnv()``
 
-또한 ``$_GET`` 또는 ``$_POST`` 모두에서 정보를 검색하지만, 가져오는 순서를 제어하는 기능도 제공합니다.
+또한 찾는 순서를 제어하는 기능을 유지하면서 ``$_GET``\ 이나 ``$_POST``\ 에서 정보를 검색하는 몇 가지 유틸리티 메서드가 있습니다.
 
-* ``$request->getPostGet()`` - checks $_POST first, then $_GET
-* ``$request->getGetPost()`` - checks $_GET first, then $_POST
+* ``$request->getPostGet()`` - ``$_POST``\ 를 먼저 확인하고, 그 다음에 ``$_GET``\ 을 확인합니다.
+* ``$request->getGetPost()`` - ``$_GET``\ 을 먼저 확인하고, 그 다음에 ``$_POST``\ 를 확인합니다.
 
-**JSON 데이터 가져오기**
+.. _incomingrequest-getting-json-data:
+
+JSON 데이터 가져오기
+=====================
 
 ``getJSON()``\ 을 사용하여 ``php://input``\ 의 내용을 JSON으로 가져올 수 있습니다.
 
@@ -93,23 +112,27 @@ CodeIgniter의 내장 메소드를 사용하면 간단히 수행 할 수 있습�
 
 두 번째와 세 번째 매개 변수는 PHP 함수 `json_decode <https://www.php.net/manual/en/function.json-decode.php>`_\ 의 ``depth``, ``options`` 매개 변수와 일치합니다.
 
-수신 요청에 ``CONTENT_TYPE`` 헤더가 "application/json"\ 으로 설정된 경우 ``getVar()``\ 를 사용하여 JSON 스트림을 가져올 수 있습니다.
+수신 요청에 ``Content-Type`` 헤더가 "application/json"\ 으로 설정된 경우 ``getVar()``\ 를 사용하여 JSON 스트림을 가져올 수 있습니다.
 이런식으로 ``getVar()``\ 를 사용하면 항상 객체(oject)가 반환됩니다.
 
-**JSON에서 특정 데이터 가져 오기**
+JSON에서 특정 데이터 가져 오기
+================================
 
 원하는 데이터에 대해 변수 이름을 ``getVar()``\ 에 전달하면 JSON 스트림에서 특정 데이터를 얻을 수 있으며, ``dot`` 표기법을 사용하여 JSON을 탐색하여 루트 레벨이 아닌 데이터를 가져올 수 있습니다.
 
 .. literalinclude:: incomingrequest/010.php
 
 결과가 객체 대신 연관 배열이 되도록 하려면 ``getJsonVar()``\ 를 대신 사용하고 두 번째 매개 변수에 true를 전달합니다.
-이 기능은 수신 요청에 올바른 ``CONTENT_TYPE`` 헤더가 있는지 확인할 수 없는 경우에도 사용할 수 있습니다.
+이 기능은 수신 요청에 올바른 ``Content-Type`` 헤더가 있는지 확인할 수 없는 경우에도 사용할 수 있습니다.
 
 .. literalinclude:: incomingrequest/011.php
 
-.. note:: ``dot`` 표기법에 대한 자세한 내용은 ``Array`` 헬퍼의 ``dot_array_search()`` 설명서를 참조하십시오.
+.. note:: ``dot`` 표기법에 대한 자세한 내용은 ``Array`` 헬퍼의 :php:func:`dot_array_search()` 설명서를 참조하십시오.
 
-**원시(raw) 데이터 검색 (PUT, PATCH, DELETE)**
+.. _incomingrequest-retrieving-raw-data:
+
+원시(raw) 데이터 검색 (PUT, PATCH, DELETE)
+============================================
 
 마지막으로 ``getRawInput()``\ 을 사용하여 ``php://input``\ 의 내용을 원시(raw) 스트림으로 가져올 수 있습니다
 
@@ -119,7 +142,8 @@ CodeIgniter의 내장 메소드를 사용하면 간단히 수행 할 수 있습�
 
 .. literalinclude:: incomingrequest/013.php
 
-**입력 데이터 필터링**
+입력 데이터 필터링
+===================
 
 어플리케이션의 보안을 유지하려면 액세스하는 모든 입력을 필터링해야 합니다.
 위에 설명된 메소드들의 두 번째 매개 변수로 사용할 필터 유형을 전달할 수 있습니다.
@@ -133,7 +157,7 @@ POST 변수를 필터링하면 다음과 같습니다
 .. important:: 두 번째 매개 변수로 전달된 필터 유형 지원은 위에서 언급한 모든 메소드중 ``getJSON()``\ 을 제외 합니다.
 
 헤더 검색
------------
+***********
 
 ``getHeaders()`` 메소드로 요청과 함께 전송된 모든 헤더에 액세스 할 수 있습니다.
 이 메소드는 키를 헤더 이름으로 사용하여 모든 헤더의 배열을 ``CodeIgniter\HTTP\Header``\ 로 반환합니다.
@@ -158,7 +182,7 @@ POST 변수를 필터링하면 다음과 같습니다
 .. literalinclude:: incomingrequest/019.php
 
 요청 URL
-------------
+***********
 
 ``$request->getUri()`` 메소드를 통해 요청에 대한 현재 URI를 나타내는 :doc:`URI </libraries/uri>` 객체를 검색할 수 있습니다.
 이 객체를 문자열로 캐스트하여 현재 요청에 대한 전체 URL을 얻을 수 있습니다.
@@ -175,7 +199,7 @@ POST 변수를 필터링하면 다음과 같습니다
 .. literalinclude:: incomingrequest/022.php
 
 업로드(Upload) 파일
----------------------
+**********************
 
 업로드된 모든 파일에 대한 정보는 ``$request->getFiles()``\ 를 통해 얻을 수 있으며, ``CodeIgniter\HTTP\Files\UploadedFile`` 인스턴스의 배열을 반환합니다.
 이를 통하여 파일 업로드 작업이 쉬워지고 보안 위험을 최소화할 수 있습니다.
@@ -195,7 +219,7 @@ HTML 파일 입력에 제공된 파일 이름을 기반으로 동일한 이름�
 .. note:: 여기의 파일은 ``$_FILES``\ 에 해당합니다. 사용자가 양식(form)에 파일을 업로드하지 않고 제출(submit) 버튼을 클릭하여도 파일($_FILES)은 계속 존재합니다. userfile의 ``isValid()`` 메소드로 파일이 실제로 업로드 되었는지 확인할 수 있습니다. 자세한 내용은 :ref:`verify-a-file`\ 을 참조하세요.
 
 컨텐츠 협상
---------------
+*************
 
 ``negotiate()`` 메소드를 통해 요청된 컨텐츠 유형을 쉽게 협상할 수 있습니다.
 
@@ -204,7 +228,7 @@ HTML 파일 입력에 제공된 파일 이름을 기반으로 동일한 이름�
 자세한 내용은 :doc:`콘텐츠 협상 </incoming/content_negotiation>` 페이지를 참조하십시오.
 
 Class Reference
-================
+***************
 
 .. note:: 여기에 나열된 메소드 외에도 이 클래스는 :doc:`요청(Request) Class </incoming/request>`\ 와 :doc:`메시지(Message) Class </incoming/message>` 클래스의 메소드를 상속합니다.
 
@@ -310,7 +334,7 @@ Class Reference
         :param  string  $index: 찾을 변수/키의 이름
         :param  int     $filter: 적용할 필터 유형, 필터 목록은 `여기 <https://www.php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
         :param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <https://www.php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
-        :returns:   제공된 매개 변수가 없는 경우 $_POST\ 와 $_GET\ 의 결합(충돌 시 POST 값 선택), 그렇지 않으면 POST 값을 찾고, 아무 것도 없으면 GET 값을 찾고, 값이 없으면 null을 반환합니다.
+        :returns:   제공된 매개 변수가 없는 경우 ``$_POST``\ 와 ``$_GET``\ 의 결합(충돌 시 POST 값 선택), 그렇지 않으면 POST 값을 찾고, 아무 것도 없으면 GET 값을 찾고, 값이 없으면 null을 반환합니다.
         :rtype: mixed|null
 
         이 메소드는 ``getPost()``, ``getGet()``\ 와 거의 같은 방식으로 작용하며, 2개의 메소드를 결합한 것입니다.
@@ -326,7 +350,7 @@ Class Reference
         :param  string  $index: 찾을 변수/키의 이름
         :param  int     $filter: 적용할 필터 유형, 필터 목록은 `여기 <https://www.php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
         :param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <https://www.php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
-        :returns:   제공된 매개 변수가 없는 경우 $_GET\ 관 $_POST 결합(충돌 시 GET 값 선택), 그렇지 않으면 GET 값을 찾고, 아무 것도 없으면 POST 값을 찾고, 값이 없으면 null을 반환합니다.
+        :returns:   제공된 매개 변수가 없는 경우 ``$_GET``\ 과 ``$_POST`` 결합(충돌 시 GET 값 선택), 그렇지 않으면 GET 값을 찾고, 아무 것도 없으면 POST 값을 찾고, 값이 없으면 null을 반환합니다.
         :rtype: mixed|null
 
         이 메소드는 ``getPost()``, ``getGet()``\ 와 거의 같은 방식으로 작용하며, 2개의 메소드를 결합한 것입니다.
@@ -362,7 +386,7 @@ Class Reference
         :param  mixed   $index: Value name
         :param  int     $filter: 적용할 필터 유형, 필터 목록은 `여기 <https://www.php.net/manual/en/filter.filters.php>`__\ 에서 찾을 수 있습니다.
         :param  int     $flags: 적용할 플래그, 플래그 목록은 `여기 <https://www.php.net/manual/en/filter.filters.flags.php>`__\ 에서 찾을 수 있습니다.
-        :returns:    검색된 $_SERVER 값 또는 ``null``
+        :returns:    검색된 ``$_SERVER`` 값 또는 ``null``
         :rtype:    mixed
 
         ``getPost()``, ``getGet()``, ``getCookie()`` 메소드와 동일하지만 값을 ``$_SERVER``\ 에서 가져옵니다.

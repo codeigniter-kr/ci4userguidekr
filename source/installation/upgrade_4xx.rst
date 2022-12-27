@@ -49,7 +49,7 @@ Application Structure
 Routing
 =======
 
-- 자동 라우팅(Auto Routing)은 기본적으로 비활성화되어 있습니다. 자동 라우팅을 CI3와 같은 방식으로 사용하려면 :ref:`auto-routing`\ 을 활성화해야 합니다.
+- 자동 라우팅(Auto Routing)은 기본적으로 비활성화되어 있습니다. 자동 라우팅을 CI3와 같은 방식으로 사용하려면 :ref:`auto-routing-legacy`\ 을 활성화해야 합니다.
 - CI4에는 새로운 더 안전한 옵션인 :ref:`auto-routing-improved`\ 도 있습니다.
 
 Model, View and Controller

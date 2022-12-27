@@ -24,8 +24,8 @@
 URL에 index.php를 포함시켜야 동작합니다
 -----------------------------------------
 
-``/mypage/find/apple``\ 과 같은 URL은 작동하지 않지만 유사한 URL ``/index.php/mypage/find/apple``\ 은 작동한다면 (Apache의 경우) ``.htaccess`` 
-규칙이 제대로 설정되지 않았거나, Apache의 ``httpd.conf``\ 에 ``mod_rewrite`` 확장이 주석 처리되었을 수 있습니다.
+``/mypage/find/apple``\ 과 같은 URL은 작동하지 않지만 유사한 URL ``/index.php/mypage/find/apple``\ 은 작동한다면 (Apache의 경우) **.htaccess**
+규칙이 제대로 설정되지 않았거나, Apache의 **httpd.conf**\ 에 ``mod_rewrite`` 확장이 주석 처리되었을 수 있습니다.
 
 기본 페이지만 로드됨
 ---------------------------
@@ -33,7 +33,7 @@ URL에 index.php를 포함시켜야 동작합니다
 URL에 입력 한 내용에 관계없이 기본 페이지만 로드되는 경우 서버가 검색 엔진 친화적인 URL을 제공하는데 필요한 REQUEST_URI 변수를 지원하지 않을 수 있습니다.
 첫 번째 단계로 **app/Config/App.php** 파일을 열고 URI 프로토콜 정보를 찾으십시오.
 몇 가지 대체 설정을 시도하는 것이 좋습니다. 
-시도한 후에도 여전히 작동하지 않으면 CodeIgniter가 URL에 물음표(?)를 추가하도록 해야 합니다.
+시도한 후에도 여전히 작동하지 않으면 CodeIgniter가 URL에 물음표(``?``)를 추가하도록 해야 합니다.
 이렇게 하려면 **app/Config/App.php** 파일을 열고 아래 항목을 변경하십시오
 
 이전 
@@ -57,7 +57,7 @@ No input file specified
 ---------------------------------------------------
 
 PHP의 내장 웹 서버를 사용하여 튜토리얼을 따라 할 수 없습니다.
-PHP의 내장 웹 서버는 요청(request)을 올바르게 라우팅하는데 필요한 `.htaccess` 파일을 처리하지 않기 때문입니다.
+PHP의 내장 웹 서버는 요청(request)을 올바르게 라우팅하는데 필요한 **.htaccess** 파일을 처리하지 않기 때문입니다.
 
 해결책 : Apache를 사용하여 사이트를 작성하거나 내장된 CodeIgniter의 ``php spark serve`` 명령을 프로젝트 루트에서 실행하십시오.
 
@@ -80,7 +80,7 @@ CodeIgniter 오류 로그
 
 CodeIgniter는 `app/Config/Logger.php`\ 의 설정에 따라 오류 메시지를 기록합니다.
 
-오류 임계 값을 조정하여 더 많거나 적은 메시지를 볼 수 있습니다.
+오류 임계 값을 조정하여 더 많거나 적은 메시지를 볼 수 있습니다. 자세한 내용은 :ref:`Logging <logging-configuration>`\ 을 참조하십시오.
 
 기본 설정에는 로그 파일이 'writable/logs'\ 로 저정되어 있습니다.
 오류가 발생한다면 이 파일을 확인하는 것이 좋습니다.

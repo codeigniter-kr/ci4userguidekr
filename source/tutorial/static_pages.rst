@@ -1,6 +1,10 @@
 정적 페이지(Static pages)
 ##########################
 
+.. contents::
+    :local:
+    :depth: 2
+
 .. note:: 이 튜터리얼은 CodeIgniter를 다운로드하고 개발 환경에 :doc:`프레임워크를 설치 <../installation/index>` 했다고 가정합니다.
 
 가장 먼저 할 일은 정적 페이지를 처리​​할 **controller**\ 를 설정하는 것입니다. 
@@ -120,9 +124,9 @@ CodeIgniter는 라우팅 규칙을 위에서 아래로 읽고 요청과 첫 번�
 
 라우팅에 대한 자세한 내용은 :doc:`URI 라우팅 설명서 </incoming/routing>`\ 를 참조하십시오.
 
-여기에서 ``$routes`` 객체의 두 번째 규칙은 GET 요청을 URI 경로 ``/pages``\ 와 일치시키며 ``Pages`` 클래스의 ``index()`` 메서드를 매핑합니다.
+여기서, ``$routes`` 객체의 두 번째 규칙은 URI 경로 ``/pages``\ 에 대한 GET 요청과 ``Pages`` 클래스의 ``index()`` 메소드를 연결합니다.
 
-``$routes`` 객체의 세 번째 규칙은 와일드카드 문자열 ``(:any)``\ 를 사용하여 **어떤** URI 경로에 대한 GET 요청을 일치시키고 매개변수를 ``Pages`` 클래스의 ``view()`` 메서드에 전달합니다.
+``$routes`` 객체의 세 번째 규칙은 URI 세그먼트에 대한 GET 요청을 자리 표시자 ``(:segment)``\ 를 사용하여 일치시키고, 그 파라미터를 ``Pages`` 클래스의 ``view()`` 메소드에 전달합니다.
 
 앱 실행(Running the App)
 **************************

@@ -163,7 +163,7 @@ id 필드는 만들때 특별한 예외가 적용됩니다.
 
 .. literalinclude:: forge/012.php
 
-구속 조건의 "on delete" 및 "on update" 속성에 대해 원하는 작업을 지정할 수 있습니다.
+구속 조건의 "on update"\ 와 "on delete" 속성에 대해 원하는 작업을 지정할 수 있습니다.
 
 .. literalinclude:: forge/013.php
 

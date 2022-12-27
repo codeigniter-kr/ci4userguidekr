@@ -2,15 +2,49 @@
 서버 요구 사항
 ###################
 
-`PHP <https://www.php.net/>`_ 버전 7.3 이상이 필요하며, `*intl* 확장(Extension) <https://www.php.net/manual/en/intl.requirements.php>`_\ 과 `*mbstring* 확장 <https://www.php.net/manual/en/mbstring.requirements.php>`_\ 이 설치되어 있어야 합니다.
+.. contents::
+    :local:
+    :depth: 2
 
-서버에 다음 PHP 확장 기능을 사용하도록 설정해야 합니다.
+***************************
+PHP 버전 및 필수 확장
+***************************
 
-  - ``php-json``
-  - ``php-mysqlnd`` (MySQL을 사용하는 경우)
-  - ``php-xml``
+`PHP <https://www.php.net/>`_ 버전 7.4 이상이 필요하며, 다음 PHP 확장이 활성화되어 있습니다.
 
-:doc:`CURLRequest </libraries/curlrequest>`\ 를 사용하려면 `libcurl <https://www.php.net/manual/en/curl.requirements.php>`_\ 이 설치되어 있어야 합니다.
+  - `intl <https://www.php.net/manual/en/intl.requirements.php>`_
+  - `mbstring <https://www.php.net/manual/en/mbstring.requirements.php>`_
+  - `json <https://www.php.net/manual/en/json.requirements.php>`_
+
+***********************
+선택적 PHP 확장
+***********************
+
+서버에서 다음 PHP 확장을 활성화해야 합니다.
+
+  - `mysqlnd <https://www.php.net/manual/en/mysqlnd.install.php>`_ (MySQL을 사용하는 경우)
+  - `curl <https://www.php.net/manual/en/curl.requirements.php>`_ (:doc:`CURLRequest </libraries/curlrequest>`\ 을 사용하는 경우)
+  - `imagick <https://www.php.net/manual/en/imagick.requirements.php>`_ (:doc:`Image </libraries/images>` ImageMagickHandler 클래스를 사용하는 경우)
+  - `gd <https://www.php.net/manual/en/image.requirements.php>`_ (:doc:`Image </libraries/images>` GDHandler 클래스를 사용하는 경우)
+  - `simplexml <https://www.php.net/manual/en/simplexml.requirements.php>`_ (XML을 사용하는 경우)
+
+캐시 서버를 사용할 때 다음 PHP 확장이 필요합니다.
+
+  - `memcache <https://www.php.net/manual/en/memcache.requirements.php>`_ (Memcache와 함께 :doc:`Cache </libraries/caching>` MemcachedHandler 클래스를 사용하는 경우)
+  - `memcached <https://www.php.net/manual/en/memcached.requirements.php>`_ (Memcached와 함께 :doc:`Cache </libraries/caching>` MemcachedHandler 클래스를 사용하는 경우)
+  - `redis <https://github.com/phpredis/phpredis>`_ (:doc:`Cache </libraries/caching>` RedisHandler 클래스를 사용하는 경우)
+
+PHPUnit을 사용할 때 다음 PHP 확장이 필요합니다.
+
+   - `dom <https://www.php.net/manual/en/dom.requirements.php>`_ (:doc:`TestResponse </testing/response>` 클래스를 사용하는 경우)
+   - `libxml <https://www.php.net/manual/en/libxml.requirements.php>`_ (:doc:`TestResponse </testing/response>` 클래스를 사용하는 경우)
+   - `xdebug <https://xdebug.org/docs/install>`_ (``CIUnitTestCase::assertHeaderEmitted()``\ 을 사용하는 경우)
+
+.. _requirements-supported-databases:
+
+**********************
+지원되는 데이터베이스
+**********************
 
 대부분의 웹 어플리케이션은 데이터베이스가 필요합니다.
 현재 지원되는 데이터베이스는 다음과 같습니다.

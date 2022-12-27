@@ -35,7 +35,7 @@ Let's try it: Hello World!
 
 자세한 내용은 :ref:`경로 <command-line-only-routes>` 페이지를 참조하세요.
 
-.. warning:: :ref:`auto-routing`\ 을 활성화하고 명령(command) 파일을 **app/Controllers**\ 에 배치하면 HTTP를 통하여 누구나 명령에 액세스할 수 있습니다.
+.. warning:: :ref:`auto-routing-legacy`\ 을 활성화하고 명령(command) 파일을 **app/Controllers**\ 에 배치하면 누구나 HTTP를 통하여 :ref:`auto-routing-legacy`\ 의 도움으로 명령에 액세스할 수 있습니다.
 
 CLI를 통해 실행
 ===============

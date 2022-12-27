@@ -51,7 +51,7 @@ execute(string $method, ...$params)
 withConfig($config)
 -------------------
 
-다른 설정으로 테스트하기 위해 수정된 버전의 **Config\App.php**\ 를 전달할 수 있습니다.
+다른 설정으로 테스트하기 위해 수정된 버전의 **app/Config/App.php**\ 를 전달할 수 있습니다.
 
 .. literalinclude:: controllers/005.php
 

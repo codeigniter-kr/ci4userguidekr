@@ -261,6 +261,8 @@ setRules()
 
 .. literalinclude:: validation/007.php
 
+.. _validation-withrequest:
+
 withRequest()
 =============
 
@@ -268,6 +270,10 @@ withRequest()
 Request 객체의 인스턴스를 전달하면, 모든 입력 데이터를 가져 와서 유효성을 검사할 데이터로 설정합니다.
 
 .. literalinclude:: validation/008.php
+
+.. note:: 이 메소드는 요청이 JSON 요청(``Content-Type: application/json``)인 경우 :ref:`$request->getRawInput() <incomingrequest-retrieving-raw-data>`\ 에서 JSON 데이터를 가져오고,
+    요청이 PUT, PATCH, DELETE 요청이고 HTML 폼(form) 포스트(POST)가 아니며 (``Content-Type: multipart/ form-data``)인 경우 :ref:`$request->getRawInput() <incomingrequest-retrieving-raw-data>`\ 에서 Raw 데이터를 가져오고,
+    그 외의 경우 :ref:`$request->getVar() <incomingrequest-getting-data>`\ 에서 데이터를 가져옵니다.
 
 검증 작업
 ***********

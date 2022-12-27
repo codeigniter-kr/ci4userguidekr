@@ -32,11 +32,34 @@ GET 요청이 예상되면 ``get()`` 메서드를 사용합니다.
 
 .. literalinclude:: routing/001.php
 
-경로는 왼쪽에 컨트롤러에 전달되어야 하는 매개변수를 URI path(``/``)를 사용하여 정의하고 오른쪽에 정의된 컨트롤러 및 메소드(``Home::index``)에 매핑합니다. .
-컨트롤러와 메소드는 ``Users::list``\ 와 같이 이중 콜론으로 클래스와 해당 메서드를 구분하여 정적 메서드를 사용하는 것과 동일한 방식으로 나열해야 합니다.
-해당 메서드에 매개변수를 전달해야 하는 경우 메소드 이름 뒤에 나열되며 슬래시로 구분됩니다.
+경로(route)는 왼쪽의 URI 경로(``/``)를 사용하여 컨트롤러에 전달되어야 하는 모든 매개변수와 함께 오른쪽의 컨트롤러 및 메서드(``Home::index``)에 매핑합니다.
+컨트롤러와 메서드는 ``Users::list``\ 와 같이 클래스와 메서드를 이중 콜론(::)으로 구분하여 정적 메서드를 사용하는 것과 같은 방식으로 나열해야 합니다.
+해당 메서드에 매개 변수를 전달해야 하는 경우 메서드 이름 뒤에 슬래시로 구분하여 나열됩니다.
 
 .. literalinclude:: routing/002.php
+
+Examples
+========
+
+다음은 기본적인 몇 가지 라우팅 예입니다.
+
+첫 번째 세그먼트에 **journals**\ 라는 단어가 포함된 URL은 ``\App\Controllers\Blogs`` 클래스의 기본 메소드인 ``index()``\ 로 매핑됩니다.
+
+.. literalinclude:: routing/006.php
+
+"blog/joe" 세그먼트가 포함된 URL은 ``\App\Controllers\Blogs`` 클래스의 ``users()`` 메소드로 매핑됩니다. ID는 ``34``\ 로 설정됩니다.
+
+.. literalinclude:: routing/007.php
+
+URL의 첫 번째 세그먼트가 **product**\ 면 두 번째 세그먼트 값에 상관없이 ``\App\Controllers\Catalog`` 클래스의 ``productLookup()`` 메서드에 매핑됩니다.
+
+.. literalinclude:: routing/008.php
+
+첫 번째 세그먼트가 **product**\ 이고 두 번째로 숫자가 있는 URL은 ``\App\Controllers\Catalog`` 클래스의 ``productLookupByID()`` 메소드로 매핑되고, 
+두 번째 세그먼트의 숫자를 메소드 변수에 전달합니다.
+
+.. literalinclude:: routing/009.php
+
 
 HTTP 동사(verbs)
 ================
@@ -95,28 +118,6 @@ Placeholders Description
 
 .. note:: ``{locale}`` :doc:`현지화(localization) </outgoing/localization>`\ 에 사용하도록 예약되어 있으므로 자리 표시자 또는 경로의 다른 부분으로 사용할 수 없습니다.
 
-Examples
-========
-
-다음은 기본적인 몇 가지 라우팅 예입니다.
-
-첫 번째 세그먼트에 **journals**\ 라는 단어가 포함된 URL은 ``\App\Controllers\Blogs`` 클래스의 기본 메소드인 ``index()``\ 로 매핑됩니다.
-
-.. literalinclude:: routing/006.php
-
-"blog/joe" 세그먼트가 포함된 URL은 ``\App\Controllers\Blogs`` 클래스의 ``users()`` 메소드로 매핑됩니다. ID는 ``34``\ 로 설정됩니다.
-
-.. literalinclude:: routing/007.php
-
-첫 번째 세그먼트가 **product**\ 이고 두 번째 세그먼트가 있는 URL은 ``\App\Controllers\Catalog`` 클래스의 ``productLookup()`` 메소드로 매핑됩니다.
-
-.. literalinclude:: routing/008.php
-
-첫 번째 세그먼트가 **product**\ 이고 두 번째로 숫자가 있는 URL은 ``\App\Controllers\Catalog`` 클래스의 ``productLookupByID()`` 메소드로 매핑되고, 
-두 번째 세그먼트의 숫자를 메소드 변수에 전달합니다.
-
-.. literalinclude:: routing/009.php
-
 하나의 ``(:any)``\ 가 있는 경우 URL의 여러 세그먼트와 일치합니다.
 
 .. literalinclude:: routing/010.php
@@ -125,6 +126,8 @@ Examples
 컨트롤러를 구현할 때는 최대 매개 변수를 고려해야 합니다.
 
 .. literalinclude:: routing/011.php
+
+.. important:: ``(:any)`` 뒤에 자리 표시자를 두지 마십시오. 컨트롤러 메서드에 전달되는 매개변수의 수가 변경될 수 있습니다.
 
 여러 세그먼트를 일치시키는 것이 의도된 동작이 아니라면 경로를 정의할 때 ``(:segment)``\ 를 사용합니다.
 
@@ -185,7 +188,7 @@ v4.2.0부터 배열 호출 가능 구문(array callable syntax)을 사용하여 
 
     .. literalinclude:: routing/018.php
 
-위의 예에서, **products/shirts/123**\ 과 유사한 URI는 ``Products`` 컨트롤러 클래스의 ``show`` 메소드를 호출하고 세그먼트가 첫 번째 및 두 번째 세그먼트가 인수로 전달됩니다.
+위의 예에서, **products/shirts/123**\ 과 유사한 URI는 ``Products`` 컨트롤러 클래스의 ``show()`` 메소드를 호출하고 세그먼트가 첫 번째 및 두 번째 세그먼트가 인수로 전달됩니다.
 
 정규 표현식을 사용하면 일반적으로 여러 세그먼트 사이의 구분 기호를 나타내는 슬래시(``/``)가 포함된 세그먼트를 잡을 수도 있습니다.
 
@@ -195,7 +198,7 @@ v4.2.0부터 배열 호출 가능 구문(array callable syntax)을 사용하여 
 
 정규 표현식에 대해 더 배우고 싶은 사람들에게 `regular-expressions.info <https://www.regular-expressions.info/>`_\ 가 좋은 출발점이 될 수 있습니다.
 
-.. important:: Note: 와일드 카드를 정규식과 혼합하여 일치시킬 수도 있습니다.
+.. :: 자리표시자(placeholder)를 정규식과 혼합하여 일치시킬 수도 있습니다.
 
 클로저(Closure)
 ==================
@@ -331,7 +334,7 @@ HTTP 동사 기반 라우트 메소드로 생성된 모든 라우트는 CLI에�
 .. note::CLI를 통해 컨트롤러를 호출하는 대신 CLI 스크립트에 Spark 명령을 사용하는 것이 좋습니다.
     자세한 내용은 :doc:`../cli/cli_commands` 페이지를 참조하십시오.
 
-.. warning:: :ref:`auto-routing`\ 을 활성화하고 명령 파일이 **app/Controllers**\ 에 있으면 HTTP를 통한 자동 라우팅으로 CLI 명령에 액세스할 수 있습니다.
+.. warning:: :ref:`auto-routing-legacy`\ 을 활성화하고 명령 파일이 **app/Controllers**\ 에 있으면 자동 라우팅(Legacy)으로 HTTP를 통해 CLI 명령에 액세스할 수 있습니다.
 
 전역 옵션
 ==============
@@ -355,8 +358,8 @@ HTTP 동사 기반 라우트 메소드로 생성된 모든 라우트는 CLI에�
 
 필터에 대한 자세한 내용은 :doc:`Controller filters <filters>`\ 를 확인하세요.
 
-.. Warning:: **app/Config/Routes.php**(**app/Config/Filters.php**\ 가 아님) 파일에 경로에 대한 필터를 설정한 경우 자동 라우팅을 비활성화하는 것이 좋습니다.
-    자동 라우팅을 활성화하면 구성된 경로와 다른 URL을 통해 컨트롤러에 액세스할 수 있으며, 이 경우 경로에 지정한 필터가 적용되지 않습니다.
+.. Warning:: **app/Config/Routes.php**(**app/Config/Filters.php**\ 가 아님) 파일에 경로에 대한 필터를 설정한 경우 자동 라우팅(Legacy)을 비활성화하는 것이 좋습니다.
+    :ref:`auto-routing-legacy`\ 을 활성화하면 구성된 경로와 다른 URL을 통해 컨트롤러에 액세스할 수 있으며, 이 경우 경로에 지정한 필터가 적용되지 않습니다.
     자동 라우팅을 비활성화하려면 :ref:`use-defined-routes-only`\ 를 확인하세요.
 
 별칭(alias) 필터
@@ -538,6 +541,8 @@ v4.2.0부터 자동 라우팅은 기본적으로 비활성화됩니다.
 
 v4.2.0부터 더 안전하고 새로운 자동 라우팅이 도입되었습니다.
 
+.. note:: CodeIgniter 3에서 4.1.x까지 기본적으로 활성화된 Auto Routing에 익숙하다면 ChangeLog v4.2.0 <v420-new-improved-auto-routing>`\ 에서 차이점을 확인할 수 있습니다.
+
 URI와 일치하는 정의된 경로가 없으면 시스템은 자동 라우팅이 활성화된 경우 해당 URI를 컨트롤러와 메서드로 일치시키려고 시도합니다.
 
 .. important:: 보안상의 이유로 컨트롤러가 정의된 경로에서 사용되는 경우 자동 라우팅(개선됨)이 컨트롤러로 라우팅하지 않습니다.
@@ -622,7 +627,7 @@ Model-View-Controller 접근 방식을 따르는 URL의 세그먼트는 일반�
 .. note:: 기본 메서드 이름으로 된 URI로 컨트롤러에 액세스할 수 없습니다.
     위의 예에서는 **example.com/products**\ 에 액세스할 수 있지만 **example.com/products/listall**\ 는 액세스할 수 없습니다.
 
-.. _auto-routing:
+.. _auto-routing-legacy:
 
 자동 라우팅(레거시)
 *********************
@@ -669,7 +674,7 @@ Model-View-Controller 접근 방식을 따르는 URL의 세그먼트는 일반�
 
 위의 예에서 CodeIgniter는 **Helloworld.php**\ 라는 컨트롤러를 찾고 ``'1'``\ 을 첫 번째 인수로 전달하여 ``index()`` 메소드를 실행합니다.
 
-자세한 내용은 :ref:`Auto Routing (Legacy) in Controllers <controller-auto-routing>`\ 를 참조하세요.
+자세한 내용은 :ref:`Auto Routing (Legacy) in Controllers <controller-auto-routing-legacy>`\ 를 참조하세요.
 
 구성 옵션(레거시)
 ==============================
@@ -687,7 +692,7 @@ Model-View-Controller 접근 방식을 따르는 URL의 세그먼트는 일반�
 기본 컨트롤러는 일치하는 경로가 없고 URI가 컨트롤러 폴더의 하위 폴더를 가리킬 때도 사용됩니다.
 예를 들어 사용자가 **example.com/admin**\ 을 방문하면 **app/Controllers/Admin/Home.php**\ 에서 컨트롤러가 사용됩니다.
 
-자세한 내용은 :ref:`Auto Routing in Controllers <controller-auto-routing>`\ 를 참조하세요.
+자세한 내용은 :ref:`Auto Routing (Legacy) in Controllers <controller-auto-routing-legacy>`\ 를 참조하세요.
 
 기본 메소드(레거시)
 -----------------------

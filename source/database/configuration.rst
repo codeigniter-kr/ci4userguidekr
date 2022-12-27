@@ -6,6 +6,9 @@
     :local:
     :depth: 2
 
+.. note::
+    현재 지원되는 데이터베이스 드라이버는 :ref:`requirements-supported-databases`\ 를 참조하십시오.
+
 ***********
 구성 파일
 ***********
@@ -98,19 +101,19 @@ defaultGroup
 ======================  ===========================================================================================================
 **dsn**                 DSN 연결 문자열 (일체형 구성)
 **hostname**            데이터베이스 서버의 호스트 이름, 대부분 'localhost'
-**username**            데이터베이스에 연결하는데 사용되는 사용자 이름
-**password**            데이터베이스에 연결하는데 사용되는 비밀번호
+**username**            데이터베이스에 연결하는데 사용되는 사용자 이름 (``SQLite3``\ 는 사용하지 않습니다.)
+**password**            데이터베이스에 연결하는데 사용되는 비밀번호 (``SQLite3``\ 는 사용하지 않습니다.)
 **database**            연결하려는 데이터베이스의 이름
 
                         .. note:: CodeIgniter는 데이터베이스, 테이블, 열(column) 이름에서 점(``.``)을 지원하지 않습니다.
-**DBDriver**            데이터베이스 유형(``MySQLi``, ``Postgres`` 등), 드라이버 이름과 일치해야 합니다.
+**DBDriver**            데이터베이스 드라이버 이름 (``MySQLi``, ``Postgres``)등. 드라이버 이름과 일치해야 합니다.
 **DBPrefix**            :doc:`쿼리 빌더 <query_builder>` 쿼리를 실행할 때 테이블 이름에 추가될 선택적 테이블 접두사, 이를 통해 설치된 여러개의 CodeIgniter가 하나의 데이터베이스를 공유할 수 있습니다.
 **pConnect**            true/false (boolean) - 지속적 연결 사용 여부
 **DBDebug**             true/false (boolean) - 데이터베이스 오류를 표시해야 하는지 여부
 **charset**             데이터베이스와 통신하는 데 사용되는 문자 세트(character set)
 **DBCollat**            데이터베이스와의 통신에 사용되는 문자 조합(``MySQLi`` 전용)
 **swapPre**             ``DBPrefix``\ 와 교체(swap)되는 기본 테이블 접두사. 수동으로 작성된 쿼리를 실행할 수 있고, 최종 사용자가 여전히 접두사를 사용자 정의할 수 있어야 하는 분산 어플리케이션에 유용합니다.
-**schema**              데이터베이스 스키마, 기본값은 드라이버에 따라 다릅니다. ``Postgres`` 및 ``SQLSRV`` 드라이버에서 사용합니다.
+**schema**              데이터베이스 스키마, 기본값은 드라이버에 따라 다릅니다. (``Postgres``\ 와 ``SQLSRV`` 드라이버에서 사용합니다.)
 **encrypt**             암호화 된 연결을 사용할지 여부.
 
                         ``SQLSVR`` 드라이버는 true/false
@@ -124,15 +127,12 @@ defaultGroup
                             * ``ssl_verify`` - true/false; 서버 인증서를 확인할지 여부 (``MySQLi`` 전용)
 
 **compress**            클라이언트 압축 사용 여부 (``MySQLi`` 전용).
-**strictOn**            true/false (boolean) - "Strict Mode" 연결을 강제 적용할지 여부, 어플리케이션을 개발하는 동안 엄격한 SQL을 보장하는데 좋습니다.
-**port**                데이터베이스 포트 번호, 이 값을 사용하려면 데이터베이스 구성 배열에 아래 행을 추가해야합니다.
-
-                        .. literalinclude:: configuration/009.php
+**strictOn**            true/false (boolean) - "Strict Mode" 연결을 강제 적용할지 여부, 어플리케이션을 개발하는 동안 엄격한 SQL을 보장하는데 좋습니다. (``MySQLi`` 전용)
+**port**                데이터베이스 포트 번호.
 **foreignKeys**         true/false (boolean) - 외래 키 제약 조건을 활성화할지 여부t (``SQLite3`` 전용).
 
                         .. important:: SQLite3 외래 키 제약 조건은 기본적으로 비활성화되어 있습니다. `SQLite 문서 <https://www.sqlite.org/pragma.html#pragma_foreign_keys>`_\ 를 참조하세요. 외래 키 제약 조건을 적용하려면 이 구성 항목을 true로 설정하십시오.
 ======================  ===========================================================================================================
 
-.. note:: 사용중인 데이터베이스 플랫폼(MySQL, PostgreSQL 등)에 따라 모든 값이 필요한 것은 아닙니다.
-    예를 들어, SQLite를 사용하는 경우 사용자 이름 또는 비밀번호를 제공할 필요가 없으며 데이터베이스 이름은 데이터베이스 파일의 경로가됩니다.
-    위의 정보는 사용자가 MySQL을 사용하고 있다고 가정합니다.
+.. note:: 사용중인 데이터베이스 드라이버(``MySQLi``, ``PostgreSQL`` 등)에 따라 모든 값이 필요한 것은 아닙니다.
+    예를 들어, ``SQLite3``\ 를 사용하는 경우 사용자 이름 또는 비밀번호를 제공할 필요가 없으며 데이터베이스 이름은 데이터베이스 파일의 경로가 됩니다.
