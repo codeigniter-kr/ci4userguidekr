@@ -42,7 +42,7 @@ Initial Configuration
 장점
 =====
 
-Download and run
+Download and run.
 
 단점
 =====

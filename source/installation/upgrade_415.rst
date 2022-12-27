@@ -51,8 +51,8 @@ CSRF 필터를 적용하면 버그 수정으로 인해 CSRF 보호는 **POST**\ 
 
 **GET** 메소드 보호는 ``form_open()``\ 에 의한 CSRF 필드 자동 생성을 사용하는 경우에만 필요합니다.
 
-.. Warning:: 일반적으로 ``$methods`` 필터를 사용하는 경우  :ref:`disable auto-routing <use-defined-routes-only>`\ 을 수행해야 합니다.
-    자동 라우팅은 모든 HTTP 메서드가 컨트롤러에 액세스할 수 있도록 허용하기 때문입니다.
+.. Warning:: 일반적으로 ``$methods`` 필터를 사용하는 경우 :ref:`disable Auto Routing (Legacy) <use-defined-routes-only>`\ 을 수행해야 합니다.
+    :ref:`auto-routing-legacy`\ 은 모든 HTTP 메서드가 컨트롤러에 액세스할 수 있도록 허용하기 때문입니다.
     예상하지 못한 방법으로 컨트롤러에 액세스하면 필터를 우회할 수 있습니다.
 
 CURLRequest 헤더 변경

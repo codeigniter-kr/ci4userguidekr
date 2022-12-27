@@ -132,6 +132,9 @@ URI를 화이트리스트에 추가하여 CSRF 보호에서 제외할 수 있습
 
 .. literalinclude:: security/009.php
 
+.. Warning:: :ref:`auto-routing-legacy`\ 가 컨트롤러에 접근할 수 있는 모든 HTTP 메소드를 허용하기 때문에 ``$methods`` 필터를 사용할 경우, :ref:`Auto Routing (Legacy) <use-defined-routes-only>`\ 을 사용하지 않도록 설정해야 합니다.
+    활성화되어 있는 상태에서는 예상하지 못한 방법으로 컨트롤러에 액세스하여 필터를 우회할 수 있습니다.
+
 HTML Forms
 ==========
 

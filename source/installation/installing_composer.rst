@@ -70,12 +70,13 @@ Initial Configuration
 장점
 ----------
 
-간단한 설치; 쉬운 업데이트
+간단한 설치; 쉬운 업데이트.
 
 단점
 ----------
 
-업데이트후 ``app/Config`` 변경 사항을 확인해야 함
+업데이투 후 **project space** (root, app, public, writable) 에서 변경 사항을 확인해야 합니다.
+
 
 
 구조
@@ -155,12 +156,12 @@ Initial Configuration
 장점
 -------------
 
-비교적 간단한 설치, 쉬운 업데이트
+비교적 간단한 설치, 쉬운 업데이트.
 
 단점
 -------------
 
-업데이트 후 ``app/Config`` 변경 사항을 확인해야 함
+업데이투 후 **project space** (root, app, public, writable) 에서 변경 사항을 확인해야 합니다.
 
 구조
 -------------

@@ -104,12 +104,12 @@ single_service()
 CodeIgniter의 거의 모든 클래스는 해당 클래스가 준수하는 인터페이스를 제공합니다.
 코어 클래스를 확장하거나 교체하려는 경우 인터페이스의 요구 사항을 충족하고 클래스가 호환되는지 확인합니다.
 
-``RouterCollectionInterface``\ 를 구현한 ``RouterCollection`` 클래스를 예로 들어보겠습니다.
-경로(route)를 생성하는 다른 방법을 제공하는 클래스를 만든다면, ``RouterCollectionInterface``\ 를 구현하는 새 클래스를 만들어야 합니다.
+``RouteCollectionInterface``\ 를 구현한 ``RouteCollection`` 클래스를 예로 들어보겠습니다.
+경로(route)를 생성하는 다른 방법을 제공하는 클래스를 만든다면, ``RouteCollectionInterface``\ 를 구현하는 새 클래스를 만들어야 합니다.
 
 .. literalinclude:: services/006.php
 
-마지막으로 **app/Config/Services.php**\ 를 수정하여 ``CodeIgniter\Router\RouterCollection`` 대신  ``MyRouter``\ 의 새 인스턴스를 생성합니다.
+마지막으로 **app/Config/Services.php**\ 에 ``routes()`` 메소드를 추가하여 ``CodeIgniter\Router\RouteCollection`` 대신 ``MyRouteCollection``\ 의 새 인스턴스를 생성합니다.
 
 .. literalinclude:: services/007.php
 

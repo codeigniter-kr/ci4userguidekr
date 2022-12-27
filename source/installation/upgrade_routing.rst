@@ -21,11 +21,12 @@ Documentations
 Upgrade Guide
 =============
 
-1. CI3와 같은 방식으로 Auto Routing을 사용하는 경우 :ref:`auto-routing`\ 을 활성화해야 합니다.
-2. 각 라우팅 라인의 CI4 형식으로 구문을 변경하고 **app/Config/Routes.php**\ 에 추가해야 합니다.
+1. CI3와 같은 방식으로 Auto Routing을 사용하는 경우 :ref:`auto-routing-legacy`\ 을 활성화해야 합니다.
+2. CI3의 플레이스홀더 ``(:any)``\ 는 CI4에서 ``(:segment)``\ 입니다.
+3. 각 라우팅 라인의 CI4 형식으로 구문을 변경하고 **app/Config/Routes.php**\ 에 추가해야 합니다.
 
     - ``$route['journals'] = 'blogs';``\ 는 ``$routes->add('journals', 'Blogs::index');``\ 로 변경. 이는 ``Blogs`` 클래스의 ``index()`` 메소드로 매핑(mapping) 합니다.
-    - ``$route['product/(:any)'] = 'catalog/product_lookup';``\ 는 ``$routes->add('product/(:any)', 'Catalog::productLookup');``\ 로 변경
+    - ``$route['product/(:any)'] = 'catalog/product_lookup';``\ 는 ``$routes->add('product/(:segment)', 'Catalog::productLookup');``\ 로 변경
     - ``$route['login/(.+)'] = 'auth/login/$1';``\ 는 ``$routes->add('login/(.+)', 'Auth::login/$1');`` \ 로 변경
 
 Code Example

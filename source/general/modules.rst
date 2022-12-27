@@ -15,8 +15,8 @@ CodeIgniter는 재사용 가능한 코드를 작성하는데 도움이 되는 �
 네임스페이스(Namespaces)
 ==============================
 
-모듈 기능의 핵심 요소는 CodeIgniter가 사용하는 :doc:`PSR-4 호환 자동 로딩 </concepts/autoloader>`\ 에서 비롯됩니다.
-어떤 코드든 PSR-4 오토로더 및 네임스페이스를 사용할 수 있지만, 모듈을 최대한 활용하는 일차적인 방법은 코드를 네임스페이스로 묶고 **app/Config/Autoload.php**\ 의 ``psr4`` 섹션에 추가하는 것입니다.
+모듈 기능의 핵심 요소는 CodeIgniter가 사용하는 :doc:`PSR-4 호환 자동 로딩 <../concepts/autoloader>`\ 에서 비롯됩니다.
+어떤 코드든 PSR-4 오토로더 및 네임스페이스를 사용할 수 있지만, 모듈을 최대한 활용하는 일차적인 방법은 코드를 네임스페이스로 묶고 **app/Config/Autoload.php**\ 의 ``$psr4`` 속성에 추가하는 것입니다.
 
 어플리케이션 간에 재사용할 수 있는 간단한 블로그 모듈을 예로 들어보겠습니다.
 Acme라는 회사 이름으로 폴더를 만들어 모든 모듈을 그 안에 저장합니다.
@@ -24,14 +24,14 @@ Acme라는 회사 이름으로 폴더를 만들어 모든 모듈을 그 안에 �
 
 ::
 
-    /acme        // New modules directory
-    /app
-    /public
-    /system
-    /tests
-    /writable
+    acme/        // New modules directory
+    app/
+    public/
+    system/
+    tests/
+    writable/
 
-**app/Config/Autoload.php**\ 를 열고 ``Acme\Blog`` 네임스페이스를 ``psr4`` 배열 속성에 추가합니다.
+**app/Config/Autoload.php**\ 를 열고 ``Acme\Blog`` 네임스페이스를 ``$psr4`` 배열 속성에 추가합니다.
 
 .. literalinclude:: modules/001.php
 
@@ -43,19 +43,19 @@ Acme라는 회사 이름으로 폴더를 만들어 모든 모듈을 그 안에 �
 
 ::
 
-    /acme
-        /Blog
-            /Config
-            /Controllers
-            /Database
-                /Migrations
-                /Seeds
-            /Helpers
-            /Language
-                /en
-            /Libraries
-            /Models
-            /Views
+    acme/
+        Blog/
+            Config/
+            Controllers/
+            Database/
+                Migrations/
+                Seeds/
+            Helpers/
+            Language/
+                en/
+            Libraries/
+            Models/
+            Views/
 
 물론, 이 구조를 반드시 사용하도록 강요 할 필요는 없으며, 모듈에 가장 적합한 방식으로 조직화하여 필요하지 않은 디렉토리는 제거하고, 엔티티, 인터페이스 또는 저장소 등을 위한 새 디렉토리를 작성합니다.
 
@@ -76,10 +76,11 @@ CodeIgniter는 자동 로드하고자 하는 파일에 대한 경로 목록을 `
 
 포함할 파일에  전체 네임스페이스를 지정해야 하는 경우가 많지만, CodeIgniter는 다음과 같은 다양한 파일 형식을 자동으로 검색하여 어플리케이션에 모듈을 통합하도록 구성할 수 있습니다.
 
-- :doc:`Events </extending/events>`
-- :doc:`Registrars </general/configuration>`
-- :doc:`Route files </incoming/routing>`
-- :doc:`Services </concepts/services>`
+- :doc:`Events <../extending/events>`
+- :doc:`Filters <../incoming/filters>`
+- :doc:`Registrars <./configuration>`
+- :doc:`Route files <../incoming/routing>`
+- :doc:`Services <../concepts/services>`
 
 이것은 **app/Config/Modules.php** 파일에 구성되어 있습니다.
 
@@ -119,7 +120,7 @@ Composer를 통해 설치된 패키지도 PSR-4 네임스페이스를 사용한�
 라우트
 ========
 
-기본적으로 모듈 내에서 :doc:`라우트 </incoming/routing>`\ 가 자동으로 검색됩니다. 위에서 설명한 **모듈** 구성 파일에서 끌 수 있습니다.
+기본적으로 모듈 내에서 :doc:`라우트 <../incoming/routing>`\ 가 자동으로 검색됩니다. 위에서 설명한 **모듈** 구성 파일에서 끌 수 있습니다.
 
 .. note:: 파일이 현재 범위에 포함되므로 ``$routes`` 인스턴스가 이미 정의되어 있습니다. 해당 클래스를 재정의하려고 하면 오류가 발생합니다.
 
@@ -129,7 +130,7 @@ Composer를 통해 설치된 패키지도 PSR-4 네임스페이스를 사용한�
 Filters
 =======
 
-기본적으로 :doc:`filters </incoming/filters>`\ 는 모듈 내에서 자동으로 검색됩니다.
+기본적으로 :doc:`filters <../incoming/filters>`\ 는 모듈 내에서 자동으로 검색됩니다.
 위에서 설명한 **Modules** 구성 파일에서 이 기능을 해제할 수 있습니다.
 
 .. note:: 파일이 현재 범위에 포함되어 있으므로 ``$filters`` 인스턴스가 이미 정의되어 있습니다.
@@ -164,7 +165,7 @@ Filters
     **app/Config/**\ 의 알려진 구성을 재정의하거나 추가해야 하는 모듈은 :ref:`registrars`\ 를 사용해야 합니다.
 
 .. note:: ``config()``\ 는 ``config(\Acme\Blog\Config\Blog::class)``\ 와 같이 정규화된 클래스 이름을 지정하더라도 동일한 단축 이름을 가진 클래스가 있는 경우 **app/Config/**\ 에서 파일을 찾습니다.
-    그 이유는 ``config()``\ 가 기본적으로 ``preferApp``\ 을 사용하는 ``Factories`` 클래스의 래퍼이기 때문입니다. 자세한 내용은 :ref:`factories-options`\ 를 참조하세요.
+    그 이유는 ``config()``\ 가 기본적으로 ``preferApp``\ 을 사용하는 ``Factories`` 클래스의 래퍼이기 때문입니다. 자세한 내용은 :ref:`Factories Example <factories-example>`\ 를 참조하세요.
 
 마이그레이션
 ==============
@@ -185,9 +186,11 @@ CLI를 통하여 호출하는 경우 이중 백 슬래시(\\\\)를 사용해야 
 헬퍼
 =======
 
-``helper()`` 메소드를 사용하여 **Helpers** 디렉토리 내에 있는 헬퍼를 자동으로 찾을 수 있습니다.
+헬퍼는 ``helper()`` 함수를 사용할 때 네임스페이스 **Helpers** 디렉토리에 정의된 네임스페이스에서 자동으로 찿습니다.
 
 .. literalinclude:: modules/009.php
+
+네임스페이스를 지정할 수 있습니다. 자세한 내용은 :ref:`helpers-loading-from-non-standard-locations`\ 를 참조하세요.
 
 언어(Language) 파일
 ======================
@@ -204,9 +207,16 @@ CLI를 통하여 호출하는 경우 이중 백 슬래시(\\\\)를 사용해야 
 모델
 ======
 
-모델은 항상 정규화된 클래스 이름으로 인스턴스화되므로 특별한 액세스 방법을 제공하지 않습니다.
+ ``new`` 키워드를 사용하여 정규화된 클래스 이름의 모델을 인스턴스화하면 특별한 액세스가 제공되지 않습니다.
 
 .. literalinclude:: modules/011.php
+
+모델 파일은 :php:func:`model()` 함수를 사용하면 자동으로 검색됩니다.
+
+.. note:: 모듈에서 동일한 짧은 클래스 이름을 사용하지 않는 것이 좋습니다.
+
+.. note:: ``model()``은 ``model(\Acme\Blog\Model\PostModel::class)``\ 와 같이 정규화된 클래스 이름을 지정하더라도 동일한 단축 이름을 가진 클래스가 있는 경우 **app/Models/**\ 에서 파일을 찾습니다.
+    그 이유는 ``model()``\ 이 ``preferApp``\ 을 사용하는 ``Factories`` 클래스의 래퍼이기 때문입니다. 자세한 내용은 :ref:`Factories Example <factories-example>`\ 를 참조하십시오.
 
 뷰
 =====

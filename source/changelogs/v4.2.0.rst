@@ -60,6 +60,8 @@ Behavior Changes
 Enhancements
 ************
 
+.. _v420-new-improved-auto-routing:
+
 New Improved Auto Routing
 =========================
 
@@ -93,6 +95,7 @@ Database
      - 원시 SQL 문자열을 표현하는 ``CodeIgniter\Database\RawSql`` 클래스를 추가했습니다.
      - :ref:`select() <query-builder-select-rawsql>`, :ref:`where() <query-builder-where-rawsql>`, :ref:`like() <query-builder-like-rawsql>`, :ref:`join() <query-builder-join-rawsql>`\ 은 ``CodeIgniter\Database\RawSql`` 인스턴스를 허용합니다.
      - ``DBForge::addField()`` 기본값 원시 SQL 문자열 지원. :ref:`forge-addfield-default-value-rawsql`.
+- SQLite3의 외래 키 제약 조건을 활성화하는 새로운 구성 항목 ``foreignKeys``\ 를 추가했습니다.
 
 Helpers and Functions
 =====================
@@ -118,6 +121,7 @@ Commands
 Others
 ======
 
+- 컨트롤러에 ``$this->validateData()``\ 를 추가했습니다. :ref:`controller-validatedata`\ 를 참조하십시오.
 - 콘텐츠 보안 정책(CSP) 향상
     - CSP 자리 표시자 (``{csp-script-nonce}``\ 와 ``{csp-style-nonce}``) 사용을 위해 ``Config\ContentSecurityPolicy``\ 에 ``$scriptNonceTag``\ 와 ``$styleNonceTag`` 구성을 추가했습니다.
     - CSP 자리 표시자 교체를 비활성화하기 위해 ``Config\ContentSecurityPolicy``\ 에 ``$autoNonce`` 구성을 추가했습니다.

@@ -14,6 +14,7 @@ CodeIgniter는 포괄적인 문서로 종종 칭찬을 받습니다.
 프레임워크나 자신의 CodeIgniter 코드에 대한 질문이 남아 있다면  다음을 살펴보십시오.
 
 -  `Codeigniter 한국 사용자 포럼 <https://cikorea.net/>`_
+-  `Codeigniter 한국 사용자 포럼 Slack <https://join.slack.com/t/codeigniter-kr/shared_invite/enQtNTEyMTI1OTkwOTk2LTNiMzBkNTIzZDBjOWI4NmRjZThmZGEwMGNiYmZiMzQ3ODI1ZmZhZGQ1ZmM5Y2IyZmI1M2M4YzlmNjQ2M2JkMTY>`_
 
 -  `Codeigniter Forum <https://forum.codeigniter.com/>`_
--  `Codeigniter Slack <https://codeigniterchat.slack.com/>`_
+-  `Codeigniter Slack <https://join.slack.com/t/codeigniterchat/shared_invite/zt-rl30zw00-obL1Hr1q1ATvkzVkFp8S0Q>`_

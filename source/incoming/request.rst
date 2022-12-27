@@ -23,7 +23,7 @@ Class Reference
         
         .. literalinclude:: request/001.php
 
-        .. important:: 이 메소드는 ``App->proxyIPs``\ 에 허용하도록 설정된 IP 주소에 대해 ``HTTP_X_FORWARDED_FOR``, ``HTTP_CLIENT_IP``, ``HTTP_X_CLIENT_IP``, ``HTTP_X_CLUSTER_CLIENT_IP`` 주소를 반환합니다.
+        .. important:: 이 메소드는 ``Config\App::$proxyIPs`` 설정을 고려하여 허용된 IP 주소에 대한 HTTP 헤더로 보고된 클라이언트 IP 주소를 반환합니다.
 
     .. php:method:: isValidIP($ip[, $which = ''])
 

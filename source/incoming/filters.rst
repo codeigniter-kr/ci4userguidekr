@@ -67,7 +67,7 @@ API 요청에 대한 속도 제한을 구현하는데 유용하며, 이에 대�
 
 .. Warning:: 필터 설정에서 URI 끝에 항상 ``*``\ 를 추가하는 것이 좋습니다.
     컨트롤러 메서드는 생각보다 다른 URL에서 액세스하는 경우가 많기 때문입니다.
-    예를 들어, 자동 라우팅이 활성화된 상태에서 ``Blog::index``\ 가 설정되어 있는 경우 ``blog``, ``blog/index``, ``blog/index/1``\ 등으로 액세스할 수 있습니다.
+    예를 들어,  :ref:`auto-routing-legacy`\ 가 활성화된 상태에서 ``Blog::index``\ 가 설정되어 있는 경우 ``blog``, ``blog/index``, ``blog/index/1``\ 등으로 액세스할 수 있습니다.
 
 $aliases
 ========
@@ -119,6 +119,9 @@ POST, GET, PUT등과 같은 특정 HTTP 메소드의 모든 요청에 필터를 
 
 표준 HTTP 메소드 외에도 'cli'\ 도 필터를 지원합니다. 
 'cli' 메소드는 명령줄에서 실행된 모든 요청에 적용됩니다.
+
+.. Warning:: ``$methods`` 필터를 사용하는 경우 :ref:`Auto Routing (Legacy) 비활성 <use-defined-routes-only>`\ 화 해야 합니다.
+    예상하지 못한 방법으로 컨트롤러에 액세스하면 필터를 우회할 수 있습니다.
 
 $filters
 ========

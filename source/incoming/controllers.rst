@@ -37,17 +37,22 @@ PHP의 생성자 ``__construct()`` 실행 후 프레임워크에 의해 호출�
 
 CodeIgniter의 컨트롤러는 다음 3가지 속성을 제공합니다.
 
-**Request Object**
+Request Object
+==============
 
 애플리케이션의 기본 :doc:`Request Instance </incoming/incomingrequest>`\ 는 클래스 속성 ``$this->request``\ 로 사용할 수 있습니다.
 
-**Response Object**
+Response Object
+===============
 
 애플리케이션의 기본 :doc:`Response Instance </outgoing/response>`\ 는 클래스 속성 ``$this->response``\ 로 사용할 수 있습니다.
 
-**Logger Object**
+Logger Object
+=============
 
 :doc:`Logger <../general/logging>` 클래스의 인스턴스는 클래스 속성 ``$this->logger``\ 로 사용할 수 있습니다.
+
+.. _controllers-helpers:
 
 헬퍼
 =======
@@ -84,18 +89,28 @@ $this->validate()
 컨트롤러는 데이터 검사를 단순화하기 위해 ``validate()`` 메소드도 제공합니다.
 이 메소드는 첫 번째 매개변수에 검증 규칙 배열과 옵션으로 유효하지 않은 항목에 대해 표시할 사용자 지정 오류 메시지 배열을 두 번째 매개변수로 허용합니다.
 검증은 내부적으로 컨트롤러의 ``$this->request`` 인스턴스를 사용하여 검증할 데이터를 가져옵니다.
+
+.. warning::
+    ``validate()`` 메소드는 :ref:`Validation::withRequest() <validation-withrequest>` 메소드를 사용합니다.
+    :ref:`$request->getJSON() <incomingrequest-getting-json-data>`, :ref:`$request->getRawInput() <incomingrequest-retrieving-raw-data>`, :ref:`$request->getVar() <incomingrequest-getting-data>`\ 에서 데이터를 검증합니다.
+    사용되는 데이터는 요청에 따라 다릅니다. 공격자는 자유롭게 서버에 요청을 보낼 수 있다는걸 기억하십시오.
+
 :doc:`Validation Library </libraries/validation>` 문서에는 검증 규칙 및 메시지 배열 형식과 사용 가능한 규칙에 대한 세부 정보가 있습니다.
 
 .. literalinclude:: controllers/004.php
 
-구성 파일에 규칙을 유지하는 것이 더 간단하다고 생각된다면 ``$rules`` 배열을 ``Config\Validation.php``\ 에 정의된 그룹 이름으로 바꿀 수 있습니다.
+구성 파일에 규칙을 유지하는 것이 더 간단하다고 생각된다면 ``$rules`` 배열을 **app/Config\Validation.php**\ 에 정의된 그룹 이름으로 바꿀 수 있습니다.
 
 .. literalinclude:: controllers/005.php
 
 .. note:: 유효성 검사는 모델에서 자동으로 처리될 수도 있지만 때로는 컨트롤러에서 수행하는 것이 더 쉽습니다. 선택은 당신에게 달려 있습니다.
 
+.. _controller-validatedata:
+
 $this->validateData()
 =====================
+
+.. versionadded:: 4.2.0
 
 ``$this->validateData()`` 메소드를 사용하면 컨트롤러의 메소드 매개변수와 기타 사용자 정의 데이터를 확인할 수 있습니다.
 이 메소드는 유효성을 검사할 데이터 배열을 첫 번째 매개변수로 허용합니다.
@@ -125,6 +140,8 @@ Auto Routing (개선)
 ************************
 
 v4.2.0부터 더 안전한 새로운 자동 라우팅이 도입되었습니다.
+
+.. note:: CodeIgniter 3에서 4.1.x까지 기본적으로 활성화된 Auto Routing에 익숙하다면 :ref:`ChangeLog v4.2.0 <v420-new-improved-auto-routing>`\ 에서 차이점을 확인할 수 있습니다.
 
 이 섹션에서는 새로운 자동 라우팅의 기능에 대해 설명합니다.
 HTTP 요청을 자동으로 라우팅하고 경로 정의 없이 해당 컨트롤러 메서드를 실행합니다.
@@ -288,7 +305,7 @@ CodeIgniter는 이를 허용합니다.
 
 CodeIgniter는 또한 :ref:`Defined Route Routing <defined-route-routing>`\ 을 사용하여 URI를 매핑할 수 있습니다.
 
-.. _controller-auto-routing:
+.. _controller-auto-routing-legacy:
 
 Auto Routing (기존)
 *********************
